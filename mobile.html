@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Independent Journalism Atlas</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --light-gray: #efeff2;
+            --dark-gray: #313131;
+            --acid-green: #ceff00;
+        }
+
+        body {
+            font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--black);
+            overflow-x: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overscroll-behavior: none;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(206, 255, 0, 0.3);
+            border-top-color: var(--acid-green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--black);
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--black);
+            letter-spacing: -0.5px;
+        }
+
+        .domain {
+            font-size: 11px;
+            color: rgba(0, 0, 0, 0.4);
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 8px 16px;
+            z-index: 99;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 36px;
+            padding: 0 40px 0 40px;
+            border: none;
+            background: var(--light-gray);
+            border-radius: 18px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 16px;
+            color: var(--black);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.6);
+            display: none;
+        }
+
+        .clear-search.visible {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: fixed;
+            top: 102px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 12px 16px 8px;
+            z-index: 98;
+            background: var(--light-gray);
+        }
+
+        .creator-count {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--black);
+            letter-spacing: -0.8px;
+        }
+
+        .creator-count span {
+            color: var(--acid-green);
+            background: var(--black);
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        /* Main Content */
+        .main-content {
+            position: fixed;
+            top: 150px;
+            left: 0;
+            right: 0;
+            bottom: 60px;
+            overflow: hidden;
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb-nav {
+            position: absolute;
+            top: -40px;
+            left: 12px;
+            right: 12px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            z-index: 10;
+        }
+
+        .breadcrumb-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .breadcrumb-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.04);
+            color: rgba(0, 0, 0, 0.6);
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb-item.active {
+            background: var(--black);
+            color: var(--acid-green);
+        }
+
+        .breadcrumb-item.clickable {
+            cursor: pointer;
+        }
+
+        .breadcrumb-item.clickable:active {
+            transform: scale(0.95);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb-separator {
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+        }
+
+        /* Wheel Container */
+        .wheel-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            padding: 0;
+        }
+
+        .wheel-container.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        #sunburst {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wheel-hint {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(0, 0, 0, 0.45);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Search Results */
+        .search-results {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px;
+            padding-bottom: calc(16px + env(safe-area-inset-bottom));
+            display: none;
+        }
+
+        .search-results.visible {
+            display: block;
+        }
+
+        .results-header {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .creator-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            min-height: 44px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .creator-card:active {
+            transform: scale(0.98);
+        }
+
+        .creator-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--black);
+        }
+
+        .creator-channel {
+            font-weight: 400;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .creator-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--acid-green);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--black);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-gray);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .footer-logo {
+            font-size: 36px;
+            font-weight: 800;
+            color: rgba(0, 0, 0, 0.03);
+            letter-spacing: -1.5px;
+            user-select: none;
+        }
+
+        /* Drawer Backdrop */
+        .drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .drawer-backdrop.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 50vh;
+            max-height: 500px;
+            background: var(--white);
+            border-radius: 16px 16px 0 0;
+            z-index: 201;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-menu.visible {
+            transform: translateY(0);
+        }
+
+        .nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--black);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-close {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--black);
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 0;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom));
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            text-decoration: none;
+            color: var(--black);
+            font-size: 16px;
+            font-weight: 600;
+            min-height: 56px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .nav-link:active {
+            background: var(--light-gray);
+        }
+
+        .nav-link .material-icons {
+            font-size: 24px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Bottom Drawer */
+        .bottom-drawer {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 70vh;
+            background: var(--white);
+            border-radius: 16px 16px 0 0;
+            z-index: 202;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .bottom-drawer.visible {
+            transform: translateY(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            min-height: 64px;
+        }
+
+        .drawer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--black);
+            flex: 1;
+            padding-right: 16px;
+        }
+
+        .drawer-close {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--black);
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drawer-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px;
+            padding-bottom: calc(16px + env(safe-area-inset-bottom));
+        }
+
+        .topic-group {
+            margin-bottom: 24px;
+        }
+
+        .topic-header {
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.5);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .show-more-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--light-gray);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--black);
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .show-more-btn:active {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px 32px;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* SVG Sunburst Styles */
+        .sunburst-path {
+            cursor: pointer;
+            transition: filter 0.15s ease, transform 0.1s ease;
+            transform-origin: center;
+        }
+
+        .sunburst-path:active {
+            filter: drop-shadow(0 0 10px var(--acid-green));
+            transform: scale(1.02);
+        }
+
+        .sunburst-path.glow {
+            filter: drop-shadow(0 0 10px var(--acid-green));
+        }
+
+        .sunburst-text {
+            pointer-events: none;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: 700;
+            fill: var(--black);
+            user-select: none;
+        }
+
+        .sunburst-count {
+            pointer-events: none;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: 800;
+            fill: var(--black);
+            user-select: none;
+        }
+
+        /* Mobile Tooltip */
+        .mobile-tooltip {
+            position: fixed;
+            background: var(--black);
+            color: var(--white);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.4;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 1000;
+            max-width: 280px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-tooltip.visible {
+            opacity: 1;
+        }
+
+        /* Center Circle Styles */
+        .sunburst-center-group {
+            cursor: pointer;
+        }
+
+        .sunburst-center-text {
+            font-family: 'Hanken Grotesk', sans-serif;
+            text-anchor: middle;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .sunburst-center-back {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Pulsing animation for center circle when zoomed */
+        @keyframes centerPulse {
+            0%, 100% {
+                stroke-width: 2;
+                opacity: 1;
+            }
+            50% {
+                stroke-width: 3;
+                opacity: 0.7;
+            }
+        }
+
+        .center-circle-pulsing {
+            animation: centerPulse 2s ease-in-out infinite;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="logo">ATLAS</div>
+        </div>
+        <div class="domain">journalismatlas.com</div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-container">
+            <span class="material-icons search-icon">search</span>
+            <input
+                type="search"
+                class="search-input"
+                id="searchInput"
+                placeholder="Search creators..."
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+            >
+            <button class="clear-search" id="clearSearch" aria-label="Clear search">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="creator-count" id="creatorCount">
+            <span>1001</span> creators
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb-nav" id="breadcrumbNav">
+            <span class="breadcrumb-item active">🌍 All Creators</span>
+        </div>
+
+        <!-- Wheel View -->
+        <div class="wheel-container" id="wheelContainer">
+            <svg id="sunburst"></svg>
+            <p class="wheel-hint">Tap any section to explore creators</p>
+        </div>
+
+        <!-- Search Results -->
+        <div class="search-results" id="searchResults">
+            <div class="results-header" id="resultsHeader"></div>
+            <div id="resultsContainer"></div>
+        </div>
+
+        <!-- Tooltip -->
+        <div class="mobile-tooltip" id="mobileTooltip"></div>
+    </main>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-logo">ATLAS</div>
+    </div>
+
+    <!-- Drawer Backdrop -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu" id="navMenu">
+        <div class="nav-header">
+            <div class="nav-logo">ATLAS</div>
+            <button class="nav-close" id="navClose" aria-label="Close">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <div class="nav-content">
+            <a href="/" class="nav-link">
+                <span class="material-icons">home</span>
+                <span>Home / Database</span>
+            </a>
+            <a href="/who-we-are.html" class="nav-link">
+                <span class="material-icons">people</span>
+                <span>Who We Are</span>
+            </a>
+            <a href="/what-we-do.html" class="nav-link">
+                <span class="material-icons">analytics</span>
+                <span>What We Do</span>
+            </a>
+            <a href="/research.html" class="nav-link">
+                <span class="material-icons">menu_book</span>
+                <span>Research</span>
+            </a>
+            <a href="/advisory.html" class="nav-link">
+                <span class="material-icons">verified</span>
+                <span>Advisory Board</span>
+            </a>
+            <a href="/submit.html" class="nav-link">
+                <span class="material-icons">mail</span>
+                <span>Contact / Submit</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Bottom Drawer -->
+    <div class="bottom-drawer" id="bottomDrawer">
+        <div class="drawer-header">
+            <div class="drawer-title" id="drawerTitle"></div>
+            <button class="drawer-close" id="drawerClose" aria-label="Close">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <div class="drawer-content" id="drawerContent"></div>
+    </div>
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <script>
+        // State
+        let creatorsData = [];
+        let currentDrawerData = null;
+        let searchTimeout = null;
+
+        // DOM Elements
+        const loading = document.getElementById('loading');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const creatorCount = document.getElementById('creatorCount');
+        const wheelContainer = document.getElementById('wheelContainer');
+        const searchResults = document.getElementById('searchResults');
+        const resultsHeader = document.getElementById('resultsHeader');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const drawerBackdrop = document.getElementById('drawerBackdrop');
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+        const navClose = document.getElementById('navClose');
+        const bottomDrawer = document.getElementById('bottomDrawer');
+        const drawerTitle = document.getElementById('drawerTitle');
+        const drawerContent = document.getElementById('drawerContent');
+        const drawerClose = document.getElementById('drawerClose');
+
+        // Haptic feedback helper
+        function haptic(duration = 50) {
+            if (navigator.vibrate) {
+                navigator.vibrate(duration);
+            }
+        }
+
+        // Color palette for topics
+        const topicColors = {
+            'Politics': '#FF6B6B',
+            'Culture': '#4ECDC4',
+            'Tech': '#45B7D1',
+            'Climate/Environment': '#96CEB4',
+            'Food': '#FFEAA7',
+            'Local': '#DFE6E9',
+            'Business': '#A29BFE',
+            'Health/Wellness': '#FD79A8',
+            'Sports': '#FDCB6E',
+            'Entertainment/Hollywood': '#FF7675',
+            'Science': '#74B9FF',
+            'Education': '#55EFC4',
+            'Finance/Economics': '#FAB1A0',
+            'Explanatory': '#6C5CE7',
+            'Investigative': '#FD79A8',
+            'World': '#FDCB6E',
+            'Government Accountability': '#E17055',
+            'Identity/Belonging': '#A29BFE',
+            'Law/Legal Issues': '#636E72',
+            'History': '#FFEAA7',
+            'Labor': '#74B9FF',
+            'Media/Power': '#636E72',
+            'Activism': '#FF6B6B'
+        };
+
+        // Initialize
+        async function init() {
+            try {
+                const response = await fetch('assets/data/creators-data.json');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                creatorsData = await response.json();
+
+                updateCreatorCount(creatorsData.length);
+                createSunburst();
+                setupEventListeners();
+
+                setTimeout(() => {
+                    loading.classList.add('hidden');
+                }, 300);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                loading.innerHTML = `
+                    <div style="color: var(--black); font-weight: 600; text-align: center; padding: 20px;">
+                        <div style="font-size: 18px; margin-bottom: 12px;">Error Loading Data</div>
+                        <div style="font-size: 14px; font-weight: 400; color: rgba(0,0,0,0.6);">
+                            ${error.message}
+                        </div>
+                        <div style="font-size: 12px; margin-top: 12px; color: rgba(0,0,0,0.4);">
+                            Check: assets/data/creators-data.json
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Update creator count
+        function updateCreatorCount(count) {
+            creatorCount.innerHTML = `<span>${count}</span> creator${count === 1 ? '' : 's'}`;
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Search
+            searchInput.addEventListener('input', handleSearch);
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                handleSearch();
+                searchInput.focus();
+            });
+
+            // Navigation Menu
+            hamburgerBtn.addEventListener('click', () => {
+                haptic(50);
+                openNavMenu();
+            });
+            navClose.addEventListener('click', () => {
+                haptic(50);
+                closeNavMenu();
+            });
+
+            // Drawer
+            drawerClose.addEventListener('click', () => {
+                haptic(50);
+                closeDrawer();
+            });
+
+            drawerBackdrop.addEventListener('click', (e) => {
+                if (navMenu.classList.contains('visible')) {
+                    closeNavMenu();
+                } else if (bottomDrawer.classList.contains('visible')) {
+                    closeDrawer();
+                }
+            });
+
+            // Swipe to close drawers
+            setupSwipeToClose(navMenu, closeNavMenu);
+            setupSwipeToClose(bottomDrawer, closeDrawer);
+        }
+
+        // Setup swipe to close
+        function setupSwipeToClose(element, closeFunction) {
+            let touchStartY = 0;
+            let touchCurrentY = 0;
+
+            element.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            element.addEventListener('touchmove', (e) => {
+                touchCurrentY = e.touches[0].clientY;
+                const diff = touchCurrentY - touchStartY;
+
+                if (diff > 0) {
+                    element.style.transform = `translateY(${diff}px)`;
+                }
+            }, { passive: true });
+
+            element.addEventListener('touchend', () => {
+                const diff = touchCurrentY - touchStartY;
+
+                if (diff > 100) {
+                    closeFunction();
+                } else {
+                    element.style.transform = '';
+                }
+
+                touchStartY = 0;
+                touchCurrentY = 0;
+            }, { passive: true });
+        }
+
+        // Extract platform name from "Platform - Type" format
+        function extractPlatform(platformString) {
+            const parts = platformString.split(' - ');
+            return parts.length > 1 ? parts[1] : platformString;
+        }
+
+        // Extract primary topic from comma-separated topics
+        function extractPrimaryTopic(topicString) {
+            return topicString.split(',')[0].trim();
+        }
+
+        // Get color for group - MATCH ACTUAL GROUP NAMES
+        function getGroupColor(group) {
+            const groupColors = {
+                'Culture & Media': '#FD79A8',           // Pink - largest group
+                'Money & Work': '#4ECDC4',              // Teal
+                'Lifestyle & Personal Life': '#A29BFE', // Purple
+                'Power & Politics': '#FF6B6B',          // Red
+                'Science, Health & Environment': '#96CEB4', // Green
+                'Civic Life': '#FDCB6E',                // Yellow
+                'Journalism Formats': '#FF6B35',        // Orange
+                'Social Issues': '#74B9FF',             // Blue
+                'General News': '#DFE6E9'               // Light gray
+            };
+
+            return groupColors[group] || '#B2BEC3';
+        }
+
+        // Get color for topic (backup)
+        function getTopicColor(topic) {
+            const primaryTopic = extractPrimaryTopic(topic);
+
+            for (const [key, color] of Object.entries(topicColors)) {
+                if (primaryTopic.includes(key)) {
+                    return color;
+                }
+            }
+
+            return '#B2BEC3';
+        }
+
+        // Create hierarchical data structure - USE GROUP like desktop!
+        function createHierarchy() {
+            const platformMap = new Map();
+
+            creatorsData.forEach(creator => {
+                const platform = extractPlatform(creator.platform);
+                const group = creator.group || 'Uncategorized';
+
+                if (!platformMap.has(platform)) {
+                    platformMap.set(platform, new Map());
+                }
+
+                const groupMap = platformMap.get(platform);
+                if (!groupMap.has(group)) {
+                    groupMap.set(group, []);
+                }
+
+                groupMap.get(group).push(creator);
+            });
+
+            // Convert to hierarchy
+            const children = [];
+
+            platformMap.forEach((groups, platform) => {
+                const groupChildren = [];
+                let platformTotal = 0;
+
+                groups.forEach((creators, group) => {
+                    groupChildren.push({
+                        name: group,
+                        value: creators.length,
+                        creators: creators,
+                        platform: platform
+                    });
+                    platformTotal += creators.length;
+                });
+
+                // Sort groups by count descending
+                groupChildren.sort((a, b) => b.value - a.value);
+
+                children.push({
+                    name: platform,
+                    value: platformTotal,
+                    children: groupChildren
+                });
+            });
+
+            // Sort platforms by count descending
+            children.sort((a, b) => b.value - a.value);
+
+            return {
+                name: 'root',
+                children: children
+            };
+        }
+
+        // Helper: truncate text to fit arc length
+        function truncateToFit(text, maxLength, fontSize) {
+            const charWidth = fontSize * 0.6; // Approximate char width
+            const maxChars = Math.floor(maxLength / charWidth);
+            if (text.length <= maxChars) return text;
+            return text.substring(0, Math.max(1, maxChars - 1)) + '…';
+        }
+
+        // Helper: get platform color (from desktop)
+        function getPlatformColor(platform) {
+            const platformColors = {
+                'Newsletter - Substack': '#FF6B35',
+                'Newsletter - Beehiiv': '#F7931E',
+                'Newsletter - Other': '#FDB833',
+                'Video - YouTube': '#E74C3C',
+                'Video - Instagram': '#E4405F',
+                'Video - TikTok': '#00F2EA',
+                'Social - Twitter / X': '#1DA1F2',
+                'Social - BlueSky': '#0560FF',
+                'Social - LinkedIn': '#0A66C2',
+                'Podcast': '#9B59B6',
+                'Website': '#16A085'
+            };
+
+            if (platformColors[platform]) return platformColors[platform];
+            if (platform.includes('Newsletter')) return '#3b82f6';
+            if (platform.includes('Video')) return '#ef4444';
+            if (platform.includes('Social')) return '#8b5cf6';
+            if (platform.includes('Podcast')) return '#9333ea';
+            return '#97d600';
+        }
+
+        // Create Sunburst Visualization - DESKTOP LOGIC ADAPTED FOR MOBILE WITH ZOOM
+        function createSunburst() {
+            const container = document.getElementById('sunburst');
+            const containerWidth = container.clientWidth || 375;
+            const containerHeight = container.clientHeight || 500;
+
+            // Size wheel to fit container
+            const size = Math.min(containerWidth, containerHeight);
+            const width = size;
+            const height = size;
+            const radius = size / 2;
+
+            // Clear existing
+            d3.select('#sunburst').selectAll('*').remove();
+
+            const svg = d3.select('#sunburst')
+                .attr('width', width)
+                .attr('height', height);
+
+            const g = svg.append('g')
+                .attr('transform', `translate(${width / 2}, ${height / 2})`);
+
+            // Build hierarchy
+            const platformData = {};
+            creatorsData.forEach(creator => {
+                const platform = creator.platform || 'Unknown';
+                const group = creator.group || 'Uncategorized';
+
+                if (!platformData[platform]) platformData[platform] = {};
+                if (!platformData[platform][group]) platformData[platform][group] = [];
+
+                platformData[platform][group].push(creator);
+            });
+
+            const hierarchyData = {
+                name: 'All Creators',
+                children: Object.entries(platformData).map(([platform, groups]) => ({
+                    name: platform,
+                    children: Object.entries(groups).map(([group, creators]) => ({
+                        name: group,
+                        value: creators.length,
+                        creators: creators,
+                        platform: platform
+                    }))
+                }))
+            };
+
+            const root = d3.hierarchy(hierarchyData)
+                .sum(d => d.value)
+                .sort((a, b) => b.value - a.value);
+
+            // Create partition with 18% inner offset (like desktop)
+            const innerRadiusOffset = Math.round(radius * 0.18);
+            const partition = d3.partition()
+                .size([2 * Math.PI, radius - innerRadiusOffset]);
+
+            partition(root);
+
+            // Offset all y values outward (like desktop)
+            root.each(d => {
+                d.y0 += innerRadiusOffset;
+                d.y1 += innerRadiusOffset;
+            });
+
+            // Track focused node
+            let focusedNode = root;
+
+            // Create arc generator with padAngle (like desktop)
+            const arc = d3.arc()
+                .startAngle(d => Math.max(0, Math.min(2 * Math.PI, d.x0)))
+                .endAngle(d => Math.max(0, Math.min(2 * Math.PI, d.x1)))
+                .padAngle(d => {
+                    const angleSize = d.x1 - d.x0;
+                    if (angleSize < 0.05) return 0.001;
+                    return Math.min((d.x1 - d.x0) / 2, 0.005);
+                })
+                .padRadius(radius / 2)
+                .innerRadius(d => Math.max(0, d.y0))
+                .outerRadius(d => Math.max(0, d.y1 - 1));
+
+            // Draw arcs
+            const path = g.selectAll('path')
+                .data(root.descendants().filter(d => d.depth > 0))
+                .enter()
+                .append('path')
+                .attr('class', 'sunburst-path')
+                .attr('d', arc)
+                .attr('fill', d => {
+                    if (d.depth === 1) {
+                        return getPlatformColor(d.data.name);
+                    } else {
+                        // Group level - brighter version of platform color
+                        const baseColor = getPlatformColor(d.data.platform);
+                        return d3.color(baseColor).brighter(0.5);
+                    }
+                })
+                .attr('opacity', 0.95)
+                .attr('stroke', '#FFFFFF')
+                .attr('stroke-width', 2)
+                .style('cursor', 'pointer')
+                .on('click', function(event, d) {
+                    event.stopPropagation();
+                    haptic(50);
+                    hideTooltip();
+
+                    // Zoom to segment first
+                    zoomTo(d);
+
+                    // After zoom animation completes, open drawer
+                    setTimeout(() => {
+                        handleSegmentClick(d);
+                    }, 800); // Slightly longer than 750ms zoom duration
+                })
+                .on('touchstart', function(event, d) {
+                    showTooltip(event, d);
+                })
+                .on('touchend', function(event, d) {
+                    hideTooltip();
+                });
+
+            // Add labels
+            const labels = g.selectAll('text')
+                .data(root.descendants().filter(d => d.depth > 0))
+                .enter()
+                .append('text')
+                .attr('class', 'sunburst-text')
+                .attr('transform', d => {
+                    const angle = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+                    const radius = (d.y0 + d.y1) / 2;
+                    return `rotate(${angle - 90}) translate(${radius},0) rotate(${angle < 180 ? 0 : 180})`;
+                })
+                .attr('dy', '0.35em')
+                .attr('opacity', d => {
+                    const angle = d.x1 - d.x0;
+                    const radiusSize = d.y1 - d.y0;
+                    return (angle > 0.08 && radiusSize > 25) ? 1 : 0;
+                })
+                .text(d => {
+                    const arcAngle = d.x1 - d.x0;
+                    const midRadius = (d.y0 + d.y1) / 2;
+                    const arcLength = arcAngle * midRadius;
+                    const fontSize = d.depth === 1 ? 11 : 9;
+                    return truncateToFit(d.data.name, arcLength * 0.85, fontSize);
+                })
+                .style('font-size', d => d.depth === 1 ? '11px' : '9px')
+                .style('font-weight', '700')
+                .style('fill', '#000')
+                .style('pointer-events', 'none');
+
+            // Add center circle with back functionality
+            const centerGroup = g.append('g')
+                .attr('class', 'sunburst-center-group')
+                .style('cursor', 'pointer')
+                .on('click', () => {
+                    if (focusedNode === root) return;
+                    haptic(30);
+                    hideTooltip();
+
+                    // Close drawer if open
+                    closeDrawer();
+
+                    // Go back one level after a brief delay
+                    setTimeout(() => {
+                        if (focusedNode.depth === 2) {
+                            zoomTo(focusedNode.parent);
+                        } else {
+                            zoomTo(root);
+                        }
+                    }, 100);
+                });
+
+            const centerCircle = centerGroup.append('circle')
+                .attr('r', innerRadiusOffset - 5)
+                .attr('fill', '#FFFFFF')
+                .attr('stroke', '#000000')
+                .attr('stroke-width', 2);
+
+            // Center text
+            const centerText = centerGroup.append('g');
+
+            const backIndicator = centerText.append('text')
+                .attr('class', 'sunburst-center-text sunburst-center-back')
+                .attr('dy', '-1.8em')
+                .style('font-size', '11px')
+                .style('font-weight', '700')
+                .style('fill', '#666')
+                .style('opacity', '0')
+                .text('← BACK');
+
+            const countText = centerText.append('text')
+                .attr('class', 'sunburst-center-text')
+                .attr('dy', '0.4em')
+                .style('font-size', '42px')
+                .style('font-weight', '900')
+                .style('letter-spacing', '-1px')
+                .text(creatorsData.length);
+
+            const labelText = centerText.append('text')
+                .attr('class', 'sunburst-center-text')
+                .attr('dy', '2.2em')
+                .style('font-size', '12px')
+                .style('font-weight', '600')
+                .style('fill', '#666')
+                .text('creators');
+
+            // Zoom function
+            function zoomTo(p) {
+                focusedNode = p;
+
+                // Update breadcrumb
+                updateBreadcrumb(p);
+
+                // Update center text and circle pulsing
+                if (p === root) {
+                    backIndicator.style('opacity', '0');
+                    countText.text(creatorsData.length)
+                        .style('font-size', '42px');
+                    labelText.text('creators')
+                        .style('font-size', '12px');
+                    // Remove pulsing when at root
+                    centerCircle.classed('center-circle-pulsing', false);
+                } else if (p.depth === 1) {
+                    backIndicator.style('opacity', '0.6');
+                    countText.text(p.value)
+                        .style('font-size', '42px');
+                    labelText.text('creators')
+                        .style('font-size', '12px');
+                    // Add pulsing to show you can go back
+                    centerCircle.classed('center-circle-pulsing', true);
+                } else if (p.depth === 2) {
+                    backIndicator.style('opacity', '0.6');
+                    countText.text(p.value)
+                        .style('font-size', '48px');
+                    labelText.text('creator' + (p.value !== 1 ? 's' : ''))
+                        .style('font-size', '12px');
+                    // Add pulsing to show you can go back
+                    centerCircle.classed('center-circle-pulsing', true);
+                }
+
+                // Calculate target positions
+                root.each(d => d.target = {
+                    x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
+                    x1: Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
+                    y0: Math.max(0, d.y0 - p.y0),
+                    y1: Math.max(0, d.y1 - p.y0)
+                });
+
+                const t = g.transition()
+                    .duration(750)
+                    .ease(d3.easeCubicOut);
+
+                // Transition arcs
+                path.transition(t)
+                    .tween('data', d => {
+                        const i = d3.interpolate(d.current, d.target);
+                        return t => d.current = i(t);
+                    })
+                    .attr('d', d => {
+                        const arcGen = d3.arc()
+                            .startAngle(d => d.x0)
+                            .endAngle(d => d.x1)
+                            .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
+                            .padRadius(radius / 2)
+                            .innerRadius(d => d.y0)
+                            .outerRadius(d => d.y1 - 1);
+                        return arcGen(d.current);
+                    })
+                    .attr('opacity', d => {
+                        return d.depth === 0 || (d.depth === 1 && p === root) ||
+                               (p.depth === 1 && d.parent === p) ||
+                               (p.depth === 2 && (d === p || d === p.parent)) ? 0.95 : 0.2;
+                    });
+
+                // Transition labels
+                labels.transition(t)
+                    .attr('transform', d => {
+                        const angle = (d.current.x0 + d.current.x1) / 2 * 180 / Math.PI;
+                        const radius = (d.current.y0 + d.current.y1) / 2;
+                        return `rotate(${angle - 90}) translate(${radius},0) rotate(${angle < 180 ? 0 : 180})`;
+                    })
+                    .attr('opacity', d => {
+                        if (d.depth === 0) return 0;
+                        const angle = d.current.x1 - d.current.x0;
+                        const radiusSize = d.current.y1 - d.current.y0;
+                        const isInFocus = (p === root) || (d.parent === p) || (d === p) || (p.depth === 2 && d === p.parent);
+                        return (angle > 0.1 && radiusSize > 30 && isInFocus) ? 1 : 0;
+                    });
+            }
+
+            // Initialize current positions
+            root.each(d => d.current = {
+                x0: d.x0,
+                x1: d.x1,
+                y0: d.y0,
+                y1: d.y1
+            });
+
+            // Store for external access
+            window._sunburstRoot = root;
+            window._sunburstZoomTo = zoomTo;
+        }
+
+        // Tooltip functions
+        function showTooltip(event, d) {
+            const tooltip = document.getElementById('mobileTooltip');
+
+            if (d.depth === 1) {
+                // Platform level
+                const groupCount = d.children.length;
+                const percentage = ((d.value / creatorsData.length) * 100).toFixed(1);
+                tooltip.innerHTML = `
+                    <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">${d.data.name}</div>
+                    <div style="font-size: 13px; opacity: 0.85;">${d.value} creators (${percentage}%)</div>
+                    <div style="font-size: 12px; opacity: 0.7; margin-top: 2px;">${groupCount} group${groupCount !== 1 ? 's' : ''}</div>
+                `;
+            } else if (d.depth === 2) {
+                // Group level
+                const percentage = ((d.value / creatorsData.length) * 100).toFixed(1);
+                tooltip.innerHTML = `
+                    <div style="font-size: 12px; opacity: 0.7;">${d.data.platform}</div>
+                    <div style="font-weight: 700; font-size: 14px; margin: 2px 0 4px 0;">${d.data.name}</div>
+                    <div style="font-size: 13px; opacity: 0.85;">${d.value} creator${d.value !== 1 ? 's' : ''} (${percentage}%)</div>
+                `;
+            }
+
+            // Position tooltip
+            const touch = event.touches ? event.touches[0] : event;
+            const x = Math.min(touch.clientX + 15, window.innerWidth - 200);
+            const y = touch.clientY - 60;
+
+            tooltip.style.left = x + 'px';
+            tooltip.style.top = y + 'px';
+            tooltip.classList.add('visible');
+        }
+
+        function hideTooltip() {
+            const tooltip = document.getElementById('mobileTooltip');
+            tooltip.classList.remove('visible');
+        }
+
+        // Update breadcrumb navigation
+        function updateBreadcrumb(p) {
+            const breadcrumb = document.getElementById('breadcrumbNav');
+            let breadcrumbHTML = '<span class="breadcrumb-item active" onclick="resetWheel()" style="cursor: pointer;">🌍 All Creators</span>';
+
+            if (p.depth >= 1) {
+                const platform = p.depth === 1 ? p : p.parent;
+                breadcrumbHTML += ' <span class="breadcrumb-separator">›</span> ';
+
+                if (p.depth === 1) {
+                    breadcrumbHTML += `<span class="breadcrumb-item active">${platform.data.name}</span>`;
+                } else {
+                    breadcrumbHTML += `<span class="breadcrumb-item clickable" onclick="navigateToPlatform('${platform.data.name}')">${platform.data.name}</span>`;
+                }
+            }
+
+            if (p.depth === 2) {
+                breadcrumbHTML += ' <span class="breadcrumb-separator">›</span> ';
+                breadcrumbHTML += `<span class="breadcrumb-item active">${p.data.name}</span>`;
+            }
+
+            breadcrumb.innerHTML = breadcrumbHTML;
+        }
+
+        // Reset wheel to root view
+        function resetWheel() {
+            if (window._sunburstZoomTo && window._sunburstRoot) {
+                haptic(30);
+                closeDrawer();
+                setTimeout(() => {
+                    window._sunburstZoomTo(window._sunburstRoot);
+                }, 100);
+            }
+        }
+
+        // Navigate to platform level
+        function navigateToPlatform(platformName) {
+            if (window._sunburstZoomTo && window._sunburstRoot) {
+                haptic(30);
+                closeDrawer();
+                setTimeout(() => {
+                    const platformNode = window._sunburstRoot.children.find(c => c.data.name === platformName);
+                    if (platformNode) {
+                        window._sunburstZoomTo(platformNode);
+                    }
+                }, 100);
+            }
+        }
+
+        // Handle segment click - opens drawer with creators
+        function handleSegmentClick(d) {
+            let platform, creators, specificTopic;
+
+            if (d.depth === 1) {
+                // Clicked on platform (outer ring)
+                platform = d.data.name;
+                creators = [];
+                d.children.forEach(child => {
+                    creators = creators.concat(child.data.creators);
+                });
+                specificTopic = null;
+            } else {
+                // Clicked on topic (inner segment)
+                platform = d.parent.data.name;
+                creators = d.data.creators;
+                specificTopic = d.data.name;
+            }
+
+            openDrawer(platform, creators, specificTopic);
+        }
+
+        // Open navigation menu
+        function openNavMenu() {
+            drawerBackdrop.classList.add('visible');
+            navMenu.classList.add('visible');
+        }
+
+        // Close navigation menu
+        function closeNavMenu() {
+            drawerBackdrop.classList.remove('visible');
+            navMenu.classList.remove('visible');
+            navMenu.style.transform = '';
+        }
+
+        // Open drawer with creators
+        function openDrawer(platform, creators, specificTopic = null) {
+            haptic(50);
+            currentDrawerData = { platform, creators, specificTopic };
+
+            // Set title
+            if (specificTopic) {
+                drawerTitle.textContent = `${platform} → ${specificTopic} · ${creators.length}`;
+            } else {
+                drawerTitle.textContent = `${platform} · ${creators.length} creator${creators.length === 1 ? '' : 's'}`;
+            }
+
+            // Group creators by topic
+            const topicGroups = new Map();
+            creators.forEach(creator => {
+                const topic = extractPrimaryTopic(creator.topic);
+                if (!topicGroups.has(topic)) {
+                    topicGroups.set(topic, []);
+                }
+                topicGroups.get(topic).push(creator);
+            });
+
+            // Sort topics by count
+            const sortedTopics = Array.from(topicGroups.entries())
+                .sort((a, b) => b[1].length - a[1].length);
+
+            // Render content
+            let html = '';
+
+            sortedTopics.forEach(([topic, topicCreators]) => {
+                html += `<div class="topic-group" data-topic="${topic}">`;
+                html += `<div class="topic-header">${topic} (${topicCreators.length})</div>`;
+
+                const displayCount = 10;
+                const creatorsToShow = topicCreators.slice(0, displayCount);
+
+                creatorsToShow.forEach(creator => {
+                    html += createCreatorCard(creator);
+                });
+
+                if (topicCreators.length > displayCount) {
+                    const remaining = topicCreators.length - displayCount;
+                    html += `<button class="show-more-btn" onclick="expandTopic('${topic}')">Show ${remaining} more</button>`;
+                }
+
+                html += `</div>`;
+            });
+
+            drawerContent.innerHTML = html;
+            drawerBackdrop.classList.add('visible');
+            bottomDrawer.classList.add('visible');
+        }
+
+        // Close drawer
+        function closeDrawer() {
+            drawerBackdrop.classList.remove('visible');
+            bottomDrawer.classList.remove('visible');
+            bottomDrawer.style.transform = '';
+            currentDrawerData = null;
+        }
+
+        // Create creator card HTML
+        function createCreatorCard(creator) {
+            const topic = extractPrimaryTopic(creator.topic);
+            return `
+                <div class="creator-card" onclick="window.open('${creator.link}', '_blank'); haptic(20);">
+                    <div class="creator-name">${creator.name}</div>
+                    <div class="creator-channel">${creator.channel}</div>
+                    <span class="creator-tag">${topic}</span>
+                </div>
+            `;
+        }
+
+        // Handle search
+        function handleSearch() {
+            clearTimeout(searchTimeout);
+
+            const query = searchInput.value.trim().toLowerCase();
+
+            if (query.length > 0) {
+                clearSearch.classList.add('visible');
+            } else {
+                clearSearch.classList.remove('visible');
+            }
+
+            searchTimeout = setTimeout(() => {
+                if (query.length > 0) {
+                    performSearch(query);
+                } else {
+                    showWheel();
+                    updateCreatorCount(creatorsData.length);
+                }
+            }, 200);
+        }
+
+        // Perform search
+        function performSearch(query) {
+            const results = creatorsData.filter(creator => {
+                return (
+                    creator.name.toLowerCase().includes(query) ||
+                    creator.channel.toLowerCase().includes(query) ||
+                    creator.topic.toLowerCase().includes(query) ||
+                    creator.platform.toLowerCase().includes(query)
+                );
+            });
+
+            displaySearchResults(results, query);
+        }
+
+        // Display search results
+        function displaySearchResults(results, query) {
+            wheelContainer.classList.add('hidden');
+            searchResults.classList.add('visible');
+            updateCreatorCount(results.length);
+
+            if (results.length === 0) {
+                resultsHeader.textContent = `No results for "${query}"`;
+                resultsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <div class="empty-state-text">Try a different search term</div>
+                    </div>
+                `;
+                return;
+            }
+
+            resultsHeader.textContent = `${results.length} result${results.length === 1 ? '' : 's'} for "${query}"`;
+
+            let html = '';
+            results.forEach(creator => {
+                html += createCreatorCard(creator);
+            });
+
+            resultsContainer.innerHTML = html;
+        }
+
+        // Show wheel
+        function showWheel() {
+            searchResults.classList.remove('visible');
+            wheelContainer.classList.remove('hidden');
+        }
+
+        // Expand topic (called from show more button)
+        window.expandTopic = function(topicName) {
+            if (!currentDrawerData) return;
+
+            haptic(20);
+            const { creators } = currentDrawerData;
+            const topicCreators = creators.filter(c => extractPrimaryTopic(c.topic) === topicName);
+
+            const topicGroup = drawerContent.querySelector(`[data-topic="${topicName}"]`);
+
+            if (topicGroup) {
+                let html = `<div class="topic-header">${topicName} (${topicCreators.length})</div>`;
+                topicCreators.forEach(creator => {
+                    html += createCreatorCard(creator);
+                });
+                topicGroup.innerHTML = html;
+            }
+        };
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>

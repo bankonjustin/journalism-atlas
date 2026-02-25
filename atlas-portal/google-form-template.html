@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Form Template - Atlas Creator Photo Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            background-color: #673ab7;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .form-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .form-header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .form-body {
+            padding: 2rem;
+        }
+
+        .form-field {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .form-field:last-child {
+            border-bottom: none;
+        }
+
+        .field-label {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #202124;
+            font-weight: 400;
+        }
+
+        .field-required {
+            color: #d93025;
+            margin-left: 0.25rem;
+        }
+
+        .field-description {
+            font-size: 0.875rem;
+            color: #5f6368;
+            margin-top: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-bottom: 1px solid #dadce0;
+            font-size: 1rem;
+            font-family: 'Roboto', Arial, sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-bottom: 2px solid #673ab7;
+        }
+
+        .file-upload-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            background-color: #673ab7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .file-upload-button:hover {
+            background-color: #5e35b1;
+        }
+
+        .file-info {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #5f6368;
+        }
+
+        .submit-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: #673ab7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: #5e35b1;
+        }
+
+        .note-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #673ab7;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .note-box h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #202124;
+        }
+
+        .note-box p {
+            font-size: 0.875rem;
+            color: #5f6368;
+            margin: 0;
+        }
+
+        .instruction {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        .instruction h3 {
+            font-size: 0.95rem;
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .instruction p {
+            font-size: 0.875rem;
+            color: #856404;
+            margin: 0;
+        }
+
+        code {
+            background-color: #f1f3f4;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Form Header -->
+        <div class="form-header">
+            <h1>Atlas Creator Photo Collection</h1>
+            <p>Help us build better creator profiles by sharing your photo!</p>
+        </div>
+
+        <!-- Instructions for Developer -->
+        <div class="form-body">
+            <div class="instruction">
+                <h3>📋 Instructions for Creating This Form</h3>
+                <p>Recreate this form in Google Forms with these exact fields. See GOOGLE_FORM_SETUP.md for detailed instructions.</p>
+            </div>
+
+            <!-- Field 1: Creator Name -->
+            <div class="form-field">
+                <div class="field-label">
+                    1. Your Name
+                    <!-- Not required, so no asterisk -->
+                </div>
+                <div class="field-description">
+                    What name should we use to identify you?
+                </div>
+                <input type="text" placeholder="Enter your name">
+            </div>
+
+            <!-- Field 2: Email Address -->
+            <div class="form-field">
+                <div class="field-label">
+                    2. Email Address
+                    <!-- Not required, so no asterisk -->
+                </div>
+                <div class="field-description">
+                    We'll only contact you about using your photo in your Atlas profile
+                </div>
+                <input type="email" placeholder="your@email.com">
+            </div>
+
+            <!-- Field 3: Photo Upload -->
+            <div class="form-field">
+                <div class="field-label">
+                    3. Your Photo
+                    <!-- Not required, so no asterisk -->
+                </div>
+                <div class="field-description">
+                    Upload a square photo (500x500px or larger recommended)
+                </div>
+                <button class="file-upload-button">
+                    📎 Choose file
+                </button>
+                <div class="file-info">
+                    No file chosen
+                </div>
+                <div class="field-description" style="margin-top: 1rem;">
+                    <strong>File upload settings in Google Forms:</strong><br>
+                    • Allow only: Images (JPG, PNG)<br>
+                    • Max file size: 10 MB<br>
+                    • Max files: 1
+                </div>
+            </div>
+
+            <!-- Note about timestamp -->
+            <div class="note-box">
+                <h3>📅 Automatic Timestamp</h3>
+                <p>Google Forms automatically captures the submission timestamp. No need to add this field manually.</p>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="submit-button">Submit</button>
+
+            <!-- After submission message -->
+            <div class="note-box" style="margin-top: 2rem;">
+                <h3>✅ Confirmation Message</h3>
+                <p>Set this as your form's confirmation message: "Thank you! We received your photo and will be in touch if we'd like to use it in your Atlas profile."</p>
+            </div>
+
+            <!-- How to get entry IDs -->
+            <div class="instruction" style="margin-top: 2rem;">
+                <h3>🔧 After Creating the Form</h3>
+                <p>
+                    1. Click Preview (👁️ icon)<br>
+                    2. Right-click → Inspect<br>
+                    3. Find each input field's <code>name</code> attribute (looks like: <code>entry.123456789</code>)<br>
+                    4. Record these entry IDs<br>
+                    5. Update the <code>GOOGLE_FORM_CONFIG</code> in script.js
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Development Notes -->
+    <div class="container" style="margin-top: 2rem;">
+        <div class="form-body">
+            <h2 style="margin-bottom: 1rem;">📝 Google Form Configuration Checklist</h2>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Form Settings</h3>
+            <ul style="margin-left: 1.5rem; color: #5f6368;">
+                <li>✅ Collect email addresses (optional but recommended)</li>
+                <li>✅ Limit to 1 response per user (optional)</li>
+                <li>✅ Set confirmation message</li>
+            </ul>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Fields to Create</h3>
+            <ul style="margin-left: 1.5rem; color: #5f6368;">
+                <li><strong>Field 1:</strong> Short answer → "Your Name" → Optional</li>
+                <li><strong>Field 2:</strong> Email → "Email Address" → Optional</li>
+                <li><strong>Field 3:</strong> File upload → "Your Photo" → Optional → Images only, 10MB max</li>
+            </ul>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Data You'll Need to Copy</h3>
+            <ul style="margin-left: 1.5rem; color: #5f6368;">
+                <li>Form action URL: <code>https://docs.google.com/forms/d/e/[FORM_ID]/formResponse</code></li>
+                <li>Field 1 entry ID: <code>entry.XXXXXXXXX</code></li>
+                <li>Field 2 entry ID: <code>entry.XXXXXXXXX</code></li>
+                <li>Field 3 entry ID: <code>entry.XXXXXXXXX</code></li>
+            </ul>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Where to Update the Code</h3>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin-top: 0.5rem;">
+                <p style="margin-bottom: 0.5rem; color: #5f6368;"><strong>File:</strong> <code>atlas-portal/script.js</code></p>
+                <p style="margin-bottom: 0.5rem; color: #5f6368;"><strong>Object:</strong> <code>GOOGLE_FORM_CONFIG</code></p>
+                <p style="margin: 0; color: #5f6368;"><strong>Lines:</strong> Near the top of the file (~line 18-30)</p>
+            </div>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Privacy Considerations</h3>
+            <ul style="margin-left: 1.5rem; color: #5f6368;">
+                <li>✅ Clear disclosure about photo usage (already in portal)</li>
+                <li>✅ Optional submission (nothing is required)</li>
+                <li>✅ Purpose stated clearly</li>
+                <li>⚠️ Consider adding privacy policy link</li>
+                <li>⚠️ Google Forms file upload requires user login</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

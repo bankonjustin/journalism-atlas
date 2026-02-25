@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - Independent Journalism Atlas</title>
+    <link rel="icon" type="image/png" href="Journalism_Atlas_favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --acid-green: #ceff00;
+            --lime-green: #d4ff33;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #313131;
+            --muted: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        /* ── Navigation ── */
+        .top-nav {
+            background-color: var(--black);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--acid-green);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-logo-circle {
+            width: 32px;
+            height: 32px;
+            color: var(--acid-green);
+        }
+
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--acid-green);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background-color: var(--black);
+            background-image:
+                radial-gradient(circle at 15% 60%, rgba(206,255,0,0.10) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(206,255,0,0.07) 0%, transparent 50%);
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background-color: var(--acid-green);
+            color: var(--black);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 60px);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            max-width: 580px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+        }
+
+        .hero-stat strong {
+            color: var(--acid-green);
+            font-weight: 700;
+        }
+
+        /* ── Main Content ── */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-intro {
+            max-width: 680px;
+            margin-bottom: 3rem;
+        }
+
+        .section-intro h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--black);
+        }
+
+        .section-intro p {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── Collections Grid ── */
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .collection-card {
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .collection-card:hover {
+            border-color: var(--black);
+            box-shadow: 4px 4px 0 var(--black);
+            transform: translate(-2px, -2px);
+        }
+
+        .collection-card.open {
+            border-color: var(--black);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .card-icon {
+            font-size: 28px;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .card-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.4rem;
+            line-height: 1.2;
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            padding: 0 1.5rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .card-count-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--acid-green);
+            border: 1px solid #aaa;
+        }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        .card-arrow {
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .collection-card.open .card-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* ── Expanded Creator List ── */
+        .creator-list-wrapper {
+            display: none;
+            border-top: 2px solid var(--medium-gray);
+        }
+
+        .collection-card.open .creator-list-wrapper {
+            display: block;
+        }
+
+        .creator-list-controls {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background-color: var(--light-gray);
+            flex-wrap: wrap;
+        }
+
+        .creator-list-search {
+            flex: 1;
+            min-width: 180px;
+            padding: 0.5rem 0.875rem;
+            border: 1.5px solid var(--medium-gray);
+            border-radius: 6px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 13px;
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .creator-list-search:focus {
+            outline: none;
+            border-color: var(--black);
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.5rem 1rem;
+            background-color: var(--acid-green);
+            color: var(--black);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.15s;
+        }
+
+        .share-btn:hover {
+            opacity: 0.85;
+        }
+
+        .share-btn.copied {
+            background-color: #00c47a;
+            color: var(--white);
+        }
+
+        .creator-list {
+            max-height: 480px;
+            overflow-y: auto;
+        }
+
+        .creator-row {
+            display: grid;
+            grid-template-columns: 1fr 140px 120px;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            align-items: center;
+            transition: background 0.1s;
+        }
+
+        .creator-row:last-child {
+            border-bottom: none;
+        }
+
+        .creator-row:hover {
+            background-color: var(--light-gray);
+        }
+
+        .creator-row.header-row {
+            background-color: var(--black);
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
+            position: sticky;
+            top: 0;
+        }
+
+        .creator-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--black);
+        }
+
+        .creator-channel {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .creator-name a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .creator-name a:hover {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .creator-platform {
+            font-size: 12px;
+            color: var(--muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .creator-geo {
+            font-size: 12px;
+            color: var(--muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .no-results {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .view-in-atlas {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--black);
+            color: var(--acid-green);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: opacity 0.15s;
+        }
+
+        .view-in-atlas:hover {
+            opacity: 0.8;
+        }
+
+        /* ── Special Cohorts Teaser ── */
+        .teaser-section {
+            background-color: var(--black);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teaser-section::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(206,255,0,0.15) 0%, transparent 70%);
+        }
+
+        .teaser-label {
+            display: inline-block;
+            background-color: rgba(206,255,0,0.15);
+            color: var(--acid-green);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .teaser-section h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .teaser-section p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.65);
+            max-width: 560px;
+            line-height: 1.6;
+            margin-bottom: 1.75rem;
+        }
+
+        .teaser-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .teaser-tag {
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .teaser-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--acid-green);
+            color: var(--black);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            transition: opacity 0.15s;
+        }
+
+        .teaser-cta:hover {
+            opacity: 0.85;
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            margin-top: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .footer-logo-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .footer-column h4 {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--acid-green);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 3rem 1.5rem; }
+            .collections-grid { grid-template-columns: 1fr; }
+            .creator-row { grid-template-columns: 1fr 100px; }
+            .creator-geo { display: none; }
+            .footer-content { grid-template-columns: 1fr; gap: 1.5rem; }
+            .teaser-section { padding: 2rem; }
+            .main { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <div class="nav-container">
+        <a href="/index.html" class="nav-logo">
+            <div class="nav-logo-circle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <span class="nav-logo-text">ATLAS</span>
+        </a>
+        <div class="nav-links">
+            <a href="/index.html" class="nav-link">Database</a>
+            <a href="/lists.html" class="nav-link active">Collections</a>
+            <a href="/who-we-are.html" class="nav-link">Who We Are</a>
+            <a href="/what-we-do.html" class="nav-link">What We Do</a>
+            <a href="/advisory.html" class="nav-link">Advisory Boards</a>
+            <a href="/contact.html" class="nav-link">Contact</a>
+            <a href="/research.html" class="nav-link">Our Research</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-label">Collections</div>
+    <h1>Lists of Lists</h1>
+    <p>Curated groups of creators organized by beat, format, geography, and community. A different way into the Atlas.</p>
+    <div class="hero-meta">
+        <span class="hero-stat"><strong id="totalCount">—</strong> creators across all collections</span>
+        <span class="hero-stat"><strong>8</strong> collections and growing</span>
+    </div>
+</section>
+
+<!-- Main -->
+<main class="main">
+
+    <div class="section-intro">
+        <h2>Browse by Collection</h2>
+        <p>The full Atlas database has over 1,000 creators. These collections cut across it — by what creators cover, how they publish, and where they operate. Click any collection to explore its members.</p>
+    </div>
+
+    <div class="collections-grid" id="collectionsGrid">
+        <!-- Cards injected by JS -->
+    </div>
+
+    <!-- Special Cohorts teaser -->
+    <div class="teaser-section">
+        <div class="teaser-label">Coming Soon</div>
+        <h2>Special Cohorts</h2>
+        <p>Beyond topic and format, we're developing a set of special cohorts that track how creators relate to the broader journalism ecosystem — the hybrid models, the defectors, the experts, the advocates.</p>
+        <div class="teaser-tags">
+            <span class="teaser-tag">Subject Matter Experts</span>
+            <span class="teaser-tag">Legacy Media Refugees</span>
+            <span class="teaser-tag">In-House & Hybrid</span>
+            <span class="teaser-tag">Co-ops & Collectives</span>
+            <span class="teaser-tag">Advocates & Activists</span>
+            <span class="teaser-tag">Non-English Voices</span>
+        </div>
+        <a href="/contact.html" class="teaser-cta">
+            Get notified when cohorts launch →
+        </a>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="footer-logo-text">The Independent Journalism Atlas</span>
+            <p>Building infrastructure for the future of journalism.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Explore</h4>
+            <a href="/index.html">Browse Database</a>
+            <a href="/lists.html">Collections</a>
+            <a href="/who-we-are.html">Who We Are</a>
+            <a href="/what-we-do.html">What We Do</a>
+        </div>
+        <div class="footer-column">
+            <h4>About</h4>
+            <a href="/advisory.html">Advisory Boards</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/research.html">Our Research</a>
+        </div>
+        <div class="footer-column">
+            <h4>Connect</h4>
+            <a href="mailto:hello@journalismatlas.com">Email Us</a>
+            <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// ── Collection definitions ──────────────────────────────────────────────────
+const COLLECTIONS = [
+    {
+        id: 'local',
+        icon: '📍',
+        title: 'Local & Community News',
+        description: 'Creators rooted in specific places — cities, towns, neighborhoods — doing the reporting their communities depend on.',
+        filter: d => /local/i.test(d.topic),
+        atlasParams: 'topic=Local'
+    },
+    {
+        id: 'science',
+        icon: '🔬',
+        title: 'Science, Health & Medicine',
+        description: 'Journalists and experts making sense of research, public health, medicine, and the natural world.',
+        filter: d => /science|health\/wellness|mental health/i.test(d.topic),
+        atlasParams: 'group=Science%2C+Health+%26+Environment'
+    },
+    {
+        id: 'climate',
+        icon: '🌍',
+        title: 'Climate & Environment',
+        description: 'Creators covering the climate crisis, environmental policy, energy systems, and ecological futures.',
+        filter: d => /climate|environment/i.test(d.topic),
+        atlasParams: 'topic=Climate'
+    },
+    {
+        id: 'food',
+        icon: '🍽️',
+        title: 'Food & Restaurants',
+        description: 'Critics, cooks, and chroniclers covering food culture, restaurants, recipes, and the politics of eating.',
+        filter: d => /food|restaurants|recipes/i.test(d.topic),
+        atlasParams: 'topic=Food'
+    },
+    {
+        id: 'advocates',
+        icon: '✊',
+        title: 'Advocates & Activists',
+        description: 'Creators whose journalism is inseparable from a mission — labor, rights, identity, immigration, and community.',
+        filter: d => /activism|lgbtqia|labor|human rights|immigration/i.test(d.topic),
+        atlasParams: 'topic=Activism'
+    },
+    {
+        id: 'video',
+        icon: '🎬',
+        title: 'Video Journalists',
+        description: 'The YouTube-native generation of journalists — explainers, documentarians, investigators — building audiences on video.',
+        filter: d => /youtube/i.test(d.platform),
+        atlasParams: 'platform=Video+-+YouTube'
+    },
+    {
+        id: 'newsletters',
+        icon: '📬',
+        title: 'Newsletter Journalists',
+        description: 'The newsletter boom\'s most serious practitioners — on Substack, Beehiiv, Ghost, and beyond.',
+        filter: d => /substack|beehiiv|ghost/i.test(d.platform),
+        atlasParams: 'platform=Newsletter'
+    },
+    {
+        id: 'international',
+        icon: '🌐',
+        title: 'International Voices',
+        description: 'Creators based outside the US covering their countries and regions with depth and authority.',
+        filter: d => /brazil|germany|france|italy|japan|south korea|indonesia|india|philippines|hungary|austria|south asia|palestine|ukraine|iraq|dubai/i.test(d.geography),
+        atlasParams: 'geo=International'
+    }
+];
+
+// ── State ───────────────────────────────────────────────────────────────────
+let allCreators = [];
+let openCardId = null;
+
+// ── Data load ───────────────────────────────────────────────────────────────
+async function init() {
+    try {
+        const res = await fetch('creators-data.json');
+        allCreators = await res.json();
+        renderCards();
+        updateTotalCount();
+    } catch (e) {
+        console.error('Failed to load creators:', e);
+    }
+}
+
+function updateTotalCount() {
+    // Count unique creators across all collections (some appear in multiple)
+    const unique = new Set();
+    COLLECTIONS.forEach(c => {
+        allCreators.filter(c.filter).forEach(creator => unique.add(creator.name));
+    });
+    document.getElementById('totalCount').textContent = unique.size.toLocaleString();
+}
+
+// ── Render collection cards ─────────────────────────────────────────────────
+function renderCards() {
+    const grid = document.getElementById('collectionsGrid');
+    grid.innerHTML = '';
+
+    COLLECTIONS.forEach(col => {
+        const members = allCreators.filter(col.filter);
+        const card = buildCard(col, members);
+        grid.appendChild(card);
+    });
+}
+
+function buildCard(col, members) {
+    const card = document.createElement('div');
+    card.className = 'collection-card';
+    card.dataset.id = col.id;
+
+    card.innerHTML = `
+        <div class="card-header">
+            <div class="card-icon">${col.icon}</div>
+            <div class="card-meta">
+                <div class="card-title">${col.title}</div>
+                <div class="card-description">${col.description}</div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <span class="card-count">
+                <span class="card-count-dot"></span>
+                ${members.length} creators
+            </span>
+            <span class="card-action">
+                Explore <span class="card-arrow">›</span>
+            </span>
+        </div>
+        <div class="creator-list-wrapper" id="list-${col.id}">
+            <div class="creator-list-controls">
+                <input
+                    type="text"
+                    class="creator-list-search"
+                    placeholder="Filter within this collection…"
+                    oninput="filterList('${col.id}', this.value)"
+                />
+                <button class="share-btn" onclick="shareCollection(event, '${col.id}', '${col.atlasParams}')">
+                    ↗ Share this list
+                </button>
+            </div>
+            <div class="creator-list" id="creators-${col.id}">
+                ${buildCreatorList(members)}
+            </div>
+            <a href="/index.html?${col.atlasParams}" class="view-in-atlas" target="_blank">
+                Open in full Atlas database →
+            </a>
+        </div>
+    `;
+
+    card.addEventListener('click', (e) => {
+        // Don't toggle if clicking inside controls
+        if (e.target.closest('.creator-list-controls') || e.target.closest('.creator-list') || e.target.closest('.view-in-atlas')) return;
+        toggleCard(col.id);
+    });
+
+    return card;
+}
+
+function buildCreatorList(members, filterText = '') {
+    const lower = filterText.toLowerCase();
+    const filtered = filterText
+        ? members.filter(d =>
+            d.name.toLowerCase().includes(lower) ||
+            (d.channel || '').toLowerCase().includes(lower) ||
+            (d.geography || '').toLowerCase().includes(lower)
+          )
+        : members;
+
+    if (filtered.length === 0) {
+        return `<div class="no-results">No creators match "${filterText}"</div>`;
+    }
+
+    const sorted = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+
+    const rows = sorted.map(d => `
+        <div class="creator-row">
+            <div>
+                <div class="creator-name">
+                    ${d.link
+                        ? `<a href="${d.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${d.name}</a>`
+                        : d.name
+                    }
+                </div>
+                <div class="creator-channel">${d.channel || ''}</div>
+            </div>
+            <div class="creator-platform">${d.platform || ''}</div>
+            <div class="creator-geo">${d.geography || ''}</div>
+        </div>
+    `).join('');
+
+    const header = `
+        <div class="creator-row header-row">
+            <div>Creator</div>
+            <div>Platform</div>
+            <div>Location</div>
+        </div>
+    `;
+
+    return header + rows;
+}
+
+function filterList(colId, text) {
+    const col = COLLECTIONS.find(c => c.id === colId);
+    if (!col) return;
+    const members = allCreators.filter(col.filter);
+    document.getElementById(`creators-${colId}`).innerHTML = buildCreatorList(members, text);
+}
+
+function toggleCard(id) {
+    const cards = document.querySelectorAll('.collection-card');
+
+    cards.forEach(card => {
+        if (card.dataset.id === id) {
+            const isOpen = card.classList.contains('open');
+            card.classList.toggle('open', !isOpen);
+            openCardId = isOpen ? null : id;
+            if (!isOpen) {
+                // Scroll card into view with a bit of offset
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        } else {
+            card.classList.remove('open');
+        }
+    });
+}
+
+function shareCollection(event, colId, atlasParams) {
+    event.stopPropagation();
+    const col = COLLECTIONS.find(c => c.id === colId);
+    if (!col) return;
+
+    const url = `${window.location.origin}/lists.html#${colId}`;
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = event.currentTarget;
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.innerHTML = '↗ Share this list';
+            btn.classList.remove('copied');
+        }, 2000);
+    }).catch(() => {
+        // Fallback
+        prompt('Copy this link:', url);
+    });
+}
+
+// ── Deep link: open card from URL hash ─────────────────────────────────────
+function handleHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && COLLECTIONS.find(c => c.id === hash)) {
+        // Wait for cards to render
+        setTimeout(() => {
+            toggleCard(hash);
+        }, 300);
+    }
+}
+
+window.addEventListener('hashchange', handleHash);
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+init().then(() => handleHash());
+</script>
+
+</body>
+</html>

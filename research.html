@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Research - Independent Journalism Atlas</title>
+    <meta name="description" content="Explore our research on creator journalism, including the Top 50 Creator Journalists list, reports, and analysis of the independent journalism landscape.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://journalismatlas.com/research.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://journalismatlas.com/research.html">
+    <meta property="og:title" content="Our Research - Independent Journalism Atlas">
+    <meta property="og:description" content="Explore our research on creator journalism, including the Top 50 Creator Journalists list, reports, and analysis of the independent journalism landscape.">
+    <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+    <meta property="og:site_name" content="Independent Journalism Atlas">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Independent Journalism Atlas - Mapping the future of independent journalism">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://journalismatlas.com/research.html">
+    <meta property="twitter:title" content="Our Research - Independent Journalism Atlas">
+    <meta property="twitter:description" content="Explore our research on creator journalism, including the Top 50 Creator Journalists list, reports, and analysis of the independent journalism landscape.">
+    <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+
+    <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --acid-green: #ceff00;
+            --lime-green: #97d600;
+            --light-gray: #efeff2;
+            
+            --dark-gray: #313131;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        .top-nav {
+            background-color: var(--black);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--acid-green);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-logo-circle {
+            width: 32px;
+            height: 32px;
+            color: var(--acid-green);
+        }
+
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--acid-green);
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--acid-green);
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--acid-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .article-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .article-card {
+            background-color: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--medium-gray);
+            transition: all 0.3s;
+        }
+
+        .article-card:hover {
+            border-left-color: var(--acid-green);
+            transform: translateX(4px);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .article-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .article-date {
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        .article-publication {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--black);
+            background-color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+        }
+
+        .article-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--black);
+        }
+
+        .article-card h3 a {
+            color: var(--black);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .article-card h3 a:hover {
+            color: var(--dark-gray);
+        }
+
+        .article-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--dark-gray);
+        }
+
+        .featured-resource {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .featured-resource h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--acid-green);
+        }
+
+        .featured-resource p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-link {
+            display: inline-block;
+            background-color: var(--acid-green);
+            color: var(--black);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .featured-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .coming-soon {
+            background-color: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            font-style: italic;
+            color: var(--dark-gray);
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--acid-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .footer-logo-text {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-tagline {
+            color: var(--medium-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--acid-green);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: var(--medium-gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-circle">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="nav-logo-text">ATLAS</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Database</a>
+                <a href="who-we-are.html" class="nav-link">Who We Are</a>
+                <a href="what-we-do.html" class="nav-link">About This Project</a>
+                <a href="how-we-did-this.html" class="nav-link">How We Did This</a>
+                <a href="advisory.html" class="nav-link">Advisory Boards</a>
+                <a href="submit.html" class="nav-link">Submit</a>
+                <a href="research.html" class="nav-link">Our Research</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h1 class="page-title">Our Research & Writing</h1>
+            <p class="page-subtitle">Exploring the landscape of creator journalism and building understanding of this evolving ecosystem.</p>
+        </div>
+
+        <!-- Featured Resource -->
+        <div class="featured-resource">
+            <h3>The Top 50 Creator-Model Journalists</h3>
+            <p>Our comprehensive analysis of the leading independent journalism creators shaping the future of news. This list showcases the diverse approaches, platforms, and business models powering creator journalism today.</p>
+            <a href="https://projectc.biz/top50creatorjournalists" target="_blank" class="featured-link">View the Top 50 List</a>
+        </div>
+
+        <!-- Project C Newsletter -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📰</div>
+                <h2 class="section-title">Project C Newsletter</h2>
+            </div>
+            <div class="article-grid">
+                <div class="article-card">
+                    <p>Project C supports and chronicles the creator journalism movement. As the Atlas' flagship publication, it features regular contributions from all three co-founders exploring this emerging space.</p>
+                    <p style="margin-top: 1rem;"><a href="https://newsletter.projectc.biz/" target="_blank" style="color: var(--black); font-weight: 600; text-decoration: underline;">Visit Project C Newsletter →</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Publications -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">📄</div>
+                <h2 class="section-title">Publications</h2>
+            </div>
+            <div class="article-grid">
+                <div class="article-card">
+                    <h3><a href="https://reason.com/2026/01/24/how-to-build-your-own-internet-in-2026/" target="_blank">How to Build Your Own Internet in 2026</a></h3>
+                    <p style="margin-top: 0.5rem;"><span style="font-weight: 600;">Reason</span> | January 24, 2026</p>
+                </div>
+
+                <div class="article-card">
+                    <h3><a href="https://www.niemanlab.org/2025/12/the-creator-infrastructure-gap-will-define-journalisms-next-chapter/" target="_blank">The Creator Infrastructure Gap Will Define Journalism's Next Chapter</a></h3>
+                    <p style="margin-top: 0.5rem;"><span style="font-weight: 600;">Nieman Lab</span> | December 2025</p>
+                </div>
+
+                <div class="article-card">
+                    <h3><a href="https://www.niemanlab.org/2025/12/journalisms-songwriter-era/" target="_blank">Journalism's Songwriter Era</a></h3>
+                    <p style="margin-top: 0.5rem;"><span style="font-weight: 600;">Nieman Lab</span> | December 2025</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🔬</div>
+                <h2 class="section-title">Research</h2>
+            </div>
+            <div class="article-grid">
+                <div class="article-card">
+                    <h3><a href="https://videoconsortium.org/member-resources/rise-of-creator-journalist-report" target="_blank">Rise of Creator Journalist Report</a></h3>
+                    <p style="margin-top: 0.5rem;"><span style="font-weight: 600;">Video Consortium</span></p>
+                </div>
+            </div>
+            <div class="coming-soon" style="margin-top: 1.5rem;">
+                <p>More research reports and data analysis coming soon. We're conducting systematic research on creator journalism business models, trust frameworks, and partnership models. Check back for updates.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-circle">ATLAS</div>
+                    <span class="footer-logo-text">The Independent Journalism Atlas</span>
+                </div>
+                <p class="footer-tagline">Building infrastructure for the future of journalism.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <a href="index.html">Browse Database</a>
+                <a href="who-we-are.html">Who We Are</a>
+                <a href="what-we-do.html">About This Project</a>
+            </div>
+            <div class="footer-column">
+                <h4>About</h4>
+                <a href="how-we-did-this.html">How We Did This</a>
+                <a href="advisory.html">Advisory Boards</a>
+                <a href="submit.html">Submit</a>
+                <a href="research.html">Our Research</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="cdn-cgi/l/email-protection#98f0fdf4f4f7d8f2f7edeaf6f9f4f1ebf5f9ecf4f9ebb6fbf7f5">Email Us</a>
+                <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</

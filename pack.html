@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Starter Pack — Independent Journalism Atlas</title>
+    <meta name="description" content="Curate your favourite independent journalists and share them as a postcard. 1,006 creators across newsletters, podcasts, video, and more.">
+    <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black:       #0d0d0d;
+            --white:       #ffffff;
+            --off-white:   #f4f4f0;
+            --light-gray:  #efeff2;
+            --medium-gray: #999999;
+            --dark-gray:   #313131;
+            --acid-green:  #ceff00;
+            --green-dim:   rgba(206,255,0,0.65);
+            --card-bg:     #1a1a1a;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── Nav ─────────────────────────────────────────────────────── */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            padding: 18px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(13,13,13,0.95) 0%, transparent 100%);
+        }
+        .nav-logo img { height: 28px; opacity: 0.9; }
+        .nav-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: var(--white); }
+
+        /* ── Referral welcome banner ──────────────────────────────────── */
+        .ref-banner {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 300;
+            background: var(--acid-green);
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 11px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            transform: translateY(-100%);
+            transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+            cursor: default;
+        }
+        .ref-banner.visible { transform: translateY(0); }
+        .ref-banner-text { letter-spacing: 0.1px; }
+        .ref-banner-cta {
+            background: rgba(0,0,0,0.12);
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: inherit;
+            color: var(--black);
+            padding: 4px 12px;
+            cursor: pointer;
+            transition: background 0.15s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .ref-banner-cta:hover { background: rgba(0,0,0,0.2); }
+        .ref-banner-dismiss {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: rgba(0,0,0,0.4);
+            cursor: pointer;
+            padding: 0 0 0 8px;
+            line-height: 1;
+            transition: color 0.15s;
+            margin-left: auto;
+        }
+        .ref-banner-dismiss:hover { color: var(--black); }
+        /* Push nav down when banner is visible */
+        .ref-banner.visible ~ * .nav,
+        body.has-ref-banner .nav { top: 42px; }
+
+        /* ── Hero ─────────────────────────────────────────────────────── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            overflow: hidden;
+        }
+
+        /* Ambient drifting creator names */
+        .hero-ambient {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .ambient-name {
+            position: absolute;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.07);
+            white-space: nowrap;
+            animation: drift linear infinite;
+            will-change: transform;
+        }
+        @keyframes drift {
+            from { transform: translateY(0px) translateX(0px); }
+            to   { transform: translateY(-80px) translateX(20px); }
+        }
+
+        /* Grain overlay */
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--acid-green);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.2s forwards;
+        }
+        .hero-headline {
+            font-size: clamp(42px, 8vw, 96px);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -2px;
+            max-width: 900px;
+            margin: 0 auto 28px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.4s forwards;
+        }
+        .hero-headline em {
+            font-style: normal;
+            color: var(--acid-green);
+        }
+        .hero-sub {
+            font-size: 18px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.55);
+            max-width: 480px;
+            margin: 0 auto 52px;
+            line-height: 1.65;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.6s forwards;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--acid-green);
+            color: var(--black);
+            font-size: 15px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 40px;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.8s forwards;
+        }
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(206,255,0,0.3);
+        }
+        .hero-cta-arrow { font-size: 18px; }
+
+        .hero-count {
+            margin-top: 28px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+            opacity: 0;
+            animation: fadeUp 0.7s ease 1s forwards;
+        }
+        .hero-count strong { color: rgba(255,255,255,0.6); }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 1.2s forwards;
+        }
+        .scroll-hint-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+            animation: scrollPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── How it works strip ───────────────────────────────────────── */
+        .how-strip {
+            background: var(--card-bg);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 40px 32px;
+        }
+        .how-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            align-items: stretch;
+        }
+        .how-step {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 0 32px 0 0;
+            position: relative;
+        }
+        .how-step + .how-step {
+            padding-left: 32px;
+            border-left: 1px solid rgba(255,255,255,0.07);
+        }
+        .how-step-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--acid-green);
+            letter-spacing: 1px;
+            flex-shrink: 0;
+            padding-top: 3px;
+        }
+        .how-step-text strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .how-step-text span {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.5;
+        }
+
+        /* ── Curator workspace ────────────────────────────────────────── */
+        #workspace {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 64px 32px 120px;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Left: browser */
+        .browser-col {}
+
+        .browser-header {
+            margin-bottom: 28px;
+        }
+        .browser-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .browser-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+        .browser-sub #liveCount { color: var(--acid-green); font-weight: 600; }
+
+        /* Search + filters */
+        .filter-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .search-wrap {
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 14px 18px 14px 44px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--white);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input::placeholder { color: rgba(255,255,255,0.3); }
+        .search-input:focus { border-color: rgba(206,255,0,0.4); }
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.3);
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        /* Topic pills */
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pill {
+            padding: 7px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: transparent;
+            color: rgba(255,255,255,0.55);
+            font-size: 12px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .pill:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
+        .pill.active {
+            background: var(--acid-green);
+            border-color: var(--acid-green);
+            color: var(--black);
+        }
+
+        /* Platform pills — smaller, secondary row */
+        .platform-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .pill-sm {
+            padding: 5px 11px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: transparent;
+            color: rgba(255,255,255,0.35);
+            font-size: 11px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .pill-sm:hover { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); }
+        .pill-sm.active {
+            background: rgba(206,255,0,0.15);
+            border-color: rgba(206,255,0,0.4);
+            color: var(--acid-green);
+        }
+
+        /* Creator grid */
+        .creator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+        }
+
+        .pc-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 16px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .pc-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: #222;
+        }
+        .pc-card:active { transform: scale(0.97); }
+        .pc-card.selected {
+            border-color: var(--acid-green);
+            background: rgba(206,255,0,0.06);
+        }
+        .pc-card.selected .pc-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .pc-card.maxed:not(.selected) {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .pc-check {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--acid-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--black);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.15s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+        }
+
+        .pc-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 3px;
+            padding-right: 24px; /* room for check */
+            line-height: 1.3;
+        }
+        .pc-channel {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .pc-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.07);
+            color: rgba(255,255,255,0.4);
+        }
+
+        .grid-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            color: rgba(255,255,255,0.3);
+            font-size: 15px;
+        }
+        .grid-empty strong { display: block; font-size: 22px; margin-bottom: 8px; color: rgba(255,255,255,0.5); }
+
+        /* Load more */
+        .load-more-wrap {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .load-more-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.55);
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            padding: 12px 28px;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .load-more-btn:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
+
+        /* Right: pack preview (sticky) */
+        .pack-col {
+            position: sticky;
+            top: 96px;
+        }
+
+        .pack-panel {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .pack-panel-header {
+            padding: 20px 20px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .pack-panel-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--acid-green);
+            margin-bottom: 6px;
+        }
+        .pack-panel-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pack-name-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            font-weight: 800;
+            font-family: inherit;
+            color: var(--white);
+            placeholder-color: rgba(255,255,255,0.25);
+        }
+        .pack-name-input::placeholder { color: rgba(255,255,255,0.2); }
+
+        /* Canvas preview */
+        .pack-canvas-wrap {
+            position: relative;
+            background: #111;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+        #packCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Empty state overlay on canvas */
+        .canvas-empty-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(13,13,13,0.7);
+            backdrop-filter: blur(2px);
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .canvas-empty-overlay.hidden { opacity: 0; }
+        .canvas-empty-icon { font-size: 32px; opacity: 0.4; }
+        .canvas-empty-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            max-width: 180px;
+            line-height: 1.5;
+        }
+
+        /* Selected list in panel */
+        .pack-list {
+            padding: 12px 16px;
+            min-height: 80px;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+        .pack-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            gap: 8px;
+        }
+        .pack-list-item:last-child { border-bottom: none; }
+        .pack-list-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        a.pack-list-item-name:hover { color: var(--acid-green); }
+        .pack-list-item-remove {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.25);
+            font-size: 15px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 2px 4px;
+            flex-shrink: 0;
+            transition: color 0.15s;
+        }
+        .pack-list-item-remove:hover { color: rgba(255,255,255,0.7); }
+        .pack-list-empty {
+            font-size: 13px;
+            color: rgba(255,255,255,0.25);
+            padding: 16px 0;
+            text-align: center;
+        }
+
+        .pack-panel-footer {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .pack-count-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+        }
+        .pack-count-line strong { color: var(--acid-green); font-size: 14px; }
+        .pack-share-btn {
+            width: 100%;
+            background: var(--acid-green);
+            color: var(--black);
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: inherit;
+            padding: 14px;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+            letter-spacing: 0.2px;
+        }
+        .pack-share-btn:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+        .pack-share-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+            transform: none;
+        }
+
+        /* Desktop two-button row */
+        .pack-action-row {
+            display: flex;
+            gap: 8px;
+        }
+        .pack-btn-save, .pack-btn-copy, .pack-btn-link {
+            flex: 1;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            padding: 13px 10px;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s, background 0.15s;
+            letter-spacing: 0.1px;
+            white-space: nowrap;
+        }
+        .pack-btn-save {
+            background: var(--acid-green);
+            color: var(--black);
+            border: none;
+        }
+        .pack-btn-save:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+        .pack-btn-copy, .pack-btn-link {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .pack-btn-copy:hover:not(:disabled) {
+            border-color: rgba(255,255,255,0.45);
+            background: rgba(255,255,255,0.05);
+        }
+        .pack-btn-save:disabled, .pack-btn-copy:disabled, .pack-btn-link:disabled {
+            opacity: 0.3;
+            cursor: default;
+            transform: none;
+        }
+
+        /* ── Follow your pack ─────────────────────────────────────────── */
+        .follow-section {
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .follow-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 10px;
+        }
+        .follow-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: flex-start;
+        }
+        .follow-btn-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+        .follow-btn {
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--platform-color);
+            background: transparent;
+            color: var(--platform-color);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+        .follow-btn:hover,
+        .follow-btn.expanded {
+            background: var(--platform-color);
+            color: #0d0d0d;
+        }
+        /* Inline expanded creator list under a platform button */
+        .follow-creator-list {
+            display: none;
+            flex-basis: 100%;
+            margin-top: 6px;
+            padding: 8px 10px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 6px;
+            border-left: 2px solid var(--platform-color, #ceff00);
+        }
+        .follow-creator-list.visible {
+            display: block;
+        }
+        .follow-creator-link {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            transition: color 0.15s;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .follow-creator-link:last-child { border-bottom: none; }
+        .follow-creator-link:hover { color: #ceff00; }
+        .follow-creator-nolink {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .follow-creator-nolink:last-child { border-bottom: none; }
+
+        /* ── Pack name suggestion chip ────────────────────────────────── */
+        .pack-name-suggestion {
+            margin-top: 6px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.15s;
+            user-select: none;
+        }
+        .pack-name-suggestion:hover { color: rgba(255,255,255,0.6); }
+        .suggestion-text {
+            color: var(--acid-green);
+            opacity: 0.75;
+        }
+        .pack-name-suggestion:hover .suggestion-text { opacity: 1; }
+        .suggestion-arrow {
+            color: var(--acid-green);
+            opacity: 0.75;
+        }
+
+        /* ── Pack field group (From + Name labels) ───────────────────── */
+        .pack-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 6px;
+        }
+        .pack-field-group:last-child { margin-bottom: 0; }
+        .pack-field-label {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+        }
+        .pack-input-from {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+        }
+        .pack-input-from::placeholder { color: rgba(255,255,255,0.15); }
+
+        /* ── Recipient hero ───────────────────────────────────────────── */
+        .recipient-hero {
+            min-height: 100vh;
+            background: #0d0d0d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px 60px;
+            text-align: center;
+            gap: 0;
+        }
+        .recipient-attribution {
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .recipient-pack-title {
+            font-size: clamp(28px, 5vw, 56px);
+            font-weight: 800;
+            color: #fff;
+            margin: 0 0 40px;
+            max-width: 700px;
+            line-height: 1.1;
+        }
+        .recipient-canvas-wrap {
+            width: min(480px, 90vw);
+            aspect-ratio: 1;
+            margin-bottom: 32px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+        }
+        .recipient-canvas-wrap canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .recipient-follow-wrap {
+            margin-bottom: 40px;
+        }
+        .recipient-follow-wrap .follow-label {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .recipient-follow-wrap .follow-buttons {
+            justify-content: center;
+        }
+        .recipient-ctas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .recipient-cta-primary {
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 32px;
+            background: #ceff00;
+            color: #0d0d0d;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            transition: opacity 0.15s;
+        }
+        .recipient-cta-primary:hover { opacity: 0.88; }
+        .recipient-cta-secondary {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .recipient-cta-secondary:hover { color: #ceff00; }
+        .recipient-remix-hint {
+            font-size: 13px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .recipient-remix-btn {
+            font-family: inherit;
+            font-size: 13px;
+            color: #666;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            padding: 0;
+            transition: color 0.15s;
+        }
+        .recipient-remix-btn:hover { color: #ceff00; }
+        /* Collapse animation */
+        .recipient-hero--collapsing {
+            opacity: 0;
+            transform: translateY(-16px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        /* In recipient mode, suppress the old refBanner — hero replaces it */
+        body.recipient-mode #refBanner { display: none !important; }
+        /* De-emphasise workspace until user transitions */
+        body.recipient-mode #workspace {
+            opacity: 0.4;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        body:not(.recipient-mode) #workspace {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ── Sticky bottom bar (mobile only) ─────────────────────────── */
+        .mobile-pack-bar {
+            display: none;
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 150;
+            background: rgba(13,13,13,0.96);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+            gap: 14px;
+            align-items: center;
+        }
+        .mobile-pack-count {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .mobile-pack-count span { color: var(--acid-green); }
+        .mobile-pack-btn {
+            background: var(--acid-green);
+            color: var(--black);
+            border: none;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            padding: 12px 24px;
+            cursor: pointer;
+        }
+        .mobile-pack-btn:disabled { opacity: 0.3; }
+
+        /* ── Pack modal (mobile preview) ─────────────────────────────── */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 300;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal-sheet {
+            background: #1a1a1a;
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 540px;
+            padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: sheetUp 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes sheetUp {
+            from { transform: translateY(100%); }
+            to   { transform: translateY(0); }
+        }
+        .modal-handle {
+            width: 36px;
+            height: 4px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+        .modal-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--acid-green);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .modal-name-input {
+            width: 100%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            color: var(--white);
+            outline: none;
+            margin-bottom: 16px;
+        }
+        .modal-name-input:focus { border-color: rgba(206,255,0,0.4); }
+        .modal-canvas-wrap {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        #mobilePackCanvas {
+            width: 100%;
+            display: block;
+            aspect-ratio: 1;
+        }
+        .modal-share-btn {
+            width: 100%;
+            background: var(--acid-green);
+            color: var(--black);
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: inherit;
+            padding: 16px;
+            cursor: pointer;
+        }
+
+        /* ── Responsive ───────────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            #workspace {
+                grid-template-columns: 1fr;
+                padding: 48px 20px 160px; /* room for sticky bar */
+            }
+            .pack-col { display: none; }
+            .mobile-pack-bar { display: flex; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-headline { letter-spacing: -1px; }
+            .how-inner { flex-direction: column; gap: 24px; }
+            .how-step + .how-step { padding-left: 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; }
+            .nav { padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Referral welcome banner — shown when arriving via ?ref=pack -->
+<div class="ref-banner" id="refBanner" aria-live="polite">
+    <span class="ref-banner-text">Someone shared their reading list with you.</span>
+    <a href="#workspace" class="ref-banner-cta">Make your own ↓</a>
+    <button class="ref-banner-dismiss" onclick="dismissRefBanner()" aria-label="Dismiss">×</button>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+    <a href="index.html" class="nav-logo">
+        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+    </a>
+    <a href="index.html" class="nav-link">← Explore the Atlas</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-ambient" id="heroAmbient"></div>
+
+    <p class="hero-eyebrow">Independent Journalism Atlas · Starter Packs</p>
+    <h1 class="hero-headline">
+        Pick your favourites.<br>
+        <em>Send them on.</em>
+    </h1>
+    <p class="hero-sub">
+        1,006 independent journalists across newsletters, podcasts, video, and more.
+        Curate up to 12. Make a postcard. Share it.
+    </p>
+    <a href="#workspace" class="hero-cta">
+        Start curating
+        <span class="hero-cta-arrow">↓</span>
+    </a>
+    <p class="hero-count">
+        <strong>1,006</strong> creators · free · no account needed
+    </p>
+
+    <div class="scroll-hint">
+        <div class="scroll-hint-line"></div>
+    </div>
+</section>
+
+<!-- How it works -->
+<div class="how-strip">
+    <div class="how-inner">
+        <div class="how-step">
+            <span class="how-step-num">01</span>
+            <div class="how-step-text">
+                <strong>Filter & browse</strong>
+                <span>Search by name, topic, or platform. 1,006 independent creators.</span>
+            </div>
+        </div>
+        <div class="how-step">
+            <span class="how-step-num">02</span>
+            <div class="how-step-text">
+                <strong>Tap to select</strong>
+                <span>Pick up to 12 creators for your pack. Name it anything.</span>
+            </div>
+        </div>
+        <div class="how-step">
+            <span class="how-step-num">03</span>
+            <div class="how-step-text">
+                <strong>Share the postcard</strong>
+                <span>Export as an image. Send it to a friend. Post it anywhere.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Workspace -->
+<div id="workspace">
+
+    <!-- Left: browser -->
+    <div class="browser-col">
+        <div class="browser-header">
+            <div class="browser-title">Browse creators</div>
+            <div class="browser-sub">Showing <span id="liveCount">1,006</span> creators — tap any to add to your pack</div>
+        </div>
+
+        <div class="filter-bar">
+            <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input class="search-input" id="searchInput" type="search" placeholder="Search by name or channel…" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="pill-row" id="groupPills"></div>
+            <div class="platform-row" id="platformPills"></div>
+            <div class="platform-row" id="geoPills"></div>
+        </div>
+
+        <div class="creator-grid" id="creatorGrid"></div>
+        <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+            <button class="load-more-btn" id="loadMoreBtn">Show more</button>
+        </div>
+    </div>
+
+    <!-- Right: pack panel (desktop) -->
+    <div class="pack-col">
+        <div class="pack-panel">
+            <div id="followSection" class="follow-section" style="display:none;">
+                <div class="follow-label">Follow your pack</div>
+                <div id="followButtons" class="follow-buttons"></div>
+            </div>
+
+            <div class="pack-panel-header">
+                <div class="pack-panel-label">Your pack</div>
+                <div class="pack-field-group">
+                    <label class="pack-field-label" for="packFromDesktop">From</label>
+                    <input type="text" id="packFromDesktop" class="pack-name-input pack-input-from" placeholder="Your name (optional)" maxlength="60">
+                </div>
+                <div class="pack-field-group">
+                    <label class="pack-field-label" for="packNameDesktop">Pack name</label>
+                    <input class="pack-name-input" id="packNameDesktop" type="text" placeholder="Name your pack…" maxlength="48">
+                </div>
+            </div>
+
+            <div class="pack-canvas-wrap">
+                <canvas id="packCanvas" width="1080" height="1080"></canvas>
+                <div class="canvas-empty-overlay" id="canvasEmptyOverlay">
+                    <div class="canvas-empty-icon">✦</div>
+                    <div class="canvas-empty-text">Select creators to see your postcard preview</div>
+                </div>
+            </div>
+
+            <div class="pack-list" id="packList">
+                <div class="pack-list-empty">No creators selected yet</div>
+            </div>
+
+            <div class="pack-panel-footer">
+                <div class="pack-count-line">
+                    <span><strong id="packCountNum">0</strong> / 12 selected</span>
+                    <span id="packMaxHint" style="display:none; color: rgba(206,255,0,0.7); font-size:11px;">Max reached</span>
+                </div>
+                <div class="pack-action-row">
+                    <button class="pack-btn-save" id="packCopyImgDesktop" disabled onclick="copyImage()">
+                        ⎘ Copy image
+                    </button>
+                    <button class="pack-btn-link" id="packCopyDesktop" disabled onclick="copyLink()">
+                        ⌁ Copy link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile sticky bar -->
+<div class="mobile-pack-bar" id="mobilePackBar">
+    <div class="mobile-pack-count">
+        <span id="mobilePackCountNum">0</span> / 12 selected
+    </div>
+    <button class="mobile-pack-btn" id="mobilePackBtn" disabled onclick="openMobileModal()">
+        ✦ Create Pack
+    </button>
+</div>
+
+<!-- Mobile modal sheet -->
+<div class="modal-backdrop" id="mobileModal">
+    <div class="modal-sheet">
+        <div class="modal-handle"></div>
+        <div class="modal-label">Your pack</div>
+        <input class="modal-name-input" id="packNameMobile" type="text" placeholder="Name your pack…" maxlength="48" oninput="renderCanvas('mobile')">
+        <div class="modal-canvas-wrap">
+            <canvas id="mobilePackCanvas" width="1080" height="1080"></canvas>
+        </div>
+        <button class="modal-share-btn" onclick="doShare('mobile')">✦ Share this Pack</button>
+    </div>
+</div>
+
+<script>
+// ── Data & State ───────────────────────────────────────────────────────────
+const MAX_PACK = 12;
+const PAGE_SIZE = 48;
+
+let allCreators = [];
+let filteredCreators = [];
+let selectedCreators = [];
+let activeGroups = new Set();
+let activePlatforms = new Set();
+let activeGeos = new Set();
+let searchQuery = '';
+let visibleCount = PAGE_SIZE;
+let stampImg = null;
+
+// Preload stamp
+(function() {
+    const img = new Image();
+    img.onload = () => { stampImg = img; renderCanvas('desktop'); };
+    img.onerror = () => console.warn('Stamp image failed to load');
+    img.src = 'assets/images/logos/Journalism_Atlas_logo_acid_green_distressed (4).png';
+})();
+
+// ── Load Data ──────────────────────────────────────────────────────────────
+fetch('assets/data/creators-data.json')
+    .then(r => r.json())
+    .then(data => {
+        allCreators = data;
+        filteredCreators = data;
+        buildFilters();
+        renderGrid();
+        buildAmbient();
+        _restoreFromUrl();
+        // Recipient mode: build hero after data is loaded and creators are pre-selected
+        if (isRecipientMode()) {
+            buildRecipientHero();
+            renderCanvas('recipient');
+            renderRecipientFollowButtons();
+        }
+    })
+    .catch(err => {
+        document.getElementById('creatorGrid').innerHTML =
+            '<div class="grid-empty"><strong>Couldn\'t load creators</strong>Check your connection and refresh.</div>';
+    });
+
+// ── Restore pack from ?creators= + ?name= URL params ──────────────────────
+function _restoreFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+
+    // Restore geography filter if ?geo= is present (e.g. ?geo=Chicago%2C%20IL)
+    const geoParam = params.get('geo');
+    if (geoParam) {
+        const geoVal = geoParam.trim();
+        activeGeos.add(geoVal);
+        // Activate the matching pill if it exists
+        const geoBtn = document.querySelector(`[data-geo="${CSS.escape(geoVal)}"]`);
+        if (geoBtn) geoBtn.classList.add('active');
+        applyFilters();
+    }
+
+    const raw = params.get('creators');
+    if (!raw) return;
+
+    // Each name was individually encodeURIComponent'd and joined with commas.
+    // URLSearchParams.get() already runs one decode pass, so we need a second
+    // only if it was double-encoded (some share sheets re-encode the whole URL).
+    // Try direct match first; fall back to a second decode if needed.
+    const names = raw.split(',').map(n => {
+        try { return decodeURIComponent(n.trim()); } catch { return n.trim(); }
+    }).filter(Boolean);
+    if (names.length === 0) return;
+
+    // Restore pack name if present
+    const sharedName = params.get('name');
+    if (sharedName) {
+        const nameInput = document.getElementById('packNameDesktop');
+        if (nameInput) nameInput.value = sharedName.slice(0, 48);
+    }
+
+    // Restore sender attribution if present — stored on window for recipient hero
+    const fromParam = params.get('from');
+    if (fromParam) {
+        try { window.recipientFrom = decodeURIComponent(fromParam); }
+        catch { window.recipientFrom = fromParam; }
+    }
+
+    // Build a lookup map for fast exact-name matching
+
+    const byName = new Map(allCreators.map(c => [c.name, c]));
+    const missing = [];
+
+    names.slice(0, MAX_PACK).forEach(name => {
+        // First try direct match; if that fails try a second decode pass
+        // (handles double-encoding from some share sheets / messaging apps)
+        let creator = byName.get(name);
+        if (!creator) {
+            try { creator = byName.get(decodeURIComponent(name)); } catch { /* ignore */ }
+        }
+        if (creator && !selectedCreators.some(s => s.name === creator.name)) {
+            selectedCreators.push(creator);
+        } else if (!creator) {
+            missing.push(name);
+        }
+    });
+
+    if (selectedCreators.length === 0) return;
+
+    // Re-render grid so selected cards show checked state
+    renderGrid();
+    renderPackPanel();
+    renderCanvas('desktop');
+
+    // If some names didn't match (creator removed/renamed), show a subtle notice
+    if (missing.length > 0) {
+        const notice = document.createElement('div');
+        notice.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.35);text-align:center;padding:8px 0 0;';
+        notice.textContent = `${missing.length} creator${missing.length > 1 ? 's' : ''} from this pack no longer appear in the Atlas.`;
+        const footer = document.getElementById('packList');
+        if (footer) footer.appendChild(notice);
+    }
+
+    // In builder mode (no recipient hero), scroll to workspace so user sees the pack.
+    // In recipient mode the hero renders above, so no scroll needed here.
+    if (!isRecipientMode()) {
+        setTimeout(() => {
+            const ws = document.getElementById('workspace');
+            if (ws) ws.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 400);
+    }
+}
+
+// ── Filters ────────────────────────────────────────────────────────────────
+const PRIMARY_GROUPS = [
+    'Power & Politics', 'Culture & Media', 'Money & Work',
+    'Science, Health & Environment', 'Social Issues', 'Civic Life',
+    'General News', 'Lifestyle & Personal Life', 'Journalism Formats'
+];
+
+const PLATFORM_LABELS = {
+    'Newsletter - Substack': 'Substack',
+    'Newsletter - Beehiiv': 'Beehiiv',
+    'Newsletter - Ghost': 'Ghost',
+    'Newsletter - Other': 'Newsletter',
+    'Video - YouTube': 'YouTube',
+    'Video - TikTok': 'TikTok',
+    'Video - Instagram': 'Instagram',
+    'Podcast': 'Podcast',
+    'Social - BlueSky': 'BlueSky',
+    'Social - Twitter / X': 'X / Twitter',
+    'Patreon': 'Patreon',
+    'Website': 'Website',
+};
+
+// Top geography values for filter pills (exact strings from creators-data.json)
+const PRIMARY_GEOS = [
+    'Chicago, IL',
+    'New York, NY',
+    'Washington, D.C.',
+    'Los Angeles, CA',
+    'San Francisco, CA',
+    'Boston, MA',
+    'Philadelphia, PA',
+    'Atlanta, GA',
+    'Austin, TX',
+    'National - US',
+    'United Kingdom',
+    'Canada',
+    'International',
+];
+
+// Extended platform metadata for canvas rendering (label + color dot)
+// Keys match exact strings from creators-data.json
+const PLATFORM_META = {
+    'Newsletter - Substack':  { label: 'Sub',     color: '#FF6719' },
+    'Newsletter - Beehiiv':   { label: 'Bee',     color: '#2563eb' },
+    'Newsletter - Ghost':     { label: 'Ghost',   color: '#6366f1' },
+    'Newsletter - Other':     { label: 'Email',   color: '#6b7280' },
+    'Video - YouTube':        { label: 'YT',      color: '#FF0000' },
+    'Video - Instagram':      { label: 'IG',      color: '#E1306C' },
+    'Video - TikTok':         { label: 'TT',      color: '#69C9D0' },
+    'Video - Twitch':         { label: 'Twitch',  color: '#9146FF' },
+    'Social - Twitter / X':   { label: 'X',       color: '#9ca3af' },
+    'Social - BlueSky':       { label: 'Sky',     color: '#0085FF' },
+    'Social - LinkedIn':      { label: 'LI',      color: '#0077b5' },
+    'Social - Facebook':      { label: 'FB',      color: '#4267B2' },
+    'Social - Threads':       { label: 'Threads', color: '#a0a0a0' },
+    'Chat - SMS':             { label: 'SMS',     color: '#22c55e' },
+    'Podcast':                { label: 'Pod',     color: '#9333ea' },
+    'Website':                { label: 'Web',     color: '#10b981' },
+    'Patreon':                { label: 'Pat',     color: '#FF424D' },
+};
+
+function getPlatformMeta(platform) {
+    return PLATFORM_META[platform] || { label: '···', color: '#6b7280' };
+}
+
+function buildFilters() {
+    const groupRow = document.getElementById('groupPills');
+    PRIMARY_GROUPS.forEach(g => {
+        const btn = document.createElement('button');
+        btn.className = 'pill';
+        btn.textContent = g;
+        btn.dataset.group = g;
+        btn.onclick = () => toggleGroup(g, btn);
+        groupRow.appendChild(btn);
+    });
+
+    const platRow = document.getElementById('platformPills');
+    Object.entries(PLATFORM_LABELS).forEach(([key, label]) => {
+        const btn = document.createElement('button');
+        btn.className = 'pill-sm';
+        btn.textContent = label;
+        btn.dataset.platform = key;
+        btn.onclick = () => togglePlatform(key, btn);
+        platRow.appendChild(btn);
+    });
+
+    const geoRow = document.getElementById('geoPills');
+    PRIMARY_GEOS.forEach(geo => {
+        const btn = document.createElement('button');
+        btn.className = 'pill-sm';
+        btn.textContent = geo;
+        btn.dataset.geo = geo;
+        btn.onclick = () => toggleGeo(geo, btn);
+        geoRow.appendChild(btn);
+    });
+}
+
+function toggleGroup(g, btn) {
+    if (activeGroups.has(g)) { activeGroups.delete(g); btn.classList.remove('active'); }
+    else { activeGroups.add(g); btn.classList.add('active'); }
+    applyFilters();
+}
+
+function togglePlatform(p, btn) {
+    if (activePlatforms.has(p)) { activePlatforms.delete(p); btn.classList.remove('active'); }
+    else { activePlatforms.add(p); btn.classList.add('active'); }
+    applyFilters();
+}
+
+function toggleGeo(g, btn) {
+    if (activeGeos.has(g)) { activeGeos.delete(g); btn.classList.remove('active'); }
+    else { activeGeos.add(g); btn.classList.add('active'); }
+    applyFilters();
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+    searchQuery = this.value.trim().toLowerCase();
+    applyFilters();
+});
+
+function applyFilters() {
+    visibleCount = PAGE_SIZE;
+    filteredCreators = allCreators.filter(c => {
+        if (activeGroups.size > 0) {
+            const cGroups = c.group.split(',').map(g => g.trim());
+            const match = [...activeGroups].some(g => cGroups.some(cg => cg.includes(g) || g.includes(cg)));
+            if (!match) return false;
+        }
+        if (activePlatforms.size > 0 && !activePlatforms.has(c.platform)) return false;
+        if (activeGeos.size > 0 && !activeGeos.has(c.geography)) return false;
+        if (searchQuery) {
+            const hay = (c.name + ' ' + c.channel + ' ' + c.platform).toLowerCase();
+            if (!hay.includes(searchQuery)) return false;
+        }
+        return true;
+    });
+    document.getElementById('liveCount').textContent = filteredCreators.length.toLocaleString();
+    renderGrid();
+}
+
+// ── Grid ───────────────────────────────────────────────────────────────────
+function renderGrid() {
+    const grid = document.getElementById('creatorGrid');
+    const visible = filteredCreators.slice(0, visibleCount);
+    const atMax = selectedCreators.length >= MAX_PACK;
+
+    if (filteredCreators.length === 0) {
+        grid.innerHTML = '<div class="grid-empty"><strong>No creators found</strong>Try a different search or filter.</div>';
+        document.getElementById('loadMoreWrap').style.display = 'none';
+        return;
+    }
+
+    grid.innerHTML = '';
+    visible.forEach(c => {
+        const isSelected = selectedCreators.some(s => s.name === c.name);
+        const card = document.createElement('div');
+        card.className = 'pc-card' + (isSelected ? ' selected' : '') + (atMax && !isSelected ? ' maxed' : '');
+        card.innerHTML = `
+            <div class="pc-check">✓</div>
+            <div class="pc-name">${esc(c.name)}</div>
+            <div class="pc-channel">${esc(c.channel || '')}</div>
+            <span class="pc-tag">${esc(shortPlatform(c.platform))}</span>
+        `;
+        card.addEventListener('click', () => toggleCreator(c));
+        grid.appendChild(card);
+    });
+
+    const loadWrap = document.getElementById('loadMoreWrap');
+    if (filteredCreators.length > visibleCount) {
+        loadWrap.style.display = 'block';
+        document.getElementById('loadMoreBtn').onclick = () => {
+            visibleCount += PAGE_SIZE;
+            renderGrid();
+        };
+    } else {
+        loadWrap.style.display = 'none';
+    }
+}
+
+function shortPlatform(p) {
+    return PLATFORM_LABELS[p] || p.replace('Newsletter - ', '').replace('Video - ', '').replace('Social - ', '');
+}
+
+function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Recipient mode ─────────────────────────────────────────────────────────
+let isInRecipientMode = false;
+
+function isRecipientMode() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('ref') === 'pack' && !!params.get('creators');
+}
+
+function getAttributionCopy() {
+    const from = window.recipientFrom;
+    return from ? `${from} curated a reading list for you.` : 'Someone curated a reading list for you.';
+}
+
+function getRecipientTitle() {
+    return getPackName('recipient');
+}
+
+function buildRecipientHero() {
+    if (!isRecipientMode()) return;
+
+    const hero = document.createElement('div');
+    hero.id = 'recipientHero';
+    hero.className = 'recipient-hero';
+    hero.innerHTML = `
+        <div class="recipient-attribution">${getAttributionCopy()}</div>
+        <h1 class="recipient-pack-title">${getRecipientTitle()}</h1>
+        <div class="recipient-canvas-wrap">
+            <canvas id="recipientCanvas" width="1080" height="1080"></canvas>
+        </div>
+        <div class="recipient-follow-wrap">
+            <div class="follow-label">Follow this pack</div>
+            <div id="recipientFollowButtons" class="follow-buttons"></div>
+        </div>
+        <div class="recipient-ctas">
+            <button class="recipient-cta-primary" id="recipientBuildOwn">✦ Build your own pack</button>
+            <a href="index.html" class="recipient-cta-secondary">Explore the Atlas →</a>
+        </div>
+        <div class="recipient-remix-hint">
+            <span>Want to remix this pack?</span>
+            <button class="recipient-remix-btn" id="recipientRemixBtn">Add or remove creators ↓</button>
+        </div>
+    `;
+
+    // Insert immediately after the nav
+    const nav = document.querySelector('.nav');
+    if (nav && nav.nextSibling) {
+        nav.parentNode.insertBefore(hero, nav.nextSibling);
+    } else {
+        document.body.prepend(hero);
+    }
+
+    document.body.classList.add('recipient-mode');
+    isInRecipientMode = true;
+
+    // Wire up CTAs
+    document.getElementById('recipientBuildOwn').addEventListener('click', () => {
+        selectedCreators = [];
+        transitionToBuilderMode();
+        renderGrid();
+        renderPackPanel();
+        renderFollowSection();
+        setTimeout(() => {
+            document.getElementById('workspace').scrollIntoView({ behavior: 'smooth' });
+        }, 200);
+    });
+
+    document.getElementById('recipientRemixBtn').addEventListener('click', () => {
+        // Keep selection intact — user is remixing, not starting fresh
+        transitionToBuilderMode();
+        setTimeout(() => {
+            document.getElementById('workspace').scrollIntoView({ behavior: 'smooth' });
+        }, 200);
+    });
+}
+
+function renderRecipientFollowButtons() {
+    // Reuse follow section logic but target recipient container
+    const container = document.getElementById('recipientFollowButtons');
+    if (!container || selectedCreators.length === 0) return;
+
+    const platformOrder = [];
+    const byPlatform = {};
+    selectedCreators.forEach(c => {
+        const p = c.platform || 'Other';
+        if (!byPlatform[p]) { byPlatform[p] = []; platformOrder.push(p); }
+        byPlatform[p].push(c);
+    });
+
+    container.innerHTML = '';
+
+    platformOrder.forEach(platform => {
+        const creators = byPlatform[platform];
+        const meta = getPlatformMeta(platform);
+        const count = creators.length;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'follow-btn-wrap';
+        wrap.style.setProperty('--platform-color', meta.color);
+
+        const btn = document.createElement('button');
+        btn.className = 'follow-btn';
+        btn.style.setProperty('--platform-color', meta.color);
+        btn.textContent = count === 1 ? meta.label : `${meta.label} (${count})`;
+
+        const list = document.createElement('div');
+        list.className = 'follow-creator-list';
+        list.style.setProperty('--platform-color', meta.color);
+
+        creators.forEach(c => {
+            if (c.link) {
+                const a = document.createElement('a');
+                a.className = 'follow-creator-link';
+                a.href = c.link;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.textContent = c.name;
+                list.appendChild(a);
+            } else {
+                const span = document.createElement('span');
+                span.className = 'follow-creator-nolink';
+                span.textContent = `${c.name} (no link)`;
+                list.appendChild(span);
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            const isOpen = list.classList.contains('visible');
+            container.querySelectorAll('.follow-creator-list.visible').forEach(el => el.classList.remove('visible'));
+            container.querySelectorAll('.follow-btn.expanded').forEach(el => el.classList.remove('expanded'));
+            if (!isOpen) {
+                list.classList.add('visible');
+                btn.classList.add('expanded');
+            }
+        });
+
+        wrap.appendChild(btn);
+        wrap.appendChild(list);
+        container.appendChild(wrap);
+    });
+}
+
+function transitionToBuilderMode() {
+    if (!isInRecipientMode) return;
+    isInRecipientMode = false;
+
+    const hero = document.getElementById('recipientHero');
+    if (hero) {
+        hero.classList.add('recipient-hero--collapsing');
+        setTimeout(() => { hero.style.display = 'none'; }, 400);
+    }
+    document.body.classList.remove('recipient-mode');
+}
+
+// ── Selection ──────────────────────────────────────────────────────────────
+function toggleCreator(c) {
+    // First interaction in recipient mode triggers transition to builder
+    if (isInRecipientMode) {
+        transitionToBuilderMode();
+        setTimeout(() => {
+            document.getElementById('workspace').scrollIntoView({ behavior: 'smooth' });
+        }, 200);
+    }
+    const idx = selectedCreators.findIndex(s => s.name === c.name);
+    if (idx >= 0) {
+        selectedCreators.splice(idx, 1);
+    } else {
+        if (selectedCreators.length >= MAX_PACK) return;
+        selectedCreators.push(c);
+    }
+    renderGrid();
+    renderPackPanel();
+    renderCanvas('desktop');
+    updateMobileBar();
+}
+
+function removeCreator(name) {
+    selectedCreators = selectedCreators.filter(c => c.name !== name);
+    renderGrid();
+    renderPackPanel();
+    renderCanvas('desktop');
+    renderCanvas('mobile');
+    updateMobileBar();
+}
+
+// ── Pack panel ─────────────────────────────────────────────────────────────
+function renderPackPanel() {
+    const list = document.getElementById('packList');
+    const count = selectedCreators.length;
+    document.getElementById('packCountNum').textContent = count;
+    const hasCreators = count > 0;
+    ['packCopyImgDesktop', 'packCopyDesktop'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.disabled = !hasCreators;
+    });
+    document.getElementById('packMaxHint').style.display = count >= MAX_PACK ? 'block' : 'none';
+
+    const overlay = document.getElementById('canvasEmptyOverlay');
+    if (overlay) overlay.classList.toggle('hidden', count > 0);
+
+    if (count === 0) {
+        list.innerHTML = '<div class="pack-list-empty">Select creators to build your pack</div>';
+        return;
+    }
+
+    list.innerHTML = selectedCreators.map(c => {
+        const nameEl = c.link
+            ? `<a class="pack-list-item-name" href="${esc(c.link)}" target="_blank" rel="noopener">${esc(c.name)} ↗</a>`
+            : `<span class="pack-list-item-name">${esc(c.name)}</span>`;
+        return `<div class="pack-list-item">
+            ${nameEl}
+            <button class="pack-list-item-remove" onclick="removeCreator('${esc(c.name).replace(/'/g,"\\'")}')">×</button>
+        </div>`;
+    }).join('');
+
+    renderFollowSection();
+    renderNameSuggestion();
+}
+
+function renderFollowSection() {
+    const section = document.getElementById('followSection');
+    if (!section) return;
+    if (selectedCreators.length === 0) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+
+    // Group creators by platform, preserving selection order
+    const platformOrder = [];
+    const byPlatform = {};
+    selectedCreators.forEach(c => {
+        const p = c.platform || 'Other';
+        if (!byPlatform[p]) { byPlatform[p] = []; platformOrder.push(p); }
+        byPlatform[p].push(c);
+    });
+
+    const container = document.getElementById('followButtons');
+    container.innerHTML = '';
+
+    platformOrder.forEach(platform => {
+        const creators = byPlatform[platform];
+        const meta = getPlatformMeta(platform);
+        const count = creators.length;
+
+        // Wrapper holds button + expandable list together
+        const wrap = document.createElement('div');
+        wrap.className = 'follow-btn-wrap';
+        wrap.style.setProperty('--platform-color', meta.color);
+
+        // The toggle button
+        const btn = document.createElement('button');
+        btn.className = 'follow-btn';
+        btn.style.setProperty('--platform-color', meta.color);
+        btn.textContent = count === 1
+            ? meta.label
+            : `${meta.label} (${count})`;
+
+        // The expandable creator list
+        const list = document.createElement('div');
+        list.className = 'follow-creator-list';
+        list.style.setProperty('--platform-color', meta.color);
+
+        creators.forEach(c => {
+            if (c.link) {
+                const a = document.createElement('a');
+                a.className = 'follow-creator-link';
+                a.href = c.link;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.textContent = c.name;
+                list.appendChild(a);
+            } else {
+                const span = document.createElement('span');
+                span.className = 'follow-creator-nolink';
+                span.textContent = `${c.name} (no link)`;
+                list.appendChild(span);
+            }
+        });
+
+        // Toggle expand/collapse on click
+        btn.addEventListener('click', () => {
+            const isOpen = list.classList.contains('visible');
+            // Close all other open lists first
+            container.querySelectorAll('.follow-creator-list.visible').forEach(el => el.classList.remove('visible'));
+            container.querySelectorAll('.follow-btn.expanded').forEach(el => el.classList.remove('expanded'));
+            // Toggle this one
+            if (!isOpen) {
+                list.classList.add('visible');
+                btn.classList.add('expanded');
+            }
+        });
+
+        wrap.appendChild(btn);
+        wrap.appendChild(list);
+        container.appendChild(wrap);
+    });
+}
+
+function renderNameSuggestion() {
+    const existing = document.getElementById('packNameSuggestion');
+    if (existing) existing.remove();
+
+    if (selectedCreators.length < 2) return;
+
+    // Each creator's group field may be a comma-separated multi-value string.
+    // Split all, find groups that appear in every selected creator.
+    const groupSets = selectedCreators.map(c =>
+        new Set((c.group || '').split(',').map(g => g.trim()).filter(Boolean))
+    );
+    // Intersection: groups present in all sets
+    const sharedGroups = [...groupSets[0]].filter(g =>
+        groupSets.every(set => set.has(g))
+    );
+
+    if (sharedGroups.length !== 1) return; // zero or ambiguous shared groups
+
+    const groupName = sharedGroups[0];
+    const suggested = `My ${groupName} Pack`;
+
+    const currentVal = document.getElementById('packNameDesktop').value.trim();
+    if (currentVal === suggested) return;
+
+    const chip = document.createElement('div');
+    chip.id = 'packNameSuggestion';
+    chip.className = 'pack-name-suggestion';
+    chip.innerHTML = `Suggestion: <span class="suggestion-text">${esc(suggested)}</span> <span class="suggestion-arrow">→</span>`;
+    chip.addEventListener('click', () => {
+        document.getElementById('packNameDesktop').value = suggested;
+        chip.remove();
+        renderCanvas('desktop');
+    });
+
+    document.getElementById('packNameDesktop').insertAdjacentElement('afterend', chip);
+}
+
+function updateMobileBar() {
+    const count = selectedCreators.length;
+    document.getElementById('mobilePackCountNum').textContent = count;
+    document.getElementById('mobilePackBtn').disabled = count === 0;
+}
+
+// ── Canvas Renderer ────────────────────────────────────────────────────────
+document.getElementById('packNameDesktop').addEventListener('input', () => renderCanvas('desktop'));
+
+function getPackName(which) {
+    if (which === 'recipient') {
+        // Read pack name from URL param, not an input field
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        if (name) { try { return decodeURIComponent(name); } catch { return name; } }
+        return 'An Atlas Pack';
+    }
+    const inputId = which === 'mobile' ? 'packNameMobile' : 'packNameDesktop';
+    return (document.getElementById(inputId) || {}).value || 'My Atlas Pack';
+}
+
+function renderCanvas(which) {
+    const canvasId = which === 'mobile'     ? 'mobilePackCanvas'
+                   : which === 'recipient'  ? 'recipientCanvas'
+                   :                          'packCanvas';
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const W = 1080, H = 1080;
+    canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const packName = getPackName(which);
+    const creators = selectedCreators;
+
+    // Background
+    ctx.fillStyle = '#0d0d0d';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grain
+    ctx.save();
+    ctx.globalAlpha = 0.035;
+    for (let i = 0; i < 18000; i++) {
+        const x = Math.random() * W, y = Math.random() * H, r = Math.random() * 1.2;
+        ctx.fillStyle = Math.random() > 0.5 ? '#ffffff' : '#ceff00';
+        ctx.fillRect(x, y, r, r);
+    }
+    ctx.restore();
+
+    // Watermark stamp
+    if (stampImg) {
+        ctx.save();
+        ctx.globalAlpha = 0.10;
+        const sz = 780;
+        ctx.drawImage(stampImg, (W - sz) / 2, (H - sz) / 2, sz, sz);
+        ctx.restore();
+    }
+
+    // Border
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(36, 36, W - 72, H - 72);
+
+    const rX = 60, rW = W - 120;
+
+    // Top label
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.font = '600 13px "Hanken Grotesk", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '3px';
+    ctx.fillText('INDEPENDENT JOURNALISM ATLAS', W / 2, 76);
+    ctx.letterSpacing = '0px';
+
+    // Green rule 1
+    ctx.strokeStyle = '#ceff00';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(rX, 96); ctx.lineTo(rX + rW, 96); ctx.stroke();
+
+    // Starter pack label
+    ctx.fillStyle = '#ceff00';
+    ctx.font = '700 11px "Hanken Grotesk", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('A  S T A R T E R  P A C K', rX, 118);
+
+    // Pack name
+    ctx.fillStyle = '#ffffff';
+    const nSize = packName.length > 24 ? 52 : packName.length > 16 ? 62 : 72;
+    ctx.font = `800 ${nSize}px "Hanken Grotesk", sans-serif`;
+    drawWrapped(ctx, packName.toUpperCase(), rX, 190, rW, nSize * 1.1);
+
+    const nameLines = measureLines(ctx, packName.toUpperCase(), rW);
+    const nameEndY = 190 + nameLines * nSize * 1.1;
+    const rY2 = Math.max(nameEndY + 24, 310);
+
+    // Green rule 2
+    ctx.strokeStyle = '#ceff00';
+    ctx.lineWidth = 1.5;
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath(); ctx.moveTo(rX, rY2); ctx.lineTo(rX + rW, rY2); ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Creator list — two columns when 7+ creators, single column otherwise
+    const twoCol = creators.length >= 7;
+    const colW = twoCol ? Math.floor((rW - 40) / 2) : rW; // 40px gutter between cols
+    const colAx = rX;
+    const colBx = rX + colW + 40;
+
+    const nameSize = 22;
+    const chanSize = 15;
+    const dotSize  = 13;
+    const lineH    = twoCol ? 58 : 68;
+
+    // Vertically centre the creator block between rule2 and bottom rule
+    const bottomRuleY = H - 112;
+    const listAreaH   = bottomRuleY - (rY2 + 20);
+    const colACount   = twoCol ? Math.ceil(creators.length / 2) : creators.length;
+    const blockH      = colACount * lineH;
+    const listY       = rY2 + 20 + Math.max(0, Math.floor((listAreaH - blockH) / 2));
+
+    function drawCreatorRow(c, x, y, maxW) {
+        // Name
+        ctx.fillStyle = '#ffffff';
+        ctx.font = `700 ${nameSize}px "Hanken Grotesk", sans-serif`;
+        ctx.textAlign = 'left';
+        // Truncate name if too wide
+        let name = c.name;
+        while (ctx.measureText(name).width > maxW - 4 && name.length > 4) name = name.slice(0, -1);
+        if (name !== c.name) name = name.trimEnd() + '…';
+        ctx.fillText(name, x, y);
+
+        // Channel + platform dot + label
+        const meta = getPlatformMeta(c.platform);
+        const chanY = y + nameSize + 4;
+
+        // Draw dot
+        ctx.beginPath();
+        ctx.arc(x + 5, chanY - 4, 4, 0, Math.PI * 2);
+        ctx.fillStyle = meta.color;
+        ctx.fill();
+
+        // Platform label
+        ctx.fillStyle = meta.color;
+        ctx.font = `600 ${dotSize}px "Hanken Grotesk", sans-serif`;
+        ctx.fillText(meta.label, x + 14, chanY);
+
+        // Channel name (after dot + label)
+        if (c.channel) {
+            const labelW = ctx.measureText(meta.label).width;
+            ctx.fillStyle = 'rgba(206,255,0,0.55)';
+            ctx.font = `400 ${chanSize}px "Hanken Grotesk", sans-serif`;
+            const chanX = x + 14 + labelW + 8;
+            let chan = c.channel;
+            while (ctx.measureText(chan).width > maxW - (chanX - x) - 4 && chan.length > 4) chan = chan.slice(0, -1);
+            if (chan !== c.channel) chan = chan.trimEnd() + '…';
+            ctx.fillText(chan, chanX, chanY);
+        }
+
+        // Divider
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x, y + lineH - 6);
+        ctx.lineTo(x + maxW, y + lineH - 6);
+        ctx.stroke();
+    }
+
+    if (twoCol) {
+        const half = Math.ceil(creators.length / 2);
+        for (let i = 0; i < half; i++) {
+            drawCreatorRow(creators[i], colAx, listY + i * lineH, colW);
+        }
+        for (let i = half; i < creators.length; i++) {
+            drawCreatorRow(creators[i], colBx, listY + (i - half) * lineH, colW);
+        }
+    } else {
+        for (let i = 0; i < creators.length; i++) {
+            drawCreatorRow(creators[i], colAx, listY + i * lineH, rW);
+        }
+    }
+
+    // Bottom rule
+    ctx.strokeStyle = '#ceff00';
+    ctx.lineWidth = 1.5;
+    ctx.globalAlpha = 0.4;
+    ctx.beginPath(); ctx.moveTo(rX, H - 112); ctx.lineTo(rX + rW, H - 112); ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // URL
+    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+    ctx.font = '500 15px "Hanken Grotesk", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('journalismatlas.com', rX, H - 88);
+
+    // Seal
+    if (stampImg) {
+        ctx.save();
+        ctx.globalAlpha = 0.82;
+        const sealSz = 120;
+        ctx.drawImage(stampImg, W - rX - sealSz, H - 60 - sealSz, sealSz, sealSz);
+        ctx.restore();
+    }
+}
+
+function drawWrapped(ctx, text, x, y, maxW, lineH) {
+    const words = text.split(' ');
+    let line = '';
+    let curY = y;
+    words.forEach(word => {
+        const test = line ? line + ' ' + word : word;
+        if (ctx.measureText(test).width > maxW && line) {
+            ctx.fillText(line, x, curY);
+            line = word;
+            curY += lineH;
+        } else { line = test; }
+    });
+    if (line) ctx.fillText(line, x, curY);
+}
+
+function measureLines(ctx, text, maxW) {
+    const words = text.split(' ');
+    let line = '', lines = 1;
+    words.forEach(word => {
+        const test = line ? line + ' ' + word : word;
+        if (ctx.measureText(test).width > maxW && line) { lines++; line = word; }
+        else line = test;
+    });
+    return lines;
+}
+
+// ── Share ──────────────────────────────────────────────────────────────────
+// ── Desktop: Copy image to clipboard (meme-generator style) ───────────────
+function copyImage() {
+    const btn = document.getElementById('packCopyImgDesktop');
+    if (btn) { btn.textContent = '…'; btn.disabled = true; }
+
+    const exportCanvas = document.createElement('canvas');
+    exportCanvas.width = 1080; exportCanvas.height = 1080;
+    const exportCtx = exportCanvas.getContext('2d');
+    if (!exportCtx) { _resetDesktopBtn(btn, '⎘ Copy image', '⎘ Copy image'); return; }
+    exportCtx.drawImage(document.getElementById('packCanvas'), 0, 0);
+
+    // Safari requires ClipboardItem to receive a Promise, not a resolved blob.
+    // Chrome requires the write() call to happen in a user gesture (which it does here).
+    try {
+        const blobPromise = new Promise(resolve => exportCanvas.toBlob(resolve, 'image/png'));
+
+        navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blobPromise })
+        ]).then(() => {
+            _resetDesktopBtn(btn, '✓ Image copied — just paste!', '⎘ Copy image');
+        }).catch(() => {
+            // Clipboard write blocked (non-HTTPS, permissions denied) — fall back to download
+            exportCanvas.toBlob(blob => _triggerDownload(blob, btn), 'image/png');
+        });
+    } catch (e) {
+        // ClipboardItem not supported (Firefox) — fall back to download
+        exportCanvas.toBlob(blob => _triggerDownload(blob, btn), 'image/png');
+    }
+}
+
+function _triggerDownload(blob, btn) {
+    const packName = getPackName('desktop');
+    const slug = packName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'atlas-pack';
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `atlas-pack-${slug}.png`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+    _resetDesktopBtn(btn, '✓ Saved! (clipboard unavailable)', '⎘ Copy image');
+}
+
+function _resetDesktopBtn(btn, msg, originalLabel) {
+    if (!btn) return;
+    btn.textContent = msg;
+    btn.disabled = false;
+    if (msg !== originalLabel) {
+        setTimeout(() => {
+            btn.textContent = originalLabel;
+            btn.disabled = selectedCreators.length === 0;
+        }, 2800);
+    }
+}
+
+// ── Desktop: Copy link ────────────────────────────────────────────────────
+function copyLink() {
+    const btn = document.getElementById('packCopyDesktop');
+    navigator.clipboard.writeText(_shareUrl()).then(() => {
+        _resetDesktopBtn(btn, '✓ copied', 'copy link');
+    }).catch(() => {
+        prompt('Copy this link:', _shareUrl());
+    });
+}
+
+// Always share the page URL with ?ref=pack + ?creators= + ?name= + ?from= encoded selection
+function _shareUrl() {
+    // Build from the bare page URL — never inherit existing ?creators= from current URL,
+    // which could be stale if the recipient is re-sharing someone else's pack
+    const url = new URL(window.location.pathname, window.location.origin);
+    url.searchParams.set('ref', 'pack');
+    if (selectedCreators.length > 0) {
+        // Comma-separated, each name individually encoded so special chars survive
+        // all link-shorteners, messaging apps and email clients intact
+        url.searchParams.set('creators', selectedCreators.map(c => encodeURIComponent(c.name)).join(','));
+    }
+    // Preserve pack name so recipient sees the curator's title
+    const packName = getPackName('desktop');
+    if (packName && packName !== 'My Atlas Pack') {
+        url.searchParams.set('name', packName);
+    }
+    // Include sender attribution if filled in
+    const fromVal = (document.getElementById('packFromDesktop') || {}).value || '';
+    if (fromVal.trim()) {
+        url.searchParams.set('from', encodeURIComponent(fromVal.trim()));
+    }
+    return url.toString();
+}
+
+// ── Mobile: Share (Web Share API → fallback) ───────────────────────────────
+function getMobileShareText() {
+    const from = window.recipientFrom ||
+                 ((document.getElementById('packFromDesktop') || {}).value || '').trim();
+    const packName = getPackName('mobile');
+    if (from) {
+        return `${from} made an Atlas pack: "${packName}" — check it out on the Independent Journalism Atlas`;
+    }
+    return `Check out "${packName}" on the Independent Journalism Atlas`;
+}
+
+function doShare(which) {
+    const btn = document.getElementById('mobileModal').querySelector('.modal-share-btn');
+    const packName = getPackName('mobile');
+    const slug = packName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'atlas-pack';
+    const shareText = getMobileShareText();
+    const shareUrl = _shareUrl();
+
+    if (btn) { btn.textContent = '…'; btn.disabled = true; }
+
+    const exportCanvas = document.createElement('canvas');
+    exportCanvas.width = 1080; exportCanvas.height = 1080;
+    const exportCtx = exportCanvas.getContext('2d');
+    if (!exportCtx) { _resetMobileBtn(btn); return; }
+    exportCtx.drawImage(document.getElementById('mobilePackCanvas'), 0, 0);
+
+    exportCanvas.toBlob(blob => {
+        const file = new File([blob], `${slug}.png`, { type: 'image/png' });
+        const canShare = navigator.canShare && navigator.canShare({ files: [file] });
+
+        if (canShare) {
+            navigator.share({ title: packName + ' — Atlas Starter Pack', text: shareText, url: shareUrl, files: [file] })
+                .then(() => _resetMobileBtn(btn, '✓ Shared!'))
+                .catch(err => {
+                    if (err.name !== 'AbortError') _mobileShareFallback(blob, slug, btn);
+                    else _resetMobileBtn(btn);
+                });
+        } else {
+            _mobileShareFallback(blob, slug, btn);
+        }
+    }, 'image/png');
+}
+
+function _mobileShareFallback(blob, slug, btn) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `atlas-pack-${slug}.png`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+    navigator.clipboard.writeText(_shareUrl()).catch(() => {});
+    _resetMobileBtn(btn, '✓ Image saved + link copied!');
+}
+
+function _resetMobileBtn(btn, msg) {
+    if (!btn) return;
+    btn.textContent = msg || '✦ Share this Pack';
+    btn.disabled = false;
+    if (msg && msg.startsWith('✓')) {
+        setTimeout(() => { btn.textContent = '✦ Share this Pack'; }, 2500);
+    }
+}
+
+// ── Mobile modal ───────────────────────────────────────────────────────────
+function openMobileModal() {
+    // Sync name from any existing input
+    const desktopName = document.getElementById('packNameDesktop').value;
+    if (desktopName) document.getElementById('packNameMobile').value = desktopName;
+    document.getElementById('mobileModal').classList.add('open');
+    renderCanvas('mobile');
+}
+
+document.getElementById('mobileModal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+});
+
+// ── Hero ambient names ─────────────────────────────────────────────────────
+function buildAmbient() {
+    const container = document.getElementById('heroAmbient');
+    const sample = allCreators
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 40);
+
+    sample.forEach((c, i) => {
+        const el = document.createElement('div');
+        el.className = 'ambient-name';
+        el.textContent = c.name;
+        el.style.left = (Math.random() * 95) + '%';
+        el.style.top = (20 + Math.random() * 70) + '%';
+        el.style.fontSize = (11 + Math.random() * 6) + 'px';
+        el.style.opacity = (0.04 + Math.random() * 0.07).toString();
+        const dur = 18 + Math.random() * 24;
+        const delay = -(Math.random() * dur);
+        el.style.animation = `drift ${dur}s ${delay}s linear infinite`;
+        container.appendChild(el);
+    });
+}
+
+// ── Referral welcome banner ────────────────────────────────────────────────
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('ref') !== 'pack') return;
+
+    // Show the banner after a short delay so the page settles first
+    const banner = document.getElementById('refBanner');
+    if (!banner) return;
+
+    // Nudge nav down to make room
+    document.body.classList.add('has-ref-banner');
+    const nav = document.querySelector('.nav');
+    if (nav) nav.style.top = '44px';
+
+    setTimeout(() => banner.classList.add('visible'), 600);
+
+    // Auto-dismiss after 7s
+    let autoDismiss = setTimeout(dismissRefBanner, 7000);
+
+    // Dismiss on scroll (user is engaged, get out of the way)
+    window.addEventListener('scroll', function onScroll() {
+        if (window.scrollY > 80) {
+            clearTimeout(autoDismiss);
+            dismissRefBanner();
+            window.removeEventListener('scroll', onScroll);
+        }
+    }, { passive: true });
+
+    // Personalise banner + hero copy when a creator list is encoded in the URL
+    const hasCreators = params.get('creators') && params.get('creators').length > 0;
+    if (hasCreators) {
+        const bannerText = document.querySelector('.ref-banner-text');
+        if (bannerText) bannerText.textContent = 'Someone curated a reading list for you. ↓ Scroll to see it.';
+        const bannerCta = document.querySelector('.ref-banner-cta');
+        if (bannerCta) { bannerCta.textContent = 'Make your own ↓'; }
+    }
+
+    // Swap hero copy to match the referral context
+    const heroCta = document.querySelector('.hero-cta');
+    if (heroCta) heroCta.childNodes[0].textContent = 'Make your own ';
+
+    const heroSub = document.querySelector('.hero-sub');
+    if (heroSub) heroSub.textContent = 'Browse 1,006 independent journalists and build your own starter pack to share.';
+})();
+
+function dismissRefBanner() {
+    const banner = document.getElementById('refBanner');
+    if (!banner || !banner.classList.contains('visible')) return;
+    banner.classList.remove('visible');
+    document.body.classList.remove('has-ref-banner');
+    const nav = document.querySelector('.nav');
+    if (nav) nav.style.top = '';
+}
+
+// ── Init render ────────────────────────────────────────────────────────────
+renderPackPanel();
+</script>
+
+</body>
+</html>

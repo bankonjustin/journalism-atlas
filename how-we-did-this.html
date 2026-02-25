@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How We Did This - Independent Journalism Atlas</title>
+    <meta name="description" content="Learn about our methodology for building the Independent Journalism Atlas, including our data collection, verification process, and research approach.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://journalismatlas.com/how-we-did-this.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://journalismatlas.com/how-we-did-this.html">
+    <meta property="og:title" content="How We Did This - Independent Journalism Atlas">
+    <meta property="og:description" content="Learn about our methodology for building the Independent Journalism Atlas, including our data collection, verification process, and research approach.">
+    <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+    <meta property="og:site_name" content="Independent Journalism Atlas">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Independent Journalism Atlas - Mapping the future of independent journalism">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://journalismatlas.com/how-we-did-this.html">
+    <meta property="twitter:title" content="How We Did This - Independent Journalism Atlas">
+    <meta property="twitter:description" content="Learn about our methodology for building the Independent Journalism Atlas, including our data collection, verification process, and research approach.">
+    <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+
+    <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --acid-green: #ceff00;
+            --lime-green: #97d600;
+            --light-gray: #efeff2;
+            --dark-gray: #313131;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        .top-nav {
+            background-color: var(--black);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--acid-green);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-logo-circle {
+            width: 32px;
+            height: 32px;
+            color: var(--acid-green);
+        }
+
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--acid-green);
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: var(--dark-gray);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            margin-top: 2.5rem;
+            color: var(--black);
+        }
+
+        .content-section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .content-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .content-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section li {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .content-section li:before {
+            content: "•";
+            color: var(--acid-green);
+            font-weight: bold;
+            font-size: 24px;
+            position: absolute;
+            left: 0;
+        }
+
+        .highlight-box {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--acid-green);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0.5rem;
+        }
+
+        .version-info {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--acid-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .footer-logo-text {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-tagline {
+            color: var(--medium-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--acid-green);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: var(--medium-gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-circle">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="nav-logo-text">ATLAS</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Database</a>
+                <a href="who-we-are.html" class="nav-link">Who We Are</a>
+                <a href="what-we-do.html" class="nav-link">About This Project</a>
+                <a href="how-we-did-this.html" class="nav-link">How We Did This</a>
+                <a href="advisory.html" class="nav-link">Advisory Boards</a>
+                <a href="submit.html" class="nav-link">Submit</a>
+                <a href="research.html" class="nav-link">Our Research</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h1 class="page-title">The Atlas: Standards & Criteria</h1>
+            <p class="page-subtitle">Version 1.0 — A Living Methodology</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What The Atlas Is</h2>
+            <p>The Atlas documents independent creators who inform, educate, and advance public knowledge outside traditional media structures. We're mapping the space between institutional journalism and the broader informational ecosystem—investigative reporters building their own newsrooms, academics translating research for public audiences, subject-matter experts providing context, and communicators making complex topics accessible.</p>
+
+            <p>Our belief: Journalism has expanded far beyond institutional boundaries—what we've called "journalism minus the journalist," where informational work happens outside traditional newsroom structures and credentials.</p>
+
+            <p>We're just beginning to understand this shift's scale. We're building on the Pew Research study on News Influencers and the Reuters Institute Digital News Report, which help set the scene for The Atlas as practical discovery for our stakeholders.</p>
+
+            <p>This first version represents approximately 1,000 creators from diverse sources: institutional partners like Northwestern's Medill School and the International Center for Journalists (ICFJ); expert curators like Austin Graff documenting the Washington D.C. ecosystem; the Project C community and Going Solo course participants; existing lists and public recommendations from prominent creator journalists; and our own networks as Atlas founders.</p>
+
+            <p>This is a starting sample—biased toward U.S.-based creators and specific cities, weighted toward platforms and topics where we have the strongest sourcing. We estimate tens of thousands of creators could meet these criteria globally.</p>
+
+            <p>We're building on our earlier attempts to catalog this space, but at a much larger scale. Where that initial list focused on 50 notable representative examples, The Atlas begins mapping the ecosystem.</p>
+
+            <p>This methodology will evolve as we learn, encounter edge cases, and receive community feedback. We're documenting a phenomenon still taking shape.</p>
+
+            <h2>Who We're Looking For</h2>
+            <p>The Atlas includes journalism creators who are:</p>
+            <ul>
+                <li>Building independent ventures with their own distribution channels</li>
+                <li>Producing journalism broadly: reporting, analysis, opinion, curation, or explanatory</li>
+                <li>Serving audiences missionally, not just building personal brands</li>
+                <li>Trusted messengers to loyal communities</li>
+                <li>Operating ethically with appropriate transparency</li>
+            </ul>
+
+            <p>We err on the side of inclusion—traditional journalism has too frequently left out too much. The common thread isn't format, platform, or credentials. It's missional work that advances information and understanding for a community.</p>
+
+            <p>This intersects with Press Forward and Commoner Co's research on "information stewards"—individuals who help audiences navigate information ecosystems through curation, contextualization, and trusted interpretation. The Atlas tracks a subset of those stewards. Everyone in The Atlas is a steward but not every steward engages in creator journalism.</p>
+
+            <h2>Core Inclusion Criteria</h2>
+
+            <h3>1. Independence & Attribution</h3>
+            <p>Creators must publicly build an independent venture where they own their distribution channel, and we must identify the individual creator(s) behind the work.</p>
+
+            <p>You cannot be employed full-time, on salary, to create content for a major media outlet—The New York Times, CNN, or traditional publishers where the institution controls editorial direction and audience relationships. Exception: If your creator work is entirely separate from employment duties, you may qualify.</p>
+
+            <p>Freelance contributions or guest appearances don't disqualify you. We're examining where you're building your primary audience relationship and who controls your editorial direction.</p>
+
+            <p>We include solo creators, partnerships or duos (listed separately), and small creator-led organizations where a founder/owner drives the editorial.</p>
+
+            <p>Not included: Major media outlets that have traditional hierarchical editorial structures and institutional backing where the creators don't own audience relationships—legacy newspapers, broadcast networks, large-scale digital publishers.</p>
+
+            <p>Gray area examples: A TV anchor posting clips from their broadcast isn't independently creating. A political reporter moonlighting as a restaurant critic is probably fine.</p>
+
+            <h3>2. Clear Journalism Product</h3>
+            <p>There must be an identifiable publication, channel, or platform we can point to.</p>
+
+            <p>You're actively building an audience with intent to monetize—through subscriptions, memberships, advertising, sponsorships, speaking fees, or other revenue models connected to your content.</p>
+
+            <p>Not included: Professional thought leadership without a content product, personal branding without consistent journalistic output, or consulting work not built on public content. (Examples: A prolific X poster or LinkedIn essayist.)</p>
+
+            <h3>3. Professional-Level Effort</h3>
+            <p>This must be a significant professional effort, not a hobby.</p>
+
+            <p>We look for consistency and sustainability: recent activity (last couple months), patterns of regular output, and demonstrated investment through production quality, research depth, or audience engagement. No minimum posting frequency—consistency matters more than volume.</p>
+
+            <p>Not included: Subject matter experts running specialized, topic-focused channels that exist as a direct output of a professional organization, non-profit or university. For example, if your "blog" just excerpts the academic papers you wrote or is a promotion toward an institutional channel.</p>
+
+            <h3>4. Journalistic Function</h3>
+            <p>Work must advance information or understanding through recognizable journalistic categories: reporting, analysis, opinion, curation, or education.</p>
+
+            <p>Work should be missional—serving community knowledge needs beyond self-promotion. We include lifestyle categories (parenting, health, finance) when content is knowledge-centric rather than purely about the creator's image.</p>
+
+            <p>Examples: A fitness creator teaching evidence-based training principles qualifies. An influencer posting workout selfies without educational content doesn't. A food creator exploring culinary history qualifies. A food influencer focused on personal brand aesthetics doesn't.</p>
+
+            <p>Gray area: We err toward inclusion, acknowledging that commentary grounded in expertise or lived experience serves journalistic functions even without original reporting.</p>
+
+            <h3>5. Credibility, Ethics & Transparency</h3>
+            <p>Work must be credible and ethically produced, with documented evidence of audience trust and appropriate funding transparency.</p>
+
+            <p>We look for consistent quality, audience loyalty and engagement (not just follower counts), and transparent practices appropriate to content type. If there's reason to doubt ethical production—undisclosed conflicts, consistent factual errors, documented deception—we flag for review.</p>
+
+            <p>Funding transparency: Base inclusion doesn't require disclosure, but enhanced transparency is encouraged and something we're looking to recognize in more standardized ways – something we believe services audiences, creators and platforms. Opinion-driven creators should have identifiable funding sources or clearly stated political/ideological leanings. Enhanced Atlas lists (in development) will require transparent funding models, full disclosure, and published ethical statements.</p>
+
+            <p>Controversies: We document accusations for ethical violations, lack of transparency, discrimination, legal convictions, or patterns of misleading audiences. How audiences respond to wrongdoing is part of understanding creator-audience trust. Documentation doesn't automatically disqualify but may trigger review.</p>
+
+            <p>Currently disqualifying: Legal convictions for journalism ethics violations (fabrication, plagiarism), active audience deception, or patterns of harm undermining credibility.</p>
+
+            <h2>Classification & Documentation</h2>
+            <p>We impose no platform requirements—newsletter-only, website-only, and social-media-only creators all qualify, reflecting a broader shift toward platform decentralization. Primary platform is determined by follower count for consistency. We classify topics broadly, allowing multiple categories and preferring creators' self-descriptions when we can. Geography is documented as specifically as creators publicly disclose it.</p>
+
+            <h2>Specialized Subset Lists</h2>
+            <p>Beyond the core Atlas, we're tracking and will periodically release specialized lists that document adjacent categories and variations in the creator journalism ecosystem:</p>
+
+            <p><strong>"In-House" Creators:</strong> Journalists and creators who work at major media organizations but maintain significant independent creator presences. While they don't meet our independence criteria for the main Atlas, they represent an important hybrid model worth documenting.</p>
+
+            <p><strong>Co-ops, Collectives & Independent Newsrooms:</strong> Worker-owned collectives, federated media structures, and independent newsrooms that operate outside traditional corporate structures. These organizational models represent collaborative approaches to independent journalism.</p>
+
+            <p><strong>Subject Matter Experts:</strong> Creators whose primary expertise comes from professional domains outside journalism—scientists, doctors, lawyers, academics, and other professionals who translate their specialized knowledge for public audiences.</p>
+
+            <p><strong>Advocates & Activists:</strong> Creators whose work advances specific causes or communities, blending journalism with advocacy. While missional work is core to The Atlas, this subset tracks creators where advocacy is the primary driver.</p>
+
+            <p><strong>Non-English Language Creators:</strong> The main Atlas currently skews heavily toward English-language creators due to our sourcing limitations. We're building separate tracking for creators operating primarily in other languages to ensure global representation.</p>
+
+            <p>These specialized lists help us understand the full spectrum of independent information creation while maintaining clear criteria for the core Atlas.</p>
+
+            <h2>What The Atlas Is—And Isn't</h2>
+            <p><strong>Not a complete census.</strong> 1,000 creators is a sample, not everyone who could fit. Absence doesn't mean you don't qualify—it might mean we haven't found you yet (see below to nominate yourself or someone you know).</p>
+
+            <p><strong>Not an endorsement system.</strong> Inclusion isn't a verification badge... yet. We're developing curated sub-lists tracking strict quality criteria. For instance, creators releasing ethics statements and funding transparency will be marked as part of verified lists. You must do your own evaluation of individual creators.</p>
+
+            <p><strong>Not media criticism.</strong> We aim to curate, adapt, align and advance standards for this space. We're not watchdogs but we want to encourage creator journalism to be visible, credible, and sustainable. This isn't judgment of traditional media—many are partners in building The Atlas.</p>
+
+            <p><strong>Not limited to credentialed journalists.</strong> Many have traditional journalism backgrounds. Many don't. Expertise and audience trust matter more than credentials.</p>
+
+            <p><strong>Not static.</strong> This methodology will change as we learn. Creators may move in or out as their work evolves or as we refine our understanding.</p>
+
+            <p>These standards represent our best current thinking, but will evolve. We'll refine criteria based on edge cases, adjust as we learn more about creator practices across domains and geographies, and incorporate feedback from creators, researchers, funders, and users.</p>
+
+            <p>When standards change, we'll version and document those changes as we seek to develop shared language and frameworks.</p>
+
+            <p>Questions, suggestions, or feedback? We're listening. <a href="submit.html" style="color: var(--black); text-decoration: underline;">Contact us</a></p>
+        </div>
+
+        <div class="version-info">
+            <p><strong>The Atlas Standards & Criteria, Version 1.0</strong><br>
+            Last updated: 2/12/26</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-circle">ATLAS</div>
+                    <span class="footer-logo-text">The Independent Journalism Atlas</span>
+                </div>
+                <p class="footer-tagline">Building infrastructure for the future of journalism.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <a href="index.html">Browse Database</a>
+                <a href="who-we-are.html">Who We Are</a>
+                <a href="what-we-do.html">About This Project</a>
+            </div>
+            <div class="footer-column">
+                <h4>About</h4>
+                <a href="how-we-did-this.html">How We Did This</a>
+                <a href="advisory.html">Advisory Boards</a>
+                <a href="submit.html">Submit</a>
+                <a href="research.html">Our Research</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="cdn-cgi/l/email-protection#removed">Email Us</a>
+                <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

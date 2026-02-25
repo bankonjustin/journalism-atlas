@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Portal - Independent Journalism Atlas</title>
+    <meta name="description" content="Generate social graphics, submit corrections, and nominate creators for the Independent Journalism Atlas.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/icons/Journalism_Atlas_favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --light-gray: #efeff2;
+            --dark-gray: #313131;
+            --medium-gray: #999999;
+            --acid-green: #ceff00;
+            --lime-green: #97d600;
+            --olive-green: #5d7400;
+        }
+
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .top-nav {
+            background-color: var(--white);
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.3s ease,
+                        border-bottom-color 0.3s ease;
+        }
+
+        .top-nav.scrolled {
+            padding: 0.5rem 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-bottom-color: #e5e5e5;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--black);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.3s ease;
+        }
+
+        .top-nav.scrolled .nav-logo img {
+            height: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--black);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Header Section */
+        .header-section {
+            background-color: var(--black);
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(206, 255, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(206, 255, 0, 0.06) 0%, transparent 50%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .header-section p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.95;
+        }
+
+        .header-section ul {
+            list-style: none;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .header-section li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .header-section li:before {
+            content: "•";
+            color: var(--acid-green);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Section Styling */
+        .section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            color: var(--dark-gray);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        input[type="file"],
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        input[type="file"]:focus,
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--acid-green);
+            box-shadow: 0 0 0 3px rgba(206, 255, 0, 0.1);
+        }
+
+        .text-input::placeholder {
+            color: var(--medium-gray);
+            opacity: 0.7;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Radio Buttons */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option:hover {
+            border-color: var(--lime-green);
+            background-color: rgba(206, 255, 0, 0.03);
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            cursor: pointer;
+            accent-color: var(--acid-green);
+        }
+
+        .radio-option.selected {
+            border-color: var(--acid-green);
+            background-color: rgba(206, 255, 0, 0.05);
+        }
+
+        .radio-label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Color Selector */
+        .color-selector {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .color-option:hover {
+            transform: scale(1.05);
+        }
+
+        .color-option.selected {
+            border-color: var(--acid-green);
+            box-shadow: 0 0 0 2px var(--black);
+        }
+
+        .color-option.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 4px rgba(0,0,0,0.5);
+        }
+
+        /* Text Color Options */
+        .text-color-selector {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .text-color-option {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .text-color-option:hover {
+            border-color: var(--lime-green);
+        }
+
+        .text-color-option.selected {
+            border-color: var(--acid-green);
+            background-color: rgba(206, 255, 0, 0.1);
+        }
+
+        /* Preview */
+        .preview-container {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        #previewCanvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Image Preview */
+        .image-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-top: 1rem;
+            border: 3px solid var(--acid-green);
+            display: none;
+        }
+
+        .image-preview.visible {
+            display: block;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--acid-green);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--lime-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(206, 255, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: var(--dark-gray);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--black);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        /* Character Counter */
+        .char-counter {
+            text-align: right;
+            font-size: 0.875rem;
+            color: var(--medium-gray);
+            margin-top: 0.25rem;
+        }
+
+        .char-counter.warning {
+            color: #ff9600;
+            font-weight: 600;
+        }
+
+        .char-counter.error {
+            color: #ff0000;
+            font-weight: 600;
+        }
+
+        /* Helper Text */
+        .helper-text {
+            font-size: 0.875rem;
+            color: var(--medium-gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Disclosure Box */
+        .disclosure-box {
+            background-color: rgba(206, 255, 0, 0.08);
+            border-left: 4px solid var(--acid-green);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        .disclosure-box p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            margin: 0;
+        }
+
+        .disclosure-box strong {
+            color: var(--black);
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+            accent-color: var(--acid-green);
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .message.visible {
+            display: block;
+        }
+
+        .message.success {
+            background-color: rgba(151, 214, 0, 0.1);
+            border: 2px solid var(--lime-green);
+            color: var(--olive-green);
+        }
+
+        .message.error {
+            background-color: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            color: #cc0000;
+        }
+
+        /* Caption Section */
+        .caption-section {
+            width: 100%;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e0e0e0;
+            display: none;
+        }
+
+        .caption-section.visible {
+            display: block;
+        }
+
+        .caption-section h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--black);
+            text-align: center;
+        }
+
+        .caption-instructions {
+            text-align: center;
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .caption-box {
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            user-select: all;
+            cursor: text;
+            transition: border-color 0.2s ease;
+        }
+
+        .caption-box:hover {
+            border-color: var(--lime-green);
+        }
+
+        .caption-box p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            white-space: pre-wrap;
+        }
+
+        #copyCaptionBtn {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        #copyCaptionBtn.copied {
+            background-color: var(--lime-green);
+        }
+
+        /* Footer */
+        .footer-section {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: var(--olive-green);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid var(--acid-green);
+            transition: all 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--black);
+            border-bottom-color: var(--lime-green);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .header-section h1 {
+                font-size: 1.75rem;
+            }
+
+            .header-section p {
+                font-size: 1rem;
+            }
+
+            .header-section ul {
+                text-align: left;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .color-selector {
+                justify-content: center;
+            }
+
+            .text-color-selector {
+                flex-direction: column;
+            }
+
+            .text-color-option {
+                text-align: center;
+            }
+        }
+
+        /* Hidden Elements */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../assets/images/logos/Journalism_Atlas_wordmark_lockup_black.png" alt="Independent Journalism Atlas">
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Atlas Home</a>
+                <a href="../submit.html" class="nav-link">Submit</a>
+                <a href="../who-we-are.html" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header-section">
+        <h1>Welcome to the Creator Portal</h1>
+        <p>Are you in the Independent Journalism Atlas? Check the database to see. If you'd like to spread the word about the Atlas or celebrate your inclusion, use the generator below to create a custom share graphic.</p>
+        <ul>
+            <li>Generate a social sharing graphic to celebrate being in the Atlas</li>
+            <li>Submit corrections to your listing or nominate other creators</li>
+        </ul>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Social Graphic Generator -->
+        <section class="section" id="generator-section">
+            <h2>📸 Create Your Social Graphic</h2>
+            <p>Generate a custom graphic to share on social media and celebrate being part of the Atlas.</p>
+
+            <!-- Step 1: Photo Upload -->
+            <h3>Step 1: Your Photo & Info</h3>
+
+            <!-- Creator Info Fields -->
+            <div class="form-group">
+                <label for="creatorName">Your Name</label>
+                <input type="text" id="creatorName" class="text-input" placeholder="Enter your name (optional)" aria-label="Your name">
+                <p class="helper-text">Help us identify you if we'd like to feature your photo</p>
+            </div>
+
+            <div class="form-group">
+                <label for="creatorEmail">Email Address</label>
+                <input type="email" id="creatorEmail" class="text-input" placeholder="your@email.com (optional)" aria-label="Your email address">
+                <p class="helper-text">We'll only use this to contact you about your photo</p>
+            </div>
+
+            <div class="form-group">
+                <div class="disclosure-box">
+                    <p><strong>📸 About Your Photo:</strong> If you upload a photo, we may use it in your Atlas profile as we develop the platform. This helps us build better creator profiles and showcase the Atlas community. You're in control—uploading is completely optional!</p>
+                </div>
+                <label for="photoUpload">Upload Your Photo (Optional)</label>
+                <input type="file" id="photoUpload" accept=".jpg,.jpeg,.png" aria-label="Upload your profile photo">
+                <p class="helper-text">Square image, at least 500x500px recommended</p>
+                <div class="image-preview" id="imagePreview">
+                    <img id="previewImg" src="" alt="Photo preview">
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="usePlaceholder">
+                    <label for="usePlaceholder">Use placeholder avatar instead</label>
+                </div>
+            </div>
+
+            <!-- Step 2: Message Selection -->
+            <h3>Step 2: Choose Your Message</h3>
+            <div class="form-group">
+                <div class="radio-group" id="messageOptions">
+                    <label class="radio-option">
+                        <input type="radio" name="message" value="message1" checked>
+                        <span class="radio-label">I'm in the Independent Journalism Atlas—a searchable database of independent journalists across platforms. Explore more at journalismatlas.com</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="message" value="message2">
+                        <span class="radio-label">Proud to be included in the Independent Journalism Atlas alongside 1,000+ independent journalists doing this work across YouTube, Substack, Instagram, Beehiiv, TikTok, Bluesky, X and more.</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="message" value="message3">
+                        <span class="radio-label">The Independent Journalism Atlas is mapping the creator journalism ecosystem. I'm in it -- alongside over 1,000 others at journalismatlas.com</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="message" value="message4">
+                        <span class="radio-label">Independent journalism is thriving across platforms, and the Independent Journalism Atlas is mapping it. Honored to be included.</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="message" value="custom">
+                        <span class="radio-label"><strong>Write your own message</strong></span>
+                    </label>
+                </div>
+                <div class="form-group hidden" id="customMessageGroup">
+                    <label for="customMessage">Your Custom Message</label>
+                    <textarea id="customMessage" maxlength="280" placeholder="Write your own message (max 280 characters)"></textarea>
+                    <div class="char-counter" id="charCounter">280 characters remaining</div>
+                </div>
+            </div>
+
+            <!-- Step 3: Style Customization -->
+            <h3>Step 3: Customize Your Style</h3>
+            <div class="form-group">
+                <label>Background Color</label>
+                <div class="color-selector" id="bgColorSelector">
+                    <div class="color-option selected" data-color="#000000" style="background-color: #000000;" title="Black"></div>
+                    <div class="color-option" data-color="#313131" style="background-color: #313131;" title="Dark Gray"></div>
+                    <div class="color-option" data-color="#ceff00" style="background-color: #ceff00;" title="Acid Green"></div>
+                    <div class="color-option" data-color="#97d600" style="background-color: #97d600;" title="Lime Green"></div>
+                    <div class="color-option" data-color="#5d7400" style="background-color: #5d7400;" title="Olive Green"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Text Color</label>
+                <div class="text-color-selector" id="textColorSelector">
+                    <div class="text-color-option selected" data-color="#FFFFFF">White (for dark backgrounds)</div>
+                    <div class="text-color-option" data-color="#000000">Black (for light backgrounds)</div>
+                </div>
+            </div>
+
+            <!-- Step 4: Preview & Generate -->
+            <h3>Step 4: Preview & Download</h3>
+            <div class="preview-container">
+                <canvas id="previewCanvas" width="1080" height="1080"></canvas>
+                <div class="btn-group">
+                    <button class="btn" id="generateBtn">Generate My Graphic</button>
+                </div>
+                <div class="btn-group hidden" id="downloadButtons">
+                    <button class="btn" id="downloadSquare">Download Image (1080×1080)</button>
+                    <button class="btn btn-secondary" id="downloadWide">Download for Twitter/LinkedIn (1200×630)</button>
+                </div>
+                <div class="message" id="generateMessage"></div>
+
+                <!-- Copy Caption Section -->
+                <div class="caption-section hidden" id="captionSection">
+                    <h4>📋 Your Social Media Caption</h4>
+                    <p class="caption-instructions">Download your image, then paste this caption when you post to social media:</p>
+                    <div class="caption-box" id="captionBox">
+                        <p id="captionText"></p>
+                    </div>
+                    <button class="btn btn-secondary" id="copyCaptionBtn">
+                        <span id="copyBtnText">📋 Copy Caption</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Corrections & Nominations -->
+        <section class="section" id="corrections-section">
+            <h2>✏️ Update Your Info or Nominate Others</h2>
+            <p>Need to correct your listing? Know other creators who should be in the Atlas? Use our submission form:</p>
+            <div style="margin-top: 1.5rem;">
+                <a href="../submit.html" class="btn" target="_blank">Submit Corrections or Nominations</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <h2>About the Independent Journalism Atlas</h2>
+        <p>The Independent Journalism Atlas is the IMDb or Wikipedia of independent journalism. We're mapping thousands of individual creators who are committing extraordinary acts of journalism across YouTube, Substack, Instagram, TikTok and other distributed platforms.</p>
+        <p><strong>Explore the full Atlas:</strong> <a href="https://journalismatlas.com">journalismatlas.com</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

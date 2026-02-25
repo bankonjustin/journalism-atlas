@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About This Project - Independent Journalism Atlas</title>
+    <meta name="description" content="Discover how the Independent Journalism Atlas is mapping the new landscape of independent journalism and supporting creator journalists worldwide.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://journalismatlas.com/what-we-do.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://journalismatlas.com/what-we-do.html">
+    <meta property="og:title" content="About This Project - Independent Journalism Atlas">
+    <meta property="og:description" content="Discover how the Independent Journalism Atlas is mapping the new landscape of independent journalism and supporting creator journalists worldwide.">
+    <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+    <meta property="og:site_name" content="Independent Journalism Atlas">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Independent Journalism Atlas - Mapping the future of independent journalism">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://journalismatlas.com/what-we-do.html">
+    <meta property="twitter:title" content="About This Project - Independent Journalism Atlas">
+    <meta property="twitter:description" content="Discover how the Independent Journalism Atlas is mapping the new landscape of independent journalism and supporting creator journalists worldwide.">
+    <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+
+    <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --acid-green: #ceff00;
+            --lime-green: #97d600;
+            --light-gray: #efeff2;
+            
+            --dark-gray: #313131;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        .top-nav {
+            background-color: var(--black);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--acid-green);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-logo-circle {
+            width: 32px;
+            height: 32px;
+            color: var(--acid-green);
+        }
+
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--acid-green);
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .pillar-card {
+            background-color: var(--light-gray);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 6px solid var(--acid-green);
+        }
+
+        .pillar-number {
+            display: inline-block;
+            background-color: var(--black);
+            color: var(--acid-green);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .pillar-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--black);
+            margin-bottom: 1rem;
+        }
+
+        .section-divider {
+            border-top: 3px solid var(--acid-green);
+            margin: 4rem 0;
+        }
+
+        .projects-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--black);
+        }
+
+        .project-card {
+            background-color: var(--white);
+            border: 2px solid var(--medium-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--acid-green);
+        }
+
+        .project-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--black);
+        }
+
+        .project-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--dark-gray);
+        }
+
+        .cta-box {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .cta-box h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--acid-green);
+        }
+
+        .cta-box p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--acid-green);
+            color: var(--black);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--acid-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .footer-logo-text {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-tagline {
+            color: var(--medium-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--acid-green);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: var(--medium-gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-circle">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="nav-logo-text">ATLAS</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Database</a>
+                <a href="who-we-are.html" class="nav-link">Who We Are</a>
+                <a href="what-we-do.html" class="nav-link">About This Project</a>
+                <a href="how-we-did-this.html" class="nav-link">How We Did This</a>
+                <a href="advisory.html" class="nav-link">Advisory Boards</a>
+                <a href="submit.html" class="nav-link">Submit</a>
+                <a href="research.html" class="nav-link">Our Research</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h1 class="page-title">About This Project</h1>
+        </div>
+
+        <div style="background-color: var(--light-gray); padding: 2.5rem; border-radius: 12px; margin-bottom: 3rem;">
+            <p style="font-size: 18px; line-height: 1.8; margin-bottom: 1.5rem;">The Independent Journalism Atlas is a wayfinder for the future of news media, at our core, we are an expanding database of individuals committing acts of journalism outside traditional institutional structures. This database is by no means complete. If you should be considered for inclusion — or know someone who should — nominations can be made via <a href="submit.html" style="color: var(--black); text-decoration: underline; font-weight: 600;">this form</a>.</p>
+        </div>
+
+        <div style="margin-bottom: 3rem;">
+            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 1.5rem;">Our Mission</h2>
+            <p style="font-size: 16px; line-height: 1.8; margin-bottom: 1rem;">We chart individuals and their work, wherever that may lead. Around the world, individuals are developing new approaches and models to produce trusted reporting, reach loyal audiences, and shape public discourse.</p>
+            <p style="font-size: 16px; line-height: 1.8; margin-bottom: 1rem;">Our Atlas is designed to connect audiences with these creators—those who are telling the stories they choose, with purpose, for the communities they cultivate and serve. You can read more about our vision and future work <a href="who-we-are.html" style="color: var(--black); text-decoration: underline;">here</a>.</p>
+        </div>
+
+        <!-- Four Pillars -->
+        <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 2rem;">What We Do</h2>
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-number">1</div>
+                <h2>Discovery & Mapping</h2>
+                <p>Journalism creators exist in every corner of the world. Yet there is no reliable way to find them, differentiate them from other types of content creators, understand their work, or measure their impact.</p>
+                <p>Without visibility, individual creators and worker-owned collectives are often overlooked by funders, ignored by institutions, and disconnected from one another.</p>
+                <p>We're building a comprehensive, trusted map of independent creator journalism today. We capture detailed data across formats, beats, business models, audience reach, ethics, community engagement, missions, and more—allowing us to understand this nascent ecosystem at a deeper level.</p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-number">2</div>
+                <h2>Standards & Frameworks</h2>
+                <p>Creator-led journalism has brought an authenticity that thrives outside traditional credentials. But credibility demands rigor. Open standards around sourcing, transparency, and ethical practice protect both creators and their audiences—while still giving room for individual creators to explain where they may differ from their peers.</p>
+                <p>The Atlas acts as a curator of best practices emerging from trusted industry leaders like Trusting News, Pew Research, CNTI, Project C, The Video Consortium, and—crucially—from creators themselves, by gathering and adapting proven approaches to help individuals develop and maintain credibility.</p>
+                <p>We commission new research to track and understand the evolving ways trust is built and earned in the creator ecosystem: from transparency norms to audience engagement models to forms of accountability.</p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-number">3</div>
+                <h2>Platform Intermediation</h2>
+                <p>Today's licensing, syndication, and partnership systems are optimized for legacy outlets – not individual creators or nascent collective newsrooms. As a result, creators face steep barriers to scaling their reach, diversifying revenue, and collaborating on equal footing with traditional media.</p>
+                <p>We serve as a repository of proven business models from across the media, entertainment, and technology industries, adapting them for journalism creators. We prototype and test new forms of intermediation – systems that make it simple for creators to license their work, enter into fair partnerships, and participate in distribution networks without ceding ownership or editorial independence.</p>
+                <p>By combining the best of what exists with innovations built for this emerging space, we create and foster infrastructure that allows creators, institutions, and platforms to work together sustainably and transparently.</p>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-number">4</div>
+                <h2>New Products & Marketplaces</h2>
+                <p>We're developing creator-centered revenue opportunities that unlock entirely new pathways for sustainable journalism.</p>
+                <p>Our work includes PR distribution services that connect journalists with story opportunities, RFP pipelines for public communications campaigns that need credible voices, and marketplaces for B2B research and consulting services where journalists can leverage their expertise beyond traditional reporting.</p>
+                <p>This unlocks an entirely new class of information providers for communities — and provides funders with visibility and intelligence they've never had before.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Current Projects -->
+        <div class="projects-section">
+            <h2 class="section-title">Current Projects & Pilots</h2>
+
+            <div class="project-card">
+                <h3>Chicago Ecosystem Mapping</h3>
+                <p>Testing publisher-partnership models with Press Forward Chicago, Chicago Public Media, and Medill. We've grown our database by 100+ names, identifying niche hyperlocal creators who never appear in traditional media databases. This work establishes frameworks for fair collaboration between legacy institutions and independent creators.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>DC Network Mapping</h3>
+                <p>Expert-produced network of 140 verified creators in the Washington, DC area. We've convened a leadership group to evaluate what creators need to reach sustainability and built a comprehensive map of the local creator journalism ecosystem.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Minnesota Rapid-Response Mapping</h3>
+                <p>Using our "spidering technique," we identified and vetted 50 independent creators covering ICE raids and local news in hours rather than weeks. Started with verified creators, analyzed their organic collaboration patterns, used human editors alongside AI tools to discover and vet new sources. This positions mapped creators for future grant consideration, partnerships, and platform discovery.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Product Development Pipeline</h3>
+                <p>We're building Atlas Pulse, an RSS and API-powered intelligence system that monitors creators across platforms, analyzes posts using AI to identify trending topics, and generates human-readable digests. We're also developing partnership frameworks with platforms and publishers, testing new revenue models, and creating discovery tools that maintain editorial integrity.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Methodology Link -->
+        <div style="margin-bottom: 3rem;">
+            <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 1.5rem;">Methodology</h2>
+            <p style="font-size: 16px; line-height: 1.8; color: var(--dark-gray);">Curious how we built and verify this database? Read a full breakdown of our research process, inclusion criteria, and quality standards on our <a href="how-we-did-this.html" style="color: var(--black); text-decoration: underline; font-weight: 600;">How We Did This</a> page.</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-circle">ATLAS</div>
+                    <span class="footer-logo-text">The Independent Journalism Atlas</span>
+                </div>
+                <p class="footer-tagline">Building infrastructure for the future of journalism.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <a href="index.html">Browse Database</a>
+                <a href="who-we-are.html">Who We Are</a>
+                <a href="what-we-do.html">About This Project</a>
+            </div>
+            <div class="footer-column">
+                <h4>About</h4>
+                <a href="how-we-did-this.html">How We Did This</a>
+                <a href="advisory.html">Advisory Boards</a>
+                <a href="submit.html">Submit</a>
+                <a href="research.html">Our Research</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="cdn-cgi/l/email-protection#6c04090000032c0603191e020d00051f010d18000d1f420f0301">Email Us</a>
+                <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</

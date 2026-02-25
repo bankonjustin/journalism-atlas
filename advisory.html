@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advisory Boards - Independent Journalism Atlas</title>
+    <meta name="description" content="Meet the advisory boards guiding the Independent Journalism Atlas, including experts in journalism, technology, and creator economy.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://journalismatlas.com/advisory.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://journalismatlas.com/advisory.html">
+    <meta property="og:title" content="Advisory Boards - Independent Journalism Atlas">
+    <meta property="og:description" content="Meet the advisory boards guiding the Independent Journalism Atlas, including experts in journalism, technology, and creator economy.">
+    <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+    <meta property="og:site_name" content="Independent Journalism Atlas">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Independent Journalism Atlas - Mapping the future of independent journalism">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://journalismatlas.com/advisory.html">
+    <meta property="twitter:title" content="Advisory Boards - Independent Journalism Atlas">
+    <meta property="twitter:description" content="Meet the advisory boards guiding the Independent Journalism Atlas, including experts in journalism, technology, and creator economy.">
+    <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+
+    <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --acid-green: #ceff00;
+            --lime-green: #97d600;
+            --light-gray: #efeff2;
+            
+            --dark-gray: #313131;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        .top-nav {
+            background-color: var(--black);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--acid-green);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-logo-circle {
+            width: 32px;
+            height: 32px;
+            color: var(--acid-green);
+        }
+
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--acid-green);
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: var(--dark-gray);
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-text {
+            background-color: var(--light-gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .intro-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--black);
+        }
+
+        .board-section {
+            background-color: var(--white);
+            border: 3px solid var(--medium-gray);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background-color: var(--acid-green);
+            color: var(--black);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .board-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .board-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .board-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1.5rem;
+        }
+
+        .board-section li {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .board-section li:before {
+            content: "→";
+            color: var(--acid-green);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .governance-box {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-top: 3rem;
+        }
+
+        .governance-box h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--acid-green);
+        }
+
+        .governance-box p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--acid-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .footer-logo-text {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-tagline {
+            color: var(--medium-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--acid-green);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: var(--medium-gray);
+            font-size: 14px;
+        }
+
+        .board-member {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .board-member img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .board-member h4 {
+            margin-top: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .board-section {
+                padding: 2rem;
+            }
+
+            .coming-soon-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+
+            .board-member {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .board-member img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-circle">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="nav-logo-text">ATLAS</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Database</a>
+                <a href="who-we-are.html" class="nav-link">Who We Are</a>
+                <a href="what-we-do.html" class="nav-link">About This Project</a>
+                <a href="how-we-did-this.html" class="nav-link">How We Did This</a>
+                <a href="advisory.html" class="nav-link">Advisory Boards</a>
+                <a href="submit.html" class="nav-link">Submit</a>
+                <a href="research.html" class="nav-link">Our Research</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h1 class="page-title">Advisory Boards</h1>
+            <p class="page-subtitle">Building governance structures that center the voices of creators and trust experts.</p>
+        </div>
+
+        <div class="intro-text">
+            <p>The Independent Journalism Atlas is committed to building infrastructure that serves creators and strengthens journalism's role in democracy. Our advisory boards ensure that the people most affected by our work—creators themselves, and experts in journalistic trust and ethics—have real input into how we develop standards, partnerships, and tools.</p>
+        </div>
+
+        <!-- Creator Advisory Board -->
+        <div class="board-section">
+            <h2>Creator Advisory Board</h2>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/MicahGelman3 copy.jpg" alt="Micah Gelman" >
+                <div>
+                    <h4 style="margin-top: 0;">Micah Gelman</h4>
+                    <p><strong>Co-Founder, Local News International</strong></p>
+                </div>
+            </div>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/find photographer near me, portrait_Austin_headshot (1).jpeg" alt="Austin Graff" >
+                <div>
+                    <h4 style="margin-top: 0;">Austin Graff</h4>
+                    <p><strong>Founder, Curiosity & Connection</strong></p>
+                </div>
+            </div>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/Sherman, Amber_Edit Headshot.jpg" alt="Amber Sherman" >
+                <div>
+                    <h4 style="margin-top: 0;">Amber Sherman</h4>
+                    <p><strong>Policy Organizer</strong></p>
+                </div>
+            </div>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/lisa-remillard.webp" alt="Lisa Remillard">
+                <div>
+                    <h4 style="margin-top: 0;">Lisa Remillard</h4>
+                    <p><strong>Co-Founder, BEONDTV; Founder, ProMedia Coaching</strong></p>
+                </div>
+            </div>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/matt_kiser.png" alt="Matt Kiser">
+                <div>
+                    <h4 style="margin-top: 0;">Matt Kiser</h4>
+                    <p><strong>Founder & Editor, WTF Just Happened Today</strong></p>
+                </div>
+            </div>
+
+            <p>The Creator Advisory Board brings together independent journalism creators from diverse backgrounds, platforms, and beats to guide our work. These are the journalists building sustainable models outside traditional institutions—their lived experience is essential to ensuring Atlas serves their needs.</p>
+
+            <p><strong>Purpose:</strong></p>
+            <ul>
+                <li>Shape standards and frameworks that are creator-informed from the ground up</li>
+                <li>Provide guidance on developing partnerships and funding opportunities</li>
+                <li>Ensure our infrastructure protects creator independence and editorial integrity</li>
+                <li>Offer practical wisdom about what actually serves independent journalism versus what sounds good in theory</li>
+                <li>Test and refine tools, resources, and partnership models before broader rollout</li>
+            </ul>
+
+            <p style="margin-top: 2rem;">We're recruiting our inaugural Creator Advisory Board now. Members will be listed on this page as they join. The board will convene periodically to review Atlas work and provide strategic input.</p>
+        </div>
+
+        <!-- Trust & Standards Advisory Board -->
+        <div class="board-section">
+            <h2>Trust & Standards Advisory Board</h2>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/rob_elder.jpg" alt="Robert K. Elder" >
+                <div>
+                    <h4 style="margin-top: 0;">Robert K. Elder</h4>
+                    <p><strong>President & CEO, Outrider Foundation</strong></p>
+                </div>
+            </div>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/K Merida Headshot 2M (1).jpg" alt="Kevin Merida" >
+                <div>
+                    <h4 style="margin-top: 0;">Kevin Merida</h4>
+                    <p><strong>Independent journalist and media leader</strong></p>
+                </div>
+            </div>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/MollieMuchna.jpeg" alt="Mollie Muchna" >
+                <div>
+                    <h4 style="margin-top: 0;">Mollie Muchna</h4>
+                    <p><strong>Creator Standards Project Lead, Trusting News</strong></p>
+                </div>
+            </div>
+
+            <div class="board-member">
+                <img src="assets/images/advisory/jason rezaian.jpg" alt="Jason Rezaian" >
+                <div>
+                    <h4 style="margin-top: 0;">Jason Rezaian</h4>
+                    <p><strong>Director of Press Freedom Initiatives, The Washington Post</strong></p>
+                </div>
+            </div>
+
+            <p>The Trust & Standards Advisory Board comprises experts who have spent their careers thinking deeply about journalistic ethics, credibility, and public trust. As journalism atomizes and individual creators build direct relationships with audiences, the mechanisms for demonstrating credibility are evolving rapidly. This board helps us navigate these changes thoughtfully.</p>
+
+            <p><strong>Purpose:</strong></p>
+            <ul>
+                <li>Guide our standards work, research priorities, and approach to credibility frameworks</li>
+                <li>Ensure what we build is grounded in journalistic principles while remaining adaptive to creator practice</li>
+                <li>Advise and coach creator journalists as they confront real-time challenges</li>
+                <li>Help curate best practices bubbling up across journalism and creator ecosystems</li>
+                <li>Validate that transparency norms, accountability mechanisms, and ethical guidelines serve both creators and the public</li>
+            </ul>
+
+            <p style="margin-top: 2rem;">We're assembling the Trust & Standards Advisory Board to begin work in early 2026. Members will be listed here as they join. The board will engage through periodic convenings, collaboration with our Creator Advisory Board, and participation in shared community spaces where they can advise creators directly.</p>
+        </div>
+
+        <!-- Governance Info -->
+        <div class="governance-box">
+            <h3>Our Governance Philosophy</h3>
+            <p>The information industry has long privileged containers over creators. We're working to change that. Our advisory boards are not ceremonial—they have real influence over how standards and partnerships evolve.</p>
+            <p>We're building The Independent Journalism Atlas with an explicit pathway to community/steward ownership. We're building infrastructure that should outlast us—commons for creator journalism, not empire-building.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-circle">ATLAS</div>
+                    <span class="footer-logo-text">The Independent Journalism Atlas</span>
+                </div>
+                <p class="footer-tagline">Building infrastructure for the future of journalism.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <a href="index.html">Browse Database</a>
+                <a href="who-we-are.html">Who We Are</a>
+                <a href="what-we-do.html">About This Project</a>
+            </div>
+            <div class="footer-column">
+                <h4>About</h4>
+                <a href="how-we-did-this.html">How We Did This</a>
+                <a href="advisory.html">Advisory Boards</a>
+                <a href="submit.html">Submit</a>
+                <a href="research.html">Our Research</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="cdn-cgi/l/email-protection#bed6dbd2d2d1fed4d1cbccd0dfd2d7cdd3dfcad2dfcd90ddd1d3">Email Us</a>
+                <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</

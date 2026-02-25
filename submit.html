@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contribute to The Atlas - Independent Journalism Atlas</title>
+    <meta name="description" content="Submit a creator or independent journalist to the Independent Journalism Atlas directory or suggest updates to existing profiles. Help us map independent journalism.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://journalismatlas.com/submit.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://journalismatlas.com/submit.html">
+    <meta property="og:title" content="Contribute to The Atlas - Independent Journalism Atlas">
+    <meta property="og:description" content="Submit a creator or independent journalist to the Independent Journalism Atlas directory or suggest updates to existing profiles. Help us map independent journalism.">
+    <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+    <meta property="og:site_name" content="Independent Journalism Atlas">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Independent Journalism Atlas - Mapping the future of independent journalism">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://journalismatlas.com/submit.html">
+    <meta property="twitter:title" content="Contribute to The Atlas - Independent Journalism Atlas">
+    <meta property="twitter:description" content="Submit a creator or independent journalist to the Independent Journalism Atlas directory or suggest updates to existing profiles. Help us map independent journalism.">
+    <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+
+    <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --acid-green: #ceff00;
+            --lime-green: #d4ff33;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        .top-nav {
+            background-color: var(--black);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--acid-green);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-logo-circle {
+            width: 32px;
+            height: 32px;
+            color: var(--acid-green);
+        }
+
+        .nav-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-link:hover {
+            color: var(--acid-green);
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .page-subtitle {
+            font-size: 20px;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+
+        /* Form Section */
+        .form-section {
+            background-color: var(--light-gray);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+        }
+
+        .form-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .form-intro {
+            font-size: 16px;
+            color: var(--dark-gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .form-intro a {
+            color: var(--black);
+            text-decoration: underline;
+        }
+
+        .form-intro a:hover {
+            color: var(--dark-gray);
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            background-color: var(--white);
+            border: 2px solid var(--light-gray);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .contact-info a {
+            color: var(--black);
+            text-decoration: underline;
+        }
+
+        .contact-info a:hover {
+            color: var(--dark-gray);
+        }
+
+        /* Updates CTA */
+        .updates-cta {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .updates-cta-text h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .updates-cta-text p {
+            font-size: 15px;
+            color: #aaaaaa;
+            line-height: 1.5;
+        }
+
+        .updates-cta-btn {
+            display: inline-block;
+            padding: 0.85rem 1.75rem;
+            background-color: var(--acid-green);
+            color: var(--black);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .updates-cta-btn:hover {
+            background-color: var(--lime-green);
+        }
+
+        @media (max-width: 600px) {
+            .updates-cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .updates-cta-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Team Section */
+        .team-section {
+            background-color: var(--light-gray);
+            padding: 2.5rem;
+            border-radius: 12px;
+        }
+
+        .team-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .team-section p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .team-section a {
+            color: var(--black);
+            text-decoration: underline;
+        }
+
+        .team-section a:hover {
+            color: var(--dark-gray);
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            grid-column: span 1;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--acid-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .footer-logo-text {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-tagline {
+            color: var(--medium-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--acid-green);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: var(--medium-gray);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .form-section,
+            .contact-info,
+            .team-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="/index.html" class="nav-logo">
+                <div class="nav-logo-circle">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="nav-logo-text">ATLAS</span>
+            </a>
+            <div class="nav-links">
+                <a href="/index.html" class="nav-link">Database</a>
+                <a href="/who-we-are.html" class="nav-link">Who We Are</a>
+                <a href="/what-we-do.html" class="nav-link">About This Project</a>
+                <a href="/advisory.html" class="nav-link">Advisory Boards</a>
+                <a href="/submit.html" class="nav-link">Submit</a>
+                <a href="/research.html" class="nav-link">Our Research</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h1 class="page-title">Contribute to The Atlas</h1>
+            <p class="page-subtitle">Submit a creator or independent journalist for inclusion or suggest updates to existing profiles.</p>
+        </div>
+
+        <!-- Submission Form -->
+        <div class="form-section">
+            <h2>Submit a Creator</h2>
+            <p class="form-intro">We focus on mapping independent creators of journalism. Learn more about <a href="/how-we-did-this.html" target="_blank">our methodology and inclusion criteria here</a>.</p>
+
+            <div class="google-form-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeaduC8DHeP4Myn89RUn5dxjtolj0bT-MMEAm-m7Lyvjf3gHg/viewform?embedded=true" width="100%" height="990" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+
+        <!-- Update Existing Profile -->
+        <div class="form-section" id="update-section" style="display: none;">
+            <h2>Update an Existing Profile</h2>
+            <p class="form-intro">Use this form to suggest updates or corrections to an existing creator profile. <span id="editing-creator-name" style="font-weight: 600;"></span></p>
+
+            <div class="google-form-container">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeaduC8DHeP4Myn89RUn5dxjtolj0bT-MMEAm-m7Lyvjf3gHg/viewform?embedded=true" width="100%" height="990" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <h2>Contact Us Directly</h2>
+            <p>For general inquiries, partnership opportunities, or questions about The Atlas, email us at <a href="/cdn-cgi/l/email-protection#3b535e5757547b51544e49555a575248565a4f57524008545e49">hello@journalismatlas.com</a></p>
+        </div>
+
+        <!-- Sign Up for Updates CTA -->
+        <div class="updates-cta">
+            <div class="updates-cta-text">
+                <h2>Stay in the Loop</h2>
+                <p>Get notified about new data, research, and developments in independent journalism.</p>
+            </div>
+            <a href="/updates.html" class="updates-cta-btn">Sign Up for Updates</a>
+        </div>
+
+        <script>
+            // Check if we're in edit mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const editCreator = urlParams.get('edit');
+
+            if (editCreator) {
+                // Show the update section and hide the submit section
+                document.getElementById('update-section').style.display = 'block';
+                document.querySelector('.form-section:not(#update-section)').style.display = 'none';
+                document.getElementById('editing-creator-name').textContent = `Editing: ${editCreator}`;
+
+                // Update page title
+                document.querySelector('.page-title').textContent = 'Suggest Profile Updates';
+                document.querySelector('.page-subtitle').textContent = `Suggest updates or corrections for ${editCreator}`;
+            }
+        </script>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-circle">ATLAS</div>
+                    <span class="footer-logo-text">The Independent Journalism Atlas</span>
+                </div>
+                <p class="footer-tagline">Building infrastructure for the future of journalism.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <a href="/index.html">Browse Database</a>
+                <a href="/who-we-are.html">Who We Are</a>
+                <a href="/what-we-do.html">About This Project</a>
+            </div>
+            <div class="footer-column">
+                <h4>About</h4>
+                <a href="/advisory.html">Advisory Boards</a>
+                <a href="/submit.html">Submit</a>
+                <a href="/research.html">Our Research</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="/cdn-cgi/l/email-protection#6e060b0202012e04011b1c00070a0f15030f1a02071d530e0200">Email Us</a>
+                <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+</body>
+</html>
