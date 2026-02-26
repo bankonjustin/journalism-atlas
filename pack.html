@@ -859,14 +859,15 @@
             font-size: clamp(28px, 5vw, 56px);
             font-weight: 800;
             color: #fff;
-            margin: 0 0 40px;
+            margin: 0 0 28px;
             max-width: 700px;
             line-height: 1.1;
         }
         .recipient-canvas-wrap {
             width: min(480px, 90vw);
             aspect-ratio: 1;
-            margin-bottom: 32px;
+            margin-top: 40px;
+            margin-bottom: 0;
             border-radius: 4px;
             overflow: hidden;
             box-shadow: 0 8px 40px rgba(0,0,0,0.6);
@@ -934,6 +935,24 @@
             transition: color 0.15s;
         }
         .recipient-remix-btn:hover { color: #ceff00; }
+        .recipient-download-btn {
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            background: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 4px;
+            padding: 8px 20px;
+            cursor: pointer;
+            letter-spacing: 0.03em;
+            transition: color 0.15s, border-color 0.15s;
+            margin-top: 12px;
+        }
+        .recipient-download-btn:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,0.4);
+        }
         /* Collapse animation */
         .recipient-hero--collapsing {
             opacity: 0;
@@ -1192,7 +1211,7 @@
                 </div>
                 <div class="pack-field-group">
                     <label class="pack-field-label" for="packNameDesktop">Pack name</label>
-                    <input class="pack-name-input" id="packNameDesktop" type="text" placeholder="Name your pack…" maxlength="48">
+                    <input class="pack-name-input" id="packNameDesktop" type="text" placeholder="e.g. Climate journalists you need to follow" maxlength="48">
                 </div>
             </div>
 
@@ -1241,7 +1260,7 @@
     <div class="modal-sheet">
         <div class="modal-handle"></div>
         <div class="modal-label">Your pack</div>
-        <input class="modal-name-input" id="packNameMobile" type="text" placeholder="Name your pack…" maxlength="48" oninput="renderCanvas('mobile')">
+        <input class="modal-name-input" id="packNameMobile" type="text" placeholder="e.g. Climate journalists you need to follow" maxlength="48" oninput="renderCanvas('mobile')">
         <div class="modal-canvas-wrap">
             <canvas id="mobilePackCanvas" width="1080" height="1080"></canvas>
         </div>
@@ -1581,7 +1600,11 @@ function getAttributionCopy() {
 }
 
 function getRecipientTitle() {
-    return getPackName('recipient');
+    const name = getPackName('recipient');
+    if (!name || name.toLowerCase() === 'share pack for others' || name === 'An Atlas Pack') {
+        return 'A reading list, just for you';
+    }
+    return name;
 }
 
 function buildRecipientHero() {
@@ -1593,9 +1616,6 @@ function buildRecipientHero() {
     hero.innerHTML = `
         <div class="recipient-attribution">${getAttributionCopy()}</div>
         <h1 class="recipient-pack-title">${getRecipientTitle()}</h1>
-        <div class="recipient-canvas-wrap">
-            <canvas id="recipientCanvas" width="1080" height="1080"></canvas>
-        </div>
         <div class="recipient-follow-wrap">
             <div class="follow-label">Follow this pack</div>
             <div id="recipientFollowButtons" class="follow-buttons"></div>
@@ -1604,6 +1624,10 @@ function buildRecipientHero() {
             <button class="recipient-cta-primary" id="recipientBuildOwn">✦ Build your own pack</button>
             <a href="index.html" class="recipient-cta-secondary">Explore the Atlas →</a>
         </div>
+        <div class="recipient-canvas-wrap">
+            <canvas id="recipientCanvas" width="1080" height="1080"></canvas>
+        </div>
+        <button class="recipient-download-btn" id="recipientDownloadBtn">↓ Save as image</button>
         <div class="recipient-remix-hint">
             <span>Want to remix this pack?</span>
             <button class="recipient-remix-btn" id="recipientRemixBtn">Add or remove creators ↓</button>
@@ -1635,10 +1659,24 @@ function buildRecipientHero() {
 
     document.getElementById('recipientRemixBtn').addEventListener('click', () => {
         // Keep selection intact — user is remixing, not starting fresh
-        transitionToBuilderMode();
+        transitionToBuilderMode({ keepName: true });
         setTimeout(() => {
             document.getElementById('workspace').scrollIntoView({ behavior: 'smooth' });
         }, 200);
+    });
+
+    document.getElementById('recipientDownloadBtn').addEventListener('click', () => {
+        const canvas = document.getElementById('recipientCanvas');
+        if (!canvas) return;
+        const packName = getPackName('recipient') || 'atlas-pack';
+        const slug = packName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'atlas-pack';
+        canvas.toBlob(blob => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = slug + '.png';
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+        }, 'image/png');
     });
 }
 
@@ -1708,9 +1746,19 @@ function renderRecipientFollowButtons() {
     });
 }
 
-function transitionToBuilderMode() {
+function transitionToBuilderMode(opts) {
     if (!isInRecipientMode) return;
     isInRecipientMode = false;
+
+    // Carry the recipient's pack name into the builder input when remixing
+    if (opts && opts.keepName) {
+        const recipientName = getPackName('recipient');
+        const nameInput = document.getElementById('packNameDesktop');
+        if (nameInput && !nameInput.value && recipientName && recipientName !== 'An Atlas Pack') {
+            nameInput.value = recipientName.slice(0, 48);
+            renderCanvas('desktop');
+        }
+    }
 
     const hero = document.getElementById('recipientHero');
     if (hero) {
@@ -1722,9 +1770,9 @@ function transitionToBuilderMode() {
 
 // ── Selection ──────────────────────────────────────────────────────────────
 function toggleCreator(c) {
-    // First interaction in recipient mode triggers transition to builder
+    // First interaction in recipient mode triggers transition to builder (remix path)
     if (isInRecipientMode) {
-        transitionToBuilderMode();
+        transitionToBuilderMode({ keepName: true });
         setTimeout(() => {
             document.getElementById('workspace').scrollIntoView({ behavior: 'smooth' });
         }, 200);
@@ -2006,16 +2054,23 @@ function renderCanvas(which) {
     const colAx = rX;
     const colBx = rX + colW + 40;
 
-    const nameSize = 22;
-    const chanSize = 15;
+    const nameSize = twoCol ? 24 : 28;
+    const chanSize = 18;
     const dotSize  = 13;
-    const lineH    = twoCol ? 58 : 68;
+    const lineH    = twoCol ? 72 : 84;
+
+    // Cap displayed creators at 10 in two-col mode to prevent crowding
+    const MAX_CANVAS_CREATORS = 10;
+    const displayCreators = twoCol && creators.length > MAX_CANVAS_CREATORS
+        ? creators.slice(0, MAX_CANVAS_CREATORS)
+        : creators;
+    const overflow = creators.length - displayCreators.length;
 
     // Vertically centre the creator block between rule2 and bottom rule
     const bottomRuleY = H - 112;
     const listAreaH   = bottomRuleY - (rY2 + 20);
-    const colACount   = twoCol ? Math.ceil(creators.length / 2) : creators.length;
-    const blockH      = colACount * lineH;
+    const colACount   = twoCol ? Math.ceil(displayCreators.length / 2) : displayCreators.length;
+    const blockH      = colACount * lineH + (overflow > 0 ? 28 : 0); // 28px for "and X more"
     const listY       = rY2 + 20 + Math.max(0, Math.floor((listAreaH - blockH) / 2));
 
     function drawCreatorRow(c, x, y, maxW) {
@@ -2066,16 +2121,23 @@ function renderCanvas(which) {
     }
 
     if (twoCol) {
-        const half = Math.ceil(creators.length / 2);
+        const half = Math.ceil(displayCreators.length / 2);
         for (let i = 0; i < half; i++) {
-            drawCreatorRow(creators[i], colAx, listY + i * lineH, colW);
+            drawCreatorRow(displayCreators[i], colAx, listY + i * lineH, colW);
         }
-        for (let i = half; i < creators.length; i++) {
-            drawCreatorRow(creators[i], colBx, listY + (i - half) * lineH, colW);
+        for (let i = half; i < displayCreators.length; i++) {
+            drawCreatorRow(displayCreators[i], colBx, listY + (i - half) * lineH, colW);
+        }
+        if (overflow > 0) {
+            const bottomY = listY + colACount * lineH + 18;
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.font = '400 16px "Hanken Grotesk", sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(`+ ${overflow} more`, rX, bottomY);
         }
     } else {
-        for (let i = 0; i < creators.length; i++) {
-            drawCreatorRow(creators[i], colAx, listY + i * lineH, rW);
+        for (let i = 0; i < displayCreators.length; i++) {
+            drawCreatorRow(displayCreators[i], colAx, listY + i * lineH, rW);
         }
     }
 
