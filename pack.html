@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make a Starter Pack — Independent Journalism Atlas</title>
-    <meta name="description" content="Curate your favourite independent journalists and share them as a postcard. 1,006 creators across newsletters, podcasts, video, and more.">
+    <meta name="description" content="Curate your favourite independent journalists and share them as a postcard. 1,000+ creators across newsletters, podcasts, video, and more.">
     <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1134,7 +1134,7 @@
         <span class="hero-cta-arrow">↓</span>
     </a>
     <p class="hero-count">
-        <strong>1,006</strong> creators · free · no account needed
+        <strong id="heroCount">1,000+</strong> creators · free · no account needed
     </p>
 
     <div class="scroll-hint">
@@ -1149,7 +1149,7 @@
             <span class="how-step-num">01</span>
             <div class="how-step-text">
                 <strong>Filter & browse</strong>
-                <span>Search by name, topic, or platform. 1,006 independent creators.</span>
+                <span>Search by name, topic, or platform. <span id="searchCount">1,000+</span> independent creators.</span>
             </div>
         </div>
         <div class="how-step">
@@ -1176,7 +1176,7 @@
     <div class="browser-col">
         <div class="browser-header">
             <div class="browser-title">Browse creators</div>
-            <div class="browser-sub">Showing <span id="liveCount">1,006</span> creators — tap any to add to your pack</div>
+            <div class="browser-sub">Showing <span id="liveCount">...</span> creators — tap any to add to your pack</div>
         </div>
 
         <div class="filter-bar">
@@ -1297,6 +1297,14 @@ fetch('assets/data/creators-data.json')
     .then(data => {
         allCreators = data;
         filteredCreators = data;
+        // Update all count displays dynamically from the live data
+        const count = data.length.toLocaleString();
+        const heroCount = document.getElementById('heroCount');
+        const searchCount = document.getElementById('searchCount');
+        const liveCount = document.getElementById('liveCount');
+        if (heroCount) heroCount.textContent = count;
+        if (searchCount) searchCount.textContent = count;
+        if (liveCount) liveCount.textContent = count;
         buildFilters();
         renderGrid();
         buildAmbient();
