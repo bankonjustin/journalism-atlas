@@ -354,9 +354,9 @@
                 // Build filter options
                 buildFilterOptions();
                 
-                // Initial render
-                filterState.applyFilters();
-                
+                // Initial render — show wheel view by default
+                toggleView('wheel');
+
                 // Hide loading state
                 document.getElementById('loadingState').style.display = 'none';
                 
