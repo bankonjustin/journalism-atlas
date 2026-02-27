@@ -1,7 +1,7 @@
         // Global state
         let allCreators = [];
         let filteredCreators = [];
-        let currentView = 'wheel';
+        let currentView = 'grid';
         let currentBubbleMode = 'platform';
 
         // Shared ordered groups list (used in filters and treemap)
@@ -354,8 +354,8 @@
                 // Build filter options
                 buildFilterOptions();
                 
-                // Initial render — show wheel view by default
-                toggleView('wheel');
+                // Initial render
+                filterState.applyFilters();
 
                 // Hide loading state
                 document.getElementById('loadingState').style.display = 'none';
