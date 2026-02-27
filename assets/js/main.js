@@ -1,7 +1,7 @@
         // Global state
         let allCreators = [];
         let filteredCreators = [];
-        let currentView = 'grid';
+        let currentView = 'wheel';
         let currentBubbleMode = 'platform';
 
         // Shared ordered groups list (used in filters and treemap)
