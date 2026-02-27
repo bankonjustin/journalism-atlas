@@ -2401,7 +2401,6 @@
             // Restore scroll position — innerHTML reflow can jump the viewport
             if (drawerContent) drawerContent.scrollTop = scrollBefore;
         };
-    </script>
 
 // ─────────────────────────────────────────────────────────────────────────
 // Mobile Menu, Filter Toggle, Pack System
