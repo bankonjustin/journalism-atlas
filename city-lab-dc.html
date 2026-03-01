@@ -18,318 +18,143 @@
     }
 
     /* ── HEADER ── */
-    .header {
-      background: #000;
-      color: #fff;
-      padding: 40px 48px 36px;
-    }
+    .header { background: #000; color: #fff; padding: 40px 48px 36px; }
     .header-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #ceff00;
-      margin-bottom: 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #ceff00; margin-bottom: 12px;
     }
-    .header-city {
-      font-size: 48px;
-      font-weight: 800;
-      line-height: 1.0;
-      letter-spacing: -0.02em;
+    .header-title {
+      font-size: 48px; font-weight: 800;
+      line-height: 1.0; letter-spacing: -0.02em;
     }
-    .header-sub {
-      margin-top: 10px;
-      font-size: 15px;
-      color: #aaa;
-    }
-    .header-meta {
-      margin-top: 20px;
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-    .header-stat {
-      display: flex;
-      flex-direction: column;
-    }
+    .header-sub { margin-top: 10px; font-size: 15px; color: #aaa; }
+    .header-meta { margin-top: 20px; display: flex; gap: 32px; flex-wrap: wrap; }
+    .header-stat { display: flex; flex-direction: column; }
     .header-stat-num {
-      font-size: 36px;
-      font-weight: 800;
-      color: #ceff00;
-      line-height: 1;
+      font-size: 36px; font-weight: 800; color: #ceff00; line-height: 1;
     }
     .header-stat-label {
-      font-size: 12px;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 2px;
+      font-size: 12px; color: #888; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-top: 2px;
     }
 
     /* ── PLATFORM BAR ── */
     .platform-bar {
-      background: #efeff2;
-      padding: 20px 48px;
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      align-items: center;
-      border-bottom: 1px solid #e0e0e0;
+      background: #efeff2; padding: 20px 48px;
+      display: flex; gap: 24px; flex-wrap: wrap;
+      align-items: center; border-bottom: 1px solid #e0e0e0;
     }
     .platform-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #666;
-      margin-right: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #666; margin-right: 8px;
     }
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 60px;
-    }
-    .stat-num {
-      font-size: 22px;
-      font-weight: 800;
-      line-height: 1;
-    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+    .stat-num { font-size: 22px; font-weight: 800; line-height: 1; }
     .stat-label {
-      font-size: 11px;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 2px;
-      text-align: center;
+      font-size: 11px; color: #666; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-top: 2px; text-align: center;
     }
 
-    /* ── MAIN LAYOUT ── */
-    .main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 48px 80px;
-    }
-
-    .section {
-      padding: 40px 0;
-      border-bottom: 1px solid #e0e0e0;
-    }
+    /* ── LAYOUT ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+    .section { padding: 40px 0; border-bottom: 1px solid #e0e0e0; }
     .section:last-child { border-bottom: none; }
-
     .section-title {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #666;
-      margin-bottom: 20px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #666; margin-bottom: 20px;
     }
 
-    /* ── BEAT MAP ── */
-    .beat-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    /* ── PILLS (beat map + geo map) ── */
+    .pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 100px;
+      font-size: 13px; font-weight: 600; cursor: default;
     }
-    .beat-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: default;
-    }
-    .beat-count {
-      font-size: 11px;
-      font-weight: 800;
-      opacity: 0.75;
-    }
-    .legend {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: #555;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
+    .pill-count { font-size: 11px; font-weight: 800; opacity: 0.75; }
+    .legend { display: flex; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
 
     /* ── STORIES ── */
     .stories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 16px;
     }
     .story-card {
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
-      padding: 18px;
-      transition: border-color 0.15s;
+      border: 1px solid #e0e0e0; border-radius: 10px;
+      padding: 18px; transition: border-color 0.15s;
     }
     .story-card:hover { border-color: #ceff00; }
     .story-headline {
-      display: block;
-      font-size: 15px;
-      font-weight: 700;
-      color: #000;
-      text-decoration: none;
-      line-height: 1.3;
-      margin-bottom: 8px;
+      display: block; font-size: 15px; font-weight: 700; color: #000;
+      text-decoration: none; line-height: 1.3; margin-bottom: 8px;
     }
     .story-headline:hover { text-decoration: underline; }
-    .story-desc {
-      font-size: 13px;
-      color: #444;
-      margin-bottom: 8px;
-    }
-    .story-byline {
-      font-size: 12px;
-      color: #888;
-      font-weight: 600;
-    }
+    .story-desc { font-size: 13px; color: #444; margin-bottom: 8px; }
+    .story-byline { font-size: 12px; color: #888; font-weight: 600; }
 
-    /* ── CITY SUMMARY ── */
-    .city-summary {
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 760px;
-      color: #222;
-    }
+    /* ── SUMMARY ── */
+    .lead-summary { font-size: 18px; line-height: 1.6; max-width: 760px; color: #222; }
 
-    /* ── GAPS ── */
+    /* ── GAPS / NOTES ── */
     .gap-description { font-size: 14px; color: #555; margin-bottom: 10px; }
-    .gap-list {
-      font-size: 14px;
-      font-weight: 600;
-      color: #313131;
-      line-height: 1.8;
-    }
-    .coverage-notes {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #555;
-      font-style: italic;
-    }
+    .gap-list { font-size: 14px; font-weight: 600; color: #313131; line-height: 1.8; }
+    .coverage-notes { margin-top: 12px; font-size: 14px; color: #555; font-style: italic; }
 
-    /* ── CREATOR TABLE ── */
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: 10px;
-      border: 1px solid #e0e0e0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e0e0e0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th {
-      background: #000;
-      color: #fff;
-      font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 12px 14px;
-      text-align: left;
-      white-space: nowrap;
+      background: #000; color: #fff; font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 12px 14px; text-align: left; white-space: nowrap;
     }
-    td {
-      padding: 10px 14px;
-      border-bottom: 1px solid #f0f0f0;
-      vertical-align: top;
-    }
+    td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #fafafa; }
     .td-name { font-weight: 600; }
     .td-plat { color: #555; max-width: 180px; }
-    .td-topic { color: #555; }
-    .td-rss { text-align: center; color: #ceff00; font-size: 10px; }
+    .td-secondary { color: #555; }
+    .td-rss { text-align: center; color: #97d600; font-size: 10px; }
     td a { color: #000; text-decoration: underline; }
     td a:hover { color: #555; }
 
-    /* ── DIGEST NOTE ── */
-    .digest-note {
-      font-size: 12px;
-      color: #888;
-      margin-top: 6px;
-    }
-
-    /* ── FOOTER ── */
+    /* ── MISC ── */
+    .digest-note { font-size: 12px; color: #888; margin-top: 6px; }
+    .empty-state { font-size: 14px; color: #999; font-style: italic; }
     .footer {
-      background: #000;
-      color: #555;
-      padding: 24px 48px;
-      font-size: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      background: #000; color: #555; padding: 24px 48px;
+      font-size: 12px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 12px;
     }
     .footer a { color: #888; }
-    .atlas-mark {
-      font-size: 13px;
-      font-weight: 800;
-      color: #ceff00;
-      letter-spacing: 0.04em;
-    }
-
-    .empty-state {
-      font-size: 14px;
-      color: #999;
-      font-style: italic;
-    }
+    .atlas-mark { font-size: 13px; font-weight: 800; color: #ceff00; letter-spacing: 0.04em; }
 
     @media (max-width: 640px) {
       .header { padding: 28px 20px 24px; }
-      .header-city { font-size: 32px; }
+      .header-title { font-size: 32px; }
       .header-stat-num { font-size: 28px; }
       .platform-bar { padding: 16px 20px; }
       .main { padding: 0 20px 60px; }
       .footer { padding: 20px; }
     }
-  </style>
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-eyebrow">Atlas City Lab · Ecosystem Snapshot</div>
-  <h1 class="header-city">Washington, D.C.</h1>
+  <h1 class="header-title">Washington, D.C.</h1>
   <p class="header-sub">Independent creator journalism · February 28, 2026</p>
   <div class="header-meta">
-    <div class="header-stat">
-      <span class="header-stat-num">124</span>
-      <span class="header-stat-label">Creators tracked</span>
-    </div>
-    <div class="header-stat">
-      <span class="header-stat-num">2</span>
-      <span class="header-stat-label">Strong beats (5+)</span>
-    </div>
-    <div class="header-stat">
-      <span class="header-stat-num">59</span>
-      <span class="header-stat-label">Beat gaps (0–1)</span>
-    </div>
-    <div class="header-stat">
-      <span class="header-stat-num">21</span>
-      <span class="header-stat-label">In Pulse digest</span>
-    </div>
+    <div class="header-stat"><span class="header-stat-num">124</span><span class="header-stat-label">Creators tracked</span></div>
+    <div class="header-stat"><span class="header-stat-num">2</span><span class="header-stat-label">Strong beats (5+)</span></div>
+    <div class="header-stat"><span class="header-stat-num">59</span><span class="header-stat-label">Beat gaps (0–1)</span></div>
+    <div class="header-stat"><span class="header-stat-num">21</span><span class="header-stat-label">In Pulse digest</span></div>
   </div>
 </header>
 
-<!-- PLATFORM BAR -->
 <div class="platform-bar">
   <span class="platform-label">By platform</span>
   <div class="stat-item"><span class="stat-num">58</span><span class="stat-label">Newsletter</span></div><div class="stat-item"><span class="stat-num">52</span><span class="stat-label">Video</span></div><div class="stat-item"><span class="stat-num">6</span><span class="stat-label">Website</span></div><div class="stat-item"><span class="stat-num">5</span><span class="stat-label">Social</span></div><div class="stat-item"><span class="stat-num">3</span><span class="stat-label">Podcast</span></div>
@@ -337,7 +162,6 @@
 
 <div class="main">
 
-  <!-- BEAT COVERAGE MAP -->
   <section class="section" id="beats">
     <h2 class="section-title">Beat Coverage Map</h2>
     <div class="legend">
@@ -345,296 +169,245 @@
       <span class="legend-item"><span class="legend-dot" style="background:#ffff00"></span>Emerging (2–4)</span>
       <span class="legend-item"><span class="legend-dot" style="background:#313131"></span>Gap (0–1)</span>
     </div>
-    <div class="beat-grid">
-      <span class="beat-pill" style="background:#ceff00;color:#000" title="12 creators">Politics <span class="beat-count">12</span></span>
-<span class="beat-pill" style="background:#ceff00;color:#000" title="5 creators">Tech <span class="beat-count">5</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="4 creators">Politics, Media/Power <span class="beat-count">4</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="3 creators">Things to do <span class="beat-count">3</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="3 creators">Restaurants <span class="beat-count">3</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Law/Legal Issues <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Local News <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Restaurants, Things to do <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Media/Power <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Restaurants, Travel <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Finance/Economics <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Investigative, Government Accountability, Politics <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Food <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Parenting <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Climate/Environment <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Comedy, General News <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Local news <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">History <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Politics, General News <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Politics, Law/Legal Issues <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Investigative, World <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Sports <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Science <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Museums <span class="beat-count">2</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Food, Travel <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Film/Movies <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Internet Culture <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Recipes <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">LGBTQIA, Self Help <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Parenting, Restaurants, Travel <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Politics, Culture <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Investigative, Government Accountability, National Security <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">LGBTQIA, Politics <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Health/Wellness <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Lifestyle, Dating/Romance <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Games/Gaming <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Business, Music <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Lifestyle, Fashion <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Explanatory, General News <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Coffee, Running <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Comedy, Law/Legal Issues <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Travel <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Media/Power, Politics <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Identity/Belonging <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Foreign Policy, National Security <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Politics, Culture, Policy <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Running, Real Estate <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">History, Architecture <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Explanatory, Government Accountability <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Policy, Politics <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Labor, Finance/Economics <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Politics, Gender, Media/Power <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Health/Wellness <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">LGBTQIA, Internet Culture, Politics <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Culture, Gender <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Tech, World <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Photography <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Estate sales <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Travel, Things to do <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Politics, Government Accountability <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">History, Finance/Economics <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Finance/Economics, Politics <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Education <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Faith/Religion <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Food, Lifestyle <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Climate/Environment, Local news <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Tech, Policy <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Bars <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">General News <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Running <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Books/Writing, Art <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Language <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Food, Health/Wellness <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Travel <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Restaurants, Local, Identity/Belonging <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Parenting <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Law/Legal Issues, Government Accountability <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Politics, Comedy <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Day in a Life <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Day in a life <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Politics, Faith/Religion <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local news, Gossip <span class="beat-count">1</span></span>
-<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Urban planning, Transit/Transportation <span class="beat-count">1</span></span>
-
-    </div>
+    <div class="pill-grid"><span class="pill" style="background:#ceff00;color:#000" title="12 creators">Politics <span class="pill-count">12</span></span>
+<span class="pill" style="background:#ceff00;color:#000" title="5 creators">Tech <span class="pill-count">5</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="4 creators">Politics, Media/Power <span class="pill-count">4</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="3 creators">Things to do <span class="pill-count">3</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="3 creators">Restaurants <span class="pill-count">3</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Law/Legal Issues <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Local News <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Restaurants, Things to do <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Media/Power <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Restaurants, Travel <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Finance/Economics <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Investigative, Government Accountability, Politics <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Food <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Parenting <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Climate/Environment <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Comedy, General News <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Local news <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">History <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Politics, General News <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Politics, Law/Legal Issues <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Investigative, World <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Sports <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Science <span class="pill-count">2</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="2 creators">Museums <span class="pill-count">2</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Food, Travel <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Film/Movies <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Internet Culture <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Recipes <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">LGBTQIA, Self Help <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Local, Parenting, Restaurants, Travel <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Politics, Culture <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Investigative, Government Accountability, National Security <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">LGBTQIA, Politics <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Local, Health/Wellness <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Lifestyle, Dating/Romance <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Games/Gaming <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Business, Music <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Lifestyle, Fashion <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Explanatory, General News <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Coffee, Running <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Comedy, Law/Legal Issues <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Travel <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Media/Power, Politics <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Identity/Belonging <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Foreign Policy, National Security <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Politics, Culture, Policy <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Running, Real Estate <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">History, Architecture <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Explanatory, Government Accountability <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Policy, Politics <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Labor, Finance/Economics <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Politics, Gender, Media/Power <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Health/Wellness <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">LGBTQIA, Internet Culture, Politics <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Culture, Gender <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Tech, World <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Photography <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Estate sales <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Travel, Things to do <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Politics, Government Accountability <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">History, Finance/Economics <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Finance/Economics, Politics <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Education <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Faith/Religion <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Food, Lifestyle <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Climate/Environment, Local news <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Tech, Policy <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Bars <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">General News <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Running <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Books/Writing, Art <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Language <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Food, Health/Wellness <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Travel <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Restaurants, Local, Identity/Belonging <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Parenting <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Law/Legal Issues, Government Accountability <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Politics, Comedy <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Day in a Life <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Day in a life <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Politics, Faith/Religion <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Local news, Gossip <span class="pill-count">1</span></span>
+<span class="pill" style="background:#313131;color:#fff" title="1 creator">Urban planning, Transit/Transportation <span class="pill-count">1</span></span>
+</div>
   </section>
 
-  <!-- SUMMARY (AI) -->
   
-        <section class="section" id="summary">
-          <h2 class="section-title">This Week in Washington, D.C.</h2>
-          <p class="city-summary">Washington, D.C. creator-journalists this week are dominated by coverage of U.S. military strikes on Iran and the escalating Middle East conflict, alongside sustained attention on the Epstein files and their implications for Trump. Trump's joint address to Congress also generated significant coverage, as did ongoing scrutiny of his tariff policies and declining poll numbers.</p>
-        </section>
 
-  <!-- TOP STORIES -->
   <section class="section" id="stories">
     <h2 class="section-title">Top Stories This Week</h2>
-    <p class="digest-note">65 posts retrieved from 21 RSS-tracked creators (past 7 days)</p>
-    <div class="stories-grid" style="margin-top:16px">
-      
-            <div class="story-card">
-              <a href="https://aaronparnas.substack.com/p/breaking-the-united-states-is-at" target="_blank" rel="noopener" class="story-headline">U.S. Strikes Iran, Killing Supreme Leader and Triggering Open-Ended War</a>
-              <p class="story-desc">Multiple creators are tracking the outbreak of a new U.S. military conflict in the Middle East, including the reported killing of Iran's Supreme Leader and analysis of what comes next militarily and diplomatically.</p>
-              <p class='story-byline'>Aaron Parnas, Ryan McBeth, Aaron Rupar</p>
-            </div>
-            <div class="story-card">
-              <a href="https://aaronparnas.substack.com/p/important-news-doj-scrubbed-allegations" target="_blank" rel="noopener" class="story-headline">Epstein Files Keep Expanding, Putting Pressure on Trump and DOJ</a>
-              <p class="story-desc">Creators are reporting on a steady stream of Epstein-related developments, including allegations that the DOJ scrubbed serious accusations against Trump, survivor statements, new arrests, and calls for Trump and Commerce Secretary Lutnick to testify.</p>
-              <p class='story-byline'>Aaron Parnas</p>
-            </div>
-            <div class="story-card">
-              <a href="https://aaronparnas.substack.com/p/i-watched-the-state-of-the-union" target="_blank" rel="noopener" class="story-headline">Trump's Joint Address to Congress Lands With a Thud</a>
-              <p class="story-desc">Creators covered Trump's 'State of the Union'-style address from multiple angles, including poor ratings, Democratic counter-programming, reaction from Kamala Harris, and analysis of Trump's rhetorical style.</p>
-              <p class='story-byline'>Aaron Parnas, Chris Cillizza, Aaron Rupar</p>
-            </div>
-            <div class="story-card">
-              <a href="https://www.publicnotice.co/p/supreme-court-tariffs-ruling" target="_blank" rel="noopener" class="story-headline">Trump's Tariff Agenda Faces Legal and Political Backlash</a>
-              <p class="story-desc">Creators are covering a Supreme Court ruling on tariffs, companies suing to reclaim tariff payments, allies freezing trade deals, and Trump doubling down on new tariff announcements despite mounting opposition.</p>
-              <p class='story-byline'>Aaron Rupar, Aaron Parnas, Chris Cillizza</p>
-            </div>
-            <div class="story-card">
-              <a href="https://www.publicnotice.co/p/trump-keeps-cratering" target="_blank" rel="noopener" class="story-headline">Trump's Poll Numbers Continue to Slide</a>
-              <p class="story-desc">Multiple creators are noting a consistent downward trend in Trump's approval ratings, connecting it to his policy chaos, the Iran war, and his ineffective address to Congress.</p>
-              <p class='story-byline'>Aaron Rupar, Aaron Parnas</p>
-            </div>
-    </div>
+    <p class="digest-note">52 posts retrieved from 21 RSS-tracked creators (past 7 days)</p>
+    <div class="stories-grid" style="margin-top:16px"><div class="story-card"><a href="https://chriscillizza.substack.com/p/the-30-most-bizarre-lines-from-donald-aec" target="_blank" rel="noopener" class="story-headline">The 30 most bizarre lines from Donald Trump's big Texas speech</a><p class="story-byline">Chris Cillizza</p></div>
+<div class="story-card"><a href="https://chriscillizza.substack.com/p/the-worst-week-in-washington-goes-246" target="_blank" rel="noopener" class="story-headline">The Worst Week in Washington goes to....🫠</a><p class="story-byline">Chris Cillizza</p></div>
+<div class="story-card"><a href="https://chriscillizza.substack.com/p/can-an-independent-actually-get-elected" target="_blank" rel="noopener" class="story-headline">Can an independent *actually* get elected governor of a swing state? 🤔</a><p class="story-byline">Chris Cillizza</p></div>
+<div class="story-card"><a href="https://chriscillizza.substack.com/p/who-do-you-think-had-the-worst-week-a2f" target="_blank" rel="noopener" class="story-headline">Who do YOU think had the 'Worst Week in Washington'?</a><p class="story-byline">Chris Cillizza</p></div>
+<div class="story-card"><a href="https://chriscillizza.substack.com/p/republicans-worst-case-scenario-is" target="_blank" rel="noopener" class="story-headline">Republicans' worst-case scenario is playing out in the Texas Senate race 🚨😳</a><p class="story-byline">Chris Cillizza</p></div></div>
   </section>
 
-  <!-- COVERAGE GAPS -->
-  
-        <section class="section" id="gaps">
-          <h2 class="section-title">Coverage Gaps</h2>
-          <p class="gap-description">These beats have 0–1 active creators in Washington, D.C.:</p>
-          <p class="gap-list">Food, Travel · Film/Movies · Internet Culture · Recipes · LGBTQIA, Self Help · Local, Parenting, Restaurants, Travel · Politics, Culture · Investigative, Government Accountability, National Security · LGBTQIA, Politics · Local, Health/Wellness · Lifestyle, Dating/Romance · Games/Gaming</p>
-          <p class='coverage-notes'>Congressional Democratic strategy and legislative activity are notably underrepresented given the volume of major events this week. Coverage of domestic economic impacts — beyond tariffs — such as inflation, labor, or housing, is also largely absent from this creator set.</p>
-        </section>
+  <section class="section" id="gaps"><h2 class="section-title">Coverage Gaps</h2><p class="gap-description">Beats with 0–1 active creators in Washington, D.C.:</p><p class="gap-list">Food, Travel · Film/Movies · Internet Culture · Recipes · LGBTQIA, Self Help · Local, Parenting, Restaurants, Travel · Politics, Culture · Investigative, Government Accountability, National Security · LGBTQIA, Politics · Local, Health/Wellness · Lifestyle, Dating/Romance · Games/Gaming</p></section>
 
-  <!-- CREATOR DIRECTORY -->
   <section class="section" id="directory">
     <h2 class="section-title">Creator Directory (124)</h2>
     <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Channel</th>
-            <th>Platform</th>
-            <th>Beat</th>
-            <th title="Tracked in Atlas Pulse digest">Pulse</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class='td-name'>Aaron Parnas</td><td><a href="https://www.tiktok.com/@aaronparnas1" target="_blank" rel="noopener">Aaron Parnas</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Aaron Rupar</td><td><a href="https://www.publicnotice.co/" target="_blank" rel="noopener">Public Notice</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Albert Ting</td><td><a href="https://www.instagram.com/pootie_ting" target="_blank" rel="noopener">pootie_ting</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Alec Karakatsanis</td><td><a href="https://equalityalec.substack.com" target="_blank" rel="noopener">Copaganda Newsletter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Alex Schroeder</td><td><a href="https://www.instagram.com/devourdc" target="_blank" rel="noopener">Devour DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Restaurants</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Alisa Tang</td><td><a href="https://alisadailydose.beehiiv.com/" target="_blank" rel="noopener">Alisa Daily Dose</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Local News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Alyssa Rosenberg</td><td><a href="https://movieaisle.substack.com/" target="_blank" rel="noopener">Across the Movie Aisle</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Film/Movies</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Amber Ferguson</td><td><a href="https://www.tiktok.com/@girlwithdrive" target="_blank" rel="noopener">Girl with Drive</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Internet Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Anastasiia Markova</td><td><a href="https://www.instagram.com/anastasiia.dc/" target="_blank" rel="noopener">anastasiia.dc</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Restaurants, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Anina Belle Giannini</td><td><a href="https://www.instagram.com/lechefswife" target="_blank" rel="noopener">le chefs wife</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Recipes</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Ari Drennen</td><td><a href="https://aridrennen.substack.com" target="_blank" rel="noopener">Ari's Threads</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>LGBTQIA, Self Help</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Ari Shaprio</td><td><a href="https://arishapiro.substack.com/" target="_blank" rel="noopener">Ari Shapiro</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Austin Graff</td><td><a href="https://www.instagram.com/austinkgraff" target="_blank" rel="noopener">Austin K Graff</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Local, Parenting, Restaurants, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Azi Paybarah</td><td><a href="https://azipaybarah.substack.com/" target="_blank" rel="noopener">Azi Paybarah</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Briahna Joy Grey</td><td><a href="https://www.youtube.com/@BadFaithPodcast" target="_blank" rel="noopener">Bad Faith</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Politics, Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Brian Krebs</td><td><a href="https://krebsonsecurity.com/" target="_blank" rel="noopener">Krebs on Security</a></td><td class='td-plat'>Website</td><td class='td-topic'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Catherine Herridge</td><td><a href="https://catherineherridgereports.com/" target="_blank" rel="noopener">Catherine Herridge Reports</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Investigative, Government Accountability, National Security</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Charlotte Clymer</td><td><a href="https://charlotteclymer.substack.com" target="_blank" rel="noopener">Charlotte's Web Thoughts</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>LGBTQIA, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Charlotte Salley</td><td><a href="https://hotbones.beehiiv.com/" target="_blank" rel="noopener">Hot Bones</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Local, Health/Wellness</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Chloe Zhang</td><td><a href="https://www.instagram.com/thatgirlchloe.z" target="_blank" rel="noopener">That Girl Chloe</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Lifestyle, Dating/Romance</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Chris Cillizza</td><td><a href="https://chriscillizza.substack.com/" target="_blank" rel="noopener">So What</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Chris Hutton</td><td><a href="https://www.ttrpginsider.news/" target="_blank" rel="noopener">TTRPG Insider</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Games/Gaming</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Chris Richards</td><td><a href="https://thefutureisourstomake.substack.com/" target="_blank" rel="noopener">The Future is Ours to Make</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Business, Music</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>CK</td><td><a href="https://www.instagram.com/hypefoodies" target="_blank" rel="noopener">Hype Foodies</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Restaurants, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Claudia Sahm</td><td><a href="https://stayathomemacro.substack.com/" target="_blank" rel="noopener">Stay-At-Home Macro</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Cornelia Poku</td><td><a href="https://www.tiktok.com/@blackgirlsexploredc" target="_blank" rel="noopener">Black Girls Explore DC</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Restaurants</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Dani Sauter</td><td><a href="https://www.instagram.com/the_blonde_cat_lady" target="_blank" rel="noopener">The Blond Cat Lady</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Lifestyle, Fashion</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>David Cay Johnston</td><td><a href="https://www.dcreport.org/" target="_blank" rel="noopener">DCReport</a></td><td class='td-plat'>Website</td><td class='td-topic'>Investigative, Government Accountability, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>David Crook</td><td><a href="https://www.dcreport.org/" target="_blank" rel="noopener">DCReport</a></td><td class='td-plat'>Website</td><td class='td-topic'>Investigative, Government Accountability, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>David R</td><td><a href="https://x.com/eat_dc" target="_blank" rel="noopener">Eat DC</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-topic'>Food</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>DC Moms</td><td><a href="https://www.instagram.com/dcmoms" target="_blank" rel="noopener">DC Moms</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Parenting</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Derek Thompson</td><td><a href="https://www.derekthompson.org/" target="_blank" rel="noopener">Derek Thompson</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Explanatory, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Devin Stone</td><td><a href="https://www.youtube.com/@LegalEagle" target="_blank" rel="noopener">LegalEagle</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Diana</td><td><a href="https://www.instagram.com/hypefoodies" target="_blank" rel="noopener">Hype Foodies</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Restaurants, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Dina Temple-Raston</td><td><a href="https://podcasts.apple.com/us/podcast/click-here/id1225077306" target="_blank" rel="noopener">Click Here</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Domonique Bazil</td><td><a href="https://www.instagram.com/astoldbydomm/" target="_blank" rel="noopener">As Told by Domm</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Coffee, Running</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Elizabeth Booker Houston</td><td><a href="https://www.instagram.com/bookersquared/?hl=en" target="_blank" rel="noopener">Booker Squared</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Comedy, Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Emily Moore</td><td><a href="https://www.instagram.com/emilygoesplaces" target="_blank" rel="noopener">Emily Goes Places</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Emily Sanders</td><td><a href="https://www.exxonknews.org/" target="_blank" rel="noopener">Exxon Knews</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Climate/Environment</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Gabe Fleisher</td><td><a href="https://www.instagram.com/wakeupolitics" target="_blank" rel="noopener">Wake Up To Politics</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Gene Weingarten</td><td><a href="https://geneweingarten.substack.com/" target="_blank" rel="noopener">The Gene Pool</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Comedy, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Geoffrey A. Fowler</td><td><a href="https://geoffreyafowler.substack.com/" target="_blank" rel="noopener">Geoffrey A. Fowler</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Glenn Kessler</td><td><a href="https://glennkessler.substack.com/" target="_blank" rel="noopener">By Glenn Kessler</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Media/Power, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Hannah Gaber</td><td><a href="https://jew-ish.buzzsprout.com/" target="_blank" rel="noopener">Jew-ish</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Identity/Belonging</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Helena Bottemiller Evich</td><td><a href="https://foodfix.co/" target="_blank" rel="noopener">Food Fix</a></td><td class='td-plat'>Newsletter - Other</td><td class='td-topic'>Food</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Henok Mengistu</td><td><a href="https://ethiopique.com/" target="_blank" rel="noopener">Ethiopique</a></td><td class='td-plat'>Website</td><td class='td-topic'>Local news</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>History In High Heels</td><td><a href="https://www.instagram.com/historyinhighheels" target="_blank" rel="noopener">History In High Heels</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>History</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jack Surfleet</td><td><a href="https://www.tiktok.com/@jacksurfleet" target="_blank" rel="noopener">Jack Surfleet</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jade Womack</td><td><a href="https://www.instagram.com/clockoutdc" target="_blank" rel="noopener">Clockout DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Things to do</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>James Fallows</td><td><a href="https://fallows.substack.com/" target="_blank" rel="noopener">James Fallows</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jeff Stein</td><td><a href="https://www.spytalk.co" target="_blank" rel="noopener">SpyTalk</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Foreign Policy, National Security</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jennifer Rubin</td><td><a href="https://contrarian.substack.com" target="_blank" rel="noopener">Contrarian</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics, Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jeremy Scahill</td><td><a href="https://www.dropsitenews.com/about" target="_blank" rel="noopener">Drop Site News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Investigative, World</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jerusalem Demsas</td><td><a href="https://www.theargumentmag.com/" target="_blank" rel="noopener">The Argument</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics, Culture, Policy</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jess Hood</td><td><a href="https://www.instagram.com/jessrhood" target="_blank" rel="noopener">jessrhood</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Things to do, Running, Real Estate</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Jim Acosta</td><td><a href="https://x.com/Acosta" target="_blank" rel="noopener">Jim Acosta</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-topic'>Politics, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Joe Himali</td><td><a href="https://www.instagram.com/bestaddress" target="_blank" rel="noopener">Best Address</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>History, Architecture</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>John Dickerson</td><td><a href="https://johnfdickerson.substack.com/" target="_blank" rel="noopener">John Dickerson</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jonathan Schwabish</td><td><a href="https://policyviz.substack.com?r=1orch&amp;utm_medium=ios&amp;utm_source=profile" target="_blank" rel="noopener">Policy Viz</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Explanatory, Government Accountability</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Jordan Schneider</td><td><a href="https://www.chinatalk.media/" target="_blank" rel="noopener">ChinaTalk</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Policy, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Joseph Politano</td><td><a href="https://www.apricitas.io/" target="_blank" rel="noopener">Apricitas</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Labor, Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Joy Reid</td><td><a href="https://www.youtube.com/@TheJoyReidShow" target="_blank" rel="noopener">The Joy Reid Show</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Politics, Gender, Media/Power</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>K Kaufmann</td><td><a href="https://electrifynews.beehiiv.com/" target="_blank" rel="noopener">E/lectrify</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Climate/Environment</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Karen Attiah</td><td><a href="https://karenattiah.substack.com/" target="_blank" rel="noopener">The Golden Hour by Karen Attiah</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Kate Woodsome</td><td><a href="https://katewoodsome.substack.com/" target="_blank" rel="noopener">Invisible Threads</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Health/Wellness</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Katelyn Burns</td><td><a href="https://www.burnsnotice.com/" target="_blank" rel="noopener">Burns Notice</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-topic'>LGBTQIA, Internet Culture, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Keith Edwards</td><td><a href="https://www.youtube.com/@keithedwards" target="_blank" rel="noopener">Keith's Debate Club</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Kelly Coyne</td><td><a href="https://kellymariecoyne.substack.com/" target="_blank" rel="noopener">Guilty Pleasures</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Culture, Gender</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Kevin Cirilli</td><td><a href="https://mtf.tv/" target="_blank" rel="noopener">Meet the Future</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Kyle Chan</td><td><a href="https://www.high-capacity.com/" target="_blank" rel="noopener">High Capacity</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Tech, World</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Lauren</td><td><a href="https://www.instagram.com/mamasandmesses" target="_blank" rel="noopener">Mamas and Messes</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Parenting</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Laurie Collins</td><td><a href="https://www.instagram.com/dccitygirl" target="_blank" rel="noopener">DC City Girl</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Photography</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Maddie Brannon</td><td><a href="https://www.instagram.com/maddytheb" target="_blank" rel="noopener">maddy the b</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Estate sales</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Maddie Smith</td><td><a href="https://www.instagram.com/onthemovewithmad" target="_blank" rel="noopener">On The Move with Mad</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Travel, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Marc Elias</td><td><a href="https://www.youtube.com/democracydocket" target="_blank" rel="noopener">Democracy Docket</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Politics, Government Accountability</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Mark Zuckerman</td><td><a href="https://natsjournal.com/" target="_blank" rel="noopener">Nats Journal</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Sports</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Matt Laslo</td><td><a href="https://www.askapolpolitics.com/" target="_blank" rel="noopener">Ask a Pol</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Matt Stoller</td><td><a href="https://www.thebignewsletter.com/" target="_blank" rel="noopener">BIG</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>History, Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Matt Yglesias</td><td><a href="https://www.slowboring.com" target="_blank" rel="noopener">Slow Boring</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Finance/Economics, Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Mattie Hanley</td><td><a href="https://www.instagram.com/hungry_hungry_hanley" target="_blank" rel="noopener">hungry_hungry_hanley</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Restaurants</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Meg</td><td><a href="https://www.instagram.com/districtbymeg" target="_blank" rel="noopener">District By Meg</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Natalie Wexler</td><td><a href="https://nataliewexler.substack.com" target="_blank" rel="noopener">Minding the Gap</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Education</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Nayyera Haq</td><td><a href="https://www.instagram.com/nayyeroar/" target="_blank" rel="noopener">Nayyera Haq</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Neil Greenberg</td><td><a href="https://fancystats.substack.com/" target="_blank" rel="noopener">Fancy Stats</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Sports</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Niala Boodhoo</td><td><a href="https://substack.com/@nialaboodhoo" target="_blank" rel="noopener">Niala Boodhoo</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Faith/Religion</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Norm Eisen</td><td><a href="https://contrarian.substack.com" target="_blank" rel="noopener">Contrarian</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics, Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Not Bored In DC</td><td><a href="https://www.instagram.com/notboredindc" target="_blank" rel="noopener">Not Bored In DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>History</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Olga Massov</td><td><a href="https://itsamatteroftaste.substack.com/" target="_blank" rel="noopener">Food, Recipes, a day in a life</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Food, Lifestyle</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Pat Myers</td><td><a href="https://geneweingarten.substack.com/" target="_blank" rel="noopener">The Gene Pool</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Comedy, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Paul Rivera</td><td><a href="https://www.facebook.com/paulriveranews/#" target="_blank" rel="noopener">paulriveranews</a></td><td class='td-plat'>Social - Facebook</td><td class='td-topic'>Climate/Environment, Local news</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Petula Devorak</td><td><a href="https://petuladvorak.substack.com/" target="_blank" rel="noopener">Persisters</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Local News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Prakash Loungani</td><td><a href="https://globalhousingwatch.substack.com/" target="_blank" rel="noopener">Global Housing Watch</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Raelyn Roberson</td><td><a href="https://raelyn.info/" target="_blank" rel="noopener">Raelyn.info</a></td><td class='td-plat'>Website</td><td class='td-topic'>Tech, Policy</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Raman Santra</td><td><a href="https://x.com/barredindc" target="_blank" rel="noopener">Barred in DC</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-topic'>Bars</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Rich Leiby</td><td><a href="https://rleiby.substack.com/" target="_blank" rel="noopener">Rich Leiby</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Rob Perez</td><td><a href="https://www.instagram.com/r.oh.bee" target="_blank" rel="noopener">r.oh.bee</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Running</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Rohini Manixkam</td><td><a href="https://www.instagram.com/rohinimm" target="_blank" rel="noopener">rohinimm</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Science</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Ron Charles</td><td><a href="https://substack.com/@roncharles" target="_blank" rel="noopener">Ron Charles</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Books/Writing, Art</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Roya Fox</td><td><a href="https://www.tiktok.com/@royaventurera" target="_blank" rel="noopener">royaventurera</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Language</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Ryan Grim</td><td><a href="https://www.dropsitenews.com/" target="_blank" rel="noopener">Drop Site News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Investigative, World</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Ryan Lizza</td><td><a href="https://substack.com/@ryanlizza" target="_blank" rel="noopener">Telos News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Ryan McBeth</td><td><a href="https://www.youtube.com/@RyanMcBethProgramming" target="_blank" rel="noopener">Ryan McBeth Programming</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Tech</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Saagar Enjeti</td><td><a href="https://www.youtube.com/c/breakingpoints" target="_blank" rel="noopener">Breaking Points</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Sadie Dingfelder</td><td><a href="https://www.tiktok.com/@sadiedingfelder?_r=1&amp;_t=ZT-945v42umdTi" target="_blank" rel="noopener">Sadie Dingfelder, science writer</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Science</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Sally Squires</td><td><a href="https://leanplateclub.substack.com/" target="_blank" rel="noopener">Lean Plate Club</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Food, Health/Wellness</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Sam Schlageter</td><td><a href="https://www.instagram.com/yourdcbestie" target="_blank" rel="noopener">Your DC Bestie</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Things to do, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Samantha Chery</td><td><a href="https://www.tiktok.com/@samanthabchery?lang=en" target="_blank" rel="noopener">Samantha Chery</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Restaurants, Local, Identity/Belonging</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Sandie S.</td><td><a href="https://www.instagram.com/adorkandherfork" target="_blank" rel="noopener">A Dork and Her Fork</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Food, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Sara</td><td><a href="https://www.instagram.com/longwalksdc" target="_blank" rel="noopener">Long Walks DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Things to do, Parenting</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Sarah</td><td><a href="https://www.instagram.com/historyonholiday" target="_blank" rel="noopener">History on Holiday</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Museums</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Seamus Hughes</td><td><a href="https://twitter.com/SeamusHughes" target="_blank" rel="noopener">Court Watch</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Law/Legal Issues, Government Accountability</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Simon Owens</td><td><a href="https://simonowens.substack.com/" target="_blank" rel="noopener">Simon Owens's Media Newsletter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Suzanne Lambert</td><td><a href="https://www.instagram.com/itssuzannelambert/" target="_blank" rel="noopener">Suzanne Lambert</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Politics, Comedy</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Tamara Sacharczyk</td><td><a href="https://www.tiktok.com/@tamaranews" target="_blank" rel="noopener">Tamara Sacharczyk</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Day in a Life</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Tara Palmeri</td><td><a href="https://www.tarapalmeri.com/" target="_blank" rel="noopener">The Red Letter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Tatum Hunter</td><td><a href="https://bytatumhunter.substack.com/" target="_blank" rel="noopener">Tatum Hunter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>The Hill Is Home</td><td><a href="https://www.instagram.com/thehillishome" target="_blank" rel="noopener">The Hill Is Home</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Local news</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
-<tr><td class='td-name'>Tom Lobianco</td><td><a href="https://www.linkedin.com/in/tomlobianco" target="_blank" rel="noopener">24 Sight News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Tony P.</td><td><a href="https://www.instagram.com/_tonypindc" target="_blank" rel="noopener">Tony P in DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Day in a life</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Tristen</td><td><a href="https://www.instagram.com/nomzallday" target="_blank" rel="noopener">Nomz All Day</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Restaurants, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Wajahat Ali</td><td><a href="https://x.com/WajahatAli" target="_blank" rel="noopener">Wajahat Ali</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-topic'>Politics, Faith/Religion</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Washingtonian Problems</td><td><a href="https://www.instagram.com/washingtonianprobs/?hl=en" target="_blank" rel="noopener">Washingtonian Problems</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Local news, Gossip</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Yonah Freemark</td><td><a href="https://www.thetransportpolitic.com" target="_blank" rel="noopener">The Transport Politic</a></td><td class='td-plat'>Website</td><td class='td-topic'>Urban planning, Transit/Transportation</td><td class='td-rss' title='In Pulse digest'></td></tr>
-<tr><td class='td-name'>Your Digital Docent</td><td><a href="https://www.instagram.com/digitaldocent_/" target="_blank" rel="noopener">Your Digital Docent</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Museums</td><td class='td-rss' title='In Pulse digest'></td></tr>
-
-        </tbody>
+        <thead><tr><th>Name</th><th>Channel</th><th>Platform</th><th>Beat</th><th title="In Atlas Pulse digest">Pulse</th></tr></thead>
+        <tbody><tr><td class='td-name'>Aaron Parnas</td><td><a href="https://www.tiktok.com/@aaronparnas1" target="_blank" rel="noopener">Aaron Parnas</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Aaron Rupar</td><td><a href="https://www.publicnotice.co/" target="_blank" rel="noopener">Public Notice</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Albert Ting</td><td><a href="https://www.instagram.com/pootie_ting" target="_blank" rel="noopener">pootie_ting</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alec Karakatsanis</td><td><a href="https://equalityalec.substack.com" target="_blank" rel="noopener">Copaganda Newsletter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alex Schroeder</td><td><a href="https://www.instagram.com/devourdc" target="_blank" rel="noopener">Devour DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Restaurants</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alisa Tang</td><td><a href="https://alisadailydose.beehiiv.com/" target="_blank" rel="noopener">Alisa Daily Dose</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Local News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alyssa Rosenberg</td><td><a href="https://movieaisle.substack.com/" target="_blank" rel="noopener">Across the Movie Aisle</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Film/Movies</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Amber Ferguson</td><td><a href="https://www.tiktok.com/@girlwithdrive" target="_blank" rel="noopener">Girl with Drive</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Internet Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Anastasiia Markova</td><td><a href="https://www.instagram.com/anastasiia.dc/" target="_blank" rel="noopener">anastasiia.dc</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Restaurants, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Anina Belle Giannini</td><td><a href="https://www.instagram.com/lechefswife" target="_blank" rel="noopener">le chefs wife</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Recipes</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ari Drennen</td><td><a href="https://aridrennen.substack.com" target="_blank" rel="noopener">Ari's Threads</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>LGBTQIA, Self Help</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ari Shaprio</td><td><a href="https://arishapiro.substack.com/" target="_blank" rel="noopener">Ari Shapiro</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Austin Graff</td><td><a href="https://www.instagram.com/austinkgraff" target="_blank" rel="noopener">Austin K Graff</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Local, Parenting, Restaurants, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Azi Paybarah</td><td><a href="https://azipaybarah.substack.com/" target="_blank" rel="noopener">Azi Paybarah</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Briahna Joy Grey</td><td><a href="https://www.youtube.com/@BadFaithPodcast" target="_blank" rel="noopener">Bad Faith</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>Politics, Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Brian Krebs</td><td><a href="https://krebsonsecurity.com/" target="_blank" rel="noopener">Krebs on Security</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Catherine Herridge</td><td><a href="https://catherineherridgereports.com/" target="_blank" rel="noopener">Catherine Herridge Reports</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Investigative, Government Accountability, National Security</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Charlotte Clymer</td><td><a href="https://charlotteclymer.substack.com" target="_blank" rel="noopener">Charlotte's Web Thoughts</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>LGBTQIA, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Charlotte Salley</td><td><a href="https://hotbones.beehiiv.com/" target="_blank" rel="noopener">Hot Bones</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Local, Health/Wellness</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Chloe Zhang</td><td><a href="https://www.instagram.com/thatgirlchloe.z" target="_blank" rel="noopener">That Girl Chloe</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Lifestyle, Dating/Romance</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Chris Cillizza</td><td><a href="https://chriscillizza.substack.com/" target="_blank" rel="noopener">So What</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Chris Hutton</td><td><a href="https://www.ttrpginsider.news/" target="_blank" rel="noopener">TTRPG Insider</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Games/Gaming</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Chris Richards</td><td><a href="https://thefutureisourstomake.substack.com/" target="_blank" rel="noopener">The Future is Ours to Make</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Business, Music</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>CK</td><td><a href="https://www.instagram.com/hypefoodies" target="_blank" rel="noopener">Hype Foodies</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Restaurants, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Claudia Sahm</td><td><a href="https://stayathomemacro.substack.com/" target="_blank" rel="noopener">Stay-At-Home Macro</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Cornelia Poku</td><td><a href="https://www.tiktok.com/@blackgirlsexploredc" target="_blank" rel="noopener">Black Girls Explore DC</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Restaurants</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dani Sauter</td><td><a href="https://www.instagram.com/the_blonde_cat_lady" target="_blank" rel="noopener">The Blond Cat Lady</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Lifestyle, Fashion</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>David Cay Johnston</td><td><a href="https://www.dcreport.org/" target="_blank" rel="noopener">DCReport</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Investigative, Government Accountability, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>David Crook</td><td><a href="https://www.dcreport.org/" target="_blank" rel="noopener">DCReport</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Investigative, Government Accountability, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>David R</td><td><a href="https://x.com/eat_dc" target="_blank" rel="noopener">Eat DC</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-secondary'>Food</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>DC Moms</td><td><a href="https://www.instagram.com/dcmoms" target="_blank" rel="noopener">DC Moms</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Parenting</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Derek Thompson</td><td><a href="https://www.derekthompson.org/" target="_blank" rel="noopener">Derek Thompson</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Explanatory, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Devin Stone</td><td><a href="https://www.youtube.com/@LegalEagle" target="_blank" rel="noopener">LegalEagle</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Diana</td><td><a href="https://www.instagram.com/hypefoodies" target="_blank" rel="noopener">Hype Foodies</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Restaurants, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dina Temple-Raston</td><td><a href="https://podcasts.apple.com/us/podcast/click-here/id1225077306" target="_blank" rel="noopener">Click Here</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Domonique Bazil</td><td><a href="https://www.instagram.com/astoldbydomm/" target="_blank" rel="noopener">As Told by Domm</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Coffee, Running</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Elizabeth Booker Houston</td><td><a href="https://www.instagram.com/bookersquared/?hl=en" target="_blank" rel="noopener">Booker Squared</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Comedy, Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Emily Moore</td><td><a href="https://www.instagram.com/emilygoesplaces" target="_blank" rel="noopener">Emily Goes Places</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Emily Sanders</td><td><a href="https://www.exxonknews.org/" target="_blank" rel="noopener">Exxon Knews</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Climate/Environment</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Gabe Fleisher</td><td><a href="https://www.instagram.com/wakeupolitics" target="_blank" rel="noopener">Wake Up To Politics</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Gene Weingarten</td><td><a href="https://geneweingarten.substack.com/" target="_blank" rel="noopener">The Gene Pool</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Comedy, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Geoffrey A. Fowler</td><td><a href="https://geoffreyafowler.substack.com/" target="_blank" rel="noopener">Geoffrey A. Fowler</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Glenn Kessler</td><td><a href="https://glennkessler.substack.com/" target="_blank" rel="noopener">By Glenn Kessler</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Media/Power, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Hannah Gaber</td><td><a href="https://jew-ish.buzzsprout.com/" target="_blank" rel="noopener">Jew-ish</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>Identity/Belonging</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Helena Bottemiller Evich</td><td><a href="https://foodfix.co/" target="_blank" rel="noopener">Food Fix</a></td><td class='td-plat'>Newsletter - Other</td><td class='td-secondary'>Food</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Henok Mengistu</td><td><a href="https://ethiopique.com/" target="_blank" rel="noopener">Ethiopique</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Local news</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>History In High Heels</td><td><a href="https://www.instagram.com/historyinhighheels" target="_blank" rel="noopener">History In High Heels</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>History</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jack Surfleet</td><td><a href="https://www.tiktok.com/@jacksurfleet" target="_blank" rel="noopener">Jack Surfleet</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jade Womack</td><td><a href="https://www.instagram.com/clockoutdc" target="_blank" rel="noopener">Clockout DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Things to do</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>James Fallows</td><td><a href="https://fallows.substack.com/" target="_blank" rel="noopener">James Fallows</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jeff Stein</td><td><a href="https://www.spytalk.co" target="_blank" rel="noopener">SpyTalk</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Foreign Policy, National Security</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jennifer Rubin</td><td><a href="https://contrarian.substack.com" target="_blank" rel="noopener">Contrarian</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics, Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jeremy Scahill</td><td><a href="https://www.dropsitenews.com/about" target="_blank" rel="noopener">Drop Site News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Investigative, World</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jerusalem Demsas</td><td><a href="https://www.theargumentmag.com/" target="_blank" rel="noopener">The Argument</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics, Culture, Policy</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jess Hood</td><td><a href="https://www.instagram.com/jessrhood" target="_blank" rel="noopener">jessrhood</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Things to do, Running, Real Estate</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Jim Acosta</td><td><a href="https://x.com/Acosta" target="_blank" rel="noopener">Jim Acosta</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-secondary'>Politics, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Joe Himali</td><td><a href="https://www.instagram.com/bestaddress" target="_blank" rel="noopener">Best Address</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>History, Architecture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>John Dickerson</td><td><a href="https://johnfdickerson.substack.com/" target="_blank" rel="noopener">John Dickerson</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jonathan Schwabish</td><td><a href="https://policyviz.substack.com?r=1orch&amp;utm_medium=ios&amp;utm_source=profile" target="_blank" rel="noopener">Policy Viz</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Explanatory, Government Accountability</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jordan Schneider</td><td><a href="https://www.chinatalk.media/" target="_blank" rel="noopener">ChinaTalk</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Policy, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Joseph Politano</td><td><a href="https://www.apricitas.io/" target="_blank" rel="noopener">Apricitas</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Labor, Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Joy Reid</td><td><a href="https://www.youtube.com/@TheJoyReidShow" target="_blank" rel="noopener">The Joy Reid Show</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Politics, Gender, Media/Power</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>K Kaufmann</td><td><a href="https://electrifynews.beehiiv.com/" target="_blank" rel="noopener">E/lectrify</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Climate/Environment</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Karen Attiah</td><td><a href="https://karenattiah.substack.com/" target="_blank" rel="noopener">The Golden Hour by Karen Attiah</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Kate Woodsome</td><td><a href="https://katewoodsome.substack.com/" target="_blank" rel="noopener">Invisible Threads</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Health/Wellness</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Katelyn Burns</td><td><a href="https://www.burnsnotice.com/" target="_blank" rel="noopener">Burns Notice</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>LGBTQIA, Internet Culture, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Keith Edwards</td><td><a href="https://www.youtube.com/@keithedwards" target="_blank" rel="noopener">Keith's Debate Club</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kelly Coyne</td><td><a href="https://kellymariecoyne.substack.com/" target="_blank" rel="noopener">Guilty Pleasures</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Culture, Gender</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kevin Cirilli</td><td><a href="https://mtf.tv/" target="_blank" rel="noopener">Meet the Future</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kyle Chan</td><td><a href="https://www.high-capacity.com/" target="_blank" rel="noopener">High Capacity</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Tech, World</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Lauren</td><td><a href="https://www.instagram.com/mamasandmesses" target="_blank" rel="noopener">Mamas and Messes</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Parenting</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Laurie Collins</td><td><a href="https://www.instagram.com/dccitygirl" target="_blank" rel="noopener">DC City Girl</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Photography</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Maddie Brannon</td><td><a href="https://www.instagram.com/maddytheb" target="_blank" rel="noopener">maddy the b</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Estate sales</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Maddie Smith</td><td><a href="https://www.instagram.com/onthemovewithmad" target="_blank" rel="noopener">On The Move with Mad</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Travel, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Marc Elias</td><td><a href="https://www.youtube.com/democracydocket" target="_blank" rel="noopener">Democracy Docket</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Politics, Government Accountability</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Mark Zuckerman</td><td><a href="https://natsjournal.com/" target="_blank" rel="noopener">Nats Journal</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Sports</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Matt Laslo</td><td><a href="https://www.askapolpolitics.com/" target="_blank" rel="noopener">Ask a Pol</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Matt Stoller</td><td><a href="https://www.thebignewsletter.com/" target="_blank" rel="noopener">BIG</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>History, Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Matt Yglesias</td><td><a href="https://www.slowboring.com" target="_blank" rel="noopener">Slow Boring</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Finance/Economics, Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Mattie Hanley</td><td><a href="https://www.instagram.com/hungry_hungry_hanley" target="_blank" rel="noopener">hungry_hungry_hanley</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Restaurants</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Meg</td><td><a href="https://www.instagram.com/districtbymeg" target="_blank" rel="noopener">District By Meg</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Natalie Wexler</td><td><a href="https://nataliewexler.substack.com" target="_blank" rel="noopener">Minding the Gap</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Education</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Nayyera Haq</td><td><a href="https://www.instagram.com/nayyeroar/" target="_blank" rel="noopener">Nayyera Haq</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Neil Greenberg</td><td><a href="https://fancystats.substack.com/" target="_blank" rel="noopener">Fancy Stats</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Sports</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Niala Boodhoo</td><td><a href="https://substack.com/@nialaboodhoo" target="_blank" rel="noopener">Niala Boodhoo</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Faith/Religion</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Norm Eisen</td><td><a href="https://contrarian.substack.com" target="_blank" rel="noopener">Contrarian</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics, Law/Legal Issues</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Not Bored In DC</td><td><a href="https://www.instagram.com/notboredindc" target="_blank" rel="noopener">Not Bored In DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>History</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Olga Massov</td><td><a href="https://itsamatteroftaste.substack.com/" target="_blank" rel="noopener">Food, Recipes, a day in a life</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Food, Lifestyle</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Pat Myers</td><td><a href="https://geneweingarten.substack.com/" target="_blank" rel="noopener">The Gene Pool</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Comedy, General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Paul Rivera</td><td><a href="https://www.facebook.com/paulriveranews/#" target="_blank" rel="noopener">paulriveranews</a></td><td class='td-plat'>Social - Facebook</td><td class='td-secondary'>Climate/Environment, Local news</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Petula Devorak</td><td><a href="https://petuladvorak.substack.com/" target="_blank" rel="noopener">Persisters</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Local News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Prakash Loungani</td><td><a href="https://globalhousingwatch.substack.com/" target="_blank" rel="noopener">Global Housing Watch</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Finance/Economics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Raelyn Roberson</td><td><a href="https://raelyn.info/" target="_blank" rel="noopener">Raelyn.info</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Tech, Policy</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Raman Santra</td><td><a href="https://x.com/barredindc" target="_blank" rel="noopener">Barred in DC</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-secondary'>Bars</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Rich Leiby</td><td><a href="https://rleiby.substack.com/" target="_blank" rel="noopener">Rich Leiby</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>General News</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Rob Perez</td><td><a href="https://www.instagram.com/r.oh.bee" target="_blank" rel="noopener">r.oh.bee</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Running</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Rohini Manixkam</td><td><a href="https://www.instagram.com/rohinimm" target="_blank" rel="noopener">rohinimm</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Science</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ron Charles</td><td><a href="https://substack.com/@roncharles" target="_blank" rel="noopener">Ron Charles</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Books/Writing, Art</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Roya Fox</td><td><a href="https://www.tiktok.com/@royaventurera" target="_blank" rel="noopener">royaventurera</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Language</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ryan Grim</td><td><a href="https://www.dropsitenews.com/" target="_blank" rel="noopener">Drop Site News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Investigative, World</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ryan Lizza</td><td><a href="https://substack.com/@ryanlizza" target="_blank" rel="noopener">Telos News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Ryan McBeth</td><td><a href="https://www.youtube.com/@RyanMcBethProgramming" target="_blank" rel="noopener">Ryan McBeth Programming</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Tech</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Saagar Enjeti</td><td><a href="https://www.youtube.com/c/breakingpoints" target="_blank" rel="noopener">Breaking Points</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Sadie Dingfelder</td><td><a href="https://www.tiktok.com/@sadiedingfelder?_r=1&amp;_t=ZT-945v42umdTi" target="_blank" rel="noopener">Sadie Dingfelder, science writer</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Science</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sally Squires</td><td><a href="https://leanplateclub.substack.com/" target="_blank" rel="noopener">Lean Plate Club</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Food, Health/Wellness</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sam Schlageter</td><td><a href="https://www.instagram.com/yourdcbestie" target="_blank" rel="noopener">Your DC Bestie</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Things to do, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Samantha Chery</td><td><a href="https://www.tiktok.com/@samanthabchery?lang=en" target="_blank" rel="noopener">Samantha Chery</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Restaurants, Local, Identity/Belonging</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sandie S.</td><td><a href="https://www.instagram.com/adorkandherfork" target="_blank" rel="noopener">A Dork and Her Fork</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Food, Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sara</td><td><a href="https://www.instagram.com/longwalksdc" target="_blank" rel="noopener">Long Walks DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Things to do, Parenting</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sarah</td><td><a href="https://www.instagram.com/historyonholiday" target="_blank" rel="noopener">History on Holiday</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Museums</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Seamus Hughes</td><td><a href="https://twitter.com/SeamusHughes" target="_blank" rel="noopener">Court Watch</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Law/Legal Issues, Government Accountability</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Simon Owens</td><td><a href="https://simonowens.substack.com/" target="_blank" rel="noopener">Simon Owens's Media Newsletter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Suzanne Lambert</td><td><a href="https://www.instagram.com/itssuzannelambert/" target="_blank" rel="noopener">Suzanne Lambert</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Politics, Comedy</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tamara Sacharczyk</td><td><a href="https://www.tiktok.com/@tamaranews" target="_blank" rel="noopener">Tamara Sacharczyk</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Day in a Life</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tara Palmeri</td><td><a href="https://www.tarapalmeri.com/" target="_blank" rel="noopener">The Red Letter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics, Media/Power</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Tatum Hunter</td><td><a href="https://bytatumhunter.substack.com/" target="_blank" rel="noopener">Tatum Hunter</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>The Hill Is Home</td><td><a href="https://www.instagram.com/thehillishome" target="_blank" rel="noopener">The Hill Is Home</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Local news</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Tom Lobianco</td><td><a href="https://www.linkedin.com/in/tomlobianco" target="_blank" rel="noopener">24 Sight News</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tony P.</td><td><a href="https://www.instagram.com/_tonypindc" target="_blank" rel="noopener">Tony P in DC</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Day in a life</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tristen</td><td><a href="https://www.instagram.com/nomzallday" target="_blank" rel="noopener">Nomz All Day</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Restaurants, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Wajahat Ali</td><td><a href="https://x.com/WajahatAli" target="_blank" rel="noopener">Wajahat Ali</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-secondary'>Politics, Faith/Religion</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Washingtonian Problems</td><td><a href="https://www.instagram.com/washingtonianprobs/?hl=en" target="_blank" rel="noopener">Washingtonian Problems</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Local news, Gossip</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Yonah Freemark</td><td><a href="https://www.thetransportpolitic.com" target="_blank" rel="noopener">The Transport Politic</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Urban planning, Transit/Transportation</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Your Digital Docent</td><td><a href="https://www.instagram.com/digitaldocent_/" target="_blank" rel="noopener">Your Digital Docent</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Museums</td><td class='td-rss' title='In Pulse digest'></td></tr></tbody>
       </table>
     </div>
   </section>
 
-</div><!-- /main -->
+</div>
 
 <footer class="footer">
   <span class="atlas-mark">ATLAS</span>
-  <span>Independent Journalism Atlas · Atlas City Lab</span>
-  <span>Generated February 28, 2026 · Data source: Atlas Database + Pulse RSS</span>
+  <span>Independent Journalism Atlas · City Lab</span>
+  <span>Generated February 28, 2026 · Atlas Database + Pulse RSS</span>
 </footer>
-
 </body>
 </html>

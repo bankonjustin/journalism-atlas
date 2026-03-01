@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Beat Lab — Tech Coverage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .header { background: #000; color: #fff; padding: 40px 48px 36px; }
+    .header-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #ceff00; margin-bottom: 12px;
+    }
+    .header-title {
+      font-size: 48px; font-weight: 800;
+      line-height: 1.0; letter-spacing: -0.02em;
+    }
+    .header-sub { margin-top: 10px; font-size: 15px; color: #aaa; }
+    .header-meta { margin-top: 20px; display: flex; gap: 32px; flex-wrap: wrap; }
+    .header-stat { display: flex; flex-direction: column; }
+    .header-stat-num {
+      font-size: 36px; font-weight: 800; color: #ceff00; line-height: 1;
+    }
+    .header-stat-label {
+      font-size: 12px; color: #888; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-top: 2px;
+    }
+
+    /* ── PLATFORM BAR ── */
+    .platform-bar {
+      background: #efeff2; padding: 20px 48px;
+      display: flex; gap: 24px; flex-wrap: wrap;
+      align-items: center; border-bottom: 1px solid #e0e0e0;
+    }
+    .platform-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #666; margin-right: 8px;
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+    .stat-num { font-size: 22px; font-weight: 800; line-height: 1; }
+    .stat-label {
+      font-size: 11px; color: #666; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-top: 2px; text-align: center;
+    }
+
+    /* ── LAYOUT ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+    .section { padding: 40px 0; border-bottom: 1px solid #e0e0e0; }
+    .section:last-child { border-bottom: none; }
+    .section-title {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #666; margin-bottom: 20px;
+    }
+
+    /* ── PILLS (beat map + geo map) ── */
+    .pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 100px;
+      font-size: 13px; font-weight: 600; cursor: default;
+    }
+    .pill-count { font-size: 11px; font-weight: 800; opacity: 0.75; }
+    .legend { display: flex; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ── STORIES ── */
+    .stories-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .story-card {
+      border: 1px solid #e0e0e0; border-radius: 10px;
+      padding: 18px; transition: border-color 0.15s;
+    }
+    .story-card:hover { border-color: #ceff00; }
+    .story-headline {
+      display: block; font-size: 15px; font-weight: 700; color: #000;
+      text-decoration: none; line-height: 1.3; margin-bottom: 8px;
+    }
+    .story-headline:hover { text-decoration: underline; }
+    .story-desc { font-size: 13px; color: #444; margin-bottom: 8px; }
+    .story-byline { font-size: 12px; color: #888; font-weight: 600; }
+
+    /* ── SUMMARY ── */
+    .lead-summary { font-size: 18px; line-height: 1.6; max-width: 760px; color: #222; }
+
+    /* ── GAPS / NOTES ── */
+    .gap-description { font-size: 14px; color: #555; margin-bottom: 10px; }
+    .gap-list { font-size: 14px; font-weight: 600; color: #313131; line-height: 1.8; }
+    .coverage-notes { margin-top: 12px; font-size: 14px; color: #555; font-style: italic; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e0e0e0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: #000; color: #fff; font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 12px 14px; text-align: left; white-space: nowrap;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    .td-name { font-weight: 600; }
+    .td-plat { color: #555; max-width: 180px; }
+    .td-secondary { color: #555; }
+    .td-rss { text-align: center; color: #97d600; font-size: 10px; }
+    td a { color: #000; text-decoration: underline; }
+    td a:hover { color: #555; }
+
+    /* ── MISC ── */
+    .digest-note { font-size: 12px; color: #888; margin-top: 6px; }
+    .empty-state { font-size: 14px; color: #999; font-style: italic; }
+    .footer {
+      background: #000; color: #555; padding: 24px 48px;
+      font-size: 12px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer a { color: #888; }
+    .atlas-mark { font-size: 13px; font-weight: 800; color: #ceff00; letter-spacing: 0.04em; }
+
+    @media (max-width: 640px) {
+      .header { padding: 28px 20px 24px; }
+      .header-title { font-size: 32px; }
+      .header-stat-num { font-size: 28px; }
+      .platform-bar { padding: 16px 20px; }
+      .main { padding: 0 20px 60px; }
+      .footer { padding: 20px; }
+    }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-eyebrow">Atlas Beat Lab · Ecosystem Snapshot</div>
+  <h1 class="header-title">Tech Coverage</h1>
+  <p class="header-sub">Independent creator journalism · February 28, 2026</p>
+  <div class="header-meta">
+    <div class="header-stat"><span class="header-stat-num">143</span><span class="header-stat-label">Creators tracked</span></div>
+    <div class="header-stat"><span class="header-stat-num">43</span><span class="header-stat-label">Cities / regions</span></div>
+    <div class="header-stat"><span class="header-stat-num">16</span><span class="header-stat-label">In Pulse digest</span></div>
+    <div class="header-stat"><span class="header-stat-num">18</span><span class="header-stat-label">Posts this week</span></div>
+  </div>
+</header>
+
+<div class="platform-bar">
+  <span class="platform-label">By platform</span>
+  <div class="stat-item"><span class="stat-num">61</span><span class="stat-label">Newsletter</span></div><div class="stat-item"><span class="stat-num">45</span><span class="stat-label">Video</span></div><div class="stat-item"><span class="stat-num">20</span><span class="stat-label">Website</span></div><div class="stat-item"><span class="stat-num">11</span><span class="stat-label">Podcast</span></div><div class="stat-item"><span class="stat-num">6</span><span class="stat-label">Social</span></div>
+</div>
+
+<div class="main">
+
+  <section class="section" id="geography">
+    <h2 class="section-title">Where They Are</h2>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#ceff00"></span>Highest concentration</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#ffff00"></span>Mid-tier</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#efeff2"></span>Smaller presence</span>
+    </div>
+    <div class="pill-grid"><span class="pill" style="background:#ceff00;color:#000" title="29 creators">New York, NY <span class="pill-count">29</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="16 creators">National - US <span class="pill-count">16</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="11 creators">Los Angeles, CA <span class="pill-count">11</span></span>
+<span class="pill" style="background:#ffff00;color:#000" title="9 creators">United Kingdom <span class="pill-count">9</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="8 creators">San Francisco, CA <span class="pill-count">8</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="7 creators">Canada <span class="pill-count">7</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="7 creators">Washington, D.C. <span class="pill-count">7</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="5 creators">Boston, MA <span class="pill-count">5</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="4 creators">New Jersey - US <span class="pill-count">4</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="3 creators">California - US <span class="pill-count">3</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="3 creators">Australia <span class="pill-count">3</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="3 creators">Chicago, IL <span class="pill-count">3</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="2 creators">Austin, TX <span class="pill-count">2</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="2 creators">Dallas, TX <span class="pill-count">2</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="2 creators">Washington - US <span class="pill-count">2</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="2 creators">Philadelphia, PA <span class="pill-count">2</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="2 creators">India <span class="pill-count">2</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="2 creators">Germany <span class="pill-count">2</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="2 creators">International <span class="pill-count">2</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Florida - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Taiwan <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Texas - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Utah - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Las Vegas, NV <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Italy <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">New Orleans, LA <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Rhode Island - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Vermont - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">San Diego, CA <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Arizona - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">St. Louis, MO <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Seatlle, WA <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Dubai <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Massachussetts - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">San Mateo, CA <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Scottsdale, AZ <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Portland, OR <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">San Jose, CA <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Oakland. CA <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">New York - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">North Carolina - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Kentucky - US <span class="pill-count">1</span></span>
+<span class="pill" style="background:#efeff2;color:#313131" title="1 creator">Houston, TX <span class="pill-count">1</span></span>
+</div>
+  </section>
+
+  <section class="section" id="summary"><h2 class="section-title">This Week in Tech Coverage</h2><p class="lead-summary">This week's independent creator coverage spans three distinct beats: Alex Konrad profiles ambitious fintech and energy startups reshaping their industries, Janko Roettgers digs into streaming and smart TV trends with a skeptical eye, and Ryan McBeth dominates the feed with rapid-fire military and geopolitical analysis centered on U.S.-Iran tensions. The volume and urgency of Iran-related content suggests a fast-moving news cycle driving reactive, news-peg journalism.</p></section>
+
+  <section class="section" id="stories">
+    <h2 class="section-title">Top Stories This Week</h2>
+    <p class="digest-note">18 posts retrieved from 16 RSS-tracked creators (past 7 days)</p>
+    <div class="stories-grid" style="margin-top:16px"><div class="story-card"><a href="https://www.youtube.com/watch?v=WL7j74D9Gpo" target="_blank" rel="noopener" class="story-headline">U.S.-Iran Military Escalation: What Strikes Would Actually Look Like</a><p class="story-desc">Ryan McBeth produces multiple explainers and news appearances analyzing the likelihood, sequencing, and consequences of U.S. strikes on Iran, including Iran's potential retaliatory capabilities against American air and naval assets.</p><p class="story-byline">Ryan McBeth</p></div>
+<div class="story-card"><a href="https://www.upstartsmedia.com/p/profile-column-william-hockey-fintech-china" target="_blank" rel="noopener" class="story-headline">Column Is a $6B Fintech Unicorn Built for the Long Game — and a U.S.-China Financial Cold War</a><p class="story-desc">Alex Konrad profiles Plaid co-founder William Hockey's under-the-radar startup Column, which has reached $200M in revenue while positioning itself around the geopolitical threat of Chinese financial competition.</p><p class="story-byline">Alex Konrad</p></div>
+<div class="story-card"><a href="https://www.upstartsmedia.com/p/podcast-valar-atomics-isaiah-taylor" target="_blank" rel="noopener" class="story-headline">Nuclear Startup Valar Atomics Is Raising $150M to Build AI-Era 'Energy Campuses'</a><p class="story-desc">Alex Konrad speaks with Valar Atomics founder Isaiah Taylor about his plan to solve AI's surging energy demands through large-scale nuclear 'gigasites.'</p><p class="story-byline">Alex Konrad</p></div>
+<div class="story-card"><a href="https://www.lowpass.cc/p/microdramas-surpass-netflix-amazon-disney-on-mobile" target="_blank" rel="noopener" class="story-headline">Microdramas Are Outpacing Netflix and Disney on Mobile — But the Numbers Deserve Scrutiny</a><p class="story-desc">Janko Roettgers examines the explosive mobile growth of microdrama platforms while questioning whether the headline comparisons to major streamers hold up under analysis.</p><p class="story-byline">Janko Roettgers</p></div>
+<div class="story-card"><a href="https://www.lowpass.cc/p/smart-tv-web-scraping-ai-bright-data-proxy-networks" target="_blank" rel="noopener" class="story-headline">Your Smart TV May Be Quietly Scraping the Web to Train AI</a><p class="story-desc">Janko Roettgers investigates how smart TVs may be participating in AI data collection through proxy networks, raising consumer privacy concerns largely absent from mainstream coverage.</p><p class="story-byline">Janko Roettgers</p></div></div>
+  </section>
+
+  <section class="section" id="gaps"><h2 class="section-title">What's Missing</h2><p class="coverage-notes" style="font-size:16px;font-style:normal;color:#222">The AI market manipulation angle McBeth raises — involving AI-generated personas allegedly moving silver markets — is an intriguing original story that gets buried under the Iran content and deserves more developed reporting. Additionally, Konrad's piece on startup-launched VC funds as a growth tactic touches on a potentially significant structural shift in early-stage funding that no other creator here picks up.</p></section>
+
+  <section class="section" id="directory">
+    <h2 class="section-title">Creator Directory (143)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Channel</th><th>Platform</th><th>Location</th><th title="In Atlas Pulse digest">Pulse</th></tr></thead>
+        <tbody><tr><td class='td-name'>Jeff Delaney</td><td><a href="https://www.youtube.com/@Fireship" target="_blank" rel="noopener">Fireship</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Arizona - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Byrne Hobart</td><td><a href="https://www.thediff.co/" target="_blank" rel="noopener">The Diff</a></td><td class='td-plat'>Newsletter - Other</td><td class='td-secondary'>Austin, TX</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Louis Rossmann</td><td><a href="https://www.youtube.com/@rossmanngroup" target="_blank" rel="noopener">Louis Rossmann</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Austin, TX</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dagogo Altraide</td><td><a href="https://www.youtube.com/@ColdFusion" target="_blank" rel="noopener">ColdFusion</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Australia</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jathan Sadowski</td><td><a href="https://www.patreon.com/thismachinekills" target="_blank" rel="noopener">This Machine Kills</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>Australia</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Patrick Gray</td><td><a href="https://podcasts.apple.com/us/podcast/risky-business/id216478078" target="_blank" rel="noopener">Risky Business</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>Australia</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Bruce Schneier</td><td><a href="https://www.schneier.com" target="_blank" rel="noopener">Schneier on Security</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Boston, MA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Evan Greer</td><td><a href="https://www.instagram.com/thatevangreer/" target="_blank" rel="noopener">Evan Greer</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Boston, MA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jason Crawford</td><td><a href="https://newsletter.rootsofprogress.org/" target="_blank" rel="noopener">Roots of Progress</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Boston, MA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jon Haidt</td><td><a href="https://www.afterbabel.com" target="_blank" rel="noopener">After Babel</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Boston, MA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Molly White</td><td><a href="https://www.citationneeded.news/" target="_blank" rel="noopener">Citation Needed</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>Boston, MA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ashlee Vance</td><td><a href="https://www.corememory.com/" target="_blank" rel="noopener">Core Memory</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>California - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Timnit Gebru</td><td><a href="https://x.com/timnitGebru" target="_blank" rel="noopener">Timnit Gebru</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-secondary'>California - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Vlad</td><td><a href="https://vladyyy.substack.com/" target="_blank" rel="noopener">A Different Perspective</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>California - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Brian Read</td><td><a href="https://www.youtube.com/@AutomateYourLife" target="_blank" rel="noopener">Automate Your Life</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Canada</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Craig Silverman</td><td><a href="https://indicator.media/" target="_blank" rel="noopener">Indicator</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Canada</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Mathew Ingram</td><td><a href="https://torment-nexus.mathewingram.com/" target="_blank" rel="noopener">Mathew Ingram</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>Canada</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Paris Marx</td><td><a href="https://bsky.app/profile/parismarx.com" target="_blank" rel="noopener">Paris Marx</a></td><td class='td-plat'>Social - BlueSky</td><td class='td-secondary'>Canada</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tiffany Janzen</td><td><a href="https://www.instagram.com/tiffintech" target="_blank" rel="noopener">Tiff in Tech</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Canada</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tom Martin</td><td><a href="https://lawdroid.substack.com/" target="_blank" rel="noopener">LawDroid</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Canada</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Vince Beiser</td><td><a href="https://powermetal.substack.com/" target="_blank" rel="noopener">Power Metal</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Canada</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jaime Black</td><td><a href="https://podcasts.apple.com/us/podcast/dynasty-podcasts-chicagoverse/id1193859818" target="_blank" rel="noopener">Chicagoverse</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>Chicago, IL</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Joshua Trunck</td><td><a href="https://www.tiktok.com/@chicagofoodhq" target="_blank" rel="noopener">Chicago Food HQ</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Chicago, IL</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kris McDaniel</td><td><a href="https://littletechgirl.com" target="_blank" rel="noopener">LittleTechGirl</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Chicago, IL</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Chris Koeherne</td><td><a href="https://www.linkedin.com/in/cjkoerner/" target="_blank" rel="noopener">Chris Koeherne</a></td><td class='td-plat'>Social - LinkedIn</td><td class='td-secondary'>Dallas, TX</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Doug O’Laughlin</td><td><a href="https://www.fabricatedknowledge.com/" target="_blank" rel="noopener">Fabricated Knowledge</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Dallas, TX</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Masuma Ahuja</td><td><a href="https://futurepossible.substack.com/" target="_blank" rel="noopener">Future Possible</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Dubai</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Andrew Montalenti</td><td><a href="https://amontalenti.com" target="_blank" rel="noopener">pixelmonkey.org</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Florida - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Marton Barcza</td><td><a href="https://www.youtube.com/@TechAltar" target="_blank" rel="noopener">TechAltar</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Germany</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Philipp Dettmer</td><td><a href="https://www.youtube.com/@kurzgesagt" target="_blank" rel="noopener">Kurzgesagt - In a Nutshell</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Germany</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Zaid Admani</td><td><a href="https://www.tiktok.com/@admani_explains" target="_blank" rel="noopener">Admani Explains</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Houston, TX</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jatan Mehta</td><td><a href="https://jatan.space" target="_blank" rel="noopener">jatan.space</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>India</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Shajan C Kumar</td><td><a href="https://newsnatives.com/news-updates" target="_blank" rel="noopener">News Natives</a></td><td class='td-plat'>Website</td><td class='td-secondary'>India</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Megalag</td><td><a href="https://www.youtube.com/@MegaLag" target="_blank" rel="noopener">The Honey Trap</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>International</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Mike Elgan</td><td><a href="https://machinesociety.ai/" target="_blank" rel="noopener">Machine Society</a></td><td class='td-plat'>Website</td><td class='td-secondary'>International</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Emanuele Capone</td><td><a href="https://www.tiktok.com/@capoema" target="_blank" rel="noopener">Emanuele Capone</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Italy</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Wendall Wilson</td><td><a href="https://www.youtube.com/c/level1techs" target="_blank" rel="noopener">Level1Techs</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Kentucky - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ed Zitron</td><td><a href="https://www.wheresyoured.at/" target="_blank" rel="noopener">Where's Your Ed At</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>Las Vegas, NV</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alex Heath</td><td><a href="https://sources.news/" target="_blank" rel="noopener">Sources</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Brian Merchant</td><td><a href="https://www.bloodinthemachine.com/" target="_blank" rel="noopener">Blood in the Machine</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Cory Doctorow</td><td><a href="https://pluralistic.net/" target="_blank" rel="noopener">Pluralistic</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jared Keller</td><td><a href="https://www.laserwars.net/" target="_blank" rel="noopener">Laser Wars</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jon Youshaei</td><td><a href="https://www.youtube.com/@youshaei" target="_blank" rel="noopener">Jon Youshaei</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kristy Drutman</td><td><a href="https://www.instagram.com/browngirl_green/" target="_blank" rel="noopener">browngirl_green</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Lia Haberman</td><td><a href="https://liahaberman.substack.com/" target="_blank" rel="noopener">ICYMI</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Molly O'Shea</td><td><a href="https://www.sourcery.vc/" target="_blank" rel="noopener">Sourcery</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Rachel Karten</td><td><a href="https://www.milkkarten.net/" target="_blank" rel="noopener">Link in Bio</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Shira Lazar</td><td><a href="https://www.tiktok.com/@shiralazar" target="_blank" rel="noopener">Shira Lazar</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Simone Giertz</td><td><a href="https://www.youtube.com/@SimoneGiertz" target="_blank" rel="noopener">Simone Giertz</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Los Angeles, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Matt Ferrell</td><td><a href="https://www.youtube.com/@UndecidedMF" target="_blank" rel="noopener">Undecided with Matt Ferrell</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Massachussetts - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alec Watson</td><td><a href="https://www.youtube.com/@TechnologyConnections" target="_blank" rel="noopener">Technology Connections</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Becca Farsace</td><td><a href="https://www.youtube.com/BeccaFarsace" target="_blank" rel="noopener">Taking Tech Outside</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Casey Newton</td><td><a href="https://www.platformer.news/" target="_blank" rel="noopener">Platformer</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Catherine Goetze</td><td><a href="https://www.askcatgpt.com/" target="_blank" rel="noopener">CatGPT</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Cleo Abram</td><td><a href="https://www.youtube.com/cleoabram" target="_blank" rel="noopener">Huge If True</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>David Gokhshtein</td><td><a href="https://www.youtube.com/@GokhshteinNewsNetwork" target="_blank" rel="noopener">Gokhshtein News Network</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Internal Tech Emails</td><td><a href="https://www.techemails.com/" target="_blank" rel="noopener">Internal Tech Emails</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jack Poulson</td><td><a href="https://jackpoulson.substack.com/" target="_blank" rel="noopener">Jack Poulson</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Janko Roettgers</td><td><a href="https://www.lowpass.cc" target="_blank" rel="noopener">LowPass</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Joanna Stern</td><td><a href="thisismynextthing.com" target="_blank" rel="noopener">Thisismynextthing</a></td><td class='td-plat'>Website</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kim Zetter</td><td><a href="https://www.zetter-zeroday.com/" target="_blank" rel="noopener">Zero Day</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Lenny Rachitsky</td><td><a href="https://www.youtube.com/@LennysPodcast" target="_blank" rel="noopener">Lenny's Podcast</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Noah Carter</td><td><a href="https://www.tiktok.com/@noahglenncarter" target="_blank" rel="noopener">Noah Glenn Carter</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Rowan Cheung</td><td><a href="https://www.rundown.ai/" target="_blank" rel="noopener">The Rundown</a></td><td class='td-plat'>Website</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tommy Geoco</td><td><a href="https://www.tiktok.com/@designertom" target="_blank" rel="noopener">Designer Tom</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Tony Chen</td><td><a href="https://www.instagram.com/setupsai" target="_blank" rel="noopener">Setups AI</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>National - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Arvind Narayanan</td><td><a href="https://www.normaltech.ai/" target="_blank" rel="noopener">AI as Normal Technology</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New Jersey - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jason Del Rey</td><td><a href="https://www.readtheaisle.com/" target="_blank" rel="noopener">The Aisle</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>New Jersey - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jeff Jarvis</td><td><a href="https://buzzmachine.com" target="_blank" rel="noopener">BuzzMachine</a></td><td class='td-plat'>Website</td><td class='td-secondary'>New Jersey - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sayash Kapoor</td><td><a href="https://www.normaltech.ai/" target="_blank" rel="noopener">AI as Normal Technology</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New Jersey - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ernie Svenson</td><td><a href="https://www.linkedin.com/in/ernieattorney/" target="_blank" rel="noopener">Ernie the Attorney</a></td><td class='td-plat'>Social - LinkedIn</td><td class='td-secondary'>New Orleans, LA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Seth Godin</td><td><a href="https://seths.blog/" target="_blank" rel="noopener">Seth's Blog</a></td><td class='td-plat'>Website</td><td class='td-secondary'>New York - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alex Kantrowitz</td><td><a href="https://www.bigtechnology.com" target="_blank" rel="noopener">Big Technology</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alex Konrad</td><td><a href="https://www.upstartsmedia.com/about" target="_blank" rel="noopener">Upstarts Media</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Alexios Mantzarlis</td><td><a href="https://indicator.media/" target="_blank" rel="noopener">Indicator</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Anil Dash</td><td><a href="https://anildash.com" target="_blank" rel="noopener">Anil Dash</a></td><td class='td-plat'>Website</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ariella Steinhorn</td><td><a href="https://www.hardresetmedia.com/" target="_blank" rel="noopener">Hard Reset Media</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ben Werdmüller</td><td><a href="https://werd.io" target="_blank" rel="noopener">Werd I/O</a></td><td class='td-plat'>Website</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Brady Dale</td><td><a href="https://www.frontstageexit.com/" target="_blank" rel="noopener">Front Stage Exit</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Brian Morrissey</td><td><a href="https://www.therebooting.com/" target="_blank" rel="noopener">The Rebooting</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Casey Fiesler</td><td><a href="https://www.tiktok.com/@professorcasey" target="_blank" rel="noopener">Professor Casey</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Christophe Haubursin</td><td><a href="https://www.youtube.com/@christophe" target="_blank" rel="noopener">Tunnel Vision</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Cory Haik</td><td><a href="https://podcasts.apple.com/us/podcast/the-intersect-with-cory-corrine/id1811186932" target="_blank" rel="noopener">The Intersect</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dan Blumberg</td><td><a href="https://www.futurearound.com" target="_blank" rel="noopener">Future Around &amp; Find Out</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Eben Shapiro</td><td><a href="https://ebenshapiro.substack.com/" target="_blank" rel="noopener">Ebenshapiro.substack</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Edward Ongweso Jr.</td><td><a href="https://www.patreon.com/thismachinekills" target="_blank" rel="noopener">This Machine Kills</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Eric Newcomer</td><td><a href="https://www.newcomer.co/" target="_blank" rel="noopener">Newcomer</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Evan Shapiro</td><td><a href="https://eshap.substack.com/" target="_blank" rel="noopener">Media War and Peace</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Fred Wilson</td><td><a href="https://avc.xyz/" target="_blank" rel="noopener">AVC</a></td><td class='td-plat'>Website</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Gary Marcus</td><td><a href="https://garymarcus.substack.com" target="_blank" rel="noopener">Marcus on AI</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jacklyn Dallas</td><td><a href="https://www.youtube.com/channel/UCTd08bYLVmO6sMR0ftRltuQ" target="_blank" rel="noopener">Nothing But Tech</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jared Dashevsky</td><td><a href="https://www.healthcarehuddle.com/" target="_blank" rel="noopener">Healthcare Huddle</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Jennifer Strong</td><td><a href="https://podcasts.apple.com/us/podcast/shift/id1704924524" target="_blank" rel="noopener">SHIFT Podcast</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Josh McConnel</td><td><a href="https://ctrlaltdeliberate.com" target="_blank" rel="noopener">Ctrl Alt Deliberate</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Julia La Roche</td><td><a href="https://www.youtube.com/@TheJuliaLaRocheShow" target="_blank" rel="noopener">The Julia La Roche Show</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Kate Broug</td><td><a href="https://www.instagram.com/katebroug/" target="_blank" rel="noopener">Anna Katharina</a></td><td class='td-plat'>Video - Instagram</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Marques Brownlee</td><td><a href="https://www.youtube.com/user/marquesbrownlee" target="_blank" rel="noopener">MKBHD</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Naomi Brockwell</td><td><a href="https://www.youtube.com/c/NaomiBrockwellTV" target="_blank" rel="noopener">Naomi Brockwell</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Pete Pachal</td><td><a href="https://mediacopilot.substack.com/" target="_blank" rel="noopener">The Medai Copilot</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>PJ Vogt</td><td><a href="https://www.instagram.com/pjvogt" target="_blank" rel="noopener">Search Engine</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sree Sreenivasan</td><td><a href="http://sreenet.Substack.com" target="_blank" rel="noopener">Sree’s Sunday Note</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>New York, NY</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Steve Burke</td><td><a href="https://www.youtube.com/@GamersNexus" target="_blank" rel="noopener">Gamers Nexus</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>North Carolina - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ryan Flinn</td><td><a href="https://www.tiktok.com/@rs_flinn" target="_blank" rel="noopener">AI Rx</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>Oakland. CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ethan Mollick</td><td><a href="https://www.oneusefulthing.org/" target="_blank" rel="noopener">One Useful Thing</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Philadelphia, PA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>John Gruber</td><td><a href="https://daringfireball.net" target="_blank" rel="noopener">Daring Fireball</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Philadelphia, PA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Rebecca Enberg</td><td><a href="https://www.yourhousemachine.com/" target="_blank" rel="noopener">Your House Machine</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Portland, OR</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jacqueline Nesi</td><td><a href="https://technosapiens.substack.com/" target="_blank" rel="noopener">Techno Sapiens</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Rhode Island - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jean Twenge</td><td><a href="https://www.generationtechblog.com" target="_blank" rel="noopener">Generation Tech</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>San Diego, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Chris Dixon</td><td><a href="https://x.com/cdixon" target="_blank" rel="noopener">Chris Dixon</a></td><td class='td-plat'>Social - Twitter / X</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dwarkesh Patel</td><td><a href="https://www.youtube.com/c/DwarkeshPatel" target="_blank" rel="noopener">Dwarkesh Patel</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Jack Clark</td><td><a href="https://importai.substack.com" target="_blank" rel="noopener">Import AI</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jamin Ball</td><td><a href="https://cloudedjudgement.substack.com/" target="_blank" rel="noopener">Clouded Judgement</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Marina Mogilko</td><td><a href="https://www.youtube.com/channel/UCiq1FIgtEK7LRAOB1JXTPig" target="_blank" rel="noopener">Silicon Valley Girl</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Noah Smith</td><td><a href="https://www.noahpinion.blog/" target="_blank" rel="noopener">Noahpinion</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Om Malik</td><td><a href="https://om.co" target="_blank" rel="noopener">On my Om</a></td><td class='td-plat'>Website</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Scott Alexander</td><td><a href="https://astralcodexten.substack.com" target="_blank" rel="noopener">Astral Codex Ten</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>San Francisco, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Robert Scoble</td><td><a href="https://www.unaligned.io/" target="_blank" rel="noopener">Scobleizer</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>San Jose, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Mike Masnick</td><td><a href="https://ctrlaltspeech.com" target="_blank" rel="noopener">Ctrl-Alt-Speech</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>San Mateo, CA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Patrick Kennedy</td><td><a href="https://www.youtube.com/ServeTheHomeVideo" target="_blank" rel="noopener">Serve the Home</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Scottsdale, AZ</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Karl Bode</td><td><a href="https://karlbode.com/" target="_blank" rel="noopener">The Fine Print</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>Seatlle, WA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jeff Geerling</td><td><a href="https://www.youtube.com/c/JeffGeerling" target="_blank" rel="noopener">Jeff Geerling</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>St. Louis, MO</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ben Thompson</td><td><a href="https://stratechery.com/" target="_blank" rel="noopener">Stratechery</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Taiwan</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Bennett Z. Kobb</td><td><a href="https://www.experimentalradio.news" target="_blank" rel="noopener">Experimental Radio News</a></td><td class='td-plat'>Newsetter - Ghost</td><td class='td-secondary'>Texas - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ben Whitelaw</td><td><a href="https://ctrlaltspeech.com" target="_blank" rel="noopener">Ctrl-Alt-Speech</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Christopher Barnatt</td><td><a href="https://www.youtube.com/@ExplainingComputers" target="_blank" rel="noopener">ExplainingComputers</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Daniel Van Binsbergen</td><td><a href="https://www.linkedin.com/in/danielvanbinsbergen/" target="_blank" rel="noopener">Daniel Van Binsbergen</a></td><td class='td-plat'>Social - LinkedIn</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ian Cutress</td><td><a href="https://www.youtube.com/TechTechPotato" target="_blank" rel="noopener">Ian Cutress</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>JD Shadel</td><td><a href="https://www.esckey.co/" target="_blank" rel="noopener">ESC Key</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>M.G. Siegler</td><td><a href="https://spyglass.org/" target="_blank" rel="noopener">500ish</a></td><td class='td-plat'>Website</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Mattia Peretti</td><td><a href="https://www.newsalchemists.com/" target="_blank" rel="noopener">News Alchemists</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Mike Butcher</td><td><a href="https://pathfounders.com/" target="_blank" rel="noopener">Pathfounders</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sophia Smith Galer</td><td><a href="https://www.tiktok.com/@sophiasmithgaler" target="_blank" rel="noopener">Sophia Smith Galer</a></td><td class='td-plat'>Video - TikTok</td><td class='td-secondary'>United Kingdom</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Brett Bristow</td><td><a href="https://www.youtube.com/@TechWithBrett" target="_blank" rel="noopener">Tech with Brett</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Utah - US</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Jason Kottke</td><td><a href="https://kottke.org" target="_blank" rel="noopener">Kottke.org</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Vermont - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>David Roberts</td><td><a href="https://www.volts.wtf/" target="_blank" rel="noopener">Volts</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Washington - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ulrike Langer</td><td><a href="https://newsmachines.beehiiv.com/" target="_blank" rel="noopener">News Machines</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-secondary'>Washington - US</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Brian Krebs</td><td><a href="https://krebsonsecurity.com/" target="_blank" rel="noopener">Krebs on Security</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Washington, D.C.</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dina Temple-Raston</td><td><a href="https://podcasts.apple.com/us/podcast/click-here/id1225077306" target="_blank" rel="noopener">Click Here</a></td><td class='td-plat'>Podcast</td><td class='td-secondary'>Washington, D.C.</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Geoffrey A. Fowler</td><td><a href="https://geoffreyafowler.substack.com/" target="_blank" rel="noopener">Geoffrey A. Fowler</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Washington, D.C.</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kevin Cirilli</td><td><a href="https://mtf.tv/" target="_blank" rel="noopener">Meet the Future</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Washington, D.C.</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kyle Chan</td><td><a href="https://www.high-capacity.com/" target="_blank" rel="noopener">High Capacity</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-secondary'>Washington, D.C.</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Raelyn Roberson</td><td><a href="https://raelyn.info/" target="_blank" rel="noopener">Raelyn.info</a></td><td class='td-plat'>Website</td><td class='td-secondary'>Washington, D.C.</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ryan McBeth</td><td><a href="https://www.youtube.com/@RyanMcBethProgramming" target="_blank" rel="noopener">Ryan McBeth Programming</a></td><td class='td-plat'>Video - YouTube</td><td class='td-secondary'>Washington, D.C.</td><td class='td-rss' title='In Pulse digest'>●</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <span class="atlas-mark">ATLAS</span>
+  <span>Independent Journalism Atlas · Beat Lab</span>
+  <span>Generated February 28, 2026 · Atlas Database + Pulse RSS</span>
+</footer>
+</body>
+</html>
