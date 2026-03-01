@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas City Lab — Chicago, IL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #000;
+      color: #fff;
+      padding: 40px 48px 36px;
+    }
+    .header-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ceff00;
+      margin-bottom: 12px;
+    }
+    .header-city {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+    }
+    .header-sub {
+      margin-top: 10px;
+      font-size: 15px;
+      color: #aaa;
+    }
+    .header-meta {
+      margin-top: 20px;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .header-stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-stat-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: #ceff00;
+      line-height: 1;
+    }
+    .header-stat-label {
+      font-size: 12px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+
+    /* ── PLATFORM BAR ── */
+    .platform-bar {
+      background: #efeff2;
+      padding: 20px 48px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .platform-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #666;
+      margin-right: 8px;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 60px;
+    }
+    .stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+      text-align: center;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+
+    .section {
+      padding: 40px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    /* ── BEAT MAP ── */
+    .beat-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .beat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: default;
+    }
+    .beat-count {
+      font-size: 11px;
+      font-weight: 800;
+      opacity: 0.75;
+    }
+    .legend {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #555;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* ── STORIES ── */
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .story-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 18px;
+      transition: border-color 0.15s;
+    }
+    .story-card:hover { border-color: #ceff00; }
+    .story-headline {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .story-headline:hover { text-decoration: underline; }
+    .story-desc {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 8px;
+    }
+    .story-byline {
+      font-size: 12px;
+      color: #888;
+      font-weight: 600;
+    }
+
+    /* ── CITY SUMMARY ── */
+    .city-summary {
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 760px;
+      color: #222;
+    }
+
+    /* ── GAPS ── */
+    .gap-description { font-size: 14px; color: #555; margin-bottom: 10px; }
+    .gap-list {
+      font-size: 14px;
+      font-weight: 600;
+      color: #313131;
+      line-height: 1.8;
+    }
+    .coverage-notes {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #555;
+      font-style: italic;
+    }
+
+    /* ── CREATOR TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      background: #000;
+      color: #fff;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 14px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    .td-name { font-weight: 600; }
+    .td-plat { color: #555; max-width: 180px; }
+    .td-topic { color: #555; }
+    .td-rss { text-align: center; color: #ceff00; font-size: 10px; }
+    td a { color: #000; text-decoration: underline; }
+    td a:hover { color: #555; }
+
+    /* ── DIGEST NOTE ── */
+    .digest-note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #000;
+      color: #555;
+      padding: 24px 48px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer a { color: #888; }
+    .atlas-mark {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ceff00;
+      letter-spacing: 0.04em;
+    }
+
+    .empty-state {
+      font-size: 14px;
+      color: #999;
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      .header { padding: 28px 20px 24px; }
+      .header-city { font-size: 32px; }
+      .header-stat-num { font-size: 28px; }
+      .platform-bar { padding: 16px 20px; }
+      .main { padding: 0 20px 60px; }
+      .footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-eyebrow">Atlas City Lab · Ecosystem Snapshot</div>
+  <h1 class="header-city">Chicago, IL</h1>
+  <p class="header-sub">Independent creator journalism · February 28, 2026</p>
+  <div class="header-meta">
+    <div class="header-stat">
+      <span class="header-stat-num">70</span>
+      <span class="header-stat-label">Creators tracked</span>
+    </div>
+    <div class="header-stat">
+      <span class="header-stat-num">0</span>
+      <span class="header-stat-label">Strong beats (5+)</span>
+    </div>
+    <div class="header-stat">
+      <span class="header-stat-num">53</span>
+      <span class="header-stat-label">Beat gaps (0–1)</span>
+    </div>
+    <div class="header-stat">
+      <span class="header-stat-num">5</span>
+      <span class="header-stat-label">In Pulse digest</span>
+    </div>
+  </div>
+</header>
+
+<!-- PLATFORM BAR -->
+<div class="platform-bar">
+  <span class="platform-label">By platform</span>
+  <div class="stat-item"><span class="stat-num">33</span><span class="stat-label">Video</span></div><div class="stat-item"><span class="stat-num">21</span><span class="stat-label">Newsletter</span></div><div class="stat-item"><span class="stat-num">8</span><span class="stat-label">Website</span></div><div class="stat-item"><span class="stat-num">7</span><span class="stat-label">Podcast</span></div><div class="stat-item"><span class="stat-num">1</span><span class="stat-label">Social</span></div>
+</div>
+
+<div class="main">
+
+  <!-- BEAT COVERAGE MAP -->
+  <section class="section" id="beats">
+    <h2 class="section-title">Beat Coverage Map</h2>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#ceff00"></span>Strong (5+ creators)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#ffff00"></span>Emerging (2–4)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#313131"></span>Gap (0–1)</span>
+    </div>
+    <div class="beat-grid">
+      <span class="beat-pill" style="background:#ffff00;color:#000" title="4 creators">Sports, Local <span class="beat-count">4</span></span>
+<span class="beat-pill" style="background:#ffff00;color:#000" title="3 creators">Restaurants, Food, Local <span class="beat-count">3</span></span>
+<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Politics <span class="beat-count">2</span></span>
+<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Things to do, Restaurants, Recipes, Food, Local <span class="beat-count">2</span></span>
+<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Health/Wellness, History, Science <span class="beat-count">2</span></span>
+<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Things to do, Restaurants, Lifestyle, Food, Local <span class="beat-count">2</span></span>
+<span class="beat-pill" style="background:#ffff00;color:#000" title="2 creators">Travel <span class="beat-count">2</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Sports <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Internet Culture <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Culture, Entertainment/Hollywood, Identity/Belonging <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Restaurants, Lifestyle, Food, Bars, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">History, Music, Faith/Religion, Culture <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Health/Wellness, Local, Day in a life, Food, Things to do <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Politics, Government Accountability, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Recipes, Food, Health/Wellness <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Investigative, Data Visualization, Government Accountability <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Culture, Local, Music, Things to do <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local News, Politics <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Travel, Restaurants, Lifestyle, LGBTQIA <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Restaurants, Recipes, Food, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Travel, Restaurants, Lifestyle, Food, Bars, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Law/Legal Issues, Education <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Real Estate <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Recipes, Food, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Restaurants, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Design, Lifestyle <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Government Accountability, Politics, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Government Accountability, Politics, Local, Crime <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Travel, Lifestyle <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Government Accountability, Politics, Local, Local news <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Media/Power, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Internet Culture, Culture, World <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Travel, Restaurants, Lifestyle, Food, Bars, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Tech, Culture <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Comedy, Food, Culture <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Lifestyle, Day in a life <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Science, Health/Wellness <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Comedy, Sports, Identity/Belonging, Food, Day in a life, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Recipes, Food, Identity/Belonging <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Tech <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Investigative, Faith/Religion <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Politics, Culture <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Restaurants, Museums, Food, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Restaurants, Lifestyle, Food, Fashion, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Tech, Home, Design <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Media/Power <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Government Accountability, Politics <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Travel, Restaurants, Lifestyle, Food, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Explanatory, Internet Culture <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Culture, Explanatory, Local, History <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Culture, Government Accountability, Politics, Local, Identity/Belonging <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Restaurants, Food, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Restaurants, History, Culture, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Health/Wellness <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Design, Lifestyle, Food, Restaurants <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, History <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Things to do, Restaurants, Lifestyle, Food, Fashion, Design, Culture, Local <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Sports <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Culture, Architecture, Local, History, Things to do <span class="beat-count">1</span></span>
+<span class="beat-pill" style="background:#313131;color:#fff" title="1 creator">Local, Culture <span class="beat-count">1</span></span>
+
+    </div>
+  </section>
+
+  <!-- SUMMARY (AI) -->
+  
+        <section class="section" id="summary">
+          <h2 class="section-title">This Week in Chicago, IL</h2>
+          <p class="city-summary">Chicago-based independent creator-journalists are focusing on travel and experiential storytelling this week, with a lens on how travel can drive personal transformation. Coverage is sparse, with only one creator active in the dataset, limiting the breadth of local independent journalism visible this week.</p>
+        </section>
+
+  <!-- TOP STORIES -->
+  <section class="section" id="stories">
+    <h2 class="section-title">Top Stories This Week</h2>
+    <p class="digest-note">1 posts retrieved from 5 RSS-tracked creators (past 7 days)</p>
+    <div class="stories-grid" style="margin-top:16px">
+      
+            <div class="story-card">
+              <a href="https://www.goingplacesmedia.com/the-promise-of-transformative-travel/" target="_blank" rel="noopener" class="story-headline">Transformative Travel: Can Journeys Abroad Change Who We Are?</a>
+              <p class="story-desc">Yulia Denisyuk explores the concept of transformative travel and what it means for people seeking meaningful experiences abroad, including a spotlight on Malta via Culture Trip.</p>
+              <p class='story-byline'>Yulia Denisyuk</p>
+            </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE GAPS -->
+  
+        <section class="section" id="gaps">
+          <h2 class="section-title">Coverage Gaps</h2>
+          <p class="gap-description">These beats have 0–1 active creators in Chicago, IL:</p>
+          <p class="gap-list">Sports · Internet Culture · Culture, Entertainment/Hollywood, Identity/Belonging · Things to do, Restaurants, Lifestyle, Food, Bars, Local · History, Music, Faith/Religion, Culture · Health/Wellness, Local, Day in a life, Food, Things to do · Politics, Government Accountability, Local · Recipes, Food, Health/Wellness · Investigative, Data Visualization, Government Accountability · Culture, Local, Music, Things to do · Local News, Politics · Things to do, Travel, Restaurants, Lifestyle, LGBTQIA</p>
+          <p class='coverage-notes'>With only one post in the dataset this week, nearly every major beat is underrepresented — including local Chicago politics, education, housing, public safety, and business. A broader set of creator-journalists would be needed to paint a meaningful picture of independent journalism coming out of Chicago this week.</p>
+        </section>
+
+  <!-- CREATOR DIRECTORY -->
+  <section class="section" id="directory">
+    <h2 class="section-title">Creator Directory (70)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Channel</th>
+            <th>Platform</th>
+            <th>Beat</th>
+            <th title="Tracked in Atlas Pulse digest">Pulse</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class='td-name'>Adam Mockler</td><td><a href="https://www.youtube.com/@adammockler" target="_blank" rel="noopener">Adam Mockler</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Adrienne Samuels-Gibbs</td><td><a href="https://www.linkedin.com/in/adriennesamuelsgibbs/" target="_blank" rel="noopener">Adrienne Samuels-Gibbs</a></td><td class='td-plat'>Social - LinkedIn</td><td class='td-topic'>Culture, Entertainment/Hollywood, Identity/Belonging</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Alexandra Stewart</td><td><a href="https://www.tiktok.com/@.sassyconfetti" target="_blank" rel="noopener">Sassy Confetti</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Lifestyle, Food, Bars, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Amin Tomalieh</td><td><a href="https://www.tiktok.com/@chicagofoodguide?lang=en" target="_blank" rel="noopener">Chicago Food Guide</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Recipes, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Andrew Donlan</td><td><a href="https://sgctc.substack.com/" target="_blank" rel="noopener">Still Gotta Come Through Chicago</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Sports, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Andrew Gill</td><td><a href="https://pod.link/1703257857" target="_blank" rel="noopener">Rock That Doesn't Roll</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>History, Music, Faith/Religion, Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Andrew Kammerer</td><td><a href="https://www.tiktok.com/@andrewsdailyday" target="_blank" rel="noopener">Andrew Kammerer</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Health/Wellness, Local, Day in a life, Food, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Austin Berg</td><td><a href="https://www.thelastward.org/" target="_blank" rel="noopener">The Last Ward</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Politics, Government Accountability, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Blog A Bull</td><td><a href="https://www.blogabull.com/" target="_blank" rel="noopener">Blogabull.com</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Sports, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Briana Houston</td><td><a href="https://www.tiktok.com/@tastesofbri?lang=en" target="_blank" rel="noopener">Chef Bri</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Recipes, Food, Health/Wellness</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Cam Rodriguez</td><td><a href="buttondown.com/foiaday" target="_blank" rel="noopener">foiaday</a></td><td class='td-plat'>Newsletter - Other</td><td class='td-topic'>Investigative, Data Visualization, Government Accountability</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Caroline Patton</td><td><a href="https://chicagoshowcal.substack.com/" target="_blank" rel="noopener">Chicago Show Calendar</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Culture, Local, Music, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Charlie Meyerson</td><td><a href="https://www.chicagopublicsquare.com/" target="_blank" rel="noopener">Chicago Public Square</a></td><td class='td-plat'>Newsletter - Other</td><td class='td-topic'>Local News, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Chase Vondran</td><td><a href="https://www.tiktok.com/@explorewithchase" target="_blank" rel="noopener">Explore With Chase</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Travel, Restaurants, Lifestyle, LGBTQIA</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Chris Dolo</td><td><a href="https://www.tiktok.com/@.chrisdolo?lang=en" target="_blank" rel="noopener">Chris Dolo</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Restaurants, Recipes, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Cori Hanna</td><td><a href="https://www.tiktok.com/@coriinthecity?lang=en" target="_blank" rel="noopener">Cori In Chicago</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Travel, Restaurants, Lifestyle, Food, Bars, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Daniel B. Rodriguez</td><td><a href="https://danielbrodriguez.substack.com/" target="_blank" rel="noopener">Daniel B. Rodriguez</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Law/Legal Issues, Education</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dean Lauvina</td><td><a href="https://www.tiktok.com/@deanchicago" target="_blank" rel="noopener">DeanChicago</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Local, Real Estate</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dennis Lee</td><td><a href="https://foodisstupid.substack.com/" target="_blank" rel="noopener">Food Is Stupid</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Things to do, Recipes, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Dennis Lee</td><td><a href="https://thepartycut.substack.com/" target="_blank" rel="noopener">The Party Cut</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Things to do, Restaurants, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Emilia Marie</td><td><a href="https://www.tiktok.com/@emiliamariehome" target="_blank" rel="noopener">Emilia Marie Home</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Design, Lifestyle</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Eric Zorn</td><td><a href="https://ericzorn.substack.com/" target="_blank" rel="noopener">The Picayune Sentinel</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Government Accountability, Politics, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Erica Noblecilla</td><td><a href="https://www.tiktok.com/@ericaeatseverything" target="_blank" rel="noopener">Erica Eats Everything</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Restaurants, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Erin Allmann Updyke</td><td><a href="https://thispodcastwillkillyou.com" target="_blank" rel="noopener">This Podcast Will Kill You</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Health/Wellness, History, Science</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Erin Welsh</td><td><a href="https://thispodcastwillkillyou.com" target="_blank" rel="noopener">This Podcast Will Kill You</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Health/Wellness, History, Science</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Florian Sohnke</td><td><a href="https://www.chicagocontrarian.com/about" target="_blank" rel="noopener">Chicago Contrarian</a></td><td class='td-plat'>Website</td><td class='td-topic'>Government Accountability, Politics, Local, Crime</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Grace Andrews</td><td><a href="https://www.tiktok.com/@grace.andrewsss?lang=en" target="_blank" rel="noopener">Grace Andrews</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Travel, Lifestyle</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>H Kapp-Klote</td><td><a href="https://hs-newsletter-e91163.beehiiv.com/" target="_blank" rel="noopener">The Chicago 312</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Government Accountability, Politics, Local, Local news</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Hunter Haines</td><td><a href="https://www.tiktok.com/@hunter_haines" target="_blank" rel="noopener">Hunter Haines</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Lifestyle, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Igor Studenkov</td><td><a href="https://chimediajournal.substack.com/" target="_blank" rel="noopener">Chicago Media Journal</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Media/Power, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jae-Ha Kim</td><td><a href="https://www.jaehakim.com" target="_blank" rel="noopener">Jae-Ha Kim</a></td><td class='td-plat'>Website</td><td class='td-topic'>Internet Culture, Culture, World</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jai</td><td><a href="https://www.tiktok.com/@lavishfoodlife" target="_blank" rel="noopener">Lavish Food Life</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Travel, Restaurants, Lifestyle, Food, Bars, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jaime Black</td><td><a href="https://podcasts.apple.com/us/podcast/dynasty-podcasts-chicagoverse/id1193859818" target="_blank" rel="noopener">Chicagoverse</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Tech, Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jay Zawaski</td><td><a href="https://open.spotify.com/show/2fUdUU8eVkKHanhSFDNFs5" target="_blank" rel="noopener">I'm Fat Podcast</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Comedy, Food, Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jen In Chicago</td><td><a href="https://www.tiktok.com/@jen_in_chicago" target="_blank" rel="noopener">Jen In Chicago</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Local, Lifestyle, Day in a life</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Johnny Cole Dickson</td><td><a href="https://www.youtube.com/@NoLabCoatRequired" target="_blank" rel="noopener">No Lab Coat Required</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Science, Health/Wellness</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jonah Fialkow</td><td><a href="https://www.tiktok.com/@jewishjonah" target="_blank" rel="noopener">Jewish Jonah</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Comedy, Sports, Identity/Belonging, Food, Day in a life, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Jonathan Zaragoza</td><td><a href="https://www.tiktok.com/@goatboyintl?lang=en" target="_blank" rel="noopener">goatboyintl</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Recipes, Food, Identity/Belonging</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Joshua Doss</td><td><a href="https://www.instagram.com/doss.discourse/" target="_blank" rel="noopener">doss.discourse</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Joshua Trunck</td><td><a href="https://www.tiktok.com/@chicagofoodhq" target="_blank" rel="noopener">Chicago Food HQ</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Tech</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Julie Roys</td><td><a href="https://julieroys.com/" target="_blank" rel="noopener">The Roys Report</a></td><td class='td-plat'>Website</td><td class='td-topic'>Investigative, Faith/Religion</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kat Abughazaleh</td><td><a href="https://www.tiktok.com/@katmabu?lang=en" target="_blank" rel="noopener">Katmabu</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Local, Politics, Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kaylee Jo Flores</td><td><a href="https://www.tiktok.com/@kayleejochicago?lang=en" target="_blank" rel="noopener">Kaylee Jo Chicago</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Museums, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kennedy Claire Bloom</td><td><a href="https://www.tiktok.com/@keninchicago?lang=en" target="_blank" rel="noopener">KeninChicago</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Lifestyle, Food, Fashion, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Kris McDaniel</td><td><a href="https://littletechgirl.com" target="_blank" rel="noopener">LittleTechGirl</a></td><td class='td-plat'>Website</td><td class='td-topic'>Tech, Home, Design</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Mark Jacob</td><td><a href="https://www.stopthepresses.news/" target="_blank" rel="noopener">Stop the Presses</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Media/Power</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Matt Brown</td><td><a href="https://www.extrapointsmb.com/" target="_blank" rel="noopener">Extra Points</a></td><td class='td-plat'>Newsletter - Beehiiv</td><td class='td-topic'>Sports</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Mauna Eats Chicago</td><td><a href="https://www.tiktok.com/@maunaeatschicago?lang=en" target="_blank" rel="noopener">Mauna Eats Chicago</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Restaurants, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Maureen Kelleher</td><td><a href="https://board-rule.ghost.io/" target="_blank" rel="noopener">Board Rule</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-topic'>Local, Government Accountability, Politics</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Mcamila Gallegor</td><td><a href="https://www.tiktok.com/@chicagofoodguide?lang=en" target="_blank" rel="noopener">Chicago Food Guide</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Recipes, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Meena Thiruvengadam</td><td><a href="https://travelwithmeena.com/" target="_blank" rel="noopener">Travel with Meena</a></td><td class='td-plat'>Website</td><td class='td-topic'>Travel</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Megan Schibelka</td><td><a href="https://www.tiktok.com/@meganschibelka?lang=en" target="_blank" rel="noopener">Megan Schibelka</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Travel, Restaurants, Lifestyle, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Michael Nagrant</td><td><a href="https://thehunger.substack.com/" target="_blank" rel="noopener">The Hunger</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Restaurants, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Nathan Graber-Lipperman</td><td><a href="https://www.creatormag.blog/" target="_blank" rel="noopener">Creator Mag</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Explanatory, Internet Culture</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Parker Molloy</td><td><a href="https://www.readtpa.com/" target="_blank" rel="noopener">The Present Age</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Internet Culture</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Pat The Designer (P. Kidd)</td><td><a href="https://www.youtube.com/@TheWindyCityBreeze" target="_blank" rel="noopener">Windy City Breeze</a></td><td class='td-plat'>Video - YouTube</td><td class='td-topic'>Sports, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Patrick, Jeremy, Randy Richardson</td><td><a href="https://www.wrigleyvillenation.com/about/" target="_blank" rel="noopener">Wrigleyville Nation</a></td><td class='td-plat'>Website</td><td class='td-topic'>Sports, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Pete Kastanes</td><td><a href="https://vanishedchicagoland.blog/home/" target="_blank" rel="noopener">Vanished Chicagoland Stories</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Culture, Explanatory, Local, History</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Renee Koontz</td><td><a href="https://www.tiktok.com/@chicago.by.ren?lang=en" target="_blank" rel="noopener">Chicago By Ren</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Lifestyle, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Ricardo Gamboa</td><td><a href="https://hoodoisie.wordpress.com/about/" target="_blank" rel="noopener">The Hoodoise</a></td><td class='td-plat'>Podcast</td><td class='td-topic'>Culture, Government Accountability, Politics, Local, Identity/Belonging</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Samantha Roby</td><td><a href="https://www.tiktok.com/@chicagofoodauthority?lang=en" target="_blank" rel="noopener">Chicago Food Authority</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Things to do, Restaurants, Food, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sara Faddah, Dario Durham</td><td><a href="https://www.77flavorschi.com" target="_blank" rel="noopener">77 Flavors Of Chicago</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Restaurants, History, Culture, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sarah Steimer</td><td><a href="https://haters-guide-to-living-well.beehiiv.com/" target="_blank" rel="noopener">Haters Guide to Living Well</a></td><td class='td-plat'>Newsletter - Other</td><td class='td-topic'>Health/Wellness</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Sarah Yi</td><td><a href="https://www.tiktok.com/@agirlaboutchicago?lang=en" target="_blank" rel="noopener">A Girl About Chicago</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Local, Design, Lifestyle, Food, Restaurants</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Shermann Dilla Thomas</td><td><a href="https://www.instagram.com/6figga_dilla/?hl=en" target="_blank" rel="noopener">6figga_dilla</a></td><td class='td-plat'>Video - Instagram</td><td class='td-topic'>Local, History</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Taylor Justin</td><td><a href="https://thehauteseeker.com/about/" target="_blank" rel="noopener">The Haute Seeker</a></td><td class='td-plat'>Website</td><td class='td-topic'>Things to do, Restaurants, Lifestyle, Food, Fashion, Design, Culture, Local</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>The Bigs</td><td><a href="https://www.thebigs.us/" target="_blank" rel="noopener">The Bigs</a></td><td class='td-plat'>Website</td><td class='td-topic'>Local, Sports</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Theresa Goodrich</td><td><a href="https://chicagolandmarks.substack.com/" target="_blank" rel="noopener">Living Landmarks Of Chicago</a></td><td class='td-plat'>Newsletter - Substack</td><td class='td-topic'>Culture, Architecture, Local, History, Things to do</td><td class='td-rss' title='In Pulse digest'></td></tr>
+<tr><td class='td-name'>Whats The Word</td><td><a href="https://www.tiktok.com/@whatsthewordtv" target="_blank" rel="noopener">Whats The Word</a></td><td class='td-plat'>Video - TikTok</td><td class='td-topic'>Local, Culture</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+<tr><td class='td-name'>Yulia Denisyuk</td><td><a href="https://www.goingplacesmedia.com/" target="_blank" rel="noopener">Going Places Media</a></td><td class='td-plat'>Newsletter - Ghost</td><td class='td-topic'>Travel</td><td class='td-rss' title='In Pulse digest'>●</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div><!-- /main -->
+
+<footer class="footer">
+  <span class="atlas-mark">ATLAS</span>
+  <span>Independent Journalism Atlas · Atlas City Lab</span>
+  <span>Generated February 28, 2026 · Data source: Atlas Database + Pulse RSS</span>
+</footer>
+
+</body>
+</html>
