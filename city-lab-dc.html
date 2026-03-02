@@ -372,6 +372,123 @@
       background: #fafafa; border: 1px solid #e8e8e8; border-radius: 10px;
       padding: 16px 20px; margin-top: 8px; font-size: 12px; color: #888; line-height: 1.6;
     }
+
+    /* ── ECOSYSTEM VIEW TAB ── */
+    .eco-bridge {
+      display: flex; align-items: center; gap: 0; margin-bottom: 28px;
+      border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden;
+    }
+    .eco-bridge-j {
+      flex: 1; background: #111; color: #fff; padding: 20px 24px;
+      text-align: center;
+    }
+    .eco-bridge-l {
+      flex: 1; background: #fff5f7; color: #000; padding: 20px 24px;
+      text-align: center; border-left: 1px solid #e0e0e0;
+    }
+    .eco-bridge-plus {
+      padding: 0 20px; font-size: 28px; font-weight: 800; color: #888;
+      background: #fff; border-left: 1px solid #e0e0e0;
+      border-right: 1px solid #e0e0e0; align-self: stretch;
+      display: flex; align-items: center;
+    }
+    .eco-bridge-num { font-size: 40px; font-weight: 800; line-height: 1; }
+    .eco-bridge-j .eco-bridge-num { color: #ceff00; }
+    .eco-bridge-l .eco-bridge-num { color: #e1306c; }
+    .eco-bridge-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+    .eco-bridge-j .eco-bridge-label { color: #888; }
+    .eco-bridge-l .eco-bridge-label { color: #c0748a; }
+    .eco-bridge-sub { font-size: 12px; margin-top: 3px; }
+    .eco-bridge-j .eco-bridge-sub { color: #555; }
+    .eco-bridge-l .eco-bridge-sub { color: #999; }
+
+    .eco-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px;
+    }
+    .eco-panel {
+      border-radius: 12px; padding: 24px 26px;
+    }
+    .eco-panel-j { background: #111; color: #fff; }
+    .eco-panel-l { background: #fff5f7; border: 1px solid #ffd6e0; }
+    .eco-panel-eyebrow {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .eco-panel-j .eco-panel-eyebrow { color: #ceff00; }
+    .eco-panel-l .eco-panel-eyebrow { color: #e1306c; }
+    .eco-panel-stats { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid; }
+    .eco-panel-j .eco-panel-stats { border-color: #333; }
+    .eco-panel-l .eco-panel-stats { border-color: #ffd6e0; }
+    .eco-ps { display: flex; flex-direction: column; }
+    .eco-ps-num { font-size: 28px; font-weight: 800; line-height: 1; }
+    .eco-panel-j .eco-ps-num { color: #ceff00; }
+    .eco-panel-l .eco-ps-num { color: #e1306c; }
+    .eco-ps-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+    .eco-panel-j .eco-ps-label { color: #666; }
+    .eco-panel-l .eco-ps-label { color: #c0748a; }
+    .eco-panel-subhead {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .eco-panel-j .eco-panel-subhead { color: #555; }
+    .eco-panel-l .eco-panel-subhead { color: #c0748a; }
+    .eco-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .eco-pill {
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .eco-pill-count { font-size: 10px; font-weight: 800; opacity: 0.8; }
+    .eco-pill-j-strong { background: #ceff00; color: #000; }
+    .eco-pill-j-mid    { background: #444; color: #fff; }
+    .eco-pill-j-gap    { background: #330000; color: #ff8888; border: 1px solid #550000; }
+    .eco-pill-l        { background: #fce4ec; color: #ad1457; }
+
+    /* Crosswalk */
+    .crosswalk { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+    .cw-row {
+      display: grid; grid-template-columns: 1fr 200px 1fr;
+      align-items: center; padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .cw-row:last-child { border-bottom: none; }
+    .cw-row-gap { background: #fffaf0; }
+    .cw-j-side { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+    .cw-l-side { display: flex; align-items: center; gap: 8px; }
+    .cw-label {
+      text-align: center; font-size: 12px; font-weight: 700; color: #333; padding: 0 12px;
+    }
+    .cw-label-sub { font-size: 10px; color: #999; font-weight: 400; display: block; margin-top: 1px; }
+    .cw-bar-j {
+      height: 10px; border-radius: 100px; background: #ceff00;
+      min-width: 3px; transition: width 0.3s;
+    }
+    .cw-bar-l {
+      height: 10px; border-radius: 100px; background: #e1306c;
+      min-width: 3px; transition: width 0.3s;
+    }
+    .cw-num { font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .cw-num-j { color: #000; }
+    .cw-num-l { color: #e1306c; }
+    .cw-zero { font-size: 12px; color: #ccc; font-weight: 600; }
+    .cw-gap-badge {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      background: #fff3cd; color: #856404; border-radius: 4px; padding: 2px 6px; white-space: nowrap;
+    }
+    .cw-header-row {
+      display: grid; grid-template-columns: 1fr 200px 1fr;
+      padding: 6px 0 10px; border-bottom: 2px solid #e0e0e0; margin-bottom: 4px;
+    }
+    .cw-header-j { text-align: right; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .cw-header-c { text-align: center; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .cw-header-l { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #e1306c; }
+
+    @media (max-width: 768px) {
+      .eco-split { grid-template-columns: 1fr; }
+      .eco-bridge { flex-direction: column; }
+      .eco-bridge-plus { padding: 10px; border: none; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
+      .eco-bridge-l { border-left: none; border-top: 1px solid #e0e0e0; }
+      .cw-row { grid-template-columns: 1fr 140px 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -423,7 +540,8 @@
   <button class="tab-btn"        data-tab="vacuums"  role="tab">Coverage Vacuums</button>
   <button class="tab-btn"        data-tab="creators" role="tab">Atlas Creators</button>
   <button class="tab-btn"        data-tab="feed"     role="tab">Coverage Feed <span class="tab-badge" id="feed-badge">—</span></button>
-  <button class="tab-btn"        data-tab="local"    role="tab">Local Creators <span class="tab-badge" id="local-badge" style="background:#e1306c;color:#fff">250</span></button>
+  <button class="tab-btn"        data-tab="local"      role="tab">Local Lifestyle Creators <span class="tab-badge" id="local-badge" style="background:#e1306c;color:#fff">250</span></button>
+  <button class="tab-btn"        data-tab="ecosystem"  role="tab">Ecosystem View</button>
 </nav>
 
 
@@ -757,6 +875,173 @@
   <div class="local-note">
     <strong style="color:#555">About this dataset:</strong> Compiled by Austin Graff from public Instagram, TikTok, and X accounts based in the Washington DC metro area. Follower counts as of early 2026. Covers food, travel, events, arts, neighborhoods, parenting, fashion, and local culture. Not journalism — these are lifestyle and culture voices. The <strong>Top 40</strong> view shows Austin's curated highest-reach picks (avg 109K followers); <strong>All 250</strong> shows the full working atlas.
   </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 7: ECOSYSTEM VIEW                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-ecosystem">
+<div class="main">
+
+  <!-- Bridge / framing header -->
+  <section class="section">
+    <h2 class="section-title">The Two Layers</h2>
+    <p style="font-size:14px;color:#555;max-width:740px;margin-bottom:24px;line-height:1.6">
+      DC's media ecosystem has two distinct layers: an <strong>accountability layer</strong> (independent journalists covering beats where institutional coverage has collapsed) and a <strong>culture layer</strong> (platform-native lifestyle creators with large, engaged local audiences). They serve different functions — and where the culture layer is large but the accountability layer is absent, that's the gap.
+    </p>
+
+    <div class="eco-bridge">
+      <div class="eco-bridge-j">
+        <div class="eco-bridge-num">28</div>
+        <div class="eco-bridge-label">Accountability Journalists</div>
+        <div class="eco-bridge-sub">beats · RSS · text · public interest</div>
+      </div>
+      <div class="eco-bridge-plus">+</div>
+      <div class="eco-bridge-l">
+        <div class="eco-bridge-num">250</div>
+        <div class="eco-bridge-label">Lifestyle &amp; Culture Creators</div>
+        <div class="eco-bridge-sub">Instagram · food · travel · community</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Split panel (Option B) -->
+  <section class="section">
+    <h2 class="section-title">Side by Side</h2>
+    <div class="eco-split">
+
+      <!-- LEFT: Journalism -->
+      <div class="eco-panel eco-panel-j">
+        <div class="eco-panel-eyebrow">Journalism Layer — Accountability</div>
+        <div class="eco-panel-stats">
+          <div class="eco-ps"><span class="eco-ps-num">28</span><span class="eco-ps-label">Creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">17</span><span class="eco-ps-label">RSS Feeds</span></div>
+          <div class="eco-ps"><span class="eco-ps-num" id="stat-posts-eco">74</span><span class="eco-ps-label">Posts/month</span></div>
+        </div>
+        <div class="eco-panel-subhead">Beat Coverage</div>
+        <div class="eco-pills">
+          <span class="eco-pill eco-pill-j-strong">Northern Virginia <span class="eco-pill-count">5</span></span>
+          <span class="eco-pill eco-pill-j-strong">Suburban Maryland <span class="eco-pill-count">5</span></span>
+          <span class="eco-pill eco-pill-j-mid">DC Government <span class="eco-pill-count">4</span></span>
+          <span class="eco-pill eco-pill-j-mid">Criminal Justice <span class="eco-pill-count">4</span></span>
+          <span class="eco-pill eco-pill-j-mid">Maryland Legislature <span class="eco-pill-count">3</span></span>
+          <span class="eco-pill eco-pill-j-mid">Housing <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Transportation <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Black DC <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Virginia Legislature <span class="eco-pill-count">1</span></span>
+          <span class="eco-pill eco-pill-j-gap">Education <span class="eco-pill-count">0</span></span>
+          <span class="eco-pill eco-pill-j-gap">Immigrant Communities <span class="eco-pill-count">0</span></span>
+          <span class="eco-pill eco-pill-j-gap">Environment <span class="eco-pill-count">0</span></span>
+          <span class="eco-pill eco-pill-j-gap">Social Services <span class="eco-pill-count">0</span></span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Lifestyle -->
+      <div class="eco-panel eco-panel-l">
+        <div class="eco-panel-eyebrow">Lifestyle Layer — Culture &amp; Community</div>
+        <div class="eco-panel-stats">
+          <div class="eco-ps"><span class="eco-ps-num">250</span><span class="eco-ps-label">Creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">27.4M</span><span class="eco-ps-label">Total Reach</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">90%</span><span class="eco-ps-label">Instagram</span></div>
+        </div>
+        <div class="eco-panel-subhead">Top Content Areas</div>
+        <div class="eco-pills" id="eco-lifestyle-pills">
+          <span class="eco-pill eco-pill-l">Restaurants <span class="eco-pill-count">57</span></span>
+          <span class="eco-pill eco-pill-l">Things To Do <span class="eco-pill-count">33</span></span>
+          <span class="eco-pill eco-pill-l">Travel <span class="eco-pill-count">32</span></span>
+          <span class="eco-pill eco-pill-l">Photography <span class="eco-pill-count">24</span></span>
+          <span class="eco-pill eco-pill-l">Lifestyle <span class="eco-pill-count">21</span></span>
+          <span class="eco-pill eco-pill-l">Fashion <span class="eco-pill-count">9</span></span>
+          <span class="eco-pill eco-pill-l">Food <span class="eco-pill-count">7</span></span>
+          <span class="eco-pill eco-pill-l">Architecture <span class="eco-pill-count">6</span></span>
+          <span class="eco-pill eco-pill-l">History <span class="eco-pill-count">6</span></span>
+          <span class="eco-pill eco-pill-l">Parenting <span class="eco-pill-count">6</span></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Crosswalk / asymmetry (Option C) -->
+  <section class="section">
+    <h2 class="section-title">The Asymmetry</h2>
+    <p style="font-size:13px;color:#888;margin-bottom:20px;max-width:680px">
+      Where lifestyle audience appetite is high but journalism coverage is absent — and vice versa. The widest gaps between these two bars are where the information need is greatest.
+    </p>
+
+    <div class="crosswalk">
+      <div class="cw-header-row">
+        <div class="cw-header-j">Journalism Creators →</div>
+        <div class="cw-header-c">Content Area</div>
+        <div class="cw-header-l">← Lifestyle Creators</div>
+      </div>
+
+      <!-- Journalism-dominant rows -->
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">5</span><div class="cw-bar-j" style="width:150px"></div></div>
+        <div class="cw-label">Northern Virginia<span class="cw-label-sub">local news coverage</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">5</span><div class="cw-bar-j" style="width:150px"></div></div>
+        <div class="cw-label">Suburban Maryland<span class="cw-label-sub">local news coverage</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">4</span><div class="cw-bar-j" style="width:120px"></div></div>
+        <div class="cw-label">DC Government<span class="cw-label-sub">accountability journalism</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">4</span><div class="cw-bar-j" style="width:120px"></div></div>
+        <div class="cw-label">Criminal Justice<span class="cw-label-sub">accountability journalism</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+
+      <!-- Lifestyle-dominant rows -->
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Food &amp; Dining<span class="cw-label-sub">restaurants + food creators</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:150px"></div><span class="cw-num cw-num-l">64</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Events &amp; Travel<span class="cw-label-sub">things to do + travel</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:143px"></div><span class="cw-num cw-num-l">61</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Visual Arts &amp; Culture<span class="cw-label-sub">photography, architecture, history</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:89px"></div><span class="cw-num cw-num-l">38</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Fashion &amp; Lifestyle<span class="cw-label-sub">fashion, lifestyle, style</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:66px"></div><span class="cw-num cw-num-l">28</span></div>
+      </div>
+
+      <!-- Shared gaps -->
+      <div class="cw-row cw-row-gap">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Education<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row cw-row-gap">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Immigrant Communities<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row cw-row-gap">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Environment<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+
+    </div>
+  </section>
 
 </div>
 </div>
