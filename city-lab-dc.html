@@ -308,6 +308,69 @@
       .context-grid { grid-template-columns: 1fr; }
       .post-row { grid-template-columns: 1fr; gap: 6px; }
       .post-date { order: -1; }
+      .creator-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── LOCAL CREATORS (LIFESTYLE TAB) ── */
+    .local-intro { font-size: 14px; color: #555; max-width: 700px; margin-bottom: 20px; line-height: 1.6; }
+    .local-stats {
+      display: flex; gap: 32px; flex-wrap: wrap;
+      padding: 24px 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 24px;
+    }
+    .local-stat { display: flex; flex-direction: column; }
+    .local-stat-num { font-size: 32px; font-weight: 800; line-height: 1; color: #e1306c; }
+    .local-stat-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+    .local-controls {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .toggle-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #666; }
+    .toggle-group { display: flex; border: 1.5px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+    .toggle-btn {
+      padding: 7px 16px; font-family: inherit; font-size: 12px; font-weight: 700;
+      background: #fff; border: none; cursor: pointer; color: #888;
+      transition: background 0.15s, color 0.15s;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .toggle-btn.active { background: #e1306c; color: #fff; }
+
+    .local-count { font-size: 13px; color: #888; margin-bottom: 16px; }
+
+    .creator-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px;
+    }
+    .creator-card {
+      border: 1px solid #e8e8e8; border-radius: 12px; padding: 16px 18px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .creator-card:hover { border-color: #e1306c; box-shadow: 0 2px 12px rgba(225,48,108,0.08); }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+    .card-handle { font-size: 14px; font-weight: 700; color: #000; }
+    .card-handle a { color: inherit; text-decoration: none; }
+    .card-handle a:hover { text-decoration: underline; }
+    .card-name { font-size: 12px; color: #999; margin-top: 2px; }
+    .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; margin-left: 8px; }
+    .plat-badge {
+      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .plat-Instagram { background: #fce4ec; color: #ad1457; }
+    .plat-TikTok    { background: #f0f0f0; color: #000; }
+    .plat-X         { background: #e8f0fe; color: #1a1a2e; }
+    .plat-YouTube   { background: #ffebee; color: #b71c1c; }
+    .tier-badge {
+      font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .tier-top40  { background: #fff3cd; color: #856404; }
+    .tier-cohort { background: #d1ecf1; color: #0c5460; }
+    .card-followers { font-size: 22px; font-weight: 800; color: #e1306c; line-height: 1; margin-bottom: 10px; }
+    .card-followers-label { font-size: 11px; color: #aaa; font-weight: 400; margin-left: 3px; }
+    .content-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .ctag { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 100px; background: #f5f5f5; color: #444; }
+    .local-note {
+      background: #fafafa; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 16px 20px; margin-top: 8px; font-size: 12px; color: #888; line-height: 1.6;
     }
   </style>
 </head>
@@ -360,6 +423,7 @@
   <button class="tab-btn"        data-tab="vacuums"  role="tab">Coverage Vacuums</button>
   <button class="tab-btn"        data-tab="creators" role="tab">Atlas Creators</button>
   <button class="tab-btn"        data-tab="feed"     role="tab">Coverage Feed <span class="tab-badge" id="feed-badge">—</span></button>
+  <button class="tab-btn"        data-tab="local"    role="tab">Local Creators <span class="tab-badge" id="local-badge" style="background:#e1306c;color:#fff">250</span></button>
 </nav>
 
 
@@ -636,6 +700,68 @@
 </div>
 
 
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 6: LOCAL CREATORS                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-local">
+<div class="main">
+
+  <section class="section">
+    <h2 class="section-title">DC Lifestyle &amp; Culture Creators</h2>
+    <p class="local-intro">
+      Austin Graff's DC Atlas — 250 lifestyle and social creators covering food, travel, events, arts, and neighborhoods across the DMV. A distinct layer from the journalism ecosystem: this is the <strong>audience infrastructure</strong> — platform-native local voices with established, engaged followings that signal where DC's media-savvy audience already lives.
+    </p>
+
+    <div class="local-stats">
+      <div class="local-stat"><span class="local-stat-num">250</span><span class="local-stat-label">Creators tracked</span></div>
+      <div class="local-stat"><span class="local-stat-num">90%</span><span class="local-stat-label">Instagram-primary</span></div>
+      <div class="local-stat"><span class="local-stat-num">27.5K</span><span class="local-stat-label">Median followers</span></div>
+      <div class="local-stat"><span class="local-stat-num">57</span><span class="local-stat-label">Restaurants creators</span></div>
+      <div class="local-stat"><span class="local-stat-num">33</span><span class="local-stat-label">Things To Do</span></div>
+    </div>
+
+    <div class="local-controls">
+      <span class="toggle-label">View:</span>
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="toggle-top40" onclick="setLocalTier('top40')">Top 40</button>
+        <button class="toggle-btn"        id="toggle-all"   onclick="setLocalTier('all')">All 250</button>
+      </div>
+      <select class="filter-select" id="local-filter-content" onchange="renderLocalCreators()">
+        <option value="">All content types</option>
+        <option value="restaurants">Restaurants</option>
+        <option value="things to do">Things To Do</option>
+        <option value="travel">Travel</option>
+        <option value="photography">Photography</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="fashion">Fashion</option>
+        <option value="food">Food</option>
+        <option value="history">History</option>
+        <option value="architecture">Architecture</option>
+        <option value="parenting">Parenting</option>
+      </select>
+      <select class="filter-select" id="local-filter-platform" onchange="renderLocalCreators()">
+        <option value="">All platforms</option>
+        <option value="Instagram">Instagram</option>
+        <option value="TikTok">TikTok</option>
+        <option value="X">X / Twitter</option>
+        <option value="YouTube">YouTube</option>
+      </select>
+    </div>
+
+    <p class="local-count" id="local-count"></p>
+    <div class="creator-grid" id="local-creator-grid">
+      <div class="loading">Loading creator data…</div>
+    </div>
+  </section>
+
+  <div class="local-note">
+    <strong style="color:#555">About this dataset:</strong> Compiled by Austin Graff from public Instagram, TikTok, and X accounts based in the Washington DC metro area. Follower counts as of early 2026. Covers food, travel, events, arts, neighborhoods, parenting, fashion, and local culture. Not journalism — these are lifestyle and culture voices. The <strong>Top 40</strong> view shows Austin's curated highest-reach picks (avg 109K followers); <strong>All 250</strong> shows the full working atlas.
+  </div>
+
+</div>
+</div>
+
+
 <!-- ── FOOTER ── -->
 <footer class="footer">
   <span>Atlas City Lab · Washington, D.C. / DMV · March 2026</span>
@@ -733,12 +859,14 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 /* ═══════════════════════════════════════════════════════════ */
 async function init() {
   try {
-    const [creatorsRes, postsRes] = await Promise.all([
+    const [creatorsRes, postsRes, localRes] = await Promise.all([
       fetch('assets/data/dmv-creators.json'),
       fetch('assets/data/dmv-recent-posts.json'),
+      fetch('assets/data/dc-creators-full.json'),
     ]);
     const creatorsData = await creatorsRes.json();
     const postsData    = await postsRes.json();
+    const localData    = await localRes.json();
 
     allCreators = creatorsData.filter(c => c.name && !c._comment && !c._placeholder);
     allPosts    = postsData.posts || [];
@@ -774,6 +902,9 @@ async function init() {
       creatorSel.appendChild(o);
     });
 
+    allLocalCreators = localData.creators || [];
+    renderLocalCreators();
+
     renderBeatHeadlines();
     renderTable(allCreators);
     renderFeed(allPosts);
@@ -784,6 +915,8 @@ async function init() {
     document.getElementById('creator-tbody').innerHTML =
       '<tr><td colspan="6" class="loading">Data unavailable — open via HTTP server.</td></tr>';
     document.getElementById('post-list').innerHTML =
+      '<p class="empty-state">Data unavailable — open via HTTP server.</p>';
+    document.getElementById('local-creator-grid').innerHTML =
       '<p class="empty-state">Data unavailable — open via HTTP server.</p>';
   }
 }
@@ -984,6 +1117,94 @@ function renderFeed(posts) {
               style="background:${beatColor(p.beat)};color:${beatTextColor(p.beat)}">${esc(p.beat)}</span>
       </div>
     </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* LOCAL CREATORS (LIFESTYLE TAB)                             */
+/* ═══════════════════════════════════════════════════════════ */
+let allLocalCreators = [];
+let localTierFilter  = 'top40';
+
+function fmtFollowers(n) {
+  if (!n) return '—';
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1000)    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return String(n);
+}
+
+function normPlatform(p) {
+  if (!p) return '';
+  if (p.toLowerCase() === 'tiktok') return 'TikTok';
+  return p;
+}
+
+function setLocalTier(tier) {
+  localTierFilter = tier;
+  document.getElementById('toggle-top40').classList.toggle('active', tier === 'top40');
+  document.getElementById('toggle-all').classList.toggle('active',   tier === 'all');
+  renderLocalCreators();
+}
+
+function renderLocalCreators() {
+  const contentFilter  = (document.getElementById('local-filter-content')?.value  || '').toLowerCase();
+  const platformFilter = (document.getElementById('local-filter-platform')?.value || '').toLowerCase();
+
+  let visible = allLocalCreators;
+  if (localTierFilter === 'top40') {
+    visible = visible.filter(c => c.tier === 'top40' || c.tier === 'cohort');
+  }
+  if (contentFilter) {
+    visible = visible.filter(c => (c.content_type || '').toLowerCase().includes(contentFilter));
+  }
+  if (platformFilter) {
+    visible = visible.filter(c => normPlatform(c.platform).toLowerCase() === platformFilter);
+  }
+
+  const grid    = document.getElementById('local-creator-grid');
+  const countEl = document.getElementById('local-count');
+  countEl.textContent = `${visible.length} creator${visible.length !== 1 ? 's' : ''}`;
+
+  if (!visible.length) {
+    grid.innerHTML = '<p class="empty-state">No creators match this filter.</p>';
+    return;
+  }
+
+  grid.innerHTML = visible.map(c => {
+    const plat      = normPlatform(c.platform);
+    const platClass = 'plat-' + plat.replace(/[^a-zA-Z]/g, '');
+    const tags      = (c.content_type || '').split(',').map(t => t.trim()).filter(Boolean).slice(0, 4);
+    const tierBadge = c.tier === 'top40'  ? '<span class="tier-badge tier-top40">Top 40</span>'
+                    : c.tier === 'cohort' ? '<span class="tier-badge tier-cohort">Cohort</span>'
+                    : '';
+    const handle = c.handle || c.name;
+    const profileUrls = {
+      'Instagram': `https://instagram.com/${c.handle}`,
+      'TikTok':    `https://tiktok.com/@${c.handle}`,
+      'X':         `https://x.com/${c.handle}`,
+      'YouTube':   `https://youtube.com/@${c.handle}`,
+    };
+    const profileUrl = profileUrls[plat] || null;
+    const handleDisplay = c.handle ? `@${esc(c.handle)}` : esc(c.name);
+    const nameDisplay   = c.name && c.name !== c.handle ? `<div class="card-name">${esc(c.name)}</div>` : '';
+
+    return `
+      <div class="creator-card">
+        <div class="card-top">
+          <div>
+            <div class="card-handle">${profileUrl
+              ? `<a href="${esc(profileUrl)}" target="_blank" rel="noopener">${handleDisplay}</a>`
+              : handleDisplay}</div>
+            ${nameDisplay}
+          </div>
+          <div class="card-right">
+            <span class="plat-badge ${platClass}">${esc(plat)}</span>
+            ${tierBadge}
+          </div>
+        </div>
+        <div class="card-followers">${fmtFollowers(c.followers)}<span class="card-followers-label">followers</span></div>
+        <div class="content-tags">${tags.map(t => `<span class="ctag">${esc(t)}</span>`).join('')}</div>
+      </div>`;
+  }).join('');
 }
 
 init();
