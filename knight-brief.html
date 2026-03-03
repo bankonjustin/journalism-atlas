@@ -711,32 +711,31 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
 </div><!-- /main-content -->
 <script>
 (function() {
-  var HASH =  + HASH + ;
+  var HASH = "d07f0cfd25f9877514674165f7dd40bf3bf59f7a95c64897a899b85a8a415e0d";
   async function sha256(msg) {
-    var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,"0"); }).join("");
   }
   async function checkPassword() {
-    var val = document.getElementById('pw-input').value;
+    var val = document.getElementById("pw-input").value;
     var h = await sha256(val);
     if (h === HASH) {
-      sessionStorage.setItem('atlas-knight-auth', HASH);
-      document.getElementById('pw-gate').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
+      sessionStorage.setItem("atlas-knight-auth", HASH);
+      document.getElementById("pw-gate").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
     } else {
-      document.getElementById('pw-error').textContent = 'Incorrect password. Please try again.';
-      document.getElementById('pw-input').focus();
+      document.getElementById("pw-error").textContent = "Incorrect password. Please try again.";
+      document.getElementById("pw-input").focus();
     }
   }
-  document.getElementById('pw-btn').addEventListener('click', checkPassword);
-  document.getElementById('pw-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') checkPassword();
-    document.getElementById('pw-error').textContent = '';
+  document.getElementById("pw-btn").addEventListener("click", checkPassword);
+  document.getElementById("pw-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkPassword();
+    document.getElementById("pw-error").textContent = "";
   });
-  // Restore session if already authenticated
-  if (sessionStorage.getItem('atlas-knight-auth') === HASH) {
-    document.getElementById('pw-gate').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
+  if (sessionStorage.getItem("atlas-knight-auth") === HASH) {
+    document.getElementById("pw-gate").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
   }
 })();
 </script>
