@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Pulse — Creator Ecosystem Digest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #ceff00;
+      --black: #000;
+      --gray: #555;
+      --border: #e0e0e0;
+      --off: #f6f6f6;
+    }
+
+    body {
+      font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      background: #000;
+      padding: 14px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
+    }
+    .nav-back {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #888; text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-back:hover { color: var(--green); }
+    .nav-logo { font-size: 13px; font-weight: 800; color: #fff; }
+    .nav-logo span { color: var(--green); }
+
+    /* ── HEADER ── */
+    .header { background: #000; color: #fff; padding: 44px 48px 36px; }
+    .header-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); display: inline-block;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .header-title {
+      font-size: 52px; font-weight: 800;
+      line-height: 1.0; letter-spacing: -0.02em;
+    }
+    .header-sub {
+      margin-top: 12px; font-size: 16px; color: #aaa;
+      max-width: 640px; line-height: 1.6;
+    }
+    .header-stats {
+      margin-top: 28px; display: flex; gap: 40px; flex-wrap: wrap;
+    }
+    .hstat { display: flex; flex-direction: column; }
+    .hstat-num {
+      font-size: 38px; font-weight: 800; color: var(--green); line-height: 1;
+    }
+    .hstat-lbl {
+      font-size: 11px; color: #666; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-top: 4px;
+    }
+
+    /* ── CITY SWITCHER ── */
+    .city-section { background: #0a0a0a; border-bottom: 1px solid #222; padding: 28px 48px; }
+    .city-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #555; margin-bottom: 16px;
+    }
+    .city-grid {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .city-btn {
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 6px; padding: 14px 18px; border-radius: 10px;
+      border: 1.5px solid #333; background: #111; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-family: inherit; min-width: 120px;
+    }
+    .city-btn.active {
+      border-color: var(--green); background: #141a00;
+    }
+    .city-btn.locked {
+      opacity: 0.45; cursor: default;
+    }
+    .city-btn:not(.locked):not(.active):hover {
+      border-color: #555; background: #1a1a1a;
+    }
+    .city-name {
+      font-size: 14px; font-weight: 800; color: #fff; line-height: 1;
+    }
+    .city-badge {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
+    }
+    .badge-live { background: #d4f5d4; color: #176517; }
+    .badge-indev { background: var(--green); color: #000; }
+    .badge-locked { background: #333; color: #888; }
+    .city-sub { font-size: 11px; color: #666; }
+
+    .city-unlock-note {
+      margin-top: 14px; font-size: 12px; color: #555; font-style: italic;
+    }
+    .city-unlock-note span { color: var(--green); font-style: normal; font-weight: 700; }
+
+    /* ── DIGEST BAR ── */
+    .digest-bar {
+      background: #f9f9f9; border-bottom: 1px solid var(--border);
+      padding: 14px 48px; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .digest-meta { font-size: 13px; color: #666; }
+    .digest-meta strong { color: #000; font-weight: 700; }
+    .digest-tag {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
+      background: #e8f5e8; color: #176517;
+    }
+
+    /* ── MAIN ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+
+    .section { padding: 36px 0; border-bottom: 1px solid var(--border); }
+    .section:last-child { border-bottom: none; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #999; margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: 22px; font-weight: 800; margin-bottom: 8px;
+    }
+    .section-lead {
+      font-size: 14px; color: #666; margin-bottom: 24px; max-width: 680px; line-height: 1.6;
+    }
+
+    /* ── BEAT CLUSTERS ── */
+    .cluster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 16px;
+    }
+    .cluster-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .cluster-card:hover {
+      border-color: #aaa; box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .cluster-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .cluster-beat {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .beat-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .beat-name {
+      font-size: 12px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #333;
+    }
+    .cluster-count {
+      font-size: 11px; color: #999; font-weight: 600;
+    }
+    .cluster-stories { display: flex; flex-direction: column; gap: 10px; }
+    .story {
+      padding-bottom: 10px; border-bottom: 1px solid #f0f0f0;
+    }
+    .story:last-child { border-bottom: none; padding-bottom: 0; }
+    .story-hed {
+      font-size: 13px; font-weight: 700; line-height: 1.35; color: #000;
+      text-decoration: none; display: block; margin-bottom: 3px;
+    }
+    .story-hed:hover { text-decoration: underline; }
+    .story-byline { font-size: 11px; color: #999; }
+    .story-byline strong { color: #666; font-weight: 600; }
+
+    .cluster-footer {
+      margin-top: 14px; padding-top: 12px; border-top: 1px solid #f0f0f0;
+      font-size: 12px; color: #999; display: flex; justify-content: space-between;
+      align-items: center;
+    }
+    .cluster-more {
+      font-size: 12px; font-weight: 700; color: #555; text-decoration: none;
+    }
+    .cluster-more:hover { color: #000; }
+
+    /* ── CREATOR TABLE ── */
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: #000; color: #fff; font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 12px 14px; text-align: left; white-space: nowrap;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    .td-name { font-weight: 700; }
+    .td-beat { color: #333; font-size: 12px; }
+    .td-city { color: #888; font-size: 12px; }
+    .td-posts { font-weight: 700; color: #000; }
+    .td-latest { color: #555; font-size: 12px; max-width: 260px; }
+    .td-latest a { color: #333; text-decoration: underline; }
+    .td-plat { font-size: 11px; color: #999; }
+
+    /* ── COVERAGE GAPS ── */
+    .gap-grid { display: flex; flex-direction: column; gap: 10px; }
+    .gap-row {
+      display: flex; align-items: baseline; gap: 14px;
+      padding: 14px 18px; border-left: 3px solid #e0e0e0;
+      background: #f9f9f9; border-radius: 0 8px 8px 0;
+    }
+    .gap-row.high { border-left-color: #cc0000; background: #fff8f8; }
+    .gap-row.med  { border-left-color: #f5a623; background: #fffbf0; }
+    .gap-beat {
+      font-size: 12px; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; min-width: 160px; color: #333;
+    }
+    .gap-desc { font-size: 13px; color: #555; line-height: 1.5; }
+    .gap-count { font-size: 11px; color: #999; white-space: nowrap; margin-left: auto; }
+
+    /* ── HOW IT WORKS ── */
+    .how-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; margin-top: 24px;
+    }
+    .how-card {
+      background: var(--off); border-radius: 10px; padding: 22px;
+    }
+    .how-num {
+      font-size: 32px; font-weight: 800; color: var(--green);
+      line-height: 1; margin-bottom: 10px;
+    }
+    .how-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+    .how-desc { font-size: 13px; color: #666; line-height: 1.55; }
+
+    /* ── FUNDING CTA ── */
+    .funding-bar {
+      background: #0a0a0a; border-radius: 12px; padding: 36px 40px;
+      margin-top: 48px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .funding-left {}
+    .funding-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 10px;
+    }
+    .funding-title {
+      font-size: 24px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 10px;
+    }
+    .funding-desc { font-size: 14px; color: #888; max-width: 480px; line-height: 1.6; }
+    .funding-cities {
+      display: flex; flex-direction: column; gap: 8px; min-width: 220px;
+    }
+    .funding-city-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+    }
+    .funding-city-name { font-size: 13px; color: #aaa; font-weight: 600; }
+    .funding-city-time {
+      font-size: 11px; font-weight: 800; color: var(--green); letter-spacing: 0.06em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav, .header, .city-section, .digest-bar, .main { padding-left: 20px; padding-right: 20px; }
+      .header-title { font-size: 36px; }
+      .cluster-grid { grid-template-columns: 1fr; }
+      .funding-bar { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-back">← Independent Journalism Atlas</a>
+  <div class="nav-logo">Atlas <span>Pulse</span></div>
+</nav>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">
+    <span class="live-dot"></span>
+    Atlas Pulse — Creator Ecosystem Digest
+  </div>
+  <h1 class="header-title">What independent<br>journalism is covering.<br>Right now.</h1>
+  <p class="header-sub">886 creators. 353 live RSS feeds. AI-clustered daily by beat and geography — so program directors and funders can see the creator layer without reading 800 newsletters themselves.</p>
+  <div class="header-stats">
+    <div class="hstat">
+      <span class="hstat-num">886</span>
+      <span class="hstat-lbl">Creators tracked</span>
+    </div>
+    <div class="hstat">
+      <span class="hstat-num">353</span>
+      <span class="hstat-lbl">Live RSS feeds</span>
+    </div>
+    <div class="hstat">
+      <span class="hstat-num">Daily</span>
+      <span class="hstat-lbl">Digest cadence</span>
+    </div>
+    <div class="hstat">
+      <span class="hstat-num">~$10</span>
+      <span class="hstat-lbl">Monthly infrastructure cost</span>
+    </div>
+  </div>
+</div>
+
+<!-- CITY SWITCHER -->
+<div class="city-section">
+  <div class="city-label">Select a city view</div>
+  <div class="city-grid">
+    <button class="city-btn active" onclick="switchCity('dc')">
+      <span class="city-name">Washington, DC</span>
+      <span class="city-badge badge-live">Live</span>
+      <span class="city-sub">87 creators · 41 feeds</span>
+    </button>
+    <button class="city-btn" onclick="switchCity('chicago')">
+      <span class="city-name">Chicago</span>
+      <span class="city-badge badge-live">Live</span>
+      <span class="city-sub">64 creators · 29 feeds</span>
+    </button>
+    <div class="city-btn locked" title="Coming with investment">
+      <span class="city-name">Philadelphia</span>
+      <span class="city-badge badge-locked">90 days</span>
+      <span class="city-sub">~50 est. creators</span>
+    </div>
+    <div class="city-btn locked" title="Coming with investment">
+      <span class="city-name">Detroit</span>
+      <span class="city-badge badge-locked">90 days</span>
+      <span class="city-sub">~40 est. creators</span>
+    </div>
+    <div class="city-btn locked" title="Coming with investment">
+      <span class="city-name">Charlotte</span>
+      <span class="city-badge badge-locked">90 days</span>
+      <span class="city-sub">~35 est. creators</span>
+    </div>
+    <div class="city-btn locked" title="Coming with investment">
+      <span class="city-name">Miami</span>
+      <span class="city-badge badge-locked">90 days</span>
+      <span class="city-sub">~60 est. creators</span>
+    </div>
+    <div class="city-btn locked" title="Coming with investment">
+      <span class="city-name">San Jose</span>
+      <span class="city-badge badge-locked">90 days</span>
+      <span class="city-sub">~45 est. creators</span>
+    </div>
+    <div class="city-btn locked" title="Coming with investment">
+      <span class="city-name">Akron</span>
+      <span class="city-badge badge-locked">90 days</span>
+      <span class="city-sub">~30 est. creators</span>
+    </div>
+  </div>
+  <p class="city-unlock-note">Cities marked <span>90 days</span> are 90 days from operational with investment — infrastructure is ready, creator spidering is next.</p>
+</div>
+
+<!-- DIGEST DATE BAR -->
+<div class="digest-bar">
+  <div class="digest-meta">
+    <strong id="digest-city-name">Washington, DC</strong> digest ·
+    Generated <strong>March 3, 2026</strong> ·
+    From <strong id="digest-feed-count">41 live feeds</strong>
+  </div>
+  <div class="digest-tag">Sample Edition</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- BEAT CLUSTERS -->
+  <div class="section">
+    <div class="section-label">Beat clusters — this week's coverage</div>
+    <p class="section-lead">AI-clustered stories from creator RSS feeds, grouped by beat. Hover any headline to see the source.</p>
+
+    <div class="cluster-grid" id="cluster-grid">
+
+      <div class="cluster-card">
+        <div class="cluster-header">
+          <div class="cluster-beat">
+            <div class="beat-dot" style="background:#e53e3e;"></div>
+            <span class="beat-name">Immigration &amp; Border</span>
+          </div>
+          <span class="cluster-count">18 stories</span>
+        </div>
+        <div class="cluster-stories">
+          <div class="story">
+            <a href="#" class="story-hed">ICE operations in DC suburbs: what the numbers actually show</a>
+            <div class="story-byline"><strong>Laura Gottesdiener</strong> · DMV Independent</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">The attorneys showing up every morning at immigration court</a>
+            <div class="story-byline"><strong>CASA in Action</strong> · Newsletter</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Post-WaPo cuts: who is covering the federal immigration beat now</a>
+            <div class="story-byline"><strong>Racine Yarborough</strong> · Substack</div>
+          </div>
+        </div>
+        <div class="cluster-footer">
+          <span>11 creators active this week</span>
+          <a href="#" class="cluster-more">See all →</a>
+        </div>
+      </div>
+
+      <div class="cluster-card">
+        <div class="cluster-header">
+          <div class="cluster-beat">
+            <div class="beat-dot" style="background:#3182ce;"></div>
+            <span class="beat-name">Federal Government</span>
+          </div>
+          <span class="cluster-count">31 stories</span>
+        </div>
+        <div class="cluster-stories">
+          <div class="story">
+            <a href="#" class="story-hed">DOGE cuts land at CFPB: the independent reporters tracking every change</a>
+            <div class="story-byline"><strong>Capitol Hill Monitor</strong> · Newsletter</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">NIH freeze coverage: a gap in regional media, not national</a>
+            <div class="story-byline"><strong>Devin Watkins</strong> · Substack</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Who is filling federal reporting vacuums left by legacy outlets</a>
+            <div class="story-byline"><strong>Federal Dispatch</strong> · Podcast transcript</div>
+          </div>
+        </div>
+        <div class="cluster-footer">
+          <span>17 creators active this week</span>
+          <a href="#" class="cluster-more">See all →</a>
+        </div>
+      </div>
+
+      <div class="cluster-card">
+        <div class="cluster-header">
+          <div class="cluster-beat">
+            <div class="beat-dot" style="background:#d69e2e;"></div>
+            <span class="beat-name">Housing</span>
+          </div>
+          <span class="cluster-count">12 stories</span>
+        </div>
+        <div class="cluster-stories">
+          <div class="story">
+            <a href="#" class="story-hed">Ward 8 eviction surge: three months of data from a single creator</a>
+            <div class="story-byline"><strong>District Housing Watch</strong> · Substack</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">What the DC zoning fight looks like from the ground</a>
+            <div class="story-byline"><strong>Naomi Ellis</strong> · Newsletter</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Affordable housing pipeline: who's covering it after the Post cuts</a>
+            <div class="story-byline"><strong>Greater Greater Washington</strong> · Blog</div>
+          </div>
+        </div>
+        <div class="cluster-footer">
+          <span>7 creators active this week</span>
+          <a href="#" class="cluster-more">See all →</a>
+        </div>
+      </div>
+
+      <div class="cluster-card">
+        <div class="cluster-header">
+          <div class="cluster-beat">
+            <div class="beat-dot" style="background:#38a169;"></div>
+            <span class="beat-name">Education</span>
+          </div>
+          <span class="cluster-count">9 stories</span>
+        </div>
+        <div class="cluster-stories">
+          <div class="story">
+            <a href="#" class="story-hed">DCPS budget season: six reporters, three of them independent</a>
+            <div class="story-byline"><strong>DC Schools Report</strong> · Newsletter</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Charter school accountability: where the independent beat lives now</a>
+            <div class="story-byline"><strong>EduWatch DC</strong> · Substack</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Special education funding fight reaches Wilson Building</a>
+            <div class="story-byline"><strong>James Sherwood</strong> · Newsletter</div>
+          </div>
+        </div>
+        <div class="cluster-footer">
+          <span>6 creators active this week</span>
+          <a href="#" class="cluster-more">See all →</a>
+        </div>
+      </div>
+
+      <div class="cluster-card">
+        <div class="cluster-header">
+          <div class="cluster-beat">
+            <div class="beat-dot" style="background:#805ad5;"></div>
+            <span class="beat-name">Health Policy</span>
+          </div>
+          <span class="cluster-count">14 stories</span>
+        </div>
+        <div class="cluster-stories">
+          <div class="story">
+            <a href="#" class="story-hed">Medicaid freeze: the independent reporters tracking DC's response</a>
+            <div class="story-byline"><strong>Health Desk DC</strong> · Substack</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">FDA reorganization coverage: almost entirely by independent journalists</a>
+            <div class="story-byline"><strong>Pharma Policy Watch</strong> · Newsletter</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Mental health infrastructure in Wards 7 &amp; 8: a gap in coverage</a>
+            <div class="story-byline"><strong>Maya Thornton</strong> · Newsletter</div>
+          </div>
+        </div>
+        <div class="cluster-footer">
+          <span>9 creators active this week</span>
+          <a href="#" class="cluster-more">See all →</a>
+        </div>
+      </div>
+
+      <div class="cluster-card">
+        <div class="cluster-header">
+          <div class="cluster-beat">
+            <div class="beat-dot" style="background:#dd6b20;"></div>
+            <span class="beat-name">Economy &amp; Labor</span>
+          </div>
+          <span class="cluster-count">8 stories</span>
+        </div>
+        <div class="cluster-stories">
+          <div class="story">
+            <a href="#" class="story-hed">Federal contractor layoffs land in Maryland suburbs — here's who's covering it</a>
+            <div class="story-byline"><strong>DMV Economy</strong> · Substack</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Union organizing at Amazon's DC-area warehouses: one independent on the beat</a>
+            <div class="story-byline"><strong>Capital Labor</strong> · Newsletter</div>
+          </div>
+          <div class="story">
+            <a href="#" class="story-hed">Small business closures in the H Street corridor: data and ground truth</a>
+            <div class="story-byline"><strong>DC Commerce Watch</strong> · Blog</div>
+          </div>
+        </div>
+        <div class="cluster-footer">
+          <span>5 creators active this week</span>
+          <a href="#" class="cluster-more">See all →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MOST ACTIVE CREATORS -->
+  <div class="section">
+    <div class="section-label">Most active this week</div>
+    <p class="section-lead">Creator-journalists with the highest post volume in this digest period.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Creator</th>
+            <th>Beat</th>
+            <th>Platform</th>
+            <th>Posts (7d)</th>
+            <th>Latest</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-name">District Housing Watch</td>
+            <td class="td-beat">Housing / Real Estate</td>
+            <td class="td-plat">Substack</td>
+            <td class="td-posts">11</td>
+            <td class="td-latest"><a href="#">Ward 8 eviction surge: three months of data</a></td>
+          </tr>
+          <tr>
+            <td class="td-name">Federal Dispatch</td>
+            <td class="td-beat">Federal Government</td>
+            <td class="td-plat">Podcast / RSS</td>
+            <td class="td-posts">9</td>
+            <td class="td-latest"><a href="#">Who's filling federal reporting vacuums</a></td>
+          </tr>
+          <tr>
+            <td class="td-name">Health Desk DC</td>
+            <td class="td-beat">Health Policy</td>
+            <td class="td-plat">Substack</td>
+            <td class="td-posts">8</td>
+            <td class="td-latest"><a href="#">Medicaid freeze: DC's independent response</a></td>
+          </tr>
+          <tr>
+            <td class="td-name">Capitol Hill Monitor</td>
+            <td class="td-beat">Federal / Congress</td>
+            <td class="td-plat">Newsletter</td>
+            <td class="td-posts">7</td>
+            <td class="td-latest"><a href="#">DOGE cuts land at CFPB</a></td>
+          </tr>
+          <tr>
+            <td class="td-name">Laura Gottesdiener</td>
+            <td class="td-beat">Immigration</td>
+            <td class="td-plat">Substack</td>
+            <td class="td-posts">6</td>
+            <td class="td-latest"><a href="#">ICE operations in DC suburbs: what the numbers show</a></td>
+          </tr>
+          <tr>
+            <td class="td-name">Greater Greater Washington</td>
+            <td class="td-beat">Housing / Urban Policy</td>
+            <td class="td-plat">Blog / RSS</td>
+            <td class="td-posts">6</td>
+            <td class="td-latest"><a href="#">DC zoning fight from the ground</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- COVERAGE GAPS -->
+  <div class="section">
+    <div class="section-label" style="display:flex; align-items:center; gap:10px;">
+      Coverage gaps
+      <span style="background:#000; color:#ceff00; font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:3px 9px; border-radius:4px;">Washington, DC</span>
+      <span style="color:#bbb; font-weight:400; text-transform:none; letter-spacing:0; font-size:12px;">This week</span>
+    </div>
+    <p class="section-lead">Beats with significant news activity and low independent creator coverage in this city view. Switches with your city selection.</p>
+    <div class="gap-grid">
+      <div class="gap-row high">
+        <span class="gap-beat">Criminal Justice</span>
+        <span class="gap-desc">DC MPD policy changes and police accountability — near-zero independent coverage despite active news cycle.</span>
+        <span class="gap-count">1 creator</span>
+      </div>
+      <div class="gap-row high">
+        <span class="gap-beat">Environment / Climate</span>
+        <span class="gap-desc">EPA rollback affecting Anacostia cleanup — no DC-based independent journalists consistently on this beat.</span>
+        <span class="gap-count">2 creators</span>
+      </div>
+      <div class="gap-row med">
+        <span class="gap-beat">Local Courts</span>
+        <span class="gap-desc">DC Superior Court — almost entirely uncovered by independents. Legacy court reporters have no independent successors.</span>
+        <span class="gap-count">1 creator</span>
+      </div>
+      <div class="gap-row med">
+        <span class="gap-beat">City Council</span>
+        <span class="gap-desc">DC Council coverage is thin outside of major budget votes. Committee-level work largely untracked.</span>
+        <span class="gap-count">3 creators</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section">
+    <div class="section-label">How Atlas Pulse works</div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">886</div>
+        <div class="how-title">Creators in the database</div>
+        <div class="how-desc">Every creator in the Atlas who publishes via RSS or a scrapeable platform — verified and categorized by beat and geography.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">353</div>
+        <div class="how-title">Live RSS feeds monitored</div>
+        <div class="how-desc">We pull fresh content from 353 active creator feeds daily. Feeds that go dark are flagged; new ones are added as creators are verified.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">AI</div>
+        <div class="how-title">Clustered by beat + geography</div>
+        <div class="how-desc">Stories are embedded and clustered automatically — grouping similar coverage into beats, flagging outliers, and surfacing coverage gaps.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">~$10</div>
+        <div class="how-title">Monthly infrastructure cost</div>
+        <div class="how-desc">DC and Chicago digests run for roughly $10/month combined. Scaling to 8 Knight cities is an infrastructure and spidering problem, not a cost one.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUNDING CTA -->
+  <div class="funding-bar">
+    <div class="funding-left">
+      <div class="funding-eyebrow">Knight Cities Edition</div>
+      <div class="funding-title">Six more cities.<br>90 days each.</div>
+      <p class="funding-desc">DC and Chicago are operational today. Expanding to the full Knight cities portfolio requires spidering each city's creator ecosystem — the same process that built the Atlas. 90 days per city, running in parallel with investment.</p>
+    </div>
+    <div class="funding-cities">
+      <div class="funding-city-row">
+        <span class="funding-city-name">Washington, DC</span>
+        <span class="funding-city-time">Live now</span>
+      </div>
+      <div class="funding-city-row">
+        <span class="funding-city-name">Chicago</span>
+        <span class="funding-city-time">Live now</span>
+      </div>
+      <div class="funding-city-row" style="opacity:0.5">
+        <span class="funding-city-name">Philadelphia</span>
+        <span class="funding-city-time" style="color:#888;">90 days →</span>
+      </div>
+      <div class="funding-city-row" style="opacity:0.5">
+        <span class="funding-city-name">Detroit</span>
+        <span class="funding-city-time" style="color:#888;">90 days →</span>
+      </div>
+      <div class="funding-city-row" style="opacity:0.5">
+        <span class="funding-city-name">Charlotte</span>
+        <span class="funding-city-time" style="color:#888;">90 days →</span>
+      </div>
+      <div class="funding-city-row" style="opacity:0.5">
+        <span class="funding-city-name">Miami · San Jose · Akron</span>
+        <span class="funding-city-time" style="color:#888;">90 days →</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+  function switchCity(city) {
+    const buttons = document.querySelectorAll('.city-btn:not(.locked)');
+    buttons.forEach(b => b.classList.remove('active'));
+
+    const data = {
+      dc: { name: 'Washington, DC', feeds: '41 live feeds' },
+      chicago: { name: 'Chicago', feeds: '29 live feeds' }
+    };
+
+    const btn = city === 'dc' ? buttons[0] : buttons[1];
+    if (btn) btn.classList.add('active');
+
+    const cityName = document.getElementById('digest-city-name');
+    const feedCount = document.getElementById('digest-feed-count');
+    if (cityName) cityName.textContent = data[city].name;
+    if (feedCount) feedCount.textContent = data[city].feeds;
+  }
+</script>
+
+</body>
+</html>
