@@ -32,6 +32,8 @@ body { font-family: 'Hanken Grotesk', -apple-system, sans-serif; background: var
 .stat { display: flex; flex-direction: column; }
 .stat-num { font-size: 40px; font-weight: 800; color: var(--yellow); line-height: 1; }
 .stat-lbl { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: .08em; margin-top: 5px; }
+.live-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); margin-right: 7px; vertical-align: middle; position: relative; top: -3px; animation: livepulse 2s ease-in-out infinite; }
+@keyframes livepulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.65); } }
 
 /* SECTIONS */
 .wrap { max-width: 1060px; margin: 0 auto; padding: 56px 48px; }
@@ -203,14 +205,14 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
 <!-- HERO -->
 <div class="hero">
   <div class="eyebrow">Knight Foundation · Pre-Read · March 2026</div>
-  <h1>Every Knight city has creators.<br>None of those cities have the infrastructure to support them.</h1>
-  <p class="hero-sub">Atlas is the discovery, verification, and intelligence layer that makes creator journalism legible, fundable, and sustainable — across your entire journalism portfolio.</p>
+  <h1>Creator journalism is civic infrastructure.<br>The Atlas is charting it — city by city, creator by creator.</h1>
+  <p class="hero-sub">Atlas is the discovery, verification, and intelligence layer that makes creator journalism legible, fundable, and sustainable — across your entire portfolio.</p>
   <div class="stats">
-    <div class="stat"><span class="stat-num">1,200+</span><span class="stat-lbl">Verified creators at launch</span></div>
+    <div class="stat"><span class="stat-num"><span class="live-dot"></span>1,220+</span><span class="stat-lbl">Verified creators and counting</span></div>
     <div class="stat"><span class="stat-num">7</span><span class="stat-lbl">Live products shipped</span></div>
-    <div class="stat"><span class="stat-num">48 hrs</span><span class="stat-lbl">To map a city from scratch</span></div>
+    <div class="stat"><span class="stat-num">48 hrs</span><span class="stat-lbl">To produce an initial creator map</span></div>
     <div class="stat"><span class="stat-num">$50K</span><span class="stat-lbl">First earned revenue (Press Forward Chicago)</span></div>
-    <div class="stat"><span class="stat-num">10+</span><span class="stat-lbl">Partnerships in pipeline</span></div>
+    <div class="stat"><span class="stat-num"><span class="live-dot"></span>10+</span><span class="stat-lbl">Partnerships in pipeline</span></div>
   </div>
 </div>
 
@@ -224,11 +226,11 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
   <div class="prob-grid">
     <div class="prob-card">
       <h3>Washington Post</h3>
-      <p>Halved its local staff in Q1 2026. Baltimore, Pittsburgh, New Orleans: legacy anchors shrinking or gone entirely.</p>
+      <p>Halved its local staff in Q1 2026. Baltimore, Pittsburgh, New Orleans: legacy metro newsrooms — the papers and TV stations that defined local coverage for generations — are shrinking or gone entirely.</p>
     </div>
     <div class="prob-card">
       <h3>Philadelphia</h3>
-      <p>40+ independent creators covering the city across newsletters, YouTube, TikTok, and podcasts. The Inquirer is contracting. These creators are invisible to funders and publishers.</p>
+      <p>40+ independent creators covering the city across newsletters, YouTube, TikTok, and podcasts. Even as established outlets navigate uncertainty, these creators remain invisible to funders and publishers.</p>
     </div>
     <div class="prob-card">
       <h3>Every Knight City</h3>
@@ -246,7 +248,7 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
 
   <div class="callout">
     <strong>The single most important framing</strong>
-    <p>Atlas is not asking Knight to add a new bet. We're asking Knight to add the infrastructure layer that allows its existing bets — Press Forward, Knight Cities, Knight Chairs, portfolio grantees — to operate deep within the creator economy. This is infrastructure for Knight's journalism portfolio. Not a grant program. Not a newsroom. The connective tissue that makes the whole portfolio more effective.</p>
+    <p>Atlas is not asking Knight to add a new bet. We're asking Knight to add the infrastructure layer that allows its existing bets — Press Forward, Knight Cities, Knight Chairs, portfolio grantees — to operate deep within the creator economy. This is infrastructure for Knight's portfolio. Not a grant program. Not a newsroom. The connective tissue that makes the whole portfolio more effective.</p>
   </div>
 </div>
 </div>
@@ -267,7 +269,7 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
   <div class="prod-list">
     <div class="prod-row">
       <div class="prod-name">Core Atlas <span class="badge badge-live">Live</span></div>
-      <div class="prod-desc">1,200+ verified creator-journalists, searchable by beat, platform, and geography. Multiple visualization modes. Shareable filter URLs.</div>
+      <div class="prod-desc">1,220+ verified creator-journalists, searchable by beat, platform, and geography. Multiple visualization modes. Shareable filter URLs.</div>
       <a href="https://www.journalismatlas.com" target="_blank" class="prod-link">Open →</a>
     </div>
     <div class="prod-row">
@@ -280,19 +282,19 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
       <div class="prod-desc">Custom ecosystem intelligence for Washington D.C. — beat map, coverage vacuums, creator table with live post data, lifestyle layer. A deep look at the D.C. media landscape post-WaPo cuts.</div>
       <a href="https://www.journalismatlas.com/city-lab-dc" target="_blank" class="prod-link">Open →</a>
     </div>
-    <div class="prod-row">
-      <div class="prod-name">City Lab: Chicago <span class="badge badge-new">New</span></div>
-      <div class="prod-desc">Chicago creators from the Atlas database — a filtered city view, using the Press Forward pilot city as the lens.</div>
-      <a href="https://www.journalismatlas.com/city-lab-chicago" target="_blank" class="prod-link">Open →</a>
+    <div class="prod-row" style="opacity: 0.6; border-style: dashed;">
+      <div class="prod-name">City Lab: Chicago <span class="badge" style="background:#f0f0f0;color:#888;">In Progress</span></div>
+      <div class="prod-desc">Chicago creator ecosystem — currently being mapped and verified. DC is the fully operational model; Chicago follows the same methodology and will be complete within 90 days.</div>
+      <span class="prod-link" style="color: #bbb; cursor: default; white-space: nowrap;">Coming soon</span>
     </div>
     <div class="prod-row">
       <div class="prod-name">Atlas Pulse <span class="badge badge-new">Prototype</span></div>
-      <div class="prod-desc">A weekly briefing on what the independent journalism ecosystem is actually covering — 886 creators, 353 live feeds, AI-clustered by topic and geography. Designed for program directors, funders, and researchers who need visibility into the creator layer without reading 800 newsletters themselves.</div>
+      <div class="prod-desc">A weekly briefing on what the independent journalism ecosystem is actually covering — 886 creators with scrapeable or RSS-enabled platforms, 353 live feeds, AI-clustered by topic and geography. Designed for program directors, funders, and researchers who need visibility into the creator layer without reading 800 newsletters themselves.</div>
       <a href="/pulse" target="_blank" class="prod-link">See sample digest →</a>
     </div>
     <div class="prod-row" style="opacity: 0.5; border-style: dashed;">
       <div class="prod-name">Atlas Pulse: Knight Cities Edition <span class="badge badge-new">In Dev</span></div>
-      <div class="prod-desc">A filtered intelligence digest showing what creators across Knight's eight resident cities are covering in real time. DC and Chicago views are operational today. Philadelphia, Detroit, Charlotte: 90 days each. Designed as a tool Knight program directors can actually use.</div>
+      <div class="prod-desc">A filtered intelligence digest showing what creators across Knight's eight resident cities are covering in real time. DC and Chicago views are operational today. Philadelphia, Detroit, Charlotte: 90 days each to full verification and live feed integration. Designed as a tool Knight program directors can actually use.</div>
       <span class="prod-link" style="color: #bbb; cursor: default; white-space: nowrap;">Unlocks with investment</span>
     </div>
     <div class="prod-row">
@@ -337,8 +339,8 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
     <div class="dc-feature-text">
       <h3>The DC City Lab: What a Knight Cities Investment Unlocks</h3>
       <p>In 48 hours, five tools combined to produce a complete ecosystem map: every creator, their beat, their recent coverage, and the coverage vacuums — stories no one is telling.</p>
-      <p class="dc-caps">THIS IS POSSIBLE BECAUSE OF OUR QUICKLY MATURING METHODOLOGY/TOOLING AND OUR FAMILIARITY WITH THE MARKET.</p>
-      <p>This is deliverable for Philadelphia, Charlotte, Detroit, and every other Knight resident city in 90 days each — <strong>IF WE CAN ENGAGE IN THE RIGHT PARTNERSHIPS.</strong></p>
+      <p class="dc-caps">This is possible because of our quickly maturing methodology and tooling, and our deep familiarity with the market.</p>
+      <p>This is deliverable for Philadelphia, Charlotte, Detroit, and every other Knight resident city in 90 days each — if we can engage in the right partnerships.</p>
     </div>
     <div>
       <div class="screen-placeholder">
@@ -357,7 +359,7 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
 <div id="portfolio" class="bg-white">
 <div class="wrap">
   <div class="sec-label">03 — Your Portfolio, Seen Through Atlas</div>
-  <h2 class="sec-title">Atlas sits underneath your entire journalism portfolio.</h2>
+  <h2 class="sec-title">Atlas sits underneath your entire portfolio.</h2>
   <p class="sec-lead">Every program Knight runs in journalism gains leverage when there's a discovery and intelligence layer underneath it. Here's what that looks like in practice.</p>
 
   <div class="pull-quote">
@@ -391,7 +393,7 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
       <tr>
         <td class="td-label">Knight Chairs<br><span style="font-weight:400;font-size:12px;color:var(--gray)">26 chairs, 23 universities</span></td>
         <td class="td-gap">Research capacity exists but no shared data infrastructure connecting academic work to the creator ecosystem.</td>
-        <td class="td-atlas">Knight Chairs become Atlas research partners and methodology validators. Jeremy Gilbert (Medill) and Andy Pergam (ASU) are natural first engagements. Ryan is current Nieman-Berkman Klein Fellow at Harvard.</td>
+        <td class="td-atlas">Knight Chairs become Atlas research partners and methodology validators. Jeremy Gilbert (Medill) and Andy Pergam (ASU) are natural first engagements.</td>
       </tr>
       <tr>
         <td class="td-label">AJP, LION, Ground Truth, Chalkbeat</td>
@@ -402,6 +404,11 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
   </table>
 
   <div class="callout" style="margin-top:24px">
+    <strong>The kind of creator Atlas is built to surface</strong>
+    <p>Figures like Julia Angwin — who built investigative infrastructure at ProPublica before founding The Markup — represent exactly the kind of credentialed independent creator the Atlas is designed to surface and support.</p>
+  </div>
+
+  <div class="callout" style="margin-top:12px">
     <strong>On Philadelphia</strong>
     <p>It's the next natural city lab in our plan — Lenfest as co-funder (proposal already submitted to Tristan Loper at Lenfest), an active Press Forward chapter, a contracting Inquirer, and a creator ecosystem that is almost entirely unmapped. The co-investment model is designed to replicate across every Knight resident city with an aligned regional funder.</p>
   </div>
@@ -668,7 +675,7 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
       </tr>
       <tr>
         <td class="td-label" style="font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:.04em">Database</td>
-        <td>1,200+ (current) with Knight access layer</td>
+        <td>1,220+ (current) with Knight access layer</td>
         <td class="tier-mid">5,000 creators national</td>
         <td class="tier-full">10,000+ creators + public API</td>
       </tr>
@@ -679,6 +686,12 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
         <td class="tier-full">Full portfolio intelligence infrastructure; innovation challenge cycles; global expansion layer; 10K+ creators; annual report; Knight as the architect of journalism's next generation of infrastructure.</td>
       </tr>
       <tr>
+        <td class="td-label" style="font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:.04em">Includes</td>
+        <td>Founder advisory time</td>
+        <td class="tier-mid">Founder salaries + PM hire + Data Coordinator/Taxonomist</td>
+        <td class="tier-full">Founder salaries + full team: PM, Data Coordinator, city Curators, Partnership Manager</td>
+      </tr>
+      <tr>
         <td class="td-label" style="font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:.04em">Knight's position</td>
         <td>Early visibility &amp; access</td>
         <td class="tier-mid">Leader: defining the city lab model field-wide</td>
@@ -686,6 +699,11 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
       </tr>
     </tbody>
   </table>
+
+  <div class="callout" style="margin-top: 24px;">
+    <strong>Key roles this investment funds</strong>
+    <p><strong>City Curators</strong> — embedded local journalists who own the spidering and verification process in each city. <strong>Data Coordinator / Taxonomist</strong> — maintains schema integrity, beat taxonomy, and database quality at scale. <strong>Partnership Manager</strong> — manages the growing pipeline of aggregator, civic, and academic relationships. Founder time is explicitly budgeted across all three tiers.</p>
+  </div>
 
   <p style="font-size:14px;color:var(--gray);line-height:1.65;margin-top:8px">All three scenarios are designed as entry points to a longer partnership, not one-time grants. Each is structured to attract co-funders — Lenfest in Philadelphia, regional foundations in other Knight cities.</p>
 </div>
@@ -698,7 +716,7 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
 <div class="wrap">
   <div class="sec-label">06 — The Team</div>
   <h2 class="sec-title">~90 years of combined journalism experience. We are not outsiders — we left to build the infrastructure this moment requires.</h2>
-  <p class="sec-lead">We spent decades building digital infrastructure inside the largest newsrooms in America. We know how journalism works from the inside, and we have the expertise to leverage AI tools without losing the editorial judgment that makes the work credible.</p>
+  <p class="sec-lead">We spent decades building digital infrastructure inside the largest newsrooms in America. We left to do it for the ecosystem that's actually growing — from the inside out, with the editorial judgment that only comes from doing the work.</p>
 
   <div class="founder-grid">
     <div class="founder-card">
@@ -709,7 +727,7 @@ tr:last-child td:last-child  { border-radius: 0 0 10px 0; }
     <div class="founder-card">
       <h3>Liz Kelly Nelson</h3>
       <div class="founder-role">Co-Founder</div>
-      <p>2024 Columbia Sulzberger Fellow. Leadership roles at Vox, USA Today, Gannett, AOL. 2025–2026 Terker Fellow, GWU. JSK Fellow, Stanford. <strong>2026–2027 Fellow, ASU Knight Center for the Future of Journalism.</strong> Founder, Project C.</p>
+      <p>2024 Columbia Sulzberger Fellow. Leadership roles at Vox, USA Today, Gannett, AOL. 2025–2026 Terker Fellow, GWU. JSK Fellow, Stanford. 2026–2027 Fellow, ASU Knight Center for the Future of Journalism. Founder, Project C.</p>
     </div>
     <div class="founder-card">
       <h3>Ryan Kellett</h3>
