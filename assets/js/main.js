@@ -17,6 +17,19 @@
             'General News'
         ];
 
+        // Parse a creator's group string into individual group names.
+        // Handles comma-separated multi-group values (e.g. "Culture & Media, Power & Politics")
+        // while correctly preserving group names that contain commas ("Science, Health & Environment").
+        function parseCreatorGroups(groupStr) {
+            if (!groupStr) return [];
+            if (ORDERED_GROUPS.includes(groupStr)) return [groupStr];
+            const found = ORDERED_GROUPS.filter(g => {
+                const escaped = g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                return new RegExp('(?:^|,\\s*)' + escaped + '(?:,|$)').test(groupStr);
+            });
+            return found.length > 0 ? found : [groupStr];
+        }
+
         // Master abbreviation dictionary for consistent label shortening
         const LABEL_ABBREVIATIONS = {
             // Platforms
@@ -265,9 +278,11 @@
             // Apply filters and update views
             applyFilters() {
                 filteredCreators = allCreators.filter(creator => {
-                    // Group filter
-                    if (this.filters.group.size > 0 && !this.filters.group.has(creator.group)) {
-                        return false;
+                    // Group filter — creator.group may be a comma-separated multi-group string
+                    if (this.filters.group.size > 0) {
+                        if (!parseCreatorGroups(creator.group).some(g => this.filters.group.has(g))) {
+                            return false;
+                        }
                     }
                     
                     // Platform filter
@@ -280,9 +295,14 @@
                         return false;
                     }
                     
-                    // Topic filter
-                    if (this.filters.topic.size > 0 && !this.filters.topic.has(creator.topic)) {
-                        return false;
+                    // Topic filter — creator.topic may be comma-separated multi-topic
+                    if (this.filters.topic.size > 0) {
+                        const creatorTopics = creator.topic
+                            ? creator.topic.split(',').map(t => t.trim())
+                            : [];
+                        if (!creatorTopics.some(t => this.filters.topic.has(t))) {
+                            return false;
+                        }
                     }
                     
                     // Search filter
@@ -374,27 +394,29 @@
             const topics = new Map();
             
             allCreators.forEach(creator => {
-                // Group (NEW!)
-                if (creator.group) {
-                    groups.set(creator.group, (groups.get(creator.group) || 0) + 1);
-                }
-                
+                // Group — parse multi-group values, count each individually
+                parseCreatorGroups(creator.group).forEach(g => {
+                    groups.set(g, (groups.get(g) || 0) + 1);
+                });
+
                 // Platform
                 if (creator.platform) {
                     platforms.set(creator.platform, (platforms.get(creator.platform) || 0) + 1);
                 }
-                
+
                 // Geography
                 if (creator.geography) {
                     geographies.set(creator.geography, (geographies.get(creator.geography) || 0) + 1);
                 }
-                
-                // Topic
+
+                // Topic — split comma-separated multi-topic values, count each individually
                 if (creator.topic) {
-                    topics.set(creator.topic, (topics.get(creator.topic) || 0) + 1);
+                    creator.topic.split(',').map(t => t.trim()).filter(Boolean).forEach(t => {
+                        topics.set(t, (topics.get(t) || 0) + 1);
+                    });
                 }
             });
-            
+
             // Populate group filters (FIRST - primary filter!)
             const groupFilters = document.getElementById('groupFilters');
             ORDERED_GROUPS.forEach(groupName => {
@@ -403,14 +425,7 @@
                     groupFilters.appendChild(createFilterOption('group', groupName, count));
                 }
             });
-            // Add any groups not in the ordered list
-            Array.from(groups.entries())
-                .filter(([group]) => !ORDERED_GROUPS.includes(group))
-                .sort((a, b) => a[0].localeCompare(b[0]))
-                .forEach(([group, count]) => {
-                    groupFilters.appendChild(createFilterOption('group', group, count));
-                });
-            
+
             // Populate platform filters
             const platformFilters = document.getElementById('platformFilters');
             Array.from(platforms.entries())
@@ -418,7 +433,7 @@
                 .forEach(([platform, count]) => {
                     platformFilters.appendChild(createFilterOption('platform', platform, count));
                 });
-            
+
             // Populate geography filters
             const geographyFilters = document.getElementById('geographyFilters');
             Array.from(geographies.entries())
@@ -426,7 +441,7 @@
                 .forEach(([geography, count]) => {
                     geographyFilters.appendChild(createFilterOption('geography', geography, count));
                 });
-            
+
             // Populate topic filters
             const topicFilters = document.getElementById('topicFilters');
             Array.from(topics.entries())
