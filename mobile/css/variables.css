@@ -1,65 +1,183 @@
+/* =============================================
+   JOURNALISM ATLAS — CSS CUSTOM PROPERTIES
+   Source of truth: DESIGN-TOKENS.md
+   Last synced: March 2026
+   ============================================= */
+
+/* Google Fonts — load in HTML <head> before this file:
+   Hanken Grotesk (UI), Merriweather (editorial), JetBrains Mono (data/numeric)
+   @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Merriweather:wght@400;500&family=JetBrains+Mono:wght@400&display=swap'); */
+
 :root {
-    /* Brand Colors */
+
+    /* =========================================
+       BRAND COLORS (Atlas Style Guide 2025)
+       ========================================= */
+    --color-acid-green: #ceff00;
+    --color-lime-green: #97d600;
+    --color-dark-olive: #5d7400;
+    --color-dark-gray: #313131;
+    --color-light-gray: #efeff2;
+    --color-black: #000000;
+    --color-white: #ffffff;
+
+    /* Legacy brand aliases */
     --color-brand-black: #000000;
-    --color-brand-green: #CCFF00;
-    --color-dark-gray: #2d2d2d;
-    --color-light-gray: #f5f5f5;
-    --color-medium-gray: #666666;
-    
-    /* Topic Colors - 9 distinct colors for topic groups */
-    --color-topic-1: #FF6B6B; /* Power & Politics */
-    --color-topic-2: #4ECDC4; /* Money & Work */
-    --color-topic-3: #45B7D1; /* Civic Life */
-    --color-topic-4: #FFA07A; /* Social Issues */
-    --color-topic-5: #98D8C8; /* Science/Health/Environment */
-    --color-topic-6: #F7DC6F; /* Culture & Media */
-    --color-topic-7: #BB8FCE; /* Lifestyle & Personal Life */
-    --color-topic-8: #85C1E2; /* Journalism Formats */
-    --color-topic-9: #95A5A6; /* General News */
-    
-    /* UI Colors */
-    --color-background: #FFFFFF;
-    --color-overlay: rgba(0, 0, 0, 0.7);
-    --color-text-primary: #000000;
-    --color-text-secondary: #666666;
-    --color-border: #E0E0E0;
-    --color-shadow: rgba(0, 0, 0, 0.1);
-    
-    /* Typography */
+    --color-brand-green: #ceff00;
+    --color-medium-gray: #666666;   /* no v2 equivalent — kept */
+
+
+    /* =========================================
+       SEMANTIC COLOR ROLES
+       ========================================= */
+    --color-bg: #efeff2;            /* primary page background */
+    --color-surface: #ffffff;       /* card / panel background */
+    --color-text: #313131;          /* primary body text */
+    --color-heading: #000000;       /* heading text */
+    --color-accent: #ceff00;        /* primary accent / CTA */
+    --color-accent-hover: #97d600;  /* hover / active state */
+    --color-error: #ff4500;         /* error state (Blood Orange) */
+    --color-muted: #9a9a9a;         /* muted / disabled */
+    --color-border: #d0d0d5;        /* border / divider */
+
+    /* Legacy color aliases — migrate mobile.css away from these over time */
+    --color-background: #ffffff;        /* use --color-surface for white, --color-bg for page bg */
+    --color-text-primary: #313131;      /* use --color-text */
+    --color-text-secondary: #666666;    /* no v2 equivalent yet — kept */
+    --color-overlay: rgba(0, 0, 0, 0.7); /* no v2 equivalent — kept */
+    --color-shadow: rgba(0, 0, 0, 0.1);  /* no v2 equivalent — kept */
+
+
+    /* =========================================
+       TOPIC COLORS — PLACEHOLDER
+       Pending Ryan's taxonomy + James's D3 array
+       ========================================= */
+    --color-topic-1: #FF6B6B;   /* Power & Politics */
+    --color-topic-2: #4ECDC4;   /* Money & Work */
+    --color-topic-3: #45B7D1;   /* Civic Life */
+    --color-topic-4: #FFA07A;   /* Social Issues */
+    --color-topic-5: #98D8C8;   /* Science/Health/Environment */
+    --color-topic-6: #F7DC6F;   /* Culture & Media */
+    --color-topic-7: #BB8FCE;   /* Lifestyle & Personal Life */
+    --color-topic-8: #85C1E2;   /* Journalism Formats */
+    --color-topic-9: #95A5A6;   /* General News */
+
+
+    /* =========================================
+       TYPOGRAPHY
+       Weights capped at 500 — nothing heavier.
+       ========================================= */
+
+    /* Font families */
+    --font-ui: 'Hanken Grotesk', sans-serif;
+    --font-editorial: 'Merriweather', serif;
+    --font-data: 'JetBrains Mono', monospace;
+
+    /* Legacy font alias */
     --font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Font sizes — desktop defaults */
+    --text-display: 45px;
+    --text-h1: 32px;
+    --text-h2: 24px;
+    --text-h3: 18px;
+    --text-body: 16px;
+    --text-label: 14px;
+    --text-data: 14px;
+    --text-micro: 12px;
+
+    /* Legacy font-size aliases — migrate mobile.css away from these over time */
     --font-size-xs: 12px;
     --font-size-sm: 14px;
     --font-size-base: 16px;
     --font-size-lg: 18px;
     --font-size-xl: 24px;
     --font-size-2xl: 32px;
-    
-    /* Spacing */
+
+    /* Font weights */
+    --weight-regular: 400;
+    --weight-medium: 500;
+
+
+    /* =========================================
+       SPACING — 8px base unit
+       ========================================= */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    /* Legacy spacing aliases — migrate mobile.css away from these over time */
     --spacing-xs: 4px;
     --spacing-sm: 8px;
     --spacing-md: 16px;
     --spacing-lg: 24px;
     --spacing-xl: 32px;
-    
-    /* Border Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    --radius-full: 50%;
-    
-    /* Z-index layers */
+
+
+    /* =========================================
+       TOUCH & MOBILE
+       ========================================= */
+    --touch-target-min: 48px;       /* every interactive element minimum */
+    --mobile-edge-margin: 16px;     /* min content padding from screen edge */
+
+
+    /* =========================================
+       BORDER RADIUS — Material Design 3 aligned
+       ========================================= */
+    --radius-xs: 4px;       /* chips, tags, small badges */
+    --radius-sm: 8px;       /* buttons, inputs */
+    --radius-md: 12px;      /* cards, panels, modals */
+    --radius-lg: 16px;      /* larger containers, drawers */
+    --radius-pill: 100px;   /* filter pills only */
+    --radius-full: 50%;     /* circular elements — no v2 equivalent, kept */
+
+
+    /* =========================================
+       LAYOUT
+       ========================================= */
+    --max-width-layout: 1440px;     /* 13-inch MacBook fill */
+    --max-width-text: 640px;        /* ~65–70 chars/line at 16px */
+
+
+    /* =========================================
+       Z-INDEX LAYERS (not in design tokens)
+       ========================================= */
     --z-canvas: 1;
     --z-ui: 10;
     --z-overlay: 20;
     --z-sheet: 30;
     --z-modal: 40;
-    
-    /* Transitions */
+
+
+    /* =========================================
+       TRANSITIONS (not in design tokens)
+       ========================================= */
     --transition-fast: 150ms ease;
     --transition-base: 300ms ease;
     --transition-slow: 500ms ease;
-    
+
+
     /* Safe areas for iOS */
     --safe-area-inset-top: env(safe-area-inset-top);
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
+}
+
+
+/* =============================================
+   MOBILE OVERRIDES — 768px and below
+   ============================================= */
+@media (max-width: 768px) {
+    :root {
+        --text-display: 32px;
+        --text-h1: 26px;
+        --text-h2: 20px;
+        --text-h3: 18px;
+        --text-body: 16px;
+        --text-label: 14px;
+        --text-data: 14px;
+        --text-micro: 13px;
+    }
 }
