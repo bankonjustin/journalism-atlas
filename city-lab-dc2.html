@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas City Lab — Washington, D.C. / DMV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── CRISIS BANNER ── */
+    .crisis-banner {
+      background: #1a0000;
+      color: #ffbbbb;
+      padding: 12px 48px;
+      font-size: 13px;
+      line-height: 1.5;
+      border-bottom: 2px solid #cc0000;
+    }
+    .crisis-banner strong { color: #ff6666; }
+
+    /* ── HEADER ── */
+    .header { background: #000; color: #fff; padding: 40px 48px 36px; }
+    .header-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #ceff00; margin-bottom: 12px;
+    }
+    .header-title {
+      font-size: 48px; font-weight: 800;
+      line-height: 1.0; letter-spacing: -0.02em;
+    }
+    .header-sub { margin-top: 10px; font-size: 15px; color: #aaa; }
+    .header-meta { margin-top: 20px; display: flex; gap: 32px; flex-wrap: wrap; }
+    .header-stat { display: flex; flex-direction: column; }
+    .header-stat-num {
+      font-size: 36px; font-weight: 800; color: #ceff00; line-height: 1;
+    }
+    .header-stat-label {
+      font-size: 12px; color: #888; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-top: 2px;
+    }
+
+    /* ── PLATFORM BAR ── */
+    .platform-bar {
+      background: #efeff2; padding: 20px 48px;
+      display: flex; gap: 24px; flex-wrap: wrap;
+      align-items: center; border-bottom: 1px solid #e0e0e0;
+    }
+    .platform-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #666; margin-right: 8px;
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+    .stat-num { font-size: 22px; font-weight: 800; line-height: 1; }
+    .stat-label {
+      font-size: 11px; color: #666; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-top: 2px; text-align: center;
+    }
+
+    /* ── TAB NAV ── */
+    .tab-nav {
+      background: #fff; border-bottom: 2px solid #e0e0e0;
+      padding: 0 48px; display: flex; gap: 0; position: sticky;
+      top: 0; z-index: 100;
+    }
+    .tab-btn {
+      padding: 16px 22px; font-family: inherit; font-size: 13px;
+      font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      background: none; border: none; border-bottom: 3px solid transparent;
+      margin-bottom: -2px; cursor: pointer; color: #888; transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: #333; }
+    .tab-btn.active { color: #000; border-bottom-color: #ceff00; }
+    .tab-btn .tab-badge {
+      display: inline-block; font-size: 9px; font-weight: 800;
+      background: #ceff00; color: #000; padding: 1px 5px;
+      border-radius: 4px; margin-left: 6px; vertical-align: middle;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── TAB PANES ── */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── LAYOUT ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+    .section { padding: 32px 0; border-bottom: 1px solid #e0e0e0; }
+    .section:last-child { border-bottom: none; }
+    .section-title {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #666; margin-bottom: 16px;
+    }
+
+    /* ── BEAT MAP PILLS ── */
+    .pill-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 100px;
+      font-size: 13px; font-weight: 600; cursor: default;
+    }
+    .pill-count { font-size: 11px; font-weight: 800; opacity: 0.7; }
+    .legend { display: flex; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── BEAT RECENT HEADLINES ── */
+    .beat-headlines {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px; margin-top: 8px;
+    }
+    .beat-headline-card {
+      border: 1px solid #e8e8e8; border-radius: 10px; padding: 16px 18px;
+      transition: border-color 0.15s;
+    }
+    .beat-headline-card:hover { border-color: #ceff00; }
+    .bhc-beat {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #888; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .bhc-beat-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .bhc-headline {
+      font-size: 14px; font-weight: 700; line-height: 1.3;
+      color: #000; text-decoration: none; display: block; margin-bottom: 6px;
+    }
+    .bhc-headline:hover { text-decoration: underline; }
+    .bhc-meta { font-size: 12px; color: #888; }
+    .bhc-meta strong { color: #555; font-weight: 600; }
+
+    /* ── ECOSYSTEM CONTEXT ── */
+    .context-lead {
+      font-size: 18px; line-height: 1.7; max-width: 760px;
+      color: #111; margin-bottom: 28px;
+    }
+    .context-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .context-card {
+      border: 1px solid #e0e0e0; border-radius: 10px; padding: 22px;
+    }
+    .context-card h3 {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #666; margin-bottom: 10px;
+    }
+    .context-card p { font-size: 14px; line-height: 1.6; color: #333; }
+    .context-card ul { list-style: none; margin-top: 8px; }
+    .context-card ul li {
+      font-size: 13px; line-height: 1.6; color: #333;
+      padding: 3px 0; border-bottom: 1px solid #f0f0f0;
+    }
+    .context-card ul li:last-child { border-bottom: none; }
+    .watch-list { background: #fff8e6; border-color: #f5d96e; }
+    .watch-list h3 { color: #b07000; }
+
+    /* ── INSTITUTION BADGES ── */
+    .badge-org {
+      display: inline-block; font-size: 9px; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: #e8f4ff; color: #0055aa; padding: 2px 6px;
+      border-radius: 4px; margin-left: 6px; vertical-align: middle;
+      border: 1px solid #b8d9f8;
+    }
+    .badge-creator {
+      display: inline-block; font-size: 9px; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: #f0fff0; color: #336600; padding: 2px 6px;
+      border-radius: 4px; margin-left: 6px; vertical-align: middle;
+      border: 1px solid #b3e6b3;
+    }
+
+    /* ── INSTITUTION EXPANSION CARDS ── */
+    .inst-section-lead {
+      font-size: 15px; line-height: 1.7; max-width: 760px;
+      color: #222; margin-bottom: 24px;
+    }
+    .inst-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px;
+    }
+    .inst-card {
+      border: 1px solid #e0e0e0; border-radius: 10px; padding: 22px;
+      position: relative;
+    }
+    .inst-card.inst-expanding {
+      border-color: #b8d9f8; background: #f7fbff;
+    }
+    .inst-card.inst-established {
+      border-color: #e0e0e0; background: #fafafa;
+    }
+    .inst-card.inst-community {
+      border-color: #d4edda; background: #f7fff8;
+    }
+    .inst-card-eyebrow {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .inst-card-eyebrow.expanding { color: #0055aa; }
+    .inst-card-eyebrow.established { color: #555; }
+    .inst-card-eyebrow.community { color: #336600; }
+    .inst-card h3 {
+      font-size: 15px; font-weight: 800; margin-bottom: 6px; color: #000;
+    }
+    .inst-card .inst-tagline {
+      font-size: 12px; color: #777; margin-bottom: 10px; font-style: italic;
+    }
+    .inst-card p { font-size: 13px; line-height: 1.65; color: #333; }
+    .inst-card .inst-stat-row {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px;
+      padding-top: 12px; border-top: 1px solid #e8e8e8;
+    }
+    .inst-stat { display: flex; flex-direction: column; }
+    .inst-stat-num { font-size: 18px; font-weight: 800; line-height: 1; color: #000; }
+    .inst-stat-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+    .inst-beats {
+      display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;
+    }
+    .inst-beat-pill {
+      font-size: 10px; font-weight: 700; padding: 3px 8px;
+      border-radius: 100px; background: #f0f0f0; color: #444;
+    }
+    .inst-beat-pill.new { background: #e8f4ff; color: #0055aa; }
+    .inst-full-width { grid-column: 1 / -1; }
+
+    /* ── COVERAGE VACUUMS ── */
+    .vacuum-grid { display: flex; flex-direction: column; gap: 14px; }
+    .vacuum-card {
+      border-left: 4px solid #cc0000; padding: 16px 20px;
+      background: #fff8f8; border-radius: 0 8px 8px 0;
+    }
+    .vacuum-card.partial {
+      border-left-color: #f5a623; background: #fffbf0;
+    }
+    .vacuum-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .vacuum-card p { font-size: 14px; line-height: 1.6; color: #444; }
+    .vacuum-severity {
+      display: inline-block; font-size: 10px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px;
+      border-radius: 100px; margin-left: 8px; vertical-align: middle;
+    }
+    .sev-critical { background: #ffcccc; color: #990000; }
+    .sev-gap { background: #ffe4b5; color: #7a4f00; }
+
+    /* ── CREATOR TABLE ── */
+    .table-filters {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #666;
+    }
+    .filter-select {
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      padding: 6px 28px 6px 10px; border: 1.5px solid #ddd; border-radius: 6px;
+      background: #fff; cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center;
+    }
+    .filter-select:focus { outline: none; border-color: #ceff00; }
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e0e0e0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: #000; color: #fff; font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 12px 14px; text-align: left; white-space: nowrap;
+      cursor: pointer; user-select: none;
+    }
+    th:hover { background: #222; }
+    th.sorted-asc::after { content: ' ↑'; opacity: 0.7; }
+    th.sorted-desc::after { content: ' ↓'; opacity: 0.7; }
+    td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    .td-name { font-weight: 600; white-space: nowrap; }
+    .td-plat { color: #555; font-size: 12px; }
+    .td-beat { color: #333; }
+    .td-geo { color: #666; font-size: 12px; white-space: nowrap; }
+    .td-lastpost { white-space: nowrap; }
+    .last-post-date { font-size: 12px; color: #888; font-weight: 600; }
+    .last-post-link {
+      display: block; font-size: 12px; color: #333; text-decoration: underline;
+      line-height: 1.3; margin-top: 2px; max-width: 260px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .last-post-link:hover { color: #000; }
+    td a { color: #000; text-decoration: underline; }
+    td a:hover { color: #555; }
+    .badge-new {
+      display: inline-block; font-size: 9px; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: #ceff00; color: #000; padding: 2px 5px;
+      border-radius: 4px; margin-left: 6px; vertical-align: middle;
+    }
+    .no-rss { font-size: 11px; color: #bbb; font-style: italic; }
+    .table-count { font-size: 13px; color: #666; margin-bottom: 10px; }
+
+    /* ── COVERAGE FEED TAB ── */
+    .feed-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .feed-meta { font-size: 13px; color: #888; }
+    .feed-meta strong { color: #333; }
+    .feed-filters {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+      align-items: center; padding: 14px 16px;
+      background: #f8f8f8; border-radius: 8px;
+    }
+    .post-list { display: flex; flex-direction: column; gap: 1px; }
+    .post-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 140px 120px;
+      gap: 16px; align-items: start;
+      padding: 14px 0; border-bottom: 1px solid #f0f0f0;
+      transition: background 0.1s;
+    }
+    .post-row:hover { background: #fafafa; margin: 0 -12px; padding: 14px 12px; border-radius: 6px; }
+    .post-row:last-child { border-bottom: none; }
+    .post-date { font-size: 12px; color: #999; font-weight: 700; padding-top: 2px; }
+    .post-body {}
+    .post-title {
+      font-size: 14px; font-weight: 700; color: #000; text-decoration: none;
+      line-height: 1.3; display: block; margin-bottom: 4px;
+    }
+    .post-title:hover { text-decoration: underline; }
+    .post-summary { font-size: 12px; color: #666; line-height: 1.5; }
+    .post-creator { font-size: 12px; color: #555; }
+    .post-creator strong { color: #000; font-weight: 600; }
+    .post-beat {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px; background: #f0f0f0; color: #555;
+    }
+    .post-beat.beat-dc     { background: #e8f4ff; color: #0055aa; }
+    .post-beat.beat-md     { background: #fff0e8; color: #aa4400; }
+    .post-beat.beat-va     { background: #eefae8; color: #336600; }
+    .post-beat.beat-cj     { background: #ffeaea; color: #880000; }
+    .post-beat.beat-sub    { background: #fff8e0; color: #886600; }
+    .empty-state { font-size: 14px; color: #999; font-style: italic; padding: 24px 0; }
+    .feed-count { font-size: 13px; color: #666; margin-bottom: 14px; }
+    .feed-refresh {
+      font-size: 12px; color: #999;
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .feed-refresh code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+
+    /* ── MISC ── */
+    .loading { font-size: 14px; color: #999; font-style: italic; padding: 20px 0; }
+
+    @media (max-width: 768px) {
+      .crisis-banner, .header, .platform-bar { padding-left: 20px; padding-right: 20px; }
+      .header-title { font-size: 32px; }
+      .header-stat-num { font-size: 26px; }
+      .tab-nav { padding: 0 16px; overflow-x: auto; }
+      .tab-btn { padding: 14px 14px; font-size: 11px; }
+      .main { padding: 24px 20px 60px; }
+      .context-grid { grid-template-columns: 1fr; }
+      .post-row { grid-template-columns: 1fr; gap: 6px; }
+      .post-date { order: -1; }
+      .creator-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── LOCAL CREATORS (LIFESTYLE TAB) ── */
+    .local-intro { font-size: 14px; color: #555; max-width: 700px; margin-bottom: 20px; line-height: 1.6; }
+    .local-stats {
+      display: flex; gap: 32px; flex-wrap: wrap;
+      padding: 24px 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 24px;
+    }
+    .local-stat { display: flex; flex-direction: column; }
+    .local-stat-num { font-size: 32px; font-weight: 800; line-height: 1; color: #e1306c; }
+    .local-stat-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+    .local-controls {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .toggle-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #666; }
+    .toggle-group { display: flex; border: 1.5px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+    .toggle-btn {
+      padding: 7px 16px; font-family: inherit; font-size: 12px; font-weight: 700;
+      background: #fff; border: none; cursor: pointer; color: #888;
+      transition: background 0.15s, color 0.15s;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .toggle-btn.active { background: #e1306c; color: #fff; }
+
+    .local-count { font-size: 13px; color: #888; margin-bottom: 16px; }
+
+    .creator-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px;
+    }
+    .creator-card {
+      border: 1px solid #e8e8e8; border-radius: 12px; padding: 16px 18px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .creator-card:hover { border-color: #e1306c; box-shadow: 0 2px 12px rgba(225,48,108,0.08); }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+    .card-handle { font-size: 14px; font-weight: 700; color: #000; }
+    .card-handle a { color: inherit; text-decoration: none; }
+    .card-handle a:hover { text-decoration: underline; }
+    .card-name { font-size: 12px; color: #999; margin-top: 2px; }
+    .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; margin-left: 8px; }
+    .plat-badge {
+      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .plat-Instagram { background: #fce4ec; color: #ad1457; }
+    .plat-TikTok    { background: #f0f0f0; color: #000; }
+    .plat-X         { background: #e8f0fe; color: #1a1a2e; }
+    .plat-YouTube   { background: #ffebee; color: #b71c1c; }
+    .tier-badge {
+      font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .tier-top40  { background: #fff3cd; color: #856404; }
+    .tier-cohort { background: #d1ecf1; color: #0c5460; }
+    .card-followers { font-size: 22px; font-weight: 800; color: #e1306c; line-height: 1; margin-bottom: 10px; }
+    .card-followers-label { font-size: 11px; color: #aaa; font-weight: 400; margin-left: 3px; }
+    .content-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .ctag { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 100px; background: #f5f5f5; color: #444; }
+    .local-note {
+      background: #fafafa; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 16px 20px; margin-top: 8px; font-size: 12px; color: #888; line-height: 1.6;
+    }
+
+    /* ── ECOSYSTEM VIEW TAB ── */
+    .eco-bridge {
+      display: flex; align-items: center; gap: 0; margin-bottom: 28px;
+      border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden;
+    }
+    .eco-bridge-j {
+      flex: 1; background: #111; color: #fff; padding: 20px 24px;
+      text-align: center;
+    }
+    .eco-bridge-l {
+      flex: 1; background: #fff5f7; color: #000; padding: 20px 24px;
+      text-align: center; border-left: 1px solid #e0e0e0;
+    }
+    .eco-bridge-plus {
+      padding: 0 20px; font-size: 28px; font-weight: 800; color: #888;
+      background: #fff; border-left: 1px solid #e0e0e0;
+      border-right: 1px solid #e0e0e0; align-self: stretch;
+      display: flex; align-items: center;
+    }
+    .eco-bridge-num { font-size: 40px; font-weight: 800; line-height: 1; }
+    .eco-bridge-j .eco-bridge-num { color: #ceff00; }
+    .eco-bridge-l .eco-bridge-num { color: #e1306c; }
+    .eco-bridge-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+    .eco-bridge-j .eco-bridge-label { color: #888; }
+    .eco-bridge-l .eco-bridge-label { color: #c0748a; }
+    .eco-bridge-sub { font-size: 12px; margin-top: 3px; }
+    .eco-bridge-j .eco-bridge-sub { color: #555; }
+    .eco-bridge-l .eco-bridge-sub { color: #999; }
+
+    .eco-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px;
+    }
+    .eco-panel {
+      border-radius: 12px; padding: 24px 26px;
+    }
+    .eco-panel-j { background: #111; color: #fff; }
+    .eco-panel-l { background: #fff5f7; border: 1px solid #ffd6e0; }
+    .eco-panel-eyebrow {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .eco-panel-j .eco-panel-eyebrow { color: #ceff00; }
+    .eco-panel-l .eco-panel-eyebrow { color: #e1306c; }
+    .eco-panel-stats { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid; }
+    .eco-panel-j .eco-panel-stats { border-color: #333; }
+    .eco-panel-l .eco-panel-stats { border-color: #ffd6e0; }
+    .eco-ps { display: flex; flex-direction: column; }
+    .eco-ps-num { font-size: 28px; font-weight: 800; line-height: 1; }
+    .eco-panel-j .eco-ps-num { color: #ceff00; }
+    .eco-panel-l .eco-ps-num { color: #e1306c; }
+    .eco-ps-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+    .eco-panel-j .eco-ps-label { color: #666; }
+    .eco-panel-l .eco-ps-label { color: #c0748a; }
+    .eco-panel-subhead {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .eco-panel-j .eco-panel-subhead { color: #555; }
+    .eco-panel-l .eco-panel-subhead { color: #c0748a; }
+    .eco-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .eco-pill {
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .eco-pill-count { font-size: 10px; font-weight: 800; opacity: 0.8; }
+    .eco-pill-j-strong { background: #ceff00; color: #000; }
+    .eco-pill-j-mid    { background: #444; color: #fff; }
+    .eco-pill-j-gap    { background: #330000; color: #ff8888; border: 1px solid #550000; }
+    .eco-pill-l        { background: #fce4ec; color: #ad1457; }
+
+    /* Crosswalk */
+    .crosswalk { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+    .cw-row {
+      display: grid; grid-template-columns: 1fr 200px 1fr;
+      align-items: center; padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .cw-row:last-child { border-bottom: none; }
+    .cw-row-gap { background: #fffaf0; }
+    .cw-j-side { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+    .cw-l-side { display: flex; align-items: center; gap: 8px; }
+    .cw-label {
+      text-align: center; font-size: 12px; font-weight: 700; color: #333; padding: 0 12px;
+    }
+    .cw-label-sub { font-size: 10px; color: #999; font-weight: 400; display: block; margin-top: 1px; }
+    .cw-bar-j {
+      height: 10px; border-radius: 100px; background: #ceff00;
+      min-width: 3px; transition: width 0.3s;
+    }
+    .cw-bar-l {
+      height: 10px; border-radius: 100px; background: #e1306c;
+      min-width: 3px; transition: width 0.3s;
+    }
+    .cw-num { font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .cw-num-j { color: #000; }
+    .cw-num-l { color: #e1306c; }
+    .cw-zero { font-size: 12px; color: #ccc; font-weight: 600; }
+    .cw-gap-badge {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      background: #fff3cd; color: #856404; border-radius: 4px; padding: 2px 6px; white-space: nowrap;
+    }
+    .cw-header-row {
+      display: grid; grid-template-columns: 1fr 200px 1fr;
+      padding: 6px 0 10px; border-bottom: 2px solid #e0e0e0; margin-bottom: 4px;
+    }
+    .cw-header-j { text-align: right; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .cw-header-c { text-align: center; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .cw-header-l { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #e1306c; }
+
+    @media (max-width: 768px) {
+      .eco-split { grid-template-columns: 1fr; }
+      .eco-bridge { flex-direction: column; }
+      .eco-bridge-plus { padding: 10px; border: none; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
+      .eco-bridge-l { border-left: none; border-top: 1px solid #e0e0e0; }
+      .cw-row { grid-template-columns: 1fr 140px 1fr; }
+    }
+  
+    /* ── Site Footer ─────────────────────────────────── */
+    .site-footer { background-color: #000; color: #fff; padding: 3rem 2rem 2rem; }
+    .site-footer .footer-content {
+        max-width: 1400px; margin: 0 auto;
+        display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem; margin-bottom: 2rem;
+    }
+    .site-footer .footer-brand { grid-column: span 1; }
+    .site-footer .footer-logo { margin-bottom: 1rem; }
+    .site-footer .footer-logo img { height: 44px; width: auto; }
+    .site-footer .footer-tagline { color: rgba(255,255,255,0.5); font-size: 14px; line-height: 1.6; }
+    .site-footer .footer-column h4 {
+        font-size: 12px; font-weight: 700; margin-bottom: 1rem;
+        text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4);
+    }
+    .site-footer .footer-column a {
+        display: block; color: rgba(255,255,255,0.7); text-decoration: none;
+        font-size: 14px; margin-bottom: 0.5rem; transition: color 0.2s;
+    }
+    .site-footer .footer-column a:hover { color: #CCFF00; }
+    .site-footer .footer-bottom {
+        max-width: 1400px; margin: 0 auto; padding-top: 2rem;
+        border-top: 1px solid #333; text-align: center;
+        color: rgba(255,255,255,0.4); font-size: 14px;
+    }
+    @media (max-width: 768px) {
+        .site-footer .footer-content { grid-template-columns: 1fr 1fr; }
+        .site-footer .footer-brand { grid-column: span 2; }
+    }
+    </style>
+</head>
+<body>
+
+<!-- ── CRISIS BANNER ── -->
+<div class="crisis-banner">
+  <strong>Context:</strong> On February 4, 2026, <em>The Washington Post</em> laid off ~100 employees — including its entire Virginia statehouse team, Maryland statehouse team, DC crime reporter, and WMATA/transit reporter. The independent ecosystem below is now the <strong>primary remaining infrastructure</strong> for these beats.
+</div>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-eyebrow">Atlas City Lab · DMV Ecosystem Snapshot</div>
+  <h1 class="header-title">Washington, D.C. / DMV</h1>
+  <p class="header-sub" id="header-sub">Independent local journalism · March 2026</p>
+  <div class="header-meta">
+    <div class="header-stat">
+      <span class="header-stat-num">28</span>
+      <span class="header-stat-label">Creators tracked</span>
+    </div>
+    <div class="header-stat">
+      <span class="header-stat-num">17</span>
+      <span class="header-stat-label">Active RSS feeds</span>
+    </div>
+    <div class="header-stat">
+      <span class="header-stat-num" id="stat-posts">—</span>
+      <span class="header-stat-label">Posts this month</span>
+    </div>
+    <div class="header-stat">
+      <span class="header-stat-num">6</span>
+      <span class="header-stat-label">Coverage gaps</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── PLATFORM BAR ── -->
+<div class="platform-bar">
+  <span class="platform-label">By platform</span>
+  <div class="stat-item"><span class="stat-num">14</span><span class="stat-label">Website</span></div>
+  <div class="stat-item"><span class="stat-num">6</span><span class="stat-label">Newsletter</span></div>
+  <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">Social</span></div>
+  <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Video</span></div>
+  <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Podcast</span></div>
+</div>
+
+<!-- ── TAB NAV ── -->
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" data-tab="beatmap"  role="tab">Beat Map</button>
+  <button class="tab-btn"        data-tab="context"  role="tab">Ecosystem Context</button>
+  <button class="tab-btn"        data-tab="vacuums"  role="tab">Coverage Vacuums</button>
+  <button class="tab-btn"        data-tab="creators" role="tab">Atlas Creators</button>
+  <button class="tab-btn"        data-tab="feed"     role="tab">Coverage Feed <span class="tab-badge" id="feed-badge">—</span></button>
+  <button class="tab-btn"        data-tab="local"      role="tab">Local Lifestyle Creators <span class="tab-badge" id="local-badge" style="background:#e1306c;color:#fff">250</span></button>
+  <button class="tab-btn"        data-tab="ecosystem"  role="tab">Ecosystem View</button>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 1: BEAT MAP                                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane active" id="tab-beatmap">
+<div class="main">
+
+  <section class="section">
+    <h2 class="section-title">Beat Coverage Map — DMV Local Journalism</h2>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#ceff00"></span>Strong (5+ creators)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#ffff00"></span>Emerging (2–4)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#ffcccc"></span>Gap (0–1)</span>
+    </div>
+    <div class="pill-grid">
+      <span class="pill" style="background:#ceff00;color:#000" title="5 creators">Northern Virginia <span class="pill-count">5</span></span>
+      <span class="pill" style="background:#ceff00;color:#000" title="5 creators">Suburban Maryland <span class="pill-count">5</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="4 creators">DC Government <span class="pill-count">4</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="4 creators">Criminal Justice <span class="pill-count">4</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="3 creators">Maryland Legislature <span class="pill-count">3</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="2 creators">Housing <span class="pill-count">2</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="2 creators">Transportation <span class="pill-count">2</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="2 creators">Black DC <span class="pill-count">2</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500">Education <span class="pill-count">0</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500">Virginia Legislature <span class="pill-count">1</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500">Social Services <span class="pill-count">0</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500">Immigrant Communities <span class="pill-count">0</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500">Environment <span class="pill-count">0</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500">Local Business <span class="pill-count">0</span></span>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Recent Headlines by Beat</h2>
+    <p style="font-size:13px;color:#888;margin-bottom:20px">Latest published posts from RSS-tracked creators, grouped by primary beat. Updated when <code style="font-size:11px;background:#f5f5f5;padding:1px 5px;border-radius:3px">generate-dmv-feed.py</code> is run.</p>
+    <div class="beat-headlines" id="beat-headlines">
+      <div class="loading">Loading recent headlines…</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Geographic Distribution</h2>
+    <div class="pill-grid">
+      <span class="pill" style="background:#efeff2;color:#000">Washington, D.C. <span class="pill-count" style="opacity:1">11</span></span>
+      <span class="pill" style="background:#efeff2;color:#000">Maryland <span class="pill-count" style="opacity:1">10</span></span>
+      <span class="pill" style="background:#efeff2;color:#000">Virginia <span class="pill-count" style="opacity:1">7</span></span>
+    </div>
+  </section>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 2: ECOSYSTEM CONTEXT                               -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-context">
+<div class="main">
+
+  <section class="section">
+    <h2 class="section-title">What This Ecosystem Is</h2>
+    <p class="context-lead">
+      The DMV independent journalism ecosystem has grown substantially since the collapse of DCist in February 2024. What was once a single-outlet local news environment is now a distributed network of 28 tracked creator-journalists — operating across newsletters, websites, podcasts, social media, and video — covering beats from Annapolis statehouse to Prince William County development to DC's wards east of the Anacostia.
+    </p>
+    <p class="context-lead" style="font-size:15px">
+      The February 4, 2026 Washington Post layoffs removed the institutional fallback that many assumed covered these beats. The independent network below is now the primary active journalism infrastructure for DC government, Maryland legislature, Virginia statehouse, WMATA, and DC criminal justice — all in one news cycle.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Ecosystem Signals</h2>
+    <div class="context-grid">
+      <div class="context-card">
+        <h3>Institutional Anchors</h3>
+        <p>Established nonprofit/independent outlets form the backbone: <strong>The 51st</strong> (DCist successor, expanding post-WaPo layoffs), <strong>Maryland Matters</strong> (Annapolis statehouse), <strong>Greater Greater Washington</strong> (housing + urbanism), <strong>The Baltimore Banner</strong> (expanding into PG County + DC sports), and <strong>City Cast DC</strong> (pivoting to original reporting). See <em>Institutions Expanding</em> section below for detail.</p>
+      </div>
+      <div class="context-card">
+        <h3>Platform Diversity</h3>
+        <p>Website-native outlets (14) dominate, followed by newsletters (6). Notable: the DMV citizen journalism network on Twitter/X — Henney, Calhoun, Cordell, Derrick — is a distinct real-time layer that fills a spot news gap most newsletters and websites can't touch.</p>
+      </div>
+      <div class="context-card">
+        <h3>NoVA &amp; Suburban MD Density</h3>
+        <p>The two strongest beats are <strong>Northern Virginia</strong> (ARLnow, Fairfax Machine, Annandale Today, Potomac Local, The Burn — 5 creators) and <strong>Suburban Maryland</strong> (Context, Good Morning MoCo, DMV News Live, MoCo Show, All Politics Is Local — 5 creators). The suburbs are paradoxically better covered than DC proper on some dimensions.</p>
+      </div>
+      <div class="context-card">
+        <h3>DCist Diaspora</h3>
+        <p>The 51st (launched 2024) was founded by former DCist journalists Martin Austermuhle and Natalie Delgadillo after DCist's shutdown. It is the most direct institutional successor to DCist's DC government, housing, and community accountability coverage — and currently the strongest independent DC-proper outlet in this ecosystem.</p>
+      </div>
+      <div class="context-card">
+        <h3>East of the River Gap</h3>
+        <p>Congress Heights on the Rise (Nikki Peele, since 2008) and Source of the Spring (David Lay) are the only tracked creators consistently covering DC Wards 7 and 8. Two individual creators for the two most underserved DC wards remains a significant structural gap.</p>
+      </div>
+      <div class="context-card watch-list">
+        <h3>⚡ Watch List — WaPo Alumni</h3>
+        <ul>
+          <li><strong>Karina Elwood</strong> — VA education reporter (FCPS/MCPS/PG schools)</li>
+          <li><strong>Emma Uber</strong> — DC crime &amp; criminal justice / MPD accountability <span style="display:inline-block;font-size:9px;font-weight:800;background:#ceff00;color:#000;padding:1px 6px;border-radius:4px;margin-left:4px;letter-spacing:0.05em">HIRED → City Cast DC</span></li>
+          <li><strong>Rachel Weiner</strong> — WMATA &amp; regional transportation</li>
+          <li><strong>Michael Brice-Saddler</strong> — DC communities, all 8 wards</li>
+          <li><strong>Marissa Lang</strong> — DC housing &amp; gentrification (Pulitzer winner)</li>
+          <li><strong>Nicole Asbury</strong> — Maryland K-12 education (MCPS/PG County)</li>
+        </ul>
+        <p style="margin-top:10px;font-size:12px;color:#7a5500">All laid off Feb 4, 2026. Uber hired by City Cast DC (March 2026). Others had not launched independent platforms as of March 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INSTITUTIONS EXPANDING ── -->
+  <section class="section">
+    <h2 class="section-title">Institutions Expanding Post-WaPo Layoffs</h2>
+    <p class="inst-section-lead">
+      The February 4, 2026 Washington Post layoffs — which reduced Post Local from ~40 to ~12 reporters — triggered a wave of institutional responses. Three organizations announced direct expansions within days; others in the broader ecosystem represent established infrastructure the Atlas tracks as context for independent creator coverage.
+    </p>
+
+    <div class="inst-grid">
+
+      <!-- The 51st -->
+      <div class="inst-card inst-expanding">
+        <div class="inst-card-eyebrow expanding">▲ Actively Expanding · Nonprofit Co-op</div>
+        <h3>The 51st <span class="badge-org">Org</span></h3>
+        <div class="inst-tagline">DCist successor · Worker-run nonprofit · Founded Feb 2024</div>
+        <p>The most direct institutional successor to DCist. Born from the same February 2024 WAMU shutdown, The 51st is now the strongest DC-proper accountability outlet in this ecosystem. In the three days after the Post layoffs, it gained 710 new paying members; it has since surpassed 1,100 new paid members (4,400 total paid; 15,500 total subscribers). Actively fundraising $375K to hire three additional staffers — "When Bezos fires, we hire." Goal: triple reporting capacity.</p>
+        <div class="inst-stat-row">
+          <div class="inst-stat"><span class="inst-stat-num">4,400</span><span class="inst-stat-label">Paid members</span></div>
+          <div class="inst-stat"><span class="inst-stat-num">4</span><span class="inst-stat-label">FT staff</span></div>
+          <div class="inst-stat"><span class="inst-stat-num">+3</span><span class="inst-stat-label">Hiring now</span></div>
+        </div>
+        <div class="inst-beats">
+          <span class="inst-beat-pill">DC Government</span>
+          <span class="inst-beat-pill">Housing</span>
+          <span class="inst-beat-pill">Criminal Justice</span>
+          <span class="inst-beat-pill new">All 8 Wards (goal)</span>
+        </div>
+      </div>
+
+      <!-- City Cast DC -->
+      <div class="inst-card inst-expanding">
+        <div class="inst-card-eyebrow expanding">▲ Actively Expanding · For-Profit (Graham Holdings)</div>
+        <h3>City Cast DC <span class="badge-org">Org</span></h3>
+        <div class="inst-tagline">Podcast-native → original reporting pivot · 13-city network</div>
+        <p>Launched as an aggregation/curation podcast, City Cast DC is pivoting to original reporting in direct response to Post Local cuts. CEO David Plotz estimates the Post was the origin of 75% of local stories picked up by other outlets. Hiring at least 4 reporters; first hire is Emma Uber (Post alum, DC breaking news/MPD). Also hiring executive editor and managing editor. Plans newsletter-per-reporter model + social-first strategy. Backed by Graham Holdings — the Post's former family owners.</p>
+        <div class="inst-stat-row">
+          <div class="inst-stat"><span class="inst-stat-num">4+</span><span class="inst-stat-label">Reporters hiring</span></div>
+          <div class="inst-stat"><span class="inst-stat-num">1</span><span class="inst-stat-label">Hired (Uber)</span></div>
+        </div>
+        <div class="inst-beats">
+          <span class="inst-beat-pill new">Local Politics</span>
+          <span class="inst-beat-pill new">Local Business</span>
+          <span class="inst-beat-pill new">DC Data</span>
+          <span class="inst-beat-pill new">Breaking News</span>
+        </div>
+      </div>
+
+      <!-- Baltimore Banner -->
+      <div class="inst-card inst-expanding">
+        <div class="inst-card-eyebrow expanding">▲ Actively Expanding · Nonprofit ($50M Bainum backing)</div>
+        <h3>The Baltimore Banner <span class="badge-org">Org</span></h3>
+        <div class="inst-tagline">Maryland's largest newsroom · Pulitzer winner · Expanding into DMV</div>
+        <p>Already in Montgomery County (launched Sept 2025, grew from 2K to 9K paid subscribers), the Banner is accelerating a planned Prince George's County expansion to April 2026 — covering education, local government, and community. Also opportunistically launching DC sports coverage (Nationals, Commanders) after the Post axed its sports section. Short-form video from day one in PG County. Has registered dcbanner.com.</p>
+        <div class="inst-stat-row">
+          <div class="inst-stat"><span class="inst-stat-num">9K</span><span class="inst-stat-label">MoCo paid subs</span></div>
+          <div class="inst-stat"><span class="inst-stat-num">Apr '26</span><span class="inst-stat-label">PG County launch</span></div>
+        </div>
+        <div class="inst-beats">
+          <span class="inst-beat-pill">Suburban Maryland</span>
+          <span class="inst-beat-pill new">PG County</span>
+          <span class="inst-beat-pill new">DC Sports</span>
+          <span class="inst-beat-pill new">Education</span>
+        </div>
+      </div>
+
+      <!-- Axios DC -->
+      <div class="inst-card inst-established">
+        <div class="inst-card-eyebrow established">Expanding · For-Profit (National)</div>
+        <h3>Axios DC <span class="badge-org">Org</span></h3>
+        <div class="inst-tagline">Smart brevity local newsletter · Part of 30+ city Axios Local network</div>
+        <p>Among the outlets that announced coverage expansions following the Post layoffs. Part of the Axios Local franchise model. Covers local politics, policy, and business across the DC metro area.</p>
+        <div class="inst-beats">
+          <span class="inst-beat-pill">DC Politics</span>
+          <span class="inst-beat-pill">Local Business</span>
+          <span class="inst-beat-pill">Policy</span>
+        </div>
+      </div>
+
+      <!-- Washington City Paper -->
+      <div class="inst-card inst-established">
+        <div class="inst-card-eyebrow established">Established · Alt-Weekly</div>
+        <h3>Washington City Paper <span class="badge-org">Org</span></h3>
+        <div class="inst-tagline">DC's alt-weekly since 1981 · Reportedly offered to buy Post Local &amp; Sports</div>
+        <p>Washington City Paper reportedly approached the Post about acquiring the Local and Sports sections before the layoffs occurred. A long-running alt-weekly covering DC arts, culture, politics, and neighborhoods — persistent institutional presence across multiple ownership transitions.</p>
+        <div class="inst-beats">
+          <span class="inst-beat-pill">DC Culture</span>
+          <span class="inst-beat-pill">Arts</span>
+          <span class="inst-beat-pill">Local Politics</span>
+          <span class="inst-beat-pill">Neighborhoods</span>
+        </div>
+      </div>
+
+      <!-- Community Press full-width -->
+      <div class="inst-card inst-community inst-full-width">
+        <div class="inst-card-eyebrow community">Established Community &amp; Language Press</div>
+        <h3>Community &amp; Language Press — Persistent Infrastructure</h3>
+        <div class="inst-tagline">Outlets serving communities the Post rarely reached at depth</div>
+        <p style="margin-bottom:14px">These outlets represent durable coverage infrastructure for communities that were underserved even when Post Local was at full strength — especially important given the Atlas's documented gaps in immigrant community and Black DC coverage.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+          <div>
+            <strong style="font-size:13px">Washington Informer <span class="badge-org">Org</span></strong>
+            <p style="font-size:12px;margin-top:4px;color:#444">DC's Black newspaper, publishing for 60+ years. Primary voice for Black DC communities, DC Council accountability, and Ward-level coverage that mainstream outlets often miss.</p>
+            <div class="inst-beats" style="margin-top:6px">
+              <span class="inst-beat-pill">Black DC</span>
+              <span class="inst-beat-pill">DC Government</span>
+            </div>
+          </div>
+          <div>
+            <strong style="font-size:13px">El Tiempo Latino <span class="badge-org">Org</span></strong>
+            <p style="font-size:12px;margin-top:4px;color:#444">DMV Spanish-language news since 1991. Covers the region's large Central American diaspora — particularly critical in NoVA and PG County, where the Atlas identifies immigrant community coverage as a critical gap.</p>
+            <div class="inst-beats" style="margin-top:6px">
+              <span class="inst-beat-pill">Immigrant Communities</span>
+              <span class="inst-beat-pill">Northern Virginia</span>
+            </div>
+          </div>
+          <div>
+            <strong style="font-size:13px">Ethiopique <span class="badge-org">Org</span></strong>
+            <p style="font-size:12px;margin-top:4px;color:#444">Founded 2022. Amharic-language reporting for the DMV's large Ethiopian community — primarily in Silver Spring and NoVA. One of the few outlets reaching this community in its primary language.</p>
+            <div class="inst-beats" style="margin-top:6px">
+              <span class="inst-beat-pill">Immigrant Communities</span>
+              <span class="inst-beat-pill">Suburban Maryland</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 3: COVERAGE VACUUMS                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-vacuums">
+<div class="main">
+
+  <section class="section">
+    <h2 class="section-title">Critical Coverage Gaps</h2>
+    <p style="font-size:14px;color:#555;margin-bottom:24px">Beats where no independent creator-journalist has established a consistent, ongoing presence. Ranked by severity relative to community information need.</p>
+
+    <div class="vacuum-grid">
+      <div class="vacuum-card">
+        <h3>Education <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
+        <p>No independent DC/Maryland/Virginia education reporter has an established platform. The 51st's Chris Kain covers education as a secondary beat within DC Council. WaPo's Karina Elwood (Virginia schools) and Nicole Asbury (Maryland K-12) were both laid off Feb 4, 2026, leaving no active replacement for Fairfax/MCPS/PG County school coverage. The Fairfax Machine covers Fairfax schools as a secondary beat. No standalone education outlet exists for the region.</p>
+      </div>
+      <div class="vacuum-card">
+        <h3>Immigrant Communities <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
+        <p>DCist's Hector Alejandro Arzate covered DC immigrant communities before the outlet shut down in February 2024. He subsequently moved to KCUR in Kansas City. No independent creator has filled this coverage area — which is particularly acute given the region's large Central American, Ethiopian, and Vietnamese diaspora communities concentrated in Prince George's County and Northern Virginia.</p>
+      </div>
+      <div class="vacuum-card">
+        <h3>Social Services <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
+        <p>Street Sense Media (unhoused population) and some coverage by The 51st's Natalie Delgadillo are the closest proxies, but no independent creator has a primary beat covering DC/DMV social services broadly — SNAP, Medicaid, childcare, housing assistance, domestic violence services. This is a high-stakes beat post-federal DOGE cuts in 2025–2026.</p>
+      </div>
+      <div class="vacuum-card">
+        <h3>Environment / Climate <span class="vacuum-severity sev-gap">Gap</span></h3>
+        <p>No independent creator covers DMV-specific environmental issues — Chesapeake Bay watershed policy, DC stormwater infrastructure, Northern Virginia development and runoff, Maryland environmental regulation. The nearest proxy is national/DC-based climate newsletters that cover federal policy, not regional environmental journalism.</p>
+      </div>
+      <div class="vacuum-card partial">
+        <h3>Virginia Legislature <span class="vacuum-severity sev-gap">Partial</span></h3>
+        <p>Brandon Jarvis (Virginia Scope) is a strong, established Virginia statehouse Substack with tens of thousands of paid subscribers — but he is one person. There is no institutional backup, no Virginia statehouse podcast, no Richmond-based independent news org with DMV distribution reach. Maryland has three tracked statehouse voices. Virginia has one.</p>
+      </div>
+      <div class="vacuum-card partial">
+        <h3>Local Business / Economy <span class="vacuum-severity sev-gap">Partial</span></h3>
+        <p>Many tracked creators cover local business as a secondary beat (PoPville, ARLnow, The Burn, Fairfax Machine), but no creator has a primary focus on DC/DMV economic reporting — small business development, workforce data, neighborhood economic change, real estate market accountability. No independent voice fills this gap.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 4: ATLAS CREATORS                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-creators">
+<div class="main">
+
+  <section class="section">
+    <h2 class="section-title">Creator Directory</h2>
+
+    <div class="table-filters">
+      <span class="filter-label">Filter:</span>
+      <select class="filter-select" id="filter-beat" onchange="filterTable()">
+        <option value="">All beats</option>
+        <option value="DC Government">DC Government</option>
+        <option value="Housing">Housing</option>
+        <option value="Transportation">Transportation</option>
+        <option value="Education">Education</option>
+        <option value="Criminal Justice">Criminal Justice</option>
+        <option value="Social Services">Social Services</option>
+        <option value="Local Business">Local Business</option>
+        <option value="Environment">Environment</option>
+        <option value="Immigrant Communities">Immigrant Communities</option>
+        <option value="Black DC">Black DC</option>
+        <option value="Maryland Legislature">Maryland Legislature</option>
+        <option value="Virginia Legislature">Virginia Legislature</option>
+        <option value="Suburban Maryland">Suburban Maryland</option>
+        <option value="Northern Virginia">Northern Virginia</option>
+      </select>
+      <select class="filter-select" id="filter-geo" onchange="filterTable()">
+        <option value="">All geographies</option>
+        <option value="Washington, D.C.">Washington, D.C.</option>
+        <option value="Maryland">Maryland</option>
+        <option value="Virginia">Virginia</option>
+      </select>
+      <select class="filter-select" id="filter-platform" onchange="filterTable()">
+        <option value="">All platforms</option>
+        <option value="Website">Website</option>
+        <option value="Newsletter">Newsletter</option>
+        <option value="Social">Social</option>
+        <option value="Video">Video</option>
+        <option value="Podcast">Podcast</option>
+      </select>
+    </div>
+
+    <p class="table-count" id="table-count"></p>
+
+    <div class="table-wrap">
+      <table id="creator-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('name')">Creator</th>
+            <th>Channel</th>
+            <th onclick="sortTable('platform')">Platform</th>
+            <th onclick="sortTable('beat')">Primary Beat</th>
+            <th onclick="sortTable('geography')">Geography</th>
+            <th onclick="sortTable('lastPost')">Last Published</th>
+          </tr>
+        </thead>
+        <tbody id="creator-tbody">
+          <tr><td colspan="6" class="loading">Loading creator data…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 5: COVERAGE FEED                                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-feed">
+<div class="main">
+
+  <div class="feed-header">
+    <div>
+      <h2 class="section-title" style="margin-bottom:6px">Coverage Feed</h2>
+      <p class="feed-meta">Recent posts from DMV independent journalism ecosystem · <strong id="feed-window">last 30 days</strong></p>
+    </div>
+    <p class="feed-meta" id="feed-generated"></p>
+  </div>
+
+  <div class="feed-filters">
+    <span class="filter-label">Filter:</span>
+    <select class="filter-select" id="feed-filter-beat" onchange="filterFeed()">
+      <option value="">All beats</option>
+      <option value="DC Government">DC Government</option>
+      <option value="Housing">Housing</option>
+      <option value="Maryland Legislature">Maryland Legislature</option>
+      <option value="Virginia Legislature">Virginia Legislature</option>
+      <option value="Northern Virginia">Northern Virginia</option>
+      <option value="Suburban Maryland">Suburban Maryland</option>
+      <option value="Criminal Justice">Criminal Justice</option>
+      <option value="Transportation">Transportation</option>
+      <option value="Black DC">Black DC</option>
+    </select>
+    <select class="filter-select" id="feed-filter-geo" onchange="filterFeed()">
+      <option value="">All geographies</option>
+      <option value="Washington, D.C.">Washington, D.C.</option>
+      <option value="Maryland">Maryland</option>
+      <option value="Virginia">Virginia</option>
+    </select>
+    <select class="filter-select" id="feed-filter-creator" onchange="filterFeed()">
+      <option value="">All creators</option>
+    </select>
+  </div>
+
+  <p class="feed-count" id="feed-count"></p>
+  <div class="post-list" id="post-list">
+    <div class="loading">Loading coverage feed…</div>
+  </div>
+
+  <div class="feed-refresh">
+    Feed data is pre-generated. To refresh: <code>python3 scripts/generate-dmv-feed.py</code> from the repo root, then commit <code>assets/data/dmv-recent-posts.json</code>.
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 6: LOCAL CREATORS                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-local">
+<div class="main">
+
+  <section class="section">
+    <h2 class="section-title">DC Lifestyle &amp; Culture Creators</h2>
+    <p class="local-intro">
+      Austin Graff's DC Atlas — 250 lifestyle and social creators covering food, travel, events, arts, and neighborhoods across the DMV. A distinct layer from the journalism ecosystem: this is the <strong>audience infrastructure</strong> — platform-native local voices with established, engaged followings that signal where DC's media-savvy audience already lives.
+    </p>
+
+    <div class="local-stats">
+      <div class="local-stat"><span class="local-stat-num">250</span><span class="local-stat-label">Creators tracked</span></div>
+      <div class="local-stat"><span class="local-stat-num">90%</span><span class="local-stat-label">Instagram-primary</span></div>
+      <div class="local-stat"><span class="local-stat-num">27.5K</span><span class="local-stat-label">Median followers</span></div>
+      <div class="local-stat"><span class="local-stat-num">57</span><span class="local-stat-label">Restaurants creators</span></div>
+      <div class="local-stat"><span class="local-stat-num">33</span><span class="local-stat-label">Things To Do</span></div>
+    </div>
+
+    <div class="local-controls">
+      <span class="toggle-label">View:</span>
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="toggle-top40" onclick="setLocalTier('top40')">Top 40</button>
+        <button class="toggle-btn"        id="toggle-all"   onclick="setLocalTier('all')">All 250</button>
+      </div>
+      <select class="filter-select" id="local-filter-content" onchange="renderLocalCreators()">
+        <option value="">All content types</option>
+        <option value="restaurants">Restaurants</option>
+        <option value="things to do">Things To Do</option>
+        <option value="travel">Travel</option>
+        <option value="photography">Photography</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="fashion">Fashion</option>
+        <option value="food">Food</option>
+        <option value="history">History</option>
+        <option value="architecture">Architecture</option>
+        <option value="parenting">Parenting</option>
+      </select>
+      <select class="filter-select" id="local-filter-platform" onchange="renderLocalCreators()">
+        <option value="">All platforms</option>
+        <option value="Instagram">Instagram</option>
+        <option value="TikTok">TikTok</option>
+        <option value="X">X / Twitter</option>
+        <option value="YouTube">YouTube</option>
+      </select>
+    </div>
+
+    <p class="local-count" id="local-count"></p>
+    <div class="creator-grid" id="local-creator-grid">
+      <div class="loading">Loading creator data…</div>
+    </div>
+  </section>
+
+  <div class="local-note">
+    <strong style="color:#555">About this dataset:</strong> Compiled by Austin Graff from public Instagram, TikTok, and X accounts based in the Washington DC metro area. Follower counts as of early 2026. Covers food, travel, events, arts, neighborhoods, parenting, fashion, and local culture. Not journalism — these are lifestyle and culture voices. The <strong>Top 40</strong> view shows Austin's curated highest-reach picks (avg 109K followers); <strong>All 250</strong> shows the full working atlas.
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 7: ECOSYSTEM VIEW                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-ecosystem">
+<div class="main">
+
+  <!-- Bridge / framing header -->
+  <section class="section">
+    <h2 class="section-title">The Two Layers</h2>
+    <p style="font-size:14px;color:#555;max-width:740px;margin-bottom:24px;line-height:1.6">
+      DC's media ecosystem has two distinct layers: an <strong>accountability layer</strong> (independent journalists covering beats where institutional coverage has collapsed) and a <strong>culture layer</strong> (platform-native lifestyle creators with large, engaged local audiences). They serve different functions — and where the culture layer is large but the accountability layer is absent, that's the gap.
+    </p>
+
+    <div class="eco-bridge">
+      <div class="eco-bridge-j">
+        <div class="eco-bridge-num">28</div>
+        <div class="eco-bridge-label">Accountability Journalists</div>
+        <div class="eco-bridge-sub">beats · RSS · text · public interest</div>
+      </div>
+      <div class="eco-bridge-plus">+</div>
+      <div class="eco-bridge-l">
+        <div class="eco-bridge-num">250</div>
+        <div class="eco-bridge-label">Lifestyle &amp; Culture Creators</div>
+        <div class="eco-bridge-sub">Instagram · food · travel · community</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Split panel (Option B) -->
+  <section class="section">
+    <h2 class="section-title">Side by Side</h2>
+    <div class="eco-split">
+
+      <!-- LEFT: Journalism -->
+      <div class="eco-panel eco-panel-j">
+        <div class="eco-panel-eyebrow">Journalism Layer — Accountability</div>
+        <div class="eco-panel-stats">
+          <div class="eco-ps"><span class="eco-ps-num">28</span><span class="eco-ps-label">Creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">17</span><span class="eco-ps-label">RSS Feeds</span></div>
+          <div class="eco-ps"><span class="eco-ps-num" id="stat-posts-eco">74</span><span class="eco-ps-label">Posts/month</span></div>
+        </div>
+        <div class="eco-panel-subhead">Beat Coverage</div>
+        <div class="eco-pills">
+          <span class="eco-pill eco-pill-j-strong">Northern Virginia <span class="eco-pill-count">5</span></span>
+          <span class="eco-pill eco-pill-j-strong">Suburban Maryland <span class="eco-pill-count">5</span></span>
+          <span class="eco-pill eco-pill-j-mid">DC Government <span class="eco-pill-count">4</span></span>
+          <span class="eco-pill eco-pill-j-mid">Criminal Justice <span class="eco-pill-count">4</span></span>
+          <span class="eco-pill eco-pill-j-mid">Maryland Legislature <span class="eco-pill-count">3</span></span>
+          <span class="eco-pill eco-pill-j-mid">Housing <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Transportation <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Black DC <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Virginia Legislature <span class="eco-pill-count">1</span></span>
+          <span class="eco-pill eco-pill-j-gap">Education <span class="eco-pill-count">0</span></span>
+          <span class="eco-pill eco-pill-j-gap">Immigrant Communities <span class="eco-pill-count">0</span></span>
+          <span class="eco-pill eco-pill-j-gap">Environment <span class="eco-pill-count">0</span></span>
+          <span class="eco-pill eco-pill-j-gap">Social Services <span class="eco-pill-count">0</span></span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Lifestyle -->
+      <div class="eco-panel eco-panel-l">
+        <div class="eco-panel-eyebrow">Lifestyle Layer — Culture &amp; Community</div>
+        <div class="eco-panel-stats">
+          <div class="eco-ps"><span class="eco-ps-num">250</span><span class="eco-ps-label">Creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">27.4M</span><span class="eco-ps-label">Total Reach</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">90%</span><span class="eco-ps-label">Instagram</span></div>
+        </div>
+        <div class="eco-panel-subhead">Top Content Areas</div>
+        <div class="eco-pills" id="eco-lifestyle-pills">
+          <span class="eco-pill eco-pill-l">Restaurants <span class="eco-pill-count">57</span></span>
+          <span class="eco-pill eco-pill-l">Things To Do <span class="eco-pill-count">33</span></span>
+          <span class="eco-pill eco-pill-l">Travel <span class="eco-pill-count">32</span></span>
+          <span class="eco-pill eco-pill-l">Photography <span class="eco-pill-count">24</span></span>
+          <span class="eco-pill eco-pill-l">Lifestyle <span class="eco-pill-count">21</span></span>
+          <span class="eco-pill eco-pill-l">Fashion <span class="eco-pill-count">9</span></span>
+          <span class="eco-pill eco-pill-l">Food <span class="eco-pill-count">7</span></span>
+          <span class="eco-pill eco-pill-l">Architecture <span class="eco-pill-count">6</span></span>
+          <span class="eco-pill eco-pill-l">History <span class="eco-pill-count">6</span></span>
+          <span class="eco-pill eco-pill-l">Parenting <span class="eco-pill-count">6</span></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Crosswalk / asymmetry (Option C) -->
+  <section class="section">
+    <h2 class="section-title">The Asymmetry</h2>
+    <p style="font-size:13px;color:#888;margin-bottom:20px;max-width:680px">
+      Where lifestyle audience appetite is high but journalism coverage is absent — and vice versa. The widest gaps between these two bars are where the information need is greatest.
+    </p>
+
+    <div class="crosswalk">
+      <div class="cw-header-row">
+        <div class="cw-header-j">Journalism Creators →</div>
+        <div class="cw-header-c">Content Area</div>
+        <div class="cw-header-l">← Lifestyle Creators</div>
+      </div>
+
+      <!-- Journalism-dominant rows -->
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">5</span><div class="cw-bar-j" style="width:150px"></div></div>
+        <div class="cw-label">Northern Virginia<span class="cw-label-sub">local news coverage</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">5</span><div class="cw-bar-j" style="width:150px"></div></div>
+        <div class="cw-label">Suburban Maryland<span class="cw-label-sub">local news coverage</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">4</span><div class="cw-bar-j" style="width:120px"></div></div>
+        <div class="cw-label">DC Government<span class="cw-label-sub">accountability journalism</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">4</span><div class="cw-bar-j" style="width:120px"></div></div>
+        <div class="cw-label">Criminal Justice<span class="cw-label-sub">accountability journalism</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+
+      <!-- Lifestyle-dominant rows -->
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Food &amp; Dining<span class="cw-label-sub">restaurants + food creators</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:150px"></div><span class="cw-num cw-num-l">64</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Events &amp; Travel<span class="cw-label-sub">things to do + travel</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:143px"></div><span class="cw-num cw-num-l">61</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Visual Arts &amp; Culture<span class="cw-label-sub">photography, architecture, history</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:89px"></div><span class="cw-num cw-num-l">38</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Fashion &amp; Lifestyle<span class="cw-label-sub">fashion, lifestyle, style</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:66px"></div><span class="cw-num cw-num-l">28</span></div>
+      </div>
+
+      <!-- Shared gaps -->
+      <div class="cw-row cw-row-gap">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Education<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row cw-row-gap">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Immigrant Communities<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+      <div class="cw-row cw-row-gap">
+        <div class="cw-j-side"><span class="cw-zero">—</span></div>
+        <div class="cw-label">Environment<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</div>
+
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <div class="footer-logo">
+                <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas" style="height:44px;width:auto;">
+            </div>
+            <p class="footer-tagline">Building infrastructure for the future of journalism.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Explore</h4>
+            <a href="index.html">Browse Database</a>
+            <a href="who-we-are.html">Who We Are</a>
+            <a href="what-we-do.html">About This Project</a>
+        </div>
+        <div class="footer-column">
+            <h4>About</h4>
+            <a href="how-we-did-this.html">How We Did This</a>
+            <a href="advisory.html">Advisory Boards</a>
+            <a href="submit.html">Submit</a>
+            <a href="research.html">Our Research</a>
+        </div>
+        <div class="footer-column">
+            <h4>Connect</h4>
+            <a href="/cdn-cgi/l/email-protection#b1d9d4dddddef1dbdec4c3dfd0ddd8c2dcd0c5ddd0c29fd2dedc">Email Us</a>
+            <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══════════════════════════════════════════════════════════ */
+/* DATA & GLOBALS                                             */
+/* ═══════════════════════════════════════════════════════════ */
+let allCreators = [];
+let allPosts    = [];
+let creatorPostMap = {};  // name → {lastPost, latestTitle, latestUrl}
+let tableSort = { col: 'lastPost', dir: 'desc' };
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function platGroup(p) {
+  if (!p) return '';
+  if (p.startsWith('Newsletter')) return 'Newsletter';
+  if (p.startsWith('Video'))      return 'Video';
+  if (p.startsWith('Social'))     return 'Social';
+  return p;
+}
+
+function geoGroup(g) {
+  if (!g) return '';
+  if (g.includes('Maryland') || g.includes(' MD')) return 'Maryland';
+  if (g.includes('Virginia') || g.includes(' VA') || g.includes('Arlington')) return 'Virginia';
+  if (g.includes('Washington') || g.includes('D.C.')) return 'Washington, D.C.';
+  return g;
+}
+
+function beatColor(beat) {
+  const map = {
+    'DC Government':      '#e8f4ff',
+    'Housing':            '#e8f4ff',
+    'Transportation':     '#e8f4ff',
+    'Criminal Justice':   '#ffeaea',
+    'Maryland Legislature':'#fff0e8',
+    'Suburban Maryland':  '#fff0e8',
+    'Northern Virginia':  '#eefae8',
+    'Virginia Legislature':'#eefae8',
+    'Black DC':           '#f5eeff',
+  };
+  return map[beat] || '#f0f0f0';
+}
+
+function beatTextColor(beat) {
+  const map = {
+    'DC Government':      '#0055aa',
+    'Housing':            '#0055aa',
+    'Transportation':     '#0055aa',
+    'Criminal Justice':   '#880000',
+    'Maryland Legislature':'#aa4400',
+    'Suburban Maryland':  '#aa4400',
+    'Northern Virginia':  '#336600',
+    'Virginia Legislature':'#336600',
+    'Black DC':           '#55009a',
+  };
+  return map[beat] || '#555555';
+}
+
+function beatClass(beat) {
+  const map = {
+    'DC Government': 'beat-dc', 'Housing': 'beat-dc', 'Transportation': 'beat-dc',
+    'Criminal Justice': 'beat-cj',
+    'Maryland Legislature': 'beat-md', 'Suburban Maryland': 'beat-sub',
+    'Northern Virginia': 'beat-va', 'Virginia Legislature': 'beat-va',
+  };
+  return map[beat] || '';
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* TAB SWITCHING                                              */
+/* ═══════════════════════════════════════════════════════════ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════ */
+/* LOAD DATA                                                  */
+/* ═══════════════════════════════════════════════════════════ */
+async function init() {
+  try {
+    const [creatorsRes, postsRes, localRes] = await Promise.all([
+      fetch('assets/data/dmv-creators.json'),
+      fetch('assets/data/dmv-recent-posts.json'),
+      fetch('assets/data/dc-creators-full.json'),
+    ]);
+    const creatorsData = await creatorsRes.json();
+    const postsData    = await postsRes.json();
+    const localData    = await localRes.json();
+
+    allCreators = creatorsData.filter(c => c.name && !c._comment && !c._placeholder);
+    allPosts    = postsData.posts || [];
+
+    // Update header post count
+    document.getElementById('stat-posts').textContent = postsData.total || allPosts.length;
+
+    // Update feed badge
+    document.getElementById('feed-badge').textContent = postsData.total || allPosts.length;
+
+    // Build creator → latest post map (deduplicate by URL)
+    const seenUrls = new Set();
+    const byCreator = {};
+    for (const post of allPosts) {
+      if (!byCreator[post.creator] && !seenUrls.has(post.url)) {
+        byCreator[post.creator] = { lastPost: post.published, latestTitle: post.title, latestUrl: post.url };
+        seenUrls.add(post.url);
+      }
+    }
+    creatorPostMap = byCreator;
+
+    // Feed generated date
+    if (postsData.generated_date) {
+      document.getElementById('feed-generated').textContent = `Data as of ${postsData.generated_date}`;
+    }
+
+    // Populate creator filter in feed
+    const creatorSel = document.getElementById('feed-filter-creator');
+    const names = [...new Set(allPosts.map(p => p.creator))].sort();
+    names.forEach(n => {
+      const o = document.createElement('option');
+      o.value = n; o.textContent = n;
+      creatorSel.appendChild(o);
+    });
+
+    allLocalCreators = localData.creators || [];
+    renderLocalCreators();
+
+    renderBeatHeadlines();
+    renderTable(allCreators);
+    renderFeed(allPosts);
+
+  } catch (err) {
+    document.getElementById('beat-headlines').innerHTML =
+      '<p style="color:#c00;font-size:13px">Could not load data. Open via a local server (not file://).</p>';
+    document.getElementById('creator-tbody').innerHTML =
+      '<tr><td colspan="6" class="loading">Data unavailable — open via HTTP server.</td></tr>';
+    document.getElementById('post-list').innerHTML =
+      '<p class="empty-state">Data unavailable — open via HTTP server.</p>';
+    document.getElementById('local-creator-grid').innerHTML =
+      '<p class="empty-state">Data unavailable — open via HTTP server.</p>';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* BEAT MAP — RECENT HEADLINES                                */
+/* ═══════════════════════════════════════════════════════════ */
+function renderBeatHeadlines() {
+  // Group by beat, deduplicate by URL, take latest 1 per beat
+  const beatOrder = [
+    'DC Government', 'Maryland Legislature', 'Northern Virginia',
+    'Suburban Maryland', 'Virginia Legislature', 'Housing',
+    'Criminal Justice', 'Transportation', 'Black DC'
+  ];
+
+  const byBeat = {};
+  const seenUrls = new Set();
+  for (const post of allPosts) {
+    if (!post.url || seenUrls.has(post.url)) continue;
+    seenUrls.add(post.url);
+    if (!byBeat[post.beat]) byBeat[post.beat] = [];
+    if (byBeat[post.beat].length < 2) byBeat[post.beat].push(post);
+  }
+
+  const container = document.getElementById('beat-headlines');
+  const cards = [];
+
+  for (const beat of beatOrder) {
+    const posts = byBeat[beat];
+    if (!posts || posts.length === 0) continue;
+    const post = posts[0];
+    const bgColor = beatColor(beat);
+    const txtColor = beatTextColor(beat);
+    cards.push(`
+      <div class="beat-headline-card">
+        <div class="bhc-beat">
+          <span class="bhc-beat-dot" style="background:${txtColor}"></span>
+          ${esc(beat)}
+        </div>
+        <a class="bhc-headline" href="${esc(post.url)}" target="_blank" rel="noopener">${esc(post.title)}</a>
+        <div class="bhc-meta">
+          <strong>${esc(post.creator)}</strong> · ${esc(post.channel)}
+          ${post.published ? `<span style="margin-left:6px;color:#aaa">${post.published}</span>` : ''}
+        </div>
+      </div>`);
+  }
+
+  container.innerHTML = cards.length
+    ? cards.join('')
+    : '<p class="empty-state">No recent posts found.</p>';
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* CREATOR TABLE                                              */
+/* ═══════════════════════════════════════════════════════════ */
+let currentTableData = [];
+
+function filterTable() {
+  const beat     = document.getElementById('filter-beat').value;
+  const geo      = document.getElementById('filter-geo').value;
+  const platform = document.getElementById('filter-platform').value;
+
+  const filtered = allCreators.filter(c => {
+    const bMatch = !beat     || c.beat === beat || c.beat_secondary === beat;
+    const gMatch = !geo      || geoGroup(c.geography) === geo;
+    const pMatch = !platform || platGroup(c.platform) === platform;
+    return bMatch && gMatch && pMatch;
+  });
+  renderTable(filtered);
+}
+
+function sortTable(col) {
+  if (tableSort.col === col) {
+    tableSort.dir = tableSort.dir === 'asc' ? 'desc' : 'asc';
+  } else {
+    tableSort.col = col;
+    tableSort.dir = col === 'lastPost' ? 'desc' : 'asc';
+  }
+  renderTable(currentTableData);
+  // Update header classes
+  document.querySelectorAll('#creator-table th').forEach(th => {
+    th.classList.remove('sorted-asc','sorted-desc');
+  });
+}
+
+function renderTable(creators) {
+  currentTableData = creators;
+  const tbody  = document.getElementById('creator-tbody');
+  const count  = document.getElementById('table-count');
+
+  count.textContent = `${creators.length} creator${creators.length !== 1 ? 's' : ''}`;
+
+  if (!creators.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="loading">No creators match this filter.</td></tr>';
+    return;
+  }
+
+  // Attach post data and sort
+  const withPosts = creators.map(c => ({
+    ...c,
+    _lastPost: creatorPostMap[c.name]?.lastPost || null,
+    _latestTitle: creatorPostMap[c.name]?.latestTitle || null,
+    _latestUrl: creatorPostMap[c.name]?.latestUrl || null,
+  }));
+
+  withPosts.sort((a, b) => {
+    let av, bv;
+    if (tableSort.col === 'lastPost') {
+      av = a._lastPost || '0000-00-00';
+      bv = b._lastPost || '0000-00-00';
+    } else {
+      av = (a[tableSort.col] || '').toLowerCase();
+      bv = (b[tableSort.col] || '').toLowerCase();
+    }
+    if (av < bv) return tableSort.dir === 'asc' ? -1 : 1;
+    if (av > bv) return tableSort.dir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  tbody.innerHTML = withPosts.map(c => {
+    const isNew   = c.added === '2026-03';
+    const newBadge = isNew ? '<span class="badge-new">New</span>' : '';
+    const beatSec  = c.beat_secondary
+      ? ` <span style="color:#bbb;font-size:11px">/ ${esc(c.beat_secondary)}</span>` : '';
+
+    let lastPostCell;
+    if (c._lastPost && c._latestTitle) {
+      lastPostCell = `
+        <span class="last-post-date">${esc(c._lastPost)}</span>
+        <a class="last-post-link" href="${esc(c._latestUrl)}" target="_blank" rel="noopener"
+           title="${esc(c._latestTitle)}">${esc(c._latestTitle)}</a>`;
+    } else if (c.rss === null) {
+      lastPostCell = `<span class="no-rss">No RSS (${esc(platGroup(c.platform) || c.platform)})</span>`;
+    } else {
+      lastPostCell = `<span class="no-rss">No recent posts</span>`;
+    }
+
+    return `<tr>
+      <td class="td-name">${esc(c.name)}${newBadge}</td>
+      <td><a href="${esc(c.url||'#')}" target="_blank" rel="noopener">${esc(c.channel||'')}</a></td>
+      <td class="td-plat">${esc(c.platform||'')}</td>
+      <td class="td-beat">${esc(c.beat||'')}${beatSec}</td>
+      <td class="td-geo">${esc(c.geography||'')}</td>
+      <td class="td-lastpost">${lastPostCell}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* COVERAGE FEED                                              */
+/* ═══════════════════════════════════════════════════════════ */
+function filterFeed() {
+  const beat    = document.getElementById('feed-filter-beat').value;
+  const geo     = document.getElementById('feed-filter-geo').value;
+  const creator = document.getElementById('feed-filter-creator').value;
+
+  const filtered = allPosts.filter(p => {
+    const bMatch = !beat    || p.beat === beat;
+    const gMatch = !geo     || geoGroup(p.geography) === geo;
+    const cMatch = !creator || p.creator === creator;
+    return bMatch && gMatch && cMatch;
+  });
+  renderFeed(filtered);
+}
+
+function renderFeed(posts) {
+  const list  = document.getElementById('post-list');
+  const count = document.getElementById('feed-count');
+
+  // Deduplicate by URL
+  const seen = new Set();
+  const unique = posts.filter(p => {
+    if (!p.url || seen.has(p.url)) return false;
+    seen.add(p.url);
+    return true;
+  });
+
+  count.textContent = `${unique.length} post${unique.length !== 1 ? 's' : ''}`;
+
+  if (!unique.length) {
+    list.innerHTML = '<p class="empty-state">No posts match this filter.</p>';
+    return;
+  }
+
+  list.innerHTML = unique.map(p => `
+    <div class="post-row">
+      <div class="post-date">${esc(p.published || '—')}</div>
+      <div class="post-body">
+        <a class="post-title" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a>
+        ${p.summary ? `<p class="post-summary">${esc(p.summary.slice(0,180))}${p.summary.length>180?'…':''}</p>` : ''}
+      </div>
+      <div class="post-creator">
+        <strong>${esc(p.creator)}</strong><br>
+        <span style="color:#aaa">${esc(p.channel)}</span>
+      </div>
+      <div>
+        <span class="post-beat ${beatClass(p.beat)}"
+              style="background:${beatColor(p.beat)};color:${beatTextColor(p.beat)}">${esc(p.beat)}</span>
+      </div>
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* LOCAL CREATORS (LIFESTYLE TAB)                             */
+/* ═══════════════════════════════════════════════════════════ */
+let allLocalCreators = [];
+let localTierFilter  = 'top40';
+
+function fmtFollowers(n) {
+  if (!n) return '—';
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1000)    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return String(n);
+}
+
+function normPlatform(p) {
+  if (!p) return '';
+  if (p.toLowerCase() === 'tiktok') return 'TikTok';
+  return p;
+}
+
+function setLocalTier(tier) {
+  localTierFilter = tier;
+  document.getElementById('toggle-top40').classList.toggle('active', tier === 'top40');
+  document.getElementById('toggle-all').classList.toggle('active',   tier === 'all');
+  renderLocalCreators();
+}
+
+function renderLocalCreators() {
+  const contentFilter  = (document.getElementById('local-filter-content')?.value  || '').toLowerCase();
+  const platformFilter = (document.getElementById('local-filter-platform')?.value || '').toLowerCase();
+
+  let visible = allLocalCreators;
+  if (localTierFilter === 'top40') {
+    visible = visible.filter(c => c.tier === 'top40' || c.tier === 'cohort');
+  }
+  if (contentFilter) {
+    visible = visible.filter(c => (c.content_type || '').toLowerCase().includes(contentFilter));
+  }
+  if (platformFilter) {
+    visible = visible.filter(c => normPlatform(c.platform).toLowerCase() === platformFilter);
+  }
+
+  const grid    = document.getElementById('local-creator-grid');
+  const countEl = document.getElementById('local-count');
+  countEl.textContent = `${visible.length} creator${visible.length !== 1 ? 's' : ''}`;
+
+  if (!visible.length) {
+    grid.innerHTML = '<p class="empty-state">No creators match this filter.</p>';
+    return;
+  }
+
+  grid.innerHTML = visible.map(c => {
+    const plat      = normPlatform(c.platform);
+    const platClass = 'plat-' + plat.replace(/[^a-zA-Z]/g, '');
+    const tags      = (c.content_type || '').split(',').map(t => t.trim()).filter(Boolean).slice(0, 4);
+    const tierBadge = c.tier === 'top40'  ? '<span class="tier-badge tier-top40">Top 40</span>'
+                    : c.tier === 'cohort' ? '<span class="tier-badge tier-cohort">Cohort</span>'
+                    : '';
+    const handle = c.handle || c.name;
+    const profileUrls = {
+      'Instagram': `https://instagram.com/${c.handle}`,
+      'TikTok':    `https://tiktok.com/@${c.handle}`,
+      'X':         `https://x.com/${c.handle}`,
+      'YouTube':   `https://youtube.com/@${c.handle}`,
+    };
+    const profileUrl = profileUrls[plat] || null;
+    const handleDisplay = c.handle ? `@${esc(c.handle)}` : esc(c.name);
+    const nameDisplay   = c.name && c.name !== c.handle ? `<div class="card-name">${esc(c.name)}</div>` : '';
+
+    return `
+      <div class="creator-card">
+        <div class="card-top">
+          <div>
+            <div class="card-handle">${profileUrl
+              ? `<a href="${esc(profileUrl)}" target="_blank" rel="noopener">${handleDisplay}</a>`
+              : handleDisplay}</div>
+            ${nameDisplay}
+          </div>
+          <div class="card-right">
+            <span class="plat-badge ${platClass}">${esc(plat)}</span>
+            ${tierBadge}
+          </div>
+        </div>
+        <div class="card-followers">${fmtFollowers(c.followers)}<span class="card-followers-label">followers</span></div>
+        <div clas
