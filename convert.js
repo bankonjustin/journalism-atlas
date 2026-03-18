@@ -10,6 +10,9 @@
 //     Consumers must split on ',' and trim to get individual values.
 //   - `group` values starting with '#' (spreadsheet errors like #N/A) are
 //     treated as empty.
+//   - `geography` (freeform) is preserved for backwards compatibility.
+//     `geoCity`, `geoState`, `geoCountry`, `geoRegion` are the structured
+//     replacements added in Ryan's March 2026 schema update.
 
 const fs = require('fs');
 const path = require('path');
@@ -90,13 +93,17 @@ for (let i = 1; i < rows.length; i++) {
   const group = groupRaw.startsWith('#') ? '' : groupRaw;
 
   creators.push({
-    name:      row['Creator Name'],
-    channel:   row['Creator Channel'],
-    link:      row['Link Primary'],
-    platform:  row['Platform Primary'],
-    topic:     row['Topic/Category'],
-    geography: row['Geography'],
-    group:     group,
+    name:       row['Creator Name'],
+    channel:    row['Creator Channel'],
+    link:       row['Link Primary'],
+    platform:   row['Platform Primary'],
+    topic:      row['Topic/Category'],
+    geography:  row['Geography'],
+    geoCity:    row['Geo City']    || '',
+    geoState:   row['Geo State']   || '',
+    geoCountry: row['Geo Country'] || '',
+    geoRegion:  row['Geo Region']  || '',
+    group:      group,
   });
 }
 
