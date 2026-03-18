@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Signal Brief — March 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; color: #000; font-size: 16px; line-height: 1.5; }
+
+    /* ── HEADER ── */
+    .header { background: #000; color: #fff; padding: 40px 48px 36px; }
+    .header-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #ceff00; margin-bottom: 12px; }
+    .header-title { font-size: 48px; font-weight: 800; line-height: 1.0; letter-spacing: -0.02em; }
+    .header-sub { margin-top: 10px; font-size: 15px; color: #aaa; }
+    .header-meta { margin-top: 24px; display: flex; gap: 40px; flex-wrap: wrap; }
+    .header-stat { display: flex; flex-direction: column; }
+    .header-stat-num { font-size: 36px; font-weight: 800; color: #ceff00; line-height: 1; }
+    .header-stat-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+    /* ── TAB NAV ── */
+    .tab-nav { background: #fff; border-bottom: 2px solid #e0e0e0; padding: 0 48px; display: flex; gap: 0; position: sticky; top: 0; z-index: 100; }
+    .tab-btn { padding: 16px 22px; font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; color: #888; transition: color 0.15s; white-space: nowrap; }
+    .tab-btn:hover { color: #333; }
+    .tab-btn.active { color: #000; border-bottom-color: #ceff00; }
+    .tab-badge { display: inline-block; font-size: 9px; font-weight: 800; background: #ceff00; color: #000; padding: 1px 5px; border-radius: 4px; margin-left: 6px; vertical-align: middle; letter-spacing: 0.05em; }
+
+    /* ── TAB PANES ── */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── LAYOUT ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+    .section { padding: 32px 0; border-bottom: 1px solid #e0e0e0; }
+    .section:last-child { border-bottom: none; }
+    .section-title { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #888; margin-bottom: 18px; }
+
+    /* ── STAT STRIP ── */
+    .stat-strip { display: flex; gap: 0; margin-bottom: 8px; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; }
+    .stat-card { flex: 1; padding: 20px 24px; border-right: 1px solid #e0e0e0; }
+    .stat-card:last-child { border-right: none; }
+    .stat-card-num { font-size: 32px; font-weight: 800; color: #000; line-height: 1; }
+    .stat-card-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+    .stat-card-sub { font-size: 11px; color: #bbb; margin-top: 2px; }
+    .stat-accent { color: #ceff00; background: #000; }
+    .stat-accent .stat-card-label { color: #888; }
+
+    /* ── LEADERBOARD ── */
+    .leaderboard { width: 100%; border-collapse: collapse; }
+    .leaderboard th { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; padding: 8px 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+    .leaderboard td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; }
+    .leaderboard tr:last-child td { border-bottom: none; }
+    .leaderboard tr:hover td { background: #f9f9f9; }
+    .lb-rank { font-size: 11px; font-weight: 700; color: #ccc; width: 28px; }
+    .lb-name { font-weight: 700; color: #000; }
+    .lb-views { font-weight: 800; color: #000; font-variant-numeric: tabular-nums; }
+    .lb-topic { font-size: 11px; color: #666; max-width: 160px; }
+    .lb-plat { display: flex; gap: 3px; flex-wrap: wrap; }
+    .plat-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .plat-youtube { background: #ff0000; }
+    .plat-tiktok { background: #000; }
+    .plat-instagram { background: #e1306c; }
+    .plat-facebook { background: #1877f2; }
+
+    /* ── GENRE BARS ── */
+    .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .bar-label { font-size: 12px; color: #333; width: 180px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { flex: 1; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; background: #5d7400; }
+    .bar-fill.top { background: #ceff00; }
+    .bar-count { font-size: 11px; color: #aaa; width: 40px; text-align: right; flex-shrink: 0; }
+    .bar-pct { font-size: 11px; color: #555; font-weight: 600; width: 36px; text-align: right; flex-shrink: 0; }
+
+    /* ── TOPIC HEATMAP ── */
+    .heatmap { display: flex; flex-wrap: wrap; gap: 8px; }
+    .topic-pill { display: inline-flex; align-items: center; border-radius: 100px; font-weight: 700; cursor: default; transition: transform 0.1s; }
+    .topic-pill:hover { transform: scale(1.05); }
+    .topic-pill .pill-count { font-size: 0.75em; opacity: 0.7; margin-left: 4px; }
+    .cat-politics { background: #ceff00; color: #000; }
+    .cat-world { background: #97d600; color: #000; }
+    .cat-news { background: #b3d900; color: #000; }
+    .cat-tech { background: #00bcd4; color: #000; }
+    .cat-finance { background: #ffcc00; color: #000; }
+    .cat-travel { background: #ff9800; color: #000; }
+    .cat-culture { background: #ff6b35; color: #fff; }
+    .cat-food { background: #e91e63; color: #fff; }
+    .cat-general { background: #e0e0e0; color: #333; }
+    .cat-local { background: #8bc34a; color: #000; }
+    .cat-law { background: #9c27b0; color: #fff; }
+    .cat-education { background: #3f51b5; color: #fff; }
+
+    /* ── VELOCITY CARDS ── */
+    .velocity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .vel-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 14px 16px; transition: border-color 0.15s; }
+    .vel-card:hover { border-color: #ceff00; }
+    .vel-v1 { font-size: 22px; font-weight: 800; color: #ceff00; background: #000; display: inline-block; padding: 2px 8px; border-radius: 4px; line-height: 1.3; margin-bottom: 6px; }
+    .vel-title { font-size: 13px; font-weight: 600; color: #000; line-height: 1.35; margin-bottom: 6px; }
+    .vel-meta { font-size: 11px; color: #888; }
+    .vel-creator { font-weight: 600; color: #333; }
+    .plat-chip { display: inline-block; font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; margin-left: 4px; }
+    .chip-youtube { background: #ffebee; color: #b71c1c; }
+    .chip-tiktok { background: #f0f0f0; color: #000; }
+    .chip-instagram { background: #fce4ec; color: #ad1457; }
+    .chip-facebook { background: #e8f0fe; color: #1565c0; }
+
+    /* ── CROSS-PLATFORM CALLOUT ── */
+    .callout-box { background: #f9f9f9; border: 1px solid #e0e0e0; border-left: 4px solid #ceff00; border-radius: 0 8px 8px 0; padding: 16px 20px; }
+    .callout-box.poly { border-left-color: #97d600; }
+    .callout-headline { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+    .callout-headline strong { color: #ceff00; background: #000; padding: 0 4px; border-radius: 3px; }
+    .callout-body { font-size: 13px; color: #555; margin-bottom: 12px; }
+    .chip-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .name-chip { font-size: 11px; font-weight: 600; background: #f0f0f0; color: #333; padding: 4px 10px; border-radius: 100px; border: 1px solid #e0e0e0; }
+    .name-chip.cross { background: #f0fff0; border-color: #b3e6b3; color: #1b5e20; }
+
+    /* ── RSS STAT STRIP ── */
+    .rss-framing { font-size: 13px; color: #888; margin-bottom: 16px; }
+    .rss-framing strong { color: #000; }
+
+    /* ── BEAT BARS ── */
+    .beat-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 40px; }
+    @media (max-width: 640px) { .beat-bars { grid-template-columns: 1fr; } }
+
+    /* ── POSTS FEED ── */
+    .post-item { padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .post-item:last-child { border-bottom: none; }
+    .post-topic-badge { display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; background: #f0f0f0; color: #555; margin-bottom: 5px; }
+    .post-title { font-size: 14px; font-weight: 600; color: #000; text-decoration: none; line-height: 1.35; display: block; margin-bottom: 4px; }
+    .post-title:hover { text-decoration: underline; }
+    .post-meta { font-size: 11px; color: #aaa; }
+    .post-meta strong { color: #666; }
+
+    /* ── RECENCY ── */
+    .recency-strip { display: flex; gap: 0; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+    .recency-card { flex: 1; padding: 16px 20px; border-right: 1px solid #e0e0e0; text-align: center; }
+    .recency-card:last-child { border-right: none; }
+    .recency-num { font-size: 28px; font-weight: 800; color: #000; }
+    .recency-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.07em; }
+
+    /* ── DARK CREATORS ── */
+    .dark-toggle { background: none; border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px 16px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: background 0.15s; }
+    .dark-toggle:hover { background: #f5f5f5; }
+    .dark-toggle-arrow { transition: transform 0.2s; font-size: 11px; }
+    .dark-toggle[aria-expanded="true"] .dark-toggle-arrow { transform: rotate(180deg); }
+    .dark-list { display: none; margin-top: 12px; }
+    .dark-list.open { display: block; }
+    .dark-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .dark-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; padding: 6px 10px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+    .dark-table td { padding: 7px 10px; border-bottom: 1px solid #f5f5f5; color: #444; }
+    .dark-table tr:last-child td { border-bottom: none; }
+
+    /* ── PANEL 3: POLY PLATFORM ── */
+    .poly-hero { background: #000; color: #fff; border-radius: 10px; padding: 28px 32px; margin-bottom: 28px; }
+    .poly-hero-num { font-size: 72px; font-weight: 800; color: #ceff00; line-height: 1; }
+    .poly-hero-label { font-size: 16px; font-weight: 700; color: #fff; margin-top: 4px; }
+    .poly-hero-body { font-size: 13px; color: #aaa; margin-top: 10px; max-width: 600px; line-height: 1.6; }
+    .poly-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .poly-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 14px 16px; transition: border-color 0.15s; }
+    .poly-card:hover { border-color: #97d600; }
+    .poly-card-name { font-size: 15px; font-weight: 700; color: #000; margin-bottom: 2px; }
+    .poly-card-channel { font-size: 11px; color: #888; margin-bottom: 8px; }
+    .poly-card-topic { font-size: 11px; color: #555; line-height: 1.4; margin-bottom: 8px; }
+    .poly-card-badges { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+    .poly-views { font-size: 11px; font-weight: 700; color: #000; background: #ceff00; padding: 2px 7px; border-radius: 4px; }
+    .poly-rss-yes { font-size: 10px; font-weight: 700; color: #1b5e20; background: #e8f5e9; border: 1px solid #b3e6b3; padding: 2px 7px; border-radius: 4px; }
+    .poly-rss-no { font-size: 10px; font-weight: 700; color: #888; background: #f5f5f5; border: 1px solid #e0e0e0; padding: 2px 7px; border-radius: 4px; }
+    .poly-note { font-size: 11px; color: #aaa; font-style: italic; margin-top: 20px; }
+    .poly-chartbeat-hook { background: #f9fff0; border: 1px solid #b3e6b3; border-radius: 8px; padding: 16px 20px; margin-top: 24px; }
+    .pch-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #5d7400; margin-bottom: 6px; }
+    .pch-body { font-size: 13px; color: #333; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    .footer { background: #313131; color: #aaa; padding: 24px 48px; font-size: 12px; text-align: center; letter-spacing: 0.04em; }
+    .footer a { color: #ceff00; text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .header { padding: 28px 20px 24px; }
+      .header-title { font-size: 32px; }
+      .header-stat-num { font-size: 26px; }
+      .tab-nav { padding: 0 16px; overflow-x: auto; }
+      .tab-btn { padding: 14px 14px; font-size: 11px; }
+      .main { padding: 24px 20px 60px; }
+      .stat-strip { flex-direction: column; }
+      .stat-card { border-right: none; border-bottom: 1px solid #e0e0e0; }
+      .stat-card:last-child { border-bottom: none; }
+      .leaderboard { font-size: 12px; }
+      .leaderboard th, .leaderboard td { padding: 8px 6px; }
+      .lb-topic { display: none; }
+      .beat-bars { grid-template-columns: 1fr; }
+      .footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Independent Journalism Atlas</div>
+  <div class="header-title">Atlas Signal Brief</div>
+  <div class="header-sub">30 days ending March 18, 2026 &nbsp;·&nbsp; Video + Written + Audio</div>
+  <div class="header-meta">
+    <div class="header-stat">
+      <div class="header-stat-num">2.18B</div>
+      <div class="header-stat-label">Video views</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-num">302</div>
+      <div class="header-stat-label">Video creators</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-num">176</div>
+      <div class="header-stat-label">RSS-tracked creators</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-num">27</div>
+      <div class="header-stat-label">Poly platform creators</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" data-tab="panel-video" onclick="showTab('panel-video')" role="tab">
+    Video Signal <span class="tab-badge">302</span>
+  </button>
+  <button class="tab-btn" data-tab="panel-rss" onclick="showTab('panel-rss')" role="tab">
+    Written &amp; Audio <span class="tab-badge">176</span>
+  </button>
+  <button class="tab-btn" data-tab="panel-poly" onclick="showTab('panel-poly')" role="tab">
+    Poly Platform <span class="tab-badge">27</span>
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     PANEL 1 — VIDEO SIGNAL
+══════════════════════════════════════════════════ -->
+<div id="panel-video" class="tab-pane active" role="tabpanel">
+  <div class="main">
+
+    <!-- STAT STRIP -->
+    <div class="section">
+      <div class="section-title">Atlas Video Signal — 30 days ending March 18, 2026</div>
+      <div class="stat-strip" id="video-stat-strip">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="section">
+      <div class="section-title">Top Creators by 30-Day Views</div>
+      <table class="leaderboard" id="leaderboard-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Creator</th>
+            <th>Views (30d)</th>
+            <th>Platforms</th>
+            <th>Beat</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body"><!-- rendered by JS --></tbody>
+      </table>
+    </div>
+
+    <!-- GENRE BREAKDOWN -->
+    <div class="section">
+      <div class="section-title">Genre Breakdown (by video count)</div>
+      <div id="genre-bars"><!-- rendered by JS --></div>
+    </div>
+
+    <!-- TOPIC HEATMAP -->
+    <div class="section">
+      <div class="section-title">Topic Heatmap — Atlas Beat Coverage</div>
+      <div class="heatmap" id="topic-heatmap"><!-- rendered by JS --></div>
+      <div style="font-size:11px;color:#aaa;margin-top:12px;">Sized by video count from matched Atlas creators. Politics reflects high-volume creators publishing in this window.</div>
+    </div>
+
+    <!-- VELOCITY -->
+    <div class="section">
+      <div class="section-title">Day-1 Velocity — Fastest-Breaking Videos</div>
+      <div class="velocity-grid" id="velocity-grid"><!-- rendered by JS --></div>
+    </div>
+
+    <!-- CROSS-PLATFORM -->
+    <div class="section">
+      <div class="callout-box" id="cross-platform-callout"><!-- rendered by JS --></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PANEL 2 — WRITTEN & AUDIO
+══════════════════════════════════════════════════ -->
+<div id="panel-rss" class="tab-pane" role="tabpanel">
+  <div class="main">
+
+    <!-- STAT STRIP -->
+    <div class="section">
+      <div class="section-title">Atlas Written &amp; Audio Signal — March 2026</div>
+      <div class="rss-framing"><strong>176 Atlas creators</strong> tracked via RSS &nbsp;·&nbsp; last scraped March 18, 2026</div>
+      <div class="stat-strip" id="rss-stat-strip"><!-- rendered by JS --></div>
+    </div>
+
+    <!-- RECENCY -->
+    <div class="section">
+      <div class="section-title">Publishing Recency</div>
+      <div class="recency-strip" id="recency-strip"><!-- rendered by JS --></div>
+    </div>
+
+    <!-- BEAT ACTIVITY -->
+    <div class="section">
+      <div class="section-title">Beat Activity — Posts by Topic</div>
+      <div class="beat-bars" id="beat-bars"><!-- rendered by JS --></div>
+    </div>
+
+    <!-- RECENT POSTS -->
+    <div class="section">
+      <div class="section-title">Recent Posts — Last 25</div>
+      <div id="posts-feed"><!-- rendered by JS --></div>
+    </div>
+
+    <!-- DARK CREATORS -->
+    <div class="section">
+      <button class="dark-toggle" onclick="toggleDark(this)" aria-expanded="false">
+        <span><strong>86 Atlas creators</strong> quiet in the last 30 days &nbsp;·&nbsp; <span style="color:#888;font-weight:400;">Gap signal — not failure. Click to expand.</span></span>
+        <span class="dark-toggle-arrow">▼</span>
+      </button>
+      <div class="dark-list" id="dark-list">
+        <p style="font-size:12px;color:#888;padding:8px 0 10px;">These creators have RSS feeds in the Atlas but have not published in 30+ days. The Atlas flags these for ecosystem monitoring — some may have paused, pivoted, or need re-verification.</p>
+        <table class="dark-table" id="dark-table">
+          <thead><tr><th>Creator</th><th>Channel</th><th>Beat</th><th>Geography</th></tr></thead>
+          <tbody id="dark-body"><!-- rendered by JS --></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PANEL 3 — POLY PLATFORM CREATORS
+══════════════════════════════════════════════════ -->
+<div id="panel-poly" class="tab-pane" role="tabpanel">
+  <div class="main">
+
+    <div class="section">
+      <div class="poly-hero">
+        <div class="poly-hero-num">27</div>
+        <div class="poly-hero-label">Poly Platform Creators — The Multi-Modal Cohort</div>
+        <div class="poly-hero-body">27 Atlas creators are publishing simultaneously across video and written formats — reaching audiences wherever they are. These are the ecosystem's most multi-modal voices.</div>
+      </div>
+
+      <div class="poly-grid" id="poly-grid"><!-- rendered by JS --></div>
+
+      <p class="poly-note">Video view data shown for creators in top-30 by volume. Remaining creators are tracked in the Atlas and confirmed in both video and written/audio exports, but individual view counts are not available in this snapshot.</p>
+
+      <div class="poly-chartbeat-hook">
+        <div class="pch-label">Partner Signal</div>
+        <div class="pch-body">These creators generate both video traffic and newsletter/web traffic — the Atlas is the only place that tracks them as a unified signal. For partners like Chartbeat and Apple News, the Poly Platform cohort represents the highest-leverage audience overlap: readers who are also viewers.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  Data: Tubular Labs + Atlas Pulse RSS &nbsp;·&nbsp; Independent Journalism Atlas &nbsp;·&nbsp; <a href="https://journalismatlas.com">journalismatlas.com</a>
+</footer>
+
+<script>
+// ── INLINE DATA ──────────────────────────────────────────────
+const TOP_CREATORS = [{"name": "Carlos_Eduardo_Espina", "views": 426709346, "videos": 436, "v1_total": 268192815, "followers": 14300000, "genre": "Entertainment", "platforms": ["facebook", "instagram", "tiktok", "youtube"], "atlas_topic": "Politics, Immigration", "atlas_geography": "Houston, TX"}, {"name": "Aaron Parnas", "views": 208195887, "videos": 208, "v1_total": 75722716, "followers": 5000000, "genre": "News & Politics", "platforms": ["tiktok", "youtube"], "atlas_topic": "Politics", "atlas_geography": "Washington, D.C."}, {"name": "Caleb Hammer", "views": 151341519, "videos": 142, "v1_total": 68188735, "followers": 2960000, "genre": "Entertainment", "platforms": ["facebook", "instagram", "tiktok", "youtube"], "atlas_topic": "Personal Finance", "atlas_geography": "Austin, TX"}, {"name": "Don Lemon", "views": 86098409, "videos": 94, "v1_total": 72378273, "followers": 2800152, "genre": "News & Politics", "platforms": ["facebook", "instagram"], "atlas_topic": "Politics, General News", "atlas_geography": "New York, NY"}, {"name": "Brian Tyler Cohen", "views": 83203611, "videos": 104, "v1_total": 64109468, "followers": 5150000, "genre": "News & Politics", "platforms": ["facebook", "instagram", "youtube"], "atlas_topic": "Politics", "atlas_geography": "Los Angeles, CA"}, {"name": "Cleo Abram", "views": 76867475, "videos": 36, "v1_total": 26675095, "followers": 7530000, "genre": "Science & Tech", "platforms": ["instagram", "tiktok", "youtube"], "atlas_topic": "Tech", "atlas_geography": "National - US"}, {"name": "Marques Brownlee", "views": 63773027, "videos": 16, "v1_total": 35430859, "followers": 20800000, "genre": "Science & Tech", "platforms": ["instagram", "tiktok", "youtube"], "atlas_topic": "Tech", "atlas_geography": "New York, NY"}, {"name": "matt bernstein", "views": 48747108, "videos": 19, "v1_total": 28795669, "followers": 2173935, "genre": "News & Politics", "platforms": ["instagram", "tiktok"], "atlas_topic": "LGBTQIA, Politics, Internet Culture", "atlas_geography": "New York, NY"}, {"name": "Dhruv Rathee", "views": 47200764, "videos": 8, "v1_total": 27728408, "followers": 31600000, "genre": "News & Politics", "platforms": ["facebook", "instagram", "youtube"], "atlas_topic": "Politics, World, Culture", "atlas_geography": "India"}, {"name": "Candace Owens", "views": 45318910, "videos": 31, "v1_total": 28762442, "followers": 7522100, "genre": "News & Politics", "platforms": ["facebook", "youtube"], "atlas_topic": "Politics", "atlas_geography": "National - US"}, {"name": "Chris Van Vliet", "views": 30864144, "videos": 35, "v1_total": 14111010, "followers": 1252915, "genre": "Sports", "platforms": ["facebook", "instagram", "tiktok", "youtube"], "atlas_topic": "Entertainment/Hollywood", "atlas_geography": "Los Angeles, CA"}, {"name": "Tony Chen", "views": 30471155, "videos": 18, "v1_total": 9769855, "followers": 3265027, "genre": "Science & Tech", "platforms": ["instagram"], "atlas_topic": "Tech", "atlas_geography": "National - US"}, {"name": "Breaking Points", "views": 29999031, "videos": 24, "v1_total": 13874296, "followers": 1910000, "genre": "News & Politics", "platforms": ["youtube"], "atlas_topic": "", "atlas_geography": ""}, {"name": "Veritasium", "views": 28408602, "videos": 12, "v1_total": 10088850, "followers": 20400000, "genre": "Science & Tech", "platforms": ["facebook", "tiktok", "youtube"], "atlas_topic": "", "atlas_geography": ""}, {"name": "Johnny Harris", "views": 26626370, "videos": 17, "v1_total": 7668517, "followers": 7570000, "genre": "News & Politics", "platforms": ["facebook", "instagram", "youtube"], "atlas_topic": "Explanatory", "atlas_geography": "International"}, {"name": "Jessica Yellin", "views": 25914659, "videos": 30, "v1_total": 19700935, "followers": 941880, "genre": "News & Politics", "platforms": ["facebook", "instagram"], "atlas_topic": "Politics", "atlas_geography": "Los Angeles, CA"}, {"name": "SHIT YOU SHOULD CARE ABOUT", "views": 25185100, "videos": 23, "v1_total": 21631701, "followers": 3434345, "genre": "News & Politics", "platforms": ["instagram"], "atlas_topic": "", "atlas_geography": ""}, {"name": "Keith Edwards", "views": 22510252, "videos": 29, "v1_total": 17721096, "followers": 1200000, "genre": "News & Politics", "platforms": ["youtube"], "atlas_topic": "Politics", "atlas_geography": "Washington, D.C."}, {"name": "Ugo Lord: The Modern Attorney", "views": 20826930, "videos": 22, "v1_total": 13032783, "followers": 2050000, "genre": "News & Politics", "platforms": ["youtube"], "atlas_topic": "Law/Legal Issues", "atlas_geography": "Los Angeles, CA"}, {"name": "David Pakman Show", "views": 20709396, "videos": 34, "v1_total": 13538427, "followers": 3510000, "genre": "News & Politics", "platforms": ["youtube"], "atlas_topic": "Politics", "atlas_geography": "National - US"}, {"name": "Carla Angola TV", "views": 20612769, "videos": 17, "v1_total": 17378431, "followers": 4094402, "genre": "General Interest", "platforms": ["instagram"], "atlas_topic": "World", "atlas_geography": "Miami, FL"}, {"name": "Ben Shapiro", "views": 20308403, "videos": 30, "v1_total": 12693507, "followers": 9562274, "genre": "News & Politics", "platforms": ["facebook", "instagram", "youtube"], "atlas_topic": "Politics", "atlas_geography": "Nashville, TN"}, {"name": "NoahGlennCarter", "views": 20232900, "videos": 12, "v1_total": 4627200, "followers": 9500000, "genre": "Entertainment", "platforms": ["tiktok"], "atlas_topic": "", "atlas_geography": ""}, {"name": "V Spehar", "views": 20228640, "videos": 17, "v1_total": 15271443, "followers": 1182231, "genre": "News & Politics", "platforms": ["instagram"], "atlas_topic": "General News, Politics", "atlas_geography": "Rochester, NY"}, {"name": "The David Pakman Show", "views": 20079455, "videos": 14, "v1_total": 9724191, "followers": 825414, "genre": "News & Politics", "platforms": ["facebook", "instagram"], "atlas_topic": "Politics", "atlas_geography": "National - US"}, {"name": "SHARON McMAHON", "views": 19785234, "videos": 22, "v1_total": 14727417, "followers": 1414711, "genre": "News & Politics", "platforms": ["instagram"], "atlas_topic": "Politics, Government Accountability, Explanatory, Finance/Economics", "atlas_geography": "Minneapolis, MN"}, {"name": "Channel 5 with Andrew Callaghan", "views": 19597195, "videos": 15, "v1_total": 7522542, "followers": 3460000, "genre": "News & Politics", "platforms": ["facebook", "youtube"], "atlas_topic": "Media/Power, Internet Culture", "atlas_geography": "National - US"}, {"name": "Philip DeFranco", "views": 18429807, "videos": 26, "v1_total": 11647558, "followers": 6610000, "genre": "News & Politics", "platforms": ["facebook", "tiktok", "youtube"], "atlas_topic": "General News, Politics", "atlas_geography": "National - US"}, {"name": "\ud83d\udcfaThe News Girl \ud83d\udcf0", "views": 17110300, "videos": 20, "v1_total": 8404800, "followers": 4100000, "genre": "News & Politics", "platforms": ["tiktok"], "atlas_topic": "", "atlas_geography": ""}, {"name": "Jefferson Fisher", "views": 16501178, "videos": 22, "v1_total": 10153926, "followers": 6283124, "genre": "Entertainment", "platforms": ["facebook", "instagram", "tiktok"], "atlas_topic": "Explanatory, Self Help", "atlas_geography": "National - US"}];
+const GENRE_BREAKDOWN = {"News & Politics": 1076, "Entertainment": 749, "Food & Drink": 245, "Travel": 190, "Science & Tech": 140, "Health, Fitness & Self Help": 135, "General Interest": 57, "Sports": 42, "Business": 40, "People & Blogs": 19, "Cars, Trucks & Racing": 16, "Home & DIY": 15, "Education": 9, "Kids Entertainment & Animation": 8, "Music & Dance": 8, "Fashion & Style": 5, "Animals & Pets": 4, "Family & Parenting": 2, "Gaming": 1};
+const TOPIC_HEATMAP = [{"topic": "Politics", "count": 1231, "category": "politics"}, {"topic": "Immigration", "count": 443, "category": "world"}, {"topic": "General News", "count": 184, "category": "news"}, {"topic": "Personal Finance", "count": 161, "category": "finance"}, {"topic": "Tech", "count": 89, "category": "tech"}, {"topic": "Explanatory", "count": 78, "category": "tech"}, {"topic": "Travel", "count": 60, "category": "travel"}, {"topic": "World", "count": 46, "category": "world"}, {"topic": "Internet Culture", "count": 46, "category": "culture"}, {"topic": "Comedy", "count": 43, "category": "general"}, {"topic": "Finance/Economics", "count": 39, "category": "finance"}, {"topic": "Restaurants", "count": 37, "category": "food"}, {"topic": "Entertainment/Hollywood", "count": 35, "category": "culture"}, {"topic": "Identity/Belonging", "count": 32, "category": "general"}, {"topic": "Things to do", "count": 32, "category": "general"}, {"topic": "Local", "count": 30, "category": "local"}, {"topic": "Culture", "count": 27, "category": "culture"}, {"topic": "Government Accountability", "count": 25, "category": "politics"}, {"topic": "LGBTQIA", "count": 24, "category": "general"}, {"topic": "Activism", "count": 24, "category": "general"}, {"topic": "Law/Legal Issues", "count": 23, "category": "law"}, {"topic": "Self Help", "count": 22, "category": "general"}, {"topic": "History", "count": 20, "category": "education"}, {"topic": "Local news", "count": 19, "category": "general"}, {"topic": "Investigative", "count": 18, "category": "law"}, {"topic": "Museums", "count": 18, "category": "general"}, {"topic": "Gossip", "count": 17, "category": "general"}, {"topic": "Parenting", "count": 17, "category": "general"}, {"topic": "Running", "count": 17, "category": "general"}, {"topic": "Coffee", "count": 16, "category": "general"}];
+const VELOCITY = [{"title": "M\u00e9xico confirma que el plan original era capturar no abatir a El Mencho \ud83d\udea8", "creator": "Carlos_Eduardo_Espina", "platform": "tiktok", "v1": 7300000, "url": "https://www.tiktok.com/@carlos_eduardo_espina/video/7609789081962204446", "published": "2026-02-22"}, {"title": "Why is it so hard to clear UPSC? ..... #dhruvrathee #drshorts #ad #ias #upsc", "creator": "Dhruv Rathee", "platform": "instagram", "v1": 5978149, "url": "https://www.instagram.com/p/DVs1Rv9DZCN", "published": "2026-03-10"}, {"title": "India's BIGGEST Conspiracy | Reality of Delhi Liquor Scam | Dhruv Rathee", "creator": "Dhruv Rathee", "platform": "youtube", "v1": 5218553, "url": "https://www.youtube.com/watch?v=XHaKy1gnvQc", "published": "2026-03-14"}, {"title": "The World's Best AI Image Generator. Introducing Image Studio at AI fiesta. One place to access all the top AI image mod", "creator": "Dhruv Rathee", "platform": "instagram", "v1": 4951612, "url": "https://www.instagram.com/p/DVjVBMYjcC1", "published": "2026-03-06"}, {"title": "On President\u2019s Day, the First Amendment Troop staged \u201cResistDance\u201d \u2014 a tribute and act of artistic dissent \u2014 at the Linc", "creator": "V Spehar", "platform": "instagram", "v1": 4699233, "url": "https://www.instagram.com/p/DU1-DrFjDJ9", "published": "2026-02-17"}, {"title": "Macbook Neo Impressions: Reincarnated!", "creator": "Marques Brownlee", "platform": "youtube", "v1": 4263226, "url": "https://www.youtube.com/watch?v=kBX5WH9b4M4", "published": "2026-03-04"}, {"title": "Samsung's Secret Screen Feature", "creator": "Marques Brownlee", "platform": "youtube", "v1": 4159571, "url": "https://www.youtube.com/watch?v=McE6el9mn_I", "published": "2026-02-25"}, {"title": "Eating plum jelly from a pine branch  #Foodie #eating #michelinstars  #highspeeddining", "creator": "High Speed Dining", "platform": "tiktok", "v1": 4000000, "url": "https://www.tiktok.com/@highspeeddining/video/7617494542324993294", "published": "2026-03-15"}];
+const CROSS_PLATFORM_CREATORS = ["Carlos_Eduardo_Espina", "Caleb Hammer", "Brian Tyler Cohen", "Cleo Abram", "Marques Brownlee", "Dhruv Rathee", "Chris Van Vliet", "Veritasium", "Johnny Harris", "Ben Shapiro", "Philip DeFranco", "Jefferson Fisher", "Katie Couric", "The Rest Is Politics", "Alex Falcone", "High Speed Dining", "SubwayCreatures", "Simone Giertz", "suzanne lambert", "Haley lickstein", "Emily Calandrelli", "Events DC", "Tara Hoot"];
+const BEAT_ACTIVITY = {"Politics": 402, "Media/Power": 118, "Local": 94, "Culture": 81, "World": 80, "Tech": 71, "Government Accountability": 61, "Finance/Economics": 60, "Health/Wellness": 51, "Local News": 50, "Sports": 46, "History": 45, "Entertainment/Hollywood": 44, "General News": 41, "Explanatory": 39, "Internet Culture": 28, "Travel": 27, "Local news": 27, "Mental Health": 25, "Law/Legal Issues": 25, "Food": 24, "Activism": 23, "Recipes": 20, "Climate/Environment": 20, "University": 20, "Investigative": 17, "Identity/Belonging": 15, "Gender": 15, "National Security": 12, "Dating/Romance": 12, "Business": 9, "Personal Finance": 9, "Labor": 8, "Day in a life": 7, "Design": 7, "Lifestyle": 7, "Fashion": 6, "Crime": 2};
+const CROSS_SIGNAL = [{"name": "Kyla Scanlon", "channel": "In This Economy?", "topic": "Finance/Economics", "has_rss_posts": false}, {"name": "Lisa Remillard", "channel": "The News Girl", "topic": "Government Accountability", "has_rss_posts": true}, {"name": "Aaron Parnas", "channel": "Aaron Parnas", "topic": "Politics", "has_rss_posts": true}, {"name": "Aly Walansky", "channel": "Aly Walansky", "topic": "Food, Travel, Recipes", "has_rss_posts": true}, {"name": "Bianca Graulau", "channel": "Bianca Graulau", "topic": "Culture, Investigative, Government Accountability", "has_rss_posts": false}, {"name": "Brett Kollmann", "channel": "Brett Kollmann", "topic": "Sports", "has_rss_posts": true}, {"name": "Brian Tyler Cohen", "channel": "Brian Tyler Cohen", "topic": "Politics", "has_rss_posts": true}, {"name": "Chico Felitti", "channel": "Chico Felitti", "topic": "World, Investigative", "has_rss_posts": false}, {"name": "Dwarkesh Patel", "channel": "Dwarkesh Patel", "topic": "Tech", "has_rss_posts": true}, {"name": "Foolish Baseball", "channel": "Foolish Baseball", "topic": "Sports", "has_rss_posts": false}, {"name": "JJ McCullough", "channel": "JJ McCullough", "topic": "Culture, History, Politics", "has_rss_posts": true}, {"name": "Joon Lee", "channel": "I am Joon Lee", "topic": "Sports, Internet Culture", "has_rss_posts": true}, {"name": "Jordan Uhl", "channel": "Jordan Uhl", "topic": "Politics, General News", "has_rss_posts": false}, {"name": "Julia La Roche", "channel": "The Julia La Roche Show", "topic": "Business, Personal Finance, Tech", "has_rss_posts": true}, {"name": "Jxmyhighroller", "channel": "Jxmyhighroller", "topic": "Sports", "has_rss_posts": true}, {"name": "Katie Couric", "channel": "Katie Couric", "topic": "General News", "has_rss_posts": true}, {"name": "Leeja Miller", "channel": "Leeja Miller", "topic": "Law/Legal Issues, Media/Power", "has_rss_posts": true}, {"name": "Link Lauren", "channel": "Link Lauren", "topic": "General News", "has_rss_posts": false}, {"name": "Michael MacKelvie", "channel": "Michael MacKelvie", "topic": "Sports, Explanatory", "has_rss_posts": true}, {"name": "Molly Jong-Fast", "channel": "Molly Jong-Fast", "topic": "Politics, Culture", "has_rss_posts": false}, {"name": "Not Bored In DC", "channel": "Not Bored In DC", "topic": "History", "has_rss_posts": false}, {"name": "Omar Raja", "channel": "Omar Raja", "topic": "Sports", "has_rss_posts": false}, {"name": "Politician Trade Tracker", "channel": "Politician Trade Tracker", "topic": "Government Accountability, Politics", "has_rss_posts": false}, {"name": "Ryan McBeth", "channel": "Ryan McBeth Programming", "topic": "Tech", "has_rss_posts": true}, {"name": "The Hill Is Home", "channel": "The Hill Is Home", "topic": "Local news", "has_rss_posts": false}, {"name": "The Hyattsville Wire", "channel": "The Hyattsville Wire", "topic": "Local news", "has_rss_posts": false}, {"name": "Whats The Word", "channel": "Whats The Word", "topic": "Local, Culture", "has_rss_posts": false}];
+const DARK_CREATORS = [{"name": "James Cave", "channel": "The Jiffy", "topic": "Local news", "geography": "Hudson, NY", "last_seen": null}, {"name": "Nathan Graber-Lipperman", "channel": "Creator Mag", "topic": "Explanatory, Internet Culture", "geography": "Chicago, IL", "last_seen": null}, {"name": "Krystal Ball", "channel": "Breaking Points", "topic": "Politics", "geography": "Virginia - US", "last_seen": "2006-10-25"}, {"name": "Whats The Word", "channel": "Whats The Word", "topic": "Local, Culture", "geography": "Chicago, IL", "last_seen": "2007-02-04"}, {"name": "Ben Thompson", "channel": "Stratechery", "topic": "Tech, Media/Power", "geography": "Taiwan", "last_seen": "2007-03-04"}, {"name": "The Hyattsville Wire", "channel": "The Hyattsville Wire", "topic": "Local news", "geography": "Maryland - US", "last_seen": "2007-06-02"}, {"name": "Steven Crowder", "channel": "Louder with Crowder", "topic": "Politics", "geography": "Dallas, TX", "last_seen": "2007-06-18"}, {"name": "Jen In Chicago", "channel": "Jen In Chicago", "topic": "Local, Lifestyle, Day in a life", "geography": "Chicago, IL", "last_seen": "2007-06-21"}, {"name": "Sam Robinson", "channel": "Detroit One Million", "topic": "Local news", "geography": "Detroit, MI", "last_seen": "2007-09-05"}, {"name": "Anne Helen Petersen", "channel": "Culture Study", "topic": "Culture", "geography": "Washington - US", "last_seen": "2007-10-14"}, {"name": "Casey Newton", "channel": "Platformer", "topic": "Tech", "geography": "National - US", "last_seen": "2008-03-10"}, {"name": "Michelle Leder", "channel": "Foot Noted", "topic": "Law/Legal Issues", "geography": "National - US", "last_seen": "2008-04-01"}, {"name": "Casey Lewis", "channel": "After School", "topic": "Internet Culture", "geography": "National - US", "last_seen": "2008-10-07"}, {"name": "Noah Carter", "channel": "Noah Glenn Carter", "topic": "General News, Internet Culture, Tech", "geography": "National - US", "last_seen": "2008-12-24"}, {"name": "Rich Miller", "channel": "Capitol Fax", "topic": "Politics, Local", "geography": "Illinois - US", "last_seen": "2009-03-16"}, {"name": "Malia Yoshioka", "channel": "Shoyu Sugar", "topic": "Travel, Health/Wellness", "geography": "Las Vegas, NV", "last_seen": "2009-06-27"}, {"name": "Jennifer Chowdhury", "channel": "Port Of Entry", "topic": "Immigration", "geography": "National - US", "last_seen": "2009-10-19"}, {"name": "Ryan Broderick", "channel": "Garbage Day", "topic": "Internet Culture", "geography": "National - US", "last_seen": "2010-03-18"}, {"name": "Tim Pool", "channel": "Timcast", "topic": "Politics, Culture", "geography": "National - US", "last_seen": "2010-03-26"}, {"name": "Sam Sanders", "channel": "The Sam Sanders Show", "topic": "Entertainment/Hollywood", "geography": "Los Angeles, CA", "last_seen": "2010-03-29"}, {"name": "Becky Bullard", "channel": "Democrasexy", "topic": "LGBTQIA, Politics, Government Accountability", "geography": "Austin, TX", "last_seen": "2010-04-07"}, {"name": "Jonathan Katz", "channel": "Katz on Earth", "topic": "Politics, History", "geography": "National - US", "last_seen": "2010-05-29"}, {"name": "Erika Harrison", "channel": "Black Girls Who Brunch", "topic": "Culture, Politics, Identity/Belonging, Activism", "geography": "National - US", "last_seen": "2010-06-14"}, {"name": "Jerry Won", "channel": "Jerry Won", "topic": "Identity/Belonging", "geography": "Los Angeles, CA", "last_seen": "2010-07-11"}, {"name": "Sam Ellis", "channel": "Search Party", "topic": "Explanatory", "geography": "New York, NY", "last_seen": "2010-11-22"}, {"name": "Chris Mooney", "channel": "Report Earth", "topic": "Climate/Environment", "geography": "Charlottesville, VA", "last_seen": "2011-01-02"}, {"name": "Jess Hood", "channel": "jessrhood", "topic": "Things to do, Running, Real Estate", "geography": "Washington, D.C.", "last_seen": "2011-01-12"}, {"name": "Laurie Collins", "channel": "DC City Girl", "topic": "Photography", "geography": "Washington, D.C.", "last_seen": "2011-03-15"}, {"name": "Omar Raja", "channel": "Omar Raja", "topic": "Sports", "geography": "National - US", "last_seen": "2011-05-12"}, {"name": "Laura Weffer Cifuentes", "channel": "Esta es la Cosa", "topic": "Local, Politics, Government Accountability", "geography": "Atlanta, GA", "last_seen": "2011-09-26"}, {"name": "Chico Felitti", "channel": "Chico Felitti", "topic": "World, Investigative", "geography": "Brazil", "last_seen": "2012-02-03"}, {"name": "Hannah Gaber", "channel": "Jew-ish", "topic": "Identity/Belonging", "geography": "Washington, D.C.", "last_seen": "2012-04-19"}, {"name": "Stephanie Valdez", "channel": "steph.olution", "topic": "Activism, Politics, Government Accountability", "geography": "National - US", "last_seen": "2012-09-20"}, {"name": "Chris D'angelo", "channel": "Public Domain", "topic": "Climate/Environment", "geography": "Maine - US", "last_seen": "2012-11-03"}, {"name": "Mychal Threets", "channel": "Mychal Threets", "topic": "Internet Culture, Parenting", "geography": "Fairfield, California", "last_seen": "2014-06-26"}, {"name": "Alex Falcone", "channel": "Alex Falcone", "topic": "Comedy, Explanatory, Climate/Environment", "geography": "Los Angeles, CA", "last_seen": "2014-12-11"}, {"name": "Derek Muller", "channel": "Veritasium", "topic": "Science", "geography": "Los Angeles, CA", "last_seen": "2015-03-12"}, {"name": "Nayyera Haq", "channel": "Nayyera Haq", "topic": "Politics, Media/Power", "geography": "Washington, D.C.", "last_seen": "2015-05-07"}, {"name": "Delia Cai", "channel": "Deez Links", "topic": "Media/Power, Internet Culture, Entertainment/Hollywood", "geography": "New York, NY", "last_seen": "2015-05-13"}, {"name": "Matthew Dickey", "channel": "Street Scape Curator", "topic": "Local, Architecture, Photography", "geography": "Boston, MA", "last_seen": "2016-08-29"}, {"name": "Brian Howey", "channel": "Brian Howey", "topic": "Politics, Local", "geography": "Indiana - US", "last_seen": "2017-01-18"}, {"name": "Jordan Uhl", "channel": "Jordan Uhl", "topic": "Politics, General News", "geography": "Los Angeles, CA", "last_seen": "2019-05-16"}, {"name": "Kyla Scanlon", "channel": "In This Economy?", "topic": "Finance/Economics", "geography": "National - US", "last_seen": "2020-11-02"}, {"name": "Kim Iversen", "channel": "Kim Iversen", "topic": "Politics, Foreign Policy", "geography": "California - US", "last_seen": "2020-12-10"}, {"name": "Jeff Eager", "channel": "The Oregon Roundup", "topic": "Politics, Finance/Economics, Local", "geography": "Oregon - US", "last_seen": "2020-12-21"}, {"name": "Jared Dashevsky", "channel": "Healthcare Huddle", "topic": "Health/Wellness, Tech", "geography": "New York, NY", "last_seen": "2021-02-02"}, {"name": "Nathan Tankus", "channel": "Notes on the Crisis", "topic": "Government Accountability", "geography": "New York, NY", "last_seen": "2021-04-06"}, {"name": "Matt Brown", "channel": "Extra Points", "topic": "Sports", "geography": "Chicago, IL", "last_seen": "2021-04-23"}, {"name": "Ambreen Ali", "channel": "Central Desi", "topic": "Local news, Culture", "geography": "New Jersey - US", "last_seen": "2021-05-02"}, {"name": "Marina Mogilko", "channel": "Silicon Valley Girl", "topic": "Explanatory, Tech", "geography": "San Francisco, CA", "last_seen": "2021-07-14"}, {"name": "Matt Yglesias", "channel": "Slow Boring", "topic": "Finance/Economics, Politics", "geography": "Washington, D.C.", "last_seen": "2021-07-28"}, {"name": "The Hill Is Home", "channel": "The Hill Is Home", "topic": "Local news", "geography": "Washington, D.C.", "last_seen": "2021-10-13"}, {"name": "Aella", "channel": "Knowingless", "topic": "Gender, Dating/Romance", "geography": "San Francisco, CA", "last_seen": "2022-01-09"}, {"name": "Kate Lindsay", "channel": "Embedded", "topic": "Internet Culture", "geography": "New York, NY", "last_seen": "2022-07-10"}, {"name": "Brett Bristow", "channel": "Tech with Brett", "topic": "Tech", "geography": "Utah - US", "last_seen": "2022-08-18"}, {"name": "Catherine Goetze", "channel": "CatGPT", "topic": "Tech", "geography": "National - US", "last_seen": "2023-07-21"}, {"name": "Ryan Holiday", "channel": "Daily Stoic", "topic": "Explanatory, Parenting", "geography": "Texas - US", "last_seen": "2023-08-23"}, {"name": "Politician Trade Tracker", "channel": "Politician Trade Tracker", "topic": "Government Accountability, Politics", "geography": "National - US", "last_seen": "2023-11-10"}, {"name": "Madeline Hill", "channel": "Sports Gossip Show", "topic": "Sports", "geography": "Los Angeles, CA", "last_seen": "2023-11-16"}, {"name": "Bisan Owda", "channel": "Bisan Owda", "topic": "World, Culture, History", "geography": "Palestine", "last_seen": "2023-11-24"}, {"name": "Not Bored In DC", "channel": "Not Bored In DC", "topic": "History", "geography": "Washington, D.C.", "last_seen": "2023-12-03"}, {"name": "Link Lauren", "channel": "Link Lauren", "topic": "General News", "geography": "National - US", "last_seen": "2024-04-14"}, {"name": "Brandon Perna", "channel": "Thats Good Sports", "topic": "Sports", "geography": "National - US", "last_seen": "2024-11-26"}, {"name": "Seamus Hughes", "channel": "Court Watch", "topic": "Law/Legal Issues, Government Accountability", "geography": "Washington, D.C.", "last_seen": "2024-12-15"}, {"name": "Saagar Enjeti", "channel": "Breaking Points", "topic": "Politics", "geography": "Washington, D.C.", "last_seen": "2024-12-18"}, {"name": "Jade Womack", "channel": "Clockout DC", "topic": "Things to do", "geography": "Washington, D.C.", "last_seen": "2025-04-30"}, {"name": "Dr. Shad\u00e9 Zahrai", "channel": "Dr. Shad\u00e9 Zahrai", "topic": "Business", "geography": "National - US", "last_seen": "2025-05-12"}, {"name": "Dami Lee", "channel": "Dami Lee", "topic": "Design, Architecture, Explanatory", "geography": "National - US", "last_seen": "2025-07-02"}, {"name": "Rey Katz", "channel": "Amplify Respect", "topic": "LGBTQIA", "geography": "Boston, MA", "last_seen": "2025-07-23"}, {"name": "Kerstin Hasse", "channel": "Hasse Mit Liebe", "topic": "Health/Wellness, Fashion", "geography": "Switzerland", "last_seen": "2025-08-05"}, {"name": "Victoria M. Walker", "channel": "Carrying On", "topic": "Travel", "geography": "New York, NY", "last_seen": "2025-10-28"}, {"name": "Carlos Eduardo Espina", "channel": "Carlos Eduardo Espina", "topic": "Politics, Immigration", "geography": "Houston, TX", "last_seen": "2025-11-04"}, {"name": "Molly Jong-Fast", "channel": "Molly Jong-Fast", "topic": "Politics, Culture", "geography": "New York, NY", "last_seen": "2025-12-03"}, {"name": "Foolish Baseball", "channel": "Foolish Baseball", "topic": "Sports", "geography": "National - US", "last_seen": "2025-12-17"}, {"name": "JD Shadel", "channel": "ESC Key", "topic": "Tech, Health/Wellness, Travel", "geography": "United Kingdom", "last_seen": "2025-12-21"}, {"name": "Jeremy Markovich", "channel": "North Carolina Rabbit Hole", "topic": "Politics, Local", "geography": "North Carolina - US", "last_seen": "2025-12-22"}, {"name": "Mark Manson", "channel": "Subtle Art of Not Giving a F*ck", "topic": "Explanatory", "geography": "California - US", "last_seen": "2025-12-26"}, {"name": "Ryan Welton", "channel": "Oklahoma Memo", "topic": "Politics, Local news", "geography": "Oklahoma - US", "last_seen": "2025-12-29"}, {"name": "Bianca Graulau", "channel": "Bianca Graulau", "topic": "Culture, Investigative, Government Accountability", "geography": "Puerto Rico", "last_seen": "2025-12-31"}, {"name": "Jenna Flanagan", "channel": "jflannys", "topic": "Identity/Belonging", "geography": "National - US", "last_seen": "2026-01-04"}, {"name": "Steven Bartlett", "channel": "The Diary of a CEO", "topic": "Business, Self Help", "geography": "United Kingdom", "last_seen": "2026-01-22"}, {"name": "Joey Scott", "channel": "JoeyNeverJoe", "topic": "Investigative", "geography": "Los Angeles, CA", "last_seen": "2026-01-27"}, {"name": "CJ Gustafson", "channel": "Mostly Metrics", "topic": "Finance/Economics", "geography": "National - US", "last_seen": "2026-01-29"}, {"name": "Masuma Ahuja", "channel": "Future Possible", "topic": "Finance/Economics, Tech", "geography": "Dubai", "last_seen": "2026-02-06"}, {"name": "Joss Fong", "channel": "Howtown", "topic": "Explanatory", "geography": "National - US", "last_seen": "2026-02-12"}, {"name": "Ryan Lizza", "channel": "Telos News", "topic": "Politics", "geography": "Washington, D.C.", "last_seen": "2026-02-13"}];
+const POSTS = [{"creator": "Josh Barro", "channel": "Very Serious", "title": "AI-powered ad spend is set to soar 63% this year as brands ditch manual controls", "url": "https://www.businessinsider.com/ai-powered-ads-driving-us-ad-growth-madison-wall-2026-3", "published": "2026-03-18", "summary": "Tools like Google's Performance Max and Meta's Advantage Plus are driving a lift in AI-powered advertising revenue, per Madison and Wall.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "Fed meeting updates: FOMC set to hold rates steady as oil prices soar", "url": "https://www.businessinsider.com/fed-meeting-interest-rate-decision-march-live-updates-2026-3", "published": "2026-03-18", "summary": "The Federal Reserve will likely hold interest rates steady at its March meeting, following a dismal jobs report and an energy and oil crisis in Iran.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "Disney's new CEO is stepping in during a wild time for media", "url": "https://www.businessinsider.com/disney-new-ceo-josh-damaro-netflix-wbd-paramount-2026-3", "published": "2026-03-18", "summary": "Disney's new CEO officially starts today. He's got his work cut out for him.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "TSA delays: Which airports have long lines, and how to check the wait times", "url": "https://www.businessinsider.com/tsa-delays-which-airports-have-long-lines-how-to-check-2026-3", "published": "2026-03-18", "summary": "With the onset of spring break and TSA agents going unpaid, security lines at some airports are much longer than normal.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "AI could shrink paychecks but stretch them further, a Yale economics professor says", "url": "https://www.businessinsider.com/ai-may-cut-wages-but-lower-cost-of-goods-services-2026-3", "published": "2026-03-18", "summary": "\"What matters is not the dollar wage but what you can buy with it,\" Yale's economics professor Pascual Restrepo said.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Dave Bondy", "channel": "Dave Bondy", "title": "News they don't want you to see", "url": "https://davebondy.substack.com/p/news-they-dont-want-you-to-see-98d", "published": "2026-03-18", "summary": "Wednesday March 18, 2026", "topic": "Media/Power", "geography": "National - US", "platform": "Social - Facebook"}, {"creator": "Lenny Rachitsky", "channel": "Lenny's Podcast", "title": "Negotiating your comp isn't greedy", "url": "https://www.youtube.com/shorts/AA2b1JKRVu8", "published": "2026-03-18", "summary": "#salary #career #negotiation", "topic": "Tech", "geography": "National - US", "platform": "Video - YouTube"}, {"creator": "Paul Krugman", "channel": "Paul Krugman", "title": "Donald Trump, Petropresident", "url": "https://paulkrugman.substack.com/p/donald-trump-petropresident", "published": "2026-03-18", "summary": "Follow the Gulf oil money", "topic": "Finance/Economics, World", "geography": "New York, NY", "platform": "Newsletter - Substack"}, {"creator": "Jared Yates Sexton", "channel": "The Ink", "title": "American gulag", "url": "https://the.ink/p/american-gulag", "published": "2026-03-18", "summary": "Is the U.S. at risk of becoming a concentration camp society? We talked with author Andrea Pitzer, who has a stark warning for Americans", "topic": "History, Politics", "geography": "National - US", "platform": "Social - BlueSky"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "TikTok's global consumer marketing head is out as part of a new round of job cuts", "url": "https://www.businessinsider.com/tiktok-global-consumer-marketing-head-is-out-2026-3", "published": "2026-03-18", "summary": "TikTok's consumer marketing lead Zuber Mohammed has left the company. He oversaw brand and creative marketing efforts.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "David Wildstein", "channel": "New Jersey Globe", "title": "Steve Adubato Sits Down with Sen. Andrew Zwicker to Discuss Pivotal Issues in the Garden State", "url": "https://newjerseyglobe.com/fr/steve-adubato-sits-down-with-sen-andrew-zwicker-to-discuss-pivotal-issues-in-the-garden-state/", "published": "2026-03-18", "summary": "<p>SPONSORED CONTENT</p>\n<p>The post <a href=\"https://newjerseyglobe.com/fr/steve-adubato-sits-down-with-sen-andrew-zwicker-to-discuss-pivotal-issues-in-the-garden-state/\">Steve Adubato Sits Down with Sen. Andrew Zwicker to Discuss Pivotal Issues in the Garden State</a> appeared first on <a href=\"ht", "topic": "Politics, Local", "geography": "New Jersey - US", "platform": "Website"}, {"creator": "Aaron Rupar", "channel": "Public Notice", "title": "Trump wants to bribe energy companies to kill wind energy", "url": "https://www.publicnotice.co/p/trump-wind-farm-settlements", "published": "2026-03-18", "summary": "Burn, baby, burn.", "topic": "Politics", "geography": "Washington, D.C.", "platform": "Newsletter - Substack"}, {"creator": "Walter Hickey", "channel": "Numlock News", "title": "Numlock News: March 18, 2026 \u2022 Firefighter, Books, LED Court", "url": "https://www.numlock.com/p/numlock-news-march-18-2026-firefighter", "published": "2026-03-18", "summary": "By Walt Hickey", "topic": "General News", "geography": "New York, NY", "platform": "Newsletter - Substack"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "He weighed over 400 pounds as an FBI undercover agent \u2014 and it became his best disguise", "url": "https://www.businessinsider.com/joaquin-garcia-how-weight-gain-became-best-fbi-undercover-disguise-2026-3", "published": "2026-03-18", "summary": "Joaquin Garcia, a former FBI agent, gained 90 pounds while infiltrating the mafia. \"The fatter I got, the better an undercover agent I became.\"", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "'I'm not political': Tim Cook responds to backlash against his relationship with the Trump administration", "url": "https://www.businessinsider.com/tim-cook-response-trump-relationship-criticism-2026-3", "published": "2026-03-18", "summary": "Tim Cook discussed his political stance on \"Good Morning America,\" saying he focuses on policy over politics.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "KPMG US is piloting a new intern program focused less on technical skills and more on critical thinking", "url": "https://www.businessinsider.com/kpmg-revamping-audit-internship-emphasize-judgment-ai-2026-3", "published": "2026-03-18", "summary": "KPMG US is revamping intern training at its Lakehouse facility in Florida, focusing on critical thinking and problem-solving.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "I live in Melbourne, which was just crowned the world's best city. There are 5 things I recommend to all who visit.", "url": "https://www.businessinsider.com/melbourne-best-things-to-do-australia-local-recommendations-2026-3", "published": "2026-03-18", "summary": "As a Melbourne local, I'm not surprised this Australian city was named the best in the world. Here's what I recommend you try and do if you visit.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "I'm the youngest of 5, and became the default caregiver for my aging parents. I'm learning how not to lose myself.", "url": "https://www.businessinsider.com/daughter-navigates-mental-load-aging-parents-managing-financial-emotional-responsibilities-2026-3", "published": "2026-03-18", "summary": "While my siblings help, I shoulder many of the physical and financial responsibilities of caring for my aging parents. I'm learning how to cope.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "What happens after you retire early? People who have done it in their 30s describe boredom, identity shifts, and second thoughts.", "url": "https://www.businessinsider.com/fire-financial-independece-early-retirement-investing-lifestyle-boredom-2026-3", "published": "2026-03-18", "summary": "Once they stepped away from work, they had to confront a bigger question than how much money was enough: What, exactly, were they retiring for?", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "David Wildstein", "channel": "New Jersey Globe", "title": "The Inside Edge with Joey Fox: Super PAC Tuesday", "url": "https://newjerseyglobe.com/the-inside-edge-with-david-wildstein/the-inside-edge-with-joey-fox-super-pac-tuesday/", "published": "2026-03-18", "summary": "<div class=\"epyt-video-wrapper\"></div>\n<p>The post <a href=\"https://newjerseyglobe.com/the-inside-edge-with-david-wildstein/the-inside-edge-with-joey-fox-super-pac-tuesday/\">The Inside Edge with Joey Fox: Super PAC Tuesday</a> appeared first on <a href=\"https://newjerseyglobe.com\">New Jersey Globe</", "topic": "Politics, Local", "geography": "New Jersey - US", "platform": "Website"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "I was rejected by Google and Meta before landing jobs at both companies. Here are 3 things I learned.", "url": "https://www.businessinsider.com/lessons-learned-rejected-and-hired-google-and-meta-2026-3", "published": "2026-03-18", "summary": "Brenna Lasky was rejected by Google and Meta initially. Here's how she leveraged her experiences and ended up securing offers at both companies.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "I led my company's move from Wall Street to Florida. Here's why we chose St. Petersburg instead of Miami.", "url": "https://www.businessinsider.com/why-business-moved-wall-street-st-petersburg-florida-not-miami-2026-03", "published": "2026-03-18", "summary": "Webull's chief of staff and head of strategic partnerships explains the benefits of moving the company's headquarters to a less saturated market.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Sharon McMahon", "channel": "Sharon Says So", "title": "How the FCC is Trying to Control the News You See and Hear", "url": "https://thepreamble.com/p/how-the-fcc-is-trying-to-control", "published": "2026-03-18", "summary": "An agency started to prevent censorship has started suppressing news", "topic": "Politics, Government Accountability, Explanatory, Finance/Economics", "geography": "Minneapolis, MN", "platform": "Video - Instagram"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "Nvidia CEO Jensen Huang can't stop talking about tokens. Here's what they are and how they're reshaping AI budgets.", "url": "https://www.businessinsider.com/nvidia-ceo-jensen-huang-cant-stop-talking-about-tokens-2026-3", "published": "2026-03-18", "summary": "Nvidia CEO Jensen Huang highlighted the importance of AI tokens at the GTC conference, framing them as essential for AI pricing and corporate budgets.", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}, {"creator": "Josh Barro", "channel": "Very Serious", "title": "What it's like to interview with Travis Kalanick, according to the CEO himself", "url": "https://www.businessinsider.com/travis-kalanick-interview-2026-3", "published": "2026-03-18", "summary": "When hiring, the former Uber CEO said he looks for good employees with \"no judgment on what it is we need to get done.\"", "topic": "Politics, Finance/Economics, Culture", "geography": "New York, NY", "platform": "Social - Twitter / X"}];
+
+// ── UTILITIES ────────────────────────────────────────────────
+function fmtViews(n) {
+  if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';
+  return n.toString();
+}
+
+function platDots(platforms) {
+  return platforms.map(p => `<span class="plat-dot plat-${p}" title="${p}"></span>`).join('');
+}
+
+function platChip(p) {
+  return `<span class="plat-chip chip-${p}">${p}</span>`;
+}
+
+function cleanName(n) {
+  return n.replace(/_/g, ' ');
+}
+
+function stripHashtags(s) {
+  return s.replace(/#\S+/g, '').replace(/\s+/g, ' ').trim();
+}
+
+// ── TAB SWITCHING ────────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === id));
+}
+
+// ── PANEL 1: VIDEO ───────────────────────────────────────────
+
+// Stat strip
+(function() {
+  const el = document.getElementById('video-stat-strip');
+  const cards = [
+    { num: '2.18B', label: 'Total Views', sub: '30-day window' },
+    { num: '302',   label: 'Active Creators', sub: 'across 4 platforms' },
+    { num: '2,761', label: 'Videos Tracked', sub: 'YouTube · TikTok · IG · FB' },
+    { num: '4',     label: 'Platforms', sub: 'YouTube, TikTok, Instagram, Facebook' },
+  ];
+  el.innerHTML = cards.map(c => `
+    <div class="stat-card">
+      <div class="stat-card-num">${c.num}</div>
+      <div class="stat-card-label">${c.label}</div>
+      <div class="stat-card-sub">${c.sub}</div>
+    </div>`).join('');
+})();
+
+// Leaderboard (top 15)
+(function() {
+  const tbody = document.getElementById('leaderboard-body');
+  const top15 = TOP_CREATORS.slice(0, 15);
+  tbody.innerHTML = top15.map((c, i) => `
+    <tr>
+      <td class="lb-rank">${i + 1}</td>
+      <td class="lb-name">${cleanName(c.name)}</td>
+      <td class="lb-views">${fmtViews(c.views)}</td>
+      <td><div class="lb-plat">${platDots(c.platforms)}</div></td>
+      <td class="lb-topic">${c.atlas_topic || '—'}</td>
+    </tr>`).join('');
+})();
+
+// Genre bars
+(function() {
+  const el = document.getElementById('genre-bars');
+  const entries = Object.entries(GENRE_BREAKDOWN).sort((a, b) => b[1] - a[1]);
+  const total = entries.reduce((s, [, v]) => s + v, 0);
+  const top8 = entries.slice(0, 8);
+  el.innerHTML = top8.map(([label, count], i) => {
+    const pct = (count / total * 100).toFixed(1);
+    return `<div class="bar-row">
+      <div class="bar-label" title="${label}">${label}</div>
+      <div class="bar-track"><div class="bar-fill ${i === 0 ? 'top' : ''}" style="width:${pct}%"></div></div>
+      <div class="bar-pct">${pct}%</div>
+      <div class="bar-count">${count}</div>
+    </div>`;
+  }).join('') + `<div style="font-size:11px;color:#aaa;margin-top:8px;">Showing top 8 of ${entries.length} genres. Total: ${total.toLocaleString()} video rows. "Entertainment" at ~26% is led by Caleb Hammer (personal finance) and Carlos Eduardo Espina — the Tubular genre classification, not an Atlas label.</div>`;
+})();
+
+// Topic heatmap
+(function() {
+  const el = document.getElementById('topic-heatmap');
+  const maxCount = Math.max(...TOPIC_HEATMAP.map(t => t.count));
+  el.innerHTML = TOPIC_HEATMAP.map(t => {
+    const ratio = t.count / maxCount;
+    const size = Math.round(10 + ratio * 14);
+    const pad = Math.round(4 + ratio * 8);
+    return `<span class="topic-pill cat-${t.category}" style="font-size:${size}px;padding:${pad - 2}px ${pad + 4}px;" title="${t.count} videos">
+      ${t.topic}<span class="pill-count">${t.count}</span>
+    </span>`;
+  }).join('');
+})();
+
+// Velocity cards (top 6)
+(function() {
+  const el = document.getElementById('velocity-grid');
+  const top6 = VELOCITY.slice(0, 6);
+  el.innerHTML = top6.map(v => {
+    const title = stripHashtags(v.title).slice(0, 90) + (v.title.length > 90 ? '…' : '');
+    return `<div class="vel-card">
+      <div class="vel-v1">${fmtViews(v.v1)} day-1</div>
+      <div class="vel-title">${title}</div>
+      <div class="vel-meta"><span class="vel-creator">${cleanName(v.creator)}</span>${platChip(v.platform)} · ${v.published}</div>
+    </div>`;
+  }).join('');
+})();
+
+// Cross-platform callout
+(function() {
+  const el = document.getElementById('cross-platform-callout');
+  const names = CROSS_PLATFORM_CREATORS.map(n => `<span class="name-chip">${cleanName(n)}</span>`).join('');
+  el.innerHTML = `
+    <div class="callout-headline"><strong>23</strong> Atlas creators published across 3+ platforms simultaneously this period.</div>
+    <div class="callout-body">These creators are reaching audiences on YouTube, TikTok, Instagram, and Facebook in the same 30-day window — not just present on multiple platforms, but actively publishing across all of them.</div>
+    <div class="chip-list">${names}</div>`;
+})();
+
+// ── PANEL 2: RSS ─────────────────────────────────────────────
+
+// RSS stat strip
+(function() {
+  const el = document.getElementById('rss-stat-strip');
+  const cards = [
+    { num: '79',   label: 'Active (last 7d)', sub: 'creators publishing' },
+    { num: '90',   label: 'Active (last 30d)', sub: 'creators publishing' },
+    { num: '1,013', label: 'Total Posts', sub: '30-day window' },
+    { num: '86',   label: 'Quiet Creators', sub: '30d+ silent' },
+  ];
+  el.innerHTML = cards.map(c => `
+    <div class="stat-card">
+      <div class="stat-card-num">${c.num}</div>
+      <div class="stat-card-label">${c.label}</div>
+      <div class="stat-card-sub">${c.sub}</div>
+    </div>`).join('');
+})();
+
+// Recency strip
+(function() {
+  const el = document.getElementById('recency-strip');
+  const items = [
+    { num: 101, label: 'Posts in last 24h' },
+    { num: 429, label: 'Posts in last 7 days' },
+    { num: 1013, label: 'Posts in 30-day window' },
+  ];
+  el.innerHTML = items.map(r => `
+    <div class="recency-card">
+      <div class="recency-num">${r.num.toLocaleString()}</div>
+      <div class="recency-label">${r.label}</div>
+    </div>`).join('');
+})();
+
+// Beat bars
+(function() {
+  const el = document.getElementById('beat-bars');
+  const entries = Object.entries(BEAT_ACTIVITY).sort((a, b) => b[1] - a[1]).slice(0, 16);
+  const max = entries[0][1];
+  el.innerHTML = entries.map(([label, count], i) => {
+    const pct = (count / max * 100).toFixed(0);
+    return `<div class="bar-row">
+      <div class="bar-label" title="${label}">${label}</div>
+      <div class="bar-track"><div class="bar-fill ${i === 0 ? 'top' : ''}" style="width:${pct}%"></div></div>
+      <div class="bar-count">${count}</div>
+    </div>`;
+  }).join('');
+})();
+
+// Posts feed
+(function() {
+  const el = document.getElementById('posts-feed');
+  el.innerHTML = POSTS.map(p => {
+    const topic = p.topic ? p.topic.split(',')[0].trim() : 'General';
+    const date = p.published || '';
+    return `<div class="post-item">
+      <div><span class="post-topic-badge">${topic}</span></div>
+      <a class="post-title" href="${p.url}" target="_blank" rel="noopener">${p.title}</a>
+      <div class="post-meta"><strong>${p.creator}</strong> · ${p.channel} · ${date}</div>
+    </div>`;
+  }).join('');
+})();
+
+// Dark creators
+(function() {
+  const tbody = document.getElementById('dark-body');
+  tbody.innerHTML = DARK_CREATORS.map(c => `
+    <tr>
+      <td style="font-weight:600">${c.name}</td>
+      <td style="color:#888">${c.channel}</td>
+      <td style="color:#888">${c.topic}</td>
+      <td style="color:#aaa">${c.geography || '—'}</td>
+    </tr>`).join('');
+})();
+
+function toggleDark(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !expanded);
+  document.getElementById('dark-list').classList.toggle('open', !expanded);
+}
+
+// ── PANEL 3: POLY PLATFORM ───────────────────────────────────
+
+// Build a views lookup from top_creators
+const viewsLookup = {};
+TOP_CREATORS.forEach(c => {
+  viewsLookup[c.name.replace(/_/g, ' ').toLowerCase()] = c.views;
+});
+
+(function() {
+  const el = document.getElementById('poly-grid');
+  el.innerHTML = CROSS_SIGNAL.map(c => {
+    const views = viewsLookup[c.name.toLowerCase()];
+    const viewsBadge = views
+      ? `<span class="poly-views">${fmtViews(views)} views</span>`
+      : '';
+    const rssBadge = c.has_rss_posts
+      ? `<span class="poly-rss-yes">RSS Active</span>`
+      : `<span class="poly-rss-no">RSS Tracked</span>`;
+    return `<div class="poly-card">
+      <div class="poly-card-name">${c.name}</div>
+      <div class="poly-card-channel">${c.channel}</div>
+      <div class="poly-card-topic">${c.topic}</div>
+      <div class="poly-card-badges">${viewsBadge}${rssBadge}</div>
+    </div>`;
+  }).join('');
+})();
+</script>
+</body>
+</html>
