@@ -10,6 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZ9F351MRS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HZ9F351MRS');
+    </script>
+
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1314,6 +1323,10 @@ fetch('assets/data/creators-data.json')
             buildRecipientHero();
             renderCanvas('recipient');
             renderRecipientFollowButtons();
+            gtag('event', 'pack_received', {
+                creator_count: selectedCreators.length,
+                from: window.recipientFrom || 'unknown'
+            });
         }
     })
     .catch(err => {
@@ -1362,17 +1375,20 @@ function _restoreFromUrl() {
         catch { window.recipientFrom = fromParam; }
     }
 
-    // Build a lookup map for fast exact-name matching
-
+    // Build lookup maps — slug preferred (stable), name as fallback (old URLs)
+    const bySlug = new Map(allCreators.filter(c => c.slug).map(c => [c.slug, c]));
     const byName = new Map(allCreators.map(c => [c.name, c]));
     const missing = [];
 
     names.slice(0, MAX_PACK).forEach(name => {
-        // First try direct match; if that fails try a second decode pass
-        // (handles double-encoding from some share sheets / messaging apps)
-        let creator = byName.get(name);
+        // Slug lookup first (new URLs); name fallback (old URLs and pre-slug JSON)
+        // Second decode pass handles double-encoding from some share sheets / messaging apps
+        let creator = bySlug.get(name) || byName.get(name);
         if (!creator) {
-            try { creator = byName.get(decodeURIComponent(name)); } catch { /* ignore */ }
+            try {
+                const decoded = decodeURIComponent(name);
+                creator = bySlug.get(decoded) || byName.get(decoded);
+            } catch { /* ignore */ }
         }
         if (creator && !selectedCreators.some(s => s.name === creator.name)) {
             selectedCreators.push(creator);
@@ -1791,6 +1807,11 @@ function toggleCreator(c) {
     } else {
         if (selectedCreators.length >= MAX_PACK) return;
         selectedCreators.push(c);
+        gtag('event', 'creator_added_to_pack', {
+            creator_name: c.name,
+            creator_platform: c.platform_primary || '',
+            creator_topic: c.group || ''
+        });
     }
     renderGrid();
     renderPackPanel();
@@ -2271,7 +2292,7 @@ function _shareUrl() {
     if (selectedCreators.length > 0) {
         // Comma-separated, each name individually encoded so special chars survive
         // all link-shorteners, messaging apps and email clients intact
-        url.searchParams.set('creators', selectedCreators.map(c => encodeURIComponent(c.name)).join(','));
+        url.searchParams.set('creators', selectedCreators.map(c => encodeURIComponent(c.slug || c.name)).join(','));
     }
     // Preserve pack name so recipient sees the curator's title
     const packName = getPackName('desktop');
@@ -2283,6 +2304,11 @@ function _shareUrl() {
     if (fromVal.trim()) {
         url.searchParams.set('from', encodeURIComponent(fromVal.trim()));
     }
+    gtag('event', 'pack_shared', {
+        pack_name: getPackName('creator') || 'unnamed',
+        creator_count: selectedCreators.length,
+        creators: selectedCreators.map(c => c.name).join(',')
+    });
     return url.toString();
 }
 
