@@ -13,6 +13,11 @@
 //   - `geography` (freeform) is preserved for backwards compatibility.
 //     `geoCity`, `geoState`, `geoCountry`, `geoRegion` are the structured
 //     replacements added in Ryan's March 2026 schema update.
+//   - `slug` is a URL-safe identifier frozen on first entry in the pipeline.
+//     Used for stable URL params on pack.html share links.
+//   - `secondaryPlatforms` is an array of {name, link} objects for Platform 2–4.
+//     Only populated entries (non-empty name) are included. Most creators have
+//     0 entries; some have 1–3.
 
 const fs = require('fs');
 const path = require('path');
@@ -92,18 +97,27 @@ for (let i = 1; i < rows.length; i++) {
   const groupRaw = row['Groups'] || '';
   const group = groupRaw.startsWith('#') ? '' : groupRaw;
 
+  // Secondary platforms — collect Platform 2/3/4 Name+Link pairs, drop empties.
+  const secondaryPlatforms = [
+    { name: row['Platform 2 Name'] || '', link: row['Platform 2 Link'] || '' },
+    { name: row['Platform 3 Name'] || '', link: row['Platform 3 Link'] || '' },
+    { name: row['Platform 4 Name'] || '', link: row['Platform 4 Link'] || '' },
+  ].filter(p => p.name !== '');
+
   creators.push({
-    name:       row['Creator Name'],
-    channel:    row['Creator Channel'],
-    link:       row['Link Primary'],
-    platform:   row['Platform Primary'],
-    topic:      row['Topic/Category'],
-    geography:  row['Geography'],
-    geoCity:    row['Geo City']    || '',
-    geoState:   row['Geo State']   || '',
-    geoCountry: row['Geo Country'] || '',
-    geoRegion:  row['Geo Region']  || '',
-    group:      group,
+    name:               row['Creator Name'],
+    slug:               row['slug'] || '',
+    channel:            row['Creator Channel'],
+    link:               row['Link Primary'],
+    platform:           row['Platform Primary'],
+    topic:              row['Topic/Category'],
+    geography:          row['Geography'],
+    geoCity:            row['Geo City']    || '',
+    geoState:           row['Geo State']   || '',
+    geoCountry:         row['Geo Country'] || '',
+    geoRegion:          row['Geo Region']  || '',
+    group:              group,
+    secondaryPlatforms: secondaryPlatforms,
   });
 }
 

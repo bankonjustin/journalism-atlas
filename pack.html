@@ -494,6 +494,22 @@
             background: rgba(255,255,255,0.07);
             color: rgba(255,255,255,0.4);
         }
+        .pc-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            align-items: center;
+        }
+        .pc-tag-alt {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.22);
+        }
 
         .grid-empty {
             grid-column: 1 / -1;
@@ -1554,7 +1570,8 @@ function applyFilters() {
         if (activePlatforms.size > 0 && !activePlatforms.has(c.platform)) return false;
         if (activeGeos.size > 0 && !activeGeos.has(c.geography)) return false;
         if (searchQuery) {
-            const hay = (c.name + ' ' + c.channel + ' ' + c.platform).toLowerCase();
+            const secNames = (c.secondaryPlatforms || []).map(p => p.name).join(' ');
+            const hay = (c.name + ' ' + c.channel + ' ' + c.platform + ' ' + secNames).toLowerCase();
             if (!hay.includes(searchQuery)) return false;
         }
         return true;
@@ -1580,11 +1597,18 @@ function renderGrid() {
         const isSelected = selectedCreators.some(s => s.name === c.name);
         const card = document.createElement('div');
         card.className = 'pc-card' + (isSelected ? ' selected' : '') + (atMax && !isSelected ? ' maxed' : '');
+        const secTags = (c.secondaryPlatforms || [])
+            .filter(p => p.name)
+            .map(p => `<span class="pc-tag-alt">${esc(shortPlatform(p.name))}</span>`)
+            .join('');
         card.innerHTML = `
             <div class="pc-check">✓</div>
             <div class="pc-name">${esc(c.name)}</div>
             <div class="pc-channel">${esc(c.channel || '')}</div>
-            <span class="pc-tag">${esc(shortPlatform(c.platform))}</span>
+            <div class="pc-tags-row">
+                <span class="pc-tag">${esc(shortPlatform(c.platform))}</span>
+                ${secTags}
+            </div>
         `;
         card.addEventListener('click', () => toggleCreator(c));
         grid.appendChild(card);
