@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Covers Washington Now — Atlas City Lab DC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   DESIGN TOKENS
+   ========================================= */
+:root {
+  --acid: #ceff00;
+  --dark: #313131;
+  --light: #efeff2;
+  --lime: #97d600;
+  --olive: #5d7400;
+  --white: #ffffff;
+  --red: #e53e3e;
+  --yellow: #f6c90e;
+  --ff-head: 'Hanken Grotesk', sans-serif;
+  --ff-body: 'Merriweather', serif;
+  --radius: 8px;
+  --gap: 16px;
+  --max: 1200px;
+}
+
+/* =========================================
+   RESET + BASE
+   ========================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--ff-body); background: var(--light); color: var(--dark); line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+
+/* =========================================
+   LAYOUT UTILITIES
+   ========================================= */
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gap); }
+.section { padding: 56px 0; }
+.section-label {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--ff-head);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 900;
+  line-height: 1.08;
+  margin-bottom: 8px;
+}
+.section-sub {
+  font-family: var(--ff-head);
+  font-size: 16px;
+  font-weight: 400;
+  color: #666;
+  margin-bottom: 32px;
+  max-width: 640px;
+}
+
+/* =========================================
+   HERO
+   ========================================= */
+.hero {
+  background: var(--dark);
+  color: var(--white);
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -80px;
+  width: 400px; height: 400px;
+  background: var(--acid);
+  opacity: 0.06;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-family: var(--ff-head);
+  font-size: clamp(40px, 9vw, 88px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.hero-title span { color: var(--acid); }
+.hero-sub {
+  font-family: var(--ff-body);
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.75);
+  max-width: 560px;
+  margin-bottom: 48px;
+}
+.hero-stat-block {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 4px solid var(--acid);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+.hero-stat-label {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+.hero-stat-row {
+  font-family: var(--ff-head);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.4;
+}
+.hero-stat-row em {
+  font-style: normal;
+  color: var(--acid);
+}
+.hero-meta {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.04em;
+}
+
+/* =========================================
+   NAV BAR (sticky section nav)
+   ========================================= */
+.section-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark);
+  border-bottom: 2px solid var(--acid);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.section-nav::-webkit-scrollbar { display: none; }
+.section-nav-inner {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+  padding: 0 var(--gap);
+}
+.section-nav a {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  padding: 14px 16px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.section-nav a:hover, .section-nav a.active {
+  color: var(--acid);
+  border-bottom-color: var(--acid);
+}
+
+/* =========================================
+   TIMELINE / COLLAPSE SECTION
+   ========================================= */
+.collapse-bg { background: var(--dark); color: var(--white); }
+.collapse-bg .section-label { color: var(--acid); }
+.collapse-bg .section-title { color: var(--white); }
+.collapse-bg .section-sub { color: rgba(255,255,255,0.6); }
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 48px;
+  border-left: 2px solid rgba(255,255,255,0.15);
+  padding-left: 24px;
+}
+.timeline-item {
+  position: relative;
+  padding: 20px 0 20px 0;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -29px;
+  top: 28px;
+  width: 10px; height: 10px;
+  background: var(--acid);
+  border-radius: 50%;
+}
+.timeline-date {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 6px;
+}
+.timeline-headline {
+  font-family: var(--ff-head);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.3;
+}
+.timeline-detail {
+  font-family: var(--ff-body);
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  margin-top: 8px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+}
+.stat-card .num {
+  font-family: var(--ff-head);
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 900;
+  color: var(--acid);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-card .lbl {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.3;
+}
+
+/* =========================================
+   FILTER PILLS
+   ========================================= */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.filter-bar + .filter-bar { margin-top: -16px; }
+.pill {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1.5px solid var(--dark);
+  background: transparent;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.pill:hover { background: var(--dark); color: var(--white); }
+.pill.active { background: var(--dark); color: var(--acid); border-color: var(--dark); }
+.pill.green { border-color: var(--olive); color: var(--olive); }
+.pill.green:hover, .pill.green.active { background: var(--olive); color: var(--white); }
+
+/* =========================================
+   OUTLET CARDS
+   ========================================= */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+@media (min-width: 640px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.outlet-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid #e0e0e4;
+  padding: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s;
+  position: relative;
+}
+.outlet-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); transform: translateY(-1px); }
+.outlet-card.expanded { border-color: var(--dark); }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.card-name {
+  font-family: var(--ff-head);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.card-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.badge {
+  font-family: var(--ff-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.badge-type { background: var(--light); color: #555; }
+.badge-expanding { background: #d4edda; color: #155724; }
+.badge-stable { background: #fff3cd; color: #856404; }
+.badge-contracting { background: #f8d7da; color: #721c24; }
+
+.card-owner {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 8px;
+}
+.card-beats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.beat-tag {
+  font-family: var(--ff-head);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--light);
+  color: #555;
+}
+.card-reach {
+  font-family: var(--ff-head);
+  font-size: 13px;
+  color: var(--olive);
+  font-weight: 600;
+}
+.card-expand-btn {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-top: 10px;
+  display: inline-block;
+}
+.card-detail {
+  display: none;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--light);
+}
+.outlet-card.expanded .card-detail { display: block; }
+.card-detail p {
+  font-family: var(--ff-body);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 8px;
+}
+.card-link {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--olive);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* =========================================
+   LEGACY CARDS (smaller)
+   ========================================= */
+.legacy-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .legacy-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .legacy-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.legacy-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid #e0e0e4;
+  padding: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.12s;
+  font-size: 0.9em;
+}
+.legacy-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+/* =========================================
+   HYPERLOCAL
+   ========================================= */
+.hyperlocal-geo-group { margin-bottom: 32px; }
+.geo-label {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+.hyperlocal-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+@media (min-width: 640px) {
+  .hyperlocal-list { grid-template-columns: repeat(2, 1fr); }
+}
+.hyper-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid #e0e0e4;
+  padding: 14px;
+}
+.hyper-name {
+  font-family: var(--ff-head);
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.hyper-beats {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 6px;
+}
+.hyper-note {
+  font-family: var(--ff-body);
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+}
+.hyper-link {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--olive);
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* =========================================
+   CREATOR CARDS
+   ========================================= */
+.creator-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.creator-filter-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .creator-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 960px) {
+  .creator-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.creator-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid #e0e0e4;
+  padding: 14px;
+  transition: box-shadow 0.12s;
+}
+.creator-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+.creator-name {
+  font-family: var(--ff-head);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+.creator-channel {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 6px;
+}
+.creator-platform {
+  display: inline-block;
+  font-family: var(--ff-head);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--light);
+  color: #555;
+  margin-bottom: 6px;
+}
+.creator-topic {
+  font-family: var(--ff-head);
+  font-size: 11px;
+  color: var(--olive);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.creator-link {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--ff-head);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--olive);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.show-more-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--dark);
+  color: var(--acid);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.show-more-btn:hover { opacity: 0.85; }
+.creator-count-label {
+  font-family: var(--ff-head);
+  font-size: 13px;
+  color: #888;
+  margin-top: 12px;
+}
+
+/* =========================================
+   BEAT MAP
+   ========================================= */
+.beat-toggle-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.beat-table-wrap { overflow-x: auto; }
+.beat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--ff-head);
+  font-size: 13px;
+  min-width: 400px;
+}
+.beat-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  background: var(--dark);
+  color: rgba(255,255,255,0.7);
+  position: sticky;
+  top: 0;
+}
+.beat-table th:first-child { border-radius: 6px 0 0 0; }
+.beat-table th:last-child { border-radius: 0 6px 0 0; }
+.beat-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e8e8ec;
+  vertical-align: middle;
+}
+.beat-table tr:last-child td { border-bottom: none; }
+.beat-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+.beat-name { font-weight: 700; font-size: 14px; }
+.coverage-cell {
+  width: 110px;
+  text-align: center;
+  cursor: pointer;
+}
+.cov-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.cov-strong { background: #d4f078; color: #3a5c00; }
+.cov-emerging { background: #fff3a3; color: #6b5000; }
+.cov-gap { background: #ffd0d0; color: #8b0000; }
+.beat-note-col { font-size: 12px; color: #666; max-width: 260px; }
+.beat-note-popup {
+  display: none;
+  position: fixed;
+  background: var(--dark);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-size: 13px;
+  font-family: var(--ff-body);
+  line-height: 1.6;
+  max-width: 320px;
+  z-index: 500;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  pointer-events: none;
+}
+.beat-note-popup.show { display: block; }
+
+/* =========================================
+   OPPORTUNITY CARDS
+   ========================================= */
+.opportunity-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+@media (min-width: 640px) {
+  .opportunity-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.opp-card {
+  background: var(--dark);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  border-left: 4px solid var(--acid);
+}
+.opp-num {
+  font-family: var(--ff-head);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+.opp-title {
+  font-family: var(--ff-head);
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.opp-body {
+  font-family: var(--ff-body);
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+}
+
+/* =========================================
+   ATLAS CALLOUT
+   ========================================= */
+.atlas-callout {
+  background: var(--acid);
+  color: var(--dark);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  text-align: center;
+  margin: 48px 0 0;
+}
+.atlas-callout-num {
+  font-family: var(--ff-head);
+  font-size: clamp(48px, 10vw, 88px);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.atlas-callout-sub {
+  font-family: var(--ff-head);
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.5);
+  padding: 40px 0;
+  font-family: var(--ff-head);
+  font-size: 13px;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .footer-inner { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+.footer-brand {
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--acid);
+  letter-spacing: -0.01em;
+}
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-links a { color: rgba(255,255,255,0.5); transition: color 0.15s; }
+.footer-links a:hover { color: var(--acid); }
+
+/* =========================================
+   SECTION DIVIDER
+   ========================================= */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ddd, transparent);
+  margin: 0 auto;
+  max-width: var(--max);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 480px) {
+  .stat-row { grid-template-columns: 1fr; }
+  .hero { padding: 48px 0 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-eyebrow">An Atlas City Lab Report · March 2026</div>
+    <h1 class="hero-title">Who Covers<br><span>Washington</span><br>Now</h1>
+    <p class="hero-sub">A map of the DMV information ecosystem — what collapsed, what's rising, and what's being built.</p>
+    <div class="hero-stat-block">
+      <div class="hero-stat-label">Washington Post Metro Desk</div>
+      <div class="hero-stat-row">
+        <em>200</em> reporters (2003) → <em>40</em> (2024) → <em>~12</em> (2026)
+      </div>
+    </div>
+    <div class="hero-meta">Atlas City Lab DC · Journalism Atlas · journalismatlas.com</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STICKY NAV
+     ============================================================ -->
+<nav class="section-nav" aria-label="Page sections">
+  <div class="section-nav-inner">
+    <a href="#collapse">The Collapse</a>
+    <a href="#responders">Who's Moving In</a>
+    <a href="#legacy">Legacy Outlets</a>
+    <a href="#hyperlocal">Hyperlocal</a>
+    <a href="#creators">Creators</a>
+    <a href="#beatmap">Beat Map</a>
+    <a href="#opportunity">Opportunity</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     SECTION 1: COLLAPSE TIMELINE
+     ============================================================ -->
+<section class="section collapse-bg" id="collapse">
+  <div class="container">
+    <div class="section-label">Section 1</div>
+    <h2 class="section-title">The Collapse Timeline</h2>
+    <p class="section-sub">Institutional journalism in the DMV has undergone a historic contraction in just 24 months.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">February 2024</div>
+        <div class="timeline-headline">DCist shuts down — 16 journalists laid off</div>
+        <div class="timeline-detail">WAMU 88.5 eliminates its local news site. The 51st rises from the ashes, worker-owned and reader-funded.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">February 2026</div>
+        <div class="timeline-headline">Washington Post gutted — 300+ layoffs, metro desk reduced to ~12</div>
+        <div class="timeline-detail">The sports section is eliminated entirely. DC becomes a major market without daily professional sports coverage.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">February 2026</div>
+        <div class="timeline-headline">CEO Will Lewis resigns from Washington Post</div>
+        <div class="timeline-detail">The resignation follows sustained criticism of his leadership during the Post's editorial contraction.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">February 2026</div>
+        <div class="timeline-headline">Executive editor: "We're not a paper of record"</div>
+        <div class="timeline-detail">A statement that would have been unthinkable a decade ago now marks the Post's strategic retreat from comprehensive metro coverage.</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="num">300+</div>
+        <div class="lbl">WaPo journalists laid off in Feb 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">0</div>
+        <div class="lbl">Daily sports reporters remaining at WaPo</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">7th</div>
+        <div class="lbl">Largest US metro without daily professional sports coverage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2: RESPONDERS
+     ============================================================ -->
+<section class="section" id="responders">
+  <div class="container">
+    <div class="section-label">Section 2</div>
+    <h2 class="section-title">The Responders</h2>
+    <p class="section-sub">Institutions racing into the vacuum left by the Post's retreat.</p>
+
+    <div class="filter-bar" id="responder-status-filters">
+      <button class="pill active" data-filter="status" data-val="all">All</button>
+      <button class="pill" data-filter="status" data-val="expanding">🟢 Expanding</button>
+      <button class="pill" data-filter="status" data-val="stable">🟡 Stable</button>
+      <button class="pill" data-filter="status" data-val="contracting">🔴 Contracting</button>
+    </div>
+    <div class="filter-bar" id="responder-type-filters">
+      <button class="pill active" data-filter="type" data-val="all">All</button>
+      <button class="pill" data-filter="type" data-val="for-profit">For-Profit</button>
+      <button class="pill" data-filter="type" data-val="nonprofit">Nonprofit</button>
+    </div>
+
+    <div class="card-grid" id="responders-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3: LEGACY
+     ============================================================ -->
+<section class="section" id="legacy" style="background:#f7f7fa;">
+  <div class="container">
+    <div class="section-label">Section 3</div>
+    <h2 class="section-title">Still Standing</h2>
+    <p class="section-sub">The institutional landscape that predates the collapse — and how each is faring.</p>
+
+    <div class="filter-bar" id="legacy-status-filters">
+      <button class="pill active" data-filter="legacy-status" data-val="all">All</button>
+      <button class="pill" data-filter="legacy-status" data-val="expanding">🟢 Expanding</button>
+      <button class="pill" data-filter="legacy-status" data-val="stable">🟡 Stable</button>
+      <button class="pill" data-filter="legacy-status" data-val="contracting">🔴 Contracting</button>
+    </div>
+
+    <div class="legacy-grid" id="legacy-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4: HYPERLOCAL
+     ============================================================ -->
+<section class="section" id="hyperlocal">
+  <div class="container">
+    <div class="section-label">Section 4</div>
+    <h2 class="section-title">Neighborhood by Neighborhood</h2>
+    <p class="section-sub">The hyperlocal infrastructure most readers don't know exists — but journalists rely on daily.</p>
+    <div id="hyperlocal-container"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5: CREATORS
+     ============================================================ -->
+<section class="section" id="creators" style="background:#f7f7fa;">
+  <div class="container">
+    <div class="section-label">Section 5 — The Atlas Layer</div>
+    <h2 class="section-title">The Independent Creator Layer</h2>
+    <p class="section-sub">What nobody else has mapped. The Atlas tracks independent journalists and creators working the DC beat outside traditional institutions.</p>
+
+    <div class="atlas-callout" style="margin-bottom:40px; margin-top:0; text-align:left; display:flex; align-items:center; gap:24px; flex-wrap:wrap; background:var(--dark); color:var(--white); border-left:4px solid var(--acid);">
+      <div>
+        <div style="font-family:var(--ff-head);font-size:clamp(40px,8vw,72px);font-weight:900;color:var(--acid);line-height:1;" id="creator-total-num">128</div>
+        <div style="font-family:var(--ff-head);font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);margin-top:4px;">independent DC-area creators tracked by the Atlas — and counting</div>
+      </div>
+    </div>
+
+    <div class="creator-controls">
+      <div class="creator-filter-group" id="creator-layer-filters">
+        <button class="pill active" data-layer="all">All (<span class="all-count"></span>)</button>
+        <button class="pill" data-layer="journalism">Journalism (<span class="j-count"></span>)</button>
+        <button class="pill" data-layer="lifestyle">Lifestyle (<span class="l-count"></span>)</button>
+      </div>
+    </div>
+    <div class="creator-controls" style="margin-bottom:20px;">
+      <div class="creator-filter-group" id="creator-topic-filters"></div>
+    </div>
+
+    <div class="creator-grid" id="creator-grid"></div>
+    <div class="creator-count-label" id="creator-count-label"></div>
+    <button class="show-more-btn" id="show-more-btn" style="display:none;">Show All Creators</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6: BEAT MAP
+     ============================================================ -->
+<section class="section" id="beatmap">
+  <div class="container">
+    <div class="section-label">Section 6</div>
+    <h2 class="section-title">What's Covered. What's Not.</h2>
+    <p class="section-sub">Coverage strength across the DMV's most important beats — by institutional media and the independent creator layer.</p>
+
+    <div class="beat-toggle-bar">
+      <button class="pill active" data-beatview="both">Both</button>
+      <button class="pill" data-beatview="institutional">Institutional Only</button>
+      <button class="pill" data-beatview="independent">Independent Only</button>
+    </div>
+
+    <div class="beat-table-wrap">
+      <table class="beat-table" id="beat-table">
+        <thead>
+          <tr>
+            <th>Beat</th>
+            <th class="col-institutional">Institutional</th>
+            <th class="col-independent">Independent</th>
+            <th class="beat-note-col" style="display:table-cell;">Note</th>
+          </tr>
+        </thead>
+        <tbody id="beat-tbody"></tbody>
+      </table>
+    </div>
+    <div class="beat-note-popup" id="beat-popup"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7: OPPORTUNITY
+     ============================================================ -->
+<section class="section" id="opportunity" style="background: var(--dark);">
+  <div class="container">
+    <div class="section-label" style="color:var(--acid);">Section 7</div>
+    <h2 class="section-title" style="color:var(--white);">Where Investment Goes Furthest</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);">Four white spaces in the DMV information ecosystem where new journalism has the highest impact potential.</p>
+    <div class="opportunity-grid" id="opportunity-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Atlas</div>
+        <div style="margin-top:6px;">This is a living document. Data updated March 2026.</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://journalismatlas.com">journalismatlas.com</a>
+        <a href="https://journalismatlas.com">Explore the full database →</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================
+   DATA
+   ========================================= */
+const RESPONDERS = [
+  {
+    name: "Washington Sun (fmr. NOTUS)",
+    type: "For-profit",
+    status: "expanding",
+    owner: "Robert Allbritton / Allbritton Journalism Institute",
+    beats: ["DC politics","Federal government","Local news","Sports"],
+    reach: 3,
+    recentMove: "Filed trademark for 'The Washington Sun.' Hired Dana Milbank + 6 WaPo reporters. Pursuing top remaining Post journalists. Positioning as direct WaPo competitor.",
+    founded: "2023 (as NOTUS)",
+    model: "Nonprofit / education-oriented, shifting toward full news operation",
+    url: "https://notus.org"
+  },
+  {
+    name: "City Cast DC",
+    type: "For-profit",
+    status: "expanding",
+    owner: "Graham Holdings Company",
+    beats: ["DC politics","Local news","Culture","Policy"],
+    reach: 2,
+    recentMove: "Announced 'unprecedented expansion' — hiring 4 reporters immediately. Hired Emma Uber (former WaPo local breaking news). New executive editor and managing editor roles open.",
+    founded: "2021",
+    model: "Podcast + newsletter + social, membership-supported",
+    url: "https://dc.citycast.fm"
+  },
+  {
+    name: "The 51st",
+    type: "Nonprofit",
+    status: "expanding",
+    owner: "Worker-led nonprofit cooperative",
+    beats: ["DC local news","Government accountability","Criminal justice","Housing"],
+    reach: 1,
+    recentMove: "Launched 'When Bezos fires, we hire' campaign. Raised $257K+ toward $375K goal to triple reporting staff. 1,100 new paid members in days after WaPo layoffs. 4,400 paid members total.",
+    founded: "2024 (from DCist ashes)",
+    model: "Reader-supported, ~70% of funding",
+    url: "https://the51st.co"
+  },
+  {
+    name: "Baltimore Banner (DC expansion)",
+    type: "Nonprofit",
+    status: "expanding",
+    owner: "Venetoulis Institute / Stewart Bainum Jr.",
+    beats: ["DC sports","Prince George's County","Regional news"],
+    reach: 2,
+    recentMove: "Hired WaPo sports reporters. Covering Nationals + Commanders daily, Capitals/Wizards/Terps enterprise. Expanding into Prince George's County. 55,000 subscribers, $13M revenue, 2025 Pulitzer winner.",
+    founded: "2022",
+    model: "Subscription + advertising + philanthropy",
+    url: "https://www.thebanner.com"
+  },
+  {
+    name: "Axios DC",
+    type: "For-profit",
+    status: "expanding",
+    owner: "Cox Enterprises",
+    beats: ["DC politics","Business","Development","Lifestyle"],
+    reach: 2,
+    recentMove: "Jim VandeHei posted job listing for DC reporter explicitly to 'fill the Washington Post void.' Publisher: '100% opportunistic.' Expanding local coverage nationally with OpenAI partnership.",
+    founded: "2017",
+    model: "Advertising + subscriptions",
+    url: "https://www.axios.com/local/washington-dc"
+  }
+];
+
+const LEGACY = [
+  { name:"Washington Post", type:"For-profit", status:"contracting", owner:"Jeff Bezos", beats:["National politics","Federal government","Some metro (diminished)","Business"], reach:3, note:"Metro desk at ~12 reporters. Sports eliminated. Exec editor declared 'we're not a paper of record.' $100M+ losses in 2025. CEO resigned Feb 2026.", url:"https://washingtonpost.com" },
+  { name:"WTOP", type:"For-profit", status:"stable", owner:"Hubbard Broadcasting", beats:["Breaking news","Traffic","Weather","Local government"], reach:3, note:"Dominant radio + digital for daily breaking news. Massive commuter reach. One of the most-listened-to news stations in the US.", url:"https://wtop.com" },
+  { name:"NBC4 Washington", type:"For-profit", status:"stable", owner:"NBCUniversal", beats:["Breaking news","Local government","Weather","Sports"], reach:3, note:"Dominant local TV news. Strong investigative unit. Broad DMV reach across DC, Maryland, Virginia.", url:"https://www.nbcwashington.com" },
+  { name:"WUSA9 (CBS)", type:"For-profit", status:"stable", owner:"Tegna", beats:["Breaking news","Investigative","Local government"], reach:3, note:"Investigative reputation. Owned by TEGNA — Atlas partnership in development.", url:"https://www.wusa9.com" },
+  { name:"WJLA / ABC7", type:"For-profit", status:"stable", owner:"Sinclair Broadcast Group", beats:["Breaking news","Local government","Weather"], reach:3, note:"ABC affiliate. Sinclair-owned since 2014 — originally Allbritton Communications property.", url:"https://wjla.com" },
+  { name:"WAMU 88.5", type:"Nonprofit / Public", status:"contracting", owner:"American University", beats:["National politics","Policy","Culture"], reach:2, note:"Shut down DCist in Feb 2024, laying off 16 journalists. Promised new local products that have not materialized. Local commitment in question.", url:"https://wamu.org" },
+  { name:"Washington City Paper", type:"For-profit", status:"stable", owner:"Locally owned", beats:["Arts","Culture","Nightlife","Local politics","Sports"], reach:2, note:"Alt-weekly. District Line Daily newsletter widely read by DC journalists. Strong arts/culture coverage.", url:"https://washingtoncitypaper.com" },
+  { name:"Washington Business Journal", type:"For-profit", status:"stable", owner:"American City Business Journals (Advance Publications)", beats:["Business","Real estate","Tech","Government contracting","Healthcare"], reach:2, note:"Essential for professional/executive class. Heavy real estate and federal contracting coverage.", url:"https://www.bizjournals.com/washington" },
+  { name:"Washingtonian Magazine", type:"For-profit", status:"stable", owner:"Locally owned", beats:["Power/politics","Dining","Real estate","Lifestyle","Best of DC"], reach:2, note:"Long-form, insider-class lifestyle journalism. High-income readership. Relevant to the political-professional class.", url:"https://washingtonian.com" },
+  { name:"Federal News Network", type:"For-profit", status:"stable", owner:"Hubbard Broadcasting", beats:["Federal workforce","Government contracting","Agency news","DOGE/federal layoffs"], reach:2, note:"The only outlet consistently covering the 2M+ federal employee audience. More relevant than ever in 2026 with DOGE layoffs.", url:"https://federalnewsnetwork.com" },
+  { name:"Roll Call / CQ", type:"For-profit", status:"stable", owner:"FiscalNote", beats:["Congress","Legislative process","Lobbying","Hill news"], reach:2, note:"Essential insider read for Hill staff and lobbyists. Subscription-heavy model.", url:"https://rollcall.com" },
+  { name:"Washington Informer", type:"For-profit", status:"stable", owner:"Informer Holdings", beats:["Black DC community","Local politics","Education","Culture"], reach:1, note:"60+ year institution. Essential coverage of Black Washington that is largely absent from mainstream outlets.", url:"https://washingtoninformer.com" },
+  { name:"El Tiempo Latino", type:"For-profit", status:"stable", owner:"Independent", beats:["Latino/Hispanic community","Immigration","Local news en español"], reach:1, note:"Spanish-language local news since 1991. Covers the DMV's large Latino population largely ignored by English-language media.", url:"https://eltiempolatino.com" }
+];
+
+const HYPERLOCAL = [
+  { name:"730DC", geo:"DC", beats:["Daily newsletter","Local politics","What's happening"], note:"Daily newsletter widely cited by DC journalists as essential. Aggregator + original.", url:"https://730dc.com" },
+  { name:"Street Sense", geo:"DC", beats:["Homelessness","Poverty","Social services"], note:"Print + digital. Run by and for people experiencing homelessness. Cited by The 51st as must-read.", url:"https://streetsensemedia.org" },
+  { name:"DCLine", geo:"DC", beats:["Policy","Government","Education"], note:"Policy-focused newsletter for DC policy wonks and advocates.", url:"https://thedcline.org" },
+  { name:"The Hill Is Home", geo:"Capitol Hill", beats:["Capitol Hill neighborhood","Local news"], note:"Hyperlocal neighborhood blog/Instagram. In Atlas database.", url:"https://www.thehillishome.com" },
+  { name:"Ethiopique", geo:"DC", beats:["Ethiopian community","Local news"], note:"Community journalism for DC's large Ethiopian diaspora. In Atlas database.", url:"https://ethiopique.com" },
+  { name:"Washingtonian Problems", geo:"DC", beats:["Local life","Gossip","Community"], note:"Large Instagram following. Aggregator + local commentary. In Atlas database.", url:"https://www.instagram.com/washingtonianprobs" },
+  { name:"ARLnow", geo:"Arlington, VA", beats:["Arlington local news","Real estate","Development","Politics"], note:"Model hyperlocal operation. Maintains public DC-area outlet directory.", url:"https://arlnow.com" },
+  { name:"ALXnow", geo:"Alexandria, VA", beats:["Alexandria local news","Development","Crime","Politics"], note:"Sister site to ARLnow. Strong hyperlocal coverage of Alexandria.", url:"https://alxnow.com" },
+  { name:"Bethesda Magazine / BethesdaNow", geo:"Montgomery County, MD", beats:["Bethesda/Chevy Chase","Real estate","Dining","Lifestyle"], note:"Affluent suburb. Heavy real estate and lifestyle coverage for DC's wealthiest bedroom communities.", url:"https://bethesdamagazine.com" },
+  { name:"Hyattsville Wire", geo:"Prince George's County, MD", beats:["Hyattsville","PG County community"], note:"Community journalism. Hyattsville is ground zero for Baltimore Banner's PG expansion.", url:"https://hyattsvillewire.com" },
+  { name:"Prince George's Suite", geo:"Prince George's County, MD", beats:["PG County politics","Business","Community"], note:"One of very few PG County-specific outlets. Nearly 1M residents, massively underserved.", url:"https://pgsuitemag.com" },
+  { name:"Patch (NoVA)", geo:"Northern Virginia", beats:["Suburban breaking news","Local government"], note:"Thin but present across Northern Virginia suburbs. Variable quality.", url:"https://patch.com/virginia" }
+];
+
+const BEAT_MAP = [
+  { beat:"Federal politics / Congress", institutional:"strong", independent:"strong", note:"Most covered beat in DC by far. Overcrowded." },
+  { beat:"DC government / City Council", institutional:"emerging", independent:"emerging", note:"The 51st + City Cast expanding. WaPo metro gutted. Real gap opening." },
+  { beat:"DC sports", institutional:"emerging", independent:"gap", note:"WaPo eliminated sports desk entirely. Baltimore Banner + The Athletic filling. No meaningful independent creator layer." },
+  { beat:"Education (DCPS)", institutional:"gap", independent:"gap", note:"WaPo covered this heavily. Now mostly gone. Natalie Wexler covers national ed policy. Zero dedicated DCPS independent reporter." },
+  { beat:"Housing / gentrification", institutional:"gap", independent:"gap", note:"Critical issue for DC. Almost no dedicated coverage after WaPo metro cuts." },
+  { beat:"Criminal justice / MPD", institutional:"emerging", independent:"emerging", note:"The 51st covers this. Alec Karakatsanis (Copaganda) covers nationally. Still thin for a city with DC's crime discourse." },
+  { beat:"Federal workforce / DOGE", institutional:"emerging", independent:"gap", note:"Federal News Network owns this institutionally. Zero independent creator-journalists covering the 2026 federal workforce crisis." },
+  { beat:"Real estate / development", institutional:"strong", independent:"gap", note:"WBJ + ARLnow strong institutionally. No independent newsletter or creator focused here." },
+  { beat:"Arts / culture / nightlife", institutional:"strong", independent:"emerging", note:"WCP still owns this. Strong Instagram/TikTok creator layer for nightlife and restaurants." },
+  { beat:"Food / restaurants", institutional:"strong", independent:"strong", note:"One of the strongest creator layers in DC. Multiple high-reach Instagram/TikTok food creators." },
+  { beat:"Latino / immigrant communities", institutional:"emerging", independent:"gap", note:"El Tiempo Latino institutional. Zero independent Spanish-language creators in Atlas database." },
+  { beat:"Black DC / displacement", institutional:"emerging", independent:"gap", note:"Washington Informer + some coverage. Major gap given DC's demographic shifts and displacement story." },
+  { beat:"Transit / transportation", institutional:"gap", independent:"emerging", note:"Yonah Freemark (Transport Politic) is excellent but national/wonky. No dedicated WMATA/local transit reporter." },
+  { beat:"Environment / climate (local)", institutional:"gap", independent:"emerging", note:"Multiple national climate newsletters based in DC but none covering DC's local environmental issues." },
+  { beat:"Prince George's County", institutional:"gap", independent:"gap", note:"Nearly 1M residents. Massively underserved. Baltimore Banner now entering. Otherwise almost nothing." },
+  { beat:"Northern Virginia / suburbs", institutional:"emerging", independent:"gap", note:"ARLnow + ALXnow strong for Arlington/Alexandria. Rest of NoVA largely uncovered independently." }
+];
+
+const OPPORTUNITIES = [
+  { title:"Prince George's County", body:"Nearly 1 million people. One of the most diverse counties in America. Essentially uncovered. The Baltimore Banner is just arriving. Zero independent creator layer." },
+  { title:"Federal Workforce", body:"2 million federal employees in the DMV, more affected by the news cycle than any other workforce in America in 2026. Federal News Network exists but doesn't reach general audiences. No independent creator has built this beat." },
+  { title:"Education (DCPS)", body:"Washington DC has one of the most watched urban school systems in the country. WaPo covered it deeply. That coverage is essentially gone. No replacement in sight." },
+  { title:"Spanish-Language DC", body:"El Tiempo Latino exists but is a single institution. The DMV has a large, growing Latino population with almost no independent media serving it." }
+];
+
+const DC_JOURNALISM = [{"name":"Chris Cillizza","slug":"chris-cillizza","channel":"So What","link":"https://chriscillizza.substack.com","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Aaron Parnas","slug":"aaron-parnas","channel":"Aaron Parnas","link":"https://www.tiktok.com/@aaronparnas1","platform":"Video - TikTok","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[{"name":"Newsletter - Substack","link":""}]},{"name":"Aaron Rupar","slug":"aaron-rupar","channel":"Public Notice","link":"https://www.publicnotice.co","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[{"name":"Social - Twitter / X","link":"https://x.com/atrupar"}]},{"name":"Alec Karakatsanis","slug":"alec-karakatsanis","channel":"Copaganda Newsletter","link":"https://equalityalec.substack.com","platform":"Newsletter - Substack","topic":"Law/Legal Issues","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Alisa Tang","slug":"alisa-tang","channel":"Alisa Daily Dose","link":"https://alisadailydose.beehiiv.com","platform":"Newsletter - Beehiiv","topic":"Local News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[]},{"name":"Alyssa Rosenberg","slug":"alyssa-rosenberg","channel":"Across the Movie Aisle","link":"https://movieaisle.substack.com","platform":"Newsletter - Substack","topic":"Film/Movies","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Amber Ferguson","slug":"amber-ferguson","channel":"Girl with Drive","link":"https://www.tiktok.com/@girlwithdrive","platform":"Video - TikTok","topic":"Internet Culture","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Ari Shaprio","slug":"ari-shaprio","channel":"Ari Shapiro","link":"https://arishapiro.substack.com","platform":"Newsletter - Substack","topic":"Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Azi Paybarah","slug":"azi-paybarah","channel":"Azi Paybarah","link":"https://azipaybarah.substack.com","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Briahna Joy Gray","slug":"briahna-joy-gray","channel":"Bad Faith","link":"https://www.youtube.com/@BadFaithPodcast","platform":"Video - YouTube","topic":"Politics, Culture","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[{"name":"Social - Twitter / X","link":"https://x.com/briebriejoy"}]},{"name":"Brian Krebs","slug":"brian-krebs","channel":"Krebs on Security","link":"https://krebsonsecurity.com","platform":"Website","topic":"Tech","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"Catherine Herridge","slug":"catherine-herridge","channel":"Catherine Herridge Reports","link":"https://catherineherridgereports.com","platform":"Newsletter - Beehiiv","topic":"Investigative, Government Accountability, National Security","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Journalism Formats","secondaryPlatforms":[{"name":"Social - Twitter / X","link":"https://x.com/C__Herridge"}]},{"name":"Charlotte Clymer","slug":"charlotte-clymer","channel":"Charlotte's Web Thoughts","link":"https://charlotteclymer.substack.com","platform":"Newsletter - Substack","topic":"LGBTQIA, Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Social Issues","secondaryPlatforms":[]},{"name":"Charlotte Salley","slug":"charlotte-salley","channel":"Hot Bones","link":"https://hotbones.beehiiv.com","platform":"Newsletter - Beehiiv","topic":"Local News, Health/Wellness","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life, Science, Health & Environment","secondaryPlatforms":[]},{"name":"Chris Hutton","slug":"chris-hutton","channel":"TTRPG Insider","link":"https://www.ttrpginsider.news","platform":"Newsletter - Beehiiv","topic":"Games/Gaming","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Chris Richards","slug":"chris-richards","channel":"The Future is Ours to Make","link":"https://thefutureisourstomake.substack.com","platform":"Newsletter - Substack","topic":"Business, Music","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work, Culture & Media","secondaryPlatforms":[{"name":"Video - Instagram","link":""}]},{"name":"Claudia Sahm","slug":"claudia-sahm","channel":"Stay-At-Home Macro","link":"https://stayathomemacro.substack.com","platform":"Newsletter - Substack","topic":"Finance/Economics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"David Cay Johnston","slug":"david-cay-johnston","channel":"DCReport","link":"https://www.dcreport.org","platform":"Website","topic":"Investigative, Government Accountability, Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Journalism Formats","secondaryPlatforms":[{"name":"Social - Facebook","link":""}]},{"name":"David Crook","slug":"david-crook","channel":"DCReport","link":"https://www.dcreport.org","platform":"Website","topic":"Investigative, Government Accountability, Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Journalism Formats","secondaryPlatforms":[{"name":"Social - Facebook","link":""}]},{"name":"Derek Thompson","slug":"derek-thompson","channel":"Derek Thompson","link":"https://www.derekthompson.org","platform":"Newsletter - Substack","topic":"Explanatory, General News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"General News, Journalism Formats","secondaryPlatforms":[]},{"name":"Devin Stone","slug":"devin-stone","channel":"LegalEagle","link":"https://www.youtube.com/@LegalEagle","platform":"Video - YouTube","topic":"Law/Legal Issues","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Dina Temple-Raston","slug":"dina-temple-raston","channel":"Click Here","link":"https://podcasts.apple.com/us/podcast/click-here/id1225077306","platform":"Podcast","topic":"Tech","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"Elizabeth Booker Houston","slug":"elizabeth-booker-houston","channel":"Booker Squared","link":"https://www.instagram.com/bookersquared","platform":"Video - Instagram","topic":"Comedy, Law/Legal Issues","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[{"name":"Video - TikTok","link":"https://www.tiktok.com/@bookersquared"}]},{"name":"Emily Sanders","slug":"emily-sanders","channel":"Exxon Knews","link":"https://www.exxonknews.org","platform":"Newsletter - Substack","topic":"Climate/Environment","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Science, Health & Environment","secondaryPlatforms":[]},{"name":"Gabe Fleisher","slug":"gabe-fleisher","channel":"Wake Up To Politics","link":"https://www.instagram.com/wakeupolitics","platform":"Video - Instagram","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Gene Weingarten","slug":"gene-weingarten","channel":"The Gene Pool","link":"https://geneweingarten.substack.com","platform":"Newsletter - Substack","topic":"Comedy, General News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"General News, Culture & Media","secondaryPlatforms":[]},{"name":"Geoffrey A. Fowler","slug":"geoffrey-a-fowler","channel":"Geoffrey A. Fowler","link":"https://geoffreyafowler.substack.com","platform":"Newsletter - Substack","topic":"Tech","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"Glenn Kessler","slug":"glenn-kessler","channel":"By Glenn Kessler","link":"https://glennkessler.substack.com","platform":"Newsletter - Substack","topic":"Media/Power, Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[]},{"name":"Hannah Gaber","slug":"hannah-gaber","channel":"Jew-ish","link":"https://jew-ish.buzzsprout.com","platform":"Podcast","topic":"Identity/Belonging","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Social Issues","secondaryPlatforms":[]},{"name":"Henok Mengistu","slug":"henok-mengistu","channel":"Ethiopique","link":"https://ethiopique.com","platform":"Website","topic":"Local News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[]},{"name":"History In High Heels","slug":"history-in-high-heels","channel":"History In High Heels","link":"https://www.instagram.com/historyinhighheels","platform":"Video - Instagram","topic":"History","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Jack Surfleet","slug":"jack-surfleet","channel":"Jack Surfleet","link":"https://www.tiktok.com/@jacksurfleet","platform":"Video - TikTok","topic":"Politics, Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[]},{"name":"James Fallows","slug":"james-fallows","channel":"James Fallows","link":"https://fallows.substack.com","platform":"Newsletter - Substack","topic":"Politics, General News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, General News","secondaryPlatforms":[]},{"name":"Jeff Stein","slug":"jeff-stein","channel":"SpyTalk","link":"https://www.spytalk.co","platform":"Newsletter - Substack","topic":"Foreign Policy, National Security","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Jennifer Rubin","slug":"jennifer-rubin","channel":"Contrarian","link":"https://contrarian.substack.com","platform":"Newsletter - Substack","topic":"Politics, Law/Legal Issues","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Jeremy Scahill","slug":"jeremy-scahill","channel":"Drop Site News","link":"https://www.dropsitenews.com","platform":"Newsletter - Substack","topic":"Investigative, World","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"General News, Journalism Formats","secondaryPlatforms":[]},{"name":"Jerusalem Demsas","slug":"jerusalem-demsas","channel":"The Argument","link":"https://www.theargumentmag.com","platform":"Newsletter - Substack","topic":"Politics, Culture, Policy","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[{"name":"Podcast","link":""}]},{"name":"Jim Acosta","slug":"jim-acosta","channel":"Jim Acosta","link":"https://x.com/Acosta","platform":"Social - Twitter / X","topic":"Politics, General News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, General News","secondaryPlatforms":[{"name":"Video - Instagram","link":"https://www.instagram.com/jimacosta"}]},{"name":"Joe Himali","slug":"joe-himali","channel":"Best Address","link":"https://www.instagram.com/bestaddress","platform":"Video - Instagram","topic":"History, Architecture","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"John Dickerson","slug":"john-dickerson","channel":"John Dickerson","link":"https://johnfdickerson.substack.com","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Jonathan Schwabish","slug":"jonathan-schwabish","channel":"Policy Viz","link":"https://policyviz.substack.com","platform":"Newsletter - Substack","topic":"Explanatory, Government Accountability","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Journalism Formats","secondaryPlatforms":[]},{"name":"Jordan Schneider","slug":"jordan-schneider","channel":"ChinaTalk","link":"https://www.chinatalk.media","platform":"Newsletter - Substack","topic":"Policy, Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[{"name":"Podcast","link":""}]},{"name":"Joseph Politano","slug":"joseph-politano","channel":"Apricitas","link":"https://www.apricitas.io","platform":"Newsletter - Substack","topic":"Labor/Workers Rights, Finance/Economics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"Joy Reid","slug":"joy-reid","channel":"The Joy Reid Show","link":"https://www.youtube.com/@TheJoyReidShow","platform":"Video - YouTube","topic":"Politics, Gender, Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Social Issues, Culture & Media","secondaryPlatforms":[{"name":"Video - Instagram","link":"https://www.instagram.com/joyannreid/?hl=en"}]},{"name":"K Kaufmann","slug":"k-kaufmann","channel":"E/lectrify","link":"https://electrifynews.beehiiv.com","platform":"Newsletter - Beehiiv","topic":"Climate/Environment","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Science, Health & Environment","secondaryPlatforms":[]},{"name":"Karen Attiah","slug":"karen-attiah","channel":"The Golden Hour by Karen Attiah","link":"https://karenattiah.substack.com","platform":"Newsletter - Substack","topic":"Politics, Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[]},{"name":"Kate Woodsome","slug":"kate-woodsome","channel":"Invisible Threads","link":"https://katewoodsome.substack.com","platform":"Newsletter - Substack","topic":"Health/Wellness","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Science, Health & Environment","secondaryPlatforms":[]},{"name":"Katelyn Burns","slug":"katelyn-burns","channel":"Burns Notice","link":"https://www.burnsnotice.com","platform":"Newsletter - Ghost","topic":"LGBTQIA, Internet Culture, Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Social Issues, Culture & Media","secondaryPlatforms":[]},{"name":"Keith Edwards","slug":"keith-edwards","channel":"Keith's Debate Club","link":"https://www.youtube.com/@keithedwards","platform":"Video - YouTube","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Kelly Coyne","slug":"kelly-coyne","channel":"Guilty Pleasures","link":"https://kellymariecoyne.substack.com","platform":"Newsletter - Substack","topic":"Culture, Gender","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Social Issues, Culture & Media","secondaryPlatforms":[{"name":"Video - Instagram","link":"https://www.instagram.com/kelly_coyne/?hl=en"}]},{"name":"Kevin Cirilli","slug":"kevin-cirilli","channel":"Meet the Future","link":"https://mtf.tv","platform":"Newsletter - Substack","topic":"Tech","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"Kyle Chan","slug":"kyle-chan","channel":"High Capacity","link":"https://www.highcapacity.org","platform":"Newsletter - Substack","topic":"Tech, World","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work, General News","secondaryPlatforms":[]},{"name":"Laurie Collins","slug":"laurie-collins","channel":"DC City Girl","link":"https://www.instagram.com/dccitygirl","platform":"Video - Instagram","topic":"Photography","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Marc Elias","slug":"marc-elias","channel":"Democracy Docket","link":"https://www.youtube.com/democracydocket","platform":"Video - YouTube","topic":"Politics, Government Accountability","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Matt Laslo","slug":"matt-laslo","channel":"Ask a Pol","link":"https://www.askapolpolitics.com","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Matt Stoller","slug":"matt-stoller","channel":"BIG","link":"https://www.thebignewsletter.com","platform":"Newsletter - Substack","topic":"History, Finance/Economics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work, Culture & Media","secondaryPlatforms":[]},{"name":"Matt Yglesias","slug":"matt-yglesias","channel":"Slow Boring","link":"https://www.slowboring.com","platform":"Newsletter - Substack","topic":"Finance/Economics, Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Money & Work","secondaryPlatforms":[{"name":"Social - Twitter / X","link":""}]},{"name":"Natalie Wexler","slug":"natalie-wexler","channel":"Minding the Gap","link":"https://nataliewexler.substack.com","platform":"Newsletter - Substack","topic":"Education","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[]},{"name":"Nayyera Haq","slug":"nayyera-haq","channel":"Nayyera Haq","link":"https://www.instagram.com/nayyeroar","platform":"Video - Instagram","topic":"Politics, Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[]},{"name":"Niala Boodhoo","slug":"niala-boodhoo","channel":"Niala Boodhoo","link":"https://substack.com/@nialaboodhoo","platform":"Newsletter - Substack","topic":"Faith/Religion","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Social Issues","secondaryPlatforms":[]},{"name":"Norm Eisen","slug":"norm-eisen","channel":"Contrarian","link":"https://contrarian.substack.com","platform":"Newsletter - Substack","topic":"Politics, Law/Legal Issues","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Not Bored In DC","slug":"not-bored-in-dc","channel":"Not Bored In DC","link":"https://www.instagram.com/notboredindc","platform":"Video - Instagram","topic":"History","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Pat Myers","slug":"pat-myers","channel":"The Gene Pool","link":"https://geneweingarten.substack.com","platform":"Newsletter - Substack","topic":"Comedy, General News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"General News, Culture & Media","secondaryPlatforms":[]},{"name":"Paul Rivera","slug":"paul-rivera","channel":"paulriveranews","link":"https://www.facebook.com/paulriveranews","platform":"Social - Facebook","topic":"Climate/Environment, Local News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life, Science, Health & Environment","secondaryPlatforms":[{"name":"Video - YouTube","link":"https://www.youtube.com/@PaulRiveraNews"}]},{"name":"Petula Devorak","slug":"petula-devorak","channel":"Persisters","link":"https://petuladvorak.substack.com","platform":"Newsletter - Substack","topic":"Local News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[]},{"name":"Prakash Loungani","slug":"prakash-loungani","channel":"Global Housing Watch","link":"https://globalhousingwatch.substack.com","platform":"Newsletter - Substack","topic":"Finance/Economics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"Raelyn Roberson","slug":"raelyn-roberson","channel":"Raelyn.info","link":"https://raelyn.info","platform":"Website","topic":"Tech, Policy","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Money & Work","secondaryPlatforms":[]},{"name":"Rich Leiby","slug":"rich-leiby","channel":"Rich Leiby","link":"https://rleiby.substack.com","platform":"Newsletter - Substack","topic":"General News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"General News","secondaryPlatforms":[]},{"name":"Rohini Manixkam","slug":"rohini-manixkam","channel":"rohinimm","link":"https://www.instagram.com/rohinimm","platform":"Video - Instagram","topic":"Science","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Science, Health & Environment","secondaryPlatforms":[]},{"name":"Ron Charles","slug":"ron-charles","channel":"Ron Charles","link":"https://substack.com/@roncharles","platform":"Newsletter - Substack","topic":"Books/Writing, Art","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Roya Fox","slug":"roya-fox","channel":"royaventurera","link":"https://www.tiktok.com/@royaventurera","platform":"Video - TikTok","topic":"Language","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[{"name":"Video - Instagram","link":""}]},{"name":"Ryan Grim","slug":"ryan-grim","channel":"Drop Site News","link":"https://www.dropsitenews.com","platform":"Newsletter - Substack","topic":"Investigative, World","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"General News, Journalism Formats","secondaryPlatforms":[]},{"name":"Ryan Lizza","slug":"ryan-lizza","channel":"Telos News","link":"https://substack.com/@ryanlizza","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Ryan McBeth","slug":"ryan-mcbeth","channel":"Ryan McBeth Programming","link":"https://www.youtube.com/@RyanMcBethProgramming","platform":"Video - YouTube","topic":"Tech","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work","secondaryPlatforms":[]},{"name":"Saagar Enjeti","slug":"saagar-enjeti","channel":"Breaking Points","link":"https://www.youtube.com/c/breakingpoints","platform":"Video - YouTube","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Sadie Dingfelder","slug":"sadie-dingfelder","channel":"Sadie Dingfelder, science writer","link":"https://www.tiktok.com/@sadiedingfelder","platform":"Video - TikTok","topic":"Science","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Science, Health & Environment","secondaryPlatforms":[]},{"name":"Sarah","slug":"sarah","channel":"History on Holiday","link":"https://www.instagram.com/historyonholiday","platform":"Video - Instagram","topic":"Museums","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Seamus Hughes","slug":"seamus-hughes","channel":"Court Watch","link":"https://x.com/SeamusHughes","platform":"Newsletter - Beehiiv","topic":"Law/Legal Issues, Government Accountability","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"Simon Owens","slug":"simon-owens","channel":"Simon Owens's Media Newsletter","link":"https://simonowens.substack.com","platform":"Newsletter - Substack","topic":"Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Suzanne Lambert","slug":"suzanne-lambert","channel":"Suzanne Lambert","link":"https://www.instagram.com/itssuzannelambert","platform":"Video - Instagram","topic":"Politics, Comedy","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[{"name":"Video - TikTok","link":"https://www.tiktok.com/@itssuzannelambert?lang=en"}]},{"name":"Tamara Sacharczyk","slug":"tamara-sacharczyk","channel":"Tamara Sacharczyk","link":"https://www.tiktok.com/@tamaranews","platform":"Video - TikTok","topic":"Day in a Life","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Journalism Formats","secondaryPlatforms":[]},{"name":"Tara Palmeri","slug":"tara-palmeri","channel":"The Red Letter","link":"https://www.tarapalmeri.com","platform":"Newsletter - Substack","topic":"Politics, Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[{"name":"Video - YouTube","link":"https://www.youtube.com/tarapalmeri"}]},{"name":"Tatum Hunter","slug":"tatum-hunter","channel":"Tatum Hunter","link":"https://bytatumhunter.substack.com","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[]},{"name":"The Hill Is Home","slug":"the-hill-is-home","channel":"The Hill Is Home","link":"https://www.instagram.com/thehillishome","platform":"Video - Instagram","topic":"Local News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[]},{"name":"Tom Lobianco","slug":"tom-lobianco","channel":"24 Sight News","link":"https://www.linkedin.com/in/tomlobianco","platform":"Newsletter - Substack","topic":"Politics","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics","secondaryPlatforms":[{"name":"Social - Twitter / X","link":""}]},{"name":"Tony P.","slug":"tony-p","channel":"Tony P in DC","link":"https://www.instagram.com/_tonypindc","platform":"Video - Instagram","topic":"Day in a life","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Journalism Formats","secondaryPlatforms":[]},{"name":"Wajahat Ali","slug":"wajahat-ali","channel":"Wajahat Ali","link":"https://x.com/WajahatAli","platform":"Social - Twitter / X","topic":"Politics, Faith/Religion","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Social Issues","secondaryPlatforms":[]},{"name":"Washingtonian Problems","slug":"washingtonian-problems","channel":"Washingtonian Problems","link":"https://www.instagram.com/washingtonianprobs","platform":"Video - Instagram","topic":"Local News, Gossip","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life, Culture & Media","secondaryPlatforms":[{"name":"Social - Twitter / X","link":""}]},{"name":"Yonah Freemark","slug":"yonah-freemark","channel":"The Transport Politic","link":"https://www.thetransportpolitic.com","platform":"Website","topic":"Urban planning, Transit/Transportation","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[]},{"name":"Your Digital Docent","slug":"your-digital-docent","channel":"Your Digital Docent","link":"https://www.instagram.com/digitaldocent_","platform":"Video - Instagram","topic":"Museums","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Ari Shapiro","slug":"ari-shapiro","channel":"Ari Shapiro","link":"https://arishapiro.substack.com","platform":"Newsletter - Substack","topic":"Media/Power","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Culture & Media","secondaryPlatforms":[]},{"name":"Briahna Joy Grey","slug":"briahna-joy-grey","channel":"Bad Faith","link":"https://www.youtube.com/@BadFaithPodcast","platform":"Podcast","topic":"Politics, Culture","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Power & Politics, Culture & Media","secondaryPlatforms":[{"name":"Video - YouTube","link":""}]},{"name":"Keith Bryant","slug":"keith-bryant","channel":"Keeping Up With Keith","link":"https://www.tiktok.com/@keepingupwithkeith","platform":"Video - TikTok","topic":"Local News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[{"name":"Website","link":"https://linktr.ee/keepingupwithkeith"}]},{"name":"Petula Dvorak","slug":"petula-dvorak","channel":"Persisters","link":"https://petuladvorak.substack.com","platform":"Newsletter - Substack","topic":"Local News","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life","secondaryPlatforms":[]}];
+const DC_LIFESTYLE = [{"name":"Sandie S.","slug":"sandie-s","channel":"A Dork and Her Fork","link":"https://www.instagram.com/adorkandherfork","platform":"Video - Instagram","topic":"Food, Travel","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Albert Ting","slug":"albert-ting","channel":"pootie_ting","link":"https://www.instagram.com/pootie_ting","platform":"Video - Instagram","topic":"Things to do","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Alex Schroeder","slug":"alex-schroeder","channel":"Devour DC","link":"https://www.instagram.com/devourdc","platform":"Video - Instagram","topic":"Restaurants","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Anastasiia Markova","slug":"anastasiia-markova","channel":"anastasiia.dc","link":"https://www.instagram.com/anastasiia.dc","platform":"Video - Instagram","topic":"Restaurants, Things to do","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Anina Belle Giannini","slug":"anina-belle-giannini","channel":"le chefs wife","link":"https://www.instagram.com/lechefswife","platform":"Video - Instagram","topic":"Recipes","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Social - Facebook","link":""}]},{"name":"Ari Drennen","slug":"ari-drennen","channel":"Ari's Threads","link":"https://aridrennen.substack.com","platform":"Newsletter - Substack","topic":"LGBTQIA, Self Help","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Social Issues, Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Austin Graff","slug":"austin-graff","channel":"Austin K Graff","link":"https://www.instagram.com/austinkgraff","platform":"Video - Instagram","topic":"Local News, Parenting, Restaurants, Travel","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Civic Life, Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Chloe Zhang","slug":"chloe-zhang","channel":"That Girl Chloe","link":"https://www.instagram.com/thatgirlchloe.z","platform":"Video - Instagram","topic":"Lifestyle, Dating/Romance","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"CK","slug":"ck","channel":"Hype Foodies","link":"https://www.instagram.com/hypefoodies","platform":"Video - Instagram","topic":"Restaurants, Travel","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Cornelia Poku","slug":"cornelia-poku","channel":"Black Girls Explore DC","link":"https://www.tiktok.com/@blackgirlsexploredc","platform":"Video - TikTok","topic":"Restaurants","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - Instagram","link":""}]},{"name":"Dani Sauter","slug":"dani-sauter","channel":"The Blond Cat Lady","link":"https://www.instagram.com/the_blonde_cat_lady","platform":"Video - Instagram","topic":"Lifestyle, Fashion","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Social - Facebook","link":""}]},{"name":"David R","slug":"david-r","channel":"Eat DC","link":"https://x.com/eat_dc","platform":"Social - Twitter / X","topic":"Food","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - Instagram","link":""}]},{"name":"DC Moms","slug":"dc-moms","channel":"DC Moms","link":"https://www.instagram.com/dcmoms","platform":"Video - Instagram","topic":"Parenting","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Diana","slug":"diana","channel":"Hype Foodies","link":"https://www.instagram.com/hypefoodies","platform":"Video - Instagram","topic":"Restaurants, Travel","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Domonique Bazil","slug":"domonique-bazil","channel":"As Told by Domm","link":"https://www.instagram.com/astoldbydomm","platform":"Video - Instagram","topic":"Coffee, Running","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Emily Moore","slug":"emily-moore","channel":"Emily Goes Places","link":"https://www.instagram.com/emilygoesplaces","platform":"Video - Instagram","topic":"Travel","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Social - Facebook","link":""}]},{"name":"Helena Bottemiller Evich","slug":"helena-bottemiller-evich","channel":"Food Fix","link":"https://foodfix.co","platform":"Newsletter - Other","topic":"Food","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Jade Womack","slug":"jade-womack","channel":"Clockout DC","link":"https://www.instagram.com/clockoutdc","platform":"Video - Instagram","topic":"Things to do","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Jess Hood","slug":"jess-hood","channel":"jessrhood","link":"https://www.instagram.com/jessrhood","platform":"Video - Instagram","topic":"Things to do, Running, Real Estate","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Money & Work, Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Lauren","slug":"lauren","channel":"Mamas and Messes","link":"https://www.instagram.com/mamasandmesses","platform":"Video - Instagram","topic":"Parenting","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Maddie Brannon","slug":"maddie-brannon","channel":"maddy the b","link":"https://www.instagram.com/maddytheb","platform":"Video - Instagram","topic":"Estate sales","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Maddie Smith","slug":"maddie-smith","channel":"On The Move with Mad","link":"https://www.instagram.com/onthemovewithmad","platform":"Video - Instagram","topic":"Travel, Things to do","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Mark Zuckerman","slug":"mark-zuckerman","channel":"Nats Journal","link":"https://natsjournal.com","platform":"Newsletter - Substack","topic":"Sports","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Mattie Hanley","slug":"mattie-hanley","channel":"hungry_hungry_hanley","link":"https://www.instagram.com/hungry_hungry_hanley","platform":"Video - Instagram","topic":"Restaurants","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Meg","slug":"meg","channel":"District By Meg","link":"https://www.instagram.com/districtbymeg","platform":"Video - Instagram","topic":"Things to do","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Neil Greenberg","slug":"neil-greenberg","channel":"Fancy Stats","link":"https://fancystats.substack.com","platform":"Newsletter - Substack","topic":"Sports","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Olga Massov","slug":"olga-massov","channel":"Food, Recipes, a day in a life","link":"https://itsamatteroftaste.substack.com","platform":"Newsletter - Substack","topic":"Food, Lifestyle","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Raman Santra","slug":"raman-santra","channel":"Barred in DC","link":"https://x.com/barredindc","platform":"Social - Twitter / X","topic":"Bars","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Rob Perez","slug":"rob-perez","channel":"r.oh.bee","link":"https://www.instagram.com/r.oh.bee","platform":"Video - Instagram","topic":"Running","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]},{"name":"Sally Squires","slug":"sally-squires","channel":"Lean Plate Club","link":"https://leanplateclub.substack.com","platform":"Newsletter - Substack","topic":"Food, Health/Wellness","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Science, Health & Environment, Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Sam Schlageter","slug":"sam-schlageter","channel":"Your DC Bestie","link":"https://www.instagram.com/yourdcbestie","platform":"Video - Instagram","topic":"Things to do, Travel","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Samantha Chery","slug":"samantha-chery","channel":"Samantha Chery","link":"https://www.tiktok.com/@samanthabchery","platform":"Video - TikTok","topic":"Restaurants, Local News, Identity/Belonging","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Social Issues, Civic Life, Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Sara","slug":"sara","channel":"Long Walks DC","link":"https://www.instagram.com/longwalksdc","platform":"Video - Instagram","topic":"Things to do, Parenting","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[]},{"name":"Tristen","slug":"tristen","channel":"Nomz All Day","link":"https://www.instagram.com/nomzallday","platform":"Video - Instagram","topic":"Restaurants, Things to do","geography":"Washington, D.C.","geoCity":"Washington","geoState":"D.C.","geoCountry":"","geoRegion":"","group":"Lifestyle & Personal Life","secondaryPlatforms":[{"name":"Video - TikTok","link":""}]}];
+const DC_ALL = [...DC_JOURNALISM, ...DC_LIFESTYLE];
+
+/* =========================================
+   HELPERS
+   ========================================= */
+function reachStars(n) {
+  const labels = ['', '★ Under 10K daily', '★★ 10K–100K daily', '★★★ 100K+ daily'];
+  return labels[n] || '';
+}
+function statusBadge(s) {
+  const cls = { expanding:'badge-expanding', stable:'badge-stable', contracting:'badge-contracting' };
+  const label = { expanding:'🟢 Expanding', stable:'🟡 Stable', contracting:'🔴 Contracting' };
+  return `<span class="badge ${cls[s]||'badge-stable'}">${label[s]||s}</span>`;
+}
+function covPill(val) {
+  const cls = { strong:'cov-strong', emerging:'cov-emerging', gap:'cov-gap' };
+  const lbl = { strong:'Strong', emerging:'Emerging', gap:'Gap' };
+  return `<span class="cov-pill ${cls[val]}">${lbl[val]||val}</span>`;
+}
+function platformShort(p) {
+  return p.replace('Newsletter - ','').replace('Video - ','').replace('Social - ','').replace('Podcast','Pod').trim();
+}
+
+/* =========================================
+   SECTION 2: RESPONDERS
+   ========================================= */
+function renderResponders(statusFilter, typeFilter) {
+  const grid = document.getElementById('responders-grid');
+  let items = RESPONDERS.filter(r => {
+    const matchStatus = statusFilter === 'all' || r.status === statusFilter;
+    const matchType = typeFilter === 'all' || r.type.toLowerCase().replace('-','').replace(' ','') === typeFilter.replace('-','');
+    return matchStatus && matchType;
+  });
+  grid.innerHTML = items.map(r => `
+    <div class="outlet-card" data-name="${r.name}">
+      <div class="card-top">
+        <div class="card-name">${r.name}</div>
+        <div class="card-badges">
+          <span class="badge badge-type">${r.type}</span>
+          ${statusBadge(r.status)}
+        </div>
+      </div>
+      <div class="card-owner">${r.owner}</div>
+      <div class="card-beats">${r.beats.map(b=>`<span class="beat-tag">${b}</span>`).join('')}</div>
+      <div class="card-reach">${reachStars(r.reach)}</div>
+      <div class="card-expand-btn">+ Details</div>
+      <div class="card-detail">
+        <p><strong>Recent move:</strong> ${r.recentMove}</p>
+        <p><strong>Founded:</strong> ${r.founded} · <strong>Model:</strong> ${r.model}</p>
+        <a class="card-link" href="${r.url}" target="_blank" rel="noopener">${r.url} ↗</a>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.outlet-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('expanded');
+      card.querySelector('.card-expand-btn').textContent = card.classList.contains('expanded') ? '− Details' : '+ Details';
+    });
+  });
+}
+
+/* =========================================
+   SECTION 3: LEGACY
+   ========================================= */
+function renderLegacy(statusFilter) {
+  const grid = document.getElementById('legacy-grid');
+  let items = LEGACY.filter(r => statusFilter === 'all' || r.status === statusFilter);
+  grid.innerHTML = items.map(r => `
+    <div class="legacy-card outlet-card" data-name="${r.name}">
+      <div class="card-top">
+        <div class="card-name">${r.name}</div>
+        <div class="card-badges">
+          ${statusBadge(r.status)}
+        </div>
+      </div>
+      <div class="card-owner">${r.owner}</div>
+      <div class="card-beats">${r.beats.map(b=>`<span class="beat-tag">${b}</span>`).join('')}</div>
+      <div class="card-reach">${reachStars(r.reach)}</div>
+      <div class="card-expand-btn">+ Details</div>
+      <div class="card-detail">
+        <p>${r.note}</p>
+        <a class="card-link" href="${r.url}" target="_blank" rel="noopener">${r.url} ↗</a>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.outlet-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('expanded');
+      card.querySelector('.card-expand-btn').textContent = card.classList.contains('expanded') ? '− Details' : '+ Details';
+    });
+  });
+}
+
+/* =========================================
+   SECTION 4: HYPERLOCAL
+   ========================================= */
+function renderHyperlocal() {
+  const container = document.getElementById('hyperlocal-container');
+  const geoGroups = {};
+  HYPERLOCAL.forEach(h => {
+    if (!geoGroups[h.geo]) geoGroups[h.geo] = [];
+    geoGroups[h.geo].push(h);
+  });
+  container.innerHTML = Object.entries(geoGroups).map(([geo, items]) => `
+    <div class="hyperlocal-geo-group">
+      <div class="geo-label">${geo}</div>
+      <div class="hyperlocal-list">
+        ${items.map(h => `
+          <div class="hyper-card">
+            <div class="hyper-name">${h.name}</div>
+            <div class="hyper-beats">${h.beats.join(' · ')}</div>
+            <div class="hyper-note">${h.note}</div>
+            <a class="hyper-link" href="${h.url}" target="_blank" rel="noopener">${h.url.replace('https://','').replace('http://','').split('/')[0]} ↗</a>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* =========================================
+   SECTION 5: CREATORS
+   ========================================= */
+const CREATOR_PAGE_SIZE = 20;
+let creatorState = { layer: 'all', topic: 'all', showAll: false };
+
+function getFilteredCreators() {
+  let pool = creatorState.layer === 'journalism' ? DC_JOURNALISM
+           : creatorState.layer === 'lifestyle' ? DC_LIFESTYLE
+           : DC_ALL;
+  if (creatorState.topic !== 'all') {
+    pool = pool.filter(c => c.topic.split(',').map(t=>t.trim()).includes(creatorState.topic));
+  }
+  return pool;
+}
+
+function buildTopicFilters() {
+  const topics = [...new Set(DC_ALL.flatMap(c => c.topic.split(',').map(t=>t.trim())))].sort();
+  const bar = document.getElementById('creator-topic-filters');
+  bar.innerHTML = '<button class="pill active" data-topic="all">All Topics</button>' +
+    topics.map(t => `<button class="pill green" data-topic="${t}">${t}</button>`).join('');
+  bar.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      bar.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      creatorState.topic = btn.dataset.topic;
+      creatorState.showAll = false;
+      renderCreators();
+    });
+  });
+}
+
+function renderCreators() {
+  const filtered = getFilteredCreators();
+  const grid = document.getElementById('creator-grid');
+  const label = document.getElementById('creator-count-label');
+  const btn = document.getElementById('show-more-btn');
+  const display = creatorState.showAll ? filtered : filtered.slice(0, CREATOR_PAGE_SIZE);
+
+  grid.innerHTML = display.map(c => {
+    const domain = c.link ? c.link.replace(/https?:\/\//,'').split('/')[0] : '';
+    return `
+      <div class="creator-card">
+        <div class="creator-name">${c.name}</div>
+        ${c.channel && c.channel !== c.name ? `<div class="creator-channel">${c.channel}</div>` : ''}
+        <span class="creator-platform">${platformShort(c.platform)}</span>
+        <div class="creator-topic">${c.topic}</div>
+        ${c.link ? `<a class="creator-link" href="${c.link}" target="_blank" rel="noopener">${domain}</a>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  label.textContent = `Showing ${display.length} of ${filtered.length} creators`;
+  btn.style.display = (!creatorState.showAll && filtered.length > CREATOR_PAGE_SIZE) ? 'block' : 'none';
+  btn.textContent = `Show All ${filtered.length} Creators`;
+}
+
+function initCreators() {
+  // Update count spans
+  document.querySelector('.all-count').textContent = DC_ALL.length;
+  document.querySelector('.j-count').textContent = DC_JOURNALISM.length;
+  document.querySelector('.l-count').textContent = DC_LIFESTYLE.length;
+  document.getElementById('creator-total-num').textContent = DC_ALL.length;
+
+  buildTopicFilters();
+
+  document.getElementById('creator-layer-filters').querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('creator-layer-filters').querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      creatorState.layer = btn.dataset.layer;
+      creatorState.topic = 'all';
+      creatorState.showAll = false;
+      document.getElementById('creator-topic-filters').querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      document.getElementById('creator-topic-filters').querySelector('[data-topic="all"]').classList.add('active');
+      renderCreators();
+    });
+  });
+
+  document.getElementById('show-more-btn').addEventListener('click', () => {
+    creatorState.showAll = true;
+    renderCreators();
+  });
+
+  renderCreators();
+}
+
+/* =========================================
+   SECTION 6: BEAT MAP
+   ========================================= */
+let beatView = 'both';
+
+function renderBeatMap() {
+  const tbody = document.getElementById('beat-tbody');
+  const showInst = beatView === 'both' || beatView === 'institutional';
+  const showIndep = beatView === 'both' || beatView === 'independent';
+
+  document.querySelectorAll('.col-institutional').forEach(el => el.style.display = showInst ? 'table-cell' : 'none');
+  document.querySelectorAll('.col-independent').forEach(el => el.style.display = showIndep ? 'table-cell' : 'none');
+
+  tbody.innerHTML = BEAT_MAP.map((b, i) => `
+    <tr>
+      <td class="beat-name">${b.beat}</td>
+      ${showInst ? `<td class="coverage-cell col-institutional" data-note="${b.note.replace(/"/g,'&quot;')}">${covPill(b.institutional)}</td>` : ''}
+      ${showIndep ? `<td class="coverage-cell col-independent" data-note="${b.note.replace(/"/g,'&quot;')}">${covPill(b.independent)}</td>` : ''}
+      <td class="beat-note-col">${b.note}</td>
+    </tr>
+  `).join('');
+
+  tbody.querySelectorAll('.coverage-cell').forEach(cell => {
+    cell.addEventListener('mouseenter', (e) => {
+      const popup = document.getElementById('beat-popup');
+      popup.textContent = cell.dataset.note;
+      popup.classList.add('show');
+      const rect = cell.getBoundingClientRect();
+      popup.style.left = Math.min(rect.left, window.innerWidth - 340) + 'px';
+      popup.style.top = (rect.bottom + 8 + window.scrollY) + 'px';
+    });
+    cell.addEventListener('mouseleave', () => {
+      document.getElementById('beat-popup').classList.remove('show');
+    });
+  });
+}
+
+/* =========================================
+   SECTION 7: OPPORTUNITY
+   ========================================= */
+function renderOpportunity() {
+  document.getElementById('opportunity-grid').innerHTML = OPPORTUNITIES.map((o, i) => `
+    <div class="opp-card">
+      <div class="opp-num">Gap ${i+1} of ${OPPORTUNITIES.length}</div>
+      <div class="opp-title">${o.title}</div>
+      <p class="opp-body">${o.body}</p>
+    </div>
+  `).join('');
+}
+
+/* =========================================
+   FILTER WIRING
+   ========================================= */
+function wireFilters(barId, onFilter) {
+  const bar = document.getElementById(barId);
+  if (!bar) return;
+  bar.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      bar.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onFilter(btn.dataset.val || btn.dataset.beatview);
+    });
+  });
+}
+
+/* =========================================
+   STICKY NAV ACTIVE STATE
+   ========================================= */
+function initStickyNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.section-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.section-nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+}
+
+/* =========================================
+   URL HASH STATE
+   ========================================= */
+function applyHashState() {
+  const hash = window.location.hash.slice(1);
+  if (!hash) return;
+  const params = new URLSearchParams(hash);
+  if (params.get('layer')) {
+    creatorState.layer = params.get('layer');
+    document.querySelectorAll('#creator-layer-filters button').forEach(b => {
+      b.classList.toggle('active', b.dataset.layer === creatorState.layer);
+    });
+  }
+}
+
+/* =========================================
+   INIT
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  let responderStatus = 'all', responderType = 'all';
+  let legacyStatus = 'all';
+
+  renderResponders(responderStatus, responderType);
+  renderLegacy(legacyStatus);
+  renderHyperlocal();
+  initCreators();
+  renderBeatMap();
+  renderOpportunity();
+  initStickyNav();
+  applyHashState();
+
+  // Responder status filter
+  wireFilters('responder-status-filters', val => {
+    responderStatus = val;
+    renderResponders(responderStatus, responderType);
+  });
+  // Responder type filter
+  wireFilters('responder-type-filters', val => {
+    responderType = val;
+    renderResponders(responderStatus, responderType);
+  });
+  // Legacy status filter
+  wireFilters('legacy-status-filters', val => {
+    legacyStatus = val;
+    renderLegacy(legacyStatus);
+  });
+  // Beat map toggle
+  document.querySelectorAll('[data-beatview]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-beatview]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      beatView = btn.dataset.beatview;
+      renderBeatMap();
+    });
+  });
+});
+</script>
+</body>
+</html>
