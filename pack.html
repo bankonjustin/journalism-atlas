@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make a Starter Pack — Independent Journalism Atlas</title>
     <meta name="description" content="Curate your favourite independent journalists and share them as a postcard. 1,000+ creators across newsletters, podcasts, video, and more.">
+    <meta property="og:title" content="Make a Starter Pack — Independent Journalism Atlas">
+    <meta property="og:description" content="Curate your favourite independent journalists and share them as a postcard. 1,000+ creators across newsletters, podcasts, video, and more.">
+    <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1339,6 +1342,13 @@ fetch('assets/data/creators-data.json')
             buildRecipientHero();
             renderCanvas('recipient');
             renderRecipientFollowButtons();
+            // Update page title and OG tags with pack name
+            const packTitle = getRecipientTitle();
+            const pageTitle = `${packTitle} | Independent Journalism Atlas`;
+            document.title = pageTitle;
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', pageTitle);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content',
+                `A curated reading list of ${selectedCreators.length} independent journalists.`);
             gtag('event', 'pack_received', {
                 creator_count: selectedCreators.length,
                 from: window.recipientFrom || 'unknown'
