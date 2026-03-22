@@ -1,5 +1,5 @@
-// functions/pack.js
-// Runs at the edge on every request to /pack
+// functions/postcard.js
+// Runs at the edge on every request to /postcard
 
 export async function onRequest(context) {
   const { request, env } = context;
@@ -10,7 +10,7 @@ export async function onRequest(context) {
   const nameParam = url.searchParams.get('name');
   const fromParam = url.searchParams.get('from');
 
-  // Fetch the real pack.html from the static asset
+  // Fetch the real postcard.html from the static asset
   const response = await env.ASSETS.fetch(request);
 
   // If no creators in URL, just pass through with basic static OG tags injected

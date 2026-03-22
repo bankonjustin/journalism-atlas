@@ -1129,7 +1129,7 @@
 </head>
 <body>
 
-<!-- Referral welcome banner — shown when arriving via ?ref=pack -->
+<!-- Referral welcome banner — shown when arriving via ?ref=postcard -->
 <div class="ref-banner" id="refBanner" aria-live="polite">
     <span class="ref-banner-text">Someone shared their reading list with you.</span>
     <a href="#workspace" class="ref-banner-cta">Make your own ↓</a>
@@ -1649,7 +1649,7 @@ let isInRecipientMode = false;
 
 function isRecipientMode() {
     const params = new URLSearchParams(window.location.search);
-    return params.get('ref') === 'pack' && !!params.get('creators');
+    return params.get('ref') === 'postcard' && !!params.get('creators');
 }
 
 function getAttributionCopy() {
@@ -2317,12 +2317,12 @@ function copyLink() {
     });
 }
 
-// Always share the page URL with ?ref=pack + ?creators= + ?name= + ?from= encoded selection
+// Always share the page URL with ?ref=postcard + ?creators= + ?name= + ?from= encoded selection
 function _shareUrl() {
     // Build from the bare page URL — never inherit existing ?creators= from current URL,
     // which could be stale if the recipient is re-sharing someone else's pack
     const url = new URL(window.location.pathname, window.location.origin);
-    url.searchParams.set('ref', 'pack');
+    url.searchParams.set('ref', 'postcard');
     if (selectedCreators.length > 0) {
         // Comma-separated, each name individually encoded so special chars survive
         // all link-shorteners, messaging apps and email clients intact
@@ -2332,6 +2332,7 @@ function _shareUrl() {
     const packName = getPackName('desktop');
     if (packName && packName !== 'My Atlas Pack') {
         url.searchParams.set('name', packName);
+        url.searchParams.set('postcard', packName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
     }
     // Include sender attribution if filled in
     const fromVal = (document.getElementById('packFromDesktop') || {}).value || '';
@@ -2446,7 +2447,7 @@ function buildAmbient() {
 // ── Referral welcome banner ────────────────────────────────────────────────
 (function() {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('ref') !== 'pack') return;
+    if (params.get('ref') !== 'postcard') return;
 
     // Show the banner after a short delay so the page settles first
     const banner = document.getElementById('refBanner');
