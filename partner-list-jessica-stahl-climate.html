@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Climate Journalists Worth Following — Curated by Jessica Stahl</title>
+<meta name="description" content="A curated selection of independent voices covering climate, environment, and the energy transition.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   DESIGN TOKENS
+   ========================================= */
+:root {
+  --acid: #ceff00;
+  --dark: #313131;
+  --dark2: #3a3a3a;
+  --white: #ffffff;
+  --ff: 'Hanken Grotesk', sans-serif;
+  --radius: 8px;
+  --max: 960px;
+}
+
+/* =========================================
+   RESET + BASE
+   ========================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--ff); background: var(--dark); color: var(--white); line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+/* =========================================
+   HEADER BAR
+   ========================================= */
+.header-bar {
+  background: var(--dark);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 14px 0;
+}
+.header-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-wordmark img { height: 26px; width: auto; }
+.header-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* =========================================
+   HERO
+   ========================================= */
+.hero {
+  background: var(--dark);
+  padding: 72px 0 0;
+  border-bottom: 2px solid var(--acid);
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 20px;
+}
+.hero-eyebrow a {
+  color: var(--acid);
+  text-decoration: underline;
+  text-decoration-color: rgba(206,255,0,0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s;
+}
+.hero-eyebrow a:hover { text-decoration-color: var(--acid); }
+.hero-title {
+  font-size: clamp(32px, 6vw, 60px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  max-width: 760px;
+}
+.hero-description {
+  font-size: 18px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.6);
+  max-width: 580px;
+  margin-bottom: 0;
+}
+
+/* =========================================
+   CURATOR BLOCK
+   ========================================= */
+.curator-block {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 48px;
+  padding: 32px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: start;
+}
+.curator-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+.curator-name {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 5px;
+}
+.curator-role {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 14px;
+}
+.curator-role a {
+  color: var(--acid);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(206,255,0,0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.15s;
+}
+.curator-role a:hover { text-decoration-color: var(--acid); }
+.curator-bio {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.45);
+  max-width: 500px;
+}
+.curator-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+.curator-count {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--acid);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.curator-count-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: right;
+  margin-bottom: 10px;
+}
+.curator-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 7px 13px;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.curator-source-link:hover {
+  color: var(--acid);
+  border-color: rgba(206,255,0,0.3);
+}
+
+/* =========================================
+   CREATOR LIST
+   ========================================= */
+.list-section { padding: 48px 0 80px; }
+
+.creator-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.creator-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  transition: background 0.12s, border-color 0.12s;
+  text-decoration: none;
+  color: inherit;
+}
+.creator-card:hover {
+  background: rgba(255,255,255,0.065);
+  border-color: rgba(206,255,0,0.18);
+}
+.creator-card:hover .creator-name { color: var(--acid); }
+.creator-card:hover .state-badge { color: rgba(206,255,0,0.7); }
+.creator-main { min-width: 0; }
+.creator-name {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2px;
+  transition: color 0.12s;
+}
+.creator-channel {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 9px;
+}
+.creator-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.pill-platform { background: var(--acid); color: var(--dark); }
+.pill-platform-secondary {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.55);
+}
+.pill-platform-secondary:hover {
+  background: rgba(206,255,0,0.12);
+  color: var(--acid);
+}
+.pill-topic {
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.creator-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.state-badge {
+  font-size: 22px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.12s;
+  line-height: 1;
+}
+.state-region {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+  background: #272727;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 52px 0;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+}
+.footer-cta-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  margin-bottom: 10px;
+}
+.footer-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--acid);
+  color: var(--dark);
+  font-size: 15px;
+  font-weight: 800;
+  padding: 13px 30px;
+  border-radius: 6px;
+  transition: opacity 0.15s;
+}
+.footer-cta-link:hover { opacity: 0.87; }
+.footer-wordmark img { height: 22px; width: auto; opacity: 0.25; }
+.footer-attribution {
+  font-size: 12px;
+  color: rgba(255,255,255,0.22);
+  line-height: 1.6;
+}
+.footer-attribution a { color: rgba(255,255,255,0.4); }
+.footer-attribution a:hover { color: var(--acid); }
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 640px) {
+  .hero { padding: 48px 0 0; }
+  .curator-block { grid-template-columns: 1fr; }
+  .curator-right { flex-direction: row; align-items: baseline; gap: 16px; padding-top: 0; }
+  .creator-card { padding: 16px 18px; gap: 16px; }
+  .state-badge { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER BAR -->
+<header class="header-bar">
+  <div class="container">
+    <div class="header-bar-inner">
+      <a href="https://journalismatlas.com" class="header-wordmark">
+        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas">
+      </a>
+      <span class="header-label">A Partner List</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">A List by <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener">Jessica Stahl</a> &nbsp;&middot;&nbsp; Climate journalist & newsletter writer</div>
+    <h1 class="hero-title">Climate Journalists Worth Following</h1>
+    <p class="hero-description">A curated selection of independent voices covering climate, environment, and the energy transition.</p>
+
+    <!-- CURATOR CALLOUT -->
+    <div class="curator-block">
+      <div class="curator-left">
+        <div class="curator-label">Curated by</div>
+        <div class="curator-name">Jessica Stahl</div>
+        <div class="curator-role"><a href="https://jessicastahl.substack.com" target="_blank" rel="noopener">Climate journalist & newsletter writer</a></div>
+        
+      </div>
+      <div class="curator-right">
+        <span class="curator-count">19</span>
+        <span class="curator-count-label">Creators</span>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATOR LIST -->
+<section class="list-section">
+  <div class="container">
+    <div class="creator-grid" id="creator-grid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-cta-label">Discover more independent journalism</div>
+        <a href="https://journalismatlas.com" class="footer-cta-link" target="_blank" rel="noopener">
+          Explore the Full Atlas &rarr;
+        </a>
+      </div>
+      <a href="https://journalismatlas.com" class="footer-wordmark">
+        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas">
+      </a>
+      <p class="footer-attribution">Originally curated by <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener">Jessica Stahl</a> &nbsp;&middot;&nbsp; Published on the <a href="https://journalismatlas.com" target="_blank" rel="noopener">Independent Journalism Atlas</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const CREATORS = [
+  {
+    "name": "Amanda Royal",
+    "slug": "amanda-royal",
+    "channel": "Earth Hope",
+    "link": "https://earthhope.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Positive News",
+    "geography": "San Francisco, CA",
+    "geoCity": "San Francisco",
+    "geoState": "CA",
+    "geoCountry": "US",
+    "geoRegion": "West",
+    "groups": "Science, Health & Environment, General News",
+    "secondaryPlatforms": []
+  },
+  {
+    "name": "Andy Revkin",
+    "slug": "andy-revkin",
+    "channel": "Sustain What",
+    "link": "https://revkin.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Science, Media/Power",
+    "geography": "Maine - US",
+    "geoCity": "",
+    "geoState": "ME",
+    "geoCountry": "US",
+    "geoRegion": "Northeast",
+    "groups": "Science, Health & Environment, Culture & Media",
+    "secondaryPlatforms": [
+      {
+        "name": "Video - YouTube",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Caroline Saunders",
+    "slug": "caroline-saunders",
+    "channel": "Pale Blue Tart",
+    "link": "https://palebluetart.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Food",
+    "geography": "New York, NY",
+    "geoCity": "New York",
+    "geoState": "NY",
+    "geoCountry": "US",
+    "geoRegion": "Northeast",
+    "groups": "Science, Health & Environment, Lifestyle & Personal Life",
+    "secondaryPlatforms": [
+      {
+        "name": "Website",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Chris Clarke",
+    "slug": "chris-clarke",
+    "channel": "Letters from the Desert",
+    "link": "https://lettersfromthedesert.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment",
+    "geography": "California - US",
+    "geoCity": "",
+    "geoState": "CA",
+    "geoCountry": "US",
+    "geoRegion": "West",
+    "groups": "Science, Health & Environment",
+    "secondaryPlatforms": [
+      {
+        "name": "Video - Instagram",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Daniel Rothberg",
+    "slug": "daniel-rothberg",
+    "channel": "Invisible Waters",
+    "link": "https://invisiblewaters.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment",
+    "geography": "California - US",
+    "geoCity": "",
+    "geoState": "CA",
+    "geoCountry": "US",
+    "geoRegion": "West",
+    "groups": "Science, Health & Environment",
+    "secondaryPlatforms": [
+      {
+        "name": "Website",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "David Roberts",
+    "slug": "david-roberts",
+    "channel": "Volts",
+    "link": "https://www.volts.wtf",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Explanatory, Education, Tech",
+    "geography": "Washington - US",
+    "geoCity": "",
+    "geoState": "Washington",
+    "geoCountry": "United States",
+    "geoRegion": "West",
+    "groups": "Civic Life, Science, Health & Environment, Money & Work, Journalism Formats",
+    "secondaryPlatforms": [
+      {
+        "name": "Podcast",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Emily Sanders",
+    "slug": "emily-sanders",
+    "channel": "Exxon Knews",
+    "link": "https://www.exxonknews.org",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment",
+    "geography": "Washington, D.C.",
+    "geoCity": "Washington",
+    "geoState": "D.C.",
+    "geoCountry": "",
+    "geoRegion": "",
+    "groups": "Science, Health & Environment",
+    "secondaryPlatforms": []
+  },
+  {
+    "name": "Jacob Simon",
+    "slug": "jacob-simon",
+    "channel": "Jacobsimonsays",
+    "link": "https://www.instagram.com/jacobsimonsays",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Explanatory, Education",
+    "geography": "New York, NY",
+    "geoCity": "New York",
+    "geoState": "NY",
+    "geoCountry": "US",
+    "geoRegion": "Northeast",
+    "groups": "Civic Life, Science, Health & Environment, Journalism Formats",
+    "secondaryPlatforms": [
+      {
+        "name": "Newsletter - Substack",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "John Earl",
+    "slug": "john-earl",
+    "channel": "SoCal Water Wars",
+    "link": "https://socalwaterwars.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Government Accountability, Local News",
+    "geography": "California - US",
+    "geoCity": "",
+    "geoState": "CA",
+    "geoCountry": "US",
+    "geoRegion": "West",
+    "groups": "Power & Politics, Civic Life, Science, Health & Environment",
+    "secondaryPlatforms": []
+  },
+  {
+    "name": "Jonathan P. Thompson",
+    "slug": "jonathan-p-thompson",
+    "channel": "The Land Desk",
+    "link": "https://www.landdesk.org",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment",
+    "geography": "Colorado - US",
+    "geoCity": "",
+    "geoState": "CO",
+    "geoCountry": "US",
+    "geoRegion": "West",
+    "groups": "Science, Health & Environment",
+    "secondaryPlatforms": []
+  },
+  {
+    "name": "Laura Paskus",
+    "slug": "laura-paskus",
+    "channel": "Laura Paskus",
+    "link": "https://laurapaskus215494.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Local News, Government Accountability",
+    "geography": "New Mexico, U.S. ",
+    "geoCity": "New Mexico",
+    "geoState": "U.S.",
+    "geoCountry": "",
+    "geoRegion": "",
+    "groups": "Power & Politics, Civic Life, Science, Health & Environment",
+    "secondaryPlatforms": [
+      {
+        "name": "Social - Twitter / X",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Mike Shanahan",
+    "slug": "mike-shanahan",
+    "channel": "Nature Beat",
+    "link": "https://thenaturebeat.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Outdoors",
+    "geography": "United Kingdom",
+    "geoCity": "",
+    "geoState": "",
+    "geoCountry": "United Kingdom",
+    "geoRegion": "International",
+    "groups": "Science, Health & Environment, Lifestyle & Personal Life",
+    "secondaryPlatforms": [
+      {
+        "name": "Social - Twitter / X",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Miranda Green",
+    "slug": "miranda-green",
+    "channel": "Evergreen",
+    "link": "https://mirandacgreen.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Politics",
+    "geography": "Los Angeles, CA",
+    "geoCity": "Los Angeles",
+    "geoState": "CA",
+    "geoCountry": "US",
+    "geoRegion": "West",
+    "groups": "Power & Politics, Science, Health & Environment",
+    "secondaryPlatforms": [
+      {
+        "name": "Website",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Navya Singh",
+    "slug": "navya-singh",
+    "channel": "News with Navya",
+    "link": "https://www.instagram.com/newswithnavya",
+    "platform": "Video - Instagram",
+    "topic": "Climate/Environment, Education",
+    "geography": "India",
+    "geoCity": "",
+    "geoState": "",
+    "geoCountry": "India",
+    "geoRegion": "International",
+    "groups": "Civic Life, Science, Health & Environment",
+    "secondaryPlatforms": [
+      {
+        "name": "Video - YouTube",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Neelima Vallangi",
+    "slug": "neelima-vallangi",
+    "channel": "Climate Matters",
+    "link": "https://climatematters.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment",
+    "geography": "South Asia",
+    "geoCity": "",
+    "geoState": "",
+    "geoCountry": "",
+    "geoRegion": "South Asia",
+    "groups": "Science, Health & Environment",
+    "secondaryPlatforms": [
+      {
+        "name": "Video - Instagram",
+        "link": "https://www.instagram.com/neelimav"
+      }
+    ]
+  },
+  {
+    "name": "Rachel Donald",
+    "slug": "rachel-donald",
+    "channel": "Planet: Critical",
+    "link": "https://www.planetcritical.com",
+    "platform": "Newsletter - Ghost",
+    "topic": "Climate/Environment, Finance/Economics, Politics, World",
+    "geography": "United Kingdom",
+    "geoCity": "",
+    "geoState": "",
+    "geoCountry": "United Kingdom",
+    "geoRegion": "International",
+    "groups": "Power & Politics, Science, Health & Environment, Money & Work, General News",
+    "secondaryPlatforms": [
+      {
+        "name": "Video - Instagram",
+        "link": "https://www.instagram.com/planetcritical"
+      }
+    ]
+  },
+  {
+    "name": "Sophia Li",
+    "slug": "sophia-li",
+    "channel": "Steward",
+    "link": "https://www.instagram.com/sophfei",
+    "platform": "Podcast",
+    "topic": "Activism, Climate/Environment, Outdoors",
+    "geography": "New York, NY",
+    "geoCity": "New York",
+    "geoState": "NY",
+    "geoCountry": "US",
+    "geoRegion": "Northeast",
+    "groups": "Social Issues, Science, Health & Environment, Lifestyle & Personal Life",
+    "secondaryPlatforms": [
+      {
+        "name": "Podcast",
+        "link": ""
+      }
+    ]
+  },
+  {
+    "name": "Vince Beiser",
+    "slug": "vince-beiser",
+    "channel": "Power Metal",
+    "link": "https://powermetal.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Utility, Tech, Government Accountability",
+    "geography": "Canada",
+    "geoCity": "",
+    "geoState": "",
+    "geoCountry": "Canada",
+    "geoRegion": "International",
+    "groups": "Power & Politics, Civic Life, Science, Health & Environment, Money & Work",
+    "secondaryPlatforms": [
+      {
+        "name": "Website",
+        "link": "https://vincebeiser.com"
+      }
+    ]
+  },
+  {
+    "name": "Whitney Bauck",
+    "slug": "whitney-bauck",
+    "channel": "Unwrinkling",
+    "link": "https://whitneybauck.substack.com",
+    "platform": "Newsletter - Substack",
+    "topic": "Climate/Environment, Food, Explanatory",
+    "geography": "New York, NY",
+    "geoCity": "New York",
+    "geoState": "NY",
+    "geoCountry": "US",
+    "geoRegion": "Northeast",
+    "groups": "Science, Health & Environment, Journalism Formats, Lifestyle & Personal Life",
+    "secondaryPlatforms": [
+      {
+        "name": "Video - Instagram",
+        "link": "https://www.instagram.com/unwrinkling"
+      }
+    ]
+  }
+];
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function platformShortName(name) {
+  if (!name) return '';
+  const map = {
+    'Newsletter - Substack': 'Substack',
+    'Newsletter - Ghost': 'Ghost',
+    'Newsletter - Beehiiv': 'Beehiiv',
+    'Newsletter - Other': 'Newsletter',
+    'Video - YouTube': 'YouTube',
+    'Video - Instagram': 'Instagram',
+    'Video - TikTok': 'TikTok',
+    'Social - Twitter / X': 'X / Twitter',
+    'Social - Instagram': 'Instagram',
+    'Podcast': 'Podcast',
+    'Website': 'Website',
+  };
+  return map[name] || name;
+}
+
+function getStateBadge(c) {
+  if (c.geoState) return c.geoState.toUpperCase();
+  if (c.geoRegion === 'National') return 'US';
+  return '';
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderCreators() {
+  const grid = document.getElementById('creator-grid');
+  if (!grid) return;
+
+  grid.innerHTML = CREATORS.map(c => {
+    const platform = platformShortName(c.platform);
+    const secondaryPills = c.secondaryPlatforms
+      .filter(p => p.name)
+      .map(p => {
+        const label = platformShortName(p.name);
+        if (p.link) {
+          return `<a href="${p.link}" target="_blank" rel="noopener" class="pill pill-platform-secondary" onclick="event.stopPropagation()">${label}</a>`;
+        }
+        return `<span class="pill pill-platform-secondary">${label}</span>`;
+      }).join('');
+
+    const topicPills = c.topic
+      ? c.topic.split(',').map(t => `<span class="pill pill-topic">${t.trim()}</span>`).join('')
+      : '';
+
+    const stateBadge = getStateBadge(c);
+    const showRegion = c.geoRegion && c.geoRegion !== 'National';
+
+    return `
+      <a class="creator-card" href="${c.link}" target="_blank" rel="noopener">
+        <div class="creator-main">
+          <div class="creator-name">${c.name}</div>
+          <div class="creator-channel">${c.channel}</div>
+          <div class="creator-meta">
+            ${platform ? `<span class="pill pill-platform">${platform}</span>` : ''}
+            ${secondaryPills}
+            ${topicPills}
+          </div>
+        </div>
+        <div class="creator-right">
+          ${stateBadge ? `<span class="state-badge">${stateBadge}</span>` : ''}
+          ${showRegion ? `<span class="state-region">${c.geoRegion}</span>` : ''}
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+renderCreators();
+</script>
+
+</body>
+</html>
