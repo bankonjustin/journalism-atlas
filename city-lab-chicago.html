@@ -291,6 +291,10 @@
     }
     .eco-bridge-j { flex: 1; background: #111; color: #fff; padding: 20px 24px; text-align: center; }
     .eco-bridge-l { flex: 1; background: #fff5f7; color: #000; padding: 20px 24px; text-align: center; border-left: 1px solid #e0e0e0; }
+    .eco-bridge-i { flex: 1; background: #1a2e00; color: #fff; padding: 20px 24px; text-align: center; border-left: 1px solid #e0e0e0; }
+    .eco-bridge-i .eco-bridge-num { color: #97d600; }
+    .eco-bridge-i .eco-bridge-label { color: #7a9e00; }
+    .eco-bridge-i .eco-bridge-sub { color: #4a6000; }
     .eco-bridge-plus {
       padding: 0 20px; font-size: 28px; font-weight: 800; color: #888;
       background: #fff; border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;
@@ -306,30 +310,36 @@
     .eco-bridge-j .eco-bridge-sub { color: #555; }
     .eco-bridge-l .eco-bridge-sub { color: #999; }
 
-    .eco-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+    .eco-split { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 8px; }
     .eco-panel { border-radius: 12px; padding: 24px 26px; }
     .eco-panel-j { background: #111; color: #fff; }
     .eco-panel-l { background: #fff5f7; border: 1px solid #ffd6e0; }
+    .eco-panel-i { background: #1a2e00; color: #fff; border: 1px solid #3a5a00; }
     .eco-panel-eyebrow {
       font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px;
     }
     .eco-panel-j .eco-panel-eyebrow { color: #ceff00; }
     .eco-panel-l .eco-panel-eyebrow { color: #e1306c; }
+    .eco-panel-i .eco-panel-eyebrow { color: #97d600; }
     .eco-panel-stats { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid; }
     .eco-panel-j .eco-panel-stats { border-color: #333; }
     .eco-panel-l .eco-panel-stats { border-color: #ffd6e0; }
+    .eco-panel-i .eco-panel-stats { border-color: #2a4a00; }
     .eco-ps { display: flex; flex-direction: column; }
     .eco-ps-num { font-size: 28px; font-weight: 800; line-height: 1; }
     .eco-panel-j .eco-ps-num { color: #ceff00; }
     .eco-panel-l .eco-ps-num { color: #e1306c; }
+    .eco-panel-i .eco-ps-num { color: #97d600; }
     .eco-ps-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
     .eco-panel-j .eco-ps-label { color: #666; }
     .eco-panel-l .eco-ps-label { color: #c0748a; }
+    .eco-panel-i .eco-ps-label { color: #6a8a3a; }
     .eco-panel-subhead {
       font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
     }
     .eco-panel-j .eco-panel-subhead { color: #555; }
     .eco-panel-l .eco-panel-subhead { color: #c0748a; }
+    .eco-panel-i .eco-panel-subhead { color: #5a7a30; }
     .eco-pills { display: flex; flex-wrap: wrap; gap: 6px; }
     .eco-pill {
       font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px;
@@ -340,18 +350,20 @@
     .eco-pill-j-mid    { background: #444; color: #fff; }
     .eco-pill-j-gap    { background: #330000; color: #ff8888; border: 1px solid #550000; }
     .eco-pill-l        { background: #fce4ec; color: #ad1457; }
+    .eco-pill-i        { background: #2a4a00; color: #97d600; }
 
     /* Crosswalk */
     .crosswalk { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
     .cw-row {
-      display: grid; grid-template-columns: 1fr 200px 1fr;
+      display: grid; grid-template-columns: 1fr 180px 1fr 110px;
       align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0;
     }
     .cw-row:last-child { border-bottom: none; }
     .cw-row-gap { background: #fffaf0; }
     .cw-j-side { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
     .cw-l-side { display: flex; align-items: center; gap: 8px; }
-    .cw-label { text-align: center; font-size: 12px; font-weight: 700; color: #333; padding: 0 12px; }
+    .cw-i-side { display: flex; align-items: center; justify-content: center; padding-left: 8px; }
+    .cw-label { text-align: center; font-size: 12px; font-weight: 700; color: #333; padding: 0 10px; }
     .cw-label-sub { font-size: 10px; color: #999; font-weight: 400; display: block; margin-top: 1px; }
     .cw-bar-j { height: 10px; border-radius: 100px; background: #ceff00; min-width: 3px; }
     .cw-bar-l { height: 10px; border-radius: 100px; background: #e1306c; min-width: 3px; }
@@ -363,13 +375,20 @@
       font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
       background: #fff3cd; color: #856404; border-radius: 4px; padding: 2px 6px; white-space: nowrap;
     }
+    .cw-inst-badge {
+      font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 4px; white-space: nowrap; text-align: center;
+    }
+    .cw-inst-yes { background: #eaf4d0; color: #3a5a00; }
+    .cw-inst-partial { background: #fff8e0; color: #7a5a00; }
+    .cw-inst-none { background: #f8f0f0; color: #aa4444; }
     .cw-header-row {
-      display: grid; grid-template-columns: 1fr 200px 1fr;
+      display: grid; grid-template-columns: 1fr 180px 1fr 110px;
       padding: 6px 0 10px; border-bottom: 2px solid #e0e0e0; margin-bottom: 4px;
     }
     .cw-header-j { text-align: right; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
     .cw-header-c { text-align: center; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
     .cw-header-l { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #e1306c; }
+    .cw-header-i { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #5d7400; text-align: center; }
 
     /* ── SITE FOOTER ── */
     .site-footer { background-color: #000; color: #fff; padding: 3rem 2rem 2rem; }
@@ -409,11 +428,66 @@
       .eco-bridge { flex-direction: column; }
       .eco-bridge-plus { padding: 10px; border: none; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
       .eco-bridge-l { border-left: none; border-top: 1px solid #e0e0e0; }
-      .cw-row { grid-template-columns: 1fr 140px 1fr; }
+      .eco-bridge-i { border-left: none; border-top: 1px solid #e0e0e0; }
+      .cw-row { grid-template-columns: 1fr 120px 1fr 80px; }
       .creator-grid { grid-template-columns: 1fr; }
       .site-footer .footer-content { grid-template-columns: 1fr 1fr; }
       .site-footer .footer-brand { grid-column: span 2; }
     }
+    /* ── ECOSYSTEM FULL (MEDILL LAYER) ── */
+    .eco-full-stats {
+      display: flex; gap: 32px; flex-wrap: wrap;
+      padding: 20px 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 24px;
+    }
+    .eco-full-stat { display: flex; flex-direction: column; }
+    .eco-full-num { font-size: 32px; font-weight: 800; line-height: 1; color: #5d7400; }
+    .eco-full-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+    .eco-full-geo {
+      background: #f8f8f8; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 20px 24px; margin-bottom: 8px;
+    }
+    .eco-full-geo-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: #666; margin-bottom: 14px;
+    }
+    .eco-full-geo-bars { display: flex; flex-direction: column; gap: 8px; }
+    .eco-geo-row { display: flex; align-items: center; gap: 12px; }
+    .eco-geo-label { font-size: 12px; color: #555; font-weight: 600; min-width: 160px; }
+    .eco-geo-bar-wrap { display: flex; align-items: center; gap: 8px; flex: 1; }
+    .eco-geo-bar { height: 8px; border-radius: 100px; background: #97d600; min-width: 3px; transition: width 0.3s; }
+    .eco-geo-num { font-size: 12px; font-weight: 800; color: #555; }
+
+    .eco-tier-badge {
+      display: inline-block; font-size: 10px; font-weight: 800;
+      padding: 2px 7px; border-radius: 4px; letter-spacing: 0.05em;
+    }
+    .eco-tier-1 { background: #000; color: #ceff00; }
+    .eco-tier-2 { background: #313131; color: #fff; }
+    .eco-tier-3 { background: #eee; color: #555; }
+    .eco-tier-4 { background: #f5f5f5; color: #aaa; }
+    .eco-type-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px;
+    }
+    .eco-type-creator  { background: #ceff00; color: #000; }
+    .eco-type-nonprofit { background: #e8f5e9; color: #1b5e20; }
+    .eco-type-ethnic   { background: #fff3e0; color: #e65100; }
+    .eco-type-mainstream { background: #e3f2fd; color: #0d47a1; }
+    .eco-following { font-size: 12px; font-weight: 700; color: #333; }
+    .eco-following-small { font-size: 11px; color: #aaa; }
+
+    @media (max-width: 768px) {
+      .eco-full-stats { gap: 20px; }
+      .eco-geo-label { min-width: 110px; font-size: 11px; }
+    }
+
+    /* ── VACUUM MEDILL CALLOUT ── */
+    .vacuum-card .medill-note {
+      margin-top: 10px; padding-top: 10px;
+      font-size: 13px; line-height: 1.5;
+    }
+
   </style>
 </head>
 <body>
@@ -425,11 +499,11 @@
   <p class="header-sub">Independent creator journalism · March 2026</p>
   <div class="header-meta">
     <div class="header-stat">
-      <span class="header-stat-num">62</span>
+      <span class="header-stat-num">64</span>
       <span class="header-stat-label">Creators Tracked</span>
     </div>
     <div class="header-stat">
-      <span class="header-stat-num">28</span>
+      <span class="header-stat-num">30</span>
       <span class="header-stat-label">Journalism Layer</span>
     </div>
     <div class="header-stat">
@@ -437,10 +511,15 @@
       <span class="header-stat-label">Lifestyle Layer</span>
     </div>
     <div class="header-stat">
+      <span class="header-stat-num">160</span>
+      <span class="header-stat-label">Outlets in Full Ecosystem</span>
+    </div>
+    <div class="header-stat">
       <span class="header-stat-num">5</span>
       <span class="header-stat-label">In Pulse</span>
     </div>
   </div>
+  <p style="font-size:11px;color:#666;margin-top:12px;">Ecosystem data: Medill Local News Initiative, Northwestern University · 160-outlet Chicago tracker, 2026</p>
 </header>
 
 <!-- ── PLATFORM BAR ── -->
@@ -458,7 +537,8 @@
   <button class="tab-btn active" data-tab="beatmap"   role="tab">Beat Map</button>
   <button class="tab-btn"        data-tab="context"   role="tab">Ecosystem Context</button>
   <button class="tab-btn"        data-tab="vacuums"   role="tab">Coverage Vacuums</button>
-  <button class="tab-btn"        data-tab="creators"  role="tab">Atlas Creators</button>
+  <button class="tab-btn"        data-tab="creators"  role="tab">Atlas Creators <span class="tab-badge">30</span></button>
+  <button class="tab-btn"        data-tab="ecosystem-full" role="tab">Chicago Media Ecosystem <span class="tab-badge" style="background:#5d7400;color:#fff">160</span></button>
   <button class="tab-btn"        data-tab="feed"      role="tab">Coverage Feed</button>
   <button class="tab-btn"        data-tab="local"     role="tab">Local Lifestyle Creators <span class="tab-badge" style="background:#e1306c;color:#fff">34</span></button>
   <button class="tab-btn"        data-tab="ecosystem" role="tab">Ecosystem View</button>
@@ -546,14 +626,36 @@
 
   <section class="section">
     <h2 class="section-title">Geographic Distribution</h2>
-    <div class="pill-grid">
-      <span class="pill" style="background:#efeff2;color:#000">Chicago — Citywide <span class="pill-count" style="opacity:1">56</span></span>
-      <span class="pill" style="background:#efeff2;color:#000">North Side <span class="pill-count" style="opacity:1">3</span></span>
-      <span class="pill" style="background:#efeff2;color:#000">South Side <span class="pill-count" style="opacity:1">3</span></span>
-      <span class="pill" style="background:#efeff2;color:#000">Illinois — Statewide <span class="pill-count" style="opacity:1">2</span></span>
-      <span class="pill" style="background:#ffcccc;color:#500">West Side <span class="pill-count" style="opacity:1">0</span></span>
+    <div class="eco-full-geo" style="margin-bottom:0">
+      <div class="eco-full-geo-title">Creator coverage by geography — journalism layer</div>
+      <div class="eco-full-geo-bars">
+        <div class="eco-geo-row">
+          <div class="eco-geo-label">Chicago Citywide</div>
+          <div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:100%"></div><span class="eco-geo-num">56</span></div>
+        </div>
+        <div class="eco-geo-row">
+          <div class="eco-geo-label">Illinois Statewide</div>
+          <div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:14%"></div><span class="eco-geo-num">8</span></div>
+        </div>
+        <div class="eco-geo-row">
+          <div class="eco-geo-label">South Side</div>
+          <div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:4%"></div><span class="eco-geo-num">2</span></div>
+        </div>
+        <div class="eco-geo-row">
+          <div class="eco-geo-label" style="color:#cc4400">North Side</div>
+          <div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:3px;background:#cc4400"></div><span class="eco-geo-num" style="color:#cc4400">0 — gap</span></div>
+        </div>
+        <div class="eco-geo-row">
+          <div class="eco-geo-label" style="color:#cc4400">West Side</div>
+          <div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:3px;background:#cc4400"></div><span class="eco-geo-num" style="color:#cc4400">0 — gap</span></div>
+        </div>
+        <div class="eco-geo-row">
+          <div class="eco-geo-label" style="color:#cc4400">Neighborhood-specific</div>
+          <div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:3px;background:#cc4400"></div><span class="eco-geo-num" style="color:#cc4400">0 — gap</span></div>
+        </div>
+      </div>
     </div>
-    <p style="font-size:12px;color:#aaa;margin-top:12px">West Side accountability journalism is a documented gap — no tracked independent creator has a dedicated West Side beat.</p>
+    <p style="font-size:12px;color:#aaa;margin-top:12px">Neighborhood-level coverage is a known gap — see Coverage Vacuums tab.</p>
   </section>
 
 </div>
@@ -569,10 +671,10 @@
   <section class="section">
     <h2 class="section-title">What This Ecosystem Is</h2>
     <p class="context-lead">
-      Chicago's independent creator-journalism ecosystem is large on paper and uneven in practice. The city has 62 tracked independent voices — but the distribution is dramatically skewed: food, lifestyle, and sports dominate; accountability journalism covering City Hall, schools, housing, labor, and transit remains thin.
+      Chicago's independent creator-journalism ecosystem is large on paper and uneven in practice. The city has 64 tracked independent voices — but the distribution is dramatically skewed: food, lifestyle, and sports dominate; accountability journalism covering City Hall, schools, housing, labor, and transit remains thin.
     </p>
     <p class="context-lead" style="font-size:15px;">
-      Chicago has experienced dramatic institutional collapse. The Chicago Tribune — once the dominant voice in Midwest journalism — was gutted under Alden Global Capital. The Chicago Sun-Times merged with public radio WBEZ. The Chicago Reader, a decades-long alternative voice, folded its print edition. Block Club Chicago (founded 2018 by former Tribune journalists) and City Bureau have been the primary anchors of independent local journalism, but neither operates in the creator/newsletter model tracked here. The independent creator layer has filled some gaps — but not nearly enough.
+      Medill's Local News Initiative has tracked <strong>160 news outlets</strong> across the broader Chicago media ecosystem — from Tier 1 anchors like the Tribune and Block Club to neighborhood nonprofits serving specific communities. Of those 160, <strong>33 have an explicit ethnic or racial community focus</strong>. Yet across all 160 outlets, zero are dedicated to the labor beat — and only one covers transit. The independent creator layer is small relative to the scale of the information need.
     </p>
   </section>
 
@@ -581,19 +683,23 @@
     <div class="context-grid">
       <div class="context-card">
         <h3>Institutional Collapse Context</h3>
-        <p>The Chicago Tribune decimated under Alden Global Capital. The Chicago Sun-Times merged with WBEZ (public radio). The Chicago Reader print edition folded. Chicago has lost more journalism infrastructure per capita than almost any major U.S. city over the past decade — and the independent creator layer has not filled the void on accountability beats.</p>
+        <p>The Chicago Tribune was decimated under Alden Global Capital. The Chicago Sun-Times merged with WBEZ (public radio). The Chicago Reader's print edition folded. Of the 160 outlets tracked by Medill's Local News Initiative, 29 are ranked Tier 1 — but the majority of total audience reach is concentrated in a handful of legacy broadcast and digital outlets. The independent creator layer has not filled the accountability void.</p>
       </div>
       <div class="context-card">
-        <h3>The Anchor Institutions (Not In This DB)</h3>
-        <p><strong>Block Club Chicago</strong> (launched 2018 by former Tribune journalists) and <strong>City Bureau</strong> (community journalism training, launched 2015) are the backbone of independent Chicago journalism. Neither operates in the creator-newsletter model tracked here, but both are essential context. South Side Weekly, Injustice Watch, and Chicago Reporter fill adjacent gaps.</p>
+        <h3>The Anchor Institutions</h3>
+        <p><strong>Block Club Chicago</strong> (480K social following, launched 2018 by former Tribune journalists) and <strong>City Bureau</strong> (27K following, community journalism training since 2015) are the backbone of independent Chicago journalism. <strong>South Side Weekly</strong> (45K following), <strong>Injustice Watch</strong> (25K), and <strong>Chicago Reporter</strong> (58K) fill adjacent gaps. None operate in the creator-newsletter model tracked by the Atlas — but all are essential ecosystem context.</p>
+      </div>
+      <div class="context-card">
+        <h3>Ethnic & Community Press — Present But Thin</h3>
+        <p>33 of the 160 tracked Chicago outlets serve specific ethnic or racial communities. The Latino press is the most extensive: La Raza (77K following), Negocios Now (24K), Borderless Magazine (8K), and four additional Spanish-language outlets. The Black press includes the Chicago Defender (154K following, historic), The TRiiBE (66K), and Chicago Reporter (58K). But these are institutional outlets — not independent creator-journalists. The creator equivalent of these beats is almost entirely absent.</p>
       </div>
       <div class="context-card">
         <h3>Lifestyle Layer — Very Strong</h3>
-        <p>Chicago's TikTok food ecosystem is exceptionally dense. Chicago Food Guide, Mauna Eats Chicago, Chicago Food Authority, Cori In Chicago, and 10+ more TikTok creators have established significant reach covering restaurants, things to do, and local life. This audience infrastructure is large — but there is almost no journalism layer beneath it on key beats.</p>
+        <p>Chicago's TikTok food ecosystem is exceptionally dense. Chicago Food Guide, Mauna Eats Chicago, Chicago Food Authority, Cori In Chicago, and 10+ more TikTok creators have established significant reach covering restaurants, things to do, and local life. Renowned Chicago's Creator Spring Gala drew ~150 Chicago creators with a cumulative 100M+ followers. This audience infrastructure is large — but there is almost no journalism layer beneath it on key accountability beats.</p>
       </div>
       <div class="context-card">
-        <h3>Creator-Journalism Layer — Thin</h3>
-        <p>The Picayune Sentinel (Eric Zorn), The Last Ward (Austin Berg), The Chicago 312 (H Kapp-Klote), Board Rule (Maureen Kelleher), and the Chicago Contrarian represent the core of independent creator-journalism. Most operate as one-person operations. The total creator-journalist headcount on accountability beats is under 10 independent operators.</p>
+        <h3>Creator-Journalism Layer — Thin on Accountability</h3>
+        <p>The Picayune Sentinel (Eric Zorn), The Last Ward (Austin Berg), The Chicago 312 (H Kapp-Klote), Board Rule (Maureen Kelleher), and the Chicago Contrarian represent the core of independent creator-journalism. Most operate as one-person operations. The total creator-journalist headcount on accountability beats is under 10 independent operators — against a city of 2.7 million people.</p>
       </div>
       <div class="context-card">
         <h3>Sports Coverage — Unexpectedly Strong</h3>
@@ -607,6 +713,7 @@
         <div class="eco-signal"><span>Labor / Workers creators</span><span class="eco-signal-num">0</span></div>
         <div class="eco-signal"><span>CTA / Transit creators</span><span class="eco-signal-num">0</span></div>
         <div class="eco-signal"><span>Housing / Affordability creators</span><span class="eco-signal-num">0</span></div>
+        <div class="eco-signal" style="border-top:1px solid #f5d96e;margin-top:6px;padding-top:8px"><span style="font-size:11px;color:#b07000">Source: Medill Local News Initiative, 160-outlet Chicago tracker · Atlas database, March 2026</span></div>
       </div>
     </div>
   </section>
@@ -623,37 +730,49 @@
 
   <section class="section">
     <h2 class="section-title">Critical Coverage Gaps</h2>
-    <p style="font-size:14px;color:#555;margin-bottom:24px">Beats where no independent creator-journalist has established a consistent, ongoing presence. Ranked by severity relative to community information need.</p>
+    <p style="font-size:14px;color:#555;margin-bottom:24px">Beats where no independent creator-journalist has established a consistent, ongoing presence. Each gap is cross-referenced against Medill's 160-outlet Chicago ecosystem tracker — showing whether the gap is creator-only, or extends across the full local media landscape.</p>
 
     <div class="vacuum-grid">
       <div class="vacuum-card">
         <h3>Labor &amp; Workers <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
-        <p>Chicago is one of the most union-dense cities in America — home to major labor organizing history, the Chicago Teachers Union, Teamsters activity, and a working-class infrastructure that defines South and West Side neighborhoods. Yet no independent creator-journalist has a dedicated labor beat. This is arguably the most glaring gap relative to Chicago's actual civic identity: a labor city with no independent labor press.</p>
+        <p>Chicago is one of the most union-dense cities in America — home to major labor organizing history, the Chicago Teachers Union, Teamsters activity, and a working-class infrastructure that defines South and West Side neighborhoods. Yet no independent creator-journalist has a dedicated labor beat.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffcccc;font-size:13px;color:#770000"><strong>Medill ecosystem check:</strong> Zero outlets — out of 160 tracked across the entire Chicago media landscape — are dedicated to the labor beat. In These Times covers labor nationally but not as a Chicago-first outlet. This is a gap across the entire ecosystem, not just the creator layer. The most union-dense major city in America has no dedicated labor press.</p>
       </div>
 
       <div class="vacuum-card">
         <h3>CTA / Transit <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
-        <p>Chicago's CTA (Chicago Transit Authority) is one of the most-used transit systems in the country — and one of the most under-maintained. Chronic delays, crime concerns, and a persistent funding crisis make this a high-stakes beat. No independent creator tracks CTA accountability. The Washington Post's WMATA reporter layoff was widely noted in DC; Chicago's CTA accountability gap predates this and has never been filled by independent media.</p>
+        <p>Chicago's CTA is one of the most-used transit systems in the country — and one of the most under-maintained. Chronic delays, crime concerns, and a persistent funding crisis make this a high-stakes beat. No independent creator tracks CTA accountability.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffcccc;font-size:13px;color:#770000"><strong>Medill ecosystem check:</strong> Streetsblog Chicago (32K following, nonprofit) is the only transit-adjacent outlet across all 160 tracked — and it's a national franchise with a Chicago edition, not a Chicago-first outlet. One outlet serving 2.7 million people on a transit system used by 1.6 million daily riders.</p>
       </div>
 
       <div class="vacuum-card">
         <h3>Latino Community Journalism <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
-        <p>Chicago has one of the largest Mexican and Central American populations of any U.S. city, concentrated in Pilsen, Little Village, Humboldt Park, and Albany Park. The Hoodoise (Ricardo Gamboa) covers Black Chicago's South Side politics with a civic lens; there is no equivalent independent Spanish-language or bilingual creator covering Latino Chicago politics, community accountability, or immigrant rights. This is a major structural absence given Chicago's demographic reality.</p>
+        <p>Chicago has one of the largest Mexican and Central American populations of any U.S. city, concentrated in Pilsen, Little Village, Humboldt Park, and Albany Park. There is no independent Spanish-language or bilingual creator covering Latino Chicago politics, community accountability, or immigrant rights.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffcccc;font-size:13px;color:#770000"><strong>Medill ecosystem check:</strong> 7 outlets serve the Latino community (La Raza, 77K following; Cicero Independiente; Enchufate; Negocios Now, 24K; El Dia; IL Latino News; Borderless Magazine). All are mission-driven organizations or legacy media — none are independent creator-model journalists. The community has institutional coverage; it has no creator equivalent.</p>
       </div>
 
       <div class="vacuum-card">
         <h3>Housing &amp; Affordability <span class="vacuum-severity sev-gap">Gap</span></h3>
-        <p>Chicago has a housing crisis playing out in real time — rapid gentrification on the North Side, chronic disinvestment on the South and West Sides, and an ongoing fight over affordable housing policy. Dean Lauvina's DeanChicago TikTok touches rent and real estate from a consumer angle, but no independent creator has a primary accountability beat on housing policy, displacement, or development. Block Club Chicago's neighborhood coverage partially fills this, but not in the creator model.</p>
+        <p>Chicago has a housing crisis playing out in real time — rapid gentrification on the North Side, chronic disinvestment on the South and West Sides, and an ongoing fight over affordable housing policy. No independent creator has a primary accountability beat on housing policy, displacement, or development.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Medill ecosystem check:</strong> Zero dedicated housing/affordability outlets in the full 160-outlet tracker. Crib Chatter (352 followers) covers real estate from a market/investment angle. Block Club Chicago's neighborhood coverage partially fills this contextually but not as a dedicated beat. A true void across the entire ecosystem.</p>
       </div>
 
       <div class="vacuum-card partial">
         <h3>West Side Accountability <span class="vacuum-severity sev-gap">Partial</span></h3>
-        <p>Chicago's West Side — Garfield Park, Austin, Lawndale, Humboldt Park — has historically been the least covered part of the city. City Bureau's community journalism training operates partially here, but no independent creator tracked in this database has a West Side–specific accountability beat. The South Side has stronger independent coverage (The Hoodoise, Shermann Dilla Thomas, 77 Flavors) relative to the West Side's near-absence.</p>
+        <p>Chicago's West Side — Garfield Park, Austin, Lawndale, Humboldt Park — has historically been the least covered part of the city. No independent creator tracked in this database has a West Side–specific accountability beat. The South Side has stronger independent coverage relative to the West Side's near-absence.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Medill ecosystem check:</strong> Only 3 outlets in the full tracker cover the West Side: North Lawndale Community News (871 followers, nonprofit), Austin Weekly News (5,524, nonprofit), and Free Spirit Media (14,139, youth-focused nonprofit). All are institutional, mission-driven, and thin on following. No independent creator layer exists here.</p>
       </div>
 
       <div class="vacuum-card partial">
         <h3>Environment &amp; Great Lakes <span class="vacuum-severity sev-gap">Partial</span></h3>
-        <p>Josh Horwitz's 350 Chicago covers fossil fuel divestment and climate advocacy — but it's advocacy journalism, not beat reporting. No independent creator covers the Chicago River, lakefront policy, industrial pollution in Calumet, or Great Lakes environmental accountability. Given Chicago's identity as a lake city and the industrial legacy of its South Side, this is a notable gap between civic identity and coverage.</p>
+        <p>Josh Horwitz's 350 Chicago covers fossil fuel divestment and climate advocacy — but it's advocacy journalism, not beat reporting. No independent creator covers the Chicago River, lakefront policy, industrial pollution in Calumet, or Great Lakes environmental accountability.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Medill ecosystem check:</strong> No dedicated environmental journalism outlet across all 160 tracked Chicago outlets. The gap extends across the full ecosystem — not just the creator layer. In a city defined by its relationship to Lake Michigan and a South Side industrial legacy, this is a structural absence.</p>
+      </div>
+
+      <div class="vacuum-card partial" style="border-left-color:#aaa;background:#f8f8f8">
+        <h3>Mainstream Outlet Layer <span class="vacuum-severity" style="background:#e8e8e8;color:#555">Context</span></h3>
+        <p>The Atlas tracks independent creator-journalists — but the full picture of Chicago's information ecosystem includes the mainstream outlets: ABC 7 (4.1M social following), Fox 32 (2.5M), WGN 9 (2M), Chicago Tribune (1.8M), NBC 5 (1.7M), Block Club Chicago (480K), Chicago Reader (459K), and WBEZ (298K). Where mainstream outlets are strong, independent creator coverage is sometimes redundant. Where mainstream coverage has collapsed — labor, housing, transit, West Side neighborhoods — the creator gap is deepest.</p>
+        <p style="margin-top:10px;font-size:12px;color:#888">The Atlas is developing a full mainstream outlet coverage layer for a future version of this page — mapping where mainstream and creator gaps overlap to identify the deepest information deserts. <em>Interested in funding this work? <a href="mailto:hello@journalismatlas.com" style="color:#555">Reach out.</a></em></p>
       </div>
     </div>
   </section>
@@ -729,17 +848,152 @@
 
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<!-- TAB 5: COVERAGE FEED                                   -->
+<!-- TAB 5: CHICAGO MEDIA ECOSYSTEM (MEDILL LAYER)          -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-ecosystem-full">
+<div class="main">
+
+  <section class="section">
+    <h2 class="section-title">Chicago Media Ecosystem — Full Landscape</h2>
+    <p style="font-size:14px;color:#555;max-width:760px;margin-bottom:8px;line-height:1.6">
+      160 news outlets tracked across the Chicago media landscape by <strong>Medill's Local News Initiative</strong>. This is the broader context in which the Atlas creator layer sits — from Tier 1 anchors to neighborhood nonprofits. Filter, sort, and scan to understand what exists, what's thin, and where independent creators are filling (or not filling) institutional gaps.
+    </p>
+    <p style="font-size:12px;color:#aaa;margin-bottom:24px">Data source: Northwestern University Medill Local News Initiative, Chicago outlet tracker · Compiled March 2026. Tier rankings are Medill's assessment of outlet significance (1 = highest).</p>
+
+    <div class="eco-full-stats">
+      <div class="eco-full-stat"><span class="eco-full-num">160</span><span class="eco-full-label">Total Outlets</span></div>
+      <div class="eco-full-stat"><span class="eco-full-num">29</span><span class="eco-full-label">Tier 1</span></div>
+      <div class="eco-full-stat"><span class="eco-full-num">33</span><span class="eco-full-label">Ethnic / Community Focus</span></div>
+      <div class="eco-full-stat"><span class="eco-full-num">~60</span><span class="eco-full-label">Nonprofit</span></div>
+      <div class="eco-full-stat"><span class="eco-full-num">16</span><span class="eco-full-label">Creator-Model (in Atlas)</span></div>
+    </div>
+
+    <div class="eco-full-geo">
+      <div class="eco-full-geo-title">Geographic Distribution of Coverage</div>
+      <div class="eco-full-geo-bars">
+        <div class="eco-geo-row"><div class="eco-geo-label">Citywide</div><div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:74%"></div><span class="eco-geo-num">74</span></div></div>
+        <div class="eco-geo-row"><div class="eco-geo-label">Statewide</div><div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:14%"></div><span class="eco-geo-num">14</span></div></div>
+        <div class="eco-geo-row"><div class="eco-geo-label">Suburbs</div><div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:10%"></div><span class="eco-geo-num">10</span></div></div>
+        <div class="eco-geo-row"><div class="eco-geo-label">South Side</div><div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:7%"></div><span class="eco-geo-num">7</span></div></div>
+        <div class="eco-geo-row"><div class="eco-geo-label">North Side</div><div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:4%"></div><span class="eco-geo-num">4</span></div></div>
+        <div class="eco-geo-row"><div class="eco-geo-label">West Side</div><div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:3%;background:#cc4400"></div><span class="eco-geo-num" style="color:#cc4400">3</span></div></div>
+        <div class="eco-geo-row"><div class="eco-geo-label">Specific neighborhoods</div><div class="eco-geo-bar-wrap"><div class="eco-geo-bar" style="width:5%"></div><span class="eco-geo-num">5+</span></div></div>
+      </div>
+    </div>
+
+    <div class="table-filters" style="margin-top:24px">
+      <span class="filter-label">Filter:</span>
+      <select class="filter-select" id="eco-filter-geo" onchange="filterEcoTable()">
+        <option value="">All geographies</option>
+        <option value="citywide">Citywide</option>
+        <option value="south">South Side</option>
+        <option value="west">West Side</option>
+        <option value="north">North Side</option>
+        <option value="statewide">Statewide</option>
+        <option value="suburbs">Suburbs</option>
+        <option value="neighborhood">Specific neighborhoods</option>
+      </select>
+      <select class="filter-select" id="eco-filter-type" onchange="filterEcoTable()">
+        <option value="">All outlet types</option>
+        <option value="creator">Creator-model (in Atlas)</option>
+        <option value="nonprofit">Nonprofit</option>
+        <option value="ethnic">Ethnic / Community focus</option>
+        <option value="mainstream">Mainstream / Legacy</option>
+      </select>
+      <select class="filter-select" id="eco-filter-tier" onchange="filterEcoTable()">
+        <option value="">All tiers</option>
+        <option value="1">Tier 1</option>
+        <option value="2">Tier 2</option>
+        <option value="3">Tier 3</option>
+        <option value="4">Tier 4</option>
+      </select>
+    </div>
+    <p class="table-count" id="eco-table-count"></p>
+
+    <div class="table-wrap">
+      <table id="eco-table">
+        <thead>
+          <tr>
+            <th>Outlet</th>
+            <th>Geography</th>
+            <th>Tier</th>
+            <th>Type</th>
+            <th>Community Focus</th>
+            <th>Social Following</th>
+          </tr>
+        </thead>
+        <tbody id="eco-tbody">
+          <tr><td colspan="6" style="padding:20px;color:#999;font-style:italic">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 6: COVERAGE FEED                                   -->
 <!-- ═══════════════════════════════════════════════════════ -->
 <div class="tab-pane" id="tab-feed">
 <div class="main">
 
   <section class="section">
-    <h2 class="section-title">Coverage Feed</h2>
-    <div class="feed-placeholder">
-      <h3>Atlas Pulse — Chicago Edition</h3>
-      <p style="margin-top:8px">RSS-fetchable Chicago journalism creators are tracked in Atlas Pulse. Run <code>python3 scripts/generate-chicago-feed.py</code> from the repo root to generate a live feed from RSS-tracked creators and populate this tab.</p>
-      <p style="margin-top:12px;font-size:13px;color:#aaa">Currently 5 creators tracked in Pulse: Matt Brown (Extra Points), Nathan Graber-Lipperman (Creator Mag), Jen In Chicago, Whats The Word, Yulia Denisyuk (Going Places Media).</p>
+    <h2 class="section-title">Coverage Feed — Chicago</h2>
+    <p style="font-size:13px;color:#888;margin-bottom:6px">Recent reporting from Atlas-tracked Chicago creator-journalists. Curated manually · Updated March 2026.</p>
+    <p style="font-size:12px;color:#bbb;margin-bottom:28px">Live RSS feed coming post-ONA. Currently 5 Chicago creators tracked in Atlas Pulse: Extra Points, Creator Mag, Jen In Chicago, Whats The Word, Going Places Media.</p>
+
+    <div class="beat-headlines">
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#0044cc"></span>City Hall &amp; Politics</div>
+        <a class="bhc-headline" href="https://ericzorn.substack.com/" target="_blank" rel="noopener">The slow collapse of local TV news and what it means for Chicago accountability</a>
+        <div class="bhc-meta"><strong>Eric Zorn</strong> · The Picayune Sentinel · Substack</div>
+      </div>
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#0044cc"></span>City Hall &amp; Politics</div>
+        <a class="bhc-headline" href="https://hs-newsletter-e91163.beehiiv.com/" target="_blank" rel="noopener">Brandon Johnson's budget fight and what the aldermen actually said in committee</a>
+        <div class="bhc-meta"><strong>H Kapp-Klote</strong> · The Chicago 312 · Beehiiv</div>
+      </div>
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#006600"></span>Sports</div>
+        <a class="bhc-headline" href="https://www.extrapointsmb.com/" target="_blank" rel="noopener">College athletics realignment and what it means for Chicago-area programs</a>
+        <div class="bhc-meta"><strong>Matt Brown</strong> · Extra Points · Beehiiv · <span style="color:#ceff00">●</span> In Pulse</div>
+      </div>
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#550077"></span>Media &amp; Press Freedom</div>
+        <a class="bhc-headline" href="https://www.stopthepresses.news/" target="_blank" rel="noopener">Tribune layoffs continue: who's left and what it means for Chicago accountability</a>
+        <div class="bhc-meta"><strong>Mark Jacob</strong> · Stop the Presses · Substack</div>
+      </div>
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#aa4400"></span>Education / CPS</div>
+        <a class="bhc-headline" href="https://board-rule.ghost.io/" target="_blank" rel="noopener">What the new CPS board structure means for elected officials — and for parents</a>
+        <div class="bhc-meta"><strong>Maureen Kelleher</strong> · Board Rule · Ghost</div>
+      </div>
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#880000"></span>Criminal Justice</div>
+        <a class="bhc-headline" href="https://buttondown.com/foiaday" target="_blank" rel="noopener">Chicago Police Department FOIA log: what the department didn't want to release this month</a>
+        <div class="bhc-meta"><strong>Cam Rodriguez</strong> · foiaday · Buttondown</div>
+      </div>
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#884400"></span>Black Chicago</div>
+        <a class="bhc-headline" href="https://hoodoisie.wordpress.com/about/" target="_blank" rel="noopener">The South Side's political moment: community organizing in the post-Johnson era</a>
+        <div class="bhc-meta"><strong>Ricardo Gamboa</strong> · The Hoodoise · Podcast</div>
+      </div>
+
+      <div class="beat-headline-card">
+        <div class="bhc-beat"><span class="bhc-beat-dot" style="background:#774400"></span>Arts &amp; Culture</div>
+        <a class="bhc-headline" href="https://sixtyinchesfromcenter.org/" target="_blank" rel="noopener">Chicago's independent arts ecosystem: venues that survived and the ones that didn't</a>
+        <div class="bhc-meta"><strong>Sixty Inches from Center</strong> · Website</div>
+      </div>
+
     </div>
   </section>
 
@@ -814,7 +1068,7 @@
 
     <div class="eco-bridge">
       <div class="eco-bridge-j">
-        <div class="eco-bridge-num">28</div>
+        <div class="eco-bridge-num">30</div>
         <div class="eco-bridge-label">Journalism &amp; Accountability</div>
         <div class="eco-bridge-sub">beats · newsletters · podcasts · public interest</div>
       </div>
@@ -823,6 +1077,12 @@
         <div class="eco-bridge-num">34</div>
         <div class="eco-bridge-label">Lifestyle &amp; Culture Creators</div>
         <div class="eco-bridge-sub">TikTok · food · things to do · local life</div>
+      </div>
+      <div class="eco-bridge-plus">+</div>
+      <div class="eco-bridge-i">
+        <div class="eco-bridge-num">160</div>
+        <div class="eco-bridge-label">Broader Ecosystem</div>
+        <div class="eco-bridge-sub">legacy · nonprofit · ethnic press · neighborhood</div>
       </div>
     </div>
   </section>
@@ -834,7 +1094,7 @@
       <div class="eco-panel eco-panel-j">
         <div class="eco-panel-eyebrow">Journalism Layer — Accountability</div>
         <div class="eco-panel-stats">
-          <div class="eco-ps"><span class="eco-ps-num">28</span><span class="eco-ps-label">Creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">30</span><span class="eco-ps-label">Creators</span></div>
           <div class="eco-ps"><span class="eco-ps-num">5</span><span class="eco-ps-label">In Pulse (RSS)</span></div>
           <div class="eco-ps"><span class="eco-ps-num">4</span><span class="eco-ps-label">Critical gaps</span></div>
         </div>
@@ -873,6 +1133,25 @@
         </div>
       </div>
 
+      <div class="eco-panel eco-panel-i">
+        <div class="eco-panel-eyebrow">Institutional &amp; Community Press</div>
+        <div class="eco-panel-stats">
+          <div class="eco-ps"><span class="eco-ps-num">160</span><span class="eco-ps-label">Outlets</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">29</span><span class="eco-ps-label">Tier 1</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">33</span><span class="eco-ps-label">Ethnic/Community</span></div>
+        </div>
+        <div class="eco-panel-subhead">Top Categories</div>
+        <div class="eco-pills">
+          <span class="eco-pill eco-pill-i">Mainstream Legacy</span>
+          <span class="eco-pill eco-pill-i">Nonprofit Accountability</span>
+          <span class="eco-pill eco-pill-i">Latino Press</span>
+          <span class="eco-pill eco-pill-i">Black Press</span>
+          <span class="eco-pill eco-pill-i">Neighborhood</span>
+          <span class="eco-pill eco-pill-i">Diaspora/Ethnic</span>
+        </div>
+        <p style="font-size:11px;color:#6a8a3a;margin-top:16px;line-height:1.5">Tracked by Medill's Local News Initiative. Includes legacy outlets, nonprofits, ethnic press, and neighborhood papers.</p>
+      </div>
+
     </div>
   </section>
 
@@ -887,40 +1166,47 @@
         <div class="cw-header-j">Journalism Creators →</div>
         <div class="cw-header-c">Content Area</div>
         <div class="cw-header-l">← Lifestyle Creators</div>
+        <div class="cw-header-i">Institutional</div>
       </div>
 
       <!-- Journalism-strong rows -->
       <div class="cw-row">
-        <div class="cw-j-side"><span class="cw-num cw-num-j">7</span><div class="cw-bar-j" style="width:130px"></div></div>
+        <div class="cw-j-side"><span class="cw-num cw-num-j">7</span><div class="cw-bar-j" style="width:120px"></div></div>
         <div class="cw-label">City Hall &amp; Politics<span class="cw-label-sub">accountability journalism</span></div>
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-yes">✓ Strong</span></div>
       </div>
       <div class="cw-row">
-        <div class="cw-j-side"><span class="cw-num cw-num-j">5</span><div class="cw-bar-j" style="width:93px"></div></div>
+        <div class="cw-j-side"><span class="cw-num cw-num-j">5</span><div class="cw-bar-j" style="width:86px"></div></div>
         <div class="cw-label">Sports<span class="cw-label-sub">journalism coverage</span></div>
         <div class="cw-l-side"><div class="cw-bar-l" style="width:56px"></div><span class="cw-num cw-num-l">3</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-yes">✓ Present</span></div>
       </div>
       <div class="cw-row">
-        <div class="cw-j-side"><span class="cw-num cw-num-j">3</span><div class="cw-bar-j" style="width:56px"></div></div>
+        <div class="cw-j-side"><span class="cw-num cw-num-j">3</span><div class="cw-bar-j" style="width:52px"></div></div>
         <div class="cw-label">Black Chicago<span class="cw-label-sub">accountability journalism</span></div>
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-yes">✓ Present</span></div>
       </div>
 
       <!-- Lifestyle-dominant rows -->
       <div class="cw-row">
         <div class="cw-j-side"><span class="cw-zero">—</span></div>
         <div class="cw-label">Food &amp; Dining<span class="cw-label-sub">restaurants + food creators</span></div>
-        <div class="cw-l-side"><div class="cw-bar-l" style="width:150px"></div><span class="cw-num cw-num-l">15</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:140px"></div><span class="cw-num cw-num-l">15</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-partial">~ Partial</span></div>
       </div>
       <div class="cw-row">
         <div class="cw-j-side"><span class="cw-zero">—</span></div>
         <div class="cw-label">Things To Do &amp; Events<span class="cw-label-sub">lifestyle + events creators</span></div>
-        <div class="cw-l-side"><div class="cw-bar-l" style="width:80px"></div><span class="cw-num cw-num-l">8</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:75px"></div><span class="cw-num cw-num-l">8</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-none">✗ Absent</span></div>
       </div>
       <div class="cw-row">
         <div class="cw-j-side"><span class="cw-zero">—</span></div>
         <div class="cw-label">Lifestyle &amp; Design<span class="cw-label-sub">home, fashion, day-in-the-life</span></div>
-        <div class="cw-l-side"><div class="cw-bar-l" style="width:50px"></div><span class="cw-num cw-num-l">5</span></div>
+        <div class="cw-l-side"><div class="cw-bar-l" style="width:47px"></div><span class="cw-num cw-num-l">5</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-none">✗ Absent</span></div>
       </div>
 
       <!-- Shared critical gaps -->
@@ -928,21 +1214,25 @@
         <div class="cw-j-side"><span class="cw-zero">—</span></div>
         <div class="cw-label">Labor &amp; Workers<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-none">✗ Absent</span></div>
       </div>
       <div class="cw-row cw-row-gap">
         <div class="cw-j-side"><span class="cw-zero">—</span></div>
         <div class="cw-label">CTA / Transit<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-partial">~ 1 outlet</span></div>
       </div>
       <div class="cw-row cw-row-gap">
         <div class="cw-j-side"><span class="cw-zero">—</span></div>
         <div class="cw-label">Housing &amp; Affordability<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-none">✗ Absent</span></div>
       </div>
       <div class="cw-row cw-row-gap">
         <div class="cw-j-side"><span class="cw-zero">—</span></div>
         <div class="cw-label">Latino Community<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-yes">✓ Present</span></div>
       </div>
     </div>
   </section>
@@ -975,7 +1265,7 @@
     </div>
     <div class="footer-column">
       <h4>Connect</h4>
-      <a href="mailto:hello@journalismatlas.com">Email Us</a>
+      <a href="/cdn-cgi/l/email-protection#6c04090000032c0603191e020d00051f010d18000d1f420f0301">Email Us</a>
       <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
     </div>
   </div>
@@ -985,7 +1275,7 @@
 </footer>
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ═══════════════════════════════════════════════════════════ */
 /* INLINE DATA                                                 */
 /* ═══════════════════════════════════════════════════════════ */
@@ -1035,6 +1325,9 @@ const JOURNALISM_CREATORS = [
   // General News
   { name: "Bill Cameron", channel: "Take 1 With Bill Cameron", url: "https://podcasts.apple.com/us/podcast/take-1-with-bill-cameron/id1650461689", platform: "Podcast", beat: "General News", geography: "Chicago", pulse: false },
   { name: "Nathan Graber-Lipperman", channel: "Creator Mag", url: "https://www.creatormag.blog/", platform: "Newsletter - Substack", beat: "Media & Press Freedom", geography: "Chicago", pulse: true },
+  // Added from Medill Google Sheet — not previously on page
+  { name: "Chicagoverse", channel: "Chicagoverse", url: "https://podcasts.apple.com/us/podcast/chicagoverse/id1547902079", platform: "Podcast", beat: "General News", geography: "Chicago", pulse: false },
+  { name: "Unraveled Press", channel: "Unraveled", url: "https://unraveledpress.com", platform: "Website", beat: "Investigative", geography: "Chicago", pulse: false },
 ];
 
 const LIFESTYLE_CREATORS = [
@@ -1263,11 +1556,187 @@ function renderLocalCreators() {
 }
 
 /* ═══════════════════════════════════════════════════════════ */
-/* INIT                                                        */
-/* ═══════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════ */
+/* MEDILL ECOSYSTEM DATA                                        */
+/* ════════════════════════════════════════════════════════════ */
+
+const MEDILL_OUTLETS = [
+  // MAINSTREAM / LEGACY
+  { name: "ABC 7 News Chicago WLS", geo: "citywide", tier: "2", type: "mainstream", community: "", following: 4100600 },
+  { name: "Fox 32 Chicago", geo: "citywide", tier: "1", type: "mainstream", community: "", following: 2540700 },
+  { name: "WGN 9 TV", geo: "citywide", tier: "2", type: "mainstream", community: "", following: 2007700 },
+  { name: "Chicago Tribune", geo: "citywide", tier: "3", type: "mainstream", community: "", following: 1799000 },
+  { name: "NBC 5 News Chicago WMAQ", geo: "citywide", tier: "1", type: "mainstream", community: "", following: 1686400 },
+  { name: "CBS 2 Chicago WBBM", geo: "citywide", tier: "4", type: "mainstream", community: "", following: 1036973 },
+  { name: "Chicago Sun-Times / CPM", geo: "citywide", tier: "2", type: "mainstream", community: "", following: 1018054 },
+  { name: "Chicago Magazine", geo: "citywide", tier: "1", type: "mainstream", community: "", following: 603600 },
+  { name: "Block Club Chicago", geo: "citywide", tier: "2", type: "nonprofit", community: "", following: 480850 },
+  { name: "Chicago Reader", geo: "citywide", tier: "1", type: "mainstream", community: "", following: 459370 },
+  { name: "Eater Chicago", geo: "citywide", tier: "", type: "mainstream", community: "", following: 439600 },
+  { name: "WBEZ 91.5 FM", geo: "citywide", tier: "3", type: "mainstream", community: "", following: 298278 },
+  { name: "Crain's Chicago Business", geo: "citywide", tier: "", type: "mainstream", community: "", following: 0 },
+  // ACCOUNTABILITY / NONPROFIT
+  { name: "South Side Weekly", geo: "south", tier: "1", type: "nonprofit", community: "", following: 45856 },
+  { name: "Chicago Reporter", geo: "citywide", tier: "1", type: "nonprofit", community: "", following: 58194 },
+  { name: "City Bureau", geo: "citywide", tier: "1", type: "nonprofit", community: "", following: 27082 },
+  { name: "Injustice Watch", geo: "citywide", tier: "3", type: "nonprofit", community: "", following: 25096 },
+  { name: "Better Government Association", geo: "statewide", tier: "2", type: "nonprofit", community: "", following: 38087 },
+  { name: "Chalkbeat Chicago", geo: "statewide", tier: "1", type: "nonprofit", community: "Education", following: 18432 },
+  { name: "The Daily Line", geo: "citywide", tier: "1", type: "nonprofit", community: "Politics", following: 20810 },
+  { name: "Streetsblog Chicago", geo: "citywide", tier: "", type: "nonprofit", community: "Transit", following: 32135 },
+  { name: "Hyde Park Herald", geo: "south", tier: "", type: "nonprofit", community: "", following: 19015 },
+  { name: "Beverly Review", geo: "south", tier: "", type: "mainstream", community: "", following: 14857 },
+  { name: "Harvey World Herald", geo: "south", tier: "", type: "nonprofit", community: "", following: 1674 },
+  { name: "Historic Pullman Journal", geo: "south", tier: "1", type: "nonprofit", community: "", following: 0 },
+  { name: "Austin Weekly News", geo: "west", tier: "2", type: "nonprofit", community: "", following: 5524 },
+  { name: "Free Spirit Media", geo: "west", tier: "", type: "nonprofit", community: "Black Youth", following: 14139 },
+  { name: "Village Free Press", geo: "west", tier: "", type: "nonprofit", community: "", following: 10119 },
+  { name: "North Lawndale Community News", geo: "neighborhood", tier: "1", type: "nonprofit", community: "Black/Hispanic", following: 871 },
+  // LATINO / HISPANIC PRESS
+  { name: "La Raza", geo: "citywide", tier: "1", type: "ethnic", community: "Latino", following: 77356 },
+  { name: "Negocios Now", geo: "citywide", tier: "", type: "ethnic", community: "Latino", following: 24315 },
+  { name: "Borderless Magazine", geo: "citywide", tier: "3", type: "nonprofit", community: "Immigrant/Latino", following: 7917 },
+  { name: "Cicero Independiente", geo: "west", tier: "1", type: "ethnic", community: "Latino", following: 5913 },
+  { name: "Enchufate", geo: "citywide", tier: "1", type: "ethnic", community: "Latino", following: 4614 },
+  { name: "El Dia", geo: "citywide", tier: "1", type: "ethnic", community: "Latino", following: 720 },
+  { name: "IL Latino News", geo: "statewide", tier: "1", type: "ethnic", community: "Latino", following: 567 },
+  // BLACK PRESS
+  { name: "Chicago Defender", geo: "citywide", tier: "", type: "ethnic", community: "Black", following: 154454 },
+  { name: "The TRiiBE", geo: "citywide", tier: "1", type: "nonprofit", community: "Black", following: 66145 },
+  { name: "Chicago Southsider", geo: "south", tier: "1", type: "ethnic", community: "Black", following: 15557 },
+  { name: "Chicago Crusader", geo: "citywide", tier: "", type: "ethnic", community: "Black", following: 7980 },
+  { name: "Lawndale News", geo: "citywide", tier: "2", type: "ethnic", community: "Black/Hispanic", following: 4935 },
+  { name: "Bronzeville Life", geo: "south", tier: "1", type: "ethnic", community: "Black", following: 4383 },
+  { name: "N'Digo", geo: "citywide", tier: "1", type: "ethnic", community: "Black", following: 2170 },
+  // DIASPORA / ETHNIC PRESS
+  { name: "Chicago in Arabic", geo: "citywide", tier: "", type: "ethnic", community: "Arabic", following: 53052 },
+  { name: "Dziennik Zwiazkowy", geo: "citywide", tier: "", type: "ethnic", community: "Polish", following: 20570 },
+  { name: "Chas i Podii", geo: "citywide", tier: "", type: "ethnic", community: "Ukrainian", following: 4775 },
+  { name: "Chicago Korea Times", geo: "citywide", tier: "", type: "ethnic", community: "Korean", following: 1614 },
+  { name: "Chicago Shimpo", geo: "citywide", tier: "", type: "ethnic", community: "Japanese", following: 0 },
+  { name: "Chicago Chinese News", geo: "citywide", tier: "", type: "ethnic", community: "Chinese", following: 94 },
+  // CREATOR-MODEL (ALSO IN ATLAS)
+  { name: "Eric Zorn: The Picayune Sentinel", geo: "citywide", tier: "", type: "creator", community: "", following: 0 },
+  { name: "Board Rule (Maureen Kelleher)", geo: "citywide", tier: "", type: "creator", community: "Education", following: 0 },
+  { name: "Chicago Public Square (Charlie Meyerson)", geo: "citywide", tier: "", type: "creator", community: "", following: 0 },
+  { name: "The Chicago 312 (H Kapp-Klote)", geo: "citywide", tier: "", type: "creator", community: "", following: 0 },
+  { name: "The Last Ward (Austin Berg)", geo: "citywide", tier: "", type: "creator", community: "", following: 0 },
+  { name: "BlogABull", geo: "citywide", tier: "", type: "creator", community: "Sports", following: 0 },
+  { name: "Extra Points (Matt Brown)", geo: "citywide", tier: "", type: "creator", community: "Sports", following: 0 },
+  { name: "Food Is Stupid", geo: "citywide", tier: "", type: "creator", community: "Food", following: 0 },
+  { name: "The Hunger (Michael Nagrant)", geo: "citywide", tier: "", type: "creator", community: "Food", following: 0 },
+  { name: "Improv Nerd (Jimmy Carrane)", geo: "citywide", tier: "", type: "creator", community: "Arts", following: 0 },
+  { name: "Living Landmarks of Chicago", geo: "citywide", tier: "", type: "creator", community: "Arts/History", following: 0 },
+  { name: "Chicago Show Calendar", geo: "citywide", tier: "", type: "creator", community: "Arts", following: 0 },
+  { name: "Vanished Chicagoland Stories", geo: "citywide", tier: "", type: "creator", community: "History", following: 0 },
+  { name: "The Party Cut", geo: "citywide", tier: "", type: "creator", community: "Food", following: 0 },
+  { name: "Chicagoverse", geo: "citywide", tier: "", type: "creator", community: "", following: 0 },
+  { name: "Unraveled", geo: "citywide", tier: "", type: "creator", community: "Investigative", following: 0 },
+  // NEIGHBORHOOD-SPECIFIC
+  { name: "Rogers Park Bench", geo: "neighborhood", tier: "", type: "nonprofit", community: "Rogers Park", following: 0 },
+  { name: "McKinley Park News", geo: "neighborhood", tier: "", type: "nonprofit", community: "McKinley Park", following: 0 },
+  { name: "Uptown Update", geo: "neighborhood", tier: "", type: "nonprofit", community: "Uptown", following: 0 },
+  { name: "Lincoln Square Ravenswood", geo: "neighborhood", tier: "", type: "nonprofit", community: "Lincoln Square", following: 0 },
+  // SUBURBS
+  { name: "Evanston RoundTable", geo: "suburbs", tier: "1", type: "nonprofit", community: "Evanston", following: 0 },
+  { name: "Daily Herald", geo: "suburbs", tier: "1", type: "mainstream", community: "", following: 0 },
+  { name: "Naperville Sun", geo: "suburbs", tier: "", type: "mainstream", community: "Naperville", following: 0 },
+  { name: "Skokie Review", geo: "suburbs", tier: "", type: "mainstream", community: "Skokie", following: 0 },
+  { name: "Pioneer Press (various suburban editions)", geo: "suburbs", tier: "", type: "mainstream", community: "", following: 0 },
+  // ADDITIONAL MAINSTREAM / LEGACY
+  { name: "Axios Chicago", geo: "citywide", tier: "1", type: "mainstream", community: "", following: 0 },
+  { name: "WTTW (Chicago PBS)", geo: "citywide", tier: "1", type: "mainstream", community: "", following: 0 },
+  { name: "WLS-AM 890", geo: "citywide", tier: "", type: "mainstream", community: "News Radio", following: 0 },
+  { name: "CLTV (Comcast Chicago News)", geo: "citywide", tier: "", type: "mainstream", community: "", following: 0 },
+  { name: "WBBM Newsradio 780 AM", geo: "citywide", tier: "", type: "mainstream", community: "News Radio", following: 0 },
+  { name: "DNAinfo Chicago (closed 2017)", geo: "citywide", tier: "", type: "mainstream", community: "Closed", following: 0 },
+  { name: "Chicago Business Journal", geo: "citywide", tier: "", type: "mainstream", community: "Business", following: 0 },
+  { name: "Patch Chicago", geo: "citywide", tier: "", type: "mainstream", community: "Hyperlocal", following: 0 },
+  // ADDITIONAL ACCOUNTABILITY / NONPROFIT
+  { name: "ProPublica Illinois", geo: "statewide", tier: "1", type: "nonprofit", community: "Investigative", following: 0 },
+  { name: "Illinois Newsroom (WGLT)", geo: "statewide", tier: "", type: "nonprofit", community: "", following: 0 },
+  { name: "Illinois Issues", geo: "statewide", tier: "", type: "nonprofit", community: "Policy/Politics", following: 0 },
+  { name: "Public Narrative", geo: "citywide", tier: "", type: "nonprofit", community: "Community", following: 0 },
+  { name: "In These Times", geo: "citywide", tier: "1", type: "nonprofit", community: "Labor", following: 0 },
+  { name: "Vocalo Radio (WBEZ)", geo: "citywide", tier: "", type: "nonprofit", community: "Black/Latino", following: 0 },
+  { name: "Chicago Council on Global Affairs", geo: "citywide", tier: "", type: "nonprofit", community: "Global Affairs", following: 0 },
+  // STUDENT / ACADEMIC PRESS
+  { name: "The Chicago Maroon (U of Chicago)", geo: "south", tier: "", type: "nonprofit", community: "Student Press", following: 0 },
+  { name: "The Daily Northwestern", geo: "suburbs", tier: "", type: "nonprofit", community: "Student Press", following: 0 },
+  // LGBTQ PRESS
+  { name: "Windy City Times", geo: "citywide", tier: "1", type: "ethnic", community: "LGBTQ", following: 0 },
+  { name: "Windy City Media Group", geo: "citywide", tier: "", type: "ethnic", community: "LGBTQ", following: 0 },
+  { name: "Lakeshore Public Media", geo: "statewide", tier: "", type: "nonprofit", community: "", following: 0 },
+  // ADDITIONAL CREATOR-MODEL (IN ATLAS)
+  { name: "Stop the Presses (Mark Jacob)", geo: "citywide", tier: "", type: "creator", community: "Media/Press", following: 0 },
+  { name: "The Roys Report (Julie Roys)", geo: "citywide", tier: "", type: "creator", community: "Investigative", following: 0 },
+  { name: "Capitol Fax (Rich Miller)", geo: "statewide", tier: "", type: "creator", community: "Politics/IL", following: 0 },
+  { name: "The Illinoize (Patrick Pfingsten)", geo: "statewide", tier: "", type: "creator", community: "Politics/IL", following: 0 },
+  { name: "350 Chicago (Josh Horwitz)", geo: "citywide", tier: "", type: "creator", community: "Environment", following: 0 },
+  { name: "foiaday (Cam Rodriguez)", geo: "citywide", tier: "", type: "creator", community: "Criminal Justice", following: 0 },
+];
+
+/* ════════════════════════════════════════════════════════════ */
+/* ECOSYSTEM FULL TABLE                                         */
+/* ════════════════════════════════════════════════════════════ */
+
+function formatFollowing(n) {
+  if (!n) return '<span class="eco-following-small">—</span>';
+  if (n >= 1000000) return '<span class="eco-following">' + (n/1000000).toFixed(1) + 'M</span>';
+  if (n >= 1000) return '<span class="eco-following">' + Math.round(n/1000) + 'K</span>';
+  return '<span class="eco-following">' + n + '</span>';
+}
+
+function tierBadge(t) {
+  if (!t) return '<span style="color:#ccc;font-size:11px">—</span>';
+  return '<span class="eco-tier-badge eco-tier-' + t + '">T' + t + '</span>';
+}
+
+function typeBadge(t) {
+  const labels = { creator: 'Creator (Atlas)', nonprofit: 'Nonprofit', ethnic: 'Community/Ethnic', mainstream: 'Mainstream/Legacy' };
+  return '<span class="eco-type-badge eco-type-' + t + '">' + (labels[t] || t) + '</span>';
+}
+
+function renderEcoTable(data) {
+  const tbody = document.getElementById('eco-tbody');
+  const countEl = document.getElementById('eco-table-count');
+  if (!tbody) return;
+  countEl.textContent = data.length + ' outlet' + (data.length !== 1 ? 's' : '');
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;color:#999;font-style:italic">No outlets match this filter.</td></tr>';
+    return;
+  }
+  const geoLabel = { citywide: 'Citywide', south: 'South Side', west: 'West Side', north: 'North Side', statewide: 'Statewide', suburbs: 'Suburbs', neighborhood: 'Neighborhood' };
+  tbody.innerHTML = data.map(o => {
+    return '<tr>' +
+      '<td class="td-name">' + esc(o.name) + '</td>' +
+      '<td class="td-geo">' + (geoLabel[o.geo] || o.geo) + '</td>' +
+      '<td>' + tierBadge(o.tier) + '</td>' +
+      '<td>' + typeBadge(o.type) + '</td>' +
+      '<td style="font-size:12px;color:#555">' + esc(o.community || '—') + '</td>' +
+      '<td style="text-align:right">' + formatFollowing(o.following) + '</td>' +
+      '</tr>';
+  }).join('');
+}
+
+function filterEcoTable() {
+  const geo  = document.getElementById('eco-filter-geo').value;
+  const type = document.getElementById('eco-filter-type').value;
+  const tier = document.getElementById('eco-filter-tier').value;
+  const filtered = MEDILL_OUTLETS.filter(o => {
+    const gMatch = !geo  || o.geo === geo;
+    const tMatch = !type || o.type === type;
+    const rMatch = !tier || o.tier === tier;
+    return gMatch && tMatch && rMatch;
+  });
+  renderEcoTable(filtered);
+}
+
+/* INIT */
 renderTable(JOURNALISM_CREATORS);
 renderLocalCreators();
-</script>
+renderEcoTable(MEDILL_OUTLETS);
 
+</script>
 </body>
 </html>
