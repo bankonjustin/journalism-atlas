@@ -33,25 +33,142 @@ img { max-width: 100%; display: block; }
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
 /* =========================================
-   HEADER BAR
+   CURATOR BAND
    ========================================= */
-.header-bar {
-  background: var(--dark);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding: 14px 0;
+.curator-band {
+  background: #222222;
+  border-bottom: none;
+  padding: 36px 0 40px;
 }
-.header-bar-inner {
+.curator-band-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Atlas wordmark + label (left col) */
+.curator-band-atlas {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-top: 4px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
 }
-.header-wordmark img { height: 26px; width: auto; }
-.header-label {
-  font-size: 11px;
+.curator-band-atlas:hover { opacity: 0.8; }
+.curator-band-atlas img { height: 22px; width: auto; }
+.curator-band-atlas-label {
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Curator identity (center col) */
+.curator-identity { min-width: 0; }
+.curator-identity-from {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.3);
+  margin-bottom: 6px;
+}
+.curator-identity-name {
+  margin-bottom: 4px;
+}
+.curator-identity-namelink {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.0;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.curator-identity-namelink:hover { color: var(--acid); }
+.curator-identity-pub {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+.curator-identity-publink {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--acid);
+  text-decoration: underline;
+  text-decoration-color: rgba(206,255,0,0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.15s;
+}
+.curator-identity-publink:hover { text-decoration-color: var(--acid); }
+.curator-identity-dot {
+  color: rgba(255,255,255,0.2);
+  font-size: 14px;
+}
+.curator-identity-role {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.35);
+}
+.curator-identity-bio {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+  max-width: 520px;
+  margin-bottom: 16px;
+}
+.curator-identity-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 7px 14px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.curator-identity-source:hover {
+  color: var(--acid);
+  border-color: rgba(206,255,0,0.25);
+}
+
+/* Count (right col) */
+.curator-band-count {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  padding-top: 6px;
+}
+.curator-count-num {
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--acid);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.curator-count-unit {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Handoff rule */
+.curator-handoff-rule {
+  height: 3px;
+  background: var(--acid);
 }
 
 /* =========================================
@@ -59,25 +176,9 @@ img { max-width: 100%; display: block; }
    ========================================= */
 .hero {
   background: var(--dark);
-  padding: 72px 0 0;
+  padding: 52px 0 48px;
   border-bottom: 2px solid var(--acid);
 }
-.hero-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--acid);
-  margin-bottom: 20px;
-}
-.hero-eyebrow a {
-  color: var(--acid);
-  text-decoration: underline;
-  text-decoration-color: rgba(206,255,0,0.35);
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.15s;
-}
-.hero-eyebrow a:hover { text-decoration-color: var(--acid); }
 .hero-title {
   font-size: clamp(32px, 6vw, 60px);
   font-weight: 900;
@@ -92,97 +193,6 @@ img { max-width: 100%; display: block; }
   color: rgba(255,255,255,0.6);
   max-width: 580px;
   margin-bottom: 0;
-}
-
-/* =========================================
-   CURATOR BLOCK
-   ========================================= */
-.curator-block {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  margin-top: 48px;
-  padding: 32px 0;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 32px;
-  align-items: start;
-}
-.curator-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  margin-bottom: 8px;
-}
-.curator-name {
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 5px;
-}
-.curator-role {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 14px;
-}
-.curator-role a {
-  color: var(--acid);
-  font-weight: 700;
-  text-decoration: underline;
-  text-decoration-color: rgba(206,255,0,0.3);
-  text-underline-offset: 2px;
-  transition: text-decoration-color 0.15s;
-}
-.curator-role a:hover { text-decoration-color: var(--acid); }
-.curator-bio {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.45);
-  max-width: 500px;
-}
-.curator-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-  flex-shrink: 0;
-  padding-top: 4px;
-}
-.curator-count {
-  font-size: 48px;
-  font-weight: 900;
-  color: var(--acid);
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-.curator-count-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.25);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-align: right;
-  margin-bottom: 10px;
-}
-.curator-source-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.03em;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 5px;
-  padding: 7px 13px;
-  transition: color 0.15s, border-color 0.15s;
-  white-space: nowrap;
-}
-.curator-source-link:hover {
-  color: var(--acid);
-  border-color: rgba(206,255,0,0.3);
 }
 
 /* =========================================
@@ -285,6 +295,73 @@ img { max-width: 100%; display: block; }
 }
 
 /* =========================================
+   ATLAS BRIDGE
+   ========================================= */
+.atlas-bridge {
+  background: #1e1e1e;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 56px 0;
+}
+.atlas-bridge-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+.atlas-bridge-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+.atlas-bridge-headline {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.atlas-bridge-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+  max-width: 480px;
+}
+.atlas-bridge-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.bridge-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 12px 24px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+  text-decoration: none;
+  min-width: 190px;
+}
+.bridge-btn-primary { background: var(--acid); color: var(--dark); }
+.bridge-btn-primary:hover { opacity: 0.87; }
+.bridge-btn-secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.bridge-btn-secondary:hover {
+  color: var(--acid);
+  border-color: rgba(206,255,0,0.3);
+}
+
+/* =========================================
    FOOTER
    ========================================= */
 .footer {
@@ -299,6 +376,28 @@ img { max-width: 100%; display: block; }
   gap: 22px;
   text-align: center;
 }
+.footer-lists-row {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+.footer-lists-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 12px;
+}
+.footer-lists-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-list-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  transition: color 0.15s;
+}
+.footer-list-link:hover { color: var(--acid); }
+.footer-list-link.current { display: none; }
 .footer-cta-label {
   font-size: 11px;
   font-weight: 700;
@@ -333,49 +432,78 @@ img { max-width: 100%; display: block; }
    RESPONSIVE
    ========================================= */
 @media (max-width: 640px) {
-  .hero { padding: 48px 0 0; }
-  .curator-block { grid-template-columns: 1fr; }
-  .curator-right { flex-direction: row; align-items: baseline; gap: 16px; padding-top: 0; }
+  .curator-band { padding: 28px 0 32px; }
+  .curator-band-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .curator-band-atlas {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.4;
+  }
+  .curator-band-count {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .curator-count-num { font-size: 40px; }
   .creator-card { padding: 16px 18px; gap: 16px; }
   .state-badge { font-size: 18px; }
+  .atlas-bridge-inner { grid-template-columns: 1fr; gap: 28px; }
+  .atlas-bridge-actions { flex-direction: row; flex-wrap: wrap; }
+  .bridge-btn { min-width: 0; flex: 1; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER BAR -->
-<header class="header-bar">
+<!-- CURATOR BAND -->
+<div class="curator-band">
   <div class="container">
-    <div class="header-bar-inner">
-      <a href="https://journalismatlas.com" class="header-wordmark">
-        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas">
+    <div class="curator-band-inner">
+
+      <!-- Left: Atlas attribution -->
+      <a href="https://journalismatlas.com" class="curator-band-atlas" target="_blank" rel="noopener">
+        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+        <span class="curator-band-atlas-label">Curated List</span>
       </a>
-      <span class="header-label">A Partner List</span>
+
+      <!-- Center: Curator identity -->
+      <div class="curator-identity">
+        <div class="curator-identity-from">A list from</div>
+        <div class="curator-identity-name">
+          <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener" class="curator-identity-namelink">Jessica Stahl</a>
+        </div>
+        <div class="curator-identity-pub">
+          <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener" class="curator-identity-publink">Jessica Stahl's Newsletter</a>
+          <span class="curator-identity-dot">·</span>
+          <span class="curator-identity-role">Climate journalist &amp; newsletter writer</span>
+        </div>
+        <p class="curator-identity-bio">A curated selection of independent voices doing essential work on climate, environment, and the energy transition — covering the story that will define the next century.</p>
+        <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener" class="curator-identity-source">
+          Read the original post →
+        </a>
+      </div>
+
+      <!-- Right: Count signal -->
+      <div class="curator-band-count">
+        <span class="curator-count-num">19</span>
+        <span class="curator-count-unit">creators</span>
+      </div>
+
     </div>
   </div>
-</header>
+</div>
+<!-- Acid green rule — handoff from partner to Atlas -->
+<div class="curator-handoff-rule"></div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-eyebrow">A List by <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener">Jessica Stahl</a> &nbsp;&middot;&nbsp; Climate journalist & newsletter writer</div>
     <h1 class="hero-title">Climate Journalists Worth Following</h1>
     <p class="hero-description">A curated selection of independent voices covering climate, environment, and the energy transition.</p>
-
-    <!-- CURATOR CALLOUT -->
-    <div class="curator-block">
-      <div class="curator-left">
-        <div class="curator-label">Curated by</div>
-        <div class="curator-name">Jessica Stahl</div>
-        <div class="curator-role"><a href="https://jessicastahl.substack.com" target="_blank" rel="noopener">Climate journalist & newsletter writer</a></div>
-        
-      </div>
-      <div class="curator-right">
-        <span class="curator-count">19</span>
-        <span class="curator-count-label">Creators</span>
-        
-      </div>
-    </div>
   </div>
 </section>
 
@@ -386,20 +514,51 @@ img { max-width: 100%; display: block; }
   </div>
 </section>
 
+<!-- ATLAS BRIDGE -->
+<section class="atlas-bridge">
+  <div class="container">
+    <div class="atlas-bridge-inner">
+      <div class="atlas-bridge-text">
+        <div class="atlas-bridge-eyebrow">From the Independent Journalism Atlas</div>
+        <div class="atlas-bridge-headline">1,000+ more where this came from.</div>
+        <p class="atlas-bridge-body">The Atlas tracks independent creator-journalists across platforms, topics, and geographies. Browse the full database — or build a shareable postcard of your own favorites.</p>
+      </div>
+      <div class="atlas-bridge-actions">
+        <a href="https://journalismatlas.com" class="bridge-btn bridge-btn-primary" target="_blank" rel="noopener">✦ Explore the Atlas</a>
+        <a href="https://journalismatlas.com/postcard" class="bridge-btn bridge-btn-secondary" target="_blank" rel="noopener">Create a Postcard →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
+
+      <div class="footer-lists-row">
+        <div class="footer-lists-label">More curated lists</div>
+        <div class="footer-lists-links">
+          <a href="/partner-list-chris-cillizza-state.html" class="footer-list-link">State Political Reporters — Chris Cillizza →</a>
+          <a href="/partner-list-jessica-stahl-climate.html" class="footer-list-link">Climate Journalists — Jessica Stahl →</a>
+        </div>
+      </div>
+
       <div>
         <div class="footer-cta-label">Discover more independent journalism</div>
         <a href="https://journalismatlas.com" class="footer-cta-link" target="_blank" rel="noopener">
-          Explore the Full Atlas &rarr;
+          Explore the Full Atlas →
         </a>
       </div>
+
       <a href="https://journalismatlas.com" class="footer-wordmark">
         <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas">
       </a>
-      <p class="footer-attribution">Originally curated by <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener">Jessica Stahl</a> &nbsp;&middot;&nbsp; Published on the <a href="https://journalismatlas.com" target="_blank" rel="noopener">Independent Journalism Atlas</a></p>
+      <p class="footer-attribution">
+        Originally curated by <a href="https://jessicastahl.substack.com" target="_blank" rel="noopener">Jessica Stahl</a>
+        &nbsp;·&nbsp; Published on the <a href="https://journalismatlas.com">Independent Journalism Atlas</a>
+      </p>
+
     </div>
   </div>
 </footer>
@@ -788,10 +947,18 @@ function platformShortName(name) {
   return map[name] || name;
 }
 
-function getStateBadge(c) {
-  if (c.geoState) return c.geoState.toUpperCase();
-  if (c.geoRegion === 'National') return 'US';
-  return '';
+function getRightRail(c) {
+  if (c.geoState && c.geoState.trim()) {
+    return { badge: c.geoState.toUpperCase(), sub: (c.geoRegion && c.geoRegion !== 'National') ? c.geoRegion : '' };
+  }
+  if (c.geoRegion && c.geoRegion !== 'National') {
+    return { badge: c.geoRegion, sub: '' };
+  }
+  if (c.topic) {
+    const t = c.topic.split(',')[0].trim();
+    return { badge: t.length > 13 ? t.slice(0, 11) + '…' : t, sub: '' };
+  }
+  return { badge: '', sub: '' };
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
@@ -815,8 +982,7 @@ function renderCreators() {
       ? c.topic.split(',').map(t => `<span class="pill pill-topic">${t.trim()}</span>`).join('')
       : '';
 
-    const stateBadge = getStateBadge(c);
-    const showRegion = c.geoRegion && c.geoRegion !== 'National';
+    const { badge, sub } = getRightRail(c);
 
     return `
       <a class="creator-card" href="${c.link}" target="_blank" rel="noopener">
@@ -830,8 +996,8 @@ function renderCreators() {
           </div>
         </div>
         <div class="creator-right">
-          ${stateBadge ? `<span class="state-badge">${stateBadge}</span>` : ''}
-          ${showRegion ? `<span class="state-region">${c.geoRegion}</span>` : ''}
+          ${badge ? `<span class="state-badge">${badge}</span>` : ''}
+          ${sub ? `<span class="state-region">${sub}</span>` : ''}
         </div>
       </a>
     `;
@@ -839,6 +1005,16 @@ function renderCreators() {
 }
 
 renderCreators();
+
+// Hide self-referential footer cross-link
+document.querySelectorAll('.footer-list-link').forEach(link => {
+  try {
+    const normalize = p => p.replace(/\.html$/, '');
+    if (normalize(new URL(link.href).pathname) === normalize(window.location.pathname)) {
+      link.classList.add('current');
+    }
+  } catch(e) {}
+});
 </script>
 
 </body>
