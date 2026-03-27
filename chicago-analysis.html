@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chicago Creator Journalism Survey — The Independent Journalism Atlas</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --neon: #CEFF00;
+    --neon-dim: rgba(206, 255, 0, 0.15);
+    --neon-mid: rgba(206, 255, 0, 0.3);
+    --black: #000000;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --dark3: #222222;
+    --card: #1c1c1c;
+    --card-border: #2a2a2a;
+    --text: #efeff2;
+    --text-dim: #999999;
+    --text-mid: #cccccc;
+    --body-bg: #0a0a0a;
+    --green: #66ff88;
+    --blue: #66bbff;
+    --orange: #ffaa44;
+    --pink: #ff6699;
+    --purple: #bb88ff;
+    --teal: #44ddcc;
+    --gold: #ffdd55;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--body-bg); color: var(--text); line-height: 1.6; }
+
+  .header { background: var(--black); padding: 56px 24px 48px; text-align: center; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(206,255,0,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(206,255,0,0.04) 0%, transparent 50%); }
+  .header * { position: relative; }
+  .header .brand { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; color: var(--neon); margin-bottom: 12px; text-transform: uppercase; }
+  .header h1 { font-size: 2.4rem; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 1.15rem; color: var(--text-mid); font-weight: 500; }
+  .header .meta { font-size: 0.82rem; color: var(--text-dim); margin-top: 16px; }
+  .header .neon-line { width: 80px; height: 3px; background: var(--neon); margin: 20px auto 0; border-radius: 2px; }
+
+  .nav { background: var(--dark); border-bottom: 1px solid var(--card-border); padding: 14px 24px; position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .nav button { padding: 8px 20px; border: 1px solid var(--card-border); border-radius: 24px; background: transparent; cursor: pointer; font-family: 'Hanken Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text-dim); transition: all 0.25s; }
+  .nav button:hover { background: var(--neon-dim); color: var(--neon); border-color: rgba(206,255,0,0.3); }
+  .nav button.active { background: var(--neon); color: var(--black); border-color: var(--neon); font-weight: 800; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+  .stat-card { background: var(--card); border-radius: 12px; padding: 24px; text-align: center; border: 1px solid var(--card-border); }
+  .stat-value { font-size: 2.4rem; font-weight: 900; line-height: 1; }
+  .stat-label { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-top: 8px; }
+  .stat-sub { font-size: 0.75rem; color: var(--text-dim); margin-top: 4px; }
+
+  h2 { font-size: 1.4rem; font-weight: 800; color: var(--neon); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--card-border); }
+  h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 24px 0 12px; }
+  p { margin-bottom: 12px; color: var(--text-mid); }
+
+  .chart-container { background: var(--card); border-radius: 12px; padding: 24px; border: 1px solid var(--card-border); margin: 20px 0; }
+  .chart-container canvas { max-height: 350px; }
+
+  .insight { background: rgba(206,255,0,0.08); border-left: 4px solid var(--neon); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0; font-size: 0.9rem; color: var(--text-mid); }
+  .insight strong { color: var(--neon); }
+
+  .survey-box { background: rgba(102,187,255,0.08); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0; font-size: 0.9rem; color: var(--text-mid); }
+  .survey-box strong { color: var(--blue); }
+
+  .quote { background: var(--dark2); border-left: 4px solid var(--card-border); padding: 14px 20px; margin: 12px 0; border-radius: 0 8px 8px 0; font-style: italic; color: var(--text-mid); font-size: 0.9rem; }
+  .quote .source { font-style: normal; font-weight: 600; color: var(--text-dim); margin-top: 4px; display: block; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); }
+  thead th { background: var(--dark3); color: var(--neon); padding: 12px 16px; text-align: left; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--card-border); font-size: 0.85rem; color: var(--text-mid); }
+  tbody tr:hover { background: var(--neon-dim); }
+
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
+  .badge-green { background: rgba(102,255,136,0.15); color: var(--green); }
+  .badge-blue { background: rgba(102,187,255,0.15); color: var(--blue); }
+  .badge-gray { background: rgba(153,153,153,0.15); color: var(--text-dim); }
+
+  .rec-card { background: var(--card); border-radius: 12px; padding: 20px 24px; margin: 16px 0; border: 1px solid var(--card-border); border-left: 5px solid; }
+  .rec-card h3 { margin: 0 0 8px; }
+  .rec-card p { margin: 0; font-size: 0.9rem; }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+  .archetype-card { background: var(--card); border-radius: 12px; padding: 20px; border: 1px solid var(--card-border); }
+  .archetype-card h4 { font-size: 0.95rem; margin-bottom: 8px; }
+  .archetype-card p { font-size: 0.82rem; color: var(--text-dim); margin: 0; }
+
+  .footer { text-align: center; padding: 40px 24px; font-size: 0.8rem; color: var(--text-dim); border-top: 1px solid var(--card-border); margin-top: 40px; }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.7rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav button { padding: 6px 12px; font-size: 0.78rem; }
+  }
+
+/* Atlas site nav */
+.atlas-site-nav {
+  background: #000;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.atlas-site-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.atlas-site-nav-logo img { height: 26px; width: auto; display: block; }
+.atlas-site-nav-links { display: flex; gap: 24px; align-items: center; }
+.atlas-site-nav-links a {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.atlas-site-nav-links a:hover { color: #ceff00; }
+@media (max-width: 640px) { .atlas-site-nav-links { display: none; } }
+
+/* Atlas site footer */
+.atlas-site-footer {
+  background: #000;
+  border-top: 1px solid #1a1a1a;
+  padding: 40px 24px 24px;
+  margin-top: 60px;
+}
+.atlas-site-footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.atlas-site-footer-brand img { height: 32px; width: auto; margin-bottom: 12px; display: block; }
+.atlas-site-footer-brand p { font-size: 13px; color: #555; line-height: 1.5; }
+.atlas-site-footer-col h4 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 12px;
+}
+.atlas-site-footer-col a {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+.atlas-site-footer-col a:hover { color: #ceff00; }
+.atlas-site-footer-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-top: 1px solid #111;
+  padding-top: 20px;
+}
+.atlas-site-footer-bottom p { font-size: 12px; color: #333; }
+@media (max-width: 640px) { .atlas-site-footer-content { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<nav class="atlas-site-nav">
+  <div class="atlas-site-nav-inner">
+    <a href="https://journalismatlas.com" class="atlas-site-nav-logo">
+      <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas">
+    </a>
+    <div class="atlas-site-nav-links">
+      <a href="who-we-are.html">Who We Are</a>
+      <a href="what-we-do.html">About This Project</a>
+      <a href="how-we-did-this.html">How We Did This</a>
+      <a href="submit.html">Submit</a>
+      <a href="research.html">Our Research</a>
+    </div>
+  </div>
+</nav>
+
+<div class="header">
+  <div class="brand">The Independent Journalism Atlas</div>
+  <h1>Chicago Creator Journalism Survey</h1>
+  <div class="subtitle">Analysis & Findings</div>
+  <div class="neon-line"></div>
+  <div class="meta">March 2026 &nbsp;&bull;&nbsp; n=9 respondents (survey ongoing) &nbsp;&bull;&nbsp; Press Forward Chicago + The Independent Journalism Atlas</div>
+</div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <button class="active" onclick="showTab('overview')">Overview</button>
+    <button onclick="showTab('revenue')">Revenue</button>
+    <button onclick="showTab('platforms')">Platforms</button>
+    <button onclick="showTab('needs')">Needs</button>
+    <button onclick="showTab('partnerships')">Partnerships</button>
+    <button onclick="showTab('ethics')">Ethics</button>
+    <button onclick="showTab('recs')">Recommendations</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- OVERVIEW -->
+<div id="overview" class="section active">
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" style="color:var(--neon)">9</div><div class="stat-label">Respondents</div><div class="stat-sub">Survey ongoing</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--green)">6</div><div class="stat-label">Full-Time Creators</div><div class="stat-sub">67% of respondents</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--orange)">8/9</div><div class="stat-label">Want Sustainability</div><div class="stat-sub">89%</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--purple)">$5K&ndash;100K+</div><div class="stat-label">Revenue Range</div><div class="stat-sub">Wide spectrum</div></div>
+  </div>
+
+  <h2>Who Responded</h2>
+  <table>
+    <thead><tr><th>Creator</th><th>Covers</th><th>Revenue</th><th>Status</th><th>Followers</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--text)">Pat The Designer</strong></td><td>Sports</td><td>$30K&ndash;50K</td><td><span class="badge badge-green">Full-time</span></td><td>100K&ndash;500K</td></tr>
+      <tr><td><strong style="color:var(--text)">Andrew Gill</strong></td><td>Arts/Religion</td><td>$50K&ndash;75K</td><td><span class="badge badge-green">Full-time</span></td><td>1K&ndash;5K</td></tr>
+      <tr><td><strong style="color:var(--text)">Chase Vondran</strong></td><td>Multi-topic</td><td>$100K+</td><td><span class="badge badge-green">Full-time</span></td><td>100K&ndash;500K</td></tr>
+      <tr><td><strong style="color:var(--text)">Te-Erika Patterson</strong></td><td>Hyperlocal/Multi-beat</td><td>$75K&ndash;100K</td><td><span class="badge badge-green">Full-time</span></td><td>500K+</td></tr>
+      <tr><td><strong style="color:var(--text)">Jonah Fialkow</strong></td><td>Sports/Food</td><td>$15K&ndash;30K</td><td><span class="badge badge-blue">Part-time</span></td><td>100K&ndash;500K</td></tr>
+      <tr><td><strong style="color:var(--text)">H Kapp-Klote</strong></td><td>Politics</td><td>$5K&ndash;15K</td><td><span class="badge badge-green">Full-time</span></td><td>5K&ndash;25K</td></tr>
+      <tr><td><strong style="color:var(--text)">Yulia Denisyuk</strong></td><td>Travel/Culture</td><td>$5K&ndash;15K</td><td><span class="badge badge-gray">Side project</span></td><td>25K&ndash;100K</td></tr>
+      <tr><td><strong style="color:var(--text)">Ashok Selvam</strong></td><td>Food</td><td>N/A</td><td><span class="badge badge-blue">Part-time</span></td><td>Unknown</td></tr>
+      <tr><td><strong style="color:var(--text)">Dennis Lee</strong></td><td>Food</td><td>$75K&ndash;100K</td><td><span class="badge badge-green">Full-time</span></td><td>5K&ndash;25K</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight"><strong>Key Insight: </strong>This is a diverse cohort spanning sports, food, politics, hyperlocal news, arts/culture, travel, and religion. Beats skew toward food (3 of 9) and sports (2 of 9), with strong representation in government/politics and social justice. Most are video-first or multi-platform.</div>
+
+  <h2>Demographics Snapshot</h2>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" style="color:var(--neon)">29&ndash;48</div><div class="stat-label">Age Range</div><div class="stat-sub">Median: 44</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--green);font-size:1.4rem">Mixed</div><div class="stat-label">Race/Ethnicity</div><div class="stat-sub">4 White, 2 Black, 2 Asian, 1 Turkic</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--orange);font-size:1.4rem">Diverse</div><div class="stat-label">Gender</div><div class="stat-sub">5 Male, 2 Female, 2 Transgender</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--purple)">3/9</div><div class="stat-label">LGBTQIA+</div><div class="stat-sub">33%</div></div>
+  </div>
+</div>
+
+<!-- REVENUE -->
+<div id="revenue" class="section">
+  <h2>Annual Revenue Distribution</h2>
+  <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+  <div class="insight"><strong>Key Insight: </strong>Revenue is bimodal &mdash; a cluster at $5K&ndash;15K (emerging/subsidized creators) and a cluster at $75K&ndash;100K+ (established full-timers). The middle is thin, suggesting a &ldquo;sustainability gap&rdquo; that creators need to bridge.</div>
+
+  <h2>Revenue Sources (multiple selections)</h2>
+  <div class="chart-container"><canvas id="revenueSourceChart"></canvas></div>
+
+  <h2>Rate Practices</h2>
+  <div class="chart-container"><canvas id="rateChart"></canvas></div>
+  <div class="insight"><strong>Key Insight: </strong>Only 1 of 9 has a formal rate sheet. This is a critical gap &mdash; without established rates, creators are systematically undervaluing their work.</div>
+
+  <h2>Reported Rates from Survey</h2>
+  <table>
+    <thead><tr><th>Work Type</th><th>Reported Range</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Written articles</td><td>$0.50/word and up</td><td style="color:var(--text-dim)">Experienced journalist</td></tr>
+      <tr><td>Photos</td><td>$35/image and up</td><td style="color:var(--text-dim)">Travel journalist</td></tr>
+      <tr><td>Video content</td><td>$400&ndash;$2,000+/video</td><td style="color:var(--text-dim)">Range across respondents</td></tr>
+      <tr><td>Social media post</td><td>$1,500+/post</td><td style="color:var(--text-dim)">Established creator (100K+)</td></tr>
+      <tr><td>Speaking</td><td>$200 minimum</td><td style="color:var(--text-dim)">Scaling with engagement</td></tr>
+      <tr><td>Podcast sponsorship</td><td>$4,000/season</td><td style="color:var(--text-dim)">Single respondent</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PLATFORMS -->
+<div id="platforms" class="section">
+  <h2>Platform Usage (multiple selections)</h2>
+  <div class="chart-container"><canvas id="platformChart"></canvas></div>
+  <div class="insight"><strong>Key Insight: </strong>Instagram is universal (9/9). Video platforms dominate: YouTube (7), TikTok (6). Threads has rapidly become standard (7/9). Newsletter platforms (Substack, Beehiiv, Ghost) are used by 5 of 9.</div>
+
+  <h2>Creator Archetypes</h2>
+  <div class="grid-3">
+    <div class="archetype-card" style="border-top: 3px solid var(--neon);">
+      <h4 style="color:var(--neon)">Video-First Creators</h4>
+      <p>Pat, Chase, Te-Erika, Jonah &mdash; YouTube + TikTok + Instagram. Larger audiences (100K+), brand partnership revenue model.</p>
+    </div>
+    <div class="archetype-card" style="border-top: 3px solid var(--blue);">
+      <h4 style="color:var(--blue)">Newsletter-First Creators</h4>
+      <p>H Kapp-Klote, Dennis, Yulia &mdash; Beehiiv/Substack/Ghost + social. Smaller but deeply engaged audiences, subscription revenue.</p>
+    </div>
+    <div class="archetype-card" style="border-top: 3px solid var(--orange);">
+      <h4 style="color:var(--orange)">Multi-Platform Creators</h4>
+      <p>Andrew, Ashok &mdash; 6&ndash;10 platforms each. Podcast, social, newsletter combined. Diversified distribution and varied revenue streams.</p>
+    </div>
+  </div>
+</div>
+
+<!-- NEEDS -->
+<div id="needs" class="section">
+  <h2>Most Valuable Support (multiple selections)</h2>
+  <div class="chart-container"><canvas id="supportChart"></canvas></div>
+
+  <h2>Specific Resources Requested</h2>
+  <div class="chart-container"><canvas id="resourceChart"></canvas></div>
+
+  <div class="insight"><strong>Key Insight: </strong>The need hierarchy is clear: money first (8/9), then community (7/9), then growth tools (6/9). Healthcare tied with business development (5/9 each) &mdash; a structural gap grants alone won&rsquo;t solve. Revenue diversification help was the #1 specific resource (6/9).</div>
+
+  <h2>In Their Own Words: Biggest Challenges</h2>
+  <div class="quote">&ldquo;Growing as a business in a similar rate that I grow my content&rdquo;<span class="source">&mdash; Sports creator</span></div>
+  <div class="quote">&ldquo;Burn out&rdquo;<span class="source">&mdash; Multi-topic creator</span></div>
+  <div class="quote">&ldquo;No peers to discuss with.&rdquo;<span class="source">&mdash; Hyperlocal journalist</span></div>
+  <div class="quote">&ldquo;Growing my audience for my newsletter is frankly the worst part. I also have to ask them to pay for subscriptions, which is not appealing to them, nor me.&rdquo;<span class="source">&mdash; Newsletter writer</span></div>
+  <div class="quote">&ldquo;My challenge is financial sustainability&hellip; my audience-supported platform has the MRR of ~$440/month.&rdquo;<span class="source">&mdash; Travel journalist</span></div>
+  <div class="quote">&ldquo;Raising money.&rdquo;<span class="source">&mdash; Food journalist</span></div>
+</div>
+
+<!-- PARTNERSHIPS -->
+<div id="partnerships" class="section">
+  <h2>Partnership Experience</h2>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" style="color:var(--green)">2</div><div class="stat-label">Very Positive</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--blue)">2</div><div class="stat-label">Mostly Positive</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--orange)">3</div><div class="stat-label">Mixed</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--text-dim)">2</div><div class="stat-label">No Experience</div></div>
+  </div>
+
+  <h2>Partnership Challenges</h2>
+  <div class="chart-container"><canvas id="challengeChart"></canvas></div>
+  <div class="insight"><strong>Key Insight: </strong>Editorial control and communication are the top pain points (5/9 each). These are structural, not personal &mdash; they point to a need for clear partnership frameworks with defined terms.</div>
+
+  <h2>What Would Make Partnerships Work</h2>
+  <table>
+    <thead><tr><th>Factor</th><th style="width:80px;text-align:center">Count</th></tr></thead>
+    <tbody>
+      <tr><td>Clear, fair rate standards</td><td style="text-align:center"><strong style="color:var(--neon)">5</strong></td></tr>
+      <tr><td>Access to resources (legal, production, etc.)</td><td style="text-align:center"><strong style="color:var(--neon)">3</strong></td></tr>
+      <tr><td>Connection to larger audiences</td><td style="text-align:center"><strong style="color:var(--neon)">3</strong></td></tr>
+      <tr><td>Standard contract templates</td><td style="text-align:center"><strong style="color:var(--neon)">3</strong></td></tr>
+      <tr><td>Revenue sharing opportunities</td><td style="text-align:center"><strong style="color:var(--neon)">3</strong></td></tr>
+      <tr><td>Maintained editorial independence</td><td style="text-align:center"><strong style="color:var(--neon)">3</strong></td></tr>
+      <tr><td>Proper credit/bylines</td><td style="text-align:center"><strong style="color:var(--neon)">2</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Collaboration Interest</h2>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" style="color:var(--green)">4</div><div class="stat-label">Very Interested</div><div class="stat-sub">in creator collaboration</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--blue)">4</div><div class="stat-label">Somewhat Interested</div><div class="stat-sub">in creator collaboration</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--neon)">8/9</div><div class="stat-label">Willing to Participate</div><div class="stat-sub">in follow-up activities</div></div>
+  </div>
+</div>
+
+<!-- ETHICS -->
+<div id="ethics" class="section">
+  <h2>Journalism Practices (multiple selections)</h2>
+  <div class="chart-container"><canvas id="practicesChart"></canvas></div>
+
+  <div class="insight"><strong>Key Insight: </strong>Fact-checking is the most common practice (7/9), but 5 of 9 say they are &ldquo;still developing practices.&rdquo; This represents an opportunity, not a deficit &mdash; these creators are actively building their credibility.</div>
+
+  <h2>Training Background</h2>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" style="color:var(--neon)">2</div><div class="stat-label">Journalism Degree</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--green)">3</div><div class="stat-label">Self-Taught</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--orange)">1</div><div class="stat-label">On-the-Job</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--purple)">3</div><div class="stat-label">Don&rsquo;t ID as Journalist</div></div>
+  </div>
+
+  <div class="insight"><strong>Key Insight: </strong>3 of 9 do not identify as journalists &mdash; yet they&rsquo;re producing journalism. This is fundamental for grant design: language and criteria should describe the <em>work</em>, not assume a journalism identity or formal training.</div>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<div id="recs" class="section">
+  <h2>Recommendations for Press Forward Chicago Grant Strategy</h2>
+  <p style="font-style:italic;color:var(--text-dim);font-size:0.9rem;">Based on survey findings (n=9, ongoing). Preliminary &mdash; will be refined with additional data, focus groups, and full landscape analysis.</p>
+
+  <div class="rec-card" style="border-left-color:var(--neon)">
+    <h3 style="color:var(--neon)">1. Design for a Spectrum, Not a Type</h3>
+    <p>Respondents range from $5K side projects to $100K+ full-time operations. Grant criteria should accommodate different stages. Consider tiered grants: smaller ($5K&ndash;10K) for early-stage creators needing runway, larger ($15K&ndash;25K) for established creators needing scaling support.</p>
+  </div>
+
+  <div class="rec-card" style="border-left-color:var(--green)">
+    <h3 style="color:var(--green)">2. Don&rsquo;t Require &ldquo;Journalist&rdquo; Identity</h3>
+    <p>3 of 9 respondents don&rsquo;t identify as journalists, yet they&rsquo;re producing journalism. RFP language should describe the <em>work</em> (community information, accountability reporting, civic coverage) rather than the identity. Avoid credentials-based gatekeeping.</p>
+  </div>
+
+  <div class="rec-card" style="border-left-color:var(--orange)">
+    <h3 style="color:var(--orange)">3. Fund Infrastructure, Not Just Content</h3>
+    <p>Top needs go beyond money: community (7/9), audience development (6/9), business guidance (5/9), healthcare (5/9). Wrap grants with cohort-based support &mdash; peer community, business coaching, and practical resources. This becomes the replicable model for other Press Forward chapters.</p>
+  </div>
+
+  <div class="rec-card" style="border-left-color:var(--purple)">
+    <h3 style="color:var(--purple)">4. Build the Collaboration Bridge</h3>
+    <p>8 of 9 are interested in collaborating with other creators. Partnership challenges (editorial control, communication) are structural. Fund both solo creator projects AND creator-newsroom collaborations, but require clear partnership frameworks as part of the application.</p>
+  </div>
+
+  <div class="rec-card" style="border-left-color:var(--pink)">
+    <h3 style="color:var(--pink)">5. Address the Revenue Diversification Gap</h3>
+    <p>The bimodal revenue distribution reveals a &ldquo;sustainability gap.&rdquo; Grants can bridge creators from side-project/subsistence ($5K&ndash;15K) to sustainability ($50K+). Require grantees to develop a revenue diversification plan as part of their funded work.</p>
+  </div>
+
+  <div class="rec-card" style="border-left-color:var(--gold)">
+    <h3 style="color:var(--gold)">6. Prioritize Coverage Gaps</h3>
+    <p>Current respondents skew toward food (3) and sports (2). Limited representation in immigration, housing, education, and criminal justice. The grant should incentivize coverage in underserved beats and neighborhoods south and west of downtown.</p>
+  </div>
+
+  <div class="rec-card" style="border-left-color:var(--teal)">
+    <h3 style="color:var(--teal)">7. Make It Replicable</h3>
+    <p>Document everything. The April 9 Midwest Press Forwards convening and the April 10 Illinois Local News Summit are opportunities to share this model. Package the survey instrument, toolkit, and grant framework for other chapters to adapt.</p>
+  </div>
+
+  <h2>Suggested Grant Structure</h2>
+  <table>
+    <thead><tr><th>Element</th><th>Recommendation</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:700;color:var(--text)">Grant sizes</td><td>Tiered: $5K&ndash;10K (emerging) + $15K&ndash;25K (established)</td></tr>
+      <tr><td style="font-weight:700;color:var(--text)">Number of grants</td><td>8&ndash;12 grants across both tiers</td></tr>
+      <tr><td style="font-weight:700;color:var(--text)">Mix</td><td>60% individual creators, 40% creator-newsroom collaborations</td></tr>
+      <tr><td style="font-weight:700;color:var(--text)">Eligibility</td><td>Chicago-based, producing civic/news content, any business structure</td></tr>
+      <tr><td style="font-weight:700;color:var(--text)">Requirements</td><td>Revenue plan, partnership framework (if collab), ethics self-assessment</td></tr>
+      <tr><td style="font-weight:700;color:var(--text)">Wrap-around</td><td>Cohort gatherings, toolkit access, peer mentorship, business coaching</td></tr>
+    </tbody>
+  </table>
+
+  <div class="survey-box"><strong>Note: </strong>These recommendations are preliminary, based on 9 survey responses. They will be refined as additional data comes in, focus groups are conducted, and the full landscape analysis is complete. Final grant strategy recommendations are scheduled for delivery in late April 2026.</div>
+</div>
+
+</div>
+
+<div class="footer">
+  The Independent Journalism Atlas &nbsp;&bull;&nbsp; Press Forward Chicago Creator Survey Analysis &nbsp;&bull;&nbsp; March 2026
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.nav').offsetTop, behavior: 'smooth' });
+}
+
+// Chart.js dark theme defaults
+Chart.defaults.font.family = "'Hanken Grotesk', -apple-system, sans-serif";
+Chart.defaults.font.size = 13;
+Chart.defaults.color = '#999999';
+Chart.defaults.plugins.legend.display = false;
+Chart.defaults.scale = Chart.defaults.scale || {};
+
+const gridColor = '#2a2a2a';
+const neon = '#CEFF00';
+const colors = ['#CEFF00', '#66ff88', '#66bbff', '#ffaa44', '#bb88ff', '#ff6699', '#44ddcc', '#ffdd55', '#99aaff'];
+
+function chartOpts(indexAxis = 'x', max = 9) {
+  return {
+    responsive: true,
+    indexAxis,
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: '#999' }, beginAtZero: true, max: indexAxis === 'y' ? max : undefined },
+      y: { grid: { color: gridColor }, ticks: { color: '#999' }, beginAtZero: true, max: indexAxis === 'x' ? max : undefined }
+    },
+    plugins: { tooltip: { backgroundColor: '#222', titleColor: neon, bodyColor: '#eee', borderColor: '#333', borderWidth: 1 } }
+  };
+}
+
+// Revenue
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: ['$5K–15K', '$15K–30K', '$30K–50K', '$50K–75K', '$75K–100K', '$100K+'],
+    datasets: [{ data: [2, 1, 1, 1, 2, 1], backgroundColor: colors, borderRadius: 8, borderSkipped: false }]
+  },
+  options: chartOpts('x', 3)
+});
+
+// Revenue Sources
+new Chart(document.getElementById('revenueSourceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Subscriptions', 'Ads/Sponsors', 'Brand Deals', 'Speaking', 'Other Work', 'Freelancing', 'Grants', 'Licensing', 'Platform $'],
+    datasets: [{ data: [6, 4, 4, 3, 3, 2, 2, 1, 1], backgroundColor: neon, borderRadius: 8, borderSkipped: false }]
+  },
+  options: chartOpts('y')
+});
+
+// Rates
+new Chart(document.getElementById('rateChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Case-by-case', 'Informal rates', 'Clear rate sheet', 'Unsure'],
+    datasets: [{ data: [4, 3, 1, 1], backgroundColor: [neon, '#66bbff', '#66ff88', '#555'], borderWidth: 2, borderColor: '#1c1c1c' }]
+  },
+  options: { responsive: true, plugins: { legend: { display: true, position: 'bottom', labels: { color: '#999', padding: 16, font: { size: 12 } } } }, cutout: '55%' }
+});
+
+// Platforms
+new Chart(document.getElementById('platformChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Instagram', 'YouTube', 'Threads', 'TikTok', 'Facebook', 'Podcasts', 'Bluesky', 'LinkedIn', 'Substack', 'Website'],
+    datasets: [{ data: [9, 7, 7, 6, 6, 4, 4, 4, 3, 3],
+      backgroundColor: [9,7,7,6,6,4,4,4,3,3].map(v => v >= 7 ? neon : v >= 5 ? '#66bbff' : '#555'), borderRadius: 8, borderSkipped: false }]
+  },
+  options: chartOpts('x')
+});
+
+// Support
+new Chart(document.getElementById('supportChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Grants/Stipends', 'Community', 'Distribution', 'Biz Dev', 'Healthcare', 'Partnerships', 'Training', 'Legal'],
+    datasets: [{ data: [8, 7, 6, 5, 5, 4, 4, 2],
+      backgroundColor: [8,7,6,5,5,4,4,2].map(v => v >= 7 ? neon : v >= 5 ? '#66bbff' : '#555'), borderRadius: 8, borderSkipped: false }]
+  },
+  options: chartOpts('y')
+});
+
+// Resources
+new Chart(document.getElementById('resourceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Revenue Models', 'Audience Growth', 'Grant Writing', 'Biz Structure'],
+    datasets: [{ data: [6, 5, 4, 3], backgroundColor: '#66ff88', borderRadius: 8, borderSkipped: false }]
+  },
+  options: chartOpts('x')
+});
+
+// Challenges
+new Chart(document.getElementById('challengeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Editorial Control', 'Poor Communication', 'Unfair Pay', 'IP/Rights', 'Timeline', 'Expectations'],
+    datasets: [{ data: [5, 5, 3, 2, 2, 1], backgroundColor: '#ff6699', borderRadius: 8, borderSkipped: false }]
+  },
+  options: chartOpts('y')
+});
+
+// Ethics
+new Chart(document.getElementById('practicesChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Fact-checking', 'Multiple sources', 'Disclose conflicts', 'Transparent funding', 'Still developing', 'Corrections', 'Source protection', 'Independence'],
+    datasets: [{ data: [7, 6, 5, 5, 5, 4, 3, 3],
+      backgroundColor: [neon, neon, neon, neon, '#ffaa44', neon, neon, neon], borderRadius: 8, borderSkipped: false }]
+  },
+  options: chartOpts('y')
+});
+</script>
+
+<footer class="atlas-site-footer">
+  <div class="atlas-site-footer-content">
+    <div class="atlas-site-footer-brand">
+      <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas">
+      <p>Building infrastructure for the future of journalism.</p>
+    </div>
+    <div class="atlas-site-footer-col">
+      <h4>Explore</h4>
+      <a href="index.html">Browse Database</a>
+      <a href="who-we-are.html">Who We Are</a>
+      <a href="what-we-do.html">About This Project</a>
+    </div>
+    <div class="atlas-site-footer-col">
+      <h4>About</h4>
+      <a href="how-we-did-this.html">How We Did This</a>
+      <a href="advisory.html">Advisory Boards</a>
+      <a href="submit.html">Submit</a>
+      <a href="research.html">Our Research</a>
+    </div>
+    <div class="atlas-site-footer-col">
+      <h4>Connect</h4>
+      <a href="mailto:hello@journalismatlas.com">Email Us</a>
+      <a href="https://newsletter.projectc.biz" target="_blank">Project C Newsletter</a>
+    </div>
+  </div>
+  <div class="atlas-site-footer-bottom">
+    <p>&copy; 2026 The Independent Journalism Atlas. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
