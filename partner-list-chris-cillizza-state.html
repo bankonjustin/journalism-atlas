@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>State Political Reporters Worth Following — Curated by Chris Cillizza</title>
-<meta name="description" content="Independent journalists covering state politics, local government, and the stories that matter most — and that national media consistently undercovers.">
+<title>17 Independent State Political Reporters Worth Following — So What / Chris Cillizza</title>
+<meta name="description" content="Chris Cillizza's curated cut of independent journalists covering state politics and local government — adapted from his full 50-state list for the Independent Journalism Atlas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -140,6 +140,38 @@ img { max-width: 100%; display: block; }
   border-color: rgba(206,255,0,0.25);
 }
 
+/* Avatar row */
+.curator-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+.curator-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #3a3a3a;
+  border: 2px solid var(--acid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.curator-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.curator-avatar-initials {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--acid);
+  letter-spacing: 0.02em;
+}
+
 /* Count (right col) */
 .curator-band-count {
   display: flex;
@@ -179,6 +211,20 @@ img { max-width: 100%; display: block; }
   padding: 52px 0 48px;
   border-bottom: 2px solid var(--acid);
 }
+.hero-byline {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+}
+.hero-byline a {
+  color: var(--acid);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+.hero-byline a:hover { opacity: 1; }
 .hero-title {
   font-size: clamp(32px, 6vw, 60px);
   font-weight: 900;
@@ -470,9 +516,15 @@ img { max-width: 100%; display: block; }
 
       <!-- Center: Curator identity -->
       <div class="curator-identity">
-        <div class="curator-identity-from">A list from</div>
-        <div class="curator-identity-name">
-          <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener" class="curator-identity-namelink">Chris Cillizza</a>
+        <div class="curator-identity-from">In collaboration with</div>
+        <!-- PLACEHOLDER: swap with Chris's photo/logo when assets received -->
+        <div class="curator-avatar-row">
+          <div class="curator-avatar" id="curatorAvatar">
+            <span class="curator-avatar-initials">CC</span>
+          </div>
+          <div class="curator-identity-name">
+            <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener" class="curator-identity-namelink">Chris Cillizza</a>
+          </div>
         </div>
         <div class="curator-identity-pub">
           <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener" class="curator-identity-publink">So What</a>
@@ -480,7 +532,7 @@ img { max-width: 100%; display: block; }
           <span class="curator-identity-role">Political journalist &amp; media critic</span>
         </div>
         <p class="curator-identity-bio">More than 3,400 daily and non-daily newspapers have closed in the last 20 years. The reporters on this list are filling that gap — covering state capitols and local power structures that shape daily life but rarely make national headlines.</p>
-        <p class="curator-identity-bio" style="margin-top: 10px;">Chris's original list spans reporters at institutions large and small. This version is adapted to feature the independent journalists — the ones operating outside traditional newsrooms — who fit the Atlas.</p>
+        <p class="curator-identity-bio" style="margin-top: 10px;">Chris's original list covers reporters across all 50 states, including journalists at major institutions. This is the independent cut — the 17 reporters from his list who operate outside traditional newsrooms and fit the Atlas.</p>
         <a href="https://chriscillizza.substack.com/p/the-best-political-reporters-in-all-503" target="_blank" rel="noopener" class="curator-identity-source">
           Read the original post →
         </a>
@@ -501,7 +553,10 @@ img { max-width: 100%; display: block; }
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <h1 class="hero-title">State Political Reporters Worth Following</h1>
+    <div class="hero-byline">
+      In collaboration with <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener">Chris Cillizza</a> &nbsp;·&nbsp; <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener">So What</a> &nbsp;·&nbsp; Adapted for the Independent Journalism Atlas
+    </div>
+    <h1 class="hero-title">17 Independent State Political Reporters Worth Following</h1>
     <p class="hero-description">Independent journalists covering state politics, local government, and the stories that matter most — and that national media consistently undercovers.</p>
   </div>
 </section>
@@ -554,8 +609,7 @@ img { max-width: 100%; display: block; }
         <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="The Independent Journalism Atlas">
       </a>
       <p class="footer-attribution">
-        List by <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener">Chris Cillizza</a>
-        &nbsp;·&nbsp; Adapted for the <a href="https://journalismatlas.com">Independent Journalism Atlas</a>
+        Originally published in <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener">So What</a> by <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener">Chris Cillizza</a> &nbsp;·&nbsp; Independent journalists adapted for the <a href="https://journalismatlas.com">Atlas</a>
       </p>
 
     </div>
