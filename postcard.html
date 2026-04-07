@@ -981,6 +981,44 @@
             color: #fff;
             border-color: rgba(255,255,255,0.4);
         }
+        .atlas-explainer {
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.65;
+            max-width: 480px;
+            margin: 28px auto 0;
+            text-align: center;
+        }
+        .atlas-explainer a {
+            color: #ceff00;
+            text-decoration: none;
+        }
+        .atlas-explainer a:hover { text-decoration: underline; }
+
+        /* ── Builder share format buttons ────────────────────────────── */
+        .share-formats {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .share-format-btn {
+            flex: 1;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.13);
+            background: transparent;
+            color: rgba(255,255,255,0.45);
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            transition: border-color 0.15s, color 0.15s;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .share-format-btn:hover { border-color: rgba(206,255,0,0.3); color: #ceff00; }
+        .share-format-btn.copied { border-color: #ceff00; color: #ceff00; }
         /* Collapse animation */
         .recipient-hero--collapsing {
             opacity: 0;
@@ -1267,6 +1305,10 @@
                     <button class="pack-btn-link" id="packCopyDesktop" disabled onclick="copyLink()">
                         ⌁ Copy link
                     </button>
+                </div>
+                <div class="share-formats" id="shareFormats" style="display:none;">
+                    <button class="share-format-btn" id="shareFmtTweet" onclick="copyShareTweet()">Copy for X / Bluesky</button>
+                    <button class="share-format-btn" id="shareFmtNL" onclick="copyShareNewsletter()">Copy for newsletter</button>
                 </div>
             </div>
         </div>
@@ -1686,9 +1728,12 @@ function buildRecipientHero() {
             <canvas id="recipientCanvas" width="1080" height="1080"></canvas>
         </div>
         <button class="recipient-download-btn" id="recipientDownloadBtn">↓ Save as image</button>
+        <div class="atlas-explainer">
+          These creators were hand-picked from the <a href="https://journalismatlas.com" target="_blank" rel="noopener">Independent Journalism Atlas</a> — a curated map of 1,100+ independent journalists across every beat, platform, and city.
+        </div>
         <div class="recipient-remix-hint">
-            <span>Want to remix this pack?</span>
-            <button class="recipient-remix-btn" id="recipientRemixBtn">Add or remove creators ↓</button>
+            <span>Like this list?</span>
+            <button class="recipient-remix-btn" id="recipientRemixBtn">Build your own. ↓</button>
         </div>
     `;
 
@@ -1872,6 +1917,8 @@ function renderPackPanel() {
         const el = document.getElementById(id);
         if (el) el.disabled = !hasCreators;
     });
+    const shareFormats = document.getElementById('shareFormats');
+    if (shareFormats) shareFormats.style.display = hasCreators ? 'flex' : 'none';
     document.getElementById('packMaxHint').style.display = count >= MAX_PACK ? 'block' : 'none';
 
     const overlay = document.getElementById('canvasEmptyOverlay');
@@ -2315,6 +2362,35 @@ function copyLink() {
     }).catch(() => {
         prompt('Copy this link:', _shareUrl());
     });
+}
+
+// ── Share copy formats (tweet + newsletter) ────────────────────────────────
+function _flashShareBtn(btn, resetLabel) {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = resetLabel; btn.classList.remove('copied'); }, 2600);
+}
+
+function copyShareTweet() {
+    const btn = document.getElementById('shareFmtTweet');
+    const packName = getPackName('desktop');
+    const url = _shareUrl();
+    const copy = `My go-to independent journalists${packName && packName !== 'My Atlas Pack' ? ' — ' + packName : ''}:\n${url}\n\nBuild your own reading list → journalismatlas.com/postcard`;
+    navigator.clipboard.writeText(copy)
+        .then(() => _flashShareBtn(btn, 'Copy for X / Bluesky'))
+        .catch(() => prompt('Copy this:', copy));
+}
+
+function copyShareNewsletter() {
+    const btn = document.getElementById('shareFmtNL');
+    const packName = getPackName('desktop');
+    const url = _shareUrl();
+    const topic = packName && packName !== 'My Atlas Pack' ? packName.toLowerCase() : 'the topics I cover';
+    const copy = `I put together a list of the independent journalists I trust on ${topic}.\nBuilt with the Independent Journalism Atlas — a curated map of 1,100+ indie journalists.\n\n${url}`;
+    navigator.clipboard.writeText(copy)
+        .then(() => _flashShareBtn(btn, 'Copy for newsletter'))
+        .catch(() => prompt('Copy this:', copy));
 }
 
 // Always share the page URL with ?ref=postcard + ?creators= + ?name= + ?from= encoded selection

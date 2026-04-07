@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>17 Independent State Political Reporters Worth Following — So What / Chris Cillizza</title>
 <meta name="description" content="Chris Cillizza's curated cut of independent journalists covering state politics and local government — adapted from his full 50-state list for the Independent Journalism Atlas.">
+<meta property="og:title" content="17 Independent State Political Reporters Worth Following — Curated by Chris Cillizza">
+<meta property="og:description" content="Independent journalists covering state capitols and local power structures — hand-picked by Chris Cillizza from his So What newsletter. From the Independent Journalism Atlas.">
+<meta property="og:url" content="https://journalismatlas.com/partner-list-chris-cillizza-state">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -473,6 +478,110 @@ img { max-width: 100%; display: block; }
 .footer-attribution a:hover { color: var(--acid); }
 
 /* =========================================
+   LIST STATS BAR
+   ========================================= */
+.list-stats-bar {
+  background: var(--dark);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 0 36px;
+}
+.list-stats-inner {
+  display: flex;
+  gap: 0;
+}
+.stat-cell {
+  flex: 1;
+  padding: 24px 0;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-top: 6px;
+}
+
+/* =========================================
+   HOW TO USE NOTE
+   ========================================= */
+.how-to-use-note {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.38);
+  max-width: 640px;
+}
+.how-to-use-note strong { color: rgba(255,255,255,0.55); font-weight: 600; }
+
+/* =========================================
+   SHARE PANEL
+   ========================================= */
+.share-panel {
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 40px 0 56px;
+}
+.share-panel-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 14px;
+}
+.share-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.share-url-display {
+  flex: 1;
+  min-width: 200px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 5px;
+  padding: 10px 14px;
+  font-family: var(--ff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.share-copy-btn {
+  font-family: var(--ff);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.13);
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.share-copy-btn:hover { border-color: rgba(206,255,0,0.3); color: var(--acid); }
+.share-copy-btn.copied { border-color: var(--acid); color: var(--acid); }
+
+/* =========================================
    RESPONSIVE
    ========================================= */
 @media (max-width: 640px) {
@@ -561,10 +670,31 @@ img { max-width: 100%; display: block; }
   </div>
 </section>
 
+<!-- LIST STATS BAR -->
+<div class="list-stats-bar">
+  <div class="container">
+    <div class="list-stats-inner" id="listStatsInner"></div>
+  </div>
+</div>
+
 <!-- CREATOR LIST -->
 <section class="list-section">
   <div class="container">
+    <div class="how-to-use-note"><strong>About this list:</strong> These journalists operate independently — no newsroom, no corporate parent. Follow them directly via the links below. Most publish newsletters you can subscribe to for free.</div>
     <div class="creator-grid" id="creator-grid"></div>
+  </div>
+</section>
+
+<!-- SHARE PANEL -->
+<section class="share-panel">
+  <div class="container">
+    <div class="share-panel-label">Share this list</div>
+    <div class="share-bar">
+      <span class="share-url-display" id="shareUrlDisplay">journalismatlas.com/partner-list-chris-cillizza-state</span>
+      <button class="share-copy-btn" id="shareCopyUrl" onclick="copyShareUrl()">Copy link</button>
+      <button class="share-copy-btn" id="shareCopyTweet" onclick="copyTweetCopy()">Copy for X / Bluesky</button>
+      <button class="share-copy-btn" id="shareCopyNL" onclick="copyNewsletterCopy()">Copy for newsletter</button>
+    </div>
   </div>
 </section>
 
@@ -862,6 +992,55 @@ function renderCreators() {
   }).join('');
 }
 
+// ── Stats ─────────────────────────────────────────────────────────────────
+function computeStats() {
+  const stateSet = new Set(CREATORS.filter(c => c.geoState && c.geoState.trim()).map(c => c.geoState.trim()));
+  const platformSet = new Set(CREATORS.map(c => c.platform));
+  const stats = [
+    { num: CREATORS.length, label: 'Independent Journalists' },
+    { num: stateSet.size, label: 'States Covered' },
+    { num: platformSet.size, label: 'Platforms' },
+  ];
+  const el = document.getElementById('listStatsInner');
+  if (!el) return;
+  el.innerHTML = stats.map(s =>
+    `<div class="stat-cell"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`
+  ).join('');
+}
+
+// ── Share ──────────────────────────────────────────────────────────────────
+const PAGE_URL = window.location.origin + window.location.pathname;
+
+function _flashCopied(btn, resetLabel) {
+  btn.textContent = '✓ Copied';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = resetLabel; btn.classList.remove('copied'); }, 2500);
+}
+
+function copyShareUrl() {
+  const btn = document.getElementById('shareCopyUrl');
+  navigator.clipboard.writeText(PAGE_URL)
+    .then(() => _flashCopied(btn, 'Copy link'))
+    .catch(() => prompt('Copy this link:', PAGE_URL));
+}
+
+function copyTweetCopy() {
+  const btn = document.getElementById('shareCopyTweet');
+  const copy = `Chris Cillizza's list of independent state political journalists worth following:\n${PAGE_URL}\n\nCurated from the Independent Journalism Atlas — ${CREATORS.length}+ indie journalists mapped`;
+  navigator.clipboard.writeText(copy)
+    .then(() => _flashCopied(btn, 'Copy for X / Bluesky'))
+    .catch(() => prompt('Copy this:', copy));
+}
+
+function copyNewsletterCopy() {
+  const btn = document.getElementById('shareCopyNL');
+  const copy = `I've been using the Independent Journalism Atlas to track who's doing the best independent state politics journalism. Chris Cillizza's reading list is a good starting point:\n\n${PAGE_URL}\n\nThe Atlas maps ${CREATORS.length}+ independent journalists across every beat and platform.`;
+  navigator.clipboard.writeText(copy)
+    .then(() => _flashCopied(btn, 'Copy for newsletter'))
+    .catch(() => prompt('Copy this:', copy));
+}
+
+computeStats();
 renderCreators();
 
 // Hide self-referential footer cross-link
