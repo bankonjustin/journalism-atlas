@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>17 Independent State Political Reporters Worth Following — So What / Chris Cillizza</title>
-<meta name="description" content="Chris Cillizza's curated cut of independent journalists covering state politics and local government — adapted from his full 50-state list for the Independent Journalism Atlas.">
-<meta property="og:title" content="17 Independent State Political Reporters Worth Following — Curated by Chris Cillizza">
-<meta property="og:description" content="Independent journalists covering state capitols and local power structures — hand-picked by Chris Cillizza from his So What newsletter. From the Independent Journalism Atlas.">
-<meta property="og:url" content="https://journalismatlas.com/partner-list-chris-cillizza-state">
+<title>17 Independent State Political Reporters Worth Following — Independent Journalism Atlas</title>
+<meta name="description" content="Chris Cillizza identified the independent journalists covering state politics across all 50 states. Use this list to build a more complete picture of American political reporting beyond the Beltway.">
+<meta property="og:title" content="17 Independent State Political Reporters Worth Following — Independent Journalism Atlas">
+<meta property="og:description" content="Chris Cillizza identified the independent journalists covering state politics across all 50 states. Use this list to build a more complete picture of American political reporting beyond the Beltway.">
+<meta property="og:url" content="https://journalismatlas.com/partner-list-cillizza">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,120 +38,49 @@ img { max-width: 100%; display: block; }
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
 /* =========================================
-   CURATOR BAND
+   CURATOR BAND — stacked, Atlas-primary layout
    ========================================= */
 .curator-band {
-  background: #222222;
-  border-bottom: none;
-  padding: 36px 0 40px;
-}
-.curator-band-inner {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 40px;
-  align-items: start;
+  background: #1a1a1a;
+  padding: 40px 0 44px;
 }
 
-/* Atlas wordmark + label (left col) */
+/* Atlas mark — primary, top, full opacity */
 .curator-band-atlas {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-shrink: 0;
-  padding-top: 4px;
-  opacity: 0.5;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 20px;
+  opacity: 1;
   transition: opacity 0.15s;
 }
-.curator-band-atlas:hover { opacity: 0.8; }
+.curator-band-atlas:hover { opacity: 0.75; }
 .curator-band-atlas img { height: 22px; width: auto; mix-blend-mode: screen; }
-.curator-band-atlas-label {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+
+/* Thin rule between Atlas mark and partner block */
+.curator-band-sep {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: 24px;
 }
 
-/* Curator identity (center col) */
-.curator-identity { min-width: 0; }
-.curator-identity-from {
+/* "In collaboration with" label */
+.curator-collab-label {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.3);
-  margin-bottom: 6px;
-}
-.curator-identity-name {
-  margin-bottom: 4px;
-}
-.curator-identity-namelink {
-  font-size: clamp(24px, 4vw, 36px);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: 1.0;
-  color: var(--white);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.curator-identity-namelink:hover { color: var(--acid); }
-.curator-identity-pub {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 16px;
-}
-.curator-identity-publink {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--acid);
-  text-decoration: underline;
-  text-decoration-color: rgba(206,255,0,0.3);
-  text-underline-offset: 2px;
-  transition: text-decoration-color 0.15s;
-}
-.curator-identity-publink:hover { text-decoration-color: var(--acid); }
-.curator-identity-dot {
-  color: rgba(255,255,255,0.2);
-  font-size: 14px;
-}
-.curator-identity-role {
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.35);
-}
-.curator-identity-bio {
-  font-size: 14px;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.45);
-  max-width: 520px;
-  margin-bottom: 16px;
-}
-.curator-identity-source {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 0.03em;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 5px;
-  padding: 7px 14px;
-  transition: color 0.15s, border-color 0.15s;
-}
-.curator-identity-source:hover {
-  color: var(--acid);
-  border-color: rgba(206,255,0,0.25);
+  margin-bottom: 14px;
 }
 
-/* Avatar row */
-.curator-avatar-row {
+/* Partner identity row: avatar + name/pub */
+.curator-partner-row {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 4px;
+  margin-bottom: 16px;
 }
+
 .curator-avatar {
   width: 52px;
   height: 52px;
@@ -170,36 +99,106 @@ img { max-width: 100%; display: block; }
   object-fit: cover;
   border-radius: 50%;
 }
-.curator-avatar-initials {
-  font-size: 16px;
-  font-weight: 900;
-  color: var(--acid);
-  letter-spacing: 0.02em;
+
+/* Partner logo (for institutional partners) */
+.curator-partner-logo {
+  height: 44px;
+  width: auto;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 
-/* Count (right col) */
-.curator-band-count {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  flex-shrink: 0;
-  padding-top: 6px;
-}
-.curator-count-num {
-  font-size: 56px;
+.curator-partner-name-wrap { min-width: 0; }
+
+.curator-partner-namelink {
+  display: block;
+  font-size: clamp(22px, 3.5vw, 32px);
   font-weight: 900;
-  color: var(--acid);
-  line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  line-height: 1.0;
+  color: var(--white);
+  text-decoration: none;
+  margin-bottom: 5px;
+  transition: color 0.15s;
 }
-.curator-count-unit {
-  font-size: 10px;
+.curator-partner-namelink:hover { color: var(--acid); }
+
+.curator-partner-pub {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.curator-partner-publink {
+  font-size: 13px;
   font-weight: 700;
-  color: rgba(255,255,255,0.2);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-align: right;
-  margin-top: 4px;
+  color: var(--acid);
+  text-decoration: underline;
+  text-decoration-color: rgba(206,255,0,0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.15s;
+}
+.curator-partner-publink:hover { text-decoration-color: var(--acid); }
+.curator-partner-dot { color: rgba(255,255,255,0.2); font-size: 13px; }
+.curator-partner-role { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.35); }
+
+/* Secondary byline (e.g. "Curated by Jess Stahl, Grist") */
+.curator-partner-byline {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 14px;
+}
+.curator-partner-byline a { color: rgba(255,255,255,0.45); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.2); }
+.curator-partner-byline a:hover { color: var(--acid); }
+
+/* Description — 300 char max */
+.curator-description {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.5);
+  max-width: 580px;
+  margin-bottom: 14px;
+}
+
+/* Metadata pills */
+.curator-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  white-space: nowrap;
+}
+
+/* Source link */
+.curator-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 7px 14px;
+  transition: color 0.15s, border-color 0.15s;
+  text-decoration: none;
+}
+.curator-source-link:hover {
+  color: var(--acid);
+  border-color: rgba(206,255,0,0.25);
 }
 
 /* Handoff rule */
@@ -216,20 +215,6 @@ img { max-width: 100%; display: block; }
   padding: 52px 0 48px;
   border-bottom: 2px solid var(--acid);
 }
-.hero-byline {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 0.03em;
-  margin-bottom: 16px;
-}
-.hero-byline a {
-  color: var(--acid);
-  text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.15s;
-}
-.hero-byline a:hover { opacity: 1; }
 .hero-title {
   font-size: clamp(32px, 6vw, 60px);
   font-weight: 900;
@@ -243,7 +228,6 @@ img { max-width: 100%; display: block; }
   line-height: 1.65;
   color: rgba(255,255,255,0.6);
   max-width: 580px;
-  margin-bottom: 0;
 }
 
 /* =========================================
@@ -586,22 +570,7 @@ img { max-width: 100%; display: block; }
    ========================================= */
 @media (max-width: 640px) {
   .curator-band { padding: 28px 0 32px; }
-  .curator-band-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .curator-band-atlas {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    opacity: 0.4;
-  }
-  .curator-band-count {
-    flex-direction: row;
-    align-items: baseline;
-    gap: 10px;
-  }
-  .curator-count-num { font-size: 40px; }
+  .curator-partner-row { gap: 12px; }
   .creator-card { padding: 16px 18px; gap: 16px; }
   .state-badge { font-size: 18px; }
   .atlas-bridge-inner { grid-template-columns: 1fr; gap: 28px; }
@@ -615,45 +584,47 @@ img { max-width: 100%; display: block; }
 <!-- CURATOR BAND -->
 <div class="curator-band">
   <div class="container">
-    <div class="curator-band-inner">
 
-      <!-- Left: Atlas attribution -->
-      <a href="https://journalismatlas.com" class="curator-band-atlas" target="_blank" rel="noopener">
-        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
-        <span class="curator-band-atlas-label">Curated List</span>
-      </a>
+    <!-- Atlas — primary, always on top -->
+    <a href="https://journalismatlas.com" class="curator-band-atlas" target="_blank" rel="noopener">
+      <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+    </a>
 
-      <!-- Center: Curator identity -->
-      <div class="curator-identity">
-        <div class="curator-identity-from">In collaboration with</div>
-        <!-- PLACEHOLDER: swap with Chris's photo/logo when assets received -->
-        <div class="curator-avatar-row">
-          <div class="curator-avatar" id="curatorAvatar">
-            <span class="curator-avatar-initials">CC</span>
-          </div>
-          <div class="curator-identity-name">
-            <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener" class="curator-identity-namelink">Chris Cillizza</a>
-          </div>
-        </div>
-        <div class="curator-identity-pub">
-          <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener" class="curator-identity-publink">So What</a>
-          <span class="curator-identity-dot">·</span>
-          <span class="curator-identity-role">Political journalist &amp; media critic</span>
-        </div>
-        <p class="curator-identity-bio">More than 3,400 daily and non-daily newspapers have closed in the last 20 years. The reporters on this list are filling that gap — covering state capitols and local power structures that shape daily life but rarely make national headlines.</p>
-        <p class="curator-identity-bio" style="margin-top: 10px;">Chris's original list covers reporters across all 50 states, including journalists at major institutions. This is the independent cut — the 17 reporters from his list who operate outside traditional newsrooms and fit the Atlas.</p>
-        <a href="https://chriscillizza.substack.com/p/the-best-political-reporters-in-all-503" target="_blank" rel="noopener" class="curator-identity-source">
-          Read the original post →
-        </a>
+    <div class="curator-band-sep"></div>
+
+    <!-- In collaboration with -->
+    <div class="curator-collab-label">In collaboration with</div>
+
+    <!-- Partner identity -->
+    <div class="curator-partner-row">
+      <div class="curator-avatar">
+        <img src="assets/images/curators/Cillizza-1.jpg" alt="Chris Cillizza">
       </div>
-
-      <!-- Right: Count signal -->
-      <div class="curator-band-count">
-        <span class="curator-count-num">17</span>
-        <span class="curator-count-unit">creators</span>
+      <div class="curator-partner-name-wrap">
+        <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener" class="curator-partner-namelink">Chris Cillizza</a>
+        <div class="curator-partner-pub">
+          <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener" class="curator-partner-publink">So What</a>
+          <span class="curator-partner-dot">·</span>
+          <span class="curator-partner-role">Political journalist &amp; media critic</span>
+        </div>
       </div>
-
     </div>
+
+    <!-- Description — 300 char max: what is it, why relevant, how to use -->
+    <p class="curator-description">Chris Cillizza identified the independent journalists covering state politics across all 50 states. Use this list to build a more complete picture of American political reporting beyond the Beltway.</p>
+
+    <!-- Metadata pills -->
+    <div class="curator-meta-pills">
+      <span class="meta-pill">17 creators</span>
+      <span class="meta-pill">State Politics</span>
+      <span class="meta-pill">United States</span>
+    </div>
+
+    <!-- Source -->
+    <a href="https://chriscillizza.substack.com/p/the-best-political-reporters-in-all-503" target="_blank" rel="noopener" class="curator-source-link">
+      Read the original post →
+    </a>
+
   </div>
 </div>
 <!-- Acid green rule — handoff from partner to Atlas -->
@@ -662,9 +633,6 @@ img { max-width: 100%; display: block; }
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-byline">
-      In collaboration with <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener">Chris Cillizza</a> &nbsp;·&nbsp; <a href="https://chriscillizza.substack.com" target="_blank" rel="noopener">So What</a> &nbsp;·&nbsp; Adapted for the Independent Journalism Atlas
-    </div>
     <h1 class="hero-title">17 Independent State Political Reporters Worth Following</h1>
     <p class="hero-description">Independent journalists covering state politics, local government, and the stories that matter most — and that national media consistently undercovers.</p>
   </div>
@@ -680,7 +648,6 @@ img { max-width: 100%; display: block; }
 <!-- CREATOR LIST -->
 <section class="list-section">
   <div class="container">
-    <div class="how-to-use-note"><strong>About this list:</strong> These journalists operate independently — no newsroom, no corporate parent. Follow them directly via the links below. Most publish newsletters you can subscribe to for free.</div>
     <div class="creator-grid" id="creator-grid"></div>
   </div>
 </section>
@@ -690,7 +657,7 @@ img { max-width: 100%; display: block; }
   <div class="container">
     <div class="share-panel-label">Share this list</div>
     <div class="share-bar">
-      <span class="share-url-display" id="shareUrlDisplay">journalismatlas.com/partner-list-chris-cillizza-state</span>
+      <span class="share-url-display" id="shareUrlDisplay">journalismatlas.com/partner-list-cillizza</span>
       <button class="share-copy-btn" id="shareCopyUrl" onclick="copyShareUrl()">Copy link</button>
       <button class="share-copy-btn" id="shareCopyTweet" onclick="copyTweetCopy()">Copy for X / Bluesky</button>
       <button class="share-copy-btn" id="shareCopyNL" onclick="copyNewsletterCopy()">Copy for newsletter</button>
@@ -705,11 +672,11 @@ img { max-width: 100%; display: block; }
       <div class="atlas-bridge-text">
         <div class="atlas-bridge-eyebrow">From the Independent Journalism Atlas</div>
         <div class="atlas-bridge-headline">1,000+ more where this came from.</div>
-        <p class="atlas-bridge-body">The Atlas tracks independent creator-journalists across platforms, topics, and geographies. Browse the full database — or build a shareable postcard of your own favorites.</p>
+        <p class="atlas-bridge-body">The Atlas tracks independent creator-journalists across platforms, topics, and geographies. Browse the full database — or build a shareable starter pack of your own favorites.</p>
       </div>
       <div class="atlas-bridge-actions">
         <a href="https://journalismatlas.com" class="bridge-btn bridge-btn-primary" target="_blank" rel="noopener">✦ Explore the Atlas</a>
-        <a href="https://journalismatlas.com/postcard" class="bridge-btn bridge-btn-secondary" target="_blank" rel="noopener">Create a Postcard →</a>
+        <a href="https://journalismatlas.com/postcard" class="bridge-btn bridge-btn-secondary" target="_blank" rel="noopener">Create a Starter Pack →</a>
       </div>
     </div>
   </div>
@@ -723,8 +690,8 @@ img { max-width: 100%; display: block; }
       <div class="footer-lists-row">
         <div class="footer-lists-label">More curated lists</div>
         <div class="footer-lists-links">
-          <a href="/partner-list-chris-cillizza-state.html" class="footer-list-link">State Political Reporters — Chris Cillizza →</a>
-          <a href="/partner-list-jessica-stahl-climate.html" class="footer-list-link">Climate Journalists — Jessica Stahl →</a>
+          <a href="/partner-list-cillizza" class="footer-list-link">State Political Reporters — Chris Cillizza →</a>
+          <a href="/partner-list-grist" class="footer-list-link">Climate Journalists — Grist →</a>
         </div>
       </div>
 

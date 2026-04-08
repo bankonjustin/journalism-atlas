@@ -260,7 +260,7 @@
 
         /* ── How it works strip ───────────────────────────────────────── */
         .how-strip {
-            background: var(--card-bg);
+            background: var(--black);
             border-top: 1px solid rgba(255,255,255,0.06);
             border-bottom: 1px solid rgba(255,255,255,0.06);
             padding: 40px 32px;
@@ -437,8 +437,7 @@
             -webkit-user-select: none;
         }
         .pc-card:hover {
-            border-color: rgba(255,255,255,0.2);
-            background: #222;
+            outline: 2px solid #ceff00;
         }
         .pc-card:active { transform: scale(0.97); }
         .pc-card.selected {
@@ -1193,8 +1192,9 @@
     </h1>
     <p class="hero-sub">
         1,006 independent journalists across newsletters, podcasts, video, and more.
-        Curate up to 12. Make a postcard. Share it.
+        Curate up to 12. Make a starter pack. Share it.
     </p>
+    <!-- TODO: instructional video slot — short screen-recording of browse → select → build → share flow -->
     <a href="#workspace" class="hero-cta">
         Start curating
         <span class="hero-cta-arrow">↓</span>
@@ -1352,13 +1352,22 @@ let activeGeos = new Set();
 let searchQuery = '';
 let visibleCount = PAGE_SIZE;
 let stampImg = null;
+let wordmarkImg = null;
 
-// Preload stamp
+// Preload seal stamp (bottom-right corner of canvas)
 (function() {
     const img = new Image();
     img.onload = () => { stampImg = img; renderCanvas('desktop'); };
     img.onerror = () => console.warn('Stamp image failed to load');
     img.src = 'assets/images/logos/Journalism_Atlas_logo_acid_green_distressed (4).png';
+})();
+
+// Preload horizontal wordmark (canvas header)
+(function() {
+    const img = new Image();
+    img.onload = () => { wordmarkImg = img; renderCanvas('desktop'); };
+    img.onerror = () => console.warn('Wordmark image failed to load');
+    img.src = 'assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png';
 })();
 
 // ── Load Data ──────────────────────────────────────────────────────────────
@@ -2106,15 +2115,6 @@ function renderCanvas(which) {
     }
     ctx.restore();
 
-    // Watermark stamp
-    if (stampImg) {
-        ctx.save();
-        ctx.globalAlpha = 0.10;
-        const sz = 780;
-        ctx.drawImage(stampImg, (W - sz) / 2, (H - sz) / 2, sz, sz);
-        ctx.restore();
-    }
-
     // Border
     ctx.strokeStyle = 'rgba(255,255,255,0.08)';
     ctx.lineWidth = 2;
@@ -2122,13 +2122,23 @@ function renderCanvas(which) {
 
     const rX = 60, rW = W - 120;
 
-    // Top label
-    ctx.fillStyle = 'rgba(255,255,255,0.35)';
-    ctx.font = '600 13px "Hanken Grotesk", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.letterSpacing = '3px';
-    ctx.fillText('INDEPENDENT JOURNALISM ATLAS', W / 2, 76);
-    ctx.letterSpacing = '0px';
+    // Horizontal wordmark logo
+    if (wordmarkImg && wordmarkImg.width > 0) {
+        const logoH = 28;
+        const logoW = Math.round(logoH * wordmarkImg.width / wordmarkImg.height);
+        ctx.save();
+        ctx.globalAlpha = 0.85;
+        ctx.drawImage(wordmarkImg, Math.round((W - logoW) / 2), 52, logoW, logoH);
+        ctx.restore();
+    } else {
+        // Fallback text if image hasn't loaded
+        ctx.fillStyle = 'rgba(255,255,255,0.35)';
+        ctx.font = '600 13px "Hanken Grotesk", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.letterSpacing = '3px';
+        ctx.fillText('INDEPENDENT JOURNALISM ATLAS', W / 2, 76);
+        ctx.letterSpacing = '0px';
+    }
 
     // Green rule 1
     ctx.strokeStyle = '#ceff00';
