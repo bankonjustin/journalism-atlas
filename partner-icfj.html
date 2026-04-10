@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICFJ Partnership — Independent Journalism Atlas</title>
+<meta name="description" content="The Independent Journalism Atlas partners with ICFJ to identify and verify the world's leading independent creator-journalists. Explore top global creators by region.">
+<meta property="og:title" content="ICFJ Partnership — Independent Journalism Atlas">
+<meta property="og:description" content="Mapping creator-journalism, globally. The Atlas partners with ICFJ to surface independent creator-journalists across Latin America, Africa, MENA, and Asia-Pacific.">
+<meta property="og:url" content="https://journalismatlas.com/partner-icfj">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   DESIGN TOKENS
+   ========================================= */
+:root {
+  --acid: #ceff00;
+  --lime: #97d600;
+  --olive: #5d7400;
+  --dark: #313131;
+  --dark2: #1a1a1a;
+  --light: #efeff2;
+  --white: #ffffff;
+  --ff: 'Hanken Grotesk', sans-serif;
+  --radius: 8px;
+  --max: 1100px;
+}
+
+/* =========================================
+   RESET + BASE
+   ========================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--ff); background: var(--dark); color: var(--white); line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 48px; }
+
+/* =========================================
+   NAV
+   ========================================= */
+.nav {
+  background: #000;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0;
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo img { height: 20px; width: auto; mix-blend-mode: screen; }
+.nav-link {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.15s;
+}
+.nav-link:hover { color: var(--acid); }
+
+/* =========================================
+   PARTNER HERO
+   ========================================= */
+.hero {
+  background: var(--dark);
+  padding: 72px 0 64px;
+  border-bottom: 3px solid var(--acid);
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 64px;
+  align-items: start;
+}
+
+/* Left: ICFJ attribution */
+.hero-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 16px;
+}
+.hero-logo-placeholder {
+  width: 140px;
+  height: 52px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 24px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.hero-headline {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+}
+.hero-sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.55);
+  max-width: 520px;
+  margin-bottom: 28px;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--acid);
+  letter-spacing: 0.02em;
+  transition: opacity 0.15s;
+}
+.hero-cta:hover { opacity: 0.75; }
+
+/* Right: stats card */
+.hero-stats-card {
+  background: var(--dark2);
+  border: 1px solid rgba(206,255,0,0.2);
+  border-radius: 12px;
+  padding: 32px 28px;
+}
+.hero-stats-card-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  margin-bottom: 24px;
+}
+.stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+.stat-row:first-of-type { padding-top: 0; }
+.stat-num {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--acid);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+  min-width: 80px;
+}
+.stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.3;
+}
+
+/* =========================================
+   CONTEXT SECTION
+   ========================================= */
+.context {
+  background: var(--light);
+  padding: 72px 0;
+  color: #000;
+}
+.context-headline {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+  color: #000;
+}
+.context-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 36px;
+}
+.context-col p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+}
+.context-method {
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 24px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--olive);
+  max-width: 760px;
+}
+
+/* =========================================
+   CREATOR SHOWCASE SECTION
+   ========================================= */
+.showcase {
+  background: var(--dark);
+  padding: 72px 0 80px;
+}
+.showcase-header {
+  margin-bottom: 40px;
+}
+.showcase-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+.showcase-headline {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.showcase-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.38);
+}
+
+/* Region tabs */
+.region-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid rgba(255,255,255,0.08);
+  margin-bottom: 36px;
+}
+.region-tab {
+  padding: 12px 22px;
+  font-family: var(--ff);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.38);
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+.region-tab:hover { color: rgba(255,255,255,0.7); }
+.region-tab.active { color: var(--white); border-bottom-color: var(--acid); }
+
+/* Creator grid */
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.region-panel { display: none; }
+.region-panel.active { display: block; }
+
+.creator-card {
+  background: var(--dark2);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  transition: border-color 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.creator-card:hover { border-color: rgba(206,255,0,0.25); }
+
+/* Trust badge */
+.trust-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: help;
+  flex-shrink: 0;
+}
+.trust-badge.green { background: #22c55e; box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+.trust-badge.yellow { background: #eab308; box-shadow: 0 0 0 2px rgba(234,179,8,0.2); }
+.trust-badge-wrap {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+.trust-tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #222;
+  color: rgba(255,255,255,0.75);
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 8px 10px;
+  border-radius: 6px;
+  white-space: normal;
+  width: 200px;
+  border: 1px solid rgba(255,255,255,0.1);
+  z-index: 10;
+  pointer-events: none;
+}
+.trust-badge-wrap:hover .trust-tooltip { display: block; }
+
+.card-country {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+.card-name {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--white);
+  padding-right: 20px;
+}
+.card-channel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--acid);
+  opacity: 0.85;
+}
+.card-topic {
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.4;
+}
+.card-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.platform-pill {
+  display: inline-flex;
+  padding: 3px 9px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--olive);
+  color: var(--white);
+  opacity: 0.85;
+}
+.card-audience {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+  margin-top: auto;
+}
+.card-link:hover { color: var(--acid); }
+
+/* Coming soon card */
+.coming-soon-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  min-height: 160px;
+}
+.coming-soon-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+.coming-soon-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.25);
+}
+
+/* =========================================
+   ABOUT ICFJ SECTION
+   ========================================= */
+.about {
+  background: var(--light);
+  padding: 72px 0;
+  color: #000;
+}
+.about-headline {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 40px;
+  color: #000;
+}
+.about-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.about-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+}
+.about-meta { display: flex; flex-direction: column; gap: 16px; }
+.meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+.meta-key {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.35);
+}
+.meta-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+.meta-val a { color: var(--olive); transition: color 0.15s; }
+.meta-val a:hover { color: #000; }
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.atlas-bridge {
+  background: #1e1e1e;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 56px 0;
+}
+.bridge-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+.bridge-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+.bridge-headline {
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.bridge-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.4);
+  max-width: 440px;
+}
+.bridge-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff);
+  font-size: 14px;
+  font-weight: 800;
+  padding: 13px 26px;
+  border-radius: 6px;
+  background: var(--acid);
+  color: var(--dark);
+  transition: opacity 0.15s;
+  white-space: nowrap;
+  min-width: 190px;
+}
+.btn-primary:hover { opacity: 0.87; }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 13px 26px;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  min-width: 190px;
+}
+.btn-secondary:hover { color: var(--acid); border-color: rgba(206,255,0,0.3); }
+
+.footer {
+  background: #272727;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 48px 0;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.footer-wordmark img { height: 20px; width: auto; opacity: 0.22; mix-blend-mode: screen; }
+.footer-attribution {
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  line-height: 1.6;
+}
+.footer-attribution a {
+  color: rgba(255,255,255,0.35);
+  transition: color 0.15s;
+}
+.footer-attribution a:hover { color: var(--acid); }
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 900px) {
+  .container { padding: 0 24px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-stats-card { max-width: 360px; }
+  .context-cols { grid-template-columns: 1fr; gap: 24px; }
+  .creator-grid { grid-template-columns: 1fr 1fr; }
+  .about-cols { grid-template-columns: 1fr; gap: 32px; }
+  .bridge-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 16px; }
+  .hero { padding: 48px 0 40px; }
+  .creator-grid { grid-template-columns: 1fr; }
+  .region-tabs { overflow-x: auto; }
+  .nav-inner { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="./index.html" class="nav-logo">
+      <img src="./assets/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+    </a>
+    <a href="./index.html" class="nav-link">← All creators</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Left: ICFJ attribution -->
+      <div class="hero-left">
+        <div class="hero-label">Atlas Partnership</div>
+        <div class="hero-logo-placeholder">ICFJ</div>
+        <h1 class="hero-headline">Mapping creator&#8209;journalism, globally</h1>
+        <p class="hero-sub">The Independent Journalism Atlas partners with the International Center for Journalists (ICFJ) to identify and verify the world's leading independent creator-journalists. ICFJ's global network of fellows, awardees, and in-country specialists powers our international coverage.</p>
+        <a href="https://icfj.org" target="_blank" rel="noopener" class="hero-cta">Learn about ICFJ →</a>
+      </div>
+      <!-- Right: stats -->
+      <div class="hero-right">
+        <div class="hero-stats-card">
+          <div class="hero-stats-card-label">Partnership scope</div>
+          <div class="stat-row">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">vetted global creators</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num">4</div>
+            <div class="stat-label">regions mapped</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num">8,000+</div>
+            <div class="stat-label">entities in ICFJ source database</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-num">45</div>
+            <div class="stat-label">countries represented</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERSHIP CONTEXT -->
+<section class="context">
+  <div class="container">
+    <h2 class="context-headline">Why this partnership matters</h2>
+    <div class="context-cols">
+      <div class="context-col">
+        <p>The Atlas launched in February 2026 with 1,100+ US creator-journalists. Our international expansion is built on a foundation that would take years to replicate independently: ICFJ's database of 8,000+ media entities across 45 countries, accumulated through decades of fellowship programs, training initiatives, and the global Project Oasis creator mapping effort.</p>
+      </div>
+      <div class="context-col">
+        <p>ICFJ's regional expertise provides what no algorithm can — cultural context, in-country credibility assessment, and access to creators who don't surface in US-centric discovery tools. Together, we're building a map of independent journalism that reflects the full global ecosystem.</p>
+      </div>
+    </div>
+    <div class="context-method">
+      Creators featured on the Atlas meet our independent creator-journalist criteria: primarily solo or small-team operations, direct audience distribution, original reporting or editorial voice. ICFJ's trust framework (green/yellow/red) informs our vetting. All green-rated creators are eligible for Atlas inclusion.
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED GLOBAL CREATORS -->
+<section class="showcase">
+  <div class="container">
+    <div class="showcase-header">
+      <div class="showcase-eyebrow">ICFJ × Atlas Showcase</div>
+      <h2 class="showcase-headline">Top independent creator-journalists, by region</h2>
+      <p class="showcase-sub">Curated from ICFJ's global network. Updated as vetting advances.</p>
+    </div>
+
+    <!-- Region tabs -->
+    <div class="region-tabs" role="tablist">
+      <button class="region-tab active" data-region="latam" role="tab" aria-selected="true">Latin America</button>
+      <button class="region-tab" data-region="africa" role="tab" aria-selected="false">Africa</button>
+      <button class="region-tab" data-region="mena" role="tab" aria-selected="false">MENA</button>
+      <button class="region-tab" data-region="asiapac" role="tab" aria-selected="false">Asia-Pacific</button>
+    </div>
+
+    <!-- Latin America panel -->
+    <div class="region-panel active" id="panel-latam" role="tabpanel">
+      <div class="creator-grid" id="grid-latam"></div>
+    </div>
+
+    <!-- Africa panel -->
+    <div class="region-panel" id="panel-africa" role="tabpanel">
+      <div class="creator-grid" id="grid-africa"></div>
+    </div>
+
+    <!-- MENA panel -->
+    <div class="region-panel" id="panel-mena" role="tabpanel">
+      <div class="creator-grid" id="grid-mena"></div>
+    </div>
+
+    <!-- Asia-Pacific panel -->
+    <div class="region-panel" id="panel-asiapac" role="tabpanel">
+      <div class="creator-grid" id="grid-asiapac"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT ICFJ -->
+<section class="about">
+  <div class="container">
+    <h2 class="about-headline">About ICFJ</h2>
+    <div class="about-cols">
+      <div class="about-left">
+        <p class="about-body">The International Center for Journalists (ICFJ) is one of the world's leading journalism support organizations, with more than three decades of experience training and supporting journalists in 180+ countries. ICFJ's Knight Fellowships, awards programs, and Project Oasis initiative represent some of the most rigorous credentialing in global journalism.</p>
+      </div>
+      <div class="about-right">
+        <div class="about-meta">
+          <div class="meta-row">
+            <span class="meta-key">MOU signed</span>
+            <span class="meta-val">2025</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">Data source</span>
+            <span class="meta-val">ICFJ Global Creator Database (8,000+ entities, 45 countries)</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">Atlas primary contact</span>
+            <span class="meta-val">Liz Kelly Nelson</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">ICFJ primary contact</span>
+            <span class="meta-val">Maggie Zanger</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-key">Link</span>
+            <span class="meta-val"><a href="https://icfj.org" target="_blank" rel="noopener">Visit ICFJ →</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATLAS BRIDGE -->
+<div class="atlas-bridge">
+  <div class="container">
+    <div class="bridge-inner">
+      <div>
+        <div class="bridge-eyebrow">Independent Journalism Atlas</div>
+        <h3 class="bridge-headline">1,100+ US creator-journalists</h3>
+        <p class="bridge-body">The Atlas launched with the most comprehensive map of American creator-journalism ever assembled. Explore the full database, filter by beat, platform, and city.</p>
+      </div>
+      <div class="bridge-actions">
+        <a href="./index.html" class="btn-primary">Explore the Atlas →</a>
+        <a href="./latin-america-lab.html" class="btn-secondary">Latin America Lab →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-wordmark">
+        <img src="./assets/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+      </div>
+      <div class="footer-attribution">
+        Published by the <a href="./index.html">Independent Journalism Atlas</a>.<br>
+        Research partnership with <a href="https://icfj.org" target="_blank" rel="noopener">ICFJ</a>.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================
+   CREATOR DATA
+   ========================================= */
+const ICFJ_CREATORS = {
+  "latam": [
+    {
+      name: "Bianca Graulau",
+      channel: "Bianca Graulau",
+      country: "Puerto Rico",
+      flag: "🇵🇷",
+      platforms: ["Instagram", "Substack", "YouTube"],
+      topic: "Investigative, social justice, Puerto Rico/LatAm",
+      link: "https://instagram.com/biancagraulau",
+      audience: "Strong across platforms",
+      trust: "green"
+    },
+    {
+      name: "Nicolás Copano",
+      channel: "Copano.News / Turno",
+      country: "Chile",
+      flag: "🇨🇱",
+      platforms: ["Newsletter", "Streaming"],
+      topic: "Chilean politics, digital journalism innovation",
+      link: "https://twitter.com/copano",
+      audience: null,
+      trust: "green"
+    },
+    {
+      name: "Yuri Fernandes",
+      channel: "Colabora (#Colabora)",
+      country: "Brazil",
+      flag: "🇧🇷",
+      platforms: ["YouTube", "Podcast"],
+      topic: "Diversity, LGBTQ+ ageing, human rights",
+      link: "https://youtube.com/@colaborajornalismo",
+      audience: "39.5K YouTube",
+      trust: "green"
+    },
+    {
+      name: "Marcela Trejo",
+      channel: "Focos",
+      country: "El Salvador",
+      flag: "🇸🇻",
+      platforms: ["TikTok", "YouTube"],
+      topic: "Explanatory video journalism, politics, environment",
+      link: "https://youtube.com/@focostv",
+      audience: "20.2K YouTube",
+      trust: "green"
+    },
+    {
+      name: "Miguel Lago",
+      channel: "Miguel Lago",
+      country: "Brazil",
+      flag: "🇧🇷",
+      platforms: ["X (Twitter)", "Newsletter"],
+      topic: "Brazilian politics, policy, commentary",
+      link: "https://twitter.com/miguelago",
+      audience: null,
+      trust: "green"
+    },
+    {
+      name: "Mariana Guerrero Álvarez",
+      channel: "Fundación Vorágine",
+      country: "Colombia",
+      flag: "🇨🇴",
+      platforms: ["Website", "YouTube", "Patreon"],
+      topic: "Human rights, gender, conflict",
+      link: "https://youtube.com/@VoraginePeriodismo",
+      audience: "41.4K YouTube; 122K Instagram",
+      trust: "green"
+    },
+    {
+      name: "Diana Uribe",
+      channel: "Diana Uribe Presenta",
+      country: "Colombia",
+      flag: "🇨🇴",
+      platforms: ["Podcast", "Instagram"],
+      topic: "Historical storytelling, niche journalism",
+      link: "https://instagram.com/dianauribepresenta",
+      audience: "Colombia's most popular podcast",
+      trust: "green"
+    },
+    {
+      name: "La Pulla",
+      channel: "La Pulla",
+      country: "Colombia",
+      flag: "🇨🇴",
+      platforms: ["YouTube"],
+      topic: "Political explainers, satire, public affairs",
+      link: "https://www.youtube.com/@LaPulla",
+      audience: "Large YouTube audience",
+      trust: "yellow"
+    }
+  ],
+  "africa": [
+    {
+      name: "Aproko Doctor (Egemba Chinonso)",
+      channel: "Aproko Doctor",
+      country: "Nigeria",
+      flag: "🇳🇬",
+      platforms: ["Instagram", "X (Twitter)", "Newsletter"],
+      topic: "Health journalism, medical misinformation debunking",
+      link: "https://aproko.com",
+      audience: "7M+ across platforms",
+      trust: "green"
+    },
+    {
+      name: "Lynn Ngugi",
+      channel: "Lynn Ngugi Network",
+      country: "Kenya",
+      flag: "🇰🇪",
+      platforms: ["YouTube", "Social"],
+      topic: "Human interest, social justice, community stories",
+      link: "https://youtube.com/@LynnNgugi",
+      audience: "1.2M+ YouTube",
+      trust: "green"
+    },
+    {
+      name: "Kiki Mordi",
+      channel: "Kiki Mordi",
+      country: "Nigeria",
+      flag: "🇳🇬",
+      platforms: ["YouTube", "Social"],
+      topic: "Investigative journalism, personal brand storytelling",
+      link: "https://youtube.com/results?search_query=Kiki+Mordi",
+      audience: "Growing",
+      trust: "green"
+    },
+    {
+      name: "Ruona Meyer",
+      channel: "Ruona Meyer",
+      country: "Nigeria",
+      flag: "🇳🇬",
+      platforms: ["Podcast", "Digital"],
+      topic: "Independent investigative journalism, West Africa",
+      link: "https://ruonameyer.com",
+      audience: "Loyal niche audience",
+      trust: "green"
+    },
+    {
+      name: "Desmond Latham",
+      channel: "History of South Africa Podcast",
+      country: "South Africa",
+      flag: "🇿🇦",
+      platforms: ["Podcast"],
+      topic: "History, educational storytelling, South Africa",
+      link: "https://iono.fm/rss/chan/6011",
+      audience: "Loyal niche audience",
+      trust: "green"
+    }
+  ],
+  "mena": [
+    {
+      name: "Motaz Azaiza",
+      channel: "motaz_azaiza",
+      country: "Palestine",
+      flag: "🇵🇸",
+      platforms: ["Instagram", "YouTube"],
+      topic: "War documentation, photojournalism",
+      link: "https://instagram.com/motaz_azaiza",
+      audience: "16.7M Instagram",
+      trust: "green"
+    },
+    {
+      name: "Bisan Owda",
+      channel: "Bisan from Gaza",
+      country: "Palestine / Gaza",
+      flag: "🇵🇸",
+      platforms: ["Instagram", "Video"],
+      topic: "Gaza war documentary, daily life in conflict",
+      link: "https://instagram.com/bisanowda",
+      audience: "4.9M+ Instagram",
+      trust: "green"
+    },
+    {
+      name: "Hadeel Arja",
+      channel: "Tiny Hand",
+      country: "Syria / MENA",
+      flag: "🇸🇾",
+      platforms: ["Website", "Visual journalism"],
+      topic: "Award-winning investigative visual journalism",
+      link: "https://tinyhand.net",
+      audience: "Award-winning platform",
+      trust: "green"
+    },
+    {
+      name: "Hind Khoudary",
+      channel: "hindkhoudary",
+      country: "Gaza",
+      flag: "🇵🇸",
+      platforms: ["Instagram", "X (Twitter)"],
+      topic: "Gaza war, civilian life, human rights",
+      link: "https://instagram.com/hindkhoudary",
+      audience: "1M+ Instagram",
+      trust: "yellow"
+    }
+  ],
+  "asiapac": [
+    {
+      name: "Ravish Kumar",
+      channel: "Ravish Kumar Official",
+      country: "India",
+      flag: "🇮🇳",
+      platforms: ["YouTube"],
+      topic: "Indian politics, democracy, press freedom, rural India",
+      link: "https://youtube.com/@ravishkumar.official",
+      audience: "5M+ YouTube",
+      trust: "green"
+    },
+    {
+      name: "Dhruv Rathee",
+      channel: "Dhruv Rathee",
+      country: "India (based in Germany)",
+      flag: "🇮🇳",
+      platforms: ["YouTube"],
+      topic: "Current affairs, geopolitics, environment, financial education",
+      link: "https://youtube.com/@dhruvrathee",
+      audience: "20M+ YouTube",
+      trust: "green"
+    },
+    {
+      name: "Jeff Joseph Paul Kadicheeni",
+      channel: "Osupaan",
+      country: "India",
+      flag: "🇮🇳",
+      platforms: ["YouTube"],
+      topic: "Investigative, underreported communities, multilingual",
+      link: "https://youtube.com/@osupaan",
+      audience: "Emerging",
+      trust: "green"
+    },
+    {
+      name: "Muhamad Faisal Reza Irfani",
+      channel: "Narasi Newsroom",
+      country: "Indonesia",
+      flag: "🇮🇩",
+      platforms: ["YouTube"],
+      topic: "Investigative — nickel mining, palm oil, Rohingya refugees",
+      link: "https://youtube.com/@NarasiNewsroom",
+      audience: "Large — exact TBD",
+      trust: "green"
+    }
+  ]
+};
+
+/* =========================================
+   TRUST TOOLTIP TEXT
+   ========================================= */
+const TRUST_LABELS = {
+  green: "ICFJ trust rating: Green — transparent, ethics-forward, corrections policy in place.",
+  yellow: "ICFJ trust rating: Yellow — promising, some transparency gaps. Still quality journalism."
+};
+
+/* =========================================
+   RENDER CARDS
+   ========================================= */
+function renderCard(creator) {
+  const audienceHtml = creator.audience
+    ? `<div class="card-audience">${creator.audience}</div>`
+    : '';
+  const platformsHtml = creator.platforms
+    .map(p => `<span class="platform-pill">${p}</span>`)
+    .join('');
+
+  return `
+    <div class="creator-card">
+      <div class="trust-badge-wrap">
+        <div class="trust-badge ${creator.trust}" aria-label="Trust rating: ${creator.trust}"></div>
+        <div class="trust-tooltip">${TRUST_LABELS[creator.trust]}</div>
+      </div>
+      <div class="card-country">${creator.flag} ${creator.country}</div>
+      <div>
+        <div class="card-name">${creator.name}</div>
+        <div class="card-channel">${creator.channel}</div>
+      </div>
+      <div class="card-topic">${creator.topic}</div>
+      <div class="card-platforms">${platformsHtml}</div>
+      ${audienceHtml}
+      <a href="${creator.link}" target="_blank" rel="noopener" class="card-link">View →</a>
+    </div>
+  `;
+}
+
+function renderRegion(regionKey) {
+  const creators = ICFJ_CREATORS[regionKey];
+  const grid = document.getElementById(`grid-${regionKey}`);
+  if (!grid) return;
+
+  let html = creators.map(renderCard).join('');
+
+  // Asia-Pacific has fewer creators — add a coming-soon slot
+  if (regionKey === 'asiapac') {
+    html += `
+      <div class="coming-soon-card">
+        <div class="coming-soon-label">More coming soon</div>
+        <div class="coming-soon-text">Southeast Asia, Pacific, and East Asia creators being researched and vetted.</div>
+      </div>
+    `;
+  }
+
+  grid.innerHTML = html;
+}
+
+/* =========================================
+   TAB SWITCHING
+   ========================================= */
+function initTabs() {
+  const tabs = document.querySelectorAll('.region-tab');
+  const panels = document.querySelectorAll('.region-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const region = tab.dataset.region;
+
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      panels.forEach(panel => {
+        if (panel.id === `panel-${region}`) {
+          panel.style.opacity = '0';
+          panel.classList.add('active');
+          requestAnimationFrame(() => {
+            panel.style.transition = 'opacity 0.2s ease';
+            panel.style.opacity = '1';
+          });
+        } else {
+          panel.classList.remove('active');
+          panel.style.opacity = '';
+          panel.style.transition = '';
+        }
+      });
+    });
+  });
+}
+
+/* =========================================
+   INIT
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  Object.keys(ICFJ_CREATORS).forEach(renderRegion);
+  initTabs();
+});
+</script>
+</body>
+</html>

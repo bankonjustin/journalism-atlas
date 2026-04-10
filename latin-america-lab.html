@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latin America Lab — Independent Journalism Atlas</title>
+<meta name="description" content="Independent creator-journalists across Latin America and the Caribbean. Curated by the Atlas in partnership with ICFJ.">
+<meta property="og:title" content="Latin America Lab — Independent Journalism Atlas">
+<meta property="og:description" content="From Venezuela's exiled press to Chile's newsletter pioneers, creator-journalists are filling gaps left by legacy media. This lab maps them.">
+<meta property="og:url" content="https://journalismatlas.com/latin-america-lab">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   DESIGN TOKENS
+   ========================================= */
+:root {
+  --acid: #ceff00;
+  --lime: #97d600;
+  --olive: #5d7400;
+  --dark: #313131;
+  --dark2: #1a1a1a;
+  --black: #000000;
+  --light: #efeff2;
+  --white: #ffffff;
+  --ff: 'Hanken Grotesk', sans-serif;
+  --radius: 8px;
+  --max: 1100px;
+}
+
+/* =========================================
+   RESET + BASE
+   ========================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--ff); background: var(--dark); color: var(--white); line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 48px; }
+
+/* =========================================
+   NAV
+   ========================================= */
+.nav {
+  background: #000;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.nav-logo img { height: 20px; width: auto; mix-blend-mode: screen; }
+.nav-breadcrumb {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.04em;
+}
+.nav-breadcrumb a { color: rgba(255,255,255,0.35); transition: color 0.15s; }
+.nav-breadcrumb a:hover { color: var(--acid); }
+.nav-breadcrumb .sep { color: rgba(255,255,255,0.15); }
+
+/* =========================================
+   HERO
+   ========================================= */
+.hero {
+  background: var(--dark);
+  padding: 80px 0 72px;
+  border-bottom: 3px solid var(--acid);
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 64px;
+  align-items: start;
+}
+.hero-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 16px;
+}
+.hero-headline {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+.hero-sub {
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  max-width: 540px;
+  margin-bottom: 18px;
+}
+.hero-attribution {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  font-style: italic;
+}
+
+/* Right: stat cards */
+.hero-stats { display: flex; flex-direction: column; gap: 12px; padding-top: 8px; }
+.hero-stat-card {
+  background: var(--dark2);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.hero-stat-num {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--acid);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+  min-width: 56px;
+}
+.hero-stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.3;
+}
+
+/* =========================================
+   ECOSYSTEM CONTEXT
+   ========================================= */
+.ecosystem {
+  background: var(--light);
+  padding: 72px 0;
+  color: #000;
+}
+.ecosystem-headline {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #000;
+  margin-bottom: 36px;
+}
+.ecosystem-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+.ecosystem-col p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+}
+.ecosystem-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ecosystem-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  padding: 24px 22px;
+}
+.ecosystem-card-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--olive);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.ecosystem-card-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* =========================================
+   CREATOR LAB
+   ========================================= */
+.lab {
+  background: var(--black);
+  padding: 72px 0 80px;
+}
+.lab-header { margin-bottom: 32px; }
+.lab-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+.lab-headline {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+}
+
+/* Filter bar */
+.filters { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.filter-pill {
+  display: inline-flex;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-family: var(--ff);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+.filter-pill:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.18); }
+.filter-pill.active {
+  background: var(--acid);
+  color: #000;
+  border-color: var(--acid);
+}
+
+/* Count bar */
+.count-bar {
+  font-size: 12px;
+  color: rgba(255,255,255,0.28);
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.count-bar span { color: var(--acid); }
+
+/* Creator grid */
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.creator-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s;
+}
+.creator-card:hover { border-color: rgba(206,255,0,0.2); }
+.creator-card.hidden { display: none; }
+
+/* Trust badge */
+.trust-badge-wrap {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+.trust-badge {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  cursor: help;
+}
+.trust-badge.green { background: #22c55e; box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+.trust-badge.yellow { background: #eab308; box-shadow: 0 0 0 2px rgba(234,179,8,0.2); }
+.trust-tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #222;
+  color: rgba(255,255,255,0.75);
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 8px 10px;
+  border-radius: 6px;
+  white-space: normal;
+  width: 200px;
+  border: 1px solid rgba(255,255,255,0.1);
+  z-index: 10;
+  pointer-events: none;
+}
+.trust-badge-wrap:hover .trust-tooltip { display: block; }
+
+/* Featured badge */
+.featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(206,255,0,0.7);
+}
+.featured-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acid);
+  flex-shrink: 0;
+}
+
+/* ICFJ badge */
+.icfj-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: rgba(206,255,0,0.08);
+  border: 1px solid rgba(206,255,0,0.2);
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--acid);
+  letter-spacing: 0.04em;
+}
+
+.card-country {
+  font-size: 12px;
+  color: var(--acid);
+  font-weight: 600;
+  opacity: 0.75;
+  margin-top: 4px;
+}
+.card-name {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--white);
+  padding-right: 20px;
+}
+.card-channel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--acid);
+  opacity: 0.8;
+}
+.card-topic {
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.4;
+}
+.card-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.platform-pill {
+  display: inline-flex;
+  padding: 3px 9px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.5);
+}
+.card-audience {
+  font-size: 11px;
+  color: rgba(255,255,255,0.28);
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.32);
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+}
+.card-link:hover { color: var(--acid); }
+
+/* =========================================
+   SPOTLIGHT — TOP 3
+   ========================================= */
+.spotlight {
+  background: var(--dark);
+  padding: 72px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.spotlight-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 10px;
+}
+.spotlight-headline {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+.spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.spotlight-card {
+  background: var(--olive);
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.spotlight-name {
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.spotlight-quote {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.75);
+  font-style: italic;
+  border-left: 2px solid rgba(206,255,0,0.5);
+  padding-left: 12px;
+}
+.spotlight-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+.spotlight-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.spotlight-trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.trust-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+.spotlight-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--acid);
+  transition: opacity 0.15s;
+}
+.spotlight-cta:hover { opacity: 0.75; }
+
+/* =========================================
+   METHODOLOGY
+   ========================================= */
+.methodology {
+  background: var(--light);
+  padding: 64px 0;
+  color: #000;
+}
+.methodology-headline {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #000;
+  margin-bottom: 16px;
+}
+.methodology-body {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #444;
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+.methodology-body p + p { margin-top: 14px; }
+.method-credits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 24px;
+}
+.method-credit-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.45);
+  font-weight: 600;
+}
+.method-logo-placeholder {
+  width: 48px;
+  height: 22px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: rgba(0,0,0,0.3);
+}
+
+/* =========================================
+   CTA SECTION
+   ========================================= */
+.cta-section {
+  background: var(--dark2);
+  padding: 64px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.cta-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.cta-block {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cta-block-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+.cta-block-headline {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.cta-block-body {
+  font-size: 14px;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.6;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ff);
+  font-size: 14px;
+  font-weight: 800;
+  padding: 12px 24px;
+  border-radius: 6px;
+  background: var(--acid);
+  color: var(--dark);
+  transition: opacity 0.15s;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+.btn-primary:hover { opacity: 0.87; }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ff);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: color 0.15s, border-color 0.15s;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+.btn-ghost:hover { color: var(--acid); border-color: rgba(206,255,0,0.3); }
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+  background: #272727;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 48px 0;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.footer-wordmark img { height: 20px; width: auto; opacity: 0.22; mix-blend-mode: screen; }
+.footer-attribution {
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  line-height: 1.6;
+}
+.footer-attribution a {
+  color: rgba(255,255,255,0.35);
+  transition: color 0.15s;
+}
+.footer-attribution a:hover { color: var(--acid); }
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 960px) {
+  .container { padding: 0 24px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-stats { flex-direction: row; flex-wrap: wrap; }
+  .hero-stat-card { flex: 1; min-width: 140px; }
+  .ecosystem-cols { grid-template-columns: 1fr; gap: 24px; }
+  .ecosystem-cards { grid-template-columns: 1fr; gap: 12px; }
+  .creator-grid { grid-template-columns: 1fr 1fr; }
+  .spotlight-grid { grid-template-columns: 1fr; gap: 12px; }
+  .cta-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 16px; }
+  .hero { padding: 48px 0 40px; }
+  .creator-grid { grid-template-columns: 1fr; }
+  .nav-inner { padding: 0 16px; }
+  .nav-breadcrumb { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="./index.html" class="nav-logo">
+      <img src="./assets/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+    </a>
+    <div class="nav-breadcrumb">
+      <a href="./index.html">Atlas</a>
+      <span class="sep">›</span>
+      <span>Labs</span>
+      <span class="sep">›</span>
+      <span>Latin America</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-label">Atlas Lab — Latin America &amp; the Caribbean</div>
+        <h1 class="hero-headline">Independent journalism is alive across Latin America</h1>
+        <p class="hero-sub">From Venezuela's exiled press to Chile's newsletter pioneers, creator-journalists are filling gaps left by legacy media consolidation, advertiser pressure, and press freedom crackdowns. This lab maps them.</p>
+        <p class="hero-attribution">Curated in partnership with ICFJ. Data from ICFJ's global creator database + Atlas desk research.</p>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stats">
+          <div class="hero-stat-card">
+            <div class="hero-stat-num">45</div>
+            <div class="hero-stat-label">creator-journalists researched</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-num">12</div>
+            <div class="hero-stat-label">green-rated, fully vetted</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-num">8</div>
+            <div class="hero-stat-label">countries represented</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-num">3</div>
+            <div class="hero-stat-label">ICFJ Hall of Fame / Award winners</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM CONTEXT -->
+<section class="ecosystem">
+  <div class="container">
+    <h2 class="ecosystem-headline">The landscape</h2>
+    <div class="ecosystem-cols">
+      <div class="ecosystem-col">
+        <p>Latin American creator-journalism operates under conditions unlike most of the world. In Venezuela, Cuba, and Nicaragua, independent journalism has been forced into exile — creators like El Pitazo's César Batiz and El Toque's Alejandro Ulloa Garcia reach audiences from Spain and Colombia while covering their home countries in real time. Press freedom is not abstract here; it's the operating condition.</p>
+      </div>
+      <div class="ecosystem-col">
+        <p>Across the rest of the region, a distinct pattern has emerged: veteran journalists leaving legacy TV and print to build direct audience relationships through YouTube, podcast, and newsletter. The trust deficit with institutional media has created a genuine opening for creator-led voices. Brazil, Colombia, and Chile are the most active markets. The Lusophone and Hispanophone spheres are distinct ecosystems requiring separate navigation.</p>
+      </div>
+    </div>
+    <div class="ecosystem-cards">
+      <div class="ecosystem-card">
+        <div class="ecosystem-card-title">Exile journalism</div>
+        <div class="ecosystem-card-body">Venezuela, Cuba, Nicaragua. Creators operating from abroad but building audiences at home through VPNs and diaspora networks. High risk, high credibility.</div>
+      </div>
+      <div class="ecosystem-card">
+        <div class="ecosystem-card-title">Video-native voices</div>
+        <div class="ecosystem-card-body">YouTube-first journalism is more dominant here than in the US ecosystem. Creators like La Pulla (Colombia) and MyNews (Brazil) have built mass audiences through explainer-style long-form video.</div>
+      </div>
+      <div class="ecosystem-card">
+        <div class="ecosystem-card-title">Nonprofit independence</div>
+        <div class="ecosystem-card-body">Many LatAm creators operate under nonprofit or NGO structures, funded by international journalism grants. This is different from the US subscription-first model but no less independent.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATOR LAB -->
+<section class="lab">
+  <div class="container">
+    <div class="lab-header">
+      <div class="lab-eyebrow">The Creators</div>
+      <h2 class="lab-headline">Curated creator-journalists, Latin America &amp; Caribbean</h2>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-row">
+        <span class="filter-label">Country</span>
+        <button class="filter-pill active" data-filter="country" data-value="all">All</button>
+        <button class="filter-pill" data-filter="country" data-value="Brazil">Brazil</button>
+        <button class="filter-pill" data-filter="country" data-value="Colombia">Colombia</button>
+        <button class="filter-pill" data-filter="country" data-value="Venezuela">Venezuela</button>
+        <button class="filter-pill" data-filter="country" data-value="Chile">Chile</button>
+        <button class="filter-pill" data-filter="country" data-value="Cuba">Cuba</button>
+        <button class="filter-pill" data-filter="country" data-value="El Salvador">El Salvador</button>
+        <button class="filter-pill" data-filter="country" data-value="Other">Other</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Topic</span>
+        <button class="filter-pill active" data-filter="topic" data-value="all">All topics</button>
+        <button class="filter-pill" data-filter="topic" data-value="Politics">Politics</button>
+        <button class="filter-pill" data-filter="topic" data-value="Investigative">Investigative</button>
+        <button class="filter-pill" data-filter="topic" data-value="Human Rights">Human Rights</button>
+        <button class="filter-pill" data-filter="topic" data-value="Environment">Environment</button>
+        <button class="filter-pill" data-filter="topic" data-value="Culture">Culture</button>
+        <button class="filter-pill" data-filter="topic" data-value="Health">Health</button>
+      </div>
+    </div>
+
+    <div class="count-bar">Showing <span id="count-shown">15</span> of <span id="count-total">15</span> creators</div>
+
+    <div class="creator-grid" id="creator-grid"></div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT -->
+<section class="spotlight">
+  <div class="container">
+    <div class="spotlight-eyebrow">Featured voices</div>
+    <h2 class="spotlight-headline">Three creators leading the field</h2>
+    <div class="spotlight-grid">
+      <div class="spotlight-card">
+        <div class="spotlight-name">Bianca Graulau</div>
+        <div class="spotlight-quote">"The clearest model of independent creator-journalism in the region. Multi-platform, investigative, audience-owned."</div>
+        <div class="spotlight-meta">
+          <span>🇵🇷 Puerto Rico</span>
+          <span>Instagram · Substack · YouTube</span>
+          <span>Strong across platforms</span>
+        </div>
+        <div class="spotlight-badges">
+          <span class="spotlight-trust"><span class="trust-dot"></span> Green rated</span>
+        </div>
+        <a href="https://instagram.com/biancagraulau" target="_blank" rel="noopener" class="spotlight-cta">Explore →</a>
+      </div>
+      <div class="spotlight-card">
+        <div class="spotlight-name">Yuri Fernandes / Colabora</div>
+        <div class="spotlight-quote">"ICFJ Award 2025. Mission-driven journalism on LGBTQ+ and human rights, built on direct audience support."</div>
+        <div class="spotlight-meta">
+          <span>🇧🇷 Brazil</span>
+          <span>YouTube · Podcast</span>
+          <span>39.5K YouTube</span>
+        </div>
+        <div class="spotlight-badges">
+          <span class="spotlight-trust"><span class="trust-dot"></span> Green rated</span>
+          <span class="icfj-badge">ICFJ Award 2025</span>
+        </div>
+        <a href="https://youtube.com/@colaborajornalismo" target="_blank" rel="noopener" class="spotlight-cta">Explore →</a>
+      </div>
+      <div class="spotlight-card">
+        <div class="spotlight-name">Marcela Trejo / Focos</div>
+        <div class="spotlight-quote">"ICFJ Award 2025. Emerging creator in El Salvador with exceptional validation for her stage."</div>
+        <div class="spotlight-meta">
+          <span>🇸🇻 El Salvador</span>
+          <span>TikTok · YouTube</span>
+          <span>20.2K YouTube</span>
+        </div>
+        <div class="spotlight-badges">
+          <span class="spotlight-trust"><span class="trust-dot"></span> Green rated</span>
+          <span class="icfj-badge">ICFJ Award 2025</span>
+        </div>
+        <a href="https://youtube.com/@focostv" target="_blank" rel="noopener" class="spotlight-cta">Explore →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="methodology">
+  <div class="container">
+    <h3 class="methodology-headline">How this list was built</h3>
+    <div class="methodology-body">
+      <p>This lab draws from ICFJ's global creator research database, which encompasses 8,000+ media entities across 45 countries. The Latin America list reflects research conducted through early 2026, including desk research, creator vetting by ICFJ's regional specialists, and Atlas editorial review.</p>
+      <p>Criteria for inclusion: original reporting or editorial voice; direct audience distribution (not primarily institutional); primarily solo or small team (under ~20 staff). Trust ratings (green/yellow) follow ICFJ's framework: green indicates transparency, published corrections policy, and clear editorial standards.</p>
+      <p>This is a living list. New creators are added as vetting is completed.</p>
+    </div>
+    <div class="method-credits">
+      <div class="method-credit-item">
+        <div class="method-logo-placeholder">ICFJ</div>
+        Research partnership with ICFJ
+      </div>
+      <div class="method-credit-item">
+        <div class="method-logo-placeholder">IJA</div>
+        Published by the Independent Journalism Atlas
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-block">
+        <div class="cta-block-label">The full database</div>
+        <div class="cta-block-headline">Explore the Atlas</div>
+        <div class="cta-block-body">1,100+ US creator-journalists, filterable by beat, platform, and city. The most comprehensive map of American creator-journalism assembled.</div>
+        <a href="./index.html" class="btn-primary">Explore the Atlas →</a>
+      </div>
+      <div class="cta-block">
+        <div class="cta-block-label">Know someone we missed?</div>
+        <div class="cta-block-headline">Suggest a creator</div>
+        <div class="cta-block-body">This is a living list. If you know an independent creator-journalist in Latin America or the Caribbean who should be here, we want to know.</div>
+        <a href="#suggest" class="btn-ghost">Suggest a creator (form coming soon)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-wordmark">
+        <img src="./assets/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+      </div>
+      <div class="footer-attribution">
+        Published by the <a href="./index.html">Independent Journalism Atlas</a>.<br>
+        Research partnership with <a href="https://icfj.org" target="_blank" rel="noopener">ICFJ</a>.
+        <br><a href="./partner-icfj.html">View ICFJ partnership page →</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================
+   CREATOR DATA
+   ========================================= */
+const LATAM_CREATORS = [
+  {
+    name: "Bianca Graulau",
+    channel: "Bianca Graulau",
+    country: "Puerto Rico",
+    flag: "🇵🇷",
+    platforms: ["Instagram", "Substack", "YouTube"],
+    topic: "Investigative, social justice, Puerto Rico/LatAm",
+    topicTags: ["Investigative", "Human Rights"],
+    link: "https://instagram.com/biancagraulau",
+    audience: "Strong across platforms",
+    trust: "green",
+    icfj_note: null,
+    featured: true,
+    rank: 1
+  },
+  {
+    name: "Nicolás Copano",
+    channel: "Copano.News / Turno",
+    country: "Chile",
+    flag: "🇨🇱",
+    platforms: ["Newsletter", "Streaming"],
+    topic: "Chilean politics, digital journalism innovation",
+    topicTags: ["Politics"],
+    link: "https://twitter.com/copano",
+    audience: null,
+    trust: "green",
+    icfj_note: null,
+    featured: true,
+    rank: 2
+  },
+  {
+    name: "Yuri Fernandes",
+    channel: "Colabora (#Colabora)",
+    country: "Brazil",
+    flag: "🇧🇷",
+    platforms: ["YouTube", "Podcast"],
+    topic: "Diversity, LGBTQ+ ageing, human rights",
+    topicTags: ["Human Rights", "Culture"],
+    link: "https://youtube.com/@colaborajornalismo",
+    audience: "39.5K YouTube",
+    trust: "green",
+    icfj_note: "ICFJ Award 2025",
+    featured: true,
+    rank: 3
+  },
+  {
+    name: "Marcela Trejo",
+    channel: "Focos",
+    country: "El Salvador",
+    flag: "🇸🇻",
+    platforms: ["TikTok", "YouTube"],
+    topic: "Explanatory video journalism, politics, environment",
+    topicTags: ["Politics", "Environment"],
+    link: "https://youtube.com/@focostv",
+    audience: "20.2K YouTube",
+    trust: "green",
+    icfj_note: "ICFJ Award 2025",
+    featured: true,
+    rank: 4
+  },
+  {
+    name: "Miguel Lago",
+    channel: "Miguel Lago",
+    country: "Brazil",
+    flag: "🇧🇷",
+    platforms: ["X (Twitter)", "Newsletter"],
+    topic: "Brazilian politics, policy commentary",
+    topicTags: ["Politics"],
+    link: "https://twitter.com/miguelago",
+    audience: null,
+    trust: "green",
+    icfj_note: null,
+    featured: true,
+    rank: 5
+  },
+  {
+    name: "Mara Amorim",
+    channel: "MyNews",
+    country: "Brazil",
+    flag: "🇧🇷",
+    platforms: ["YouTube"],
+    topic: "Politics, economy, public affairs video journalism",
+    topicTags: ["Politics"],
+    link: "https://youtube.com/canalmynews",
+    audience: "1.14M YouTube; 104K Instagram",
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 6
+  },
+  {
+    name: "Mariana Guerrero Álvarez",
+    channel: "Fundación Vorágine",
+    country: "Colombia",
+    flag: "🇨🇴",
+    platforms: ["Website", "YouTube", "Patreon"],
+    topic: "Human rights, gender, conflict — Colombia",
+    topicTags: ["Human Rights", "Investigative"],
+    link: "https://youtube.com/@VoraginePeriodismo",
+    audience: "41.4K YouTube; 122K Instagram",
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 7
+  },
+  {
+    name: "Alejandro Ulloa Garcia",
+    channel: "El Toque",
+    country: "Cuba",
+    flag: "🇨🇺",
+    platforms: ["YouTube", "Website"],
+    topic: "Cuba politics, society, video journalism",
+    topicTags: ["Politics"],
+    link: "https://youtube.com/@elTOQUEcom",
+    audience: "204K YouTube; 68.5K Instagram",
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 8
+  },
+  {
+    name: "Luz Reyes",
+    channel: "Efecto Cocuyo",
+    country: "Venezuela",
+    flag: "🇻🇪",
+    platforms: ["Website", "X", "Instagram", "Newsletter"],
+    topic: "Politics, migration, Venezuela public affairs",
+    topicTags: ["Politics", "Investigative"],
+    link: "https://youtube.com/@EfectoCocuyo",
+    audience: "34.4K YouTube",
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 9
+  },
+  {
+    name: "César Batiz",
+    channel: "El Pitazo",
+    country: "Venezuela",
+    flag: "🇻🇪",
+    platforms: ["Website", "WhatsApp", "Social"],
+    topic: "Venezuelan politics, democracy, community reporting",
+    topicTags: ["Politics", "Investigative"],
+    link: "https://elpitazo.net",
+    audience: "1,400+ citizen reporter network",
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 10
+  },
+  {
+    name: "Rosa María Palacios",
+    channel: "RMP TV",
+    country: "Peru",
+    flag: "🇵🇪",
+    platforms: ["YouTube"],
+    topic: "Political analysis, opinion — Peru",
+    topicTags: ["Politics"],
+    link: "https://youtube.com/results?search_query=Rosa+Mar%C3%ADa+Palacios",
+    audience: "One of Peru's most-followed independent platforms",
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 11
+  },
+  {
+    name: "Diana Uribe",
+    channel: "Diana Uribe Presenta",
+    country: "Colombia",
+    flag: "🇨🇴",
+    platforms: ["Podcast", "Instagram"],
+    topic: "Historical storytelling, niche journalism",
+    topicTags: ["Culture"],
+    link: "https://instagram.com/dianauribepresenta",
+    audience: "Colombia's most popular podcast",
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 12
+  },
+  {
+    name: "La Pulla",
+    channel: "La Pulla",
+    country: "Colombia",
+    flag: "🇨🇴",
+    platforms: ["YouTube"],
+    topic: "Political explainers, satire, public affairs",
+    topicTags: ["Politics", "Culture"],
+    link: "https://www.youtube.com/@LaPulla",
+    audience: "Large YouTube audience",
+    trust: "yellow",
+    icfj_note: null,
+    featured: false,
+    rank: 13
+  },
+  {
+    name: "Daniel Coronell",
+    channel: "Los Danieles",
+    country: "Colombia",
+    flag: "🇨🇴",
+    platforms: ["X (Twitter)", "Newsletter"],
+    topic: "Investigative journalism, Colombian politics",
+    topicTags: ["Investigative", "Politics"],
+    link: "https://twitter.com/DCoronell",
+    audience: null,
+    trust: "green",
+    icfj_note: null,
+    featured: false,
+    rank: 14
+  },
+  {
+    name: "Gustavo Faleiros",
+    channel: "InfoAmazonia",
+    country: "Brazil",
+    flag: "🇧🇷",
+    platforms: ["Website", "Digital"],
+    topic: "Environmental journalism, Amazon, climate",
+    topicTags: ["Environment", "Investigative"],
+    link: "https://infoamazonia.org",
+    audience: null,
+    trust: "yellow",
+    icfj_note: null,
+    featured: false,
+    rank: 15
+  }
+];
+
+/* =========================================
+   TRUST LABELS
+   ========================================= */
+const TRUST_LABELS = {
+  green: "ICFJ trust rating: Green — transparent, ethics-forward, corrections policy in place.",
+  yellow: "ICFJ trust rating: Yellow — promising, some transparency gaps. Still quality journalism."
+};
+
+/* =========================================
+   COUNTRY DISPLAY OVERRIDES
+   (show full label including exile status)
+   ========================================= */
+const COUNTRY_DISPLAY = {
+  "Cuba": "Cuba (now Spain)",
+  "Venezuela": "Venezuela (in exile)"
+};
+
+/* =========================================
+   FILTERS STATE
+   ========================================= */
+const activeFilters = { country: "all", topic: "all" };
+
+/* =========================================
+   RENDER CARD
+   ========================================= */
+function renderCard(creator) {
+  const countryDisplay = COUNTRY_DISPLAY[creator.country] || creator.country;
+  const audienceHtml = creator.audience
+    ? `<div class="card-audience">${creator.audience}</div>`
+    : '';
+  const platformsHtml = creator.platforms
+    .map(p => `<span class="platform-pill">${p}</span>`)
+    .join('');
+  const featuredHtml = creator.featured
+    ? `<div class="featured-badge"><span class="featured-dot"></span>Featured</div>`
+    : '';
+  const icfjHtml = creator.icfj_note
+    ? `<span class="icfj-badge">${creator.icfj_note}</span>`
+    : '';
+
+  return `
+    <div class="creator-card" data-country="${creator.country}" data-topic-tags="${creator.topicTags.join(',')}">
+      <div class="trust-badge-wrap">
+        <div class="trust-badge ${creator.trust}" aria-label="Trust: ${creator.trust}"></div>
+        <div class="trust-tooltip">${TRUST_LABELS[creator.trust]}</div>
+      </div>
+      ${featuredHtml}
+      <div class="card-country">${creator.flag} ${countryDisplay}</div>
+      <div>
+        <div class="card-name">${creator.name}</div>
+        <div class="card-channel">${creator.channel}</div>
+      </div>
+      <div class="card-topic">${creator.topic}</div>
+      <div class="card-platforms">${platformsHtml}</div>
+      ${audienceHtml}
+      <div class="card-footer">
+        ${icfjHtml}
+        <a href="${creator.link}" target="_blank" rel="noopener" class="card-link">View →</a>
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================
+   RENDER ALL CARDS
+   ========================================= */
+function renderGrid() {
+  const grid = document.getElementById('creator-grid');
+  const sorted = [...LATAM_CREATORS].sort((a, b) => a.rank - b.rank);
+  grid.innerHTML = sorted.map(renderCard).join('');
+  applyFilters();
+}
+
+/* =========================================
+   APPLY FILTERS
+   ========================================= */
+function applyFilters() {
+  const cards = document.querySelectorAll('.creator-card');
+  let shown = 0;
+
+  cards.forEach(card => {
+    const country = card.dataset.country;
+    const tags = card.dataset.topicTags.split(',');
+
+    const countryOk = activeFilters.country === 'all'
+      || country === activeFilters.country
+      || (activeFilters.country === 'Other' && !['Brazil','Colombia','Venezuela','Chile','Cuba','El Salvador'].includes(country));
+
+    const topicOk = activeFilters.topic === 'all'
+      || tags.some(t => t.trim() === activeFilters.topic);
+
+    if (countryOk && topicOk) {
+      card.classList.remove('hidden');
+      shown++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  document.getElementById('count-shown').textContent = shown;
+  document.getElementById('count-total').textContent = LATAM_CREATORS.length;
+}
+
+/* =========================================
+   FILTER UI
+   ========================================= */
+function initFilters() {
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const filterType = pill.dataset.filter;
+      const value = pill.dataset.value;
+
+      // Update active state for this filter group
+      document.querySelectorAll(`.filter-pill[data-filter="${filterType}"]`).forEach(p => {
+        p.classList.remove('active');
+      });
+      pill.classList.add('active');
+
+      activeFilters[filterType] = value;
+      applyFilters();
+    });
+  });
+}
+
+/* =========================================
+   INIT
+   ========================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  renderGrid();
+  initFilters();
+});
+</script>
+</body>
+</html>
