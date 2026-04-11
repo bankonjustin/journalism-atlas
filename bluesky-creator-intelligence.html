@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluesky Creator Intelligence — Atlas × TrustFnd</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --acid: #ceff00;
+    --lime: #97d600;
+    --olive: #5d7400;
+    --dark: #313131;
+    --mid: #4a4a4a;
+    --light: #efeff2;
+    --white: #ffffff;
+    --black: #0a0a0a;
+    --watch: #ff6b35;
+    --watch-dim: rgba(255,107,53,0.15);
+    --new-dim: rgba(206,255,0,0.12);
+    --atlas-dim: rgba(151,214,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    border-bottom: 1px solid #222;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .atlas-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--acid);
+    border: 1px solid var(--acid);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .x-mark {
+    color: #444;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  .trustfnd-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--watch);
+    border: 1px solid var(--watch);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .header-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    text-align: right;
+    line-height: 1.7;
+  }
+  .header-right span {
+    color: var(--acid);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 40px 56px;
+    border-bottom: 1px solid #1a1a1a;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(206,255,0,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--olive);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+    max-width: 780px;
+  }
+  .hero-title .accent { color: var(--acid); }
+  .hero-title .dim { color: #444; }
+
+  .stat-row {
+    display: flex;
+    gap: 0;
+    margin-top: 48px;
+    border: 1px solid #222;
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 900px;
+  }
+  .stat-cell {
+    flex: 1;
+    padding: 24px 28px;
+    border-right: 1px solid #222;
+    position: relative;
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--acid);
+    margin-bottom: 6px;
+  }
+  .stat-num.orange { color: var(--watch); }
+  .stat-num.white { color: var(--white); }
+  .stat-label {
+    font-size: 11px;
+    color: #666;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .stat-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #444;
+    margin-top: 6px;
+  }
+
+  .hero-narrative {
+    margin-top: 40px;
+    max-width: 720px;
+    font-size: 15px;
+    color: #aaa;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  .hero-narrative strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section {
+    padding: 60px 40px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+  .section-subtitle {
+    font-size: 12px;
+    color: #555;
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── BUNDLE VIZ ── */
+  .bundle-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .bundle-card {
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 20px;
+    position: relative;
+    transition: border-color 0.2s;
+    cursor: default;
+  }
+  .bundle-card:hover { border-color: #444; }
+  .bundle-card.featured { grid-column: span 2; }
+  .bundle-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--olive);
+    margin-bottom: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+  .bundle-name {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .bundle-creators {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .bundle-creator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 3px;
+    transition: background 0.15s;
+  }
+  .bundle-creator:hover { background: #111; }
+  .bundle-creator-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    flex: 1;
+  }
+  .bundle-creator-beat {
+    font-size: 10px;
+    color: #555;
+    flex: 1;
+    font-family: 'DM Mono', monospace;
+  }
+  .bundle-creator-followers {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: #666;
+    white-space: nowrap;
+  }
+  .creator-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-new { background: var(--acid); }
+  .dot-atlas { background: var(--lime); opacity: 0.6; }
+  .dot-watch { background: var(--watch); opacity: 0.7; }
+  .dot-s2 { background: #7eb3ff; }
+
+  .bundle-footer {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #1a1a1a;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ── PRIORITY TABLE ── */
+  .priority-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .priority-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #444;
+    padding: 0 12px 12px;
+    text-align: left;
+    font-weight: 500;
+    border-bottom: 1px solid #222;
+  }
+  .priority-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #161616;
+    vertical-align: top;
+  }
+  .priority-table tr:hover td { background: #0d0d0d; }
+  .priority-rank {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #333;
+    font-weight: 500;
+  }
+  .priority-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+  .priority-pub {
+    font-size: 11px;
+    color: #666;
+    font-family: 'DM Mono', monospace;
+  }
+  .priority-followers {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--acid);
+  }
+  .priority-platform { font-size: 11px; color: #888; }
+  .priority-beat {
+    font-size: 11px;
+    color: #666;
+    font-family: 'DM Mono', monospace;
+  }
+  .flag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .flag-verify { background: rgba(255,107,53,0.15); color: var(--watch); }
+  .flag-confirmed { background: rgba(206,255,0,0.1); color: var(--acid); }
+  .flag-custom { background: rgba(255,255,255,0.06); color: #888; }
+  .flag-s2 { background: rgba(126,179,255,0.12); color: #7eb3ff; }
+
+  /* ── WATCHLIST ── */
+  .watchlist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .watch-card {
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .watch-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .watch-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ccc;
+    margin-bottom: 2px;
+  }
+  .watch-followers {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--watch);
+    font-weight: 500;
+  }
+  .watch-employer {
+    font-size: 10px;
+    color: #444;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+  }
+  .watch-trigger {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* ── METHODOLOGY ── */
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .method-col h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'DM Mono', monospace;
+  }
+  .method-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #161616;
+  }
+  .method-item:last-child { border-bottom: none; }
+  .method-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .status-work { background: var(--acid); }
+  .status-fail { background: #444; }
+  .method-text {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.5;
+  }
+  .method-text strong { color: var(--white); font-weight: 600; }
+
+  .search-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 20px;
+  }
+  .search-tag {
+    padding: 6px 10px;
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .search-high { background: rgba(206,255,0,0.08); color: var(--acid); border: 1px solid rgba(206,255,0,0.15); }
+  .search-mid { background: rgba(255,255,255,0.04); color: #888; border: 1px solid #222; }
+  .search-empty { background: transparent; color: #333; border: 1px solid #1a1a1a; text-decoration: line-through; }
+
+  .next-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .next-item {
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .next-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .next-desc {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.5;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 40px;
+    border-bottom: 1px solid #1a1a1a;
+    background: #0d0d0d;
+  }
+  .legend-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-right: 4px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #666;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 32px 40px;
+    border-top: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #333;
+    line-height: 1.8;
+  }
+  .footer-left a { color: var(--acid); text-decoration: none; }
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #2a2a2a;
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-title { animation: fadeIn 0.6s ease both; }
+  .stat-row { animation: fadeIn 0.6s ease 0.2s both; }
+  .hero-narrative { animation: fadeIn 0.6s ease 0.35s both; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <span class="atlas-badge">Independent Journalism Atlas</span>
+    <span class="x-mark">×</span>
+    <span class="trustfnd-badge">TrustFnd</span>
+  </div>
+  <div class="header-right">
+    <span>Bluesky Creator Intelligence</span><br>
+    Session 1–2 &nbsp;·&nbsp; April <span>2026</span> &nbsp;·&nbsp; <span>INTERNAL</span>
+  </div>
+</header>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-label">Key</span>
+  <span class="legend-item"><span class="creator-dot dot-atlas"></span> In Atlas corpus</span>
+  <span class="legend-item"><span class="creator-dot dot-new"></span> New S1 addition</span>
+  <span class="legend-item"><span class="creator-dot dot-s2"></span> New S2 addition</span>
+  <span class="legend-item"><span class="creator-dot dot-watch"></span> Watchlist</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Bluesky Creator Intelligence &nbsp;·&nbsp; Two Spidering Sessions &nbsp;·&nbsp; AT Protocol Public API</div>
+  <h1 class="hero-title">
+    The independent journalism<br>
+    ecosystem <span class="accent">lives on Bluesky.</span><br>
+    <span class="dim">Here's where it maps.</span>
+  </h1>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-num">1,165</div>
+      <div class="stat-label">Verified creators<br>in Atlas corpus</div>
+      <div class="stat-sub">Human-curated. Beat + geo + platform.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">22</div>
+      <div class="stat-label">Net-new Atlas<br>additions (S1+S2)</div>
+      <div class="stat-sub">16 Session 1 · 6 Session 2</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num white">33</div>
+      <div class="stat-label">Watchlist entries<br>across both sessions</div>
+      <div class="stat-sub">18 S1 · 15 S2 · employment-gated</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num orange">8</div>
+      <div class="stat-label">Bundle clusters<br>identified</div>
+      <div class="stat-sub">Health · Tech · Climate · Media · Sports · Music · Natl Sec · History</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">2.3M+</div>
+      <div class="stat-label">Combined Bluesky<br>followers, top 10</div>
+      <div class="stat-sub">Ed Yong 230K · Aaron Rupar 940K · Judd Legum 417K</div>
+    </div>
+  </div>
+
+  <p class="hero-narrative">
+    Two spidering sessions using the AT Protocol public API surfaced the shape of the independent journalism ecosystem on Bluesky — who's there, at what scale, in what beats, and how they cluster. <strong>The core finding:</strong> the Bluesky migration from Twitter isn't random. It's beat-driven. Health, tech, media criticism, national security, and climate creators moved as communities — and they follow each other. <strong>That network topology is the product.</strong> Atlas has the corpus to name it. TrustFnd has the infrastructure to monetize it. The bundle concept maps directly onto the clusters that already exist.
+  </p>
+</section>
+
+<!-- SECTION 1: BUNDLE CLUSTERS -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Bundle Clusters</h2>
+    <span class="section-subtitle">8 identified &nbsp;·&nbsp; product-ready topology</span>
+  </div>
+
+  <div class="bundle-grid">
+
+    <!-- Health/Science - FEATURED -->
+    <div class="bundle-card featured">
+      <div class="bundle-label">Bundle · Health & Science</div>
+      <div class="bundle-name">The Maintenance Phase Cluster</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-s2"></span>
+          <span class="bundle-creator-name">Ed Yong</span>
+          <span class="bundle-creator-beat">Science / Health</span>
+          <span class="bundle-creator-followers">230,466</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Michael Hobbes</span>
+          <span class="bundle-creator-beat">Health / Media Criticism</span>
+          <span class="bundle-creator-followers">193,805</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Melody Schreiber</span>
+          <span class="bundle-creator-beat">Health / Arctic</span>
+          <span class="bundle-creator-followers">16,665</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>3 creators &nbsp;·&nbsp; 440K+ combined Bluesky</span>
+        <span>Platform: Substack / Newsletter</span>
+      </div>
+    </div>
+
+    <!-- Tech - FEATURED -->
+    <div class="bundle-card featured">
+      <div class="bundle-label">Bundle · Technology</div>
+      <div class="bundle-name">The 404 Media Cluster</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-s2"></span>
+          <span class="bundle-creator-name">Joseph Cox</span>
+          <span class="bundle-creator-beat">Tech / Cybersecurity</span>
+          <span class="bundle-creator-followers">76,986</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Jason Koebler</span>
+          <span class="bundle-creator-beat">Tech / Surveillance</span>
+          <span class="bundle-creator-followers">58,873</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Karen Hao</span>
+          <span class="bundle-creator-beat">AI / Technology</span>
+          <span class="bundle-creator-followers">21,758</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-atlas"></span>
+          <span class="bundle-creator-name">Karl Bode</span>
+          <span class="bundle-creator-beat">Telecom / Consumer Rights</span>
+          <span class="bundle-creator-followers">75,000</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>4 creators &nbsp;·&nbsp; worker-owned origin story</span>
+        <span>Platform: 404media.co / custom</span>
+      </div>
+    </div>
+
+    <!-- Media Criticism -->
+    <div class="bundle-card">
+      <div class="bundle-label">Bundle · Media Criticism</div>
+      <div class="bundle-name">The Press Critics</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Virginia Heffernan</span>
+          <span class="bundle-creator-beat">Media / Culture</span>
+          <span class="bundle-creator-followers">33,202</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Jack Mirkinson</span>
+          <span class="bundle-creator-beat">Media Criticism</span>
+          <span class="bundle-creator-followers">10,883</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-atlas"></span>
+          <span class="bundle-creator-name">Dan Froomkin</span>
+          <span class="bundle-creator-beat">Press Watch</span>
+          <span class="bundle-creator-followers">80,302</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>3 creators</span>
+        <span>Substack / Discourse Blog</span>
+      </div>
+    </div>
+
+    <!-- National Security -->
+    <div class="bundle-card">
+      <div class="bundle-label">Bundle · National Security</div>
+      <div class="bundle-name">The OSINT Layer</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Garrett M. Graff</span>
+          <span class="bundle-creator-beat">Natl Security / History</span>
+          <span class="bundle-creator-followers">101,620</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Wendy Siegelman</span>
+          <span class="bundle-creator-beat">Kleptocracy / OSINT</span>
+          <span class="bundle-creator-followers">50,087</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-atlas"></span>
+          <span class="bundle-creator-name">Judd Legum</span>
+          <span class="bundle-creator-beat">Democracy / Policy</span>
+          <span class="bundle-creator-followers">417,348</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>3 creators &nbsp;·&nbsp; investigations angle</span>
+        <span>Newsletter / Substack</span>
+      </div>
+    </div>
+
+    <!-- Climate -->
+    <div class="bundle-card">
+      <div class="bundle-label">Bundle · Climate</div>
+      <div class="bundle-name">The Heat Cluster</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-atlas"></span>
+          <span class="bundle-creator-name">Emily Atkin</span>
+          <span class="bundle-creator-beat">Climate Accountability</span>
+          <span class="bundle-creator-followers">30,955</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-atlas"></span>
+          <span class="bundle-creator-name">Amy Westervelt</span>
+          <span class="bundle-creator-beat">Climate / Investigative</span>
+          <span class="bundle-creator-followers">58,192</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-watch"></span>
+          <span class="bundle-creator-name">Akshat Rathi</span>
+          <span class="bundle-creator-beat">Climate / Bloomberg</span>
+          <span class="bundle-creator-followers">30,225</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-watch"></span>
+          <span class="bundle-creator-name">Geoff Dembicki</span>
+          <span class="bundle-creator-beat">Climate / DeSmog</span>
+          <span class="bundle-creator-followers">6,594</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>2 verified &nbsp;·&nbsp; 2 watch</span>
+        <span>Substack / Drilled</span>
+      </div>
+    </div>
+
+    <!-- Music -->
+    <div class="bundle-card">
+      <div class="bundle-label">Bundle · Music</div>
+      <div class="bundle-name">The Music Critics</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Dan Ozzi</span>
+          <span class="bundle-creator-beat">Music / Punk</span>
+          <span class="bundle-creator-followers">4,195</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-atlas"></span>
+          <span class="bundle-creator-name">Hanif Abdurraqib</span>
+          <span class="bundle-creator-beat">Music / Culture</span>
+          <span class="bundle-creator-followers">—</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-watch"></span>
+          <span class="bundle-creator-name">Carl Wilson</span>
+          <span class="bundle-creator-beat">Music Criticism / Slate</span>
+          <span class="bundle-creator-followers">3,469</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-watch"></span>
+          <span class="bundle-creator-name">Britt Julious</span>
+          <span class="bundle-creator-beat">Music / Chicago Tribune</span>
+          <span class="bundle-creator-followers">5,493</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>2 verified &nbsp;·&nbsp; 2 watch</span>
+        <span>Newsletter / Substack</span>
+      </div>
+    </div>
+
+    <!-- Sports -->
+    <div class="bundle-card">
+      <div class="bundle-label">Bundle · Sports</div>
+      <div class="bundle-name">Worker-Owned Sports Beat</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Tom Ley</span>
+          <span class="bundle-creator-beat">Sports / Defector</span>
+          <span class="bundle-creator-followers">5,114</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-atlas"></span>
+          <span class="bundle-creator-name">Kim Kelly</span>
+          <span class="bundle-creator-beat">Labor / Sports Adjacent</span>
+          <span class="bundle-creator-followers">111,915</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-watch"></span>
+          <span class="bundle-creator-name">Mina Kimes</span>
+          <span class="bundle-creator-beat">Sports / ESPN</span>
+          <span class="bundle-creator-followers">375,038</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>2 verified &nbsp;·&nbsp; 1 watch · needs depth</span>
+        <span>Ghost / Defector</span>
+      </div>
+    </div>
+
+    <!-- History/Culture -->
+    <div class="bundle-card">
+      <div class="bundle-label">Bundle · History & Culture</div>
+      <div class="bundle-name">The Long Arc</div>
+      <div class="bundle-creators">
+        <div class="bundle-creator">
+          <span class="creator-dot dot-s2"></span>
+          <span class="bundle-creator-name">Patrick Wyman</span>
+          <span class="bundle-creator-beat">History / Culture</span>
+          <span class="bundle-creator-followers">21,607</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">David M. Perry</span>
+          <span class="bundle-creator-beat">History / Disability</span>
+          <span class="bundle-creator-followers">58,083</span>
+        </div>
+        <div class="bundle-creator">
+          <span class="creator-dot dot-new"></span>
+          <span class="bundle-creator-name">Molly Crabapple</span>
+          <span class="bundle-creator-beat">Politics / Art / Intl</span>
+          <span class="bundle-creator-followers">24,924</span>
+        </div>
+      </div>
+      <div class="bundle-footer">
+        <span>3 creators &nbsp;·&nbsp; S2 adds podcast dimension</span>
+        <span>Substack / Podcast</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 2: PRIORITY TIER -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">TrustFnd Priority Tier</h2>
+    <span class="section-subtitle">Outreach-ready &nbsp;·&nbsp; 20K+ Bluesky &amp; newsletter confirmed</span>
+  </div>
+
+  <table class="priority-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Creator</th>
+        <th>Bluesky</th>
+        <th>Beat</th>
+        <th>Platform</th>
+        <th>Status</th>
+        <th>Open Question</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="priority-rank">01</td>
+        <td>
+          <div class="priority-name">Ed Yong</div>
+          <div class="priority-pub">edyong.me &nbsp;·&nbsp; <span style="color:#7eb3ff;font-size:10px;">S2</span></div>
+        </td>
+        <td class="priority-followers">230,466</td>
+        <td class="priority-beat">Science / Health</td>
+        <td class="priority-platform">Freelance / Website</td>
+        <td><span class="flag flag-verify">Verify platform</span></td>
+        <td class="priority-beat">Newsletter at edyong.me? Substack? Patreon? Left The Atlantic 2023 — independent now.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">02</td>
+        <td>
+          <div class="priority-name">Michael Hobbes</div>
+          <div class="priority-pub">maintenancephase.com &nbsp;·&nbsp; <span style="color:var(--acid);font-size:10px;">S1</span></div>
+        </td>
+        <td class="priority-followers">193,805</td>
+        <td class="priority-beat">Health / Media Criticism</td>
+        <td class="priority-platform">Substack + Podcast</td>
+        <td><span class="flag flag-confirmed">Confirmed</span></td>
+        <td class="priority-beat">Highest-priority outreach. Substack confirmed. Ready now.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">03</td>
+        <td>
+          <div class="priority-name">Garrett M. Graff</div>
+          <div class="priority-pub">doomsdayscenario.co &nbsp;·&nbsp; <span style="color:var(--acid);font-size:10px;">S1</span></div>
+        </td>
+        <td class="priority-followers">101,620</td>
+        <td class="priority-beat">Natl Security / History</td>
+        <td class="priority-platform">Newsletter</td>
+        <td><span class="flag flag-verify">Verify platform</span></td>
+        <td class="priority-beat">Custom domain — confirm Substack/Beehiiv/Ghost before outreach.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">04</td>
+        <td>
+          <div class="priority-name">Joseph Cox</div>
+          <div class="priority-pub">404media.co &nbsp;·&nbsp; <span style="color:#7eb3ff;font-size:10px;">S2</span></div>
+        </td>
+        <td class="priority-followers">76,986</td>
+        <td class="priority-beat">Tech / Cybersecurity</td>
+        <td class="priority-platform">Email newsletter</td>
+        <td><span class="flag flag-custom">Custom platform</span></td>
+        <td class="priority-beat">404 Media uses custom email infra. TrustFnd API integration may be needed.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">05</td>
+        <td>
+          <div class="priority-name">Jason Koebler</div>
+          <div class="priority-pub">404media.co &nbsp;·&nbsp; <span style="color:var(--acid);font-size:10px;">S1</span></div>
+        </td>
+        <td class="priority-followers">58,873</td>
+        <td class="priority-beat">Tech / Surveillance</td>
+        <td class="priority-platform">Email newsletter</td>
+        <td><span class="flag flag-custom">Custom platform</span></td>
+        <td class="priority-beat">Same 404 Media platform as Cox — approach together as a pair.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">06</td>
+        <td>
+          <div class="priority-name">David M. Perry</div>
+          <div class="priority-pub">modernmedieval.substack.com &nbsp;·&nbsp; <span style="color:var(--acid);font-size:10px;">S1</span></div>
+        </td>
+        <td class="priority-followers">58,083</td>
+        <td class="priority-beat">History / Disability</td>
+        <td class="priority-platform">Substack</td>
+        <td><span class="flag flag-confirmed">Confirmed</span></td>
+        <td class="priority-beat">Clean Substack. Ready for outreach.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">07</td>
+        <td>
+          <div class="priority-name">Wendy Siegelman</div>
+          <div class="priority-pub">[newsletter TBD] &nbsp;·&nbsp; <span style="color:var(--acid);font-size:10px;">S1</span></div>
+        </td>
+        <td class="priority-followers">50,087</td>
+        <td class="priority-beat">Kleptocracy / OSINT</td>
+        <td class="priority-platform">Newsletter</td>
+        <td><span class="flag flag-verify">Verify platform</span></td>
+        <td class="priority-beat">Active newsletter confirmed from bio; platform unknown. Verify before outreach.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">08</td>
+        <td>
+          <div class="priority-name">Patrick Wyman</div>
+          <div class="priority-pub">patrickwyman.substack.com &nbsp;·&nbsp; <span style="color:#7eb3ff;font-size:10px;">S2</span></div>
+        </td>
+        <td class="priority-followers">21,607</td>
+        <td class="priority-beat">History / Culture</td>
+        <td class="priority-platform">Substack + Podcast</td>
+        <td><span class="flag flag-confirmed">Confirmed</span></td>
+        <td class="priority-beat">Substack confirmed. Podcast-first creator; strong crossover potential.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">09</td>
+        <td>
+          <div class="priority-name">Virginia Heffernan</div>
+          <div class="priority-pub">Magic + Loss on Substack &nbsp;·&nbsp; <span style="color:var(--acid);font-size:10px;">S1</span></div>
+        </td>
+        <td class="priority-followers">33,202</td>
+        <td class="priority-beat">Media / Culture / Tech</td>
+        <td class="priority-platform">Substack + Podcast</td>
+        <td><span class="flag flag-confirmed">Confirmed</span></td>
+        <td class="priority-beat">Ready for outreach.</td>
+      </tr>
+      <tr>
+        <td class="priority-rank">10</td>
+        <td>
+          <div class="priority-name">Karen Hao</div>
+          <div class="priority-pub">empireofai.com &nbsp;·&nbsp; <span style="color:var(--acid);font-size:10px;">S1</span></div>
+        </td>
+        <td class="priority-followers">21,758</td>
+        <td class="priority-beat">AI / Technology</td>
+        <td class="priority-platform">Newsletter / Book</td>
+        <td><span class="flag flag-verify">Verify platform</span></td>
+        <td class="priority-beat">Empire of AI newsletter platform unclear. Verify subscription model.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION 3: WATCHLIST -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">The Watchlist</h2>
+    <span class="section-subtitle">33 entries &nbsp;·&nbsp; employed or platform-gated</span>
+  </div>
+  <p style="font-size:13px;color:#666;margin-bottom:24px;max-width:640px;line-height:1.6;">
+    These creators meet the audience threshold but are currently employed at named outlets. The watchlist is a living signal layer — when any of them launch independent platforms, Atlas catches it first. Several are likely one newsletter launch away from the priority tier.
+  </p>
+
+  <div class="watchlist-grid">
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Jamelle Bouie</div>
+          <div class="watch-employer">NYT Opinion</div>
+        </div>
+        <div class="watch-followers">731K</div>
+      </div>
+      <div class="watch-trigger">Largest single account found across both sessions. If he launches independent newsletter: instant top-5.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Saeed Jones</div>
+          <div class="watch-employer">VIBE CHECK / Harvard</div>
+        </div>
+        <div class="watch-followers">145K</div>
+      </div>
+      <div class="watch-trigger">145K Bluesky. Poet + cultural critic + Substack. Boundary case — verify journalism threshold for Atlas corpus.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Ana Marie Cox</div>
+          <div class="watch-employer">New Republic / Podcast</div>
+        </div>
+        <div class="watch-followers">159K</div>
+      </div>
+      <div class="watch-trigger">Contributing editor + multiple podcasts. High-profile. Verify independent newsletter before outreach.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Moira Donegan</div>
+          <div class="watch-employer">The Guardian</div>
+        </div>
+        <div class="watch-followers">102K</div>
+      </div>
+      <div class="watch-trigger">Guardian Opinion columnist + podcast. Powerful gender/politics voice. Independent newsletter TBD.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Noah Shachtman</div>
+          <div class="watch-employer">Wired / NYT Opinion</div>
+        </div>
+        <div class="watch-followers">166K</div>
+      </div>
+      <div class="watch-trigger">If he launches independent newsletter: instant national security bundle anchor.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Justin Ling</div>
+          <div class="watch-employer">Toronto Star / Wired</div>
+        </div>
+        <div class="watch-followers">51K</div>
+      </div>
+      <div class="watch-trigger">Canada-based. Heavy disinformation / natl security beat. Independent-adjacent. Verify newsletter platform.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Elizabeth Lopatto</div>
+          <div class="watch-employer">The Verge</div>
+        </div>
+        <div class="watch-followers">53K</div>
+      </div>
+      <div class="watch-trigger">53K Bluesky. Senior tech editor. Strong independent voice. Watch if she goes independent.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Annie Lowrey</div>
+          <div class="watch-employer">The Atlantic</div>
+        </div>
+        <div class="watch-followers">40K</div>
+      </div>
+      <div class="watch-trigger">Economics / policy. No confirmed independent newsletter currently. Watch for Atlantic exit.</div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-card-top">
+        <div>
+          <div class="watch-name">Keri Blakinger</div>
+          <div class="watch-employer">ProPublica</div>
+        </div>
+        <div class="watch-followers">46K</div>
+      </div>
+      <div class="watch-trigger">ProPublica criminal justice + book Corrections in Ink. At nonprofit independent outlet. Verify if she has own newsletter.</div>
+    </div>
+  </div>
+  <p style="font-family:'DM Mono',monospace;font-size:11px;color:#333;margin-top:16px;">+ 24 additional watchlist entries across S1 and S2 sessions</p>
+</section>
+
+<!-- SECTION 4: METHODOLOGY + WHAT'S NEXT -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">How We Spidered &amp; What's Left</h2>
+    <span class="section-subtitle">AT Protocol &nbsp;·&nbsp; 2 sessions &nbsp;·&nbsp; open methodology</span>
+  </div>
+
+  <div class="method-grid">
+    <div class="method-col">
+      <h3>What worked</h3>
+      <div class="method-item">
+        <span class="method-status status-work"></span>
+        <div class="method-text"><strong>searchActors</strong> — no auth required. Primary discovery method. Single-concept queries work; multi-word specialty searches fail silently. Best queries: "investigative reporter," "independent journalist," "climate newsletter."</div>
+      </div>
+      <div class="method-item">
+        <span class="method-status status-work"></span>
+        <div class="method-text"><strong>getFollows graph mining</strong> — seeded from Judd Legum, Erin Reed, Amy Westervelt, Jason Koebler, Kim Kelly, David M. Perry, Aaron Rupar (S1) then Michael Hobbes and Garrett M. Graff (S2). Each yields 100 follows; filtered by bio signal + follower threshold.</div>
+      </div>
+      <div class="method-item">
+        <span class="method-status status-work"></span>
+        <div class="method-text"><strong>getProfiles (batch)</strong> — 25 actors per call. Used for bulk follower count retrieval after candidate identification. Fast and reliable across both sessions.</div>
+      </div>
+      <div class="method-item">
+        <span class="method-status status-work"></span>
+        <div class="method-text"><strong>Named-seed lookups (S2)</strong> — Direct handle resolution for known food/culture/science names (Soleil Ho, Patrick Wyman, Ed Yong). Essential for beats where query searches return empty arrays. Ed Yong's getFollows then surfaced an entire health/science journalism cluster.</div>
+      </div>
+
+      <h3 style="margin-top:24px;">What was blocked</h3>
+      <div class="method-item">
+        <span class="method-status status-fail"></span>
+        <div class="method-text"><strong>searchPosts — 403</strong> without auth. This is the key missing tool. Post-level search would unlock starter pack discovery, mentions, and thread-level signal. <em>TrustFnd's authenticated Bluesky access is the moat here.</em></div>
+      </div>
+      <div class="method-item">
+        <span class="method-status status-fail"></span>
+        <div class="method-text"><strong>blueskystarterpack.com — 403.</strong> Web-accessible directory of curated packs blocked to unauthenticated requests across both sessions.</div>
+      </div>
+      <div class="method-item">
+        <span class="method-status status-fail"></span>
+        <div class="method-text"><strong>Austin Graff as DC network seed.</strong> Bluesky account essentially inactive — 37 followers, follows only 4 accounts. Not a usable seed. Alternative: Dan Froomkin getFollows (80K, DC-based, already in Atlas).</div>
+      </div>
+    </div>
+
+    <div class="method-col">
+      <h3>Search term performance</h3>
+      <div class="search-grid">
+        <div class="search-tag search-high">investigative reporter ↑↑</div>
+        <div class="search-tag search-high">independent journalist ↑</div>
+        <div class="search-tag search-high">climate newsletter ↑</div>
+        <div class="search-tag search-high">music critic writer ↑</div>
+        <div class="search-tag search-mid">journalist newsletter ~</div>
+        <div class="search-tag search-mid">tech reporter newsletter ~</div>
+        <div class="search-tag search-mid">sports journalist writer ~</div>
+        <div class="search-tag search-mid">local news reporter ~</div>
+        <div class="search-tag search-empty">labor workers rights reporter</div>
+        <div class="search-tag search-empty">criminal justice reporter</div>
+        <div class="search-tag search-empty">LGBTQ queer journalist</div>
+        <div class="search-tag search-empty">housing urban policy</div>
+        <div class="search-tag search-empty">national security reporter</div>
+        <div class="search-tag search-empty">healthcare reporter journalist</div>
+      </div>
+      <p style="font-size:11px;color:#444;margin-top:12px;font-family:'DM Mono',monospace;line-height:1.5;">Pattern: AT Protocol searchActors is a username/bio text match. Multi-word specialty terms fail silently. Named-seed chain → getFollows is the correct approach for underrepresented beats.</p>
+
+      <h3 style="margin-top:24px;">Unexplored vectors (Session 3+)</h3>
+      <div class="next-grid">
+        <div class="next-item">
+          <div class="next-title">Food journalism</div>
+          <div class="next-desc">Soleil Ho found. Alicia Kennedy handle unresolved. Needs named-seed + getFollows chain from food community.</div>
+        </div>
+        <div class="next-item">
+          <div class="next-title">Authenticated search</div>
+          <div class="next-desc">Login unlocks searchPosts + starter pack directory. Single biggest quality leap available.</div>
+        </div>
+        <div class="next-item">
+          <div class="next-title">Spanish-language / AAPI</div>
+          <div class="next-desc">Zero non-English spidering done. Bluesky AAPI + Latine journalism ecosystem entirely unexplored.</div>
+        </div>
+        <div class="next-item">
+          <div class="next-title">Sports deep cuts</div>
+          <div class="next-desc">F1/motorsports, women's sports, MLS not mined. Defector network (Tom Ley getFollows) as best seed.</div>
+        </div>
+        <div class="next-item">
+          <div class="next-title">DC local layer</div>
+          <div class="next-desc">Dan Froomkin getFollows as DC network seed (80K, already in Atlas). Rob Pegoraro network. Local independent DC beat thin.</div>
+        </div>
+        <div class="next-item">
+          <div class="next-title">Judd Legum's followers</div>
+          <div class="next-desc">417K followers = massive unmined community. getFollowers at scale (paginated) from top Atlas seeds not yet attempted.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">
+    <a href="https://journalismatlas.com">journalismatlas.com</a> &nbsp;·&nbsp; Independent Journalism Atlas<br>
+    Justin Bank &nbsp;·&nbsp; Ryan Kellett &nbsp;·&nbsp; Liz Kelly Nelson<br>
+    Sessions 1–2 &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Internal distribution
+  </div>
+  <div class="footer-right">
+    1,165 verified creators<br>
+    Human-curated corpus<br>
+    AT Protocol &nbsp;·&nbsp; 2 sessions
+  </div>
+</footer>
+
+</body>
+</html>
