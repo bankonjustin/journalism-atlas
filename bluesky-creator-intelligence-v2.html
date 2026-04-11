@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluesky Creator Intelligence V2 — Atlas × TrustFnd</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --acid: #ceff00;
+    --lime: #97d600;
+    --olive: #5d7400;
+    --white: #ffffff;
+    --black: #0a0a0a;
+    --watch: #ff6b35;
+    --blue: #7eb3ff;
+    --orange-display: #ffbc00;
+    --text-dark-secondary: #a8a8a8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--black); color: var(--white); font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; line-height: 1.5; overflow-x: hidden; }
+
+  /* HEADER */
+  .header { border-bottom: 1px solid #1e1e1e; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); z-index: 100; }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .badge { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; font-family: 'DM Mono', monospace; }
+  .badge-atlas { color: var(--acid); border: 1px solid rgba(206,255,0,0.4); }
+  .badge-trust { color: var(--watch); border: 1px solid rgba(255,107,53,0.4); }
+  .x-mark { color: #333; font-size: 12px; }
+  .header-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dark-secondary); text-align: right; line-height: 1.8; letter-spacing: 0.04em; }
+  .header-right em { color: var(--text-dark-secondary); font-style: normal; }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 420px; min-height: 500px; border-bottom: 1px solid #1a1a1a; }
+  .hero-left { padding: 52px 40px 44px; border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; justify-content: space-between; }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--olive); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+  .hero-title { font-size: clamp(30px, 4vw, 54px); font-weight: 900; line-height: 1.0; letter-spacing: -0.03em; }
+  .hero-title .accent { color: var(--acid); }
+  .hero-title .dim { color: #2a2a2a; }
+  .hero-narrative { font-size: 13px; color: var(--text-dark-secondary); line-height: 1.7; max-width: 520px; margin-top: 24px; }
+  .hero-narrative strong { color: var(--text-dark-secondary); font-weight: 600; }
+
+  /* CONSTELLATION */
+  .hero-right { position: relative; overflow: hidden; background: #050505; }
+  .constellation-label { position: absolute; top: 18px; left: 18px; font-family: 'DM Mono', monospace; font-size: 9px; color: #1e1e1e; text-transform: uppercase; letter-spacing: 0.12em; z-index: 2; }
+  #constellation { width: 100%; height: 100%; display: block; }
+
+  /* STAT STRIP */
+  .stat-strip { display: grid; grid-template-columns: 1fr 1fr 1fr 0.65fr 0.65fr; border-bottom: 1px solid #1a1a1a; }
+  .stat-cell { padding: 26px 26px 22px; border-right: 1px solid #1a1a1a; }
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell.dim { opacity: 0.45; }
+  .stat-num { font-size: 42px; font-weight: 900; letter-spacing: -0.05em; line-height: 1; color: var(--acid); margin-bottom: 4px; }
+  .stat-num.orange { color: var(--orange-display); }
+  .stat-num.gray { color: #7c7c7c; font-size: 30px; }
+  .stat-label { font-size: 13px; color: var(--text-dark-secondary); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; line-height: 1.4; margin-bottom: 10px; font-family: 'DM Mono', monospace; }
+  .stat-names { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+  .snr { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .sn { font-size: 13px; font-weight: 600; color: var(--text-dark-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sn.hi { color: var(--acid); }
+  .sn.or { color: var(--orange-display); }
+  .sc { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); white-space: nowrap; flex-shrink: 0; }
+  .sc.acid { color: rgba(206,255,0,0.6); }
+  .sc.or { color: var(--text-dark-secondary); }
+
+  /* LEGEND */
+  .legend { display: flex; align-items: center; gap: 20px; padding: 11px 40px; border-bottom: 1px solid #111; background: #060606; }
+  .legend-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-dark-secondary); text-transform: uppercase; letter-spacing: 0.1em; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-dark-secondary); font-family: 'DM Mono', monospace; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .d-atlas { background: var(--lime); opacity: 0.6; }
+  .d-s1 { background: var(--acid); }
+  .d-s2 { background: var(--blue); }
+  .d-watch { background: var(--watch); opacity: 0.6; }
+
+  /* SECTION */
+  .section { padding: 52px 40px; border-bottom: 1px solid #111; }
+  .section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px; }
+  .section-num { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); letter-spacing: 0.1em; }
+  .section-title { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
+  .section-sub { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* BUNDLE GRID */
+  .bundle-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .bundle-card { border: 1px solid #1a1a1a; border-radius: 3px; padding: 20px 18px 16px; transition: border-color 0.2s, background 0.2s; }
+  .bundle-card:hover { border-color: #2a2a2a; background: #0c0c0c; }
+  .bundle-card.wide { grid-column: span 2; }
+  .bundle-beat { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--olive); margin-bottom: 6px; }
+  .bundle-name { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: var(--white); margin-bottom: 14px; line-height: 1.2; }
+
+  /* mini viz per card */
+  .bviz { height: 66px; margin-bottom: 12px; }
+  .bviz svg { width: 100%; height: 100%; }
+
+  .bundle-creators { display: flex; flex-direction: column; gap: 4px; }
+  .bc { display: flex; align-items: center; gap: 7px; padding: 5px 6px; border-radius: 2px; transition: background 0.15s; }
+  .bc:hover { background: #111; }
+  .bc-name { font-size: 13px; font-weight: 600; color: var(--white); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bc-beat { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bc-n { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); white-space: nowrap; }
+  .bundle-footer { margin-top: 10px; padding-top: 9px; border-top: 1px solid #111; display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); }
+
+  /* PRIORITY TABLE */
+  .priority-table { width: 100%; border-collapse: collapse; }
+  .priority-table th { font-family: 'DM Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dark-secondary); padding: 0 10px 10px; text-align: left; font-weight: 500; border-bottom: 1px solid #1a1a1a; }
+  .priority-table td { padding: 12px 10px; border-bottom: 1px solid #0e0e0e; vertical-align: top; }
+  .priority-table tr:hover td { background: #090909; }
+  .p-rank { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); }
+  .p-name { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+  .p-pub { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); }
+  .ps { font-size: 10px; margin-left: 3px; }
+  .s1c { color: var(--acid); } .s2c { color: var(--blue); }
+  .p-followers { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--acid); }
+  .p-beat { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); white-space: normal; }
+  .p-platform { font-size: 13px; color: var(--text-dark-secondary); }
+  .p-question { font-size: 13px; color: var(--text-dark-secondary); line-height: 1.4; white-space: normal; }
+  .flag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 2px; text-transform: uppercase; font-family: 'DM Mono', monospace; }
+  .fv { background: #3a1f0e; color: #ff8a50; border: 1px solid #5e3214; }
+  .fc { background: #1b3a1c; color: #66bb6a; border: 1px solid #2e5e2f; }
+  .fx { background: #2a2a2a; color: #9e9e9e; border: 1px solid #3d3d3d; }
+
+  /* WATCHLIST */
+  .watchlist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  .watch-card { border: 1px solid #151515; border-radius: 3px; padding: 13px 14px; }
+  .watch-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+  .watch-name { font-size: 13px; font-weight: 700; color: #ccc; }
+  .watch-employer { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); margin-top: 2px; }
+  .watch-followers { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--watch); font-weight: 500; }
+  .watch-trigger { font-size: 13px; color: var(--text-dark-secondary); line-height: 1.5; font-style: italic; margin-top: 5px; }
+
+  /* METHOD */
+  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .method-col h3 { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dark-secondary); margin-bottom: 12px; }
+  .method-item { display: flex; gap: 10px; margin-bottom: 11px; padding-bottom: 11px; border-bottom: 1px solid #0e0e0e; }
+  .method-item:last-child { border-bottom: none; }
+  .m-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .m-work { background: var(--acid); }
+  .m-fail { background: #222; }
+  .method-text { font-size: 13px; color: var(--text-dark-secondary); line-height: 1.55; }
+  .method-text strong { color: var(--text-dark-secondary); font-weight: 600; }
+  .search-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-top: 12px; }
+  .stag { padding: 5px 8px; border-radius: 2px; font-family: 'DM Mono', monospace; font-size: 9px; }
+  .stag-hi { background: rgba(206,255,0,0.06); color: var(--acid); border: 1px solid rgba(206,255,0,0.1); }
+  .stag-mid { background: rgba(255,255,255,0.02); color: #555; border: 1px solid #181818; }
+  .stag-no { background: transparent; color: #222; border: 1px solid #111; text-decoration: line-through; }
+  .next-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 12px; }
+  .next-item { border: 1px solid #151515; border-radius: 3px; padding: 11px 13px; }
+  .next-title { font-size: 13px; font-weight: 700; color: var(--text-dark-secondary); margin-bottom: 3px; }
+  .next-desc { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-dark-secondary); line-height: 1.5; }
+
+  /* FOOTER */
+  .footer { padding: 26px 40px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #111; }
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dark-secondary); line-height: 1.9; }
+  .footer-l a { color: var(--acid); text-decoration: none; }
+  .footer-r { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-dark-secondary); text-align: right; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.9; }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: #1e1e1e; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <span class="badge badge-atlas">Independent Journalism Atlas</span>
+    <span class="x-mark">×</span>
+    <span class="badge badge-trust">TrustFnd</span>
+  </div>
+  <div class="header-right">
+    Bluesky Creator Intelligence · Sessions 1–2<br>
+    <em>April 10, 2026 · Internal</em>
+  </div>
+</header>
+
+<!-- HERO: left text + right constellation -->
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">AT Protocol · 2 spidering sessions · graph mining + named-seed</div>
+      <h1 class="hero-title">
+        Independent journalism<br>
+        <span class="accent">migrated to Bluesky</span><br>
+        <span class="dim">as communities.</span>
+      </h1>
+      <p class="hero-narrative">
+        Two spidering sessions mapped where independent journalism lives on Bluesky — by beat, by network, by following. <strong>The topology is the product:</strong> health creators follow health creators. Tech journalists cluster around 404 Media. Climate voices orbit Heated and Drilled. These aren't coincidences. They're bundle markets. Atlas names and verifies them. TrustFnd activates them.
+      </p>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="constellation-label">Network topology · Bluesky creator clusters</div>
+    <svg id="constellation" viewBox="0 0 420 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="ga" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ceff00" stop-opacity="0.25"/><stop offset="100%" stop-color="#ceff00" stop-opacity="0"/></radialGradient>
+        <radialGradient id="gw" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff6b35" stop-opacity="0.2"/><stop offset="100%" stop-color="#ff6b35" stop-opacity="0"/></radialGradient>
+        <radialGradient id="gb" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#7eb3ff" stop-opacity="0.18"/><stop offset="100%" stop-color="#7eb3ff" stop-opacity="0"/></radialGradient>
+        <filter id="bl"><feGaussianBlur stdDeviation="3"/></filter>
+        <filter id="bs"><feGaussianBlur stdDeviation="1.2"/></filter>
+      </defs>
+
+      <rect width="420" height="500" fill="#050505"/>
+
+      <!-- field stars -->
+      <g fill="#181818">
+        <circle cx="30" cy="20" r="0.7"/><circle cx="85" cy="40" r="0.5"/><circle cx="160" cy="14" r="0.7"/>
+        <circle cx="290" cy="22" r="0.8"/><circle cx="380" cy="11" r="0.6"/><circle cx="12" cy="90" r="0.6"/>
+        <circle cx="400" cy="115" r="0.5"/><circle cx="18" cy="195" r="0.7"/><circle cx="408" cy="180" r="0.5"/>
+        <circle cx="42" cy="305" r="0.6"/><circle cx="388" cy="290" r="0.7"/><circle cx="198" cy="488" r="0.6"/>
+        <circle cx="128" cy="455" r="0.5"/><circle cx="298" cy="475" r="0.7"/><circle cx="365" cy="438" r="0.5"/>
+        <circle cx="58" cy="425" r="0.6"/><circle cx="248" cy="12" r="0.5"/><circle cx="340" cy="78" r="0.8"/>
+      </g>
+
+      <!-- ── HEALTH cluster (top center) ── -->
+      <circle cx="210" cy="85" r="48" fill="url(#ga)" filter="url(#bl)"/>
+      <line x1="210" y1="85" x2="175" y2="128" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.18"/>
+      <line x1="210" y1="85" x2="246" y2="130" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.15"/>
+      <line x1="210" y1="85" x2="188" y2="55" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.12"/>
+      <!-- bridges to other clusters -->
+      <line x1="246" y1="130" x2="318" y2="198" stroke="#1e1e1e" stroke-width="0.5" stroke-dasharray="3,5"/>
+      <line x1="175" y1="128" x2="108" y2="215" stroke="#1e1e1e" stroke-width="0.5" stroke-dasharray="3,5"/>
+      <line x1="210" y1="85" x2="210" y2="295" stroke="#141414" stroke-width="0.5" stroke-dasharray="4,7"/>
+
+      <!-- Ed Yong 230K S2 - largest -->
+      <circle cx="210" cy="85" r="24" fill="#070707" stroke="#ceff00" stroke-width="1" stroke-opacity="0.4"/>
+      <circle cx="210" cy="85" r="24" fill="url(#ga)" filter="url(#bs)" opacity="0.5"/>
+      <circle cx="210" cy="85" r="5" fill="#ceff00" fill-opacity="0.88"/>
+      <text x="210" y="65" fill="#ceff00" font-family="'DM Mono',monospace" font-size="8" text-anchor="middle" fill-opacity="0.6">Ed Yong</text>
+      <text x="210" y="55" fill="#3a4a00" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">230K</text>
+
+      <!-- Michael Hobbes 193K S1 -->
+      <circle cx="175" cy="128" r="19" fill="#070707" stroke="#ceff00" stroke-width="0.7" stroke-opacity="0.28"/>
+      <circle cx="175" cy="128" r="4" fill="#ceff00" fill-opacity="0.75"/>
+      <text x="152" y="150" fill="#4a5a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">M. Hobbes</text>
+      <text x="152" y="160" fill="#2a2a2a" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">193K</text>
+
+      <!-- Melody Schreiber 16K S1 -->
+      <circle cx="246" cy="130" r="10" fill="#070707" stroke="#ceff00" stroke-width="0.5" stroke-opacity="0.2"/>
+      <circle cx="246" cy="130" r="2.2" fill="#ceff00" fill-opacity="0.55"/>
+      <text x="265" y="128" fill="#2a3a00" font-family="'DM Mono',monospace" font-size="7" text-anchor="start">Schreiber 16K</text>
+
+      <!-- Atlas: Westervelt ghost -->
+      <circle cx="188" cy="55" r="7" fill="none" stroke="#97d600" stroke-width="0.5" stroke-opacity="0.28" stroke-dasharray="1.5,2"/>
+      <circle cx="188" cy="55" r="1.6" fill="#97d600" fill-opacity="0.38"/>
+      <text x="173" y="46" fill="#2a3300" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Westervelt ✓</text>
+
+      <!-- cluster label -->
+      <rect x="183" y="150" width="54" height="12" rx="2" fill="#0c0c0c" stroke="#1a1a1a" stroke-width="0.5"/>
+      <text x="210" y="159" fill="#4a5a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.06em">HEALTH</text>
+
+      <!-- ── TECH cluster (right) ── -->
+      <circle cx="330" cy="225" r="42" fill="url(#gb)" filter="url(#bl)"/>
+      <line x1="330" y1="196" x2="358" y2="252" stroke="#7eb3ff" stroke-width="0.4" stroke-opacity="0.18"/>
+      <line x1="330" y1="196" x2="298" y2="256" stroke="#7eb3ff" stroke-width="0.4" stroke-opacity="0.18"/>
+      <line x1="330" y1="196" x2="353" y2="170" stroke="#7eb3ff" stroke-width="0.3" stroke-opacity="0.12"/>
+
+      <!-- Joseph Cox 76K S2 -->
+      <circle cx="330" cy="196" r="18" fill="#070707" stroke="#7eb3ff" stroke-width="0.9" stroke-opacity="0.4"/>
+      <circle cx="330" cy="196" r="18" fill="url(#gb)" filter="url(#bs)" opacity="0.35"/>
+      <circle cx="330" cy="196" r="3.8" fill="#7eb3ff" fill-opacity="0.82"/>
+      <text x="330" y="178" fill="#7eb3ff" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle" fill-opacity="0.55">J. Cox</text>
+      <text x="330" y="169" fill="#223344" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">76K</text>
+
+      <!-- Koebler 58K S1 -->
+      <circle cx="358" cy="252" r="14" fill="#070707" stroke="#7eb3ff" stroke-width="0.6" stroke-opacity="0.28"/>
+      <circle cx="358" cy="252" r="3" fill="#7eb3ff" fill-opacity="0.68"/>
+      <text x="376" y="249" fill="#223344" font-family="'DM Mono',monospace" font-size="7" text-anchor="start">Koebler 58K</text>
+
+      <!-- Karen Hao 21K -->
+      <circle cx="298" cy="256" r="10" fill="#070707" stroke="#7eb3ff" stroke-width="0.4" stroke-opacity="0.18"/>
+      <circle cx="298" cy="256" r="2.2" fill="#7eb3ff" fill-opacity="0.5"/>
+      <text x="278" y="264" fill="#1e2d3d" font-family="'DM Mono',monospace" font-size="7" text-anchor="end">K. Hao 21K</text>
+
+      <!-- Karl Bode atlas ghost -->
+      <circle cx="353" cy="170" r="6" fill="none" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.28" stroke-dasharray="1.5,2"/>
+      <circle cx="353" cy="170" r="1.5" fill="#97d600" fill-opacity="0.38"/>
+      <text x="366" y="172" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7" text-anchor="start">Bode ✓</text>
+
+      <rect x="310" y="274" width="40" height="12" rx="2" fill="#0c0c0c" stroke="#1a1a1a" stroke-width="0.5"/>
+      <text x="330" y="283" fill="#223344" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.06em">TECH</text>
+
+      <!-- ── INVESTIGATIONS cluster (left) ── -->
+      <circle cx="92" cy="228" r="38" fill="url(#gw)" filter="url(#bl)"/>
+      <line x1="92" y1="200" x2="68" y2="252" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.18"/>
+      <line x1="92" y1="200" x2="122" y2="258" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.15" stroke-dasharray="2,2"/>
+
+      <!-- Garrett Graff 101K -->
+      <circle cx="92" cy="200" r="17" fill="#070707" stroke="#ceff00" stroke-width="0.8" stroke-opacity="0.35"/>
+      <circle cx="92" cy="200" r="3.8" fill="#ceff00" fill-opacity="0.78"/>
+      <text x="70" y="185" fill="#4a5a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">G. Graff</text>
+      <text x="70" y="175" fill="#2a2a2a" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">101K</text>
+
+      <!-- Wendy Siegelman 50K -->
+      <circle cx="68" cy="252" r="12" fill="#070707" stroke="#ceff00" stroke-width="0.5" stroke-opacity="0.22"/>
+      <circle cx="68" cy="252" r="2.7" fill="#ceff00" fill-opacity="0.62"/>
+      <text x="46" y="260" fill="#2a3a00" font-family="'DM Mono',monospace" font-size="7" text-anchor="end">Siegelman 50K</text>
+
+      <!-- Legum atlas ghost -->
+      <circle cx="122" cy="258" r="9" fill="none" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.32" stroke-dasharray="1.5,2"/>
+      <circle cx="122" cy="258" r="2" fill="#97d600" fill-opacity="0.42"/>
+      <text x="136" y="262" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7" text-anchor="start">Legum ✓</text>
+
+      <rect x="64" y="272" width="56" height="12" rx="2" fill="#0c0c0c" stroke="#1a1a1a" stroke-width="0.5"/>
+      <text x="92" y="281" fill="#3a3300" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.05em">NATL SEC</text>
+
+      <!-- ── HISTORY cluster (center) ── -->
+      <line x1="212" y1="305" x2="195" y2="346" stroke="#ceff00" stroke-width="0.3" stroke-opacity="0.13"/>
+      <line x1="212" y1="305" x2="232" y2="342" stroke="#7eb3ff" stroke-width="0.3" stroke-opacity="0.13"/>
+
+      <!-- Patrick Wyman 21K S2 -->
+      <circle cx="212" cy="305" r="12" fill="#070707" stroke="#7eb3ff" stroke-width="0.6" stroke-opacity="0.3"/>
+      <circle cx="212" cy="305" r="2.5" fill="#7eb3ff" fill-opacity="0.7"/>
+      <text x="212" y="291" fill="#223355" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">P. Wyman</text>
+
+      <circle cx="195" cy="346" r="10" fill="#070707" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.18"/>
+      <circle cx="195" cy="346" r="2.2" fill="#ceff00" fill-opacity="0.55"/>
+      <text x="178" y="360" fill="#2a3300" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">D.M. Perry</text>
+
+      <circle cx="232" cy="342" r="10" fill="#070707" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.15"/>
+      <circle cx="232" cy="342" r="2.2" fill="#ceff00" fill-opacity="0.5"/>
+      <text x="250" y="356" fill="#1e2800" font-family="'DM Mono',monospace" font-size="7" text-anchor="start">Crabapple</text>
+
+      <rect x="186" y="361" width="52" height="12" rx="2" fill="#0c0c0c" stroke="#1a1a1a" stroke-width="0.5"/>
+      <text x="212" y="370" fill="#2a2a38" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.05em">HISTORY</text>
+
+      <!-- ── CLIMATE (bottom left) ── -->
+      <line x1="96" y1="378" x2="136" y2="355" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.18" stroke-dasharray="2,2"/>
+      <circle cx="96" cy="378" r="11" fill="none" stroke="#97d600" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="1.5,2"/>
+      <circle cx="96" cy="378" r="2.4" fill="#97d600" fill-opacity="0.45"/>
+      <text x="80" y="394" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Atkin ✓</text>
+      <circle cx="136" cy="355" r="9" fill="none" stroke="#ff6b35" stroke-width="0.4" stroke-opacity="0.25" stroke-dasharray="1.5,2.5"/>
+      <circle cx="136" cy="355" r="2" fill="#ff6b35" fill-opacity="0.35"/>
+      <text x="155" y="357" fill="#441800" font-family="'DM Mono',monospace" font-size="7" text-anchor="start">Rathi ⊙</text>
+
+      <rect x="68" y="400" width="52" height="12" rx="2" fill="#0c0c0c" stroke="#1a1a1a" stroke-width="0.5"/>
+      <text x="94" y="409" fill="#1e3322" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.05em">CLIMATE</text>
+
+      <!-- ── MEDIA CRIT (bottom right) ── -->
+      <line x1="310" y1="378" x2="338" y2="413" stroke="#ceff00" stroke-width="0.3" stroke-opacity="0.13"/>
+      <line x1="310" y1="378" x2="278" y2="408" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.12" stroke-dasharray="2,2"/>
+      <circle cx="310" cy="378" r="12" fill="#070707" stroke="#ceff00" stroke-width="0.6" stroke-opacity="0.26"/>
+      <circle cx="310" cy="378" r="2.7" fill="#ceff00" fill-opacity="0.65"/>
+      <text x="310" y="364" fill="#3a4a00" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Heffernan</text>
+      <circle cx="338" cy="413" r="9" fill="#070707" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.18"/>
+      <circle cx="338" cy="413" r="2" fill="#ceff00" fill-opacity="0.48"/>
+      <text x="354" y="416" fill="#2a3300" font-family="'DM Mono',monospace" font-size="7" text-anchor="start">Mirkinson</text>
+      <circle cx="278" cy="408" r="8" fill="none" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.28" stroke-dasharray="1.5,2"/>
+      <circle cx="278" cy="408" r="1.8" fill="#97d600" fill-opacity="0.38"/>
+      <text x="262" y="411" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7" text-anchor="end">Froomkin ✓</text>
+
+      <rect x="283" y="428" width="54" height="12" rx="2" fill="#0c0c0c" stroke="#1a1a1a" stroke-width="0.5"/>
+      <text x="310" y="437" fill="#2a3300" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle" letter-spacing="0.04em">MEDIA CRIT</text>
+
+      <!-- legend bottom left -->
+      <rect x="12" y="452" width="126" height="40" rx="2" fill="#090909" stroke="#181818" stroke-width="0.5"/>
+      <circle cx="24" cy="463" r="3" fill="#ceff00" fill-opacity="0.85"/>
+      <text x="32" y="466" fill="#2d3a00" font-family="'DM Mono',monospace" font-size="7.5">S1 / S2 new addition</text>
+      <circle cx="24" cy="479" r="3" fill="none" stroke="#97d600" stroke-width="0.6" stroke-dasharray="1.2,1.2" stroke-opacity="0.6"/>
+      <circle cx="24" cy="479" r="1.2" fill="#97d600" fill-opacity="0.45"/>
+      <text x="32" y="482" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7.5">Already in Atlas ✓</text>
+    </svg>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-cell">
+    <div class="stat-num">1,165<span style="font-size:24px;color:#3a4a00">+</span></div>
+    <div class="stat-label">Verified creators<br>in Atlas corpus</div>
+    <div class="stat-names">
+      <div class="snr"><span class="sn">Beat taxonomy</span><span class="sc acid">40+ beats</span></div>
+      <div class="snr"><span class="sn">Geography tagged</span><span class="sc acid">national + intl</span></div>
+      <div class="snr"><span class="sn">Platform verified</span><span class="sc acid">human-curated</span></div>
+    </div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">22</div>
+    <div class="stat-label">Net-new Atlas<br>additions found</div>
+    <div class="stat-names">
+      <div class="snr"><span class="sn hi">Ed Yong</span><span class="sc acid">S2 · 230K</span></div>
+      <div class="snr"><span class="sn hi">Michael Hobbes</span><span class="sc acid">S1 · 193K</span></div>
+      <div class="snr"><span class="sn hi">Joseph Cox</span><span class="sc acid">S2 · 76K</span></div>
+      <div class="snr"><span class="sn hi">Garrett Graff</span><span class="sc acid">S1 · 101K</span></div>
+      <div class="snr"><span class="sn" style="color:#a8a8a8;font-style:italic;">+ 18 more</span><span class="sc">16 S1 · 6 S2</span></div>
+    </div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num orange">33</div>
+    <div class="stat-label">Watchlist entries<br>employment-gated</div>
+    <div class="stat-names">
+      <div class="snr"><span class="sn">Jamelle Bouie</span><span class="sc or">731K · NYT</span></div>
+      <div class="snr"><span class="sn">Noah Shachtman</span><span class="sc or">166K · Wired</span></div>
+      <div class="snr"><span class="sn">Ana Marie Cox</span><span class="sc or">159K · New Rep</span></div>
+      <div class="snr"><span class="sn">Moira Donegan</span><span class="sc or">102K · Guardian</span></div>
+      <div class="snr"><span class="sn" style="color:#a8a8a8;font-style:italic;">one newsletter away</span></div>
+    </div>
+  </div>
+  <div class="stat-cell dim">
+    <div class="stat-num gray">8</div>
+    <div class="stat-label">Bundle<br>clusters</div>
+    <div class="stat-names" style="margin-top:4px;">
+      <div class="snr"><span class="sn" style="font-size:13px;color:#a8a8a8;">Health · Tech · Climate</span></div>
+      <div class="snr"><span class="sn" style="font-size:13px;color:#a8a8a8;">Media · Sports · Music</span></div>
+      <div class="snr"><span class="sn" style="font-size:13px;color:#a8a8a8;">Natl Sec · History</span></div>
+    </div>
+  </div>
+  <div class="stat-cell dim">
+    <div class="stat-num gray">2.3M<span style="font-size:14px;color:#a8a8a8">+</span></div>
+    <div class="stat-label">Combined Bluesky<br>top-10 reach</div>
+    <div class="stat-names" style="margin-top:4px;">
+      <div class="snr"><span class="sn" style="font-size:13px;color:#a8a8a8;">S1 + S2 sessions</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-label">Key</span>
+  <span class="legend-item"><span class="dot d-atlas"></span> In Atlas corpus</span>
+  <span class="legend-item"><span class="dot d-s1"></span> New S1 addition</span>
+  <span class="legend-item"><span class="dot d-s2"></span> New S2 addition</span>
+  <span class="legend-item"><span class="dot d-watch"></span> Watchlist</span>
+</div>
+
+<!-- SECTION 1: BUNDLES -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Bundle Clusters</h2>
+    <span class="section-sub">8 identified · product-ready topology</span>
+  </div>
+  <div class="bundle-grid">
+
+    <!-- HEALTH wide -->
+    <div class="bundle-card wide">
+      <div class="bundle-beat">Bundle · Health &amp; Science</div>
+      <div class="bundle-name">The Maintenance Phase Cluster</div>
+      <div class="bviz"><svg viewBox="0 0 340 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="95" y1="33" x2="178" y2="33" stroke="#ceff00" stroke-width="0.5" stroke-opacity="0.2"/>
+        <line x1="178" y1="33" x2="258" y2="33" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.15"/>
+        <circle cx="178" cy="33" r="25" fill="#070707" stroke="#ceff00" stroke-width="0.8" stroke-opacity="0.28"/>
+        <circle cx="178" cy="33" r="25" fill="url(#ga)" filter="url(#bl)" opacity="0.35"/>
+        <circle cx="178" cy="33" r="5.5" fill="#ceff00" fill-opacity="0.85"/>
+        <text x="178" y="14" fill="#4a5a00" font-family="'DM Mono',monospace" font-size="8" text-anchor="middle">Ed Yong · 230K</text>
+        <circle cx="95" cy="33" r="19" fill="#070707" stroke="#ceff00" stroke-width="0.6" stroke-opacity="0.2"/>
+        <circle cx="95" cy="33" r="4" fill="#ceff00" fill-opacity="0.7"/>
+        <text x="95" y="58" fill="#2a3a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Hobbes · 193K</text>
+        <circle cx="258" cy="33" r="11" fill="#070707" stroke="#ceff00" stroke-width="0.5" stroke-opacity="0.16"/>
+        <circle cx="258" cy="33" r="2.5" fill="#ceff00" fill-opacity="0.52"/>
+        <text x="258" y="54" fill="#1e2800" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Schreiber · 16K</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-s2"></span><span class="bc-name">Ed Yong</span><span class="bc-beat">Science / Health</span><span class="bc-n">230,466</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Michael Hobbes</span><span class="bc-beat">Health / Media Criticism</span><span class="bc-n">193,805</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Melody Schreiber</span><span class="bc-beat">Health / Arctic</span><span class="bc-n">16,665</span></div>
+      </div>
+      <div class="bundle-footer"><span>3 creators · 440K+ combined Bluesky</span><span>Substack / Newsletter</span></div>
+    </div>
+
+    <!-- TECH wide -->
+    <div class="bundle-card wide">
+      <div class="bundle-beat">Bundle · Technology</div>
+      <div class="bundle-name">The 404 Media Cluster</div>
+      <div class="bviz"><svg viewBox="0 0 340 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="82" y1="33" x2="168" y2="33" stroke="#7eb3ff" stroke-width="0.5" stroke-opacity="0.2"/>
+        <line x1="168" y1="33" x2="240" y2="33" stroke="#7eb3ff" stroke-width="0.4" stroke-opacity="0.15"/>
+        <line x1="240" y1="33" x2="298" y2="33" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.15" stroke-dasharray="2,2"/>
+        <circle cx="82" cy="33" r="21" fill="#070707" stroke="#7eb3ff" stroke-width="0.8" stroke-opacity="0.32"/>
+        <circle cx="82" cy="33" r="21" fill="url(#gb)" filter="url(#bl)" opacity="0.3"/>
+        <circle cx="82" cy="33" r="4.5" fill="#7eb3ff" fill-opacity="0.8"/>
+        <text x="82" y="13" fill="#223355" font-family="'DM Mono',monospace" font-size="8" text-anchor="middle">Cox · 76K</text>
+        <circle cx="168" cy="33" r="17" fill="#070707" stroke="#7eb3ff" stroke-width="0.6" stroke-opacity="0.22"/>
+        <circle cx="168" cy="33" r="3.5" fill="#7eb3ff" fill-opacity="0.65"/>
+        <text x="168" y="57" fill="#1e2d44" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Koebler · 58K</text>
+        <circle cx="240" cy="33" r="11" fill="#070707" stroke="#7eb3ff" stroke-width="0.4" stroke-opacity="0.15"/>
+        <circle cx="240" cy="33" r="2.5" fill="#7eb3ff" fill-opacity="0.5"/>
+        <text x="240" y="54" fill="#1a2233" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">K. Hao · 21K</text>
+        <circle cx="298" cy="33" r="8" fill="none" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.28" stroke-dasharray="1.5,2"/>
+        <circle cx="298" cy="33" r="1.8" fill="#97d600" fill-opacity="0.38"/>
+        <text x="298" y="52" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Bode ✓</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-s2"></span><span class="bc-name">Joseph Cox</span><span class="bc-beat">Tech / Cybersecurity</span><span class="bc-n">76,986</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Jason Koebler</span><span class="bc-beat">Tech / Surveillance</span><span class="bc-n">58,873</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Karen Hao</span><span class="bc-beat">AI / Technology</span><span class="bc-n">21,758</span></div>
+        <div class="bc"><span class="dot d-atlas"></span><span class="bc-name">Karl Bode</span><span class="bc-beat">Telecom / Privacy</span><span class="bc-n">in corpus</span></div>
+      </div>
+      <div class="bundle-footer"><span>4 creators · worker-owned origin story</span><span>404media.co / custom</span></div>
+    </div>
+
+    <!-- NATL SEC -->
+    <div class="bundle-card">
+      <div class="bundle-beat">Bundle · National Security</div>
+      <div class="bundle-name">The OSINT Layer</div>
+      <div class="bviz"><svg viewBox="0 0 200 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="55" y1="33" x2="105" y2="33" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.18"/>
+        <line x1="105" y1="33" x2="156" y2="33" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.15" stroke-dasharray="2,2"/>
+        <circle cx="55" cy="33" r="17" fill="#070707" stroke="#ceff00" stroke-width="0.7" stroke-opacity="0.3"/>
+        <circle cx="55" cy="33" r="3.8" fill="#ceff00" fill-opacity="0.75"/>
+        <text x="55" y="14" fill="#3a4a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Graff · 101K</text>
+        <circle cx="105" cy="33" r="13" fill="#070707" stroke="#ceff00" stroke-width="0.5" stroke-opacity="0.2"/>
+        <circle cx="105" cy="33" r="2.8" fill="#ceff00" fill-opacity="0.6"/>
+        <text x="105" y="54" fill="#2a3300" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Siegelman 50K</text>
+        <circle cx="156" cy="33" r="9" fill="none" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.28" stroke-dasharray="1.5,2"/>
+        <circle cx="156" cy="33" r="2" fill="#97d600" fill-opacity="0.4"/>
+        <text x="156" y="52" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Legum ✓</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Garrett M. Graff</span><span class="bc-beat">Natl Sec / History</span><span class="bc-n">101,620</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Wendy Siegelman</span><span class="bc-beat">Kleptocracy / OSINT</span><span class="bc-n">50,087</span></div>
+        <div class="bc"><span class="dot d-atlas"></span><span class="bc-name">Judd Legum</span><span class="bc-beat">Democracy / Policy</span><span class="bc-n">in corpus</span></div>
+      </div>
+      <div class="bundle-footer"><span>3 creators · investigations angle</span><span>Newsletter / Substack</span></div>
+    </div>
+
+    <!-- MEDIA CRIT -->
+    <div class="bundle-card">
+      <div class="bundle-beat">Bundle · Media Criticism</div>
+      <div class="bundle-name">The Press Critics</div>
+      <div class="bviz"><svg viewBox="0 0 200 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="52" y1="33" x2="102" y2="33" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.16"/>
+        <line x1="102" y1="33" x2="154" y2="33" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.14" stroke-dasharray="2,2"/>
+        <circle cx="52" cy="33" r="16" fill="#070707" stroke="#ceff00" stroke-width="0.6" stroke-opacity="0.26"/>
+        <circle cx="52" cy="33" r="3.5" fill="#ceff00" fill-opacity="0.7"/>
+        <text x="52" y="14" fill="#3a4a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Heffernan 33K</text>
+        <circle cx="102" cy="33" r="11" fill="#070707" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.18"/>
+        <circle cx="102" cy="33" r="2.4" fill="#ceff00" fill-opacity="0.56"/>
+        <text x="102" y="54" fill="#1e2a00" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Mirkinson 10K</text>
+        <circle cx="154" cy="33" r="8" fill="none" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.26" stroke-dasharray="1.5,2"/>
+        <circle cx="154" cy="33" r="1.8" fill="#97d600" fill-opacity="0.38"/>
+        <text x="154" y="52" fill="#1a2800" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Froomkin ✓</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Virginia Heffernan</span><span class="bc-beat">Media / Culture</span><span class="bc-n">33,202</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Jack Mirkinson</span><span class="bc-beat">Media Criticism</span><span class="bc-n">10,883</span></div>
+        <div class="bc"><span class="dot d-atlas"></span><span class="bc-name">Dan Froomkin</span><span class="bc-beat">Press Watch</span><span class="bc-n">in corpus</span></div>
+      </div>
+      <div class="bundle-footer"><span>3 creators</span><span>Substack / Discourse Blog</span></div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="bundle-card">
+      <div class="bundle-beat">Bundle · History &amp; Culture</div>
+      <div class="bundle-name">The Long Arc</div>
+      <div class="bviz"><svg viewBox="0 0 200 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="52" y1="33" x2="105" y2="33" stroke="#7eb3ff" stroke-width="0.4" stroke-opacity="0.18"/>
+        <line x1="105" y1="33" x2="158" y2="33" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.15"/>
+        <circle cx="52" cy="33" r="15" fill="#070707" stroke="#7eb3ff" stroke-width="0.6" stroke-opacity="0.28"/>
+        <circle cx="52" cy="33" r="3.2" fill="#7eb3ff" fill-opacity="0.72"/>
+        <text x="52" y="14" fill="#223355" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Wyman · 21K</text>
+        <circle cx="105" cy="33" r="12" fill="#070707" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.2"/>
+        <circle cx="105" cy="33" r="2.6" fill="#ceff00" fill-opacity="0.6"/>
+        <text x="105" y="54" fill="#2a3300" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Perry · 58K</text>
+        <circle cx="158" cy="33" r="11" fill="#070707" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.16"/>
+        <circle cx="158" cy="33" r="2.4" fill="#ceff00" fill-opacity="0.5"/>
+        <text x="158" y="53" fill="#1e2800" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Crabapple 24K</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-s2"></span><span class="bc-name">Patrick Wyman</span><span class="bc-beat">History / Culture</span><span class="bc-n">21,607</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">David M. Perry</span><span class="bc-beat">History / Disability</span><span class="bc-n">58,083</span></div>
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Molly Crabapple</span><span class="bc-beat">Politics / Art / Intl</span><span class="bc-n">24,924</span></div>
+      </div>
+      <div class="bundle-footer"><span>3 creators · S2 adds podcast</span><span>Substack / Podcast</span></div>
+    </div>
+
+    <!-- CLIMATE -->
+    <div class="bundle-card">
+      <div class="bundle-beat">Bundle · Climate</div>
+      <div class="bundle-name">The Heat Cluster</div>
+      <div class="bviz"><svg viewBox="0 0 200 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="52" y1="33" x2="102" y2="33" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.2" stroke-dasharray="2,2"/>
+        <line x1="102" y1="33" x2="154" y2="33" stroke="#ff6b35" stroke-width="0.3" stroke-opacity="0.18" stroke-dasharray="2,3"/>
+        <circle cx="52" cy="33" r="13" fill="none" stroke="#97d600" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="1.5,2"/>
+        <circle cx="52" cy="33" r="2.8" fill="#97d600" fill-opacity="0.45"/>
+        <text x="52" y="14" fill="#1e3322" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Atkin ✓</text>
+        <circle cx="102" cy="33" r="13" fill="none" stroke="#97d600" stroke-width="0.5" stroke-opacity="0.25" stroke-dasharray="1.5,2"/>
+        <circle cx="102" cy="33" r="2.8" fill="#97d600" fill-opacity="0.4"/>
+        <text x="102" y="54" fill="#1a2e1a" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Westervelt ✓</text>
+        <circle cx="154" cy="33" r="11" fill="none" stroke="#ff6b35" stroke-width="0.4" stroke-opacity="0.25" stroke-dasharray="1.5,2.5"/>
+        <circle cx="154" cy="33" r="2.4" fill="#ff6b35" fill-opacity="0.35"/>
+        <text x="154" y="53" fill="#441800" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Rathi ⊙</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-atlas"></span><span class="bc-name">Emily Atkin</span><span class="bc-beat">Climate · Heated</span><span class="bc-n">in corpus</span></div>
+        <div class="bc"><span class="dot d-atlas"></span><span class="bc-name">Amy Westervelt</span><span class="bc-beat">Climate · Drilled</span><span class="bc-n">in corpus</span></div>
+        <div class="bc"><span class="dot d-watch"></span><span class="bc-name">Akshat Rathi</span><span class="bc-beat">Climate / Bloomberg</span><span class="bc-n">30,225 ⊙</span></div>
+      </div>
+      <div class="bundle-footer"><span>2 verified · 1 watch</span><span>Substack / Drilled</span></div>
+    </div>
+
+    <!-- MUSIC -->
+    <div class="bundle-card">
+      <div class="bundle-beat">Bundle · Music</div>
+      <div class="bundle-name">The Music Critics</div>
+      <div class="bviz"><svg viewBox="0 0 200 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="58" y1="33" x2="105" y2="33" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.15"/>
+        <line x1="105" y1="33" x2="154" y2="33" stroke="#97d600" stroke-width="0.3" stroke-opacity="0.14" stroke-dasharray="2,2"/>
+        <circle cx="58" cy="33" r="13" fill="#070707" stroke="#ceff00" stroke-width="0.5" stroke-opacity="0.22"/>
+        <circle cx="58" cy="33" r="2.8" fill="#ceff00" fill-opacity="0.62"/>
+        <text x="58" y="14" fill="#2a3a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Dan Ozzi</text>
+        <circle cx="105" cy="33" r="11" fill="none" stroke="#97d600" stroke-width="0.4" stroke-opacity="0.26" stroke-dasharray="1.5,2"/>
+        <circle cx="105" cy="33" r="2.4" fill="#97d600" fill-opacity="0.42"/>
+        <text x="105" y="54" fill="#1e2e00" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Abdurraqib ✓</text>
+        <circle cx="154" cy="33" r="9" fill="none" stroke="#ff6b35" stroke-width="0.4" stroke-opacity="0.22" stroke-dasharray="1.5,2.5"/>
+        <circle cx="154" cy="33" r="2" fill="#ff6b35" fill-opacity="0.3"/>
+        <text x="154" y="52" fill="#441800" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">C. Wilson ⊙</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Dan Ozzi</span><span class="bc-beat">Music / Punk</span><span class="bc-n">4,195</span></div>
+        <div class="bc"><span class="dot d-atlas"></span><span class="bc-name">Hanif Abdurraqib</span><span class="bc-beat">Music / Culture</span><span class="bc-n">in corpus</span></div>
+        <div class="bc"><span class="dot d-watch"></span><span class="bc-name">Carl Wilson</span><span class="bc-beat">Music Crit / Slate</span><span class="bc-n">3,469 ⊙</span></div>
+      </div>
+      <div class="bundle-footer"><span>2 verified · 1 watch · needs depth</span><span>Newsletter</span></div>
+    </div>
+
+    <!-- SPORTS -->
+    <div class="bundle-card">
+      <div class="bundle-beat">Bundle · Sports</div>
+      <div class="bundle-name">Worker-Owned Sports</div>
+      <div class="bviz"><svg viewBox="0 0 200 66" xmlns="http://www.w3.org/2000/svg">
+        <line x1="65" y1="33" x2="128" y2="33" stroke="#ceff00" stroke-width="0.4" stroke-opacity="0.12"/>
+        <line x1="128" y1="33" x2="168" y2="33" stroke="#1e1e1e" stroke-width="0.3" stroke-dasharray="3,4"/>
+        <circle cx="65" cy="33" r="13" fill="#070707" stroke="#ceff00" stroke-width="0.5" stroke-opacity="0.22"/>
+        <circle cx="65" cy="33" r="2.8" fill="#ceff00" fill-opacity="0.6"/>
+        <text x="65" y="14" fill="#2a3a00" font-family="'DM Mono',monospace" font-size="7.5" text-anchor="middle">Tom Ley</text>
+        <circle cx="128" cy="33" r="9" fill="none" stroke="#ff6b35" stroke-width="0.4" stroke-opacity="0.22" stroke-dasharray="1.5,2.5"/>
+        <circle cx="128" cy="33" r="2" fill="#ff6b35" fill-opacity="0.28"/>
+        <text x="128" y="52" fill="#441800" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">Kimes ⊙</text>
+        <text x="168" y="36" fill="#1a1a1a" font-family="'DM Mono',monospace" font-size="10" text-anchor="middle">···</text>
+        <text x="168" y="50" fill="#141414" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">TBD</text>
+      </svg></div>
+      <div class="bundle-creators">
+        <div class="bc"><span class="dot d-s1"></span><span class="bc-name">Tom Ley</span><span class="bc-beat">Sports / Defector</span><span class="bc-n">5,114</span></div>
+        <div class="bc"><span class="dot d-watch"></span><span class="bc-name">Mina Kimes</span><span class="bc-beat">Sports / ESPN</span><span class="bc-n">watch ⊙</span></div>
+        <div class="bc" style="opacity:0.25;"><span class="dot" style="background:#1e1e1e"></span><span class="bc-name" style="color:#1e1e1e;font-style:italic;">deeper session needed</span></div>
+      </div>
+      <div class="bundle-footer"><span>1 verified · 1 watch · underdeveloped</span><span>Ghost / Defector</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 2: PRIORITY TABLE -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">TrustFnd Priority Tier</h2>
+    <span class="section-sub">Outreach-ready · 20K+ Bluesky · newsletter confirmed or close</span>
+  </div>
+  <table class="priority-table">
+    <thead>
+      <tr><th>#</th><th>Creator</th><th>Bluesky</th><th>Beat</th><th>Platform</th><th>Status</th><th>Open question</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="p-rank">01</td><td><div class="p-name">Ed Yong <span class="ps s2c">S2</span></div><div class="p-pub">edyong.me</div></td><td class="p-followers">230,466</td><td class="p-beat">Science / Health</td><td class="p-platform">Freelance / Website</td><td><span class="flag fv">Verify platform</span></td><td class="p-question">Newsletter at edyong.me? Substack? Patreon?</td></tr>
+      <tr><td class="p-rank">02</td><td><div class="p-name">Michael Hobbes <span class="ps s1c">S1</span></div><div class="p-pub">maintenancephase.com</div></td><td class="p-followers">193,805</td><td class="p-beat">Health / Media Crit</td><td class="p-platform">Substack + Podcast</td><td><span class="flag fc">Confirmed</span></td><td class="p-question">Highest-priority outreach. Substack confirmed.</td></tr>
+      <tr><td class="p-rank">03</td><td><div class="p-name">Garrett M. Graff <span class="ps s1c">S1</span></div><div class="p-pub">doomsdayscenario.co</div></td><td class="p-followers">101,620</td><td class="p-beat">Natl Security / History</td><td class="p-platform">Newsletter</td><td><span class="flag fv">Verify platform</span></td><td class="p-question">Custom domain — Substack / Beehiiv / Ghost?</td></tr>
+      <tr><td class="p-rank">04</td><td><div class="p-name">Joseph Cox <span class="ps s2c">S2</span></div><div class="p-pub">404media.co</div></td><td class="p-followers">76,986</td><td class="p-beat">Tech / Cybersecurity</td><td class="p-platform">Email newsletter</td><td><span class="flag fx">Custom platform</span></td><td class="p-question">404 Media custom infra. TrustFnd API integration needed.</td></tr>
+      <tr><td class="p-rank">05</td><td><div class="p-name">Jason Koebler <span class="ps s1c">S1</span></div><div class="p-pub">404media.co</div></td><td class="p-followers">58,873</td><td class="p-beat">Tech / Surveillance</td><td class="p-platform">Email newsletter</td><td><span class="flag fx">Custom platform</span></td><td class="p-question">Same 404 Media platform question as Cox.</td></tr>
+      <tr><td class="p-rank">06</td><td><div class="p-name">David M. Perry <span class="ps s1c">S1</span></div><div class="p-pub">modernmedieval.substack.com</div></td><td class="p-followers">58,083</td><td class="p-beat">History / Disability</td><td class="p-platform">Substack</td><td><span class="flag fc">Confirmed</span></td><td class="p-question">Clean Substack. Ready for outreach.</td></div></tr>
+      <tr><td class="p-rank">07</td><td><div class="p-name">Wendy Siegelman <span class="ps s1c">S1</span></div><div class="p-pub">[newsletter TBD]</div></td><td class="p-followers">50,087</td><td class="p-beat">Kleptocracy / OSINT</td><td class="p-platform">Newsletter</td><td><span class="flag fv">Verify platform</span></td><td class="p-question">Active newsletter confirmed; platform unknown.</td></tr>
+      <tr><td class="p-rank">08</td><td><div class="p-name">Patrick Wyman <span class="ps s2c">S2</span></div><div class="p-pub">patrickwyman.substack.com</div></td><td class="p-followers">21,607</td><td class="p-beat">History / Culture</td><td class="p-platform">Substack + Podcast</td><td><span class="flag fc">Confirmed</span></td><td class="p-question">Substack confirmed. Podcast-first; strong crossover.</td></tr>
+      <tr><td class="p-rank">09</td><td><div class="p-name">Virginia Heffernan <span class="ps s1c">S1</span></div><div class="p-pub">Magic + Loss · Substack</div></td><td class="p-followers">33,202</td><td class="p-beat">Media / Culture / Tech</td><td class="p-platform">Substack + Podcast</td><td><span class="flag fc">Confirmed</span></td><td class="p-question">Ready for outreach.</td></tr>
+      <tr><td class="p-rank">10</td><td><div class="p-name">Karen Hao <span class="ps s1c">S1</span></div><div class="p-pub">empireofai.com</div></td><td class="p-followers">21,758</td><td class="p-beat">AI / Technology</td><td class="p-platform">Newsletter / Book</td><td><span class="flag fv">Verify platform</span></td><td class="p-question">Empire of AI newsletter platform unclear.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION 3: WATCHLIST -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">The Watchlist</h2>
+    <span class="section-sub">33 entries · employed or platform-gated · living signal layer</span>
+  </div>
+  <p style="font-size:13px;color:#a8a8a8;margin-bottom:18px;max-width:560px;line-height:1.6;font-family:'DM Mono',monospace;">When any of these creators launch independent platforms, Atlas catches it first. Several are one newsletter launch away from the priority tier.</p>
+  <div class="watchlist-grid">
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Jamelle Bouie</div><div class="watch-employer">NYT Opinion</div></div><div class="watch-followers">731K</div></div><div class="watch-trigger">Largest single account found. Instant top-5 if he goes independent.</div></div>
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Noah Shachtman</div><div class="watch-employer">Wired / NYT Opinion</div></div><div class="watch-followers">166K</div></div><div class="watch-trigger">Instant national security bundle anchor if he launches newsletter.</div></div>
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Ana Marie Cox</div><div class="watch-employer">New Republic / Podcast</div></div><div class="watch-followers">159K</div></div><div class="watch-trigger">Contributing editor + multiple podcasts. May have independent newsletter — verify.</div></div>
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Saeed Jones</div><div class="watch-employer">Harvard / VIBE CHECK</div></div><div class="watch-followers">145K</div></div><div class="watch-trigger">Poet + cultural critic + Substack. Boundary case: verify journalism threshold.</div></div>
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Moira Donegan</div><div class="watch-employer">The Guardian</div></div><div class="watch-followers">102K</div></div><div class="watch-trigger">Guardian Opinion + podcast. Independent newsletter TBD.</div></div>
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Justin Ling</div><div class="watch-employer">Toronto Star / Wired</div></div><div class="watch-followers">51K</div></div><div class="watch-trigger">Canada. Disinformation / natl security. Independent-adjacent. Verify newsletter.</div></div>
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Mia Sato</div><div class="watch-employer">The Verge</div></div><div class="watch-followers">45K</div></div><div class="watch-trigger">Platform policy / social media. Watch if she goes independent.</div></div>
+    <div class="watch-card"><div class="watch-top"><div><div class="watch-name">Annie Lowrey</div><div class="watch-employer">The Atlantic</div></div><div class="watch-followers">40K</div></div><div class="watch-trigger">Economics / policy. No confirmed independent newsletter currently.</div></div>
+  </div>
+  <p style="font-family:'DM Mono',monospace;font-size:13px;color:#a8a8a8;margin-top:12px;">+ 25 additional entries · full list in session TSVs</p>
+</section>
+
+<!-- SECTION 4: METHODOLOGY -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">How We Spidered &amp; What's Left</h2>
+    <span class="section-sub">AT Protocol · 2 sessions · open flywheel</span>
+  </div>
+  <div class="method-grid">
+    <div class="method-col">
+      <h3>What worked</h3>
+      <div class="method-item"><span class="m-dot m-work"></span><div class="method-text"><strong>searchActors</strong> — no auth required. Single-concept queries work; multi-word specialty searches fail silently. Best: "investigative reporter," "independent journalist," "climate newsletter."</div></div>
+      <div class="method-item"><span class="m-dot m-work"></span><div class="method-text"><strong>getFollows graph mining</strong> — seeded from Legum, Reed, Westervelt, Koebler, Kim Kelly, Perry, Rupar. Each yields 100 follows; filtered by bio + follower threshold.</div></div>
+      <div class="method-item"><span class="m-dot m-work"></span><div class="method-text"><strong>getProfiles (batch)</strong> — 25 actors per call. Fast bulk follower count retrieval. Reliable.</div></div>
+      <div class="method-item"><span class="m-dot m-work"></span><div class="method-text"><strong>getFollowers (S2)</strong> — Kim Kelly + Koebler follower lists. Surfaces community membership, not just outward network. Higher signal for beat communities.</div></div>
+      <div class="method-item"><span class="m-dot m-work"></span><div class="method-text"><strong>Named-seed lookups (S2)</strong> — Direct handle resolution for beats where search returns empty. Found Soleil Ho, Patrick Wyman, Ed Yong this way.</div></div>
+      <h3 style="margin-top:18px;">What was blocked</h3>
+      <div class="method-item"><span class="m-dot m-fail"></span><div class="method-text"><strong>searchPosts — 403</strong> without auth. Key missing tool. Post-level search unlocks starter pack discovery, mentions, thread signal.</div></div>
+      <div class="method-item"><span class="m-dot m-fail"></span><div class="method-text"><strong>blueskystarterpack.com — 403.</strong> Directory blocked unauthenticated. Chrome confirms login-wall on post search.</div></div>
+    </div>
+    <div class="method-col">
+      <h3>Search term yield</h3>
+      <div class="search-grid">
+        <div class="stag stag-hi">investigative reporter ↑↑</div>
+        <div class="stag stag-hi">independent journalist ↑</div>
+        <div class="stag stag-hi">climate newsletter ↑</div>
+        <div class="stag stag-hi">music critic writer ↑</div>
+        <div class="stag stag-mid">journalist newsletter ~</div>
+        <div class="stag stag-mid">tech reporter newsletter ~</div>
+        <div class="stag stag-mid">sports journalist writer ~</div>
+        <div class="stag stag-mid">local news reporter ~</div>
+        <div class="stag stag-no">labor workers rights reporter</div>
+        <div class="stag stag-no">criminal justice reporter</div>
+        <div class="stag stag-no">LGBTQ queer journalist</div>
+        <div class="stag stag-no">national security reporter</div>
+        <div class="stag stag-no">housing urban policy</div>
+        <div class="stag stag-no">healthcare reporter journalist</div>
+      </div>
+      <p style="font-family:'DM Mono',monospace;font-size:13px;color:#a8a8a8;margin-top:10px;line-height:1.5;">Multi-word specialty terms return empty. Named-seed graph mining is correct approach for underrepresented beats.</p>
+      <h3 style="margin-top:18px;">Session 3 targets</h3>
+      <div class="next-grid">
+        <div class="next-item"><div class="next-title">Food journalism</div><div class="next-desc">Alicia Kennedy handle unresolved. Named-seed + getFollows from Soleil Ho network.</div></div>
+        <div class="next-item"><div class="next-title">getFollowers at scale</div><div class="next-desc">Judd Legum's 417K followers = massive unmined community. One call, 100+ candidates.</div></div>
+        <div class="next-item"><div class="next-title">Spanish-language</div><div class="next-desc">Zero non-English spidering. Bluesky AAPI + Latine journalism ecosystem unexplored.</div></div>
+        <div class="next-item"><div class="next-title">Sports deep cuts</div><div class="next-desc">F1, women's sports, MLS not mined. Defector network as seed.</div></div>
+        <div class="next-item"><div class="next-title">Starter packs (auth)</div><div class="next-desc">Login unlocks searchPosts + pack directory. Single biggest quality leap available.</div></div>
+        <div class="next-item"><div class="next-title">DC local layer</div><div class="next-desc">Dan Froomkin getFollows as DC network seed. Rob Pegoraro network. Local beat thin.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-l"><a href="https://journalismatlas.com">journalismatlas.com</a> · Independent Journalism Atlas<br>Justin Bank · Ryan Kellett · Liz Kelly Nelson<br>April 10, 2026 · Internal distribution</div>
+  <div class="footer-r">1,165 verified creators<br>Human-curated corpus<br>AT Protocol · 2 sessions</div>
+</footer>
+
+</body>
+</html>
