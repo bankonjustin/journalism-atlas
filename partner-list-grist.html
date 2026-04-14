@@ -12,19 +12,23 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* =========================================
    DESIGN TOKENS
+   Page-specific aliases for variables.css tokens.
+   variables.css must be loaded before this stylesheet.
+   This is always-dark: acid green (#ceff00) is valid throughout.
    ========================================= */
 :root {
-  --acid: #ceff00;
-  --dark: #313131;
-  --dark2: #3a3a3a;
-  --white: #ffffff;
-  --ff: 'Hanken Grotesk', sans-serif;
-  --radius: 8px;
-  --max: 960px;
+  --acid:   var(--color-acid-green);   /* #ceff00 — dark surfaces only */
+  --dark:   var(--color-dark-gray);    /* #313131 */
+  --dark2:  #3a3a3a;                   /* slightly lighter dark surface */
+  --white:  var(--color-white);        /* #ffffff */
+  --ff:     var(--font-primary);       /* Hanken Grotesk */
+  --radius: var(--radius-base);        /* 6px — cards/buttons per token spec */
+  --max:    960px;
 }
 
 /* =========================================
@@ -95,7 +99,7 @@ img { max-width: 100%; display: block; }
 .curator-partner-namelink {
   display: block;
   font-size: clamp(22px, 3.5vw, 32px);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.0;
   color: var(--white);
@@ -128,7 +132,7 @@ img { max-width: 100%; display: block; }
 
 /* Description — 300 char max */
 .curator-description {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
   color: rgba(255,255,255,0.5);
   max-width: 580px;
@@ -171,7 +175,7 @@ img { max-width: 100%; display: block; }
 }
 .hero-title {
   font-size: clamp(32px, 6vw, 60px);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.02em;
   margin-bottom: 20px;
@@ -218,7 +222,7 @@ img { max-width: 100%; display: block; }
 .creator-main { min-width: 0; }
 .creator-name {
   font-size: 17px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
   margin-bottom: 2px;
   transition: color 0.12s;
@@ -269,7 +273,7 @@ img { max-width: 100%; display: block; }
 }
 .state-badge {
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 700;
   color: rgba(255,255,255,0.15);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -310,13 +314,13 @@ img { max-width: 100%; display: block; }
 }
 .atlas-bridge-headline {
   font-size: 32px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.02em;
   margin-bottom: 14px;
 }
 .atlas-bridge-body {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
   color: rgba(255,255,255,0.45);
   max-width: 480px;
@@ -332,7 +336,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   padding: 12px 24px;
   border-radius: 6px;
   white-space: nowrap;
@@ -383,7 +387,7 @@ img { max-width: 100%; display: block; }
 .footer-lists-links { display: flex; flex-direction: column; gap: 8px; }
 .footer-list-link {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   color: rgba(255,255,255,0.3);
   transition: color 0.15s;
 }
@@ -404,7 +408,7 @@ img { max-width: 100%; display: block; }
   background: var(--acid);
   color: var(--dark);
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 700;
   padding: 13px 30px;
   border-radius: 6px;
   transition: opacity 0.15s;
@@ -440,7 +444,7 @@ img { max-width: 100%; display: block; }
 .stat-cell:last-child { border-right: none; }
 .stat-num {
   font-size: 36px;
-  font-weight: 900;
+  font-weight: 700;
   color: var(--white);
   letter-spacing: -0.03em;
   line-height: 1;

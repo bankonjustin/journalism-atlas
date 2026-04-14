@@ -1,168 +1,255 @@
 /* =============================================
    JOURNALISM ATLAS — CSS CUSTOM PROPERTIES
-   Source of truth: DESIGN-TOKENS.md
-   Last synced: March 2026
-   ============================================= */
+   CSS implementation of DESIGN-TOKENS.md
+   Last synced: April 2026 (v3 — James Barry)
 
-/* Google Fonts — load in HTML <head> before this file:
-   Hanken Grotesk (UI), Merriweather (editorial), JetBrains Mono (data/numeric)
-   @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Merriweather:wght@400;500&family=JetBrains+Mono:wght@400&display=swap'); */
+   HOW TO USE:
+   Load this file FIRST in every page <head>,
+   before main.css or any inline <style>:
+     <link rel="stylesheet" href="assets/css/variables.css">
+
+   Reference tokens by name — never hardcode hex values.
+   When in doubt, check DESIGN-TOKENS.md for the canonical value.
+   ============================================= */
 
 :root {
 
-    /* =========================================
-       BRAND COLORS (Atlas Style Guide 2025)
-       ========================================= */
-    --color-acid-green: #ceff00;
-    --color-lime-green: #97d600;
-    --color-dark-olive: #5d7400;
-    --color-dark-gray: #313131;
-    --color-light-gray: #efeff2;
-    --color-black: #000000;
-    --color-white: #ffffff;
+  /* =========================================
+     BRAND COLOR PALETTE
+     Primary palette from Style Guide 2026
+     ========================================= */
+  --color-acid-green:  #ceff00;   /* Dark backgrounds only — see semantic tokens */
+  --color-lime-green:  #97d600;   /* Light backgrounds only — see semantic tokens */
+  --color-dark-olive:  #5d7400;   /* Hover / deep accent */
+  --color-dark-gray:   #313131;
+  --color-light-gray:  #efeff2;
+  --color-black:       #000000;
+  --color-white:       #ffffff;
 
-    /* Legacy brand aliases */
-    --color-brand-black: #000000;
-    --color-brand-green: #ceff00;
-    --color-medium-gray: #666666;   /* no v2 equivalent — kept */
-
-
-    /* =========================================
-       SEMANTIC COLOR ROLES
-       ========================================= */
-    --color-bg: #efeff2;            /* primary page background */
-    --color-surface: #ffffff;       /* card / panel background */
-    --color-text: #313131;          /* primary body text */
-    --color-heading: #000000;       /* heading text */
-    --color-accent: #ceff00;        /* primary accent / CTA */
-    --color-accent-hover: #97d600;  /* hover / active state */
-    --color-error: #ff4500;         /* error state (Blood Orange) */
-    --color-muted: #9a9a9a;         /* muted / disabled */
-    --color-border: #d0d0d5;        /* border / divider */
-
-    /* Legacy color aliases — migrate mobile.css away from these over time */
-    --color-background: #ffffff;        /* use --color-surface for white, --color-bg for page bg */
-    --color-text-primary: #313131;      /* use --color-text */
-    --color-text-secondary: #666666;    /* no v2 equivalent yet — kept */
-    --color-overlay: rgba(0, 0, 0, 0.7); /* no v2 equivalent — kept */
-    --color-shadow: rgba(0, 0, 0, 0.1);  /* no v2 equivalent — kept */
+  /* Legacy aliases — used throughout main.css; migrate over time */
+  --black:       #000000;
+  --white:       #ffffff;
+  --light-gray:  #efeff2;
+  --dark-gray:   #313131;
+  --medium-gray: #999999;
+  --acid-green:  #ceff00;   /* NOTE: acid green = dark surfaces only per v3. See --color-accent for light mode CTA. */
+  --lime-green:  #97d600;
 
 
-    /* =========================================
-       TOPIC COLORS — PLACEHOLDER
-       Pending Ryan's taxonomy + James's D3 array
-       ========================================= */
-    --color-topic-1: #FF6B6B;   /* Power & Politics */
-    --color-topic-2: #4ECDC4;   /* Money & Work */
-    --color-topic-3: #45B7D1;   /* Civic Life */
-    --color-topic-4: #FFA07A;   /* Social Issues */
-    --color-topic-5: #98D8C8;   /* Science/Health/Environment */
-    --color-topic-6: #F7DC6F;   /* Culture & Media */
-    --color-topic-7: #BB8FCE;   /* Lifestyle & Personal Life */
-    --color-topic-8: #85C1E2;   /* Journalism Formats */
-    --color-topic-9: #95A5A6;   /* General News */
+  /* =========================================
+     LIGHT MODE — Semantic Color Assignments
+     DESIGN-TOKENS.md § Semantic Color Assignments
+     Use these tokens in all light-surface contexts.
+     ========================================= */
+  --color-bg:             #efeff2;   /* Primary page background */
+  --color-bg-card:        #ffffff;   /* Card / panel background */
+  --color-text:           #313131;   /* Primary body text */
+  --color-text-header:    #000000;   /* Heading text — always black, any mode */
+  --color-accent:         #97d600;   /* Primary accent / CTA — lime, light mode only */
+  --color-accent-hover:   #5d7400;   /* Hover / active state — dark olive */
+  --color-muted:          #b0b0b8;   /* Muted / disabled text and icons */
+  --color-border:         #d4d4d8;   /* Default border */
+  --color-border-hover:   #b0b0b8;   /* Border on hover */
+  --color-error:          #cc2200;   /* Error state */
 
 
-    /* =========================================
-       TYPOGRAPHY
-       Weights capped at 500 — nothing heavier.
-       ========================================= */
-
-    /* Font families */
-    --font-ui: 'Hanken Grotesk', sans-serif;
-    --font-editorial: 'Merriweather', serif;
-    --font-data: 'JetBrains Mono', monospace;
-
-    /* Legacy font alias */
-    --font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-    /* Font sizes — desktop defaults */
-    --text-display: 45px;
-    --text-h1: 32px;
-    --text-h2: 24px;
-    --text-h3: 18px;
-    --text-body: 16px;
-    --text-label: 14px;
-    --text-data: 14px;
-    --text-micro: 12px;
-
-    /* Legacy font-size aliases — migrate mobile.css away from these over time */
-    --font-size-xs: 12px;
-    --font-size-sm: 14px;
-    --font-size-base: 16px;
-    --font-size-lg: 18px;
-    --font-size-xl: 24px;
-    --font-size-2xl: 32px;
-
-    /* Font weights */
-    --weight-regular: 400;
-    --weight-medium: 500;
+  /* =========================================
+     DARK MODE — Semantic Color Assignments
+     Use on dark surfaces: dark footer, dark headers, dark cards
+     ========================================= */
+  --color-bg-dark:            #313131;
+  --color-bg-card-dark:       #000000;
+  --color-text-dark:          #efeff2;
+  --color-text-header-dark:   #000000;   /* Header text always black — mode-invariant */
+  --color-accent-dark:        #ceff00;   /* Primary accent / CTA — acid green, dark mode only */
+  --color-accent-dark-hover:  #97d600;   /* Hover on dark — lime */
+  --color-muted-dark:         #606068;
+  --color-border-dark:        #48484f;
+  --color-border-dark-hover:  #606068;
+  --color-error-dark:         #ff4422;
 
 
-    /* =========================================
-       SPACING — 8px base unit
-       ========================================= */
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
-    --space-2xl: 48px;
-
-    /* Legacy spacing aliases — migrate mobile.css away from these over time */
-    --spacing-xs: 4px;
-    --spacing-sm: 8px;
-    --spacing-md: 16px;
-    --spacing-lg: 24px;
-    --spacing-xl: 32px;
+  /* =========================================
+     CANVAS — Always-dark surface tokens
+     Used in renderCanvas() and postcard canvas only.
+     Not the same as dark mode — canvas is always #000000.
+     ========================================= */
+  --canvas-bg:             #000000;
+  --canvas-text-primary:   #ffffff;
+  --canvas-text-secondary: rgba(255, 255, 255, 0.55);
+  --canvas-text-muted:     rgba(255, 255, 255, 0.4);
+  --canvas-accent:         #ceff00;
+  --canvas-divider:        rgba(255, 255, 255, 0.12);
+  --canvas-border:         rgba(255, 255, 255, 0.08);
 
 
-    /* =========================================
-       TOUCH & MOBILE
-       ========================================= */
-    --touch-target-min: 48px;       /* every interactive element minimum */
-    --mobile-edge-margin: 16px;     /* min content padding from screen edge */
+  /* =========================================
+     VISUALIZATION COLORS
+     D3 only — never use in UI chrome.
+     Final topic → color assignments pending James sign-off (ATLAS_VIZ_COLORS).
+     Reference: DESIGN-TOKENS.md § Visualization Color Array
+     ========================================= */
+  --viz-yellow:   #fff700;
+  --viz-orange:   #ffaa00;
+  --viz-pink:     #ff66ff;
+  --viz-magenta:  #ff33cc;
+  --viz-cyan:     #00e5ff;
+  --viz-gold:     #806600;
+  --viz-rust:     #b35100;
+  --viz-purple:   #a100a1;
+  --viz-berry:    #a1006c;
+  --viz-blue:     #005ea3;
 
 
-    /* =========================================
-       BORDER RADIUS — Material Design 3 aligned
-       ========================================= */
-    --radius-xs: 4px;       /* chips, tags, small badges */
-    --radius-sm: 8px;       /* buttons, inputs */
-    --radius-md: 12px;      /* cards, panels, modals */
-    --radius-lg: 16px;      /* larger containers, drawers */
-    --radius-pill: 100px;   /* filter pills only */
-    --radius-full: 50%;     /* circular elements — no v2 equivalent, kept */
+  /* =========================================
+     TYPOGRAPHY
+     DESIGN-TOKENS.md § Typography
+     Weights: 400 (body) / 500 (labels/UI) / 700 (headings only).
+     Do not introduce 600 or 800.
+     ========================================= */
+
+  /* Font families */
+  --font-primary:   'Hanken Grotesk', sans-serif;
+  --font-editorial: 'Merriweather', serif;
+
+  /* Legacy alias */
+  --font-ui: 'Hanken Grotesk', sans-serif;
+
+  /* Type scale */
+  --text-display:  36px;   /* 700 · lh 44px · ls -0.25px */
+  --text-h1:       32px;   /* 700 · lh 40px · ls -0.25px */
+  --text-h2:       28px;   /* 700 · lh 36px · ls 0 */
+  --text-h3:       24px;   /* 700 · lh 32px · ls 0 */
+  --text-title:    22px;   /* 500 · lh 28px · ls 0 */
+  --text-body-lg:  16px;   /* 400 · lh 26px · ls 0.15px — minimum reading size */
+  --text-body-md:  14px;   /* 400 · lh 22px · ls 0.25px */
+  --text-label:    14px;   /* 500 · lh 20px · ls 0.1px */
+  --text-small:    12px;   /* 500 · lh 16px · ls 0.4px */
+  --text-micro:    11px;   /* 500 · lh 16px · ls 0.5px — light mode only */
+
+  /* Legacy aliases */
+  --text-body:  16px;
+  --text-data:  14px;
+  --text-micro-legacy: 12px;   /* was --text-micro at 12px; v3 renames to --text-small */
+
+  /* Line heights */
+  --lh-display:  44px;
+  --lh-h1:       40px;
+  --lh-h2:       36px;
+  --lh-h3:       32px;
+  --lh-title:    28px;
+  --lh-body-lg:  26px;   /* NOT M3 default 24px — intentional extra breathing room */
+  --lh-body-md:  22px;
+  --lh-label:    20px;
+  --lh-small:    16px;
+  --lh-micro:    16px;
+
+  /* Letter spacing */
+  --ls-display:  -0.25px;
+  --ls-h1:       -0.25px;
+  --ls-h2:        0px;
+  --ls-h3:        0px;
+  --ls-title:     0px;
+  --ls-body-lg:   0.15px;
+  --ls-body-md:   0.25px;
+  --ls-label:     0.1px;
+  --ls-small:     0.4px;
+  --ls-micro:     0.5px;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
 
 
-    /* =========================================
-       LAYOUT
-       ========================================= */
-    --max-width-layout: 1440px;     /* 13-inch MacBook fill */
-    --max-width-text: 640px;        /* ~65–70 chars/line at 16px */
+  /* =========================================
+     SPACING — 8px base unit
+     DESIGN-TOKENS.md § Spacing & Layout
+     ========================================= */
+  --space-xs:   4px;    /* Half-unit — tight inline spacing only */
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-2xl:  48px;
+  --space-3xl:  64px;
+
+  /* Legacy aliases */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
 
 
-    /* =========================================
-       Z-INDEX LAYERS (not in design tokens)
-       ========================================= */
-    --z-canvas: 1;
-    --z-ui: 10;
-    --z-overlay: 20;
-    --z-sheet: 30;
-    --z-modal: 40;
+  /* =========================================
+     BORDER RADIUS
+     DESIGN-TOKENS.md § Spacing & Layout
+     ========================================= */
+  --radius-base:  6px;    /* Cards, buttons, inputs */
+  --radius-modal: 8px;    /* Modals — slightly softer */
+  --radius-pill:  100px;  /* Filter chips, tags — always 100px */
+  --radius-full:  50%;    /* Circular avatars */
+
+  /* Legacy aliases */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
 
 
-    /* =========================================
-       TRANSITIONS (not in design tokens)
-       ========================================= */
-    --transition-fast: 150ms ease;
-    --transition-base: 300ms ease;
-    --transition-slow: 500ms ease;
+  /* =========================================
+     LAYOUT
+     ========================================= */
+  --max-width-layout: 1440px;
+  --max-width-text:   680px;
 
 
-    /* Safe areas for iOS */
-    --safe-area-inset-top: env(safe-area-inset-top);
-    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  /* =========================================
+     ICON SIZES
+     Material Symbols Outlined — opsz must match display size
+     DESIGN-TOKENS.md § Iconography
+     ========================================= */
+  --icon-sm:  20px;   /* opsz=20 — inline, tight contexts, tags */
+  --icon-md:  24px;   /* opsz=24 — standard UI: buttons, nav, filters */
+  --icon-lg:  40px;   /* opsz=40 — decorative, empty states, hero */
+
+
+  /* =========================================
+     COMPONENT: FOCUS RING
+     Required on all interactive elements (accessibility).
+     Never remove focus styles.
+     ========================================= */
+  --focus-ring-light:  2px solid #97d600;
+  --focus-ring-dark:   2px solid #ceff00;
+  --focus-ring-offset: 2px;
+
+
+  /* =========================================
+     Z-INDEX LAYERS
+     ========================================= */
+  --z-canvas:   1;
+  --z-ui:       10;
+  --z-overlay:  20;
+  --z-sheet:    30;
+  --z-modal:    40;
+
+
+  /* =========================================
+     TRANSITIONS
+     ========================================= */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+
+
+  /* =========================================
+     TOUCH / MOBILE
+     ========================================= */
+  --touch-target-min:       48px;
+  --mobile-edge-margin:     16px;
+  --safe-area-inset-top:    env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
 }
 
 
@@ -170,14 +257,11 @@
    MOBILE OVERRIDES — 768px and below
    ============================================= */
 @media (max-width: 768px) {
-    :root {
-        --text-display: 32px;
-        --text-h1: 26px;
-        --text-h2: 20px;
-        --text-h3: 18px;
-        --text-body: 16px;
-        --text-label: 14px;
-        --text-data: 14px;
-        --text-micro: 13px;
-    }
+  :root {
+    --text-display: 32px;
+    --text-h1:      26px;
+    --text-h2:      22px;
+    --text-h3:      20px;
+    /* Body, label, small, micro: same as desktop */
+  }
 }

@@ -10,25 +10,34 @@
 <meta property="og:url" content="https://journalismatlas.com/latin-america-lab">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="/assets/css/variables.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* =========================================
    DESIGN TOKENS
    ========================================= */
 :root {
-  --acid: #ceff00;
-  --lime: #97d600;
-  --olive: #313131; /* DESIGN-TOKEN FIX: Dark olive replaced with dark gray — olive retired from palette */
-  --dark: #313131;
-  --dark2: #1a1a1a;
-  --black: #000000;
-  --light: #efeff2;
-  --white: #ffffff;
-  --ff: 'Hanken Grotesk', sans-serif;
-  --radius: 8px;
+  /* Latin America Lab — inherits from variables.css
+     Page-specific aliases only. DESIGN-TOKENS.md is canonical. */
   --max: 1100px;
+
+  /* Dark surface aliases (page is predominantly dark) */
+  --page-bg: var(--color-bg-dark);              /* #313131 */
+  --page-bg-black: #000000;                     /* nav */
+  --page-bg-deep: #1a1a1a;                      /* card backgrounds, deep dark */
+  --page-text: var(--color-text-dark);          /* #efeff2 */
+  --page-accent: var(--color-accent-dark);      /* #ceff00 — dark surfaces */
+  --page-border: var(--color-border-dark);      /* #48484f */
+
+  /* Light surface aliases (ecosystem / methodology sections) */
+  --section-light-bg: var(--color-bg);          /* #efeff2 */
+  --section-light-text: var(--color-text);      /* #313131 */
+  --section-light-accent: var(--color-accent);  /* #97d600 — light surfaces */
+
+  /* Layout */
+  --ff: var(--font-primary);
 }
 
 /* =========================================
@@ -36,7 +45,7 @@
    ========================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
-body { font-family: var(--ff); background: var(--dark); color: var(--white); line-height: 1.5; }
+body { font-family: var(--ff); background: var(--page-bg); color: #ffffff; line-height: 1.5; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 48px; }
@@ -61,7 +70,7 @@ img { max-width: 100%; display: block; }
 .nav-logo img { height: 20px; width: auto; mix-blend-mode: screen; }
 .nav-breadcrumb {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   color: rgba(255,255,255,0.25);
   display: flex;
   align-items: center;
@@ -69,16 +78,16 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.04em;
 }
 .nav-breadcrumb a { color: rgba(255,255,255,0.35); transition: color 0.15s; }
-.nav-breadcrumb a:hover { color: var(--acid); }
+.nav-breadcrumb a:hover { color: var(--page-accent); }
 .nav-breadcrumb .sep { color: rgba(255,255,255,0.15); }
 
 /* =========================================
    HERO
    ========================================= */
 .hero {
-  background: var(--dark);
+  background: var(--page-bg);
   padding: 80px 0 72px;
-  border-bottom: 3px solid var(--acid);
+  border-bottom: 3px solid var(--page-accent);
 }
 .hero-inner {
   display: grid;
@@ -87,16 +96,16 @@ img { max-width: 100%; display: block; }
   align-items: start;
 }
 .hero-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--acid);
+  color: var(--page-accent);
   margin-bottom: 16px;
 }
 .hero-headline {
   font-size: clamp(32px, 5vw, 52px);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.0;
   letter-spacing: -0.025em;
   margin-bottom: 20px;
@@ -117,9 +126,9 @@ img { max-width: 100%; display: block; }
 /* Right: stat cards */
 .hero-stats { display: flex; flex-direction: column; gap: 12px; padding-top: 8px; }
 .hero-stat-card {
-  background: var(--dark2);
+  background: var(--page-bg-deep);
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 18px 20px;
   display: flex;
   align-items: baseline;
@@ -127,8 +136,8 @@ img { max-width: 100%; display: block; }
 }
 .hero-stat-num {
   font-size: 36px;
-  font-weight: 900;
-  color: var(--acid);
+  font-weight: 700;
+  color: var(--page-accent);
   line-height: 1;
   letter-spacing: -0.03em;
   flex-shrink: 0;
@@ -144,13 +153,13 @@ img { max-width: 100%; display: block; }
    ECOSYSTEM CONTEXT
    ========================================= */
 .ecosystem {
-  background: var(--light);
+  background: var(--section-light-bg);
   padding: 72px 0;
   color: #000;
 }
 .ecosystem-headline {
   font-size: clamp(22px, 3vw, 30px);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: #000;
@@ -163,8 +172,8 @@ img { max-width: 100%; display: block; }
   margin-bottom: 48px;
 }
 .ecosystem-col p {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 16px;
+  line-height: 1.625;
   color: #333;
 }
 .ecosystem-cards {
@@ -175,14 +184,14 @@ img { max-width: 100%; display: block; }
 .ecosystem-card {
   background: #fff;
   border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 24px 22px;
 }
 .ecosystem-card-title {
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--olive);
+  color: var(--section-light-text);
   margin-bottom: 10px;
   text-transform: uppercase;
   font-size: 11px;
@@ -198,21 +207,21 @@ img { max-width: 100%; display: block; }
    CREATOR LAB
    ========================================= */
 .lab {
-  background: var(--black);
+  background: #000000;
   padding: 72px 0 80px;
 }
 .lab-header { margin-bottom: 32px; }
 .lab-eyebrow {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--acid);
+  color: var(--page-accent);
   margin-bottom: 10px;
 }
 .lab-headline {
   font-size: clamp(22px, 3vw, 30px);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
   margin-bottom: 28px;
@@ -222,7 +231,7 @@ img { max-width: 100%; display: block; }
 .filters { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
 .filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .filter-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -246,9 +255,9 @@ img { max-width: 100%; display: block; }
 }
 .filter-pill:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.18); }
 .filter-pill.active {
-  background: var(--acid);
+  background: var(--page-accent);
   color: #000;
-  border-color: var(--acid);
+  border-color: var(--page-accent);
 }
 
 /* Count bar */
@@ -256,10 +265,10 @@ img { max-width: 100%; display: block; }
   font-size: 12px;
   color: rgba(255,255,255,0.28);
   margin-bottom: 20px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.02em;
 }
-.count-bar span { color: var(--acid); }
+.count-bar span { color: var(--page-accent); }
 
 /* Creator grid */
 .creator-grid {
@@ -270,7 +279,7 @@ img { max-width: 100%; display: block; }
 .creator-card {
   background: #1a1a1a;
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 20px;
   position: relative;
   display: flex;
@@ -278,7 +287,7 @@ img { max-width: 100%; display: block; }
   gap: 10px;
   transition: border-color 0.15s;
 }
-.creator-card:hover { border-color: rgba(206,255,0,0.2); }
+.creator-card:hover { border-color: rgba(206, 255, 0, 0.25); } /* TODO-JAMES: alpha acid keyline vs. solid token — confirm approach for ICFJ pages */
 .creator-card.hidden { display: none; }
 
 /* Trust badge */
@@ -319,7 +328,7 @@ img { max-width: 100%; display: block; }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -329,7 +338,7 @@ img { max-width: 100%; display: block; }
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--acid);
+  background: var(--page-accent);
   flex-shrink: 0;
 }
 
@@ -340,31 +349,31 @@ img { max-width: 100%; display: block; }
   padding: 3px 8px;
   background: rgba(206,255,0,0.08);
   border: 1px solid rgba(206,255,0,0.2);
-  border-radius: 6px;
-  font-size: 10px;
+  border-radius: 100px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--acid);
+  color: var(--page-accent);
   letter-spacing: 0.04em;
 }
 
 .card-country {
   font-size: 12px;
-  color: var(--acid);
-  font-weight: 600;
+  color: var(--page-accent);
+  font-weight: 500;
   opacity: 0.75;
   margin-top: 4px;
 }
 .card-name {
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 700;
   line-height: 1.15;
-  color: var(--white);
+  color: #ffffff;
   padding-right: 20px;
 }
 .card-channel {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--acid);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--page-accent);
   opacity: 0.8;
 }
 .card-topic {
@@ -381,14 +390,14 @@ img { max-width: 100%; display: block; }
 .platform-pill {
   display: inline-flex;
   padding: 3px 9px;
-  border-radius: 10px;
-  font-size: 10px;
+  border-radius: 100px;
+  font-size: 11px;
   font-weight: 700;
   background: rgba(255,255,255,0.07);
   color: rgba(255,255,255,0.5);
 }
 .card-audience {
-  font-size: 11px;
+  font-size: 12px;
   color: rgba(255,255,255,0.28);
 }
 .card-footer {
@@ -409,27 +418,27 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.04em;
   transition: color 0.15s;
 }
-.card-link:hover { color: var(--acid); }
+.card-link:hover { color: var(--page-accent); }
 
 /* =========================================
    SPOTLIGHT — TOP 3
    ========================================= */
 .spotlight {
-  background: var(--dark);
+  background: var(--page-bg);
   padding: 72px 0;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 .spotlight-eyebrow {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--acid);
+  color: var(--page-accent);
   margin-bottom: 10px;
 }
 .spotlight-headline {
   font-size: clamp(22px, 3vw, 30px);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 32px;
 }
@@ -439,8 +448,8 @@ img { max-width: 100%; display: block; }
   gap: 16px;
 }
 .spotlight-card {
-  background: var(--olive);
-  border-radius: 12px;
+  background: var(--page-bg-deep);
+  border-radius: 6px;
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
@@ -448,7 +457,7 @@ img { max-width: 100%; display: block; }
 }
 .spotlight-name {
   font-size: clamp(22px, 2.5vw, 30px);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
@@ -472,7 +481,7 @@ img { max-width: 100%; display: block; }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
 }
 .trust-dot {
@@ -488,23 +497,23 @@ img { max-width: 100%; display: block; }
   gap: 6px;
   margin-top: auto;
   font-size: 13px;
-  font-weight: 800;
-  color: var(--acid);
+  font-weight: 500;
+  color: var(--page-accent);
   transition: opacity 0.15s;
 }
-.spotlight-cta:hover { opacity: 0.75; }
+.spotlight-cta:hover { color: rgba(206,255,0,0.85); }
 
 /* =========================================
    METHODOLOGY
    ========================================= */
 .methodology {
-  background: var(--light);
+  background: var(--section-light-bg);
   padding: 64px 0;
   color: #000;
 }
 .methodology-headline {
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.01em;
   color: #000;
   margin-bottom: 16px;
@@ -531,7 +540,7 @@ img { max-width: 100%; display: block; }
   gap: 10px;
   font-size: 13px;
   color: rgba(0,0,0,0.45);
-  font-weight: 600;
+  font-weight: 500;
 }
 .method-logo-placeholder {
   width: 48px;
@@ -541,8 +550,8 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.06em;
   color: rgba(0,0,0,0.3);
 }
@@ -551,7 +560,7 @@ img { max-width: 100%; display: block; }
    CTA SECTION
    ========================================= */
 .cta-section {
-  background: var(--dark2);
+  background: var(--page-bg-deep);
   padding: 64px 0;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
@@ -563,14 +572,14 @@ img { max-width: 100%; display: block; }
 .cta-block {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 36px 32px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 .cta-block-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -578,7 +587,7 @@ img { max-width: 100%; display: block; }
 }
 .cta-block-headline {
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.1;
 }
@@ -592,16 +601,16 @@ img { max-width: 100%; display: block; }
   align-items: center;
   font-family: var(--ff);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 12px 24px;
   border-radius: 6px;
-  background: var(--acid);
-  color: var(--dark);
+  background: var(--page-accent);
+  color: var(--page-bg);
   transition: opacity 0.15s;
   margin-top: 4px;
   align-self: flex-start;
 }
-.btn-primary:hover { opacity: 0.87; }
+.btn-primary:hover { background: var(--color-accent-dark-hover); opacity: 1; }
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -617,7 +626,7 @@ img { max-width: 100%; display: block; }
   margin-top: 4px;
   align-self: flex-start;
 }
-.btn-ghost:hover { color: var(--acid); border-color: rgba(206,255,0,0.3); }
+.btn-ghost:hover { color: var(--page-accent); border-color: rgba(206,255,0,0.3); }
 
 /* =========================================
    FOOTER
@@ -644,7 +653,19 @@ img { max-width: 100%; display: block; }
   color: rgba(255,255,255,0.35);
   transition: color 0.15s;
 }
-.footer-attribution a:hover { color: var(--acid); }
+.footer-attribution a:hover { color: var(--page-accent); }
+
+/* =========================================
+   FOCUS RINGS
+   ========================================= */
+.filter-pill:focus-visible,
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible,
+.card-link:focus-visible,
+.spotlight-cta:focus-visible {
+  outline: 2px solid #ceff00; /* acid green — dark surface focus ring */
+  outline-offset: 2px;
+}
 
 /* =========================================
    RESPONSIVE

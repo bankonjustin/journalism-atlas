@@ -4,15 +4,9 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --black: #000000;
-            --white: #FFFFFF;
-            --light-gray: #efeff2;
-            --dark-gray: #313131;
-            --medium-gray: #999999;
-            --acid-green: #ceff00;
-            --lime-green: #97d600;
-        }
+        /* Design tokens from assets/css/variables.css — loaded before this file.
+           Legacy variable names (--black, --acid-green, etc.) are aliased there.
+           Use --color-* semantic tokens for new CSS. DESIGN-TOKENS.md § Semantic Color Assignments */
 
         body {
             font-family: 'Hanken Grotesk', sans-serif;
@@ -95,9 +89,10 @@
         }
 
         .nav-search:focus {
-            outline: none;
-            border-color: var(--acid-green);
-            box-shadow: 0 0 0 3px rgba(206, 255, 0, 0.1);
+            outline: var(--focus-ring-light);    /* DESIGN-TOKENS.md § Focus State */
+            outline-offset: var(--focus-ring-offset);
+            border-color: var(--lime-green);     /* Light surface — lime only. DESIGN-TOKENS.md § Semantic Color Assignments */
+            box-shadow: 0 0 0 3px rgba(151, 214, 0, 0.15);
         }
 
         .nav-links {
@@ -231,7 +226,7 @@
             color: var(--white);
             text-decoration: none;
             font-size: 17px;
-            font-weight: 600;
+            font-weight: 500;   /* Label weight — DESIGN-TOKENS.md § Typography */
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -258,8 +253,8 @@
         }
 
         .database-intro-text {
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 16px;   /* Body Large minimum — DESIGN-TOKENS.md § Typography */
+            line-height: 26px;   /* Body Large line-height */
             color: var(--dark-gray);
             max-width: 700px;
             margin: 0 auto;
@@ -301,8 +296,8 @@
 
         .filter-accordion {
             margin-bottom: 1rem;
-            border: 1px solid #eee;
-            border-radius: 8px;
+            border: 0.5px solid var(--color-border);
+            border-radius: 6px;   /* token: --radius-base */
             overflow: hidden;
         }
 
@@ -318,12 +313,12 @@
         }
 
         .filter-accordion-header:hover {
-            background-color: #e5e5e8;
+            background-color: var(--color-border);   /* Subtle hover shift — token aligned */
         }
 
         .filter-accordion-header h3 {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;   /* Label weight */
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--dark-gray);
@@ -369,8 +364,9 @@
         }
 
         .filter-search:focus {
-            outline: none;
-            border-color: var(--acid-green);
+            outline: var(--focus-ring-light);
+            outline-offset: var(--focus-ring-offset);
+            border-color: var(--lime-green);   /* Light surface — lime only */
         }
 
         .filter-option {
@@ -385,7 +381,7 @@
             width: 18px;
             height: 18px;
             cursor: pointer;
-            accent-color: var(--acid-green);
+            accent-color: var(--lime-green);   /* Light surface — lime only */
         }
 
         .filter-option label {
@@ -407,11 +403,11 @@
             padding: 0.75rem;
             background-color: var(--light-gray);
             color: var(--dark-gray);
-            border: none;
-            border-radius: 8px;
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;   /* token: --radius-base */
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;   /* Label weight */
             cursor: pointer;
             transition: background-color 0.2s;
         }
@@ -425,13 +421,13 @@
             width: 100%;
             padding: 12px 16px;
             margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--acid-green) 0%, var(--lime-green) 100%);
+            background: var(--lime-green);   /* Light surface — lime only. DESIGN-TOKENS.md § Buttons Primary */
             color: var(--black);
-            border: none;
-            border-radius: 8px;
+            border: 1.5px solid var(--color-dark-olive);
+            border-radius: 6px;   /* token: --radius-base */
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;   /* Label weight */
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
@@ -441,11 +437,12 @@
         }
 
         .clear-filters-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(206, 255, 0, 0.3);
+            background: var(--color-dark-olive);   /* Primary button hover — dark olive + white text */
+            border-color: var(--color-dark-olive);
+            color: var(--white);
         }
 
-        .clear-filters-top .material-icons-outlined {
+        .clear-filters-top .material-symbols-outlined {
             font-size: 18px;
         }
 
@@ -466,9 +463,9 @@
             background-color: #e0e0e0;
             color: #666;
             padding: 2px 8px;
-            border-radius: 12px;
+            border-radius: 100px;   /* pill — DESIGN-TOKENS.md § Border Radius */
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;   /* Label weight */
             margin-left: auto;
             margin-right: 8px;
         }
@@ -500,8 +497,8 @@
         }
 
         .results-count {
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 16px;   /* Body Large minimum — DESIGN-TOKENS.md § Typography */
+            font-weight: 500;
             color: var(--dark-gray);
         }
 
@@ -529,8 +526,8 @@
         }
 
         .view-btn:hover:not(.active) {
-            background-color: var(--acid-green);
-            border-color: var(--acid-green);
+            background-color: var(--lime-green);   /* Light surface — lime only */
+            border-color: var(--color-dark-olive);
             color: var(--black);
         }
 
@@ -543,16 +540,21 @@
 
         .creator-card {
             background-color: var(--white);
-            border-radius: 12px;
+            border: 0.5px solid var(--color-border);   /* Default card border — DESIGN-TOKENS.md § Cards */
+            border-radius: 6px;   /* token: --radius-base */
             padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: all 0.2s;
+            transition: background-color 0.2s, border-color 0.2s;
             cursor: pointer;
         }
 
         .creator-card:hover {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
+            background-color: var(--color-bg);          /* Hover: background shift — DESIGN-TOKENS.md § Cards */
+            border-color: var(--color-border-hover);
+        }
+
+        .creator-card.selected {
+            background-color: var(--color-bg);          /* Selected: bg shift + accent border */
+            border: 1.5px solid var(--color-accent);
         }
 
         .creator-header {
@@ -614,11 +616,11 @@
             transition: all 0.2s;
             padding: 0.25rem 0.5rem;
             margin: -0.25rem -0.5rem;
-            border-radius: 4px;
+            border-radius: 6px;   /* token: --radius-base */
         }
 
         .creator-meta-item.clickable-tag:hover {
-            background-color: var(--acid-green);
+            background-color: var(--lime-green);   /* Light surface — lime only */
             color: var(--black);
         }
 
@@ -635,14 +637,14 @@
             display: inline-block;
             padding: 0.25rem 0.625rem;
             background-color: var(--light-gray);
-            border-radius: 4px;
+            border-radius: 100px;   /* pill/chip — DESIGN-TOKENS.md § Border Radius */
             font-size: 12px;
             font-weight: 500;
             color: var(--dark-gray);
         }
 
         .creator-tag.clickable-tag:hover {
-            background-color: var(--acid-green);
+            background-color: var(--lime-green);   /* Light surface — lime only */
             color: var(--black);
         }
 
@@ -670,7 +672,7 @@
             border-color: #ddd;
         }
 
-        .suggest-edits-btn .material-icons-outlined {
+        .suggest-edits-btn .material-symbols-outlined {
             font-size: 14px;
         }
 
@@ -707,7 +709,7 @@
         .creators-table th {
             padding: 1rem;
             text-align: left;
-            font-weight: 600;
+            font-weight: 500;   /* Label weight — table header on dark surface */
             cursor: pointer;
             user-select: none;
             white-space: nowrap;
@@ -740,7 +742,7 @@
         }
 
         .creators-table tbody tr:hover {
-            background-color: #f9f9f9;
+            background-color: var(--color-bg);   /* Card hover bg — DESIGN-TOKENS.md § Cards */
         }
 
         .creators-table td {
@@ -748,7 +750,7 @@
         }
 
         .creator-name-cell {
-            font-weight: 600;
+            font-weight: 700;   /* Bold — name is heading context */
             color: var(--dark-gray);
         }
 
@@ -767,13 +769,14 @@
 
         .empty-state h3 {
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 700;   /* H3-level heading */
             color: var(--dark-gray);
             margin-bottom: 0.5rem;
         }
 
         .empty-state p {
-            font-size: 15px;
+            font-size: 16px;   /* Body Large minimum */
+            line-height: 26px;
             color: #999;
         }
 
@@ -825,7 +828,7 @@
         .bubble-mode-btn.active {
             color: var(--black);
             font-weight: 700;
-            border-bottom-color: var(--acid-green);
+            border-bottom-color: var(--lime-green);   /* Light surface — lime only */
         }
 
         #bubbleChart {
@@ -846,7 +849,7 @@
         .bubble-label {
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;   /* SVG viz label */
             fill: var(--black);
             pointer-events: none;
             text-anchor: middle;
@@ -955,17 +958,18 @@
 
         .sunburst-title {
             font-size: 28px;
-            font-weight: 800;
+            font-weight: 700;   /* Bold heading — no 800 in system */
             margin-bottom: 0.5rem;
             color: var(--black);
             letter-spacing: -0.5px;
         }
 
         .sunburst-subtitle {
-            font-size: 15px;
+            font-size: 16px;   /* Body Large minimum */
+            line-height: 26px;
             color: #666;
             margin-bottom: 2rem;
-            font-weight: 500;
+            font-weight: 400;   /* Regular — body text */
         }
 
         .sunburst-breadcrumb {
@@ -991,7 +995,7 @@
 
         .breadcrumb-item:hover {
             color: var(--black);
-            background: rgba(206, 255, 0, 0.15);
+            background: rgba(151, 214, 0, 0.15);   /* Lime rgba — light surface */
             text-decoration: underline;
             transform: translateY(-1px);
         }
@@ -999,7 +1003,7 @@
         .breadcrumb-item.active {
             color: var(--black);
             font-weight: 700;
-            background: var(--acid-green);
+            background: var(--lime-green);   /* Active breadcrumb — light surface */
             padding: 0.25rem 0.75rem;
             cursor: default;
         }
@@ -1043,15 +1047,15 @@
         }
 
         .sunburst-creator-card:hover {
-            border-color: var(--acid-green);
-            transform: translateY(-2px);
+            border-color: var(--lime-green);   /* Light surface — lime only */
+            background-color: var(--color-bg);
         }
 
         .sunburst-creator-avatar {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--acid-green), var(--lime-green));
+            background: linear-gradient(135deg, var(--lime-green), var(--color-dark-olive));   /* Decorative avatar — light surface, lime range */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1062,7 +1066,7 @@
         }
 
         .sunburst-creator-name {
-            font-weight: 600;
+            font-weight: 700;   /* Name = heading context */
             font-size: 14px;
             margin-bottom: 0.25rem;
         }
@@ -1094,7 +1098,7 @@
 
         .viz-creators-header h3 {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;   /* Section heading */
             margin: 0;
         }
 
@@ -1112,7 +1116,7 @@
         .viz-creators-table th {
             text-align: left;
             padding: 0.625rem 0.75rem;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -1137,7 +1141,7 @@
         }
 
         .viz-creators-table a:hover {
-            color: var(--acid-green);
+            color: var(--lime-green);   /* Light surface — lime only */
         }
 
         .sunburst-arc {
@@ -1169,7 +1173,7 @@
         .sunburst-center-text {
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 700;   /* Bold — no 800 in system */
             fill: var(--black);
             text-anchor: middle;
             transition: all 0.3s ease;
@@ -1216,8 +1220,7 @@
         }
 
         .legend-item:hover {
-            border-color: var(--acid-green);
-            transform: translateY(-2px);
+            border-color: var(--lime-green);   /* Light surface — lime only */
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
@@ -1232,7 +1235,7 @@
 
         .legend-item span {
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--dark-gray);
         }
 
@@ -1319,7 +1322,7 @@
             width: 50px;
             height: 50px;
             border: 4px solid var(--light-gray);
-            border-top-color: var(--acid-green);
+            border-top-color: var(--lime-green);   /* Loading spinner — light surface */
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 1rem;
@@ -1340,7 +1343,7 @@
             line-height: 1;
         }
 
-        .mobile-menu-button .material-icons-outlined {
+        .mobile-menu-button .material-symbols-outlined {
             font-size: 28px;
         }
 
@@ -1398,7 +1401,7 @@
             line-height: 1;
         }
 
-        .mobile-menu-close .material-icons-outlined {
+        .mobile-menu-close .material-symbols-outlined {
             font-size: 26px;
         }
 
@@ -1422,7 +1425,7 @@
         .mobile-menu-link:hover,
         .mobile-menu-link:active {
             background-color: var(--light-gray);
-            border-left-color: var(--acid-green);
+            border-left-color: var(--lime-green);   /* Light surface — lime only */
         }
 
         /* ===== Mobile Filter Toggle Button (shown on mobile) ===== */
@@ -1431,11 +1434,11 @@
             width: 100%;
             padding: 14px 20px;
             background: var(--white);
-            border: 2px solid #ddd;
-            border-radius: 12px;
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;   /* token: --radius-base */
             font-family: 'Hanken Grotesk', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 16px;   /* Body Large minimum */
+            font-weight: 500;
             color: var(--dark-gray);
             cursor: pointer;
             align-items: center;
@@ -1449,17 +1452,17 @@
             transform: scale(0.98);
         }
 
-        .mobile-filter-toggle .material-icons-outlined {
+        .mobile-filter-toggle .material-symbols-outlined {
             font-size: 22px;
             transition: transform 0.3s;
         }
 
-        .mobile-filter-toggle.filters-visible .material-icons-outlined {
+        .mobile-filter-toggle.filters-visible .material-symbols-outlined {
             transform: rotate(180deg);
         }
 
         .mobile-filter-toggle .filter-count-badge {
-            background: var(--acid-green);
+            background: var(--lime-green);   /* Light surface — lime only */
             color: var(--black);
             font-size: 12px;
             font-weight: 700;
@@ -1854,12 +1857,12 @@
             gap: 0.4rem;
             padding: 0.45rem 0.9rem;
             background: var(--black);
-            color: var(--acid-green);
+            color: var(--acid-green);   /* Dark surface — acid green correct. DESIGN-TOKENS.md § Dark Mode */
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;   /* token: --radius-base */
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: opacity 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
             white-space: nowrap;
@@ -1924,7 +1927,7 @@
         }
         .pack-modal-title {
             font-size: 17px;
-            font-weight: 800;
+            font-weight: 700;   /* Bold heading — no 800 in system */
             color: var(--black);
             letter-spacing: -0.3px;
         }
@@ -1954,8 +1957,8 @@
         .pack-name-input {
             width: 100%;
             padding: 12px 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;   /* token: --radius-base */
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 16px;
             font-weight: 700;
@@ -1964,8 +1967,9 @@
             margin-bottom: 16px;
         }
         .pack-name-input:focus {
-            outline: none;
-            border-color: var(--acid-green);
+            outline: var(--focus-ring-light);
+            outline-offset: var(--focus-ring-offset);
+            border-color: var(--lime-green);   /* Light surface — lime only */
         }
 
         /* Selection summary */
@@ -2079,16 +2083,16 @@
             transition: all 0.15s;
         }
         .atlas-drawer-card.selectable.selected {
-            background: #f0ffd0;
-            border: 1.5px solid var(--acid-green);
+            background: var(--color-bg);          /* Card selected bg — DESIGN-TOKENS.md § Cards */
+            border: 1.5px solid var(--lime-green); /* Light surface — lime only */
         }
         .atlas-drawer-card.selectable.selected::after {
             background: var(--black);
             border-color: var(--black);
             content: '✓';
-            color: var(--acid-green);
+            color: var(--acid-green);   /* Dark bg (black circle) — acid green correct */
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 700;   /* Bold — no 800 in system */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2111,9 +2115,9 @@
             flex: 1;
             padding: 13px;
             background: var(--black);
-            color: var(--acid-green);
+            color: var(--acid-green);   /* Dark surface CTA — acid green correct */
             border: none;
-            border-radius: 10px;
+            border-radius: 6px;   /* token: --radius-base */
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 14px;
             font-weight: 700;
@@ -2124,7 +2128,7 @@
         .atlas-drawer-pack-cta:not(:disabled):hover { opacity: 0.85; }
         .atlas-drawer-select-count {
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: rgba(0,0,0,0.45);
             white-space: nowrap;
         }
@@ -2301,9 +2305,9 @@
             margin-top: 2px;
             padding: 2px 8px;
             background: rgba(0,0,0,0.06);
-            border-radius: 20px;
+            border-radius: 100px;   /* pill — DESIGN-TOKENS.md § Border Radius */
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;
             color: rgba(0,0,0,0.55);
             align-self: flex-start;
         }
@@ -2311,11 +2315,11 @@
             width: 100%;
             padding: 11px;
             background: var(--white);
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;   /* token: --radius-base */
             font-family: 'Hanken Grotesk', sans-serif;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--black);
             cursor: pointer;
             margin-top: 8px;

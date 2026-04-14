@@ -11,7 +11,8 @@
     <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=Merriweather:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZ9F351MRS"></script>
@@ -25,23 +26,37 @@
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /*
+         * MODE ARCHITECTURE — postcard.html
+         * This page is always-dark: body bg, hero, workspace, modal all use
+         * the dark surface palette. There is no light-mode toggle.
+         * Canvas is a separate always-dark surface (see --canvas-* tokens).
+         * Acid green (#ceff00) is valid here — dark surfaces only, per v3 rules.
+         * Lime green (#97d600) is used for hover states on dark surfaces where
+         * a lighter accent reads better (links, creator card hover).
+         * All tokens below extend variables.css — do not re-declare what's there.
+         */
         :root {
-            --black:       #0d0d0d;
-            --white:       #ffffff;
-            --off-white:   #f4f4f0;
-            --light-gray:  #efeff2;
-            --medium-gray: #999999;
-            --dark-gray:   #313131;
-            --acid-green:  #ceff00;
-            --green-dim:   rgba(206,255,0,0.65);
-            --card-bg:     #1a1a1a;
+            /* Page-specific dark surface tokens */
+            --black:       #000000;   /* true black — canvas bg and deepest surfaces */
+            --page-bg:     #0d0d0d;   /* off-black — body / hero / workspace bg */
+            --card-bg:     #1a1a1a;   /* card surface */
+            --off-white:   #f4f4f0;   /* warm white — not currently used */
+            --green-dim:   rgba(206,255,0,0.65); /* dimmed acid green — decorative only */
+
+            /* Aliases to variables.css tokens (for local readability) */
+            --white:       var(--color-white);
+            --light-gray:  var(--color-light-gray);
+            --medium-gray: var(--medium-gray, #999999);
+            --dark-gray:   var(--color-dark-gray);
+            --acid-green:  var(--color-acid-green);
         }
 
         html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Hanken Grotesk', sans-serif;
-            background: var(--black);
+            background: var(--page-bg);
             color: var(--white);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
@@ -56,12 +71,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(to bottom, rgba(13,13,13,0.95) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, transparent 100%);
         }
         .nav-logo img { height: 28px; opacity: 0.9; }
         .nav-link {
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: rgba(255,255,255,0.5);
             text-decoration: none;
             letter-spacing: 0.3px;
@@ -82,7 +97,7 @@
             gap: 12px;
             padding: 11px 20px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             transform: translateY(-100%);
             transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
             cursor: default;
@@ -176,7 +191,7 @@
         }
         .hero-headline {
             font-size: clamp(42px, 8vw, 96px);
-            font-weight: 800;
+            font-weight: 700;
             line-height: 0.95;
             letter-spacing: -2px;
             max-width: 900px;
@@ -260,7 +275,7 @@
 
         /* ── How it works strip ───────────────────────────────────────── */
         .how-strip {
-            background: var(--black);
+            background: var(--page-bg);
             border-top: 1px solid rgba(255,255,255,0.06);
             border-bottom: 1px solid rgba(255,255,255,0.06);
             padding: 40px 32px;
@@ -324,14 +339,14 @@
         }
         .browser-title {
             font-size: 22px;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 4px;
         }
         .browser-sub {
             font-size: 13px;
             color: rgba(255,255,255,0.4);
         }
-        .browser-sub #liveCount { color: var(--acid-green); font-weight: 600; }
+        .browser-sub #liveCount { color: var(--acid-green); font-weight: 500; }
 
         /* Search + filters */
         .filter-bar {
@@ -380,7 +395,7 @@
             background: transparent;
             color: rgba(255,255,255,0.55);
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;
             font-family: inherit;
             cursor: pointer;
             transition: all 0.15s;
@@ -406,7 +421,7 @@
             background: transparent;
             color: rgba(255,255,255,0.35);
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;
             font-family: inherit;
             cursor: pointer;
             transition: all 0.15s;
@@ -437,7 +452,7 @@
             -webkit-user-select: none;
         }
         .pc-card:hover {
-            outline: 2px solid #ceff00;
+            border-color: #97d600;
         }
         .pc-card:active { transform: scale(0.97); }
         .pc-card.selected {
@@ -465,7 +480,7 @@
             align-items: center;
             justify-content: center;
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--black);
             opacity: 0;
             transform: scale(0.5);
@@ -505,7 +520,7 @@
         .pc-tag-alt {
             display: inline-block;
             font-size: 9px;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 0.3px;
             padding: 2px 6px;
             border-radius: 3px;
@@ -532,7 +547,7 @@
             border: 1px solid rgba(255,255,255,0.15);
             color: rgba(255,255,255,0.55);
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             font-family: inherit;
             padding: 12px 28px;
             border-radius: 24px;
@@ -577,7 +592,7 @@
             border: none;
             outline: none;
             font-size: 18px;
-            font-weight: 800;
+            font-weight: 700;
             font-family: inherit;
             color: var(--white);
             placeholder-color: rgba(255,255,255,0.25);
@@ -606,7 +621,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background: rgba(13,13,13,0.7);
+            background: rgba(0,0,0,0.7);
             backdrop-filter: blur(2px);
             transition: opacity 0.3s;
             pointer-events: none;
@@ -639,7 +654,7 @@
         .pack-list-item:last-child { border-bottom: none; }
         .pack-list-item-name {
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--white);
             text-decoration: none;
             flex: 1;
@@ -768,7 +783,7 @@
         .follow-btn {
             font-family: inherit;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;
             padding: 5px 10px;
             border-radius: 5px;
             border: 1px solid var(--platform-color);
@@ -781,7 +796,7 @@
         .follow-btn:hover,
         .follow-btn.expanded {
             background: var(--platform-color);
-            color: #0d0d0d;
+            color: #000000;
         }
         /* Inline expanded creator list under a platform button */
         .follow-creator-list {
@@ -800,7 +815,7 @@
             display: block;
             padding: 4px 0;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;
             color: rgba(255,255,255,0.75);
             text-decoration: none;
             transition: color 0.15s;
@@ -812,7 +827,7 @@
             display: block;
             padding: 4px 0;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;
             color: rgba(255,255,255,0.3);
             border-bottom: 1px solid rgba(255,255,255,0.04);
         }
@@ -858,7 +873,7 @@
         }
         .pack-input-from {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
             color: rgba(255,255,255,0.6);
         }
         .pack-input-from::placeholder { color: rgba(255,255,255,0.15); }
@@ -866,7 +881,7 @@
         /* ── Recipient hero ───────────────────────────────────────────── */
         .recipient-hero {
             min-height: 100vh;
-            background: #0d0d0d;
+            background: var(--page-bg);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -884,7 +899,7 @@
         }
         .recipient-pack-title {
             font-size: clamp(28px, 5vw, 56px);
-            font-weight: 800;
+            font-weight: 700;
             color: #fff;
             margin: 0 0 28px;
             max-width: 700px;
@@ -921,13 +936,14 @@
             gap: 12px;
             margin-bottom: 32px;
         }
+        /* TODO-JAMES: recipient CTA uses acid green bg — valid on dark page surface; confirm button shape (border-radius: 4px vs 6px token) */
         .recipient-cta-primary {
             font-family: inherit;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             padding: 14px 32px;
             background: #ceff00;
-            color: #0d0d0d;
+            color: #000000;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -965,7 +981,7 @@
         .recipient-download-btn {
             font-family: inherit;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: rgba(255,255,255,0.4);
             background: none;
             border: 1px solid rgba(255,255,255,0.15);
@@ -1004,7 +1020,7 @@
             flex: 1;
             font-family: inherit;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;
             padding: 9px 12px;
             border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.13);
@@ -1043,7 +1059,7 @@
             position: fixed;
             bottom: 0; left: 0; right: 0;
             z-index: 150;
-            background: rgba(13,13,13,0.96);
+            background: rgba(0,0,0,0.96);
             backdrop-filter: blur(16px);
             border-top: 1px solid rgba(255,255,255,0.1);
             padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
@@ -1351,16 +1367,7 @@ let activePlatforms = new Set();
 let activeGeos = new Set();
 let searchQuery = '';
 let visibleCount = PAGE_SIZE;
-let stampImg = null;
 let wordmarkImg = null;
-
-// Preload seal stamp (bottom-right corner of canvas)
-(function() {
-    const img = new Image();
-    img.onload = () => { stampImg = img; renderCanvas('desktop'); };
-    img.onerror = () => console.warn('Stamp image failed to load');
-    img.src = 'assets/images/logos/Journalism_Atlas_logo_acid_green_distressed (4).png';
-})();
 
 // Preload horizontal wordmark (canvas header)
 (function() {
@@ -2101,8 +2108,8 @@ function renderCanvas(which) {
     const packName = getPackName(which);
     const creators = selectedCreators;
 
-    // Background
-    ctx.fillStyle = '#0d0d0d';
+    // Background — pure black per canvas token (--canvas-bg: #000000)
+    ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, W, H);
 
     // Grain
@@ -2133,19 +2140,20 @@ function renderCanvas(which) {
     } else {
         // Fallback text if image hasn't loaded
         ctx.fillStyle = 'rgba(255,255,255,0.35)';
-        ctx.font = '600 13px "Hanken Grotesk", sans-serif';
+        ctx.font = '500 13px "Hanken Grotesk", sans-serif';
         ctx.textAlign = 'center';
         ctx.letterSpacing = '3px';
         ctx.fillText('INDEPENDENT JOURNALISM ATLAS', W / 2, 76);
         ctx.letterSpacing = '0px';
     }
 
-    // Green rule 1
-    ctx.strokeStyle = '#ceff00';
+    // Divider rule 1 — white per canvas divider token (--canvas-divider: rgba(255,255,255,0.12))
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
     ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(rX, 96); ctx.lineTo(rX + rW, 96); ctx.stroke();
 
     // Starter pack label
+    // TODO-JAMES: "A STARTER PACK" eyebrow uses acid green — confirm this stays as accent on canvas
     ctx.fillStyle = '#ceff00';
     ctx.font = '700 11px "Hanken Grotesk", sans-serif';
     ctx.textAlign = 'left';
@@ -2154,19 +2162,17 @@ function renderCanvas(which) {
     // Pack name
     ctx.fillStyle = '#ffffff';
     const nSize = packName.length > 24 ? 52 : packName.length > 16 ? 62 : 72;
-    ctx.font = `800 ${nSize}px "Hanken Grotesk", sans-serif`;
+    ctx.font = `700 ${nSize}px "Hanken Grotesk", sans-serif`;
     drawWrapped(ctx, packName.toUpperCase(), rX, 190, rW, nSize * 1.1);
 
     const nameLines = measureLines(ctx, packName.toUpperCase(), rW);
     const nameEndY = 190 + nameLines * nSize * 1.1;
     const rY2 = Math.max(nameEndY + 24, 310);
 
-    // Green rule 2
-    ctx.strokeStyle = '#ceff00';
+    // Divider rule 2 — white per canvas divider token
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
     ctx.lineWidth = 1.5;
-    ctx.globalAlpha = 0.5;
     ctx.beginPath(); ctx.moveTo(rX, rY2); ctx.lineTo(rX + rW, rY2); ctx.stroke();
-    ctx.globalAlpha = 1;
 
     // Creator list — two columns when 7+ creators, single column otherwise
     const twoCol = creators.length >= 7;
@@ -2216,12 +2222,13 @@ function renderCanvas(which) {
 
         // Platform label
         ctx.fillStyle = meta.color;
-        ctx.font = `600 ${dotSize}px "Hanken Grotesk", sans-serif`;
+        ctx.font = `500 ${dotSize}px "Hanken Grotesk", sans-serif`;
         ctx.fillText(meta.label, x + 14, chanY);
 
         // Channel name (after dot + label)
         if (c.channel) {
             const labelW = ctx.measureText(meta.label).width;
+            // TODO-JAMES: channel name uses dimmed acid green (55% opacity) — confirm vs white muted (--canvas-text-secondary)
             ctx.fillStyle = 'rgba(206,255,0,0.55)';
             ctx.font = `400 ${chanSize}px "Hanken Grotesk", sans-serif`;
             const chanX = x + 14 + labelW + 8;
@@ -2261,12 +2268,10 @@ function renderCanvas(which) {
         }
     }
 
-    // Bottom rule
-    ctx.strokeStyle = '#ceff00';
+    // Bottom divider rule — white per canvas divider token
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
     ctx.lineWidth = 1.5;
-    ctx.globalAlpha = 0.4;
     ctx.beginPath(); ctx.moveTo(rX, H - 112); ctx.lineTo(rX + rW, H - 112); ctx.stroke();
-    ctx.globalAlpha = 1;
 
     // URL
     ctx.fillStyle = 'rgba(255,255,255,0.45)';
@@ -2274,14 +2279,6 @@ function renderCanvas(which) {
     ctx.textAlign = 'left';
     ctx.fillText('journalismatlas.com', rX, H - 88);
 
-    // Seal
-    if (stampImg) {
-        ctx.save();
-        ctx.globalAlpha = 0.82;
-        const sealSz = 120;
-        ctx.drawImage(stampImg, W - rX - sealSz, H - 60 - sealSz, sealSz, sealSz);
-        ctx.restore();
-    }
 }
 
 function drawWrapped(ctx, text, x, y, maxW, lineH) {

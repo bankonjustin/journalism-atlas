@@ -5,8 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atlas City Lab — Chicago, IL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
+    /*
+     * MODE ARCHITECTURE — city-lab-chicago.html
+     * Mixed-mode page. Header + footer = dark (#000). All tab content = light (#fff / #efeff2).
+     * Eco panels j/i = dark (#111/#1a2e00). Eco panel l = light (#fff5f7).
+     * Acid green (#ceff00) = dark surfaces only. Lime green (#97d600) = light surfaces only.
+     * Data viz color logic (beat coverage pills, crosswalk bars) preserved as-is per brief.
+     * tokens: variables.css loaded above — use var(--color-*) in new rules.
+     */
+    :root {
+      /* City Lab page — inherits from variables.css. Local aliases only. */
+
+      /* Tab navigation — light surface */
+      --tab-active-bg:    var(--color-accent);        /* lime #97d600 on white */
+      --tab-active-text:  #313131;
+      --tab-inactive-bg:  var(--color-bg-card);
+      --tab-inactive-text: var(--color-text);
+      --tab-border:       var(--color-border);
+
+      /* Data visualization — light background context */
+      --viz-bar-primary:   var(--color-accent);       /* lime */
+      --viz-bar-secondary: var(--color-muted);
+
+      /* Coverage gap cards — dark surface */
+      --gap-card-bg:     var(--color-bg-dark);
+      --gap-card-text:   var(--color-text-dark);
+      --gap-card-accent: var(--color-accent-dark);    /* acid green */
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -21,12 +50,12 @@
       text-transform: uppercase; color: #ceff00; margin-bottom: 12px;
     }
     .header-title {
-      font-size: 48px; font-weight: 800; line-height: 1.0; letter-spacing: -0.02em;
+      font-size: 48px; font-weight: 700; line-height: 1.0; letter-spacing: -0.02em;
     }
-    .header-sub { margin-top: 10px; font-size: 15px; color: #aaa; }
+    .header-sub { margin-top: 10px; font-size: 16px; color: #aaa; }
     .header-meta { margin-top: 20px; display: flex; gap: 32px; flex-wrap: wrap; }
     .header-stat { display: flex; flex-direction: column; }
-    .header-stat-num { font-size: 36px; font-weight: 800; color: #ceff00; line-height: 1; }
+    .header-stat-num { font-size: 36px; font-weight: 700; color: #ceff00; line-height: 1; }
     .header-stat-label {
       font-size: 12px; color: #888; text-transform: uppercase;
       letter-spacing: 0.08em; margin-top: 2px;
@@ -43,7 +72,7 @@
       text-transform: uppercase; color: #666; margin-right: 8px;
     }
     .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
-    .stat-num { font-size: 22px; font-weight: 800; line-height: 1; }
+    .stat-num { font-size: 22px; font-weight: 700; line-height: 1; }
     .stat-label {
       font-size: 11px; color: #666; text-transform: uppercase;
       letter-spacing: 0.06em; margin-top: 2px; text-align: center;
@@ -63,11 +92,11 @@
       white-space: nowrap;
     }
     .tab-btn:hover { color: #333; }
-    .tab-btn.active { color: #000; border-bottom-color: #ceff00; }
+    .tab-btn.active { color: #000; border-bottom-color: #97d600; } /* lime — light tab nav */
     .tab-btn .tab-badge {
-      display: inline-block; font-size: 9px; font-weight: 800;
-      background: #ceff00; color: #000; padding: 1px 5px;
-      border-radius: 4px; margin-left: 6px; vertical-align: middle;
+      display: inline-block; font-size: 9px; font-weight: 700;
+      background: #97d600; color: #000; padding: 1px 5px; /* lime — light tab nav */
+      border-radius: 100px; margin-left: 6px; vertical-align: middle;
     }
 
     /* ── TAB PANES ── */
@@ -88,9 +117,9 @@
     .pill {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 7px 14px; border-radius: 100px;
-      font-size: 13px; font-weight: 600; cursor: default;
+      font-size: 13px; font-weight: 500; cursor: default;
     }
-    .pill-count { font-size: 11px; font-weight: 800; opacity: 0.7; }
+    .pill-count { font-size: 11px; font-weight: 700; opacity: 0.7; }
     .legend { display: flex; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
     .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
@@ -110,12 +139,12 @@
       gap: 14px; margin-top: 8px;
     }
     .beat-headline-card {
-      border: 1px solid #e8e8e8; border-radius: 10px; padding: 16px 18px;
+      border: 1px solid #e8e8e8; border-radius: 6px; padding: 16px 18px;
       transition: border-color 0.15s;
     }
-    /* DESIGN-TOKEN FIX: Acid green hover border replaced with lime green — hover states must use #97d600 */ .beat-headline-card:hover { border-color: #97d600; }
+    .beat-headline-card:hover { border-color: #97d600; }
     .bhc-beat {
-      font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
       text-transform: uppercase; color: #888; margin-bottom: 8px;
       display: flex; align-items: center; gap: 6px;
     }
@@ -126,7 +155,7 @@
     }
     .bhc-headline:hover { text-decoration: underline; }
     .bhc-meta { font-size: 12px; color: #888; }
-    .bhc-meta strong { color: #555; font-weight: 600; }
+    .bhc-meta strong { color: #555; font-weight: 500; }
 
     /* ── ECOSYSTEM CONTEXT ── */
     .context-lead {
@@ -137,16 +166,16 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
     }
     .context-card {
-      border: 1px solid #e0e0e0; border-radius: 10px; padding: 22px;
+      border: 1px solid #e0e0e0; border-radius: 6px; padding: 22px;
     }
     .context-card h3 {
       font-size: 12px; font-weight: 700; text-transform: uppercase;
       letter-spacing: 0.1em; color: #666; margin-bottom: 10px;
     }
-    .context-card p { font-size: 14px; line-height: 1.6; color: #333; }
+    .context-card p { font-size: 16px; line-height: 1.625; color: #333; }
     .context-card ul { list-style: none; margin-top: 8px; }
     .context-card ul li {
-      font-size: 13px; line-height: 1.6; color: #333;
+      font-size: 14px; line-height: 1.6; color: #333;
       padding: 4px 0; border-bottom: 1px solid #f0f0f0;
     }
     .context-card ul li:last-child { border-bottom: none; }
@@ -157,19 +186,19 @@
       padding: 6px 0; border-bottom: 1px solid #f5e9b0; font-size: 13px;
     }
     .eco-signal:last-child { border-bottom: none; }
-    .eco-signal-num { font-weight: 800; color: #b07000; }
+    .eco-signal-num { font-weight: 700; color: #b07000; }
 
     /* ── COVERAGE VACUUMS ── */
     .vacuum-grid { display: flex; flex-direction: column; gap: 14px; }
     .vacuum-card {
       border-left: 4px solid #cc0000; padding: 16px 20px;
-      background: #fff8f8; border-radius: 0 8px 8px 0;
+      background: #fff8f8; border-radius: 0 6px 6px 0;
     }
     .vacuum-card.partial { border-left-color: #f5a623; background: #fffbf0; }
-    .vacuum-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .vacuum-card p { font-size: 14px; line-height: 1.6; color: #444; }
+    .vacuum-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .vacuum-card p { font-size: 16px; line-height: 1.625; color: #444; }
     .vacuum-severity {
-      display: inline-block; font-size: 10px; font-weight: 800;
+      display: inline-block; font-size: 10px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px;
       border-radius: 100px; margin-left: 8px; vertical-align: middle;
     }
@@ -185,14 +214,14 @@
       letter-spacing: 0.08em; color: #666;
     }
     .filter-select {
-      font-family: inherit; font-size: 13px; font-weight: 600;
+      font-family: inherit; font-size: 13px; font-weight: 500;
       padding: 6px 28px 6px 10px; border: 1.5px solid #ddd; border-radius: 6px;
       background: #fff; cursor: pointer; appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 8px center;
     }
-    .filter-select:focus { outline: none; border-color: #ceff00; }
-    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e0e0e0; }
+    .filter-select:focus { outline: none; border-color: #97d600; } /* lime — light surface focus */
+    .table-wrap { overflow-x: auto; border-radius: 6px; border: 1px solid #e0e0e0; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th {
       background: #000; color: #fff; font-weight: 700; font-size: 11px;
@@ -204,23 +233,23 @@
     td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #fafafa; }
-    .td-name { font-weight: 600; white-space: nowrap; }
+    .td-name { font-weight: 500; white-space: nowrap; }
     .td-plat { color: #555; font-size: 12px; }
     .td-beat { color: #333; }
     .td-geo { color: #666; font-size: 12px; white-space: nowrap; }
     td a { color: #000; text-decoration: underline; }
     td a:hover { color: #555; }
-    .pulse-dot { color: #ceff00; font-size: 14px; }
+    .pulse-dot { color: #97d600; font-size: 14px; } /* lime — light table surface */
     .beat-tag {
       display: inline-block; font-size: 10px; font-weight: 700;
-      padding: 2px 8px; border-radius: 4px; letter-spacing: 0.05em;
+      padding: 2px 8px; border-radius: 100px; letter-spacing: 0.05em;
     }
     .table-count { font-size: 13px; color: #666; margin-bottom: 10px; }
     .empty-state { font-size: 14px; color: #999; font-style: italic; padding: 20px 0; }
 
     /* ── COVERAGE FEED ── */
     .feed-placeholder {
-      background: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 10px;
+      background: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 6px;
       padding: 32px; text-align: center;
     }
     .feed-placeholder h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
@@ -230,20 +259,20 @@
     }
 
     /* ── LOCAL CREATORS (LIFESTYLE) ── */
-    .local-intro { font-size: 14px; color: #555; max-width: 700px; margin-bottom: 20px; line-height: 1.6; }
+    .local-intro { font-size: 16px; color: #555; max-width: 700px; margin-bottom: 20px; line-height: 1.625; }
     .local-stats {
       display: flex; gap: 32px; flex-wrap: wrap;
       padding: 24px 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 24px;
     }
     .local-stat { display: flex; flex-direction: column; }
-    .local-stat-num { font-size: 32px; font-weight: 800; line-height: 1; color: #e1306c; }
+    .local-stat-num { font-size: 32px; font-weight: 700; line-height: 1; color: #e1306c; }
     .local-stat-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
 
     .local-controls {
       display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
     }
     .toggle-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #666; }
-    .toggle-group { display: flex; border: 1.5px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+    .toggle-group { display: flex; border: 1.5px solid #e0e0e0; border-radius: 6px; overflow: hidden; }
     .toggle-btn {
       padding: 7px 16px; font-family: inherit; font-size: 12px; font-weight: 700;
       background: #fff; border: none; cursor: pointer; color: #888;
@@ -257,7 +286,7 @@
       display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;
     }
     .creator-card {
-      border: 1px solid #e8e8e8; border-radius: 12px; padding: 16px 18px;
+      border: 1px solid #e8e8e8; border-radius: 6px; padding: 16px 18px;
       transition: border-color 0.15s, box-shadow 0.15s;
     }
     .creator-card:hover { border-color: #e1306c; box-shadow: 0 2px 12px rgba(225,48,108,0.08); }
@@ -268,7 +297,7 @@
     .card-name { font-size: 12px; color: #999; margin-top: 2px; }
     .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; margin-left: 8px; }
     .plat-badge {
-      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 100px;
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px;
       text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
     }
     .plat-TikTok    { background: #f0f0f0; color: #000; }
@@ -278,16 +307,16 @@
     .plat-Newsletter { background: #e8f0fe; color: #1a237e; }
     .plat-Website   { background: #f3e5f5; color: #4a148c; }
     .content-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
-    .ctag { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 100px; background: #f5f5f5; color: #444; }
+    .ctag { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 100px; background: #f5f5f5; color: #444; }
     .local-note {
-      background: #fafafa; border: 1px solid #e8e8e8; border-radius: 10px;
+      background: #fafafa; border: 1px solid #e8e8e8; border-radius: 6px;
       padding: 16px 20px; margin-top: 20px; font-size: 12px; color: #888; line-height: 1.6;
     }
 
     /* ── ECOSYSTEM VIEW ── */
     .eco-bridge {
       display: flex; align-items: center; gap: 0; margin-bottom: 28px;
-      border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden;
+      border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden;
     }
     .eco-bridge-j { flex: 1; background: #111; color: #fff; padding: 20px 24px; text-align: center; }
     .eco-bridge-l { flex: 1; background: #fff5f7; color: #000; padding: 20px 24px; text-align: center; border-left: 1px solid #e0e0e0; }
@@ -296,11 +325,11 @@
     .eco-bridge-i .eco-bridge-label { color: #7a9e00; }
     .eco-bridge-i .eco-bridge-sub { color: #4a6000; }
     .eco-bridge-plus {
-      padding: 0 20px; font-size: 28px; font-weight: 800; color: #888;
+      padding: 0 20px; font-size: 28px; font-weight: 700; color: #888;
       background: #fff; border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0;
       align-self: stretch; display: flex; align-items: center;
     }
-    .eco-bridge-num { font-size: 40px; font-weight: 800; line-height: 1; }
+    .eco-bridge-num { font-size: 40px; font-weight: 700; line-height: 1; }
     .eco-bridge-j .eco-bridge-num { color: #ceff00; }
     .eco-bridge-l .eco-bridge-num { color: #e1306c; }
     .eco-bridge-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
@@ -311,12 +340,12 @@
     .eco-bridge-l .eco-bridge-sub { color: #999; }
 
     .eco-split { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 8px; }
-    .eco-panel { border-radius: 12px; padding: 24px 26px; }
+    .eco-panel { border-radius: 6px; padding: 24px 26px; }
     .eco-panel-j { background: #111; color: #fff; }
     .eco-panel-l { background: #fff5f7; border: 1px solid #ffd6e0; }
     .eco-panel-i { background: #1a2e00; color: #fff; border: 1px solid #3a5a00; }
     .eco-panel-eyebrow {
-      font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px;
     }
     .eco-panel-j .eco-panel-eyebrow { color: #ceff00; }
     .eco-panel-l .eco-panel-eyebrow { color: #e1306c; }
@@ -326,7 +355,7 @@
     .eco-panel-l .eco-panel-stats { border-color: #ffd6e0; }
     .eco-panel-i .eco-panel-stats { border-color: #2a4a00; }
     .eco-ps { display: flex; flex-direction: column; }
-    .eco-ps-num { font-size: 28px; font-weight: 800; line-height: 1; }
+    .eco-ps-num { font-size: 28px; font-weight: 700; line-height: 1; }
     .eco-panel-j .eco-ps-num { color: #ceff00; }
     .eco-panel-l .eco-ps-num { color: #e1306c; }
     /* DESIGN-TOKEN FIX: Lime green replaced with white — hover-only rule */ .eco-panel-i .eco-ps-num { color: #ffffff; }
@@ -345,7 +374,7 @@
       font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px;
       display: inline-flex; align-items: center; gap: 5px;
     }
-    .eco-pill-count { font-size: 10px; font-weight: 800; opacity: 0.8; }
+    .eco-pill-count { font-size: 10px; font-weight: 700; opacity: 0.8; }
     .eco-pill-j-strong { background: #ceff00; color: #000; }
     .eco-pill-j-mid    { background: #444; color: #fff; }
     .eco-pill-j-gap    { background: #330000; color: #ff8888; border: 1px solid #550000; }
@@ -365,18 +394,18 @@
     .cw-i-side { display: flex; align-items: center; justify-content: center; padding-left: 8px; }
     .cw-label { text-align: center; font-size: 12px; font-weight: 700; color: #333; padding: 0 10px; }
     .cw-label-sub { font-size: 10px; color: #999; font-weight: 400; display: block; margin-top: 1px; }
-    .cw-bar-j { height: 10px; border-radius: 100px; background: #ceff00; min-width: 3px; }
+    .cw-bar-j { height: 10px; border-radius: 100px; background: #97d600; min-width: 3px; } /* lime — crosswalk on light bg */
     .cw-bar-l { height: 10px; border-radius: 100px; background: #e1306c; min-width: 3px; }
-    .cw-num { font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .cw-num { font-size: 12px; font-weight: 700; white-space: nowrap; }
     .cw-num-j { color: #000; }
     .cw-num-l { color: #e1306c; }
-    .cw-zero { font-size: 12px; color: #ccc; font-weight: 600; }
+    .cw-zero { font-size: 12px; color: #ccc; font-weight: 500; }
     .cw-gap-badge {
-      font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
-      background: #fff3cd; color: #856404; border-radius: 4px; padding: 2px 6px; white-space: nowrap;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      background: #fff3cd; color: #856404; border-radius: 100px; padding: 2px 6px; white-space: nowrap;
     }
     .cw-inst-badge {
-      font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 4px; white-space: nowrap; text-align: center;
+      font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 100px; white-space: nowrap; text-align: center;
     }
     .cw-inst-yes { background: #eaf4d0; color: #3a5a00; }
     .cw-inst-partial { background: #fff8e0; color: #7a5a00; }
@@ -385,10 +414,10 @@
       display: grid; grid-template-columns: 1fr 180px 1fr 110px;
       padding: 6px 0 10px; border-bottom: 2px solid #e0e0e0; margin-bottom: 4px;
     }
-    .cw-header-j { text-align: right; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
-    .cw-header-c { text-align: center; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
-    .cw-header-l { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #e1306c; }
-    /* DESIGN-TOKEN FIX: Dark olive label color replaced with dark gray — olive retired from palette */ .cw-header-i { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #313131; text-align: center; }
+    .cw-header-j { text-align: right; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .cw-header-c { text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .cw-header-l { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #e1306c; }
+    /* DESIGN-TOKEN FIX: Dark olive label color replaced with dark gray — olive retired from palette */ .cw-header-i { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #313131; text-align: center; }
 
     /* ── SITE FOOTER ── */
     .site-footer { background-color: #000; color: #fff; padding: 3rem 2rem 2rem; }
@@ -440,11 +469,11 @@
       padding: 20px 0; border-bottom: 1px solid #e0e0e0; margin-bottom: 24px;
     }
     .eco-full-stat { display: flex; flex-direction: column; }
-    /* DESIGN-TOKEN FIX: Dark olive stat number replaced with dark gray — olive retired from palette */ .eco-full-num { font-size: 32px; font-weight: 800; line-height: 1; color: #313131; }
+    /* DESIGN-TOKEN FIX: Dark olive stat number replaced with dark gray — olive retired from palette */ .eco-full-num { font-size: 32px; font-weight: 700; line-height: 1; color: #313131; }
     .eco-full-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
 
     .eco-full-geo {
-      background: #f8f8f8; border: 1px solid #e8e8e8; border-radius: 10px;
+      background: #f8f8f8; border: 1px solid #e8e8e8; border-radius: 6px;
       padding: 20px 24px; margin-bottom: 8px;
     }
     .eco-full-geo-title {
@@ -453,14 +482,14 @@
     }
     .eco-full-geo-bars { display: flex; flex-direction: column; gap: 8px; }
     .eco-geo-row { display: flex; align-items: center; gap: 12px; }
-    .eco-geo-label { font-size: 12px; color: #555; font-weight: 600; min-width: 160px; }
+    .eco-geo-label { font-size: 12px; color: #555; font-weight: 500; min-width: 160px; }
     .eco-geo-bar-wrap { display: flex; align-items: center; gap: 8px; flex: 1; }
     /* DESIGN-TOKEN FIX: Lime green replaced with dark gray — hover-only rule */ .eco-geo-bar { height: 8px; border-radius: 100px; background: #313131; min-width: 3px; transition: width 0.3s; }
-    .eco-geo-num { font-size: 12px; font-weight: 800; color: #555; }
+    .eco-geo-num { font-size: 12px; font-weight: 700; color: #555; }
 
     .eco-tier-badge {
-      display: inline-block; font-size: 10px; font-weight: 800;
-      padding: 2px 7px; border-radius: 4px; letter-spacing: 0.05em;
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 100px; letter-spacing: 0.05em;
     }
     .eco-tier-1 { background: #000; color: #ceff00; }
     .eco-tier-2 { background: #313131; color: #fff; }
@@ -468,9 +497,9 @@
     .eco-tier-4 { background: #f5f5f5; color: #aaa; }
     .eco-type-badge {
       display: inline-block; font-size: 10px; font-weight: 700;
-      padding: 2px 7px; border-radius: 4px;
+      padding: 2px 7px; border-radius: 100px;
     }
-    .eco-type-creator  { background: #ceff00; color: #000; }
+    .eco-type-creator  { background: #97d600; color: #000; } /* lime — light bg ecosystem table */
     .eco-type-nonprofit { background: #e8f5e9; color: #1b5e20; }
     .eco-type-ethnic   { background: #fff3e0; color: #e65100; }
     .eco-type-mainstream { background: #e3f2fd; color: #0d47a1; }
@@ -488,6 +517,38 @@
       font-size: 13px; line-height: 1.5;
     }
 
+    /* ── FOCUS RINGS — accessibility, light surface ── */
+    .tab-btn:focus-visible,
+    .beats-toggle-btn:focus-visible,
+    .filter-select:focus-visible,
+    .toggle-btn:focus-visible {
+      outline: 2px solid #97d600; /* lime — light surface focus ring */
+      outline-offset: 2px;
+    }
+
+    /* ── EDITORIAL QUOTE BLOCK ── */
+    .editorial-quote {
+      border-left: 3px solid var(--color-accent, #97d600); /* lime — light surface */
+      padding-left: var(--space-lg, 24px);
+      margin: var(--space-xl, 32px) 0;
+    }
+    .editorial-quote__text {
+      font-size: var(--text-body-lg, 16px);
+      font-weight: 400;
+      line-height: 26px;
+      color: var(--color-text, #313131);
+      font-style: italic;
+    }
+    .editorial-quote__attribution {
+      display: block;
+      font-size: var(--text-small, 12px);
+      font-weight: 500;
+      color: var(--color-muted, #b0b0b8);
+      margin-top: var(--space-sm, 8px);
+      font-style: normal;
+    }
+    .editorial-quote--pending .editorial-quote__text { opacity: 0.5; }
+
   </style>
 </head>
 <body>
@@ -495,7 +556,7 @@
 <!-- ── IN-DEVELOPMENT BANNER ── -->
 <div id="devBanner" style="background:#1a1a00;border-bottom:1px solid #4a4400;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Hanken Grotesk',sans-serif;">
   <p style="margin:0;font-size:13px;color:#ccc;line-height:1.5">
-    <span style="background:#ceff00;color:#000;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin-right:10px">Working Draft</span>
+    <span style="background:#ceff00;color:#000;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:100px;margin-right:10px">Working Draft</span>
     This page is in active development in partnership with Chicago Public Media and Press Forward Chicago. Data and analysis will be updated as the project evolves.
   </p>
   <button onclick="document.getElementById('devBanner').style.display='none'" style="background:none;border:none;color:#666;cursor:pointer;font-size:18px;line-height:1;padding:0;flex-shrink:0" aria-label="Dismiss">&times;</button>
@@ -687,7 +748,11 @@
     <p class="context-lead" style="font-size:15px;">
       A 2026 Medill Local News Initiative study found that <strong>30% of Chicagoans consume local news from content creators daily</strong> — compared to just 18% from local newspapers. The same research mapped <strong>245 active news and information outlets</strong> serving Chicago-area audiences, including roughly 100 that had never previously been indexed. Creators and influencers now make up <strong>21% of Chicago's entire media ecosystem</strong> (6% creator-journalists producing original reporting; 15% news influencers on platforms like TikTok). The independent creator layer is not a supplement to legacy journalism — it is now the primary daily news source for nearly one in three Chicagoans.
     </p>
-<!-- TODO: Tracy Baim quote goes here -->
+<!-- TODO: Tracy Baim quote — pending her response to Liz -->
+<blockquote class="editorial-quote editorial-quote--pending">
+  <p class="editorial-quote__text">Quote from Tracy Baim, founder of Chicago Reader and Windy City Times, on the Chicago independent journalism ecosystem.</p>
+  <cite class="editorial-quote__attribution">Tracy Baim — forthcoming</cite>
+</blockquote>
   </section>
 
   <section class="section">
@@ -765,7 +830,7 @@
         <p>Chicago has one of the largest Mexican and Central American populations of any U.S. city, concentrated in Pilsen, Little Village, Humboldt Park, and Albany Park. There is no independent Spanish-language or bilingual creator covering Latino Chicago politics, community accountability, or immigrant rights.</p>
         <blockquote style="margin:10px 0;padding:12px 16px;border-left:3px solid #cc0000;background:#fff0f0;font-size:14px;font-style:italic;line-height:1.6;color:#333">
   "In Spanish, Chicago is a large news desert."
-  <cite style="display:block;margin-top:6px;font-size:12px;font-style:normal;color:#888;font-weight:600">— Jesús Del Toro, Editor-in-Chief, La Raza (founded 1970) · staff of four, serving Pilsen, Little Village, Back of the Yards, McKinley Park, Logan Square</cite>
+  <cite style="display:block;margin-top:6px;font-size:12px;font-style:normal;color:#888;font-weight:500">— Jesús Del Toro, Editor-in-Chief, La Raza (founded 1970) · staff of four, serving Pilsen, Little Village, Back of the Yards, McKinley Park, Logan Square</cite>
 </blockquote>
         <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffcccc;font-size:13px;color:#770000"><strong>Medill ecosystem check:</strong> 7 outlets serve the Latino community (La Raza, 77K following; Cicero Independiente; Enchufate; Negocios Now, 24K; El Dia; IL Latino News; Borderless Magazine). All are mission-driven organizations or legacy media — none are independent creator-model journalists. The community has institutional coverage; it has no creator equivalent.</p>
       </div>
@@ -780,7 +845,7 @@
         <h3>Education / CPS <span class="vacuum-severity sev-gap">Gap</span></h3>
         <p>Chicago Public Schools is the third-largest school district in the United States — covering 330,000+ students, a $9+ billion annual budget, and one of the most politically contested governance structures in American education. Board Rule (Maureen Kelleher) and Daniel B. Rodriguez provide newsletter coverage of CPS policy. But there is no independent creator dedicated to the financial accountability and governance beat.</p>
         <div style="margin-top:10px;padding:12px 16px;border-left:3px solid #cc0000;background:#fff0f0;border-radius:0 6px 6px 0;">
-  <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#990000;margin-bottom:6px">In Practice — December 2024</div>
+  <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#990000;margin-bottom:6px">In Practice — December 2024</div>
   <p style="font-size:13px;line-height:1.6;color:#333;margin:0">The Chicago Board of Education scheduled a vote to raise the property tax levy — from 3.8% to 4.78%, generating $25M from homeowners — during winter break, when families would be least likely to pay attention. The board president reportedly threatened to force the resignation of any member who leaked information to reporters. The vote passed 15–5. Coverage came only after the vote, and only because of leaks. No independent creator-journalist was tracking the process in real time. FOX 32's headline used the word "quietly."</p>
   <p style="font-size:12px;color:#888;margin-top:8px;margin-bottom:0">Sources: FOX 32 Chicago, ABC 7, WBEZ, The Center Square · December 2024</p>
 </div>
@@ -819,22 +884,22 @@
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:20px">
 
     <div style="border:1px solid #e0e0e0;border-radius:10px;padding:20px 22px;">
-      <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:8px">Labor Beat</div>
-      <div style="font-size:28px;font-weight:800;line-height:1;color:#000;margin-bottom:4px">~$100K<span style="font-size:14px;font-weight:500;color:#888">/year</span></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:8px">Labor Beat</div>
+      <div style="font-size:28px;font-weight:700;line-height:1;color:#000;margin-bottom:4px">~$100K<span style="font-size:14px;font-weight:500;color:#888">/year</span></div>
       <div style="font-size:13px;color:#555;line-height:1.5;margin-bottom:10px">One dedicated independent labor reporter. Salary, benefits, tools. Partially offset by Report for America fellowship in year 1.</div>
       <div style="font-size:11px;color:#aaa">Covers: Chicago Teachers Union · Teamsters · South &amp; West Side labor organizing</div>
     </div>
 
     <div style="border:1px solid #e0e0e0;border-radius:10px;padding:20px 22px;">
-      <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:8px">Bilingual Latino Creator</div>
-      <div style="font-size:28px;font-weight:800;line-height:1;color:#000;margin-bottom:4px">~$75K<span style="font-size:14px;font-weight:500;color:#888">/year</span></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:8px">Bilingual Latino Creator</div>
+      <div style="font-size:28px;font-weight:700;line-height:1;color:#000;margin-bottom:4px">~$75K<span style="font-size:14px;font-weight:500;color:#888">/year</span></div>
       <div style="font-size:13px;color:#555;line-height:1.5;margin-bottom:10px">One bilingual creator covering Chicago's Latino community with audience development support. Pilsen, Little Village, Back of the Yards, Cicero.</div>
       <div style="font-size:11px;color:#aaa">Context: La Raza has covered this community for 55 years with a staff of four</div>
     </div>
 
     <div style="border:1px solid #e0e0e0;border-radius:10px;padding:20px 22px;">
-      <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:8px">West Side Initiative</div>
-      <div style="font-size:28px;font-weight:800;line-height:1;color:#000;margin-bottom:4px">~$300K<span style="font-size:14px;font-weight:500;color:#888">/18 mo.</span></div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:8px">West Side Initiative</div>
+      <div style="font-size:28px;font-weight:700;line-height:1;color:#000;margin-bottom:4px">~$300K<span style="font-size:14px;font-weight:500;color:#888">/18 mo.</span></div>
       <div style="font-size:13px;color:#555;line-height:1.5;margin-bottom:10px">Reporters in Austin, Garfield Park, and Lawndale. Shared editor, community engagement, tools. 18 months.</div>
       <div style="font-size:11px;color:#aaa">Reference: City Bureau's Documenters network runs ~$400K/city. Block Club operates citywide at ~$7.5M/year.</div>
     </div>
