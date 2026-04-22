@@ -156,9 +156,9 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 ::-webkit-scrollbar-thumb { background: var(--border); }
 
 /* ── VIZ OVERLAY ──────────────────────────────────────────── */
-#network-canvas { cursor: pointer; }
-.viz-expand-hint { position: absolute; bottom: 12px; right: 14px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; transition: color 0.2s; }
-.hero-right:hover .viz-expand-hint { color: rgba(255,255,255,0.45); }
+.viz-hint { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.18); text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; transition: opacity 0.4s; white-space: nowrap; }
+.viz-expand-btn { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); color: rgba(255,255,255,0.35); width: 28px; height: 28px; border-radius: 3px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; z-index: 3; transition: background 0.15s, color 0.15s; line-height: 1; }
+.viz-expand-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
 
 #viz-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(6,6,14,0.97); align-items: center; justify-content: center; padding: 28px 32px; }
 #viz-overlay.open { display: flex; animation: overlayIn 0.22s ease; }
@@ -217,7 +217,8 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <div class="viz-label">671 creators · 14 beat clusters</div>
     <canvas id="network-canvas"></canvas>
     <div id="viz-tooltip"></div>
-    <div class="viz-expand-hint">click to expand</div>
+    <div class="viz-hint" id="viz-hint">click a cluster to explore</div>
+    <button class="viz-expand-btn" id="viz-expand-btn" title="Expand to fullscreen">↗</button>
   </div>
 </div>
 
@@ -623,18 +624,18 @@ function hexAlpha(hex, a) {
 
 /* ════════════════════════════════════════════════════════════
    VIZ FACTORY — shared by hero canvas + overlay canvas
-   opts: { startSettled, onCanvasClick }
+   opts: { startSettled, hintEl }
    ════════════════════════════════════════════════════════════ */
-function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null } = {}) {
+function buildViz(canvas, tooltip, { startSettled = false, hintEl = null } = {}) {
   const container = canvas.parentElement;
 
   function resize() {
     const dpr = window.devicePixelRatio || 1;
     const w = container.clientWidth;
     const h = canvas.offsetHeight || container.offsetHeight;
-    canvas.width = w * dpr;
+    canvas.width  = w * dpr;
     canvas.height = h * dpr;
-    canvas.style.width = w + 'px';
+    canvas.style.width  = w + 'px';
     canvas.style.height = h + 'px';
     return { w, h, dpr };
   }
@@ -678,19 +679,29 @@ function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null 
 
   const START    = performance.now();
   const ANIM_DUR = 1200;
-  let labelsAlpha = 0;
-  let namesAlpha  = 0;
-  let settled     = startSettled;
+  let labelsAlpha    = 0;
+  let namesAlpha     = 0;
+  let settled        = startSettled;
   let hoveredCluster = null;
+  let lockedCluster  = null;
   const mouse = { x: null, y: null };
-  let pulses  = [];
   let rafId;
 
   function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
-  function drawConnectionLines() {
-    const clusterNodes = nodes.filter(n => n.cluster === hoveredCluster);
-    const cfg = CLUSTERS[hoveredCluster];
+  /* full-canvas Voronoi — always returns the nearest centroid */
+  function getHoverCluster(mx, my) {
+    let nearest = null, minDist = Infinity;
+    Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+      const d = Math.hypot(cfg.cx * w - mx, cfg.cy * h - my);
+      if (d < minDist) { minDist = d; nearest = name; }
+    });
+    return nearest;
+  }
+
+  function drawConnectionLines(cluster) {
+    const clusterNodes = nodes.filter(n => n.cluster === cluster);
+    const cfg = CLUSTERS[cluster];
     clusterNodes.forEach(a => {
       clusterNodes
         .filter(b => b !== a)
@@ -698,13 +709,13 @@ function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null 
         .sort((x, y) => x.dist - y.dist)
         .slice(0, 4)
         .forEach(({ b, dist }) => {
-          const lineAlpha = Math.max(0, (1 - dist / 120)) * 0.18;
+          const lineAlpha = Math.max(0, (1 - dist / 120)) * 0.2;
           if (lineAlpha <= 0) return;
           ctx.beginPath();
           ctx.moveTo(a.cx, a.cy);
           ctx.lineTo(b.cx, b.cy);
           ctx.strokeStyle = hexAlpha(cfg.color, lineAlpha);
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 0.6;
           ctx.stroke();
         });
     });
@@ -712,58 +723,47 @@ function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null 
 
   function drawLabelsAndNames() {
     if (labelsAlpha <= 0) return;
+    const activeCluster = lockedCluster ?? hoveredCluster;
+    const isLocked = lockedCluster !== null;
     ctx.textAlign = 'center';
     Object.entries(CLUSTERS).forEach(([name, cfg]) => {
-      const x = cfg.cx * w;
-      const y = cfg.cy * h;
-      const isHovered = hoveredCluster === name;
-      const la = hoveredCluster === null ? labelsAlpha : isHovered ? 1.0 : labelsAlpha * 0.25;
+      const isActive = name === activeCluster;
+      let la, fontSize, fontWeight;
+      if      (activeCluster === null) { la = labelsAlpha; fontSize = '13px'; fontWeight = '600'; }
+      else if (isActive)               { la = 1.0;         fontSize = '16px'; fontWeight = '700'; }
+      else { la = isLocked ? labelsAlpha * 0.15 : labelsAlpha * 0.35; fontSize = '13px'; fontWeight = '600'; }
       ctx.save();
       ctx.globalAlpha = la;
-      ctx.font = isHovered ? '700 11px "DM Mono", monospace' : '600 9px "DM Mono", monospace';
+      ctx.font = `${fontWeight} ${fontSize} "DM Mono", monospace`;
       ctx.fillStyle = cfg.color;
-      ctx.fillText(name.toUpperCase(), x, y - (isHovered ? 16 : 14));
+      ctx.fillText(name.toUpperCase(), cfg.cx * w, cfg.cy * h - (isActive ? 22 : 18));
       ctx.restore();
     });
     if (namesAlpha <= 0) return;
-    ctx.font = '500 10px "Hanken Grotesk", sans-serif';
+    const activeC = lockedCluster ?? hoveredCluster;
+    ctx.font = '500 15px "Hanken Grotesk", sans-serif';
     ctx.textAlign = 'center';
     Object.entries(anchorNodes).forEach(([name, { node, cluster }]) => {
       const cfg = CLUSTERS[cluster];
-      const na = hoveredCluster === null ? namesAlpha * 0.9
-               : hoveredCluster === cluster ? namesAlpha : namesAlpha * 0.06;
-      if (na <= 0) return;
+      const na = activeC === null      ? namesAlpha * 0.9
+               : activeC === cluster   ? namesAlpha
+               :                        namesAlpha * 0.06;
+      if (na <= 0.02) return;
       ctx.save();
       ctx.globalAlpha = na * 0.75;
-      ctx.fillStyle = 'rgba(8,8,16,0.72)';
-      ctx.fillRect(node.cx - 42, node.cy - 22, 84, 13);
+      ctx.fillStyle = 'rgba(8,8,16,0.75)';
+      ctx.fillRect(node.cx - 58, node.cy - 28, 116, 18);
       ctx.globalAlpha = na;
       ctx.fillStyle = cfg.color;
-      ctx.fillText(name, node.cx, node.cy - 12);
+      ctx.fillText(name, node.cx, node.cy - 16);
       ctx.restore();
-    });
-  }
-
-  function drawPulses(now) {
-    pulses = pulses.filter(p => now - p.born < 600);
-    pulses.forEach(p => {
-      const age = (now - p.born) / 600;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, age * 130, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.3})`;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      /* second softer ring */
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, age * 80, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.12})`;
-      ctx.lineWidth = 4;
-      ctx.stroke();
     });
   }
 
   function draw(now) {
     ctx.clearRect(0, 0, w, h);
+    const activeCluster = lockedCluster ?? hoveredCluster;
+    const isLocked = lockedCluster !== null;
 
     if (!settled) {
       /* ── ANIMATION PHASE ── */
@@ -773,51 +773,37 @@ function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null 
         n.cx = n.sx + (n.tx - n.sx) * et;
         n.cy = n.sy + (n.ty - n.sy) * et;
         ctx.beginPath();
-        ctx.arc(n.cx, n.cy, 2.5, 0, Math.PI * 2);
+        ctx.arc(n.cx, n.cy, 3.8, 0, Math.PI * 2);
         ctx.fillStyle = hexAlpha(n.color, 0.72);
         ctx.fill();
       });
       if (t >= 1) settled = true;
-      labelsAlpha = Math.min(labelsAlpha + (settled ? 0.025 : 0), 1);
+      if (settled) labelsAlpha = Math.min(labelsAlpha + 0.025, 1);
       if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
       drawLabelsAndNames();
 
     } else {
-      /* ── SETTLED PHASE: drift + repulsion + interaction ── */
+      /* ── SETTLED PHASE ── */
       const td = now / 1000;
       labelsAlpha = Math.min(labelsAlpha + 0.025, 1);
       if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
 
-      /* 1. connection lines behind nodes */
-      if (hoveredCluster !== null) drawConnectionLines();
+      /* 1. connection lines — locked state only */
+      if (isLocked) drawConnectionLines(lockedCluster);
 
-      /* 2. nodes */
+      /* 2. nodes with drift + repulsion */
       nodes.forEach(n => {
-        /* drift */
         n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
         n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
-        /* mouse repulsion */
         if (mouse.x !== null) {
           const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
           const d = Math.sqrt(dx*dx + dy*dy);
           if (d < 60 && d > 0) { const f = (1 - d/60) * 18; n.cx += dx/d*f; n.cy += dy/d*f; }
         }
-        /* pulse shockwave repulsion */
-        pulses.forEach(p => {
-          const age = (now - p.born) / 600;
-          const pr  = age * 130;
-          const dx  = n.cx - p.x, dy = n.cy - p.y;
-          const d   = Math.sqrt(dx*dx + dy*dy);
-          if (Math.abs(d - pr) < 22 && d > 0) {
-            const f = (1 - Math.abs(d - pr) / 22) * 14;
-            n.cx += dx/d*f; n.cy += dy/d*f;
-          }
-        });
-        /* draw */
         let alpha, radius;
-        if      (hoveredCluster === null)          { alpha = 0.72; radius = 2.5; }
-        else if (n.cluster === hoveredCluster)     { alpha = 1.0;  radius = 4.0; }
-        else                                       { alpha = 0.12; radius = 2.0; }
+        if      (activeCluster === null)       { alpha = 0.72; radius = 3.8; }
+        else if (n.cluster === activeCluster)  { alpha = isLocked ? 1.0  : 0.88; radius = isLocked ? 6.0 : 4.8; }
+        else                                   { alpha = isLocked ? 0.10 : 0.30; radius = isLocked ? 2.7 : 3.3; }
         ctx.beginPath();
         ctx.arc(n.cx, n.cy, radius, 0, Math.PI * 2);
         ctx.fillStyle = hexAlpha(n.color, alpha);
@@ -826,9 +812,6 @@ function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null 
 
       /* 3. labels + names */
       drawLabelsAndNames();
-
-      /* 4. pulse rings (on top) */
-      if (pulses.length) drawPulses(now);
     }
 
     rafId = requestAnimationFrame(draw);
@@ -843,23 +826,14 @@ function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null 
     const my = e.clientY - rect.top;
     mouse.x = mx; mouse.y = my;
 
-    let nearest = null, minDist = 18;
+    if (lockedCluster === null) hoveredCluster = getHoverCluster(mx, my);
+
+    /* tooltip: nearest node within 22px */
+    let nearest = null, minDist = 22;
     nodes.forEach(n => {
       const d = Math.hypot(n.cx - mx, n.cy - my);
       if (d < minDist) { minDist = d; nearest = n; }
     });
-
-    if (nearest) {
-      hoveredCluster = nearest.cluster;
-    } else {
-      let nc = null, nd = 50;
-      Object.entries(CLUSTERS).forEach(([name, cfg]) => {
-        const d = Math.hypot(cfg.cx * w - mx, cfg.cy * h - my);
-        if (d < nd) { nd = d; nc = name; }
-      });
-      hoveredCluster = nc;
-    }
-
     if (nearest) {
       const cfg = CLUSTERS[nearest.cluster];
       tooltip.style.display = 'block';
@@ -869,22 +843,25 @@ function buildViz(canvas, tooltip, { startSettled = false, onCanvasClick = null 
     } else {
       tooltip.style.display = 'none';
     }
+    canvas.style.cursor = settled ? 'pointer' : 'default';
   });
 
   canvas.addEventListener('mouseleave', () => {
     tooltip.style.display = 'none';
-    hoveredCluster = null;
     mouse.x = null; mouse.y = null;
+    canvas.style.cursor = 'default';
+    if (lockedCluster === null) hoveredCluster = null;
   });
 
   canvas.addEventListener('click', e => {
     if (!settled) return;
-    if (onCanvasClick) {
-      onCanvasClick();
-    } else {
-      const rect = canvas.getBoundingClientRect();
-      pulses.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, born: performance.now() });
-    }
+    const rect = canvas.getBoundingClientRect();
+    const clicked = getHoverCluster(e.clientX - rect.left, e.clientY - rect.top);
+    lockedCluster  = (clicked === lockedCluster) ? null : clicked;
+    hoveredCluster = lockedCluster === null
+      ? getHoverCluster(e.clientX - rect.left, e.clientY - rect.top)
+      : null;
+    if (hintEl) hintEl.style.opacity = lockedCluster ? '0' : '1';
   });
 
   const ro = new ResizeObserver(() => {
@@ -910,8 +887,9 @@ function initViz() {
   buildViz(
     document.getElementById('network-canvas'),
     document.getElementById('viz-tooltip'),
-    { startSettled: false, onCanvasClick: openOverlay }
+    { startSettled: false, hintEl: document.getElementById('viz-hint') }
   );
+  document.getElementById('viz-expand-btn').addEventListener('click', openOverlay);
 }
 
 /* ════════════════════════════════════════════════════════════
