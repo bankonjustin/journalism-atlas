@@ -3,743 +3,883 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atlas Pulse</title>
+  <title>Atlas Pulse — Week of April 22, 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Hanken+Grotesk:wght@400;500;700&family=Merriweather:ital,wght@1,400&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+  <link rel="stylesheet" href="assets/css/variables.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --green: #ceff00;
-      --black: #000;
-      --gray: #555;
-      --border: #e0e0e0;
-      --off: #f6f6f6;
-    }
-
     body {
       font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fff;
-      color: #000;
+      background: #efeff2;
+      color: #313131;
       font-size: 16px;
       line-height: 1.5;
     }
 
     /* ── NAV ── */
     .nav {
-      background: #000;
+      background: #fff;
+      padding: 0 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e0e0e3;
+    }
+    .nav-back {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #888; text-decoration: none;
+    }
+    .nav-back:hover { color: #313131; }
+    .nav-logo { font-size: 13px; font-weight: 700; color: #000; letter-spacing: 0.04em; }
+    .nav-logo span { color: #97d600; }
+
+    /* ── COMPRESSED HEADER ── */
+    .page-header {
+      background: #fff;
+      padding: 0 48px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e0e0e3;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #97d600; flex-shrink: 0;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .header-brand {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #000;
+    }
+    .header-sep { color: #d4d4d8; font-weight: 400; }
+    .header-dateline {
+      font-size: 13px; font-weight: 400; color: #888; letter-spacing: 0.01em;
+    }
+    .header-stats {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; color: #aaa; letter-spacing: 0.02em;
+    }
+
+    /* ── FEATURED STRIP ── */
+    .featured-strip {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e3;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .featured-item {
+      padding: 20px 24px;
+      border-right: 1px solid #e0e0e3;
+      position: relative;
+    }
+    .featured-item:last-child { border-right: none; }
+
+    .fi-accent {
+      height: 3px;
+      margin: -20px -24px 16px;
+      /* width extends to edges: the item has 24px h-padding, so we use negative margins */
+    }
+    .fi-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 8px; display: block;
+    }
+    .fi-headline {
+      font-size: 15px; font-weight: 700; color: #000;
+      line-height: 1.3; margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .fi-synthesis {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 12px; font-weight: 400; font-style: italic;
+      color: #666; line-height: 1.75;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .fi-creator-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #aaa; letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .fi-divider { height: 1px; background: #e0e0e3; margin-bottom: 12px; }
+    .fi-stories { display: flex; flex-direction: column; gap: 8px; }
+    .fi-story {}
+    .fi-story-creator {
+      font-size: 11px; font-weight: 500; color: #313131; letter-spacing: 0.02em;
+    }
+    .fi-story-title {
+      font-size: 11px; font-weight: 400; color: #888;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      display: block;
+    }
+
+    /* ── CLUSTERS SECTION ── */
+    .clusters-section {
+      padding: 24px 48px 32px;
+    }
+    .section-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #aaa; margin-bottom: 16px;
+    }
+    .clusters-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    /* ── CLUSTER CARD ── */
+    .cluster-card {
+      background: #fff;
+      border: 1px solid #e0e0e3;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .cluster-card.is-featured {
+      border-color: #c8c8cc;
+      border-width: 1.5px;
+    }
+    .cluster-card.heavy-story {
+      border-left: 3px solid #cc2200;
+    }
+    .card-accent { height: 3px; flex-shrink: 0; }
+    .card-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-top-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .card-topic-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    .lead-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 2px 6px;
+      border: 1px solid currentColor;
+      border-radius: 100px;
+      flex-shrink: 0;
+    }
+    .card-headline {
+      font-size: 17px; font-weight: 700; color: #000;
+      line-height: 1.25; margin-bottom: 14px;
+    }
+    .card-stories {
+      display: flex; flex-direction: column; gap: 10px;
+      flex: 1;
+    }
+    .cs-story {}
+    .cs-story-title {
+      font-size: 13px; font-weight: 400; color: #313131;
+      text-decoration: none; display: block;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      line-height: 1.3; margin-bottom: 2px;
+    }
+    .cs-story-title:hover { text-decoration: underline; color: #000; }
+    .cs-story-by {
+      font-size: 11px; color: #aaa; letter-spacing: 0.01em;
+    }
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #e0e0e3;
+    }
+    .card-group-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #bbb; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .card-creator-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #bbb; letter-spacing: 0.08em;
+    }
+
+    /* ── CORPUS SECTION ── */
+    .corpus-section {
+      background: #fff;
+      border-top: 1px solid #e0e0e3;
+      border-bottom: 1px solid #e0e0e3;
+      padding: 32px 48px 40px;
+    }
+    .corpus-header-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e0e0e3;
+    }
+    .corpus-title {
+      font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.1px;
+    }
+    .corpus-subtitle {
+      font-size: 12px; font-weight: 400; color: #aaa;
+    }
+    .corpus-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .corpus-group {}
+    .corpus-group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 7px;
+      display: flex; align-items: baseline; gap: 6px;
+    }
+    .corpus-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px; color: #ccc;
+    }
+    .corpus-names {
+      font-size: 13px; font-weight: 400; color: #555;
+      line-height: 1.9;
+    }
+    .corpus-sep { color: #d0d0d4; margin: 0 1px; }
+
+    /* ── RUN BAR ── */
+    .run-bar {
+      background: #efeff2;
       padding: 14px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #222;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-top: 1px solid #e0e0e3;
     }
-    .nav-back {
-      font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #888; text-decoration: none;
-      display: flex; align-items: center; gap: 6px;
+    .run-bar-text {
+      font-size: 12px; font-weight: 400; color: #aaa;
     }
-    .nav-back:hover { color: var(--green); }
-    .nav-logo { font-size: 13px; font-weight: 800; color: #fff; }
-    .nav-logo span { color: var(--green); }
-
-    /* ── HEADER ── */
-    .header { background: #000; color: #fff; padding: 44px 48px 36px; }
-    .header-eyebrow {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--green); margin-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .live-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--green); display: inline-block;
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .header-title {
-      font-size: 52px; font-weight: 800;
-      line-height: 1.0; letter-spacing: -0.02em;
-    }
-    .header-sub {
-      margin-top: 12px; font-size: 16px; color: #aaa;
-      max-width: 640px; line-height: 1.6;
-    }
-    .header-stats {
-      margin-top: 28px; display: flex; gap: 40px; flex-wrap: wrap;
-    }
-    .hstat { display: flex; flex-direction: column; }
-    .hstat-num {
-      font-size: 38px; font-weight: 800; color: var(--green); line-height: 1;
-    }
-    .hstat-lbl {
-      font-size: 11px; color: #666; text-transform: uppercase;
-      letter-spacing: 0.08em; margin-top: 4px;
+    .run-bar-text strong { font-weight: 500; color: #888; }
+    .run-bar-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: #ccc; letter-spacing: 0.08em;
     }
 
-    /* ── CITY SWITCHER ── */
-    .city-section { background: #0a0a0a; border-bottom: 1px solid #222; padding: 28px 48px; }
-    .city-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #555; margin-bottom: 16px;
-    }
-    .city-grid {
-      display: flex; gap: 10px; flex-wrap: wrap;
-    }
-    .city-btn {
-      display: flex; flex-direction: column; align-items: flex-start;
-      gap: 6px; padding: 14px 18px; border-radius: 10px;
-      border: 1.5px solid #333; background: #111; cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
-      font-family: inherit; min-width: 120px;
-    }
-    .city-btn.active {
-      border-color: var(--green); background: #141a00;
-    }
-    .city-btn.locked {
-      opacity: 0.45; cursor: default;
-    }
-    .city-btn:not(.locked):not(.active):hover {
-      border-color: #555; background: #1a1a1a;
-    }
-    .city-name {
-      font-size: 14px; font-weight: 800; color: #fff; line-height: 1;
-    }
-    .city-badge {
-      font-size: 9px; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
-    }
-    .badge-live { background: #d4f5d4; color: #176517; }
-    .badge-indev { background: var(--green); color: #000; }
-    .badge-locked { background: #333; color: #888; }
-    .city-sub { font-size: 11px; color: #666; }
-
-    .city-unlock-note {
-      margin-top: 14px; font-size: 12px; color: #555; font-style: italic;
-    }
-    .city-unlock-note span { color: var(--green); font-style: normal; font-weight: 700; }
-
-    /* ── DIGEST BAR ── */
-    .digest-bar {
-      background: #f9f9f9; border-bottom: 1px solid var(--border);
-      padding: 14px 48px; display: flex; align-items: center;
-      justify-content: space-between; flex-wrap: wrap; gap: 10px;
-    }
-    .digest-meta { font-size: 13px; color: #666; }
-    .digest-meta strong { color: #000; font-weight: 700; }
-    .digest-tag {
-      font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
-      background: #e8f5e8; color: #176517;
-    }
-
-    /* ── MAIN ── */
-    .main { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
-
-    .section { padding: 36px 0; border-bottom: 1px solid var(--border); }
-    .section:last-child { border-bottom: none; }
-    .section-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #999; margin-bottom: 20px;
-    }
-    .section-title {
-      font-size: 22px; font-weight: 800; margin-bottom: 8px;
-    }
-    .section-lead {
-      font-size: 14px; color: #666; margin-bottom: 24px; max-width: 680px; line-height: 1.6;
-    }
-
-    /* ── BEAT CLUSTERS ── */
-    .cluster-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    /* ── FOOTER ── */
+    .footer {
+      background: #313131;
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 16px;
     }
-    .cluster-card {
-      border: 1px solid var(--border); border-radius: 12px;
-      padding: 20px; transition: border-color 0.15s, box-shadow 0.15s;
-    }
-    .cluster-card:hover {
-      border-color: #aaa; box-shadow: 0 2px 12px rgba(0,0,0,.06);
-    }
-    .cluster-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 14px;
-    }
-    .cluster-beat {
-      display: flex; align-items: center; gap: 8px;
-    }
-    .beat-dot {
-      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-    }
-    .beat-name {
-      font-size: 12px; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #333;
-    }
-    .cluster-count {
-      font-size: 11px; color: #999; font-weight: 600;
-    }
-    .cluster-stories { display: flex; flex-direction: column; gap: 10px; }
-    .story {
-      padding-bottom: 10px; border-bottom: 1px solid #f0f0f0;
-    }
-    .story:last-child { border-bottom: none; padding-bottom: 0; }
-    .story-hed {
-      font-size: 13px; font-weight: 700; line-height: 1.35; color: #000;
-      text-decoration: none; display: block; margin-bottom: 3px;
-    }
-    .story-hed:hover { text-decoration: underline; }
-    .story-byline { font-size: 11px; color: #999; }
-    .story-byline strong { color: #666; font-weight: 600; }
-
-    .cluster-footer {
-      margin-top: 14px; padding-top: 12px; border-top: 1px solid #f0f0f0;
-      font-size: 12px; color: #999; display: flex; justify-content: space-between;
-      align-items: center;
-    }
-    .cluster-more {
-      font-size: 12px; font-weight: 700; color: #555; text-decoration: none;
-    }
-    .cluster-more:hover { color: #000; }
-
-    /* ── CREATOR TABLE ── */
-    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th {
-      background: #000; color: #fff; font-weight: 700; font-size: 11px;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 12px 14px; text-align: left; white-space: nowrap;
-    }
-    td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: #fafafa; }
-    .td-name { font-weight: 700; }
-    .td-beat { color: #333; font-size: 12px; }
-    .td-city { color: #888; font-size: 12px; }
-    .td-posts { font-weight: 700; color: #000; }
-    .td-latest { color: #555; font-size: 12px; max-width: 260px; }
-    .td-latest a { color: #333; text-decoration: underline; }
-    .td-plat { font-size: 11px; color: #999; }
-
-    /* ── COVERAGE GAPS ── */
-    .gap-grid { display: flex; flex-direction: column; gap: 10px; }
-    .gap-row {
-      display: flex; align-items: baseline; gap: 14px;
-      padding: 14px 18px; border-left: 3px solid #e0e0e0;
-      background: #f9f9f9; border-radius: 0 8px 8px 0;
-    }
-    .gap-row.high { border-left-color: #cc0000; background: #fff8f8; }
-    .gap-row.med  { border-left-color: #f5a623; background: #fffbf0; }
-    .gap-beat {
-      font-size: 12px; font-weight: 800; letter-spacing: 0.06em;
-      text-transform: uppercase; min-width: 160px; color: #333;
-    }
-    .gap-desc { font-size: 13px; color: #555; line-height: 1.5; }
-    .gap-count { font-size: 11px; color: #999; white-space: nowrap; margin-left: auto; }
-
-    /* ── HOW IT WORKS ── */
-    .how-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 20px; margin-top: 24px;
-    }
-    .how-card {
-      background: var(--off); border-radius: 10px; padding: 22px;
-    }
-    .how-num {
-      font-size: 32px; font-weight: 800; color: #4a7c00;
-      line-height: 1; margin-bottom: 10px;
-    }
-    .how-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
-    .how-desc { font-size: 13px; color: #666; line-height: 1.55; }
-
-    /* ── FUNDING CTA ── */
-    .funding-bar {
-      background: #0a0a0a; border-radius: 12px; padding: 36px 40px;
-      margin-top: 48px; display: flex; align-items: center;
-      justify-content: space-between; gap: 24px; flex-wrap: wrap;
-    }
-    .funding-left {}
-    .funding-eyebrow {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--green); margin-bottom: 10px;
-    }
-    .funding-title {
-      font-size: 24px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 10px;
-    }
-    .funding-desc { font-size: 14px; color: #888; max-width: 480px; line-height: 1.6; }
-    .funding-cities {
-      display: flex; flex-direction: column; gap: 8px; min-width: 220px;
-    }
-    .funding-city-row {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px;
-    }
-    .funding-city-name { font-size: 13px; color: #aaa; font-weight: 600; }
-    .funding-city-time {
-      font-size: 11px; font-weight: 800; color: var(--green); letter-spacing: 0.06em;
-    }
+    .footer-left { display: flex; flex-direction: column; gap: 6px; }
+    .footer-brand { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+    .footer-brand span { color: #97d600; }
+    .footer-desc { font-size: 12px; font-weight: 400; color: #606068; max-width: 480px; }
+    .footer-link { font-size: 12px; font-weight: 500; color: #97d600; text-decoration: none; }
+    .footer-link:hover { text-decoration: underline; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .nav, .header, .city-section, .digest-bar, .main { padding-left: 20px; padding-right: 20px; }
-      .header-title { font-size: 36px; }
-      .cluster-grid { grid-template-columns: 1fr; }
-      .funding-bar { flex-direction: column; }
+    @media (max-width: 1024px) {
+      .clusters-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-strip { grid-template-columns: 1fr; }
+      .featured-item { border-right: none; border-bottom: 1px solid #e0e0e3; }
+      .featured-item:last-child { border-bottom: none; }
+    }
+    @media (max-width: 767px) {
+      .nav, .page-header, .clusters-section, .corpus-section, .run-bar, .footer {
+        padding-left: 20px; padding-right: 20px;
+      }
+      .page-header { height: auto; padding-top: 14px; padding-bottom: 14px; flex-direction: column; align-items: flex-start; gap: 6px; }
+      .clusters-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <a href="/" class="nav-back">← Independent Journalism Atlas</a>
   <div class="nav-logo">Atlas <span>Pulse</span></div>
 </nav>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-eyebrow">
+<div class="page-header">
+  <div class="header-left">
     <span class="live-dot"></span>
-    Atlas Pulse
+    <span class="header-brand">Atlas Pulse</span>
+    <span class="header-sep">·</span>
+    <span id="header-dateline" class="header-dateline">Loading…</span>
   </div>
-  <h1 class="header-title">What independent<br>journalism is covering.<br>Right now.</h1>
-  <p class="header-sub">886 creators. 353 live RSS feeds. AI-clustered daily by beat and geography — so program directors and funders can see the creator layer without reading 800 newsletters themselves.</p>
-  <div class="header-stats">
-    <div class="hstat">
-      <span class="hstat-num">886</span>
-      <span class="hstat-lbl">Creators tracked</span>
-    </div>
-    <div class="hstat">
-      <span class="hstat-num">353</span>
-      <span class="hstat-lbl">Live RSS feeds</span>
-    </div>
-    <div class="hstat">
-      <span class="hstat-num">Daily</span>
-      <span class="hstat-lbl">Digest cadence</span>
-    </div>
-  </div>
+  <div id="header-stats" class="header-stats"></div>
 </div>
 
-<!-- CITY SWITCHER -->
-<div class="city-section">
-  <div class="city-label">Select a city view</div>
-  <div class="city-grid">
-    <button class="city-btn active" onclick="switchCity('dc')">
-      <span class="city-name">Washington, DC</span>
-      <span class="city-badge badge-live">Live</span>
-      <span class="city-sub">87 creators · 41 feeds</span>
-    </button>
-    <button class="city-btn" onclick="switchCity('chicago')">
-      <span class="city-name">Chicago</span>
-      <span class="city-badge badge-live">Live</span>
-      <span class="city-sub">64 creators · 29 feeds</span>
-    </button>
-    <div class="city-btn locked" title="Coming with investment">
-      <span class="city-name">Philadelphia</span>
-      <span class="city-badge badge-locked">90 days</span>
-      <span class="city-sub">~50 est. creators</span>
-    </div>
-    <div class="city-btn locked" title="Coming with investment">
-      <span class="city-name">Detroit</span>
-      <span class="city-badge badge-locked">90 days</span>
-      <span class="city-sub">~40 est. creators</span>
-    </div>
-    <div class="city-btn locked" title="Coming with investment">
-      <span class="city-name">Charlotte</span>
-      <span class="city-badge badge-locked">90 days</span>
-      <span class="city-sub">~35 est. creators</span>
-    </div>
-    <div class="city-btn locked" title="Coming with investment">
-      <span class="city-name">Miami</span>
-      <span class="city-badge badge-locked">90 days</span>
-      <span class="city-sub">~60 est. creators</span>
-    </div>
-    <div class="city-btn locked" title="Coming with investment">
-      <span class="city-name">San Jose</span>
-      <span class="city-badge badge-locked">90 days</span>
-      <span class="city-sub">~45 est. creators</span>
-    </div>
-    <div class="city-btn locked" title="Coming with investment">
-      <span class="city-name">Akron</span>
-      <span class="city-badge badge-locked">90 days</span>
-      <span class="city-sub">~30 est. creators</span>
-    </div>
-  </div>
-  <p class="city-unlock-note">Cities marked <span>90 days</span> are 90 days from operational with investment — infrastructure is ready, creator spidering is next.</p>
+<div class="featured-strip" id="featured-strip"></div>
+
+<div class="clusters-section">
+  <div class="section-eyebrow">All coverage this week</div>
+  <div class="clusters-grid" id="clusters-grid"></div>
 </div>
 
-<!-- DIGEST DATE BAR -->
-<div class="digest-bar">
-  <div class="digest-meta">
-    <strong id="digest-city-name">Washington, DC</strong> digest ·
-    Generated <strong>March 3, 2026</strong> ·
-    From <strong id="digest-feed-count">41 live feeds</strong>
+<div class="corpus-section" id="corpus-section"></div>
+
+<div class="run-bar" id="run-bar"></div>
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-brand">Independent Journalism <span>Atlas</span></div>
+    <div class="footer-desc">Tracking independent journalists and creator-journalists across the U.S. — who's publishing, what they're covering, and where the gaps are.</div>
   </div>
-  <div class="digest-tag">Sample Edition</div>
+  <a href="/" class="footer-link">Explore the full Atlas →</a>
 </div>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- BEAT CLUSTERS -->
-  <div class="section">
-    <div class="section-label">Beat clusters — this week's coverage</div>
-    <p class="section-lead">AI-clustered stories from creator RSS feeds, grouped by beat. Hover any headline to see the source.</p>
-
-    <div class="cluster-grid" id="cluster-grid">
-
-      <div class="cluster-card">
-        <div class="cluster-header">
-          <div class="cluster-beat">
-            <div class="beat-dot" style="background:#e53e3e;"></div>
-            <span class="beat-name">Immigration &amp; Border</span>
-          </div>
-          <span class="cluster-count">18 stories</span>
-        </div>
-        <div class="cluster-stories">
-          <div class="story">
-            <a href="#" class="story-hed">ICE operations in DC suburbs: what the numbers actually show</a>
-            <div class="story-byline"><strong>Laura Gottesdiener</strong> · DMV Independent</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">The attorneys showing up every morning at immigration court</a>
-            <div class="story-byline"><strong>CASA in Action</strong> · Newsletter</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Post-WaPo cuts: who is covering the federal immigration beat now</a>
-            <div class="story-byline"><strong>Racine Yarborough</strong> · Substack</div>
-          </div>
-        </div>
-        <div class="cluster-footer">
-          <span>11 creators active this week</span>
-          <a href="#" class="cluster-more">See all →</a>
-        </div>
-      </div>
-
-      <div class="cluster-card">
-        <div class="cluster-header">
-          <div class="cluster-beat">
-            <div class="beat-dot" style="background:#3182ce;"></div>
-            <span class="beat-name">Federal Government</span>
-          </div>
-          <span class="cluster-count">31 stories</span>
-        </div>
-        <div class="cluster-stories">
-          <div class="story">
-            <a href="#" class="story-hed">DOGE cuts land at CFPB: the independent reporters tracking every change</a>
-            <div class="story-byline"><strong>Capitol Hill Monitor</strong> · Newsletter</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">NIH freeze coverage: a gap in regional media, not national</a>
-            <div class="story-byline"><strong>Devin Watkins</strong> · Substack</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Who is filling federal reporting vacuums left by legacy outlets</a>
-            <div class="story-byline"><strong>Federal Dispatch</strong> · Podcast transcript</div>
-          </div>
-        </div>
-        <div class="cluster-footer">
-          <span>17 creators active this week</span>
-          <a href="#" class="cluster-more">See all →</a>
-        </div>
-      </div>
-
-      <div class="cluster-card">
-        <div class="cluster-header">
-          <div class="cluster-beat">
-            <div class="beat-dot" style="background:#d69e2e;"></div>
-            <span class="beat-name">Housing</span>
-          </div>
-          <span class="cluster-count">12 stories</span>
-        </div>
-        <div class="cluster-stories">
-          <div class="story">
-            <a href="#" class="story-hed">Ward 8 eviction surge: three months of data from a single creator</a>
-            <div class="story-byline"><strong>District Housing Watch</strong> · Substack</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">What the DC zoning fight looks like from the ground</a>
-            <div class="story-byline"><strong>Naomi Ellis</strong> · Newsletter</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Affordable housing pipeline: who's covering it after the Post cuts</a>
-            <div class="story-byline"><strong>Greater Greater Washington</strong> · Blog</div>
-          </div>
-        </div>
-        <div class="cluster-footer">
-          <span>7 creators active this week</span>
-          <a href="#" class="cluster-more">See all →</a>
-        </div>
-      </div>
-
-      <div class="cluster-card">
-        <div class="cluster-header">
-          <div class="cluster-beat">
-            <div class="beat-dot" style="background:#38a169;"></div>
-            <span class="beat-name">Education</span>
-          </div>
-          <span class="cluster-count">9 stories</span>
-        </div>
-        <div class="cluster-stories">
-          <div class="story">
-            <a href="#" class="story-hed">DCPS budget season: six reporters, three of them independent</a>
-            <div class="story-byline"><strong>DC Schools Report</strong> · Newsletter</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Charter school accountability: where the independent beat lives now</a>
-            <div class="story-byline"><strong>EduWatch DC</strong> · Substack</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Special education funding fight reaches Wilson Building</a>
-            <div class="story-byline"><strong>James Sherwood</strong> · Newsletter</div>
-          </div>
-        </div>
-        <div class="cluster-footer">
-          <span>6 creators active this week</span>
-          <a href="#" class="cluster-more">See all →</a>
-        </div>
-      </div>
-
-      <div class="cluster-card">
-        <div class="cluster-header">
-          <div class="cluster-beat">
-            <div class="beat-dot" style="background:#805ad5;"></div>
-            <span class="beat-name">Health Policy</span>
-          </div>
-          <span class="cluster-count">14 stories</span>
-        </div>
-        <div class="cluster-stories">
-          <div class="story">
-            <a href="#" class="story-hed">Medicaid freeze: the independent reporters tracking DC's response</a>
-            <div class="story-byline"><strong>Health Desk DC</strong> · Substack</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">FDA reorganization coverage: almost entirely by independent journalists</a>
-            <div class="story-byline"><strong>Pharma Policy Watch</strong> · Newsletter</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Mental health infrastructure in Wards 7 &amp; 8: a gap in coverage</a>
-            <div class="story-byline"><strong>Maya Thornton</strong> · Newsletter</div>
-          </div>
-        </div>
-        <div class="cluster-footer">
-          <span>9 creators active this week</span>
-          <a href="#" class="cluster-more">See all →</a>
-        </div>
-      </div>
-
-      <div class="cluster-card">
-        <div class="cluster-header">
-          <div class="cluster-beat">
-            <div class="beat-dot" style="background:#dd6b20;"></div>
-            <span class="beat-name">Economy &amp; Labor</span>
-          </div>
-          <span class="cluster-count">8 stories</span>
-        </div>
-        <div class="cluster-stories">
-          <div class="story">
-            <a href="#" class="story-hed">Federal contractor layoffs land in Maryland suburbs — here's who's covering it</a>
-            <div class="story-byline"><strong>DMV Economy</strong> · Substack</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Union organizing at Amazon's DC-area warehouses: one independent on the beat</a>
-            <div class="story-byline"><strong>Capital Labor</strong> · Newsletter</div>
-          </div>
-          <div class="story">
-            <a href="#" class="story-hed">Small business closures in the H Street corridor: data and ground truth</a>
-            <div class="story-byline"><strong>DC Commerce Watch</strong> · Blog</div>
-          </div>
-        </div>
-        <div class="cluster-footer">
-          <span>5 creators active this week</span>
-          <a href="#" class="cluster-more">See all →</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- MOST ACTIVE CREATORS -->
-  <div class="section">
-    <div class="section-label">Most active this week</div>
-    <p class="section-lead">Creator-journalists with the highest post volume in this digest period.</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Creator</th>
-            <th>Beat</th>
-            <th>Platform</th>
-            <th>Posts (7d)</th>
-            <th>Latest</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="td-name">District Housing Watch</td>
-            <td class="td-beat">Housing / Real Estate</td>
-            <td class="td-plat">Substack</td>
-            <td class="td-posts">11</td>
-            <td class="td-latest"><a href="#">Ward 8 eviction surge: three months of data</a></td>
-          </tr>
-          <tr>
-            <td class="td-name">Federal Dispatch</td>
-            <td class="td-beat">Federal Government</td>
-            <td class="td-plat">Podcast / RSS</td>
-            <td class="td-posts">9</td>
-            <td class="td-latest"><a href="#">Who's filling federal reporting vacuums</a></td>
-          </tr>
-          <tr>
-            <td class="td-name">Health Desk DC</td>
-            <td class="td-beat">Health Policy</td>
-            <td class="td-plat">Substack</td>
-            <td class="td-posts">8</td>
-            <td class="td-latest"><a href="#">Medicaid freeze: DC's independent response</a></td>
-          </tr>
-          <tr>
-            <td class="td-name">Capitol Hill Monitor</td>
-            <td class="td-beat">Federal / Congress</td>
-            <td class="td-plat">Newsletter</td>
-            <td class="td-posts">7</td>
-            <td class="td-latest"><a href="#">DOGE cuts land at CFPB</a></td>
-          </tr>
-          <tr>
-            <td class="td-name">Laura Gottesdiener</td>
-            <td class="td-beat">Immigration</td>
-            <td class="td-plat">Substack</td>
-            <td class="td-posts">6</td>
-            <td class="td-latest"><a href="#">ICE operations in DC suburbs: what the numbers show</a></td>
-          </tr>
-          <tr>
-            <td class="td-name">Greater Greater Washington</td>
-            <td class="td-beat">Housing / Urban Policy</td>
-            <td class="td-plat">Blog / RSS</td>
-            <td class="td-posts">6</td>
-            <td class="td-latest"><a href="#">DC zoning fight from the ground</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- COVERAGE GAPS -->
-  <div class="section">
-    <div class="section-label" style="display:flex; align-items:center; gap:10px;">
-      Coverage gaps
-      <span style="background:#000; color:#ceff00; font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:3px 9px; border-radius:4px;">Washington, DC</span>
-      <span style="color:#bbb; font-weight:400; text-transform:none; letter-spacing:0; font-size:12px;">This week</span>
-    </div>
-    <p class="section-lead">Beats with significant news activity and low independent creator coverage in this city view. Switches with your city selection.</p>
-    <div class="gap-grid">
-      <div class="gap-row high">
-        <span class="gap-beat">Criminal Justice</span>
-        <span class="gap-desc">DC MPD policy changes and police accountability — near-zero independent coverage despite active news cycle.</span>
-        <span class="gap-count">1 creator</span>
-      </div>
-      <div class="gap-row high">
-        <span class="gap-beat">Environment / Climate</span>
-        <span class="gap-desc">EPA rollback affecting Anacostia cleanup — no DC-based independent journalists consistently on this beat.</span>
-        <span class="gap-count">2 creators</span>
-      </div>
-      <div class="gap-row med">
-        <span class="gap-beat">Local Courts</span>
-        <span class="gap-desc">DC Superior Court — almost entirely uncovered by independents. Legacy court reporters have no independent successors.</span>
-        <span class="gap-count">1 creator</span>
-      </div>
-      <div class="gap-row med">
-        <span class="gap-beat">City Council</span>
-        <span class="gap-desc">DC Council coverage is thin outside of major budget votes. Committee-level work largely untracked.</span>
-        <span class="gap-count">3 creators</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- HOW IT WORKS -->
-  <div class="section">
-    <div class="section-label">How Atlas Pulse works</div>
-    <div class="how-grid">
-      <div class="how-card">
-        <div class="how-num">886</div>
-        <div class="how-title">Creators in the database</div>
-        <div class="how-desc">Every creator in the Atlas who publishes via RSS or a scrapeable platform — verified and categorized by beat and geography.</div>
-      </div>
-      <div class="how-card">
-        <div class="how-num">353</div>
-        <div class="how-title">Live RSS feeds monitored</div>
-        <div class="how-desc">We pull fresh content from 353 active creator feeds daily. Feeds that go dark are flagged; new ones are added as creators are verified.</div>
-      </div>
-      <div class="how-card">
-        <div class="how-num">AI</div>
-        <div class="how-title">Clustered by beat + geography</div>
-        <div class="how-desc">Stories are embedded and clustered automatically — grouping similar coverage into beats, flagging outliers, and surfacing coverage gaps.</div>
-      </div>
-      <div class="how-card">
-        <div class="how-num">8</div>
-        <div class="how-title">Cities coming online</div>
-        <div class="how-desc">Knight resident cities are being mapped and added to the live feed system. DC is operational today; others unlock with partnership investment.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FUNDING CTA -->
-  <div class="funding-bar">
-    <div class="funding-left">
-      <div class="funding-eyebrow">Knight Cities Edition</div>
-      <div class="funding-title">Six more cities.<br>90 days each.</div>
-      <p class="funding-desc">DC and Chicago are operational today. Expanding to the full Knight cities portfolio requires spidering each city's creator ecosystem — the same process that built the Atlas. 90 days per city, running in parallel with investment.</p>
-    </div>
-    <div class="funding-cities">
-      <div class="funding-city-row">
-        <span class="funding-city-name">Washington, DC</span>
-        <span class="funding-city-time">Live now</span>
-      </div>
-      <div class="funding-city-row">
-        <span class="funding-city-name">Chicago</span>
-        <span class="funding-city-time">Live now</span>
-      </div>
-      <div class="funding-city-row" style="opacity:0.5">
-        <span class="funding-city-name">Philadelphia</span>
-        <span class="funding-city-time" style="color:#888;">90 days →</span>
-      </div>
-      <div class="funding-city-row" style="opacity:0.5">
-        <span class="funding-city-name">Detroit</span>
-        <span class="funding-city-time" style="color:#888;">90 days →</span>
-      </div>
-      <div class="funding-city-row" style="opacity:0.5">
-        <span class="funding-city-name">Charlotte</span>
-        <span class="funding-city-time" style="color:#888;">90 days →</span>
-      </div>
-      <div class="funding-city-row" style="opacity:0.5">
-        <span class="funding-city-name">Miami · San Jose · Akron</span>
-        <span class="funding-city-time" style="color:#888;">90 days →</span>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /main -->
 
 <script>
-  function switchCity(city) {
-    const buttons = document.querySelectorAll('.city-btn:not(.locked)');
-    buttons.forEach(b => b.classList.remove('active'));
 
-    const data = {
-      dc: { name: 'Washington, DC', feeds: '41 live feeds' },
-      chicago: { name: 'Chicago', feeds: '29 live feeds' }
-    };
+// ─────────────────────────────────────────────────────────────────────────────
+// PULSE DATA — replace this constant to update the page
+// Generated by: atlas-pulse/pulse_fetch.py → pulse_clustered.json
+// ─────────────────────────────────────────────────────────────────────────────
+const PULSE_DATA = {
+  "run_metadata": {
+    "generated_at": "2026-04-22T17:14:37.419658",
+    "days_window": 7,
+    "feeds_fetched": 344,
+    "posts_retrieved": 807,
+    "clusters_found": 9
+  },
+  "featured_clusters": [
+    {
+      "topic_label": "IRAN WAR",
+      "group": "Power & Politics",
+      "headline": "Trump blinked on Iran — independent journalists are the ones calling it that",
+      "synthesis": "Ryan Grim at Drop Site News has been the daily record of the U.S.-Iran conflict — reporting this week that Iran warned Trump's erratic behavior could tank negotiations while cable news covered the ceasefire extension as a diplomatic achievement. Jennifer Rubin and Norm Eisen at Contrarian made the argument legacy outlets won't: that Trump's betrayal of Ukraine directly caused his Iran isolation, making the war a predictable outcome of his own dealmaking. Bill Bishop's Sinocism flagged that Xi Jinping is privately calling for Hormuz to reopen — a China angle that barely registered in Western coverage.",
+      "creator_count": 12,
+      "stories": [
+        {
+          "creator_name": "Ryan Grim",
+          "channel": "Drop Site News",
+          "title": "Trump Blinks First, Extending Ceasefire with Iran as Hormuz Deadlock Continues",
+          "url": "https://www.dropsitenews.com/p/trump-extends-ceasefire-iran-strait-hormuz",
+          "geography": "Washington, D.C."
+        },
+        {
+          "creator_name": "Ryan Grim",
+          "channel": "Drop Site News",
+          "title": "Trump's Erratic Behavior May Tank Negotiations, Iran Says, Warning of \"Significantly Greater Costs\" to the U.S. if War Resumes",
+          "url": "https://www.dropsitenews.com/p/trump-erratic-behavior-iran-israel-war",
+          "geography": "Washington, D.C."
+        },
+        {
+          "creator_name": "Jennifer Rubin",
+          "channel": "Contrarian",
+          "title": "A President of Spectacle, A War of Consequence",
+          "url": "https://www.contrariannews.org/p/a-president-of-spectacle-a-war-of",
+          "geography": "Washington, D.C."
+        },
+        {
+          "creator_name": "Daniel Larison",
+          "channel": "Eunomia",
+          "title": "The Mindless Hawkishness of the Trump Administration",
+          "url": "https://daniellarison.substack.com/p/the-mindless-hawkishness-of-the-trump",
+          "geography": "Pennsylvania - US"
+        },
+        {
+          "creator_name": "Daniel Drezner",
+          "channel": "Drezner's World",
+          "title": "The Trump Administration Is a Loser in Iran",
+          "url": "https://danieldrezner.substack.com/p/the-trump-administration-is-a-loser",
+          "geography": "Massachusetts - US"
+        }
+      ]
+    },
+    {
+      "topic_label": "TRUMP CORRUPTION",
+      "group": "Power & Politics",
+      "headline": "The Kushner corruption story has a media blackout. Independent journalists won't let it die.",
+      "synthesis": "Judd Legum has been the sole reporter keeping Jared Kushner's Gulf corruption in print — this week documenting what he calls a 'media blackout' around Kushner negotiating Iran talks while his private equity fund holds $500 million in Gulf money. Aaron Rupar called the Kash Patel defamation suit 'kayfabe' — correctly — while Jeff Stein's SpyTalk reported that Patel's own lawyer has a losing record in defamation cases. Independent journalists are treating this as architecture: a systematic pattern of corruption designed to survive the news cycle, not individual scandals that happen to overlap.",
+      "creator_count": 10,
+      "stories": [
+        {
+          "creator_name": "Judd Legum",
+          "channel": "Popular Info",
+          "title": "The media blackout of Jared Kushner's historic, ongoing corruption scandal",
+          "url": "https://popular.info/p/the-media-blackout-of-jared-kushners",
+          "geography": "National - US"
+        },
+        {
+          "creator_name": "Aaron Rupar",
+          "channel": "Public Notice",
+          "title": "Kash's kayfabe lawsuit",
+          "url": "https://www.publicnotice.co/p/kash-patel-lawsuit-the-atlantic",
+          "geography": "Washington, D.C."
+        },
+        {
+          "creator_name": "Joyce Vance",
+          "channel": "Joyce Vance",
+          "title": "Kash's Complaint",
+          "url": "https://joycevance.substack.com/p/kashs-complaint",
+          "geography": "Birmingham, AL"
+        },
+        {
+          "creator_name": "Jeff Stein",
+          "channel": "SpyTalk",
+          "title": "Patel's MAGA Lawyer Has Losing Record in Defamation, 2020 Election Denial Cases",
+          "url": "https://www.spytalk.co/p/patels-maga-lawyer-has-losing-record",
+          "geography": "Washington, D.C."
+        },
+        {
+          "creator_name": "Tara Palmeri",
+          "channel": "The Red Letter",
+          "title": "EXCLUSIVE: Swalwell Donors Are Calling Fundraisers to Get Their Money Back",
+          "url": "https://www.tarapalmeri.com/p/exclusive-swalwell-donors-are-calling",
+          "geography": "Washington, D.C."
+        }
+      ]
+    },
+    {
+      "topic_label": "AI RECKONING",
+      "group": "Money & Work",
+      "headline": "The AI bill is coming due: token billing, a public turning, and chatbots you can't trust with your health",
+      "synthesis": "Ed Zitron broke a concrete story with internal documents: Microsoft is moving all GitHub Copilot subscribers to token-based billing in June, meaning AI tools that felt free will start to feel expensive in ways ordinary users will notice. Casey Newton's Platformer reported that public opinion against AI is shifting hard — and that the industry's response is to propose UBI as a pressure valve. Gary Marcus published four separate studies this week documenting chatbot medical failures. The independent tech press is doing something the VC-funded outlets won't: treating AI skepticism as a reasonable default, not a messaging problem to be managed.",
+      "creator_count": 10,
+      "stories": [
+        {
+          "creator_name": "Ed Zitron",
+          "channel": "Where's Your Ed At",
+          "title": "Exclusive: Microsoft Moving All GitHub Copilot Subscribers To Token-Based Billing In June",
+          "url": "https://www.wheresyoured.at/exclusive-microsoft-moving-all-github-copilot-subscribers-to-token-based-billing-in-june/",
+          "geography": "Las Vegas, NV"
+        },
+        {
+          "creator_name": "Casey Newton",
+          "channel": "Platformer",
+          "title": "Why UBI is making a comeback",
+          "url": "https://www.platformer.news/ubi-ai-public-wealth-fund-musk-openai-bores/",
+          "geography": "National - US"
+        },
+        {
+          "creator_name": "Gary Marcus",
+          "channel": "Marcus on AI",
+          "title": "Please don't trust your chatbot for medical advice",
+          "url": "https://garymarcus.substack.com/p/please-dont-trust-your-chatbot-for",
+          "geography": "New York, NY"
+        },
+        {
+          "creator_name": "Eric Newcomer",
+          "channel": "Newcomer",
+          "title": "US Public Opinion Is Shifting Hard Against AI. Is it Simply a Messaging Problem?",
+          "url": "https://www.newcomer.co/p/us-public-opinion-is-shifting-hard",
+          "geography": "New York, NY"
+        },
+        {
+          "creator_name": "Pete Pachal",
+          "channel": "The Media Copilot",
+          "title": "Yes, AI can still plagiarize",
+          "url": "https://mediacopilot.substack.com/p/journalism-ai-plagiarism-nyt",
+          "geography": "New York, NY"
+        }
+      ]
+    }
+  ],
+  "clusters": [
+    {
+      "topic_label": "ECONOMY UNDER PRESSURE",
+      "group": "Money & Work",
+      "headline": "Bidenomics is being vindicated in real time — right as Trump dismantles the conditions that produced it",
+      "synthesis": "Paul Krugman's 'The Vindication of Bidenomics' landed this week as a deliberate provocation: the economic record looks stronger in retrospect precisely as Trump dismantles it. Claudia Sahm argued plainly that Kevin Warsh's Fed confirmation hearing is about Trump wanting a 'sock puppet' at the central bank. Noah Smith debunked the 'stealth manufacturing boom' narrative tariff advocates have been circulating — tariffs, he writes, are canceling out the tailwinds, not creating them.",
+      "creator_count": 6,
+      "stories": [
+        {
+          "creator_name": "Paul Krugman",
+          "channel": "Paul Krugman",
+          "title": "The Vindication of Bidenomics",
+          "url": "https://paulkrugman.substack.com/p/the-vindication-of-bidenomics",
+          "geography": "New York, NY"
+        },
+        {
+          "creator_name": "Claudia Sahm",
+          "channel": "Stay-At-Home Macro",
+          "title": "Fed Chair Apprentice",
+          "url": "https://stayathomemacro.substack.com/p/fed-chair-apprentice",
+          "geography": "Washington, D.C."
+        },
+        {
+          "creator_name": "Noah Smith",
+          "channel": "Noahpinion",
+          "title": "No, America is not in a \"stealth manufacturing boom\"",
+          "url": "https://www.noahpinion.blog/p/no-america-is-not-in-a-stealth-manufacturing",
+          "geography": "San Francisco, CA"
+        }
+      ]
+    },
+    {
+      "topic_label": "ICE DETENTION DEATHS",
+      "group": "Social Issues",
+      "headline": "17 people have died in ICE custody in 2026. Independent journalists are the only ones counting.",
+      "synthesis": "Austin Kocher has named them one by one — this week he tracked the 17th reported ICE detention death of 2026, on April 12, just one day after the 16th. Andrew Free's DetentionKills documented that ICE characterized detainee death reporting as 'non-essential' in an internal memo. Kate Morrissey at Beyond the Border News broke that one of the deaths involved evidence of medical neglect and that there is an active kidnapping investigation into federal officials connected to the detention system.",
+      "creator_count": 4,
+      "stories": [
+        {
+          "creator_name": "Austin Kocher",
+          "channel": "Austin Kocher",
+          "title": "Aled Damien Carbonell-Betancourt is the 17th Reported ICE Detention Death of 2026",
+          "url": "https://austinkocher.substack.com/p/aled-damien-carbonell-betancourt",
+          "geography": "New York, NY"
+        },
+        {
+          "creator_name": "Andrew Free",
+          "channel": "DetentionKills",
+          "title": "ICE Posts New Sham Death Reports",
+          "url": "https://detentionkills.substack.com/p/ice-posts-new-sham-death-reports",
+          "geography": "Atlanta, GA"
+        },
+        {
+          "creator_name": "Kate Morrissey",
+          "channel": "Beyond the Border News",
+          "title": "16 deaths in ICE custody, evidence of medical neglect and a kidnapping investigation into federal officials",
+          "url": "https://beyondthebordernews.substack.com/p/16-deaths-in-ice-custody-evidence",
+          "geography": "San Diego, CA"
+        }
+      ]
+    },
+    {
+      "topic_label": "CLEAN ENERGY SURGE",
+      "group": "Science, Health & Environment",
+      "headline": "The Iran war is accelerating clean energy faster than any climate policy could — and fossil fuel boosters did it to themselves",
+      "synthesis": "Andy Revkin made the argument this week that the Hormuz energy crisis is the 'biggest own goal ever for a fossil fuel booster' — the disruption is accelerating exactly the clean energy investment Trump's deregulatory agenda has been trying to slow. David Roberts at Volts published his annual electricity briefing and the news from the global power sector is better than the politics suggest. Ayana Elizabeth Johnson's post said what few climate journalists will: the solutions already exist and the failure is political will, not technology.",
+      "creator_count": 4,
+      "stories": [
+        {
+          "creator_name": "Andy Revkin",
+          "channel": "Sustain What",
+          "title": "Trump's War of Choice Over the \"Strait of Epstein\" is Supercharging a Clean Energy Shift",
+          "url": "https://revkin.substack.com/p/trumps-war-of-choice-over-the-strait",
+          "geography": "Maine - US"
+        },
+        {
+          "creator_name": "David Roberts",
+          "channel": "Volts",
+          "title": "The big stories from the last year in electricity",
+          "url": "https://www.volts.wtf/p/the-big-stories-from-the-last-year",
+          "geography": "Washington - US"
+        },
+        {
+          "creator_name": "Ayana Elizabeth Johnson",
+          "channel": "What If We Get It Right?",
+          "title": "We already have the climate solutions we need. We just need to f*cking implement them.",
+          "url": "https://ayanaelizabeth.substack.com/p/we-already-have-the-climate-solutions-we-need",
+          "geography": "New York, NY"
+        }
+      ]
+    },
+    {
+      "topic_label": "UKRAINE UNDER FIRE",
+      "group": "General News",
+      "headline": "Trump quietly renewed Russian sanctions relief late on a Friday. Tim Mak caught it.",
+      "synthesis": "Tim Mak's Counteroffensive newsletter — published from Ukraine — broke a story that went largely unnoticed in U.S. media: the Trump administration renewed a Russian oil sanctions waiver late on a Friday night, explicitly to avoid public attention. Mick Ryan's strategic assessment argues Ukraine has genuine momentum for the first time in 18 months — a counter-narrative to the stalemate framing that still dominates American political coverage, even as the Iran conflict has pushed Ukraine entirely off the front page.",
+      "creator_count": 3,
+      "stories": [
+        {
+          "creator_name": "Tim Mak",
+          "channel": "The Counteroffensive",
+          "title": "NEWSFLASH: US renews sanctions waiver for Russian oil",
+          "url": "https://www.counteroffensive.news/p/newsflash-us-renews-sanctions-waiver",
+          "geography": "Ukraine"
+        },
+        {
+          "creator_name": "Mick Ryan",
+          "channel": "Futura Doctrina",
+          "title": "The Scales Begin to Tip: Assessing Ukraine's New Strategic Momentum in 2026",
+          "url": "https://mickryan.substack.com/p/the-scales-begin-to-tip-assessing",
+          "geography": "Australia"
+        },
+        {
+          "creator_name": "Tim Mak",
+          "channel": "The Counteroffensive",
+          "title": "NEWSFLASH: Terror attack in Kyiv",
+          "url": "https://www.counteroffensive.news/p/newsflash-terror-attack-in-kyiv",
+          "geography": "Ukraine"
+        }
+      ]
+    },
+    {
+      "topic_label": "REPRODUCTIVE & GENDER RIGHTS",
+      "group": "Social Issues",
+      "headline": "Three trans rights court wins in one week — and anti-abortion groups are now openly calling for patient arrests",
+      "synthesis": "Three separate court rulings advanced trans rights this week — Montana's Supreme Court, a federal judge blocking Trump's trans youth hospital threats, and the Colorado case still unfolding. Erin Reed has been the reporter of record on all of them, with state-level policy detail that doesn't survive the editing process at general-interest outlets. Meanwhile Jessica Valenti documented that Students for Life is now publicly calling the arrest of abortion patients 'an easy vote' — framing it as a deliberate escalation toward the next explicit policy goal, not fringe noise.",
+      "creator_count": 3,
+      "stories": [
+        {
+          "creator_name": "Erin Reed",
+          "channel": "Erin In the Morning",
+          "title": "Montana Supreme Court Rules Its Constitution Entirely Protects Trans Citizens In Landmark Ruling",
+          "url": "https://www.erininthemorning.com/p/montana-supreme-court-rules-its-constitution",
+          "geography": "National - US"
+        },
+        {
+          "creator_name": "Chris Geidner",
+          "channel": "Law Dork",
+          "title": "Three rulings in the past week show the scope and breadth of efforts to fight anti-trans attacks",
+          "url": "https://www.lawdork.com/p/three-rulings-in-the-past-week-show",
+          "geography": "National - US"
+        },
+        {
+          "creator_name": "Jessica Valenti",
+          "channel": "Abortion Every Day",
+          "title": "The Mask is Off: Major Anti-Abortion Group Calls for Arrest of Abortion Patients",
+          "url": "https://jessica.substack.com/p/the-mask-is-off-major-anti-abortion",
+          "geography": "New York, NY"
+        }
+      ]
+    },
+    {
+      "topic_label": "HEALTH CARE PROFITEERING",
+      "group": "Science, Health & Environment",
+      "headline": "UnitedHealth had a great quarter. Patients are still being denied care.",
+      "synthesis": "Wendell Potter's newsletter was waiting when UnitedHealth reported a blowout Q1 that sent its stock soaring — documenting how the same business model Wall Street rewards is the one structured to deny care. A court rejected Anthem's attempt to relitigate arbitration losses under the No Surprises Act this week, a small patient win that received almost no coverage. Paul Krugman opened a new series on 'Curing U.S. Health Care' — a signal that independent economic journalists see this as a structural story requiring sustained treatment, not an annual outrage cycle.",
+      "creator_count": 3,
+      "stories": [
+        {
+          "creator_name": "Wendell Potter",
+          "channel": "HEALTH CARE un-covered",
+          "title": "UnitedHealth Q1 '26 Earnings: Wall Street is in Love Again",
+          "url": "https://healthcareuncovered.substack.com/p/unitedhealth-q1-26-earnings-wall",
+          "geography": "Philadelphia, PA"
+        },
+        {
+          "creator_name": "Wendell Potter",
+          "channel": "HEALTH CARE un-covered",
+          "title": "Court Rejects Anthem's Attempt to Relitigate Arbitration Losses Under No Surprises Act",
+          "url": "https://healthcareuncovered.substack.com/p/court-rejects-anthems-attempt-to",
+          "geography": "Philadelphia, PA"
+        },
+        {
+          "creator_name": "Paul Krugman",
+          "channel": "Paul Krugman",
+          "title": "Curing U.S. Health Care, Part I",
+          "url": "https://paulkrugman.substack.com/p/curing-us-health-care-part-i",
+          "geography": "Philadelphia, PA"
+        }
+      ]
+    }
+  ],
+  "unclustered_count": 147
+};
 
-    const btn = city === 'dc' ? buttons[0] : buttons[1];
-    if (btn) btn.classList.add('active');
+// ─────────────────────────────────────────────────────────────────────────────
+// CORPUS DATA — active creators grouped by primary topic area
+// Generated from pulse_output.json by atlas-pulse/pulse_fetch.py
+// ─────────────────────────────────────────────────────────────────────────────
+const CORPUS_DATA = {"Power & Politics": [{"name": "Heather Cox Richardson", "channel": "Letters from an American", "posts": 20}, {"name": "Jennifer Rubin", "channel": "Contrarian", "posts": 20}, {"name": "Norm Eisen", "channel": "Contrarian", "posts": 20}, {"name": "Chris Cillizza", "channel": "So What", "posts": 13}, {"name": "Joyce Vance", "channel": "Joyce Vance", "posts": 12}, {"name": "Isaac Saul", "channel": "Tangle News", "posts": 10}, {"name": "Jessica Valenti", "channel": "Abortion Every Day", "posts": 7}, {"name": "Aaron Rupar", "channel": "Public Notice", "posts": 7}, {"name": "Jordan Schneider", "channel": "ChinaTalk", "posts": 7}, {"name": "Adam Klasfeld", "channel": "All Rise News", "posts": 6}, {"name": "Catilin Johnstone", "channel": "Caitlin's Newsletter", "posts": 6}, {"name": "Tim Foley", "channel": "Caitlin's Newsletter", "posts": 6}, {"name": "Jamie Dupree", "channel": "Regular Order", "posts": 5}, {"name": "Michael Wolff", "channel": "Howl", "posts": 5}, {"name": "Chris Geidner", "channel": "Law Dork", "posts": 4}, {"name": "Judd Legum", "channel": "Popular Info", "posts": 4}, {"name": "Daniel Larison", "channel": "Eunomia", "posts": 4}, {"name": "John Heilprin", "channel": "The Science Diplomat", "posts": 4}, {"name": "Matt Laslo", "channel": "Ask a Pol", "posts": 4}, {"name": "David Lat", "channel": "Original Jurisdiction", "posts": 3}, {"name": "Eric Zorn", "channel": "The Picayune Sentinel", "posts": 3}, {"name": "Jeff Stein", "channel": "SpyTalk", "posts": 3}, {"name": "John Dickerson", "channel": "John Dickerson", "posts": 3}, {"name": "Mick Ryan", "channel": "Futura Doctrina", "posts": 3}, {"name": "Steve Vladeck", "channel": "One First", "posts": 3}, {"name": "Ariella Steinhorn", "channel": "Hard Reset Media", "posts": 2}, {"name": "Jared Keller", "channel": "Laser Wars", "posts": 2}, {"name": "Ken Klippenstein", "channel": "Ken Klippenstein", "posts": 2}, {"name": "Lucas Amin", "channel": "Democracy for Sale", "posts": 2}, {"name": "Maureen Kelleher", "channel": "Board Rule", "posts": 2}, {"name": "Peter Geoghegan", "channel": "Democracy for Sale", "posts": 2}, {"name": "Rachel Bade", "channel": "The Inner Circle", "posts": 2}, {"name": "Spencer Ackerman", "channel": "Forever Wars", "posts": 2}, {"name": "Austin Berg", "channel": "The Last Ward", "posts": 1}, {"name": "Jack Poulson", "channel": "Jack Poulson", "posts": 1}, {"name": "Katie Harbath", "channel": "Anchor Change", "posts": 1}, {"name": "Lucy Ritzmann", "channel": "FWIW", "posts": 1}, {"name": "Natalie Jennings", "channel": "Down From DC", "posts": 1}, {"name": "Phoebe Zerwick", "channel": "Down From DC", "posts": 1}, {"name": "Renee Knake Jefferson", "channel": "Legal Ethics Roundup", "posts": 1}], "Money & Work": [{"name": "Matt Yglesias", "channel": "Slow Boring", "posts": 13}, {"name": "Paul Krugman", "channel": "Paul Krugman", "posts": 10}, {"name": "Ted Williams", "channel": "Tiny Money", "posts": 10}, {"name": "Adam Tooze", "channel": "Chartbook", "posts": 9}, {"name": "Brad DeLong", "channel": "Grasping Reality", "posts": 8}, {"name": "Ed Zitron", "channel": "Where's Your Ed At", "posts": 5}, {"name": "Noah Smith", "channel": "Noahpinion", "posts": 5}, {"name": "Gary Marcus", "channel": "Marcus on AI", "posts": 4}, {"name": "Lindsey Stanberry", "channel": "The Purse", "posts": 4}, {"name": "Molly O'Shea", "channel": "Sourcery", "posts": 4}, {"name": "Casey Newton", "channel": "Platformer", "posts": 3}, {"name": "Bill McBride", "channel": "CalculatedRisk", "posts": 3}, {"name": "Brian Merchant", "channel": "Blood in the Machine", "posts": 3}, {"name": "Daniel Drezner", "channel": "Drezner's World", "posts": 3}, {"name": "Herb Greenberg", "channel": "On the Street", "posts": 3}, {"name": "Michael Horn", "channel": "The Future of Education", "posts": 3}, {"name": "Sam Ro", "channel": "TKer by Sam Ro", "posts": 3}, {"name": "Eric Newcomer", "channel": "Newcomer", "posts": 2}, {"name": "Alex Heath", "channel": "Sources", "posts": 2}, {"name": "Alex Kantrowitz", "channel": "Big Technology", "posts": 2}, {"name": "Brady Dale", "channel": "Front Stage Exit", "posts": 2}, {"name": "Chris Richards", "channel": "The Future is Ours to Make", "posts": 2}, {"name": "Claudia Sahm", "channel": "Stay-At-Home Macro", "posts": 2}, {"name": "Errol Schweizer", "channel": "The Checkout", "posts": 2}, {"name": "Karl Bode", "channel": "The Fine Print", "posts": 2}, {"name": "Les Leopold", "channel": "Wall Street's War on Workers", "posts": 2}, {"name": "Molly White", "channel": "Citation Needed", "posts": 2}, {"name": "Prakash Loungani", "channel": "Global Housing Watch", "posts": 2}, {"name": "Scott Sumner", "channel": "The Money Illusion", "posts": 2}, {"name": "Arvind Narayanan", "channel": "AI as Normal Technology", "posts": 1}, {"name": "Brian Albrecht", "channel": "Economic Forces", "posts": 1}, {"name": "Brian Potter", "channel": "Construction Physics", "posts": 1}, {"name": "David Warsh", "channel": "Economic Principals", "posts": 1}, {"name": "Doug O'Laughlin", "channel": "Fabricated Knowledge", "posts": 1}, {"name": "Eben Shapiro", "channel": "Ebenshapiro.substack", "posts": 1}, {"name": "Jack Clark", "channel": "Import AI", "posts": 1}, {"name": "Jamin Ball", "channel": "Clouded Judgement", "posts": 1}, {"name": "Jeremy Ney", "channel": "American Inequality", "posts": 1}, {"name": "John Glover", "channel": "The Interest Rate", "posts": 1}, {"name": "Josh Hendrickson", "channel": "Economic Forces", "posts": 1}, {"name": "Marc Rubinstein", "channel": "Net Interest", "posts": 1}, {"name": "Matthew C. Klein", "channel": "The Overshoot", "posts": 1}, {"name": "Mattia Peretti", "channel": "News Alchemists", "posts": 1}, {"name": "Michael Thomas", "channel": "Distilled", "posts": 1}, {"name": "Russ Mould", "channel": "Commodity Context", "posts": 1}, {"name": "Scott Choppin", "channel": "The Real Signal", "posts": 1}, {"name": "Sayash Kapoor", "channel": "AI as Normal Technology", "posts": 1}], "Science, Health & Environment": [{"name": "Dan Harris", "channel": "10% Happier", "posts": 5}, {"name": "John Earl", "channel": "SoCal Water Wars", "posts": 5}, {"name": "Sari Botton", "channel": "Oldster", "posts": 5}, {"name": "Wendell Potter", "channel": "HEALTH CARE un-covered", "posts": 4}, {"name": "Katelyn Jetelina", "channel": "Your Local Epidemiologist", "posts": 3}, {"name": "Andy Revkin", "channel": "Sustain What", "posts": 3}, {"name": "David Roberts", "channel": "Volts", "posts": 3}, {"name": "Scott Alexander", "channel": "Astral Codex Ten", "posts": 3}, {"name": "Anya Kamenetz", "channel": "The Golden Hour", "posts": 2}, {"name": "Ayana Elizabeth Johnson", "channel": "What If We Get It Right?", "posts": 2}, {"name": "Doug Lewin", "channel": "Texas Energy and Power Newsletter", "posts": 2}, {"name": "Jatan Mehta", "channel": "jatan.space", "posts": 2}, {"name": "Jonathan P. Thompson", "channel": "The Land Desk", "posts": 2}, {"name": "Kate Woodsome", "channel": "Invisible Threads", "posts": 2}, {"name": "Kelton Wright", "channel": "Shangri-logs", "posts": 2}, {"name": "Miranda Green", "channel": "Evergreen", "posts": 2}, {"name": "Sammy Roth", "channel": "Climate Colored Goggles", "posts": 2}, {"name": "Emily Atkin", "channel": "Heated", "posts": 1}, {"name": "Adam Kucharski", "channel": "Understanding the Unseen", "posts": 1}, {"name": "Alexander C. Kaufman", "channel": "FIELD NOTES", "posts": 1}, {"name": "Alexandra Fasulo", "channel": "House Of Green", "posts": 1}, {"name": "Amanda Royal", "channel": "Earth Hope", "posts": 1}, {"name": "Bill Spindle", "channel": "The Energy Adventure(r)", "posts": 1}, {"name": "Chris D'angelo", "channel": "Public Domain", "posts": 1}, {"name": "Dana Drugmand", "channel": "One Earth Now", "posts": 1}, {"name": "Daniel Rothberg", "channel": "Invisible Waters", "posts": 1}, {"name": "Gideon Meyerowitz-Katz", "channel": "Health Nerd", "posts": 1}, {"name": "Jacqueline Nesi", "channel": "Techno Sapiens", "posts": 1}, {"name": "Jenn Dowd", "channel": "Data for Health", "posts": 1}, {"name": "Justin Gerdes", "channel": "Quitting Carbon", "posts": 1}, {"name": "Katharine Wilkinson", "channel": "Human on Earth", "posts": 1}, {"name": "Laura Paskus", "channel": "Laura Paskus", "posts": 1}, {"name": "Kristen Panthagani", "channel": "You Can Know Things", "posts": 1}, {"name": "Mike Shanahan", "channel": "Nature Beat", "posts": 1}, {"name": "Paul Offit", "channel": "Beyond the Noise", "posts": 1}, {"name": "Rachel Donald", "channel": "Planet: Critical", "posts": 1}, {"name": "Whitney Bauck", "channel": "Unwrinkling", "posts": 1}, {"name": "Yessina Funes", "channel": "Possibilities", "posts": 1}], "Social Issues": [{"name": "Erin Reed", "channel": "Erin In the Morning", "posts": 5}, {"name": "Austin Kocher", "channel": "Austin Kocher", "posts": 5}, {"name": "Andrew Free", "channel": "DetentionKills", "posts": 3}, {"name": "Jenn Budd", "channel": "Borderland Talk", "posts": 3}, {"name": "Michelangelo Signorile", "channel": "The Signorile Report", "posts": 3}, {"name": "Dr. Jen Gunter", "channel": "The Vagenda", "posts": 2}, {"name": "Garrett Buck", "channel": "The White Pages", "posts": 2}, {"name": "Kate Manne", "channel": "More to Hate", "posts": 2}, {"name": "Kristin Kobes DuMez", "channel": "Du Mez CONNECTIONS", "posts": 2}, {"name": "Matt", "channel": "Remote Queer", "posts": 2}, {"name": "Melissa del Bosque", "channel": "The Border Chronicle", "posts": 2}, {"name": "Saul", "channel": "Remote Queer", "posts": 2}, {"name": "Anton Sorkin", "channel": "Cross and Gavel", "posts": 1}, {"name": "Ari Drennen", "channel": "Ari's Threads", "posts": 1}, {"name": "Bobby Ross Jr.", "channel": "Religion Unplugged's Weekend Plug-In", "posts": 1}, {"name": "Bill McKibben", "channel": "The Crucial Years", "posts": 1}, {"name": "Jean Guerrero", "channel": "Our Unsilencing", "posts": 1}, {"name": "Jennifer Chowdhury", "channel": "Port Of Entry", "posts": 1}, {"name": "Kate Morrissey", "channel": "Beyond the Border News", "posts": 1}, {"name": "Marianne Dhenin", "channel": "Marianne Dhenin", "posts": 1}, {"name": "Meredith Sell", "channel": "Women's Barbell Club", "posts": 1}, {"name": "Rebecca Nagle", "channel": "Native America", "posts": 1}, {"name": "Rey Katz", "channel": "Amplify Respect", "posts": 1}], "Culture & Media": [{"name": "Adam Schrader", "channel": "Urgent Matter", "posts": 15}, {"name": "Matt Taibbi", "channel": "Racket News", "posts": 11}, {"name": "Jerusalem Demsas", "channel": "The Argument", "posts": 9}, {"name": "Ethan Strauss", "channel": "House of Strauss", "posts": 8}, {"name": "Emily Sundberg", "channel": "Feed Me", "posts": 6}, {"name": "Caitlin Johnstone", "channel": "Caitlin Johnstone", "posts": 6}, {"name": "Gene Weingarten", "channel": "The Gene Pool", "posts": 6}, {"name": "Pat Myers", "channel": "The Gene Pool", "posts": 6}, {"name": "Casey Lewis", "channel": "After School", "posts": 5}, {"name": "Simon Owens", "channel": "Simon Owens's Media Newsletter", "posts": 5}, {"name": "Phillips P. O'Brien", "channel": "Phillips P. O'Brien", "posts": 4}, {"name": "Alyssa Rosenberg", "channel": "Across the Movie Aisle", "posts": 3}, {"name": "Andrew Sullivan", "channel": "The Weekly Dish", "posts": 3}, {"name": "Evan Shapiro", "channel": "Media War and Peace", "posts": 3}, {"name": "Hamilton Nolan", "channel": "How Things Work", "posts": 3}, {"name": "Greg Nix", "channel": "Chortle", "posts": 3}, {"name": "Jason Wilson", "channel": "Everyday Drinking", "posts": 3}, {"name": "Jonathan Nunn", "channel": "Vittles", "posts": 3}, {"name": "Ruth Ben-Ghiat", "channel": "Lucid", "posts": 3}, {"name": "Tara Palmeri", "channel": "The Red Letter", "posts": 3}, {"name": "Ted Gioa", "channel": "The Honest Broker", "posts": 3}, {"name": "Tommy Tomlinson", "channel": "The Writing Shed", "posts": 3}, {"name": "Max Read", "channel": "Read Max", "posts": 2}, {"name": "Parker Molloy", "channel": "The Present Age", "posts": 2}, {"name": "Clara", "channel": "Hmm, That's Interesting", "posts": 2}, {"name": "Delia Cai", "channel": "Deez Links", "posts": 2}, {"name": "Diana Butler Bass", "channel": "The Cottage", "posts": 2}, {"name": "Jason Crawford", "channel": "Roots of Progress", "posts": 2}, {"name": "Jen Roberts", "channel": "(un)rooted", "posts": 2}, {"name": "Kate Lindsay", "channel": "Embedded", "posts": 2}, {"name": "Katelyn Burns", "channel": "Burns Notice", "posts": 2}, {"name": "Meghann Cuniff", "channel": "Legal Affairs and Trials", "posts": 2}, {"name": "Pete Pachal", "channel": "The Media Copilot", "posts": 2}, {"name": "Rachel Karten", "channel": "Link in Bio", "posts": 2}, {"name": "Rick Ellis", "channel": "Too Much TV", "posts": 2}, {"name": "Sree Sreenivasan", "channel": "Sree's Sunday Note", "posts": 2}, {"name": "Timothy Snyder", "channel": "Thinking About...", "posts": 2}, {"name": "Ty Burr", "channel": "Ty Burr's Watch List", "posts": 2}, {"name": "Caitlin Dewey", "channel": "Links I Would GChat You If We Were Friends", "posts": 1}, {"name": "Hunter Harris", "channel": "Hung Up", "posts": 1}, {"name": "Taylor Lorenz", "channel": "UserMag", "posts": 1}, {"name": "Alex Dobrenko", "channel": "Both Are True", "posts": 1}, {"name": "Andrew Ricketts", "channel": "Big Black Commentary", "posts": 1}, {"name": "Anna Brones", "channel": "Creative Fuel", "posts": 1}, {"name": "Ari Shaprio", "channel": "Ari Shapiro", "posts": 1}, {"name": "Caroline Patton", "channel": "Chicago Show Calendar", "posts": 1}, {"name": "Elizabeth Lang", "channel": "Impulsiva Stories", "posts": 1}, {"name": "Glenn Kessler", "channel": "By Glenn Kessler", "posts": 1}, {"name": "Gina Chua", "channel": "(Re)structured News", "posts": 1}, {"name": "Jon Haidt", "channel": "After Babel", "posts": 1}, {"name": "Jonn Elledge", "channel": "The Newsletter of (Not Quite) Everything", "posts": 1}, {"name": "Josh McConnel", "channel": "Ctrl Alt Deliberate", "posts": 1}, {"name": "Julie Vick", "channel": "Humor Me", "posts": 1}, {"name": "Karen Attiah", "channel": "The Golden Hour by Karen Attiah", "posts": 1}, {"name": "Lina Lecaro", "channel": "Lina Lecaro", "posts": 1}, {"name": "Lia Haberman", "channel": "ICYMI", "posts": 1}, {"name": "Lincoln Mitchel", "channel": "Counter Craft", "posts": 1}, {"name": "Marianna Limas", "channel": "Science Writing", "posts": 1}, {"name": "Margaret Sullivan", "channel": "American Crisis", "posts": 1}, {"name": "Mark Jacob", "channel": "Stop the Presses", "posts": 1}, {"name": "Matt Pearce", "channel": "Rebuild Local News", "posts": 1}, {"name": "Mathew Ingram", "channel": "Mathew Ingram", "posts": 1}, {"name": "Peter Erdelyi", "channel": "Media Finance Monitor", "posts": 1}, {"name": "Shannon Henry Kleiber", "channel": "Cadence: On Writing & Sound", "posts": 1}, {"name": "Tina Brown", "channel": "Fresh Hell", "posts": 1}], "General News": [{"name": "Walter Hickey", "channel": "Numlock News", "posts": 6}, {"name": "Tim Mak", "channel": "The Counteroffensive", "posts": 5}, {"name": "Bill Bishop", "channel": "Sinocism", "posts": 4}, {"name": "James Fallows", "channel": "James Fallows", "posts": 1}, {"name": "Rich Leiby", "channel": "Rich Leiby", "posts": 1}], "Civic Life": [{"name": "Annie Dance", "channel": "Cops & Congress by Annie Dance", "posts": 14}, {"name": "Jonathan Macri", "channel": "Knicks Film School", "posts": 8}, {"name": "Emilie Raguso", "channel": "The Berkeley Scanner", "posts": 7}, {"name": "Dan Shafer", "channel": "The Recombobulation Area", "posts": 4}, {"name": "Alexander Russo", "channel": "The Grade", "posts": 3}, {"name": "Alon Levy", "channel": "Pedestrian Observations", "posts": 2}, {"name": "Holly Korbey", "channel": "The Bell Ringer", "posts": 2}, {"name": "Jeff Asher", "channel": "Jeff-alytics", "posts": 2}, {"name": "Julie Rose", "channel": "Provo Notes", "posts": 2}, {"name": "Paul Queary", "channel": "The Washington Observer", "posts": 2}, {"name": "Norman Oder", "channel": "Atlantic Yards/Pacific Park Report", "posts": 2}, {"name": "Andrew Donlan", "channel": "Still Gotta Come Through Chicago", "posts": 1}, {"name": "Andy DeMeo", "channel": "Granite Goodness", "posts": 1}, {"name": "Blog A Bull", "channel": "Blogabull.com", "posts": 1}, {"name": "Connie Bowen", "channel": "Agriculture Is for People", "posts": 1}, {"name": "Claudine Zap", "channel": "Must Like Fog", "posts": 1}, {"name": "Daniel Carr", "channel": "Police Law News", "posts": 1}, {"name": "Dennis Lee", "channel": "The Party Cut", "posts": 1}, {"name": "Igor Studenkov", "channel": "Chicago Media Journal", "posts": 1}, {"name": "Jean Twenge", "channel": "Generation Tech", "posts": 1}, {"name": "Michael Graff", "channel": "Charlotte Optimist", "posts": 1}, {"name": "Sarah Mock", "channel": "Sarah Mock", "posts": 1}], "Journalism Formats": [{"name": "Ryan Grim", "channel": "Drop Site News", "posts": 15}, {"name": "David Sirota", "channel": "The Lever", "posts": 14}, {"name": "Nate Silver", "channel": "Silver Bulletin", "posts": 5}, {"name": "Andrew Gelman", "channel": "Statistical Modeling", "posts": 4}, {"name": "Ashlee Vance", "channel": "Core Memory", "posts": 3}, {"name": "Jim Waterson", "channel": "London Centric", "posts": 3}, {"name": "Amanda Shendruk", "channel": "Not-Ship", "posts": 1}, {"name": "Beth Shelburne", "channel": "Moth to flame", "posts": 1}, {"name": "Derek Thompson", "channel": "Derek Thompson", "posts": 1}, {"name": "Geopolitical Guy", "channel": "Geopolitical Guy", "posts": 1}, {"name": "Julia Carpenter", "channel": "A Woman to Know", "posts": 1}, {"name": "Paul Brandus", "channel": "Disinformation Wire", "posts": 1}, {"name": "Victoria Wolff", "channel": "Our Amagansett House", "posts": 1}], "Lifestyle & Personal Life": [{"name": "Mark Zuckerman", "channel": "Nats Journal", "posts": 20}, {"name": "Mark Bittman", "channel": "The Bittman Project", "posts": 6}, {"name": "Joe Posnanski", "channel": "Joe Blogs", "posts": 3}, {"name": "Yulia Denisyuk", "channel": "Going Places Media", "posts": 3}, {"name": "Neil Greenberg", "channel": "Fancy Stats", "posts": 2}, {"name": "Zach Griff", "channel": "From the Tray Table", "posts": 2}, {"name": "Ali Slagle", "channel": "40 Ingredients Forever", "posts": 1}, {"name": "Brianna Wickey", "channel": "Scoop Charlotte", "posts": 1}, {"name": "Daniela Galarza", "channel": "a petite feast", "posts": 1}, {"name": "Dennis Lee", "channel": "Food Is Stupid", "posts": 1}, {"name": "Emily Nunn", "channel": "The Department of Salad", "posts": 1}, {"name": "Frank Shyong", "channel": "Lunch Box", "posts": 1}, {"name": "Gillian Morris", "channel": "Super Nuclear", "posts": 1}, {"name": "Liz Plank", "channel": "Airplane Mode", "posts": 1}, {"name": "Melinda Wenner Moyer", "channel": "Now What", "posts": 1}, {"name": "Michael Nagrant", "channel": "The Hunger", "posts": 1}, {"name": "Michael Ruhlman", "channel": "Michael Ruhlman", "posts": 1}, {"name": "Phil Levin", "channel": "Super Nuclear", "posts": 1}, {"name": "Rebecca Enberg", "channel": "Your House Machine", "posts": 1}, {"name": "Nick Parish", "channel": "Current Flow State", "posts": 1}, {"name": "Ruth Reichl", "channel": "La Briffe", "posts": 1}, {"name": "Stephanie. Lau", "channel": "Cook Club", "posts": 1}, {"name": "Virginia Sole-Smith", "channel": "Burnt Toast", "posts": 1}]};
 
-    const cityName = document.getElementById('digest-city-name');
-    const feedCount = document.getElementById('digest-feed-count');
-    if (cityName) cityName.textContent = data[city].name;
-    if (feedCount) feedCount.textContent = data[city].feeds;
-  }
+// ─────────────────────────────────────────────────────────────────────────────
+// GROUP COLORS
+// TODO: James — lock these assignments from secondary palette (DESIGN-TOKENS.md § Visualization Color Array)
+// ─────────────────────────────────────────────────────────────────────────────
+const GROUP_COLORS = {
+  "Power & Politics":              { onDark: "#ceff00", onLight: "#5d7400" },
+  "Money & Work":                  { onDark: "#ffaa00", onLight: "#b35100" },
+  "Social Issues":                 { onDark: "#ff33cc", onLight: "#a1006c" },
+  "Science, Health & Environment": { onDark: "#00e5ff", onLight: "#005ea3" },
+  "General News":                  { onDark: "#fff700", onLight: "#806600" },
+  "Culture & Media":               { onDark: "#ff66ff", onLight: "#a100a1" },
+  "Civic Life":                    { onDark: "#66ffcc", onLight: "#006644" },
+  "Journalism Formats":            { onDark: "#ff9966", onLight: "#9b3000" },
+  "Lifestyle & Personal Life":     { onDark: "#aabbff", onLight: "#3344aa" },
+};
+
+function groupColor(group, surface) {
+  const primary = group.split(',')[0].trim();
+  const c = GROUP_COLORS[primary] || { onDark: "#ceff00", onLight: "#5d7400" };
+  return c[surface];
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ── Render: header ────────────────────────────────────────────────────────────
+function renderHeader(meta) {
+  document.getElementById('header-dateline').textContent =
+    `Week of ${formatDate(meta.generated_at)} · ${meta.days_window}-day window`;
+  document.getElementById('header-stats').textContent =
+    `${meta.feeds_fetched} feeds · ${meta.posts_retrieved.toLocaleString()} posts · ${meta.clusters_found} clusters`;
+}
+
+// ── Render: featured strip ────────────────────────────────────────────────────
+function renderFeaturedStrip(featuredClusters) {
+  const html = featuredClusters.map(c => {
+    const color = groupColor(c.group, 'onLight');
+    const stories = c.stories.slice(0, 2).map(s => `
+      <div class="fi-story">
+        <div class="fi-story-creator">${escHtml(s.creator_name)} · ${escHtml(s.channel)}</div>
+        <span class="fi-story-title">${escHtml(s.title)}</span>
+      </div>
+    `).join('');
+
+    return `
+      <div class="featured-item">
+        <div class="fi-accent" style="background:${color}"></div>
+        <span class="fi-label" style="color:${color}">${escHtml(c.topic_label)}</span>
+        <h2 class="fi-headline">${escHtml(c.headline)}</h2>
+        <p class="fi-synthesis">${escHtml(c.synthesis)}</p>
+        <div class="fi-creator-count">${c.creator_count} creators</div>
+        <div class="fi-divider"></div>
+        <div class="fi-stories">${stories}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('featured-strip').innerHTML = html;
+}
+
+// ── Render: cluster card ──────────────────────────────────────────────────────
+function renderClusterCard(c, isFeatured) {
+  const color = groupColor(c.group, 'onLight');
+  const isHeavy = c.topic_label === 'ICE DETENTION DEATHS';
+
+  const classes = ['cluster-card'];
+  if (isFeatured) classes.push('is-featured');
+  if (isHeavy) classes.push('heavy-story');
+
+  const leadBadge = isFeatured
+    ? `<span class="lead-badge" style="color:${color};border-color:${color}">LEAD</span>`
+    : '';
+
+  const stories = c.stories.slice(0, 3).map(s => `
+    <div class="cs-story">
+      <a href="${s.url}" class="cs-story-title" target="_blank" rel="noopener">${escHtml(s.title)}</a>
+      <div class="cs-story-by">${escHtml(s.creator_name)} · ${escHtml(s.channel)}</div>
+    </div>
+  `).join('');
+
+  const primaryGroup = c.group.split(',')[0].trim();
+
+  return `
+    <div class="${classes.join(' ')}">
+      <div class="card-accent" style="background:${color}"></div>
+      <div class="card-body">
+        <div class="card-top-row">
+          <span class="card-topic-label" style="color:${color}">${escHtml(c.topic_label)}</span>
+          ${leadBadge}
+        </div>
+        <h3 class="card-headline">${escHtml(c.headline)}</h3>
+        <div class="card-stories">${stories}</div>
+        <div class="card-bottom">
+          <span class="card-group-tag">${escHtml(primaryGroup)}</span>
+          <span class="card-creator-count">${c.creator_count} creators</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Render: all 9 clusters in one grid ───────────────────────────────────────
+function renderAllClusters(data) {
+  const featuredLabels = new Set(data.featured_clusters.map(c => c.topic_label));
+  const all = [
+    ...data.featured_clusters.map(c => ({ ...c, isFeatured: true })),
+    ...data.clusters.map(c => ({ ...c, isFeatured: false })),
+  ].sort((a, b) => b.creator_count - a.creator_count);
+
+  document.getElementById('clusters-grid').innerHTML =
+    all.map(c => renderClusterCard(c, c.isFeatured)).join('');
+}
+
+// ── Render: corpus zone ───────────────────────────────────────────────────────
+function renderCorpus(corpusData) {
+  const totalCreators = Object.values(corpusData).reduce((sum, arr) => sum + arr.length, 0);
+
+  const groupsHtml = Object.entries(corpusData).map(([group, creators]) => {
+    const color = groupColor(group, 'onLight');
+    const primaryGroup = group.split(',')[0].trim();
+    const names = creators
+      .map(c => `<span class="corpus-name">${escHtml(c.name)}</span>`)
+      .join('<span class="corpus-sep"> · </span>');
+
+    return `
+      <div class="corpus-group">
+        <div class="corpus-group-label" style="color:${color}">
+          ${escHtml(primaryGroup.toUpperCase())}
+          <span class="corpus-count">${creators.length}</span>
+        </div>
+        <div class="corpus-names">${names}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('corpus-section').innerHTML = `
+    <div class="corpus-header-row">
+      <span class="corpus-title">${totalCreators} journalists active this week</span>
+      <span class="corpus-subtitle">Pulse corpus · April 15–22, 2026</span>
+    </div>
+    <div class="corpus-groups">${groupsHtml}</div>
+  `;
+}
+
+// ── Render: run bar ───────────────────────────────────────────────────────────
+function renderRunBar(meta, unclustered) {
+  const d = new Date(meta.generated_at);
+  const ts = d.toLocaleString('en-US', {
+    month: 'short', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', hour12: true,
+  });
+  document.getElementById('run-bar').innerHTML = `
+    <div class="run-bar-text">
+      Generated <strong>${ts}</strong> ·
+      <strong>${meta.feeds_fetched}</strong> feeds ·
+      <strong>${meta.posts_retrieved.toLocaleString()}</strong> posts ·
+      <strong>${unclustered}</strong> unclustered
+    </div>
+    <div class="run-bar-note">atlas-pulse/pulse_fetch.py</div>
+  `;
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+function renderPulse(data) {
+  renderHeader(data.run_metadata);
+  renderFeaturedStrip(data.featured_clusters);
+  renderAllClusters(data);
+  renderCorpus(CORPUS_DATA);
+  renderRunBar(data.run_metadata, data.unclustered_count);
+}
+
+renderPulse(PULSE_DATA);
+
 </script>
-
 </body>
 </html>
