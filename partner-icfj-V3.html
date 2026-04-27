@@ -4,9 +4,9 @@
   Shell: partner-page-shell-V3.html
   Built: 2026-04-27
 
-  21 creators, all with blurbs. Global — LatAm 7, Africa 5, MENA 9.
-  region field preserved on each creator for future hasGroups implementation.
-  hasGroups: false for now (flat single-column layout).
+  21 creators, all with blurbs. Grouped: LatAm 7, Africa 5, MENA 9.
+  hasGroups: true — region nav + 2-col grid + per-group rank numbers.
+  region field on each creator drives group assignment.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +28,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap');
 
 :root {
-  --acid:    #ceff00;   /* dark surfaces only */
-  --lime:    #97d600;   /* light surfaces only */
+  --acid:    #ceff00;
+  --lime:    #97d600;
   --olive:   #5d7400;
   --page-bg: #efeff2;
   --border:  #d4d4d8;
@@ -43,17 +43,17 @@ img { max-width: 100%; display: block; }
 
 .container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 40px; }
 
-/* ── NAV — black, not sticky ── */
-.site-nav { background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.site-nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+/* ── NAV — white, sticky ── */
+.site-nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 0.5px solid var(--border); }
+.site-nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
 .site-nav-logo img { height: 26px; width: auto; }
-.site-nav-link { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; transition: color 0.15s; }
-.site-nav-link:hover { color: rgba(255,255,255,0.75); }
-.site-nav-link:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+.site-nav-link { font-size: 13px; font-weight: 500; color: #313131; letter-spacing: 0.04em; transition: color 0.15s; }
+.site-nav-link:hover { color: #000; text-decoration: underline; }
+.site-nav-link:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 
 /* ── HERO — black ── */
 .hero { background: #000; padding: 88px 0 72px; }
-.hero-grid { display: flex; flex-direction: column; gap: 40px; }
+.hero-grid { display: flex; flex-direction: column; gap: 32px; }
 
 .hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 20px; }
 .hero-h1 { font-size: 44px; font-weight: 700; line-height: 52px; letter-spacing: -0.5px; color: #fff; margin-bottom: 20px; }
@@ -74,7 +74,7 @@ img { max-width: 100%; display: block; }
 
 .hero-collab { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; color: rgba(255,255,255,0.4); }
 
-/* Partner identity card — white inset on black hero */
+/* Partner identity card */
 .partner-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 32px; }
 .partner-card-logo { margin-bottom: 16px; }
 .partner-card-logo img { height: 40px; width: auto; }
@@ -83,17 +83,40 @@ img { max-width: 100%; display: block; }
 .partner-url { font-size: 14px; font-weight: 500; color: var(--olive); transition: color 0.15s; }
 .partner-url:hover { color: #000; }
 
-/* ── CREATOR GRID SECTION ── */
+/* ── REGION NAV — sticky below main nav ── */
+.region-nav { position: sticky; top: 56px; z-index: 90; background: #fff; border-bottom: 1px solid var(--border); }
+.region-nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; display: flex; align-items: stretch; }
+.region-nav-link {
+  display: inline-flex; align-items: center;
+  padding: 18px 24px;
+  font-size: 15px; font-weight: 500; color: #313131;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.region-nav-link:hover { border-bottom-color: rgba(0,0,0,0.12); }
+.region-nav-link.active { color: #000; border-bottom-color: var(--lime); }
+
+/* ── GRID SECTION ── */
 .grid-section { background: var(--page-bg); padding: 64px 0; }
-.grid-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; }
+.grid-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; }
 .grid-h2 { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; }
 .grid-context { font-size: 13px; font-weight: 500; color: #888; letter-spacing: 0.04em; }
 
-/* hasGroups: false — flat single-column list */
+/* ── REGION SECTIONS ── */
+.creator-section { padding-bottom: 72px; }
+.region-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+.region-header { display: flex; align-items: center; gap: 12px; padding: 40px 0 24px; }
+.region-label { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive); }
+.creator-count-pill { font-size: 12px; font-weight: 500; color: #313131; border: 1px solid var(--border); border-radius: 100px; padding: 4px 12px; background: #fff; }
+
+/* ── CREATOR GRID ── */
 .creator-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.creator-grid.two-col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
 /* Creator card */
 .creator-card {
+  position: relative;
   background: #fff;
   border: 0.5px solid var(--border);
   border-radius: 6px;
@@ -103,6 +126,7 @@ img { max-width: 100%; display: block; }
   transition: border-color 0.15s;
 }
 .creator-card:hover { border-color: var(--lime); }
+.card-rank { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 500; color: #b0b0b8; letter-spacing: 0.04em; }
 .creator-name { font-size: 18px; font-weight: 700; color: #000; line-height: 1.3; margin-bottom: 4px; }
 .creator-channel { font-size: 14px; font-weight: 500; color: var(--olive); margin-bottom: 12px; }
 .card-blurb { font-size: 14px; font-weight: 400; color: #606068; line-height: 22px; margin-bottom: 16px; }
@@ -163,20 +187,20 @@ img { max-width: 100%; display: block; }
 
 /* ── RESPONSIVE ── */
 @media (min-width: 1024px) {
-  .hero-grid { flex-direction: row; align-items: flex-start; gap: 48px; }
-  .hero-left { flex: 0 0 55%; }
-  .hero-right { flex: 1; }
+  .hero-grid { display: grid; grid-template-columns: 55fr 45fr; gap: 48px; align-items: start; }
 }
 
 @media (max-width: 768px) {
   .hero { padding: 56px 0 48px; }
   .hero-h1 { font-size: 32px; line-height: 40px; }
   .hero-body { font-size: 16px; }
+  .creator-grid.two-col { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
   .container { padding: 0 20px; }
   .site-nav-inner { padding: 0 20px; }
+  .region-nav-inner { padding: 0 20px; }
   .hero { padding: 48px 0 40px; }
   .hero-h1 { font-size: 26px; line-height: 34px; }
   .hero-body { font-size: 16px; line-height: 26px; }
@@ -185,16 +209,17 @@ img { max-width: 100%; display: block; }
   .grid-section { padding: 48px 0; }
   .about-section { padding: 56px 0; }
   .atlas-footer { padding: 56px 0; }
+  .region-nav-link { padding: 14px 16px; font-size: 14px; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV — black, not sticky -->
+<!-- NAV — white, sticky -->
 <nav class="site-nav">
   <div class="site-nav-inner">
     <a href="https://journalismatlas.com" class="site-nav-logo">
-      <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+      <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_black.png" alt="Independent Journalism Atlas">
     </a>
     <a href="https://journalismatlas.com" class="site-nav-link">Explore the Atlas →</a>
   </div>
@@ -210,6 +235,9 @@ img { max-width: 100%; display: block; }
   </div>
 </section>
 
+<!-- REGION NAV — rendered by JS when hasGroups: true -->
+<nav class="region-nav" id="region-nav"></nav>
+
 <!-- CREATOR GRID -->
 <section class="grid-section">
   <div class="container">
@@ -217,7 +245,7 @@ img { max-width: 100%; display: block; }
       <h2 class="grid-h2" id="grid-heading"></h2>
       <span class="grid-context" id="grid-context"></span>
     </div>
-    <div class="creator-grid" id="creator-grid"></div>
+    <div id="creator-grid"></div>
   </div>
 </section>
 
@@ -275,14 +303,11 @@ const PARTNER_CONFIG = {
   aboutLinkText: 'Visit ICFJ.org',
   aboutLinkUrl:  'https://icfj.org',
 
-  // hasGroups: true will enable region tabs (Latin America, Africa, MENA)
-  // STUBBED — see partner-icfj.html for the reference implementation
-  // When ready: set hasGroups: true, add groups: [{ key, label }], ensure region field on each creator
-  hasGroups: false,
+  hasGroups: true,
   groups: [
-    { key: 'Latin America', label: 'Latin America' },
-    { key: 'Africa',        label: 'Africa'        },
-    { key: 'MENA',          label: 'MENA'          },
+    { key: 'Latin America', label: 'Latin America', id: 'latam'  },
+    { key: 'Africa',        label: 'Africa',        id: 'africa' },
+    { key: 'MENA',          label: 'MENA',          id: 'mena'   },
   ],
 
   creators: [
@@ -431,15 +456,15 @@ function esc(str) {
 
 function getPlatformInfo(platform) {
   const map = {
-    'Newsletter - Substack': { icon: 'mail',             name: 'Substack'    },
-    'Newsletter - Beehiiv':  { icon: 'mail',             name: 'Beehiiv'     },
-    'Newsletter - Ghost':    { icon: 'mail',             name: 'Ghost'       },
-    'Newsletter - Other':    { icon: 'mail',             name: 'Newsletter'  },
-    'Video - YouTube':       { icon: 'play_circle',      name: 'YouTube'     },
-    'Video - Instagram':     { icon: 'play_circle',      name: 'Instagram'   },
-    'Video - TikTok':        { icon: 'play_circle',      name: 'TikTok'      },
-    'Podcast':               { icon: 'podcasts',         name: 'Podcast'     },
-    'Website':               { icon: 'language',         name: 'Website'     },
+    'Newsletter - Substack': { icon: 'mail',        name: 'Substack'   },
+    'Newsletter - Beehiiv':  { icon: 'mail',        name: 'Beehiiv'    },
+    'Newsletter - Ghost':    { icon: 'mail',        name: 'Ghost'      },
+    'Newsletter - Other':    { icon: 'mail',        name: 'Newsletter' },
+    'Video - YouTube':       { icon: 'play_circle', name: 'YouTube'    },
+    'Video - Instagram':     { icon: 'play_circle', name: 'Instagram'  },
+    'Video - TikTok':        { icon: 'play_circle', name: 'TikTok'     },
+    'Podcast':               { icon: 'podcasts',    name: 'Podcast'    },
+    'Website':               { icon: 'language',    name: 'Website'    },
   };
   if (map[platform]) return map[platform];
   if (platform && platform.startsWith('Social')) {
@@ -483,42 +508,92 @@ function renderHeroRight() {
   `;
 }
 
-function renderCreators() {
-  if (PARTNER_CONFIG.hasGroups) {
-    // hasGroups: true is stubbed — see partner-icfj.html for reference implementation
-    // When implemented: sticky region-nav tabs, IntersectionObserver, 2-col grid per group
-    document.getElementById('creator-grid').innerHTML =
-      '<p style="padding: 24px; color: #888;">hasGroups: true — not yet implemented in this shell.</p>';
+function renderRegionNav() {
+  const nav = document.getElementById('region-nav');
+  if (!PARTNER_CONFIG.hasGroups) {
+    nav.style.display = 'none';
     return;
   }
+  nav.innerHTML = `
+    <div class="region-nav-inner">
+      ${PARTNER_CONFIG.groups.map((g, i) => `
+        <a class="region-nav-link${i === 0 ? ' active' : ''}" href="#region-${esc(g.id)}">${esc(g.label)}</a>
+      `).join('')}
+    </div>
+  `;
+}
 
-  const { creators } = PARTNER_CONFIG;
+function creatorCardHTML(c, rank) {
+  const { icon, name: platformName } = getPlatformInfo(c.platform);
+  const rankHTML  = rank != null ? `<span class="card-rank">${String(rank).padStart(2, '0')}</span>` : '';
+  const blurbHTML = c.blurb    ? `<p class="card-blurb">${esc(c.blurb)}</p>`         : '';
+  const geoHTML   = c.geography ? `<span class="pill">${esc(c.geography)}</span>`     : '';
+  const topicHTML = c.topic     ? `<span class="pill">${esc(c.topic)}</span>`         : '';
+
+  return `
+    <div class="creator-card">
+      ${rankHTML}
+      <div class="creator-name">${esc(c.name)}</div>
+      <div class="creator-channel">${esc(c.channel)}</div>
+      ${blurbHTML}
+      <div class="creator-pills">
+        ${geoHTML}
+        ${topicHTML}
+        <span class="pill platform">
+          <span class="material-symbols-outlined">${icon}</span>${esc(platformName)}
+        </span>
+      </div>
+      <hr class="card-divider">
+      <a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link">Visit &rarr;</a>
+    </div>
+  `;
+}
+
+function renderCreators() {
+  const { creators, groups, hasGroups } = PARTNER_CONFIG;
   document.getElementById('grid-heading').textContent = `${PARTNER_CONFIG.curatorName}\u2019s Picks`;
   document.getElementById('grid-context').textContent = `${creators.length} creators`;
 
-  document.getElementById('creator-grid').innerHTML = creators.map(c => {
-    const { icon, name: platformName } = getPlatformInfo(c.platform);
-    const blurbHTML = c.blurb ? `<p class="card-blurb">${esc(c.blurb)}</p>` : '';
-    const geoHTML   = c.geography ? `<span class="pill">${esc(c.geography)}</span>` : '';
-    const topicHTML = c.topic     ? `<span class="pill">${esc(c.topic)}</span>`     : '';
+  if (!hasGroups) {
+    document.getElementById('creator-grid').innerHTML = creators.map(c => creatorCardHTML(c, null)).join('');
+    return;
+  }
 
+  document.getElementById('creator-grid').innerHTML = groups.map((group, gi) => {
+    const groupCreators = creators.filter(c => c.region === group.key);
+    const divider = gi > 0 ? '<hr class="region-divider">' : '';
     return `
-      <div class="creator-card">
-        <div class="creator-name">${esc(c.name)}</div>
-        <div class="creator-channel">${esc(c.channel)}</div>
-        ${blurbHTML}
-        <div class="creator-pills">
-          ${geoHTML}
-          ${topicHTML}
-          <span class="pill platform">
-            <span class="material-symbols-outlined">${icon}</span>${esc(platformName)}
-          </span>
+      ${divider}
+      <div class="creator-section" id="region-${esc(group.id)}" data-region="${esc(group.id)}">
+        <div class="region-header">
+          <span class="region-label">${esc(group.label)}</span>
+          <span class="creator-count-pill">${groupCreators.length} journalists</span>
         </div>
-        <hr class="card-divider">
-        <a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link">Visit &rarr;</a>
+        <div class="creator-grid two-col">
+          ${groupCreators.map((c, idx) => creatorCardHTML(c, idx + 1)).join('')}
+        </div>
       </div>
     `;
   }).join('');
+
+  setupRegionNav();
+}
+
+function setupRegionNav() {
+  const navLinks = document.querySelectorAll('.region-nav-link');
+  if (!navLinks.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.region-nav-link[href="#region-${entry.target.dataset.region}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+  document.querySelectorAll('.creator-section').forEach(s => observer.observe(s));
 }
 
 function renderAbout() {
@@ -544,6 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderHeroLeft();
   renderHeroRight();
+  renderRegionNav();
   renderCreators();
   renderAbout();
 });
