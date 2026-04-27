@@ -1,0 +1,504 @@
+<!--
+  PARTNER PAGE SHELL V3
+  Source: Cillizza's layout + ICFJ's colors
+  Clone this file and update PARTNER_CONFIG to instantiate a new partner page.
+
+  Required fields:
+    curatorName, curatorChannel, curatorUrl, curatorNote
+    pageTitle, pageDescription, pageUrl
+    stats[]          — array of { num, label }, typically 3 cells
+    aboutHeadline, aboutParagraphs[], aboutLinkText, aboutLinkUrl
+    creators[]       — { name, channel, link, platform, topic, geography, blurb? }
+
+  Optional fields:
+    logoWhite        — path to white/reverse logo for dark hero panel; null = text treatment
+    logoColor        — path to color logo for about section; null = text treatment
+
+  hasGroups: false   — flat single-column list (this mode is fully implemented)
+  hasGroups: true    — grouped 2-col grid with sticky region nav (ICFJ-style)
+                       STUBBED — see partner-icfj.html for reference implementation
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Page — Independent Journalism Atlas</title>
+<meta name="description" content="">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/variables.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap');
+
+:root {
+  --acid:    #ceff00;   /* dark surfaces only */
+  --lime:    #97d600;   /* light surfaces only */
+  --olive:   #5d7400;
+  --page-bg: #efeff2;
+  --border:  #d4d4d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: 'Hanken Grotesk', sans-serif; background: var(--page-bg); color: #313131; line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+.container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+
+/* ── NAV — black, not sticky ── */
+.site-nav { background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.site-nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.site-nav-logo img { height: 26px; width: auto; }
+.site-nav-link { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; transition: color 0.15s; }
+.site-nav-link:hover { color: rgba(255,255,255,0.75); }
+.site-nav-link:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+
+/* ── HERO — black ── */
+.hero { background: #000; padding: 88px 0 72px; }
+.hero-grid { display: flex; flex-direction: column; gap: 40px; }
+
+.hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 20px; }
+.hero-h1 { font-size: 44px; font-weight: 700; line-height: 52px; letter-spacing: -0.5px; color: #fff; margin-bottom: 20px; }
+.hero-body { font-size: 17px; font-weight: 400; line-height: 28px; color: rgba(255,255,255,0.72); max-width: 600px; margin-bottom: 32px; }
+
+.hero-stats {
+  display: flex;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 640px;
+  margin-bottom: 24px;
+}
+.hero-stat { flex: 1; padding: 20px 24px; border-right: 1px solid rgba(255,255,255,0.15); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-size: 36px; font-weight: 700; line-height: 1; color: var(--acid); margin-bottom: 6px; }
+.hero-stat-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+
+.hero-collab { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; color: rgba(255,255,255,0.4); }
+
+/* Partner identity card — white inset on black hero */
+.partner-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 32px; }
+.partner-card-logo { margin-bottom: 16px; }
+.partner-card-logo img { height: 40px; width: auto; }
+.partner-name { font-size: 22px; font-weight: 700; color: #000; line-height: 1.25; margin-bottom: 8px; }
+.partner-role { font-size: 14px; font-weight: 400; color: #888; line-height: 1.55; margin-bottom: 12px; }
+.partner-url { font-size: 14px; font-weight: 500; color: var(--olive); transition: color 0.15s; }
+.partner-url:hover { color: #000; }
+
+/* ── CREATOR GRID SECTION ── */
+.grid-section { background: var(--page-bg); padding: 64px 0; }
+.grid-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; }
+.grid-h2 { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; }
+.grid-context { font-size: 13px; font-weight: 500; color: #888; letter-spacing: 0.04em; }
+
+/* hasGroups: false — flat single-column list */
+.creator-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+/* Creator card */
+.creator-card {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s;
+}
+.creator-card:hover { border-color: var(--lime); }
+.creator-name { font-size: 18px; font-weight: 700; color: #000; line-height: 1.3; margin-bottom: 4px; }
+.creator-channel { font-size: 14px; font-weight: 500; color: var(--olive); margin-bottom: 12px; }
+.card-blurb { font-size: 14px; font-weight: 400; color: #606068; line-height: 22px; margin-bottom: 16px; }
+.creator-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 12px; font-weight: 500;
+  background: #efeff2; border: 0.5px solid var(--border); color: #313131;
+}
+.pill.platform { background: var(--lime); border-color: var(--olive); }
+.pill .material-symbols-outlined {
+  font-size: 14px; line-height: 1;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 14;
+}
+.card-divider { border: none; border-top: 0.5px solid var(--border); margin-bottom: 16px; }
+.card-link {
+  font-size: 14px; font-weight: 500; color: var(--olive);
+  margin-top: auto;
+  display: inline-flex; align-items: center;
+  padding: 6px 12px; border-radius: 6px; margin-left: -12px;
+  transition: color 0.15s, background 0.15s;
+}
+.card-link:hover { color: #313131; background: var(--lime); }
+.card-link:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+/* ── ABOUT SECTION — white ── */
+.about-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
+.about-section { background: #fff; padding: 80px 0; }
+.about-inner { max-width: 640px; }
+.about-logo { margin-bottom: 24px; }
+.about-logo img { height: 44px; width: auto; }
+.about-text-name { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; margin-bottom: 24px; line-height: 1.2; }
+.about-headline { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; margin-bottom: 16px; }
+.about-body { font-size: 16px; font-weight: 400; line-height: 26px; color: #444; margin-bottom: 20px; }
+.about-link { font-size: 14px; font-weight: 500; color: var(--olive); transition: color 0.15s; }
+.about-link:hover { color: #000; }
+
+/* ── ATLAS FOOTER — dark gray ── */
+.atlas-footer { background: #313131; padding: 80px 0; }
+.atlas-footer-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.atlas-footer-logo img { height: 20px; width: auto; }
+.atlas-footer-tagline { font-size: 16px; font-weight: 400; line-height: 26px; color: rgba(255,255,255,0.65); max-width: 480px; }
+.atlas-footer-btn {
+  display: inline-flex; align-items: center;
+  padding: 12px 24px;
+  background: var(--acid); color: #000;
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 14px; font-weight: 700; border-radius: 6px;
+  transition: opacity 0.15s; margin-top: 4px;
+}
+.atlas-footer-btn:hover { opacity: 0.88; }
+.atlas-footer-btn:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--page-bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+
+/* ── RESPONSIVE ── */
+@media (min-width: 1024px) {
+  .hero-grid { flex-direction: row; align-items: flex-start; gap: 48px; }
+  .hero-left { flex: 0 0 55%; }
+  .hero-right { flex: 1; }
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 56px 0 48px; }
+  .hero-h1 { font-size: 32px; line-height: 40px; }
+  .hero-body { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 20px; }
+  .site-nav-inner { padding: 0 20px; }
+  .hero { padding: 48px 0 40px; }
+  .hero-h1 { font-size: 26px; line-height: 34px; }
+  .hero-body { font-size: 16px; line-height: 26px; }
+  .hero-stat { padding: 16px 18px; }
+  .hero-stat-num { font-size: 28px; }
+  .grid-section { padding: 48px 0; }
+  .about-section { padding: 56px 0; }
+  .atlas-footer { padding: 56px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV — black, not sticky -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="https://journalismatlas.com" class="site-nav-logo">
+      <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+    </a>
+    <a href="https://journalismatlas.com" class="site-nav-link">Explore the Atlas →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left" id="hero-left"></div>
+      <div class="hero-right" id="hero-right"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATOR GRID -->
+<section class="grid-section">
+  <div class="container">
+    <div class="grid-header">
+      <h2 class="grid-h2" id="grid-heading"></h2>
+      <span class="grid-context" id="grid-context"></span>
+    </div>
+    <div class="creator-grid" id="creator-grid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="about-rule"></div>
+<section class="about-section">
+  <div class="container">
+    <div class="about-inner" id="about-inner"></div>
+  </div>
+</section>
+
+<!-- ATLAS FOOTER -->
+<footer class="atlas-footer">
+  <div class="container">
+    <div class="atlas-footer-inner">
+      <div class="atlas-footer-logo">
+        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+      </div>
+      <p class="atlas-footer-tagline">Discover 1,200+ independent creator-journalists across newsletters, video, podcasts, and social.</p>
+      <a href="https://journalismatlas.com" class="atlas-footer-btn">Explore the Atlas →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   PARTNER CONFIG — update all fields when cloning
+   ========================================================= */
+const PARTNER_CONFIG = {
+  curatorName:    'Anne Helen Petersen',
+  curatorChannel: 'Culture Study',
+  curatorUrl:     'https://annehelen.substack.com',
+  curatorNote:    'Anne Helen Petersen curated this list of independent journalists covering culture, politics, gender, and the internet — writers whose work she returns to when she wants to understand what is actually happening in American life.',
+
+  pageTitle:       "Anne Helen Petersen's Picks — Independent Journalism Atlas",
+  pageDescription: 'Culture critic Anne Helen Petersen curates independent journalists covering culture, politics, gender, and the internet.',
+  pageUrl:         'https://journalismatlas.com/partner-list-ahp',
+
+  stats: [
+    { num: '9',  label: 'Creators'  },
+    { num: '5',  label: 'Topics'    },
+    { num: '3',  label: 'Platforms' },
+  ],
+
+  logoWhite: null,   // white/reverse logo for dark hero — null = text treatment
+  logoColor: null,   // color logo for about section — null = text treatment
+
+  aboutHeadline:   'About Anne Helen Petersen',
+  aboutParagraphs: [
+    'Anne Helen Petersen is a culture critic and journalist whose Substack newsletter Culture Study reaches hundreds of thousands of readers each week. Her work focuses on the politics of everyday life — celebrity, labor, technology, and the textures of American class and culture.',
+    'The writers on this list are the ones Petersen returns to when she wants to understand what is actually happening — not in Washington, but in the culture. They are independent voices working outside major institutional platforms, building direct relationships with readers.',
+  ],
+  aboutLinkText: 'Read Culture Study',
+  aboutLinkUrl:  'https://annehelen.substack.com',
+
+  // hasGroups: false = flat 1-col grid (fully implemented)
+  // hasGroups: true  = grouped 2-col grid with sticky region nav
+  //   STUBBED — see partner-icfj.html for the reference implementation
+  //   when ready: add groups: [{ key, label }] and set group field on each creator
+  hasGroups: false,
+  groups: [],
+
+  creators: [
+    /* — with blurbs — */
+    {
+      name:      'Soraya Nadia McDonald',
+      channel:   'The Undefeated Review',
+      link:      'https://sorayanadia.substack.com',
+      platform:  'Newsletter - Substack',
+      topic:     'Culture / Race',
+      geography: 'National - US',
+      blurb:     'McDonald writes about the politics of Black American culture with more precision and grace than anyone working the space. Her analysis of film, television, and celebrity never loses the thread back to structural power.',
+    },
+    {
+      name:      'Kaitlyn Tiffany',
+      channel:   'Extremely Online',
+      link:      'https://kaitlyntiffany.substack.com',
+      platform:  'Newsletter - Substack',
+      topic:     'Internet Culture',
+      geography: 'National - US',
+      blurb:     'Tiffany is the most rigorous reporter working the beat of how the internet shapes identity and belief. Her pieces stay with you not because they are alarming but because they are correct.',
+    },
+    {
+      name:      'Brooke Erin Duffy',
+      channel:   'Invisible Labor',
+      link:      'https://invisiblelabor.transistor.fm',
+      platform:  'Podcast',
+      topic:     'Gender / Labor',
+      geography: 'National - US',
+      blurb:     'Duffy brings an academic\'s rigor without the academic\'s distance. Her podcast on the hidden work behind the creator economy is the most thoroughly researched thing on that subject.',
+    },
+    {
+      name:      'Jamil Smith',
+      channel:   'Hard Times',
+      link:      'https://jamilsmith.substack.com',
+      platform:  'Newsletter - Substack',
+      topic:     'Politics / Race',
+      geography: 'National - US',
+      blurb:     'Smith writes the clearest analysis of race and American politics of anyone in independent media. He does not hedge.',
+    },
+    {
+      name:      'Anne Th\u00e9riault',
+      channel:   'The Curve',
+      link:      'https://annetheriault.substack.com',
+      platform:  'Newsletter - Substack',
+      topic:     'Feminism / Culture',
+      geography: 'National - US / Canada',
+      blurb:     'Th\u00e9riault\u2019s writing on gender, bodies, and culture is the kind that makes you re-examine assumptions you did not know you had. Precise, funny, necessary.',
+    },
+    /* — without blurbs — */
+    {
+      name:      'Melissa Gira Grant',
+      channel:   'Working',
+      link:      'https://melissagiragrant.substack.com',
+      platform:  'Newsletter - Other',
+      topic:     'Politics / Gender',
+      geography: 'National - US',
+    },
+    {
+      name:      'Spencer Kornhaber',
+      channel:   'Notes on Pop',
+      link:      'https://spencerkornhaber.substack.com',
+      platform:  'Newsletter - Substack',
+      topic:     'Pop Culture',
+      geography: 'National - US',
+    },
+    {
+      name:      'Helena Fitzgerald',
+      channel:   'Griefbacon',
+      link:      'https://griefbacon.substack.com',
+      platform:  'Newsletter - Substack',
+      topic:     'Culture / Essays',
+      geography: 'National - US',
+    },
+    {
+      name:      'Anne Branigin',
+      channel:   'By Anne Branigin',
+      link:      'https://annebranigin.substack.com',
+      platform:  'Newsletter - Substack',
+      topic:     'Culture / Race',
+      geography: 'National - US',
+    },
+  ],
+};
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+function esc(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function getPlatformInfo(platform) {
+  const map = {
+    'Newsletter - Substack': { icon: 'mail',             name: 'Substack'    },
+    'Newsletter - Beehiiv':  { icon: 'mail',             name: 'Beehiiv'     },
+    'Newsletter - Ghost':    { icon: 'mail',             name: 'Ghost'       },
+    'Newsletter - Other':    { icon: 'mail',             name: 'Newsletter'  },
+    'Video - YouTube':       { icon: 'play_circle',      name: 'YouTube'     },
+    'Video - Instagram':     { icon: 'play_circle',      name: 'Instagram'   },
+    'Video - TikTok':        { icon: 'play_circle',      name: 'TikTok'      },
+    'Podcast':               { icon: 'podcasts',         name: 'Podcast'     },
+    'Website':               { icon: 'language',         name: 'Website'     },
+  };
+  if (map[platform]) return map[platform];
+  if (platform && platform.startsWith('Social')) {
+    return { icon: 'alternate_email', name: platform.replace('Social - ', '') };
+  }
+  return { icon: 'language', name: platform || '' };
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+function renderHeroLeft() {
+  const statsHTML = PARTNER_CONFIG.stats.map(s => `
+    <div class="hero-stat">
+      <div class="hero-stat-num">${esc(s.num)}</div>
+      <div class="hero-stat-label">${esc(s.label)}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('hero-left').innerHTML = `
+    <p class="hero-eyebrow">A Curated List from ${esc(PARTNER_CONFIG.curatorName)}</p>
+    <h1 class="hero-h1">${esc(PARTNER_CONFIG.pageTitle.replace(' \u2014 Independent Journalism Atlas', ''))}</h1>
+    <p class="hero-body">${esc(PARTNER_CONFIG.curatorNote)}</p>
+    <div class="hero-stats">${statsHTML}</div>
+    <p class="hero-collab">Curated by ${esc(PARTNER_CONFIG.curatorName)} &times; Independent Journalism Atlas</p>
+  `;
+}
+
+function renderHeroRight() {
+  const logoHTML = PARTNER_CONFIG.logoWhite
+    ? `<div class="partner-card-logo"><img src="${esc(PARTNER_CONFIG.logoWhite)}" alt="${esc(PARTNER_CONFIG.curatorName)}"></div>`
+    : '';
+
+  document.getElementById('hero-right').innerHTML = `
+    <div class="partner-card">
+      ${logoHTML}
+      <h3 class="partner-name">${esc(PARTNER_CONFIG.curatorName)}</h3>
+      <p class="partner-role">${esc(PARTNER_CONFIG.curatorChannel)}</p>
+      <a href="${esc(PARTNER_CONFIG.curatorUrl)}" target="_blank" rel="noopener" class="partner-url">${esc(PARTNER_CONFIG.curatorUrl.replace('https://', ''))}</a>
+    </div>
+  `;
+}
+
+function renderCreators() {
+  if (PARTNER_CONFIG.hasGroups) {
+    // hasGroups: true is stubbed — see partner-icfj.html for reference implementation
+    // When implemented: sticky region-nav tabs, IntersectionObserver, 2-col grid per group
+    document.getElementById('creator-grid').innerHTML =
+      '<p style="padding: 24px; color: #888;">hasGroups: true — not yet implemented in this shell.</p>';
+    return;
+  }
+
+  const { creators } = PARTNER_CONFIG;
+  document.getElementById('grid-heading').textContent = `${PARTNER_CONFIG.curatorName}\u2019s Picks`;
+  document.getElementById('grid-context').textContent = `${creators.length} creators`;
+
+  document.getElementById('creator-grid').innerHTML = creators.map(c => {
+    const { icon, name: platformName } = getPlatformInfo(c.platform);
+    const blurbHTML = c.blurb ? `<p class="card-blurb">${esc(c.blurb)}</p>` : '';
+    const geoHTML   = c.geography ? `<span class="pill">${esc(c.geography)}</span>` : '';
+    const topicHTML = c.topic     ? `<span class="pill">${esc(c.topic)}</span>`     : '';
+
+    return `
+      <div class="creator-card">
+        <div class="creator-name">${esc(c.name)}</div>
+        <div class="creator-channel">${esc(c.channel)}</div>
+        ${blurbHTML}
+        <div class="creator-pills">
+          ${geoHTML}
+          ${topicHTML}
+          <span class="pill platform">
+            <span class="material-symbols-outlined">${icon}</span>${esc(platformName)}
+          </span>
+        </div>
+        <hr class="card-divider">
+        <a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link">Visit &rarr;</a>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderAbout() {
+  const logoHTML = PARTNER_CONFIG.logoColor
+    ? `<div class="about-logo"><img src="${esc(PARTNER_CONFIG.logoColor)}" alt="${esc(PARTNER_CONFIG.curatorName)}"></div>`
+    : `<p class="about-text-name">${esc(PARTNER_CONFIG.curatorName)}</p>`;
+
+  const parasHTML = PARTNER_CONFIG.aboutParagraphs
+    .map(p => `<p class="about-body">${esc(p)}</p>`)
+    .join('');
+
+  document.getElementById('about-inner').innerHTML = `
+    ${logoHTML}
+    <h2 class="about-headline">${esc(PARTNER_CONFIG.aboutHeadline)}</h2>
+    ${parasHTML}
+    <a href="${esc(PARTNER_CONFIG.aboutLinkUrl)}" target="_blank" rel="noopener" class="about-link">${esc(PARTNER_CONFIG.aboutLinkText)} &nearr;</a>
+  `;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = PARTNER_CONFIG.pageTitle;
+  document.querySelector('meta[name="description"]').setAttribute('content', PARTNER_CONFIG.pageDescription);
+
+  renderHeroLeft();
+  renderHeroRight();
+  renderCreators();
+  renderAbout();
+});
+</script>
+</body>
+</html>
