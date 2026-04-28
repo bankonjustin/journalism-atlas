@@ -46,7 +46,7 @@ assets/css/animations.css  ← Standalone animation keyframes
 <link rel="stylesheet" href="assets/css/main.css">       <!-- or page-specific CSS -->
 ```
 
-Pages with inline `<style>` blocks (postcard.html, partner-list-*.html, city-lab-chicago.html, latin-america-lab.html, partner-icfj.html) also link variables.css before their inline block.
+Pages with inline `<style>` blocks (postcard.html, partners/*.html, city-lab-chicago.html, latin-america-lab.html) also link variables.css before their inline block.
 
 ### How to use DESIGN-TOKENS.md in a session
 
@@ -65,6 +65,35 @@ Before writing any CSS or styling-related code, read the relevant section of `DE
 
 ---
 
+## Partner Page Naming Convention
+
+All partner pages live in `partners/` subdirectory. Format: `partners/[slug].html` → `/partners/[slug]`.
+
+```
+partners/[curator-slug].html
+
+Examples:
+  partners/cillizza.html        Chris Cillizza
+  partners/ahp.html             Anne Helen Petersen
+  partners/icfj.html            ICFJ (institutional)
+  partners/grist.html           Grist / Jess Stahl
+  partners/chicago-tribune.html (institutional, city-specific)
+  partners/dc-lab.html          (DC City Lab partner variant)
+
+Slug rules:
+  - Lowercase, hyphen-separated
+  - For individuals: last name preferred (cillizza, petersen → ahp)
+  - For institutions: org name abbreviated (icfj, grist, npr)
+  - For city-specific partners: city + org (dc-dcist, chicago-wbez)
+  - Never include version numbers in production filenames
+```
+
+Shell template at `partners/_shell.html` (internal, not public-facing). To spin up a new partner page: copy `_shell.html` → `partners/[slug].html`, fill in `PARTNER_CONFIG`, push.
+
+Old root-level partner URLs redirect to new paths via `_redirects` at repo root.
+
+---
+
 ## Key Constraints
 
 - **Single deployable HTML file** — no build step, no external dependencies beyond CDNs
@@ -78,15 +107,17 @@ Before writing any CSS or styling-related code, read the relevant section of `DE
 
 ## Page Inventory
 
-| File | Description | CSS approach |
-|------|-------------|--------------|
-| `index.html` | Main database (1,165 creators) | External: `main.css` |
-| `postcard.html` | Starter Pack builder | Inline `<style>` |
-| `partner-list-cillizza.html` | Chris Cillizza curated list | Inline `<style>` |
-| `partner-list-grist.html` | Grist climate journalists list | Inline `<style>` |
-| `city-lab-chicago.html` | Chicago independent journalism ecosystem | Inline `<style>` + inlined data |
-| `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | Inline `<style>` + inlined data |
-| `partner-icfj.html` | ICFJ global partnership overview, region tabs | Inline `<style>` + inlined data |
+| File | Description | Creator count | CSS approach |
+|------|-------------|--------------|--------------|
+| `index.html` | Main database | ~1,180+ (live JSON) | External: `main.css` |
+| `postcard.html` | Starter Pack builder | — | Inline `<style>` |
+| `partners/_shell.html` | Partner page shell (template) | — | Inline `<style>` |
+| `partners/cillizza.html` | Chris Cillizza curated list | 17 | Inline `<style>` |
+| `partners/ahp.html` | Anne Helen Petersen curated list | 9 | Inline `<style>` |
+| `partners/icfj.html` | ICFJ global creator list (LatAm/Africa/MENA) | 21 | Inline `<style>` |
+| `partners/grist.html` | Grist / Jess Stahl climate list | 19 | Inline `<style>` |
+| `city-lab-chicago.html` | Chicago journalism ecosystem | 245+ | Inline `<style>` + inlined data |
+| `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |
 
 All pages above have been swept to the design token system (variables.css linked first, slim `:root` alias block, no canonical token redefinitions inline). Design sweep completed April 2026.
 

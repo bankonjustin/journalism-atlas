@@ -1,36 +1,28 @@
 <!--
-  PARTNER PAGE SHELL V3
-  Source: Cillizza's layout + ICFJ's colors
-  Clone this file and update PARTNER_CONFIG to instantiate a new partner page.
+  PARTNER PAGE — Chris Cillizza
+  File: partner-list-cillizza-V3.html
+  Shell: partner-page-shell-V3.html
+  Built: 2026-04-27
 
-  Required fields:
-    curatorName, curatorChannel, curatorUrl, curatorNote
-    pageTitle, pageDescription, pageUrl
-    stats[]          — array of { num, label }, typically 3 cells
-    aboutHeadline, aboutParagraphs[], aboutLinkText, aboutLinkUrl
-    creators[]       — { name, channel, link, platform, topic, geography, blurb? }
-
-  Optional fields:
-    logoWhite        — path to white/reverse logo for dark hero panel; null = text treatment
-    logoColor        — path to color logo for about section; null = text treatment
-
-  hasGroups: false   — flat single-column list (this mode is fully implemented)
-  hasGroups: true    — grouped 2-col grid with sticky region nav (ICFJ-style)
-                       STUBBED — see partner-icfj.html for reference implementation
+  17 creators, no blurbs. State politics beat, US regional.
+  hasGroups: false (flat single-column layout).
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Partner Page — Independent Journalism Atlas</title>
-<meta name="description" content="">
+<title>Chris Cillizza's State Political Reporters — Independent Journalism Atlas</title>
+<meta name="description" content="Political analyst Chris Cillizza curated this list of 17 independent journalists covering state and local politics across the US.">
+<meta property="og:title" content="Chris Cillizza's State Political Reporters — Independent Journalism Atlas">
+<meta property="og:description" content="Political analyst Chris Cillizza curated this list of independent journalists covering state and local politics across the US.">
+<meta property="og:url" content="https://journalismatlas.com/partners/cillizza">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="../assets/css/variables.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap');
 
@@ -136,35 +128,6 @@ img { max-width: 100%; display: block; }
 .card-link:hover { color: #313131; background: var(--lime); }
 .card-link:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 
-/* ── REGION NAV (hasGroups: true) ── */
-.region-nav { position: sticky; top: 56px; z-index: 90; background: #fff; border-bottom: 1px solid var(--border); }
-.region-nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; display: flex; align-items: stretch; }
-.region-nav-link {
-  display: inline-flex; align-items: center;
-  padding: 18px 24px;
-  font-size: 15px; font-weight: 500; color: #313131;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  transition: border-color 0.15s, color 0.15s;
-}
-.region-nav-link:hover { border-bottom-color: rgba(0,0,0,0.12); }
-.region-nav-link.active { color: #000; border-bottom-color: var(--lime); }
-
-/* ── REGION SECTIONS (hasGroups: true) ── */
-.creator-section { padding-bottom: 72px; }
-.region-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
-.region-header { display: flex; align-items: center; gap: 12px; padding: 40px 0 24px; }
-.region-label { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive); }
-.creator-count-pill { font-size: 12px; font-weight: 500; color: #313131; border: 1px solid var(--border); border-radius: 100px; padding: 4px 12px; background: #fff; }
-
-/* ── 2-COL GRID (hasGroups: true) ── */
-.creator-grid.two-col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-@media (max-width: 768px) { .creator-grid.two-col { grid-template-columns: 1fr; } }
-
-/* ── CARD RANK (hasGroups: true) ── */
-.creator-card { position: relative; }
-.card-rank { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 500; color: #b0b0b8; letter-spacing: 0.04em; }
-
 /* ── ABOUT SECTION — white ── */
 .about-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 .about-section { background: #fff; padding: 80px 0; }
@@ -228,7 +191,7 @@ img { max-width: 100%; display: block; }
 <nav class="site-nav">
   <div class="site-nav-inner">
     <a href="https://journalismatlas.com" class="site-nav-logo">
-      <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_black.png" alt="Independent Journalism Atlas">
+      <img src="../assets/images/logos/Journalism_Atlas_wordmark_lockup_black.png" alt="Independent Journalism Atlas">
     </a>
     <a href="https://journalismatlas.com" class="site-nav-link">Explore the Atlas →</a>
   </div>
@@ -268,7 +231,7 @@ img { max-width: 100%; display: block; }
   <div class="container">
     <div class="atlas-footer-inner">
       <div class="atlas-footer-logo">
-        <img src="assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
+        <img src="../assets/images/logos/Journalism_Atlas_wordmark_lockup_white.png" alt="Independent Journalism Atlas">
       </div>
       <p class="atlas-footer-tagline">Discover 1,200+ independent creator-journalists across newsletters, video, podcasts, and social.</p>
       <a href="https://journalismatlas.com" class="atlas-footer-btn">Explore the Atlas →</a>
@@ -278,122 +241,58 @@ img { max-width: 100%; display: block; }
 
 <script>
 /* =========================================================
-   PARTNER CONFIG — update all fields when cloning
+   PARTNER CONFIG
    ========================================================= */
 const PARTNER_CONFIG = {
-  curatorName:    'Anne Helen Petersen',
-  curatorChannel: 'Culture Study',
-  curatorUrl:     'https://annehelen.substack.com',
-  curatorNote:    'Anne Helen Petersen curated this list of independent journalists covering culture, politics, gender, and the internet — writers whose work she returns to when she wants to understand what is actually happening in American life.',
+  curatorName:    'Chris Cillizza',
+  curatorChannel: 'The Chris Cillizza Report',
+  curatorUrl:     'https://chriscillizza.substack.com',
+  curatorNote:    'Chris Cillizza identified the independent journalists covering state politics across the US — reporters working outside the Beltway on the races and legislatures that shape daily life in America.',
 
-  pageTitle:       "Anne Helen Petersen's Picks — Independent Journalism Atlas",
-  pageDescription: 'Culture critic Anne Helen Petersen curates independent journalists covering culture, politics, gender, and the internet.',
-  pageUrl:         'https://journalismatlas.com/partner-list-ahp',
+  pageTitle:       "Chris Cillizza's State Political Reporters — Independent Journalism Atlas",
+  pageDescription: 'Political analyst Chris Cillizza curated this list of 17 independent journalists covering state and local politics across the US.',
+  pageUrl:         'https://journalismatlas.com/partners/cillizza',
 
   stats: [
-    { num: '9',  label: 'Creators'  },
-    { num: '5',  label: 'Topics'    },
-    { num: '3',  label: 'Platforms' },
+    { num: '17', label: 'Creators'       },
+    { num: '11', label: 'States covered' },
+    { num: '3',  label: 'Platforms'      },
+    { num: '4',  label: 'Beats'          },
   ],
 
-  logoWhite: null,   // white/reverse logo for dark hero — null = text treatment
-  logoColor: null,   // color logo for about section — null = text treatment
+  logoWhite: null,
+  logoColor: null,
 
-  aboutHeadline:   'About Anne Helen Petersen',
+  aboutHeadline:   'About Chris Cillizza',
   aboutParagraphs: [
-    'Anne Helen Petersen is a culture critic and journalist whose Substack newsletter Culture Study reaches hundreds of thousands of readers each week. Her work focuses on the politics of everyday life — celebrity, labor, technology, and the textures of American class and culture.',
-    'The writers on this list are the ones Petersen returns to when she wants to understand what is actually happening — not in Washington, but in the culture. They are independent voices working outside major institutional platforms, building direct relationships with readers.',
+    'Chris Cillizza is a political journalist and analyst who has covered American politics for two decades, including long stints at The Washington Post and CNN. His newsletter, The Chris Cillizza Report, covers national and state politics with a focus on the mechanics of campaigns, elections, and political media.',
+    'The journalists on this list are the ones Cillizza identified as doing essential independent reporting on state politics — the legislatures, governors\u2019 races, and local political dynamics that national outlets rarely sustain coverage of. The list spans multiple regions and reflects the growing ecosystem of independent reporters filling that gap.',
+    'This curation is part of an ongoing collaboration between The Chris Cillizza Report and the Independent Journalism Atlas, which tracks verified independent creator-journalists across platforms.',
   ],
-  aboutLinkText: 'Read Culture Study',
-  aboutLinkUrl:  'https://annehelen.substack.com',
+  aboutLinkText: 'Read The Chris Cillizza Report',
+  aboutLinkUrl:  'https://chriscillizza.substack.com',
 
-  // hasGroups: false = flat 1-col grid (fully implemented)
-  // hasGroups: true  = grouped 2-col grid with sticky region nav
-  //   STUBBED — see partner-icfj.html for the reference implementation
-  //   when ready: add groups: [{ key, label }] and set group field on each creator
   hasGroups: false,
   groups: [],
 
   creators: [
-    /* — with blurbs — */
-    {
-      name:      'Soraya Nadia McDonald',
-      channel:   'The Undefeated Review',
-      link:      'https://sorayanadia.substack.com',
-      platform:  'Newsletter - Substack',
-      topic:     'Culture / Race',
-      geography: 'National - US',
-      blurb:     'McDonald writes about the politics of Black American culture with more precision and grace than anyone working the space. Her analysis of film, television, and celebrity never loses the thread back to structural power.',
-    },
-    {
-      name:      'Kaitlyn Tiffany',
-      channel:   'Extremely Online',
-      link:      'https://kaitlyntiffany.substack.com',
-      platform:  'Newsletter - Substack',
-      topic:     'Internet Culture',
-      geography: 'National - US',
-      blurb:     'Tiffany is the most rigorous reporter working the beat of how the internet shapes identity and belief. Her pieces stay with you not because they are alarming but because they are correct.',
-    },
-    {
-      name:      'Brooke Erin Duffy',
-      channel:   'Invisible Labor',
-      link:      'https://invisiblelabor.transistor.fm',
-      platform:  'Podcast',
-      topic:     'Gender / Labor',
-      geography: 'National - US',
-      blurb:     'Duffy brings an academic\'s rigor without the academic\'s distance. Her podcast on the hidden work behind the creator economy is the most thoroughly researched thing on that subject.',
-    },
-    {
-      name:      'Jamil Smith',
-      channel:   'Hard Times',
-      link:      'https://jamilsmith.substack.com',
-      platform:  'Newsletter - Substack',
-      topic:     'Politics / Race',
-      geography: 'National - US',
-      blurb:     'Smith writes the clearest analysis of race and American politics of anyone in independent media. He does not hedge.',
-    },
-    {
-      name:      'Anne Th\u00e9riault',
-      channel:   'The Curve',
-      link:      'https://annetheriault.substack.com',
-      platform:  'Newsletter - Substack',
-      topic:     'Feminism / Culture',
-      geography: 'National - US / Canada',
-      blurb:     'Th\u00e9riault\u2019s writing on gender, bodies, and culture is the kind that makes you re-examine assumptions you did not know you had. Precise, funny, necessary.',
-    },
-    /* — without blurbs — */
-    {
-      name:      'Melissa Gira Grant',
-      channel:   'Working',
-      link:      'https://melissagiragrant.substack.com',
-      platform:  'Newsletter - Other',
-      topic:     'Politics / Gender',
-      geography: 'National - US',
-    },
-    {
-      name:      'Spencer Kornhaber',
-      channel:   'Notes on Pop',
-      link:      'https://spencerkornhaber.substack.com',
-      platform:  'Newsletter - Substack',
-      topic:     'Pop Culture',
-      geography: 'National - US',
-    },
-    {
-      name:      'Helena Fitzgerald',
-      channel:   'Griefbacon',
-      link:      'https://griefbacon.substack.com',
-      platform:  'Newsletter - Substack',
-      topic:     'Culture / Essays',
-      geography: 'National - US',
-    },
-    {
-      name:      'Anne Branigin',
-      channel:   'By Anne Branigin',
-      link:      'https://annebranigin.substack.com',
-      platform:  'Newsletter - Substack',
-      topic:     'Culture / Race',
-      geography: 'National - US',
-    },
+    { name: 'Brian Howey',       channel: 'Brian Howey',                  link: 'https://x.com/hwypol',                    platform: 'Social - X',        topic: 'State Politics', geography: 'IN' },
+    { name: 'Bryan Anderson',    channel: 'Anderson Alerts',               link: 'https://andersonalerts.substack.com',      platform: 'Newsletter - Other', topic: 'State Politics', geography: 'NC' },
+    { name: 'Bryan Schott',      channel: 'Utah Political Watch',          link: 'https://utahpolitics.news',                platform: 'Newsletter - Other', topic: 'State Politics', geography: 'UT' },
+    { name: 'Corey Hutchins',    channel: 'Inside the News in Colorado',   link: 'https://coloradomedia.substack.com',       platform: 'Newsletter - Other', topic: 'State Politics', geography: 'CO' },
+    { name: 'Dan Shafer',        channel: 'The Recombobulation Area',      link: 'https://www.therecombobulationarea.news',  platform: 'Newsletter - Other', topic: 'State Politics', geography: 'WI' },
+    { name: 'David Wildstein',   channel: 'New Jersey Globe',              link: 'https://newjerseyglobe.com',               platform: 'Website',            topic: 'State Politics', geography: 'NJ' },
+    { name: 'Dermot Cole',       channel: 'Reporting from Alaska',         link: 'https://www.dermotcole.com',               platform: 'Website',            topic: 'State Politics', geography: 'AK' },
+    { name: 'Jamie Dupree',      channel: 'Regular Order',                 link: 'https://jamiedupree.substack.com',         platform: 'Newsletter - Other', topic: 'State Politics', geography: 'National' },
+    { name: 'Jeff Eager',        channel: 'The Oregon Roundup',            link: 'https://oregonroundup.com',                platform: 'Website',            topic: 'State Politics', geography: 'OR' },
+    { name: 'Jeremy Markovich',  channel: 'North Carolina Rabbit Hole',    link: 'https://ncrabbithole.com',                 platform: 'Newsletter - Other', topic: 'State Politics', geography: 'NC' },
+    { name: 'Matt Buxton',       channel: 'The Alaska Memo',               link: 'https://www.akmemo.com',                   platform: 'Newsletter - Other', topic: 'State Politics', geography: 'AK' },
+    { name: 'Nat Herz',          channel: 'Northern Journal',              link: 'https://www.northernjournal.com',          platform: 'Newsletter - Other', topic: 'State Politics', geography: 'AK' },
+    { name: 'Patrick Pfingsten', channel: 'The Illinoize',                 link: 'https://www.theillinoize.com',             platform: 'Website',            topic: 'State Politics', geography: 'IL' },
+    { name: 'Paul Queary',       channel: 'The Washington Observer',       link: 'https://washingtonobserver.substack.com', platform: 'Newsletter - Other', topic: 'State Politics', geography: 'WA' },
+    { name: 'Rich Miller',       channel: 'Capitol Fax',                   link: 'https://capitolfax.com',                   platform: 'Website',            topic: 'State Politics', geography: 'IL' },
+    { name: 'Ross Barkan',       channel: 'Political Currents',            link: 'https://rosselliotbarkan.com',             platform: 'Newsletter - Other', topic: 'State Politics', geography: 'National' },
+    { name: 'Scott Braddock',    channel: 'Quorum Report',                 link: 'https://quorumreport.com',                 platform: 'Website',            topic: 'State Politics', geography: 'TX' },
   ],
 };
 
@@ -465,7 +364,6 @@ function renderHeroRight() {
 function renderCreators() {
   if (PARTNER_CONFIG.hasGroups) {
     // hasGroups: true is stubbed — see partner-icfj.html for reference implementation
-    // When implemented: sticky region-nav tabs, IntersectionObserver, 2-col grid per group
     document.getElementById('creator-grid').innerHTML =
       '<p style="padding: 24px; color: #888;">hasGroups: true — not yet implemented in this shell.</p>';
     return;
