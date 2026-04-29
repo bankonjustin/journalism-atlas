@@ -1,0 +1,255 @@
+/* =====================================================
+   SHARED SITE HEADER — loaded on every page
+   Requires variables.css to be loaded first.
+   HTML injected by assets/js/header.js
+   ===================================================== */
+
+/* ── Desktop nav ── */
+.top-nav {
+    background-color: var(--white);
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease,
+                border-bottom-color 0.3s ease;
+}
+
+.top-nav.scrolled {
+    padding: 0.5rem 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border-bottom-color: #e5e5e5;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo-search {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex: 1;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--black);
+    transition: all 0.3s ease;
+}
+
+.nav-logo img {
+    height: 40px;
+    width: auto;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+}
+
+.top-nav.scrolled .nav-logo img {
+    height: 32px;
+}
+
+.nav-search-container {
+    position: relative;
+    flex: 1;
+    max-width: 280px;
+}
+
+.nav-search {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.nav-search:focus {
+    outline: var(--focus-ring-light);
+    outline-offset: var(--focus-ring-offset);
+    border-color: var(--lime-green);
+    box-shadow: 0 0 0 3px rgba(151, 214, 0, 0.15);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--dark-gray);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    transition: color 0.25s ease;
+    letter-spacing: 0.01em;
+}
+
+.nav-link:hover {
+    color: var(--black);
+}
+
+/* ── Mobile hamburger button ── */
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--dark-gray);
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+.mobile-menu-button .material-symbols-outlined {
+    font-size: 28px;
+}
+
+/* ── Mobile menu overlay + drawer ── */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+
+.mobile-menu-overlay.active {
+    display: block;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    max-width: 85vw;
+    height: 100%;
+    background-color: var(--white);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-menu-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu-close {
+    background: none;
+    border: none;
+    color: var(--dark-gray);
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+}
+
+.mobile-menu-close .material-symbols-outlined {
+    font-size: 26px;
+}
+
+.mobile-menu-links {
+    padding: 0.5rem 0;
+}
+
+.mobile-menu-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    color: var(--black);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+    min-height: 48px;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link:active {
+    background-color: var(--light-gray);
+    border-left-color: var(--lime-green);
+}
+
+/* ── Footer wordmark ── */
+/* Eliminates the L-shaped white artifact (border/shadow on img element)
+   and standardises the rendered height to match the header logo. */
+.footer-logo img,
+.site-footer .wordmark img,
+.site-footer .footer-logo img {
+    height: 40px;
+    width: auto;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .top-nav {
+        padding: 0.75rem 1rem;
+    }
+
+    .top-nav.scrolled {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-logo-search {
+        gap: 0.75rem;
+    }
+
+    .nav-logo img {
+        height: 32px;
+    }
+
+    .top-nav.scrolled .nav-logo img {
+        height: 28px;
+    }
+
+    .nav-search {
+        font-size: 14px;
+        padding: 0.5rem 0.75rem;
+    }
+}
