@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make a Starter Pack — Independent Journalism Atlas</title>
+    <meta property="og:url" content="https://journalismatlas.com/pack">
+    <meta property="og:title" content="Make a Starter Pack — Independent Journalism Atlas">
+    <meta property="og:description" content="Discover 1,180+ independent creator-journalists across every beat, platform, and geography.">
+    <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+    <meta property="og:type" content="website">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://journalismatlas.com/pack">
+    <meta property="twitter:title" content="Make a Starter Pack — Independent Journalism Atlas">
+    <meta property="twitter:description" content="Discover 1,180+ independent creator-journalists across every beat, platform, and geography.">
+    <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
     <meta name="description" content="Curate your favourite independent journalists and share them as a postcard. 1,000+ creators across newsletters, podcasts, video, and more.">
     <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,29 +43,11 @@
             color: var(--white);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+        
+            padding-top: 72px;
         }
 
         /* ── Nav ─────────────────────────────────────────────────────── */
-        .nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 200;
-            padding: 18px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(to bottom, rgba(13,13,13,0.95) 0%, transparent 100%);
-        }
-        .nav-logo img { height: 28px; opacity: 0.9; }
-        .nav-link {
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            letter-spacing: 0.3px;
-            transition: color 0.2s;
-        }
-        .nav-link:hover { color: var(--white); }
 
         /* ── Referral welcome banner ──────────────────────────────────── */
         .ref-banner {
@@ -1095,7 +1087,6 @@
             .hero-headline { letter-spacing: -1px; }
             .how-inner { flex-direction: column; gap: 24px; }
             .how-step + .how-step { padding-left: 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; }
-            .nav { padding: 16px 20px; }
         }
     </style>
     <link rel="stylesheet" href="/assets/css/header.css">
@@ -1111,13 +1102,6 @@
     <button class="ref-banner-dismiss" onclick="dismissRefBanner()" aria-label="Dismiss">×</button>
 </div>
 
-<!-- Nav -->
-<nav class="nav">
-    <a href="index.html" class="nav-logo">
-        <img src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Independent Journalism Atlas">
-    </a>
-    <a href="index.html" class="nav-link">← Explore the Atlas</a>
-</nav>
 
 <!-- Hero -->
 <section class="hero">

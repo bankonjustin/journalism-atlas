@@ -11,7 +11,7 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://journalismatlas.com/how-we-did-this.html">
+    <meta property="og:url" content="https://journalismatlas.com/how-we-did-this">
     <meta property="og:title" content="How We Did This - Independent Journalism Atlas">
     <meta property="og:description" content="Learn about our methodology for building the Independent Journalism Atlas, including our data collection, verification process, and research approach.">
     <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
@@ -29,6 +29,7 @@
 
     <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
     <style>
+        /* legacy top-nav CSS removed — header now injected via header.js */
         :root {
             --black: #000000;
             --white: #FFFFFF;
@@ -52,61 +53,13 @@
         }
 
         /* Navigation */
-        .top-nav {
-            background-color: var(--black);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 3px solid var(--acid-green);
-        }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--white);
-        }
 
-        .nav-logo-circle {
-            width: 32px;
-            height: 32px;
-            color: var(--acid-green);
-        }
 
-        .nav-logo-text {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
 
-        .nav-link {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 400;
-            transition: color 0.25s ease;
-            letter-spacing: 0.01em;
-        }
 
-        .nav-link:hover {
-            color: var(--acid-green);
-        }
 
         /* Main Content */
         .content-wrapper {
@@ -273,9 +226,6 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
 
             .footer-content {
                 grid-template-columns: 1fr;

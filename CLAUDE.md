@@ -36,17 +36,29 @@ All visual implementation references `DESIGN-TOKENS.md` at the project root as t
 
 ```
 assets/css/variables.css   ← THE canonical token file (implements DESIGN-TOKENS.md)
-assets/css/main.css        ← Primary stylesheet for index.html
+assets/css/header.css      ← Shared site header + footer wordmark styles (all pages)
+assets/css/main.css        ← Primary stylesheet for index.html only
 assets/css/animations.css  ← Standalone animation keyframes
 ```
 
 **Load order in every page `<head>`:**
 ```html
 <link rel="stylesheet" href="assets/css/variables.css">  <!-- FIRST -->
-<link rel="stylesheet" href="assets/css/main.css">       <!-- or page-specific CSS -->
+<!-- page inline <style> block (if any) -->
+<link rel="stylesheet" href="/assets/css/header.css">    <!-- LAST in <head> — overrides inline nav CSS -->
 ```
 
-Pages with inline `<style>` blocks (postcard.html, partners/*.html, city-lab-chicago.html, latin-america-lab.html) also link variables.css before their inline block.
+`header.css` uses absolute paths (`/assets/...`) and must be the last stylesheet in `<head>` so it wins cascade over any inline nav styles.
+
+**Shared header component:**
+The site header is injected via `assets/js/header.js` — a self-contained script that:
+- Inserts the `<nav class="top-nav">` HTML as the first element in `<body>`
+- Wires up mobile menu, scroll-shrink, and search navigation
+- Injects Hanken Grotesk + Material Symbols fonts if not already loaded
+
+`header.js` is loaded as the **first** `<script>` tag in `<body>` on every page. Do not duplicate nav HTML manually — edit `header.js` to change nav content.
+
+Pages with inline `<style>` blocks (postcard.html, partners/*.html, city-lab-chicago.html, latin-america-lab.html) link variables.css before their inline block, and header.css after it (before `</head>`).
 
 ### How to use DESIGN-TOKENS.md in a session
 
@@ -62,6 +74,19 @@ Before writing any CSS or styling-related code, read the relevant section of `DE
 - Visualization color array (`ATLAS_VIZ_COLORS`) — assignments per topic category pending
 - Full card vs. small card definitions in the postcard system
 - Any new component type not already defined in the tokens doc
+
+---
+
+## URL Structure
+
+Canonical URLs use **no `.html` extension** (Cloudflare Pages clean URLs):
+- Home: `https://journalismatlas.com/`
+- Root pages: `https://journalismatlas.com/[stem]` (e.g. `/who-we-are`, `/research`)
+- Partner pages: `https://journalismatlas.com/partners/[slug]`
+
+`og:url`, `og:canonical`, and Twitter meta tags must match these clean URLs — no `.html` suffix.
+
+Redirects live in `_redirects` at repo root (Cloudflare Pages format).
 
 ---
 
@@ -128,6 +153,33 @@ Old root-level partner URLs redirect to new paths via `_redirects` at repo root.
 | `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |
 
 All pages above have been swept to the design token system (variables.css linked first, slim `:root` alias block, no canonical token redefinitions inline). Design sweep completed April 2026.
+
+### Internal / dev-only pages (not public-facing — skip OG tags, skip in bulk operations)
+
+| File | Notes |
+|------|-------|
+| `what-we-do.html` | Legacy URL — redirects to `about-this-project.html` via `_redirects` |
+| `about-this-project.html` | Canonical "About This Project" page (replaced what-we-do.html) |
+| `atlas-portal/index.html` | Internal portal |
+| `atlas-portal/google-form-template.html` | Internal template |
+| `bluesky-creator-intelligence.html` | Research/dev — not public |
+| `bluesky-creator-intelligence-v2/v3/v4/v5.html` | Version history — not public |
+| `beat-tech.html`, `beat-climate.html`, `beat-finance.html` | Research pages — not public |
+| `chicago-analysis.html`, `chicago-survey.html` | Internal research — not public |
+| `knight-brief.html`, `atlas-signal-brief.html` | Internal briefs — not public |
+| `index-exploration-V1.html` | Dev experiment — not public |
+| `partners/_shell.html` | Partner page template — not public |
+
+### Logo files (assets/images/logos/)
+
+| File | Use |
+|------|-----|
+| `Journalism_Atlas_wordmark_horizontal_lockup_black.png` | Site header (white background) |
+| `Journalism_Atlas_wordmark_horizontal_lockup_white.png` | Footer (black background) |
+| `Journalism_Atlas_wordmark_stacked_green_white (3).png` | Hero section on index.html |
+| `Journalism_Atlas_logo_acid_green.png` | Icon-only uses |
+
+The `_lockup_` files (no "horizontal" in name) are the old equivalents — prefer the `_horizontal_lockup_` versions going forward.
 
 ---
 
