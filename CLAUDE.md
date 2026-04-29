@@ -113,9 +113,17 @@ Old root-level partner URLs redirect to new paths via `_redirects` at repo root.
 | `postcard.html` | Starter Pack builder | — | Inline `<style>` |
 | `partners/_shell.html` | Partner page shell (template) | — | Inline `<style>` |
 | `partners/cillizza.html` | Chris Cillizza curated list | 17 | Inline `<style>` |
-| `partners/ahp.html` | Anne Helen Petersen curated list | 9 | Inline `<style>` |
+| `partners/ahp.html` | Anne Helen Petersen picks | 17 | Inline `<style>` |
 | `partners/icfj.html` | ICFJ global creator list (LatAm/Africa/MENA) | 21 | Inline `<style>` |
-| `partners/grist.html` | Grist / Jess Stahl climate list | 19 | Inline `<style>` |
+| `partners/news-creator-corps.html` | News Creator Corps curated list | 16 | Inline `<style>` |
+| `partners/joon-lee.html` | Joon Lee sports/culture picks | 14 | Inline `<style>` |
+| `partners/jessica-stahl.html` | Jessica Stahl climate picks | 22 | Inline `<style>` |
+| `partners/knowledge-creators.html` | Knowledge Creators edu-journalism list | 17 | Inline `<style>` |
+| `partners/emily-atkin.html` | Emily Atkin climate picks | 11 | Inline `<style>` |
+| `partners/natgeo.html` | NatGeo creator cohort | 8 | Inline `<style>` |
+| `partners/karen-attiah.html` | Karen Attiah picks | 8 | Inline `<style>` |
+| `partners/rahim-jessani.html` | Rahim Jessani / Bottom Up Media picks | 7 | Inline `<style>` |
+| `partners/noah-smith.html` | Noah Smith economics picks | 8 | Inline `<style>` |
 | `city-lab-chicago.html` | Chicago journalism ecosystem | 245+ | Inline `<style>` + inlined data |
 | `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |
 
