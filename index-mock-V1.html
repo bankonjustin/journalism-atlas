@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Homepage Mock — V1: Intelligence First</title>
+<link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+<link rel="stylesheet" href="assets/css/variables.css">
+<style>
+/* ── RESET ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-primary); font-size: 16px; line-height: 1.5; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+
+/* ── BUTTON COMPONENTS ── */
+/* .btn-acid — dark surfaces only (acid green on black) */
+.btn-acid {
+  background: #ceff00;
+  color: #000;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 11px 24px;
+  border-radius: var(--radius-base);
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: background var(--transition-fast);
+}
+.btn-acid:hover { background: #d8ff33; }
+
+/* .btn-ghost-white — dark surfaces, white outline */
+.btn-ghost-white {
+  border: 1.5px solid rgba(255,255,255,0.35);
+  color: #fff;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: var(--radius-base);
+  display: inline-block;
+  transition: border-color var(--transition-fast);
+}
+.btn-ghost-white:hover { border-color: #fff; }
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 1: HERO
+   ══════════════════════════════════════════════════════════ */
+.hero {
+  display: grid;
+  grid-template-columns: 52fr 48fr;
+  min-height: 540px;
+}
+
+/* Left text panel */
+.hero-left {
+  background: #000;
+  padding: 64px 56px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #1a1a1a;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #ceff00;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 28px;
+}
+.hero-headline {
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+.hero-subhead {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.75;
+  max-width: 460px;
+  margin-top: 24px;
+}
+.hero-subhead strong {
+  color: #fff;
+  font-weight: 700;
+}
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+
+/* Right canvas panel */
+.hero-right {
+  position: relative;
+  overflow: hidden;
+  background: #060610;
+  min-height: 540px;
+}
+.viz-label {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.22);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  z-index: 2;
+  pointer-events: none;
+}
+#hero-b-canvas {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+#hero-b-tooltip {
+  display: none;
+  position: absolute;
+  background: rgba(8,8,18,0.94);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  padding: 9px 12px;
+  pointer-events: none;
+  z-index: 10;
+  max-width: 200px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+#hero-b-tooltip strong {
+  font-size: 12px;
+  color: #fff;
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+#hero-b-tooltip .tt-channel {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+#hero-b-tooltip .tt-cluster {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 2: STAT STRIP
+   ══════════════════════════════════════════════════════════ */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: #fff;
+  border-bottom: 1px solid #d4d4d8;
+}
+.stat-cell {
+  padding: 24px 28px 20px;
+  border-right: 1px solid #d4d4d8;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-num.green { color: #97d600; }
+.stat-num.dark  { color: #000; }
+.stat-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #888;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.55;
+}
+.stat-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #5d7400;
+  font-weight: 500;
+  margin-top: 3px;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 3: INTELLIGENCE CLUSTER STRIP
+   ══════════════════════════════════════════════════════════ */
+.intel-section {
+  background: #efeff2;
+  padding: 56px 40px;
+}
+.intel-section-header {
+  margin-bottom: 24px;
+}
+.intel-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+}
+.intel-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.intel-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.7;
+  max-width: 560px;
+}
+.intel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.cluster-card {
+  background: #fff;
+  border: 0.5px solid #d4d4d8;
+  border-radius: 6px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+.cluster-card:hover { border-color: #b0b0b8; }
+.cluster-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+.cluster-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.01em;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+.cluster-count {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.cluster-count-n {
+  font-family: 'DM Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #97d600;
+}
+.cluster-count-lbl {
+  font-size: 11px;
+  color: #aaa;
+  font-weight: 400;
+}
+.fp-bar {
+  height: 4px;
+  border-radius: 3px;
+  display: flex;
+  overflow: hidden;
+  gap: 1px;
+  margin-bottom: 6px;
+}
+.fp-seg {
+  height: 100%;
+  border-radius: 1px;
+  min-width: 2px;
+}
+.fp-labels {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.fp-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.fp-swatch {
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.cluster-creators {
+  border-top: 1px solid #e8e8eb;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.cluster-creator-name {
+  font-size: 11px;
+  color: #555;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.intel-footer {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}
+.intel-footer a {
+  color: #5d7400;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 4: GUIDED PATHS
+   ══════════════════════════════════════════════════════════ */
+.guided-section {
+  background: #000;
+  padding: 56px 40px;
+  border-top: 1px solid #1a1a1a;
+}
+.guided-header {
+  margin-bottom: 32px;
+}
+.guided-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+}
+.guided-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.guided-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  max-width: 520px;
+  line-height: 1.7;
+}
+.guided-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.guided-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 6px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.guided-card:hover {
+  background: #161616;
+  border-color: #333;
+}
+.gc-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #ceff00;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.gc-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.gc-body {
+  font-size: 13px;
+  color: rgba(255,255,255,0.42);
+  line-height: 1.65;
+  flex: 1;
+}
+.gc-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #ceff00;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 5: PARTNER STRIP
+   ══════════════════════════════════════════════════════════ */
+.partner-section {
+  background: #f5f5f7;
+  padding: 32px 40px;
+  border-top: 1px solid #d4d4d8;
+  border-bottom: 1px solid #d4d4d8;
+}
+.partner-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 20px;
+}
+.partner-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.partner-slot {
+  padding: 10px 28px;
+  border-right: 1px solid #d4d4d8;
+}
+.partner-slot:first-child { padding-left: 0; }
+.partner-slot:last-child  { border-right: none; }
+.partner-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+}
+.partner-placeholder {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1.5px dashed #d4d4d8;
+  padding: 7px 18px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.partner-footer {
+  margin-top: 18px;
+  font-size: 12px;
+  color: #888;
+}
+.partner-footer a {
+  color: #5d7400;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION 6: DATABASE ENTRY
+   ══════════════════════════════════════════════════════════ */
+.db-section {
+  background: #efeff2;
+  padding: 64px 40px 80px;
+}
+.db-header {
+  margin-bottom: 20px;
+}
+.db-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.db-header p {
+  font-size: 14px;
+  color: #666;
+}
+.db-filter-bar {
+  background: #fff;
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.db-filter-select {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  color: #555;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  padding: 6px 10px;
+  background: #fff;
+  cursor: pointer;
+}
+.db-filter-input {
+  flex: 1;
+  min-width: 160px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  padding: 6px 10px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.db-filter-input:focus { border-color: #97d600; }
+.db-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.db-card {
+  background: #fff;
+  border: 0.5px solid #d4d4d8;
+  border-radius: 6px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-fast);
+}
+.db-card:hover { border-color: #b0b0b8; }
+.db-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.01em;
+}
+.db-card-pub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #888;
+  margin-top: 1px;
+}
+.db-card-pills {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.db-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.db-pill.platform {
+  background: #000;
+  color: #fff;
+}
+.db-pill.topic {
+  border: 1px solid #d4d4d8;
+  color: #666;
+}
+.db-cta {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+.btn-lime-lg {
+  background: #97d600;
+  color: #313131;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 13px 32px;
+  border-radius: 6px;
+  border: 1.5px solid #5d7400;
+  display: inline-block;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.btn-lime-lg:hover { background: #5d7400; color: #fff; }
+</style>
+<link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 1: HERO
+     ══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <!-- Left: Text Panel -->
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">Independent Journalism Atlas · April 2026</div>
+      <h1 class="hero-headline">The map of<br>independent journalism.</h1>
+      <p class="hero-subhead">
+        More than 1,200 journalists have built their own platforms outside
+        legacy media — newsletters, video channels, podcasts, websites.
+        The Atlas finds them, verifies them, and makes them discoverable.
+        <strong>This is what the ecosystem actually looks like.</strong>
+      </p>
+    </div>
+    <div class="hero-ctas">
+      <a href="/" class="btn-acid">Explore the Atlas →</a>
+      <a href="/postcard" class="btn-ghost-white">Build a Starter Pack</a>
+    </div>
+  </div>
+  <!-- Right: Animated Dot-Cluster Canvas (Hero B — copied verbatim from index-exploration-V1.html) -->
+  <div class="hero-right">
+    <span class="viz-label">1,200+ verified creators · 9 topic clusters</span>
+    <canvas id="hero-b-canvas"></canvas>
+    <div id="hero-b-tooltip">
+      <strong id="tt-name"></strong>
+      <span class="tt-channel" id="tt-channel"></span>
+      <span class="tt-cluster" id="tt-cluster"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 2: STAT STRIP
+     ══════════════════════════════════════════════════════════ -->
+<section class="stat-strip">
+  <div class="stat-cell">
+    <div class="stat-num green">1,200+</div>
+    <div class="stat-lbl">Verified creators</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">50</div>
+    <div class="stat-lbl">US states covered</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">80+</div>
+    <div class="stat-lbl">Countries represented</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">6</div>
+    <div class="stat-lbl">Primary platforms tracked</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num green">353</div>
+    <div class="stat-lbl">RSS feeds in Atlas Pulse</div>
+    <div class="stat-sub">→ what they're publishing now</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 3: INTELLIGENCE CLUSTER STRIP
+     ══════════════════════════════════════════════════════════ -->
+<section class="intel-section">
+  <div class="intel-section-header">
+    <div class="intel-eyebrow">Atlas Intelligence</div>
+    <div class="intel-title">The independent journalism ecosystem, by beat</div>
+    <div class="intel-desc">The Atlas is organized into 9 topic clusters. Each cluster is a community of independent journalists covering the same terrain — different platforms, same beat.</div>
+  </div>
+  <div class="intel-grid">
+
+    <!-- Politics -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#e63946;"></div>
+      <div class="cluster-name">Politics</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">161</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:42%;background:#e63946;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:35%;background:#e63946;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:14%;background:#e63946;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:9%;background:#e63946;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:1.0;"></span>Newsletter 68</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:0.65;"></span>Video 56</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:0.4;"></span>Website 22</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Aaron Rupar</span>
+        <span class="cluster-creator-name">Chris Cillizza</span>
+        <span class="cluster-creator-name">Judd Legum</span>
+      </div>
+    </a>
+
+    <!-- Tech & Business -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#457b9d;"></div>
+      <div class="cluster-name">Tech &amp; Business</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">192</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:45%;background:#457b9d;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:40%;background:#457b9d;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:10%;background:#457b9d;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:5%;background:#457b9d;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:1.0;"></span>Newsletter 86</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:0.65;"></span>Video 77</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:0.4;"></span>Website 19</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Casey Newton</span>
+        <span class="cluster-creator-name">Marques Brownlee</span>
+        <span class="cluster-creator-name">Kyla Scanlon</span>
+      </div>
+    </a>
+
+    <!-- Culture -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#c77dff;"></div>
+      <div class="cluster-name">Culture</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">174</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:50%;background:#c77dff;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:35%;background:#c77dff;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:10%;background:#c77dff;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:5%;background:#c77dff;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:1.0;"></span>Newsletter 87</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:0.65;"></span>Video 61</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:0.4;"></span>Podcast 17</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Alicia Kennedy</span>
+        <span class="cluster-creator-name">Hunter Harris</span>
+        <span class="cluster-creator-name">Anne Helen Petersen</span>
+      </div>
+    </a>
+
+    <!-- Climate & Science -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#2d6a4f;"></div>
+      <div class="cluster-name">Climate &amp; Science</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">127</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:62%;background:#2d6a4f;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:26%;background:#2d6a4f;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:11%;background:#2d6a4f;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:1%;background:#2d6a4f;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:1.0;"></span>Newsletter 76</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:0.65;"></span>Video 32</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:0.4;"></span>Podcast 13</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Emily Atkin</span>
+        <span class="cluster-creator-name">Bill McKibben</span>
+        <span class="cluster-creator-name">Andrew Dessler</span>
+      </div>
+    </a>
+
+    <!-- Local News -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#ffd166;"></div>
+      <div class="cluster-name">Local News</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">107</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:57%;background:#ffd166;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:31%;background:#ffd166;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:11%;background:#ffd166;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:1%;background:#ffd166;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:1.0;"></span>Newsletter 59</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.65;"></span>Video 32</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.4;"></span>Website 11</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Mosheh Oinounou</span>
+        <span class="cluster-creator-name">Charlie Meyerson</span>
+        <span class="cluster-creator-name">Alissa Walker</span>
+      </div>
+    </a>
+
+    <!-- Media & Power -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#f4a261;"></div>
+      <div class="cluster-name">Media &amp; Power</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">121</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:61%;background:#f4a261;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:25%;background:#f4a261;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:13%;background:#f4a261;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:1%;background:#f4a261;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:1.0;"></span>Newsletter 74</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:0.65;"></span>Video 31</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:0.4;"></span>Podcast 16</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Oliver Darcy</span>
+        <span class="cluster-creator-name">Alec Karakatsanis</span>
+        <span class="cluster-creator-name">Brian Morrissey</span>
+      </div>
+    </a>
+
+    <!-- Health -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#06d6a0;"></div>
+      <div class="cluster-name">Health</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">60</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:63%;background:#06d6a0;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:23%;background:#06d6a0;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:13%;background:#06d6a0;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:1%;background:#06d6a0;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:1.0;"></span>Newsletter 38</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:0.65;"></span>Podcast 14</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:0.4;"></span>Video 8</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Katelyn Jetelina</span>
+        <span class="cluster-creator-name">Dr. Jen Gunter</span>
+        <span class="cluster-creator-name">Aaron Carroll</span>
+      </div>
+    </a>
+
+    <!-- Food & Lifestyle -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#ff9f1c;"></div>
+      <div class="cluster-name">Food &amp; Lifestyle</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">138</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:59%;background:#ff9f1c;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:29%;background:#ff9f1c;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:11%;background:#ff9f1c;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:1%;background:#ff9f1c;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:1.0;"></span>Newsletter 82</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:0.65;"></span>Video 41</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:0.4;"></span>Podcast 15</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Alicia Kennedy</span>
+        <span class="cluster-creator-name">Charlotte Wilder</span>
+        <span class="cluster-creator-name">Andrew Janjigian</span>
+      </div>
+    </a>
+
+    <!-- World News -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#118ab2;"></div>
+      <div class="cluster-name">World News</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">53</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:58%;background:#118ab2;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:26%;background:#118ab2;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:15%;background:#118ab2;opacity:0.4;"></div>
+        <div class="fp-seg" style="width:1%;background:#118ab2;opacity:0.2;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:1.0;"></span>Newsletter 31</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.65;"></span>Video 14</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.4;"></span>Website 8</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Tim Mak</span>
+        <span class="cluster-creator-name">Bill Bishop</span>
+        <span class="cluster-creator-name">Bisan Owda</span>
+      </div>
+    </a>
+
+  </div><!-- /intel-grid -->
+  <div class="intel-footer">
+    <a href="/">Filter by topic in the full database →</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 4: GUIDED PATHS
+     ══════════════════════════════════════════════════════════ -->
+<section class="guided-section">
+  <div class="guided-header">
+    <div class="guided-eyebrow">Where do you want to start?</div>
+    <div class="guided-title">The Atlas is built for different kinds of work</div>
+    <p class="guided-desc">Not everyone arrives at the Atlas the same way. Some are looking for voices to follow. Some are mapping the ecosystem. Some are building on it.</p>
+  </div>
+  <div class="guided-grid">
+    <a href="/" class="guided-card">
+      <div class="gc-eyebrow">For Readers</div>
+      <div class="gc-title">I'm looking for new sources to follow</div>
+      <p class="gc-body">Browse by topic, platform, or geography. Find journalists covering the beats you care about — and discover voices you haven't heard yet.</p>
+      <div class="gc-link">Browse the Atlas →</div>
+    </a>
+    <a href="/" class="guided-card">
+      <div class="gc-eyebrow">For Journalists &amp; Researchers</div>
+      <div class="gc-title">I'm mapping the independent journalism landscape</div>
+      <p class="gc-body">Full database with advanced filters — platform, geography, topic, reach. Build reports, find sources, understand the ecosystem.</p>
+      <div class="gc-link">Open the full database →</div>
+    </a>
+    <a href="/" class="guided-card">
+      <div class="gc-eyebrow">For Funders &amp; Partners</div>
+      <div class="gc-title">I'm interested in supporting independent journalism</div>
+      <p class="gc-body">The Atlas works with foundations, newsrooms, and organizations to surface and amplify independent journalism infrastructure.</p>
+      <div class="gc-link">Learn about partnerships →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 5: PARTNER STRIP
+     ══════════════════════════════════════════════════════════ -->
+<section class="partner-section">
+  <div class="partner-eyebrow">Curated lists from our partners</div>
+  <div class="partner-row">
+    <div class="partner-slot">
+      <span class="partner-name">Chris Cillizza</span>
+    </div>
+    <div class="partner-slot">
+      <span class="partner-name">Grist</span>
+    </div>
+    <div class="partner-slot">
+      <span class="partner-name">ICFJ</span>
+    </div>
+    <div class="partner-slot">
+      <span class="partner-placeholder">Partner slot</span>
+    </div>
+    <div class="partner-slot">
+      <span class="partner-placeholder">Partner slot</span>
+    </div>
+    <div class="partner-slot">
+      <span class="partner-placeholder">Partner slot</span>
+    </div>
+  </div>
+  <div class="partner-footer">
+    <a href="/who-we-are">Become an Atlas partner →</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 6: DATABASE ENTRY (BOTTOM)
+     ══════════════════════════════════════════════════════════ -->
+<section class="db-section">
+  <div class="db-header">
+    <h2>Start exploring the Atlas</h2>
+    <p>1,200+ verified creators. Filter by topic, platform, or geography — or search by name.</p>
+  </div>
+  <div class="db-filter-bar">
+    <select class="db-filter-select">
+      <option>All Topics</option>
+      <option>Politics</option>
+      <option>Tech &amp; Business</option>
+      <option>Culture</option>
+      <option>Local News</option>
+      <option>Climate &amp; Science</option>
+      <option>Media &amp; Power</option>
+      <option>Health</option>
+      <option>Food &amp; Lifestyle</option>
+      <option>World News</option>
+    </select>
+    <select class="db-filter-select">
+      <option>All Platforms</option>
+      <option>Newsletter</option>
+      <option>Video</option>
+      <option>Podcast</option>
+      <option>Website</option>
+    </select>
+    <input class="db-filter-input" type="text" placeholder="Search by name…">
+  </div>
+  <div class="db-cards">
+    <!-- 1 -->
+    <div class="db-card">
+      <div class="db-card-name">Casey Newton</div>
+      <div class="db-card-pub">Platformer</div>
+      <div class="db-card-pills">
+        <span class="db-pill platform">Newsletter</span>
+        <span class="db-pill topic">Tech &amp; Business</span>
+      </div>
+    </div>
+    <!-- 2 -->
+    <div class="db-card">
+      <div class="db-card-name">Emily Atkin</div>
+      <div class="db-card-pub">Heated</div>
+      <div class="db-card-pills">
+        <span class="db-pill platform">Newsletter</span>
+        <span class="db-pill topic">Climate &amp; Science</span>
+      </div>
+    </div>
+    <!-- 3 -->
+    <div class="db-card">
+      <div class="db-card-name">Aaron Parnas</div>
+      <div class="db-card-pub">Aaron Parnas</div>
+      <div class="db-card-pills">
+        <span class="db-pill platform">Video</span>
+        <span class="db-pill topic">Politics</span>
+      </div>
+    </div>
+    <!-- 4 -->
+    <div class="db-card">
+      <div class="db-card-name">Katelyn Jetelina</div>
+      <div class="db-card-pub">Your Local Epidemiologist</div>
+      <div class="db-card-pills">
+        <span class="db-pill platform">Newsletter</span>
+        <span class="db-pill topic">Health</span>
+      </div>
+    </div>
+    <!-- 5 -->
+    <div class="db-card">
+      <div class="db-card-name">Mosheh Oinounou</div>
+      <div class="db-card-pub">Mo News</div>
+      <div class="db-card-pills">
+        <span class="db-pill platform">Video</span>
+        <span class="db-pill topic">Local News</span>
+      </div>
+    </div>
+    <!-- 6 -->
+    <div class="db-card">
+      <div class="db-card-name">Ryan Broderick</div>
+      <div class="db-card-pub">Garbage Day</div>
+      <div class="db-card-pills">
+        <span class="db-pill platform">Newsletter</span>
+        <span class="db-pill topic">Media &amp; Power</span>
+      </div>
+    </div>
+  </div>
+  <div class="db-cta">
+    <a href="/" class="btn-lime-lg">Explore all 1,200+ creators →</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     JS — Canvas viz data + engine (copied verbatim from index-exploration-V1.html)
+     ══════════════════════════════════════════════════════════ -->
+<script>
+/* ════════════════════════════════════════════════════════════
+   DATA — Atlas topic clusters (adapted from creators-data.json)
+   ════════════════════════════════════════════════════════════ */
+const CREATORS = [{"name":"Adam Cole","channel":"Howtown","topic":"Climate & Science","platform":"Video"},{"name":"Emily Atkin","channel":"Heated","topic":"Climate & Science","platform":"Newsletter"},{"name":"Johnny Harris","channel":"Johnny Harris","topic":"Climate & Science","platform":"Video"},{"name":"Joss Fong","channel":"Howtown","topic":"Climate & Science","platform":"Video"},{"name":"Kahlil Greene","channel":"Gen Z Historian","topic":"Climate & Science","platform":"Video"},{"name":"Phil Edwards","channel":"Phil Edwards","topic":"Climate & Science","platform":"Video"},{"name":"Sam Ellis","channel":"Search Party","topic":"Climate & Science","platform":"Video"},{"name":"Adam Mastroianni","channel":"Experimental History","topic":"Climate & Science","platform":"Newsletter"},{"name":"Alex Steffen","channel":"The Snap Forward","topic":"Climate & Science","platform":"Newsletter"},{"name":"Alexander C. Kaufman","channel":"FIELD NOTES","topic":"Climate & Science","platform":"Newsletter"},{"name":"Amy Westervelt","channel":"Drilled","topic":"Climate & Science","platform":"Podcast"},{"name":"Andrew Dessler","channel":"The Climate Brink","topic":"Climate & Science","platform":"Newsletter"},{"name":"Andy Revkin","channel":"Sustain What","topic":"Climate & Science","platform":"Newsletter"},{"name":"Ayana Elizabeth Johnson","channel":"What If We Get It Right?","topic":"Climate & Science","platform":"Newsletter"},{"name":"Bill McKibben","channel":"The Crucial Years","topic":"Climate & Science","platform":"Newsletter"},{"name":"Bill Nye","channel":"Bill Nye","topic":"Climate & Science","platform":"Website"},{"name":"Bill Spindle","channel":"The Energy Adventure(r)","topic":"Climate & Science","platform":"Newsletter"},{"name":"Caroline Saunders","channel":"Pale Blue Tart","topic":"Climate & Science","platform":"Newsletter"},{"name":"Charlie Kilman","channel":"Our Changing Climate","topic":"Climate & Science","platform":"Video"},{"name":"Emily Grubert","channel":"Energy Nerd","topic":"Climate & Science","platform":"Newsletter"},{"name":"Grant Sanderson","channel":"3Blue1Brown","topic":"Climate & Science","platform":"Video"},{"name":"Heatmap News","channel":"Heatmap News","topic":"Climate & Science","platform":"Newsletter"},{"name":"Jesse Jenkins","channel":"Shift Key","topic":"Climate & Science","platform":"Podcast"},{"name":"Kate Mackenzie","channel":"Overheated","topic":"Climate & Science","platform":"Newsletter"},{"name":"Kendra Pierre-Louis","channel":"Heated","topic":"Climate & Science","platform":"Newsletter"},{"name":"Alexios Mantzarlis","channel":"Indicator","topic":"Tech & Business","platform":"Newsletter"},{"name":"Becca Farsace","channel":"Taking Tech Outside","topic":"Tech & Business","platform":"Video"},{"name":"Casey Lewis","channel":"After School","topic":"Tech & Business","platform":"Newsletter"},{"name":"Casey Newton","channel":"Platformer","topic":"Tech & Business","platform":"Newsletter"},{"name":"Cleo Abram","channel":"Huge If True","topic":"Tech & Business","platform":"Video"},{"name":"Craig Silverman","channel":"Indicator","topic":"Tech & Business","platform":"Newsletter"},{"name":"Eric Newcomer","channel":"Newcomer","topic":"Tech & Business","platform":"Newsletter"},{"name":"Kyla Scanlon","channel":"In This Economy?","topic":"Tech & Business","platform":"Video"},{"name":"Marques Brownlee","channel":"MKBHD","topic":"Tech & Business","platform":"Video"},{"name":"Max Read","channel":"Read Max","topic":"Tech & Business","platform":"Newsletter"},{"name":"Parker Molloy","channel":"The Present Age","topic":"Tech & Business","platform":"Newsletter"},{"name":"Ryan Broderick","channel":"Garbage Day","topic":"Tech & Business","platform":"Newsletter"},{"name":"Taylor Lorenz","channel":"UserMag","topic":"Tech & Business","platform":"Newsletter"},{"name":"Adam Tooze","channel":"Chartbook","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alberto Cairo","channel":"Open Visualization Academy","topic":"Tech & Business","platform":"Website"},{"name":"Alex Heath","channel":"Sources","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alex Kantrowitz","channel":"Big Technology","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alex Konrad","channel":"Upstarts Media","topic":"Tech & Business","platform":"Newsletter"},{"name":"Andrew Gelman","channel":"Statistical Modeling","topic":"Tech & Business","platform":"Newsletter"},{"name":"Ben Thompson","channel":"Stratechery","topic":"Tech & Business","platform":"Newsletter"},{"name":"Brian Merchant","channel":"Blood in the Machine","topic":"Tech & Business","platform":"Newsletter"},{"name":"Charlotte Jee","channel":"Future of You","topic":"Tech & Business","platform":"Newsletter"},{"name":"Caitlin Dewey","channel":"Links I Would GChat You","topic":"Tech & Business","platform":"Newsletter"},{"name":"Dan Primack","channel":"Pro Rata","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alicia Kennedy","channel":"From the Desk of Alicia Kennedy","topic":"Culture","platform":"Newsletter"},{"name":"Andy Dehnart","channel":"Reality Blurred","topic":"Culture","platform":"Newsletter"},{"name":"Emily Sundberg","channel":"Feed Me","topic":"Culture","platform":"Newsletter"},{"name":"Erin Reed","channel":"Erin In the Morning","topic":"Culture","platform":"Newsletter"},{"name":"Hunter Harris","channel":"Hung Up","topic":"Culture","platform":"Newsletter"},{"name":"Adrienne Keene","channel":"All My Relations Podcast","topic":"Culture","platform":"Podcast"},{"name":"Allie Jones","channel":"Gossip Time","topic":"Culture","platform":"Newsletter"},{"name":"Alyssa Rosenberg","channel":"Across the Movie Aisle","topic":"Culture","platform":"Newsletter"},{"name":"Amanda Montei","channel":"Mad Woman","topic":"Culture","platform":"Newsletter"},{"name":"Anand Giridharadas","channel":"Anand Giridharadas","topic":"Culture","platform":"Video"},{"name":"Andrew Ricketts","channel":"Big Black Commentary","topic":"Culture","platform":"Newsletter"},{"name":"Anne Helen Petersen","channel":"Culture Study","topic":"Culture","platform":"Newsletter"},{"name":"Becky Bullard","channel":"Democrasexy","topic":"Culture","platform":"Video"},{"name":"Chris Cillizza","channel":"So What","topic":"Politics","platform":"Newsletter"},{"name":"Chris Geidner","channel":"Law Dork","topic":"Politics","platform":"Newsletter"},{"name":"Isaac Saul","channel":"Tangle News","topic":"Politics","platform":"Newsletter"},{"name":"Jessica Valenti","channel":"Abortion Every Day","topic":"Politics","platform":"Newsletter"},{"name":"Judd Legum","channel":"Popular Info","topic":"Politics","platform":"Newsletter"},{"name":"Kyle Tharp","channel":"Chaotic Era","topic":"Politics","platform":"Newsletter"},{"name":"Lisa Remillard","channel":"The News Girl","topic":"Politics","platform":"Video"},{"name":"Marisa Kabas","channel":"The Handbasket","topic":"Politics","platform":"Newsletter"},{"name":"Matt Kiser","channel":"WTF Just Happened Today?","topic":"Politics","platform":"Newsletter"},{"name":"Nathan Tankus","channel":"Notes on the Crisis","topic":"Politics","platform":"Newsletter"},{"name":"Aaron Parnas","channel":"Aaron Parnas","topic":"Politics","platform":"Video"},{"name":"Aaron Rupar","channel":"Public Notice","topic":"Politics","platform":"Newsletter"},{"name":"Adam Mockler","channel":"Adam Mockler","topic":"Politics","platform":"Video"},{"name":"Alastair Campbell","channel":"Rest Is Politics","topic":"Politics","platform":"Video"},{"name":"Andrew Sullivan","channel":"The Weekly Dish","topic":"Politics","platform":"Newsletter"},{"name":"Azi Paybarah","channel":"Azi Paybarah","topic":"Politics","platform":"Newsletter"},{"name":"Briahna Joy Gray","channel":"Bad Faith","topic":"Politics","platform":"Video"},{"name":"Brian Tyler Cohen","channel":"Brian Tyler Cohen","topic":"Politics","platform":"Video"},{"name":"Bruce Maples","channel":"Forward Kentucky","topic":"Politics","platform":"Website"},{"name":"Ezra Klein","channel":"The Ezra Klein Show","topic":"Politics","platform":"Podcast"},{"name":"Katelyn Jetelina","channel":"Your Local Epidemiologist","topic":"Health","platform":"Newsletter"},{"name":"Aaron Carroll","channel":"Healthcare Triage","topic":"Health","platform":"Video"},{"name":"Adam Kucharski","channel":"Understanding the Unseen","topic":"Health","platform":"Newsletter"},{"name":"Caitlin Rivers","channel":"Force of Infection","topic":"Health","platform":"Newsletter"},{"name":"Cara Goodwin","channel":"Parenting Translator","topic":"Health","platform":"Newsletter"},{"name":"Dan Harris","channel":"10% Happier","topic":"Health","platform":"Newsletter"},{"name":"Dr. Jen Gunter","channel":"The Vagenda","topic":"Health","platform":"Newsletter"},{"name":"Emily Oster","channel":"Parent Data","topic":"Health","platform":"Website"},{"name":"Esther Perel","channel":"Where Should We Begin?","topic":"Health","platform":"Podcast"},{"name":"Gideon Meyerowitz-Katz","channel":"Health Nerd","topic":"Health","platform":"Newsletter"},{"name":"Jacqueline Nesi","channel":"Techno Sapiens","topic":"Health","platform":"Newsletter"},{"name":"Jeremy Faust","channel":"Inside Medicine","topic":"Health","platform":"Newsletter"},{"name":"Katherine Wu","channel":"The Atlantic","topic":"Health","platform":"Newsletter"},{"name":"Lucia Starbuck","channel":"Lucia Starbuck","topic":"Health","platform":"Video"},{"name":"Matt Brown","channel":"Extra Points","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Sandie S.","channel":"A Dork and Her Fork","topic":"Food & Lifestyle","platform":"Video"},{"name":"Ali Slagle","channel":"40 Ingredients Forever","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Alison Roman","channel":"a newsletter","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Andrew Donlan","channel":"Still Gotta Come Through Chicago","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Andrew Janjigian","channel":"Word Loaf","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Bill Oakley","channel":"That Bill Oakley","topic":"Food & Lifestyle","platform":"Video"},{"name":"Brandon Perna","channel":"Thats Good Sports","topic":"Food & Lifestyle","platform":"Video"},{"name":"Brett Kollmann","channel":"Brett Kollmann","topic":"Food & Lifestyle","platform":"Video"},{"name":"Caroline Chambers","channel":"What to Cook When You Don't Feel Like Cooking","topic":"Food & Lifestyle","platform":"Video"},{"name":"Charlotte Wilder","channel":"Sports Gossip Show","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Chase Vondran","channel":"Explore With Chase","topic":"Food & Lifestyle","platform":"Video"},{"name":"Craig Calcaterra","channel":"Cup of Coffee","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Dani Beckett","channel":"The Sidebar","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"David Chang","channel":"The Dave Chang Show","topic":"Food & Lifestyle","platform":"Podcast"},{"name":"Ed Tipton","channel":"Sports Card Investor","topic":"Food & Lifestyle","platform":"Video"},{"name":"Elazar Sontag","channel":"Eating in Translation","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Evan Andrews","channel":"Time Travelers ONLY","topic":"Food & Lifestyle","platform":"Video"},{"name":"Greta Lee Jackson","channel":"GretaLeeJackson","topic":"Food & Lifestyle","platform":"Video"},{"name":"Hannah Cutting-Jones","channel":"Alimentary","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Mosheh Oinounou","channel":"Mo News","topic":"Local News","platform":"Video"},{"name":"Alex Kellerman","channel":"The F*ckin' News","topic":"Local News","platform":"Video"},{"name":"Alexander Russo","channel":"The Grade","topic":"Local News","platform":"Newsletter"},{"name":"Alissa Walker","channel":"Torched LA","topic":"Local News","platform":"Newsletter"},{"name":"Ambreen Ali","channel":"Central Desi","topic":"Local News","platform":"Newsletter"},{"name":"Andy DeMeo","channel":"Granite Goodness","topic":"Local News","platform":"Newsletter"},{"name":"Annie Dance","channel":"Cops & Congress by Annie Dance","topic":"Local News","platform":"Newsletter"},{"name":"Austin Graff","channel":"Austin K Graff","topic":"Local News","platform":"Video"},{"name":"Brian Skinner","channel":"Marin Buzz","topic":"Local News","platform":"Newsletter"},{"name":"Brianna Wickey","channel":"Scoop Charlotte","topic":"Local News","platform":"Newsletter"},{"name":"Caroline Crampton","channel":"The Browser","topic":"Local News","platform":"Newsletter"},{"name":"Charlie Meyerson","channel":"Chicago Public Square","topic":"Local News","platform":"Newsletter"},{"name":"Charlotte Salley","channel":"Hot Bones","topic":"Local News","platform":"Newsletter"},{"name":"Chris La Tray","channel":"The Irritable Métis","topic":"Local News","platform":"Newsletter"},{"name":"Claudine Zap","channel":"Must Like Fog","topic":"Local News","platform":"Newsletter"},{"name":"Corey Hutchins","channel":"Inside the News in Colorado","topic":"Local News","platform":"Newsletter"},{"name":"Daniel Hernandez","channel":"LA Taco","topic":"Local News","platform":"Newsletter"},{"name":"Defne Gürsoy","channel":"Defne Gürsoy","topic":"Local News","platform":"Newsletter"},{"name":"Ellyn Fortino","channel":"Illinois Policy Institute","topic":"Local News","platform":"Newsletter"},{"name":"Oliver Darcy","channel":"Status","topic":"Media & Power","platform":"Newsletter"},{"name":"A.B. Burns-Tucker","channel":"I am legally hype","topic":"Media & Power","platform":"Video"},{"name":"Abbie Richards","channel":"Tofology","topic":"Media & Power","platform":"Video"},{"name":"Adam Johnson","channel":"Citations Needed","topic":"Media & Power","platform":"Podcast"},{"name":"Adam Klasfeld","channel":"All Rise News","topic":"Media & Power","platform":"Newsletter"},{"name":"Alec Karakatsanis","channel":"Copaganda Newsletter","topic":"Media & Power","platform":"Newsletter"},{"name":"Andrew Callaghan","channel":"Channel 5","topic":"Media & Power","platform":"Video"},{"name":"Anna Pujol-Mazzini","channel":"Good Story","topic":"Media & Power","platform":"Newsletter"},{"name":"Beth Shelburne","channel":"Moth to flame","topic":"Media & Power","platform":"Newsletter"},{"name":"Brian Morrissey","channel":"The Rebooting","topic":"Media & Power","platform":"Newsletter"},{"name":"Brian Reed","channel":"Question Everything","topic":"Media & Power","platform":"Podcast"},{"name":"Cam Rodriguez","channel":"foiaday","topic":"Media & Power","platform":"Newsletter"},{"name":"Catherine Herridge","channel":"Catherine Herridge Reports","topic":"Media & Power","platform":"Newsletter"},{"name":"Cheryl Rofer","channel":"Nuclear Diner","topic":"Media & Power","platform":"Website"},{"name":"Dan Froomkin","channel":"Press Watch","topic":"Media & Power","platform":"Website"},{"name":"Dan Sinker","channel":"The Ongoing History of the Chicago River","topic":"Media & Power","platform":"Newsletter"},{"name":"Danny Gold","channel":"Irregular Warfare","topic":"Media & Power","platform":"Newsletter"},{"name":"Donie O'Sullivan","channel":"Donie O'Sullivan","topic":"Media & Power","platform":"Newsletter"},{"name":"Drew Harwell","channel":"The Monitor","topic":"Media & Power","platform":"Newsletter"},{"name":"Ed Brayton","channel":"Dispatches from the Culture Wars","topic":"Media & Power","platform":"Newsletter"},{"name":"Tim Mak","channel":"The Counteroffensive","topic":"World News","platform":"Newsletter"},{"name":"Alex H","channel":"A Map Nerd","topic":"World News","platform":"Video"},{"name":"Anders Puck Nielsen","channel":"Anders Puck Nielsen","topic":"World News","platform":"Video"},{"name":"Andrew Free","channel":"DetentionKills","topic":"World News","platform":"Newsletter"},{"name":"Angus Hervey","channel":"Fix The News","topic":"World News","platform":"Newsletter"},{"name":"Austin Kocher","channel":"Austin Kocher","topic":"World News","platform":"Newsletter"},{"name":"Bill Bishop","channel":"Sinocism","topic":"World News","platform":"Newsletter"},{"name":"Bisan Owda","channel":"Bisan Owda","topic":"World News","platform":"Video"},{"name":"Branko Milanovic","channel":"Global Inequality and More 3.0","topic":"World News","platform":"Newsletter"},{"name":"Carla Angola","channel":"Carla Angola","topic":"World News","platform":"Video"},{"name":"Chico Felitti","channel":"Chico Felitti","topic":"World News","platform":"Video"},{"name":"Daniel Drezner","channel":"Drezner's World","topic":"World News","platform":"Newsletter"},{"name":"Daniel Larison","channel":"Eunomia","topic":"World News","platform":"Newsletter"},{"name":"Dylan Burns","channel":"DylanBurnsTV","topic":"World News","platform":"Video"},{"name":"Evan Hadfield","channel":"Rare Earth","topic":"World News","platform":"Video"},{"name":"Felipe De La Hoz","channel":"Borderlines","topic":"World News","platform":"Newsletter"},{"name":"Gaby Del Valle","channel":"Borderlines","topic":"World News","platform":"Newsletter"},{"name":"Jake Broe","channel":"Jake Broe","topic":"World News","platform":"Video"},{"name":"Jared Keller","channel":"Laser Wars","topic":"World News","platform":"Newsletter"}];
+
+const TOPIC_CLUSTER = {
+  'Politics': 'Politics',
+  'Tech & Business': 'Tech & Business',
+  'Culture': 'Culture',
+  'Climate & Science': 'Climate & Science',
+  'Health': 'Health',
+  'Food & Lifestyle': 'Food & Lifestyle',
+  'Local News': 'Local News',
+  'Media & Power': 'Media & Power',
+  'World News': 'World News',
+};
+
+const CLUSTERS = {
+  'Politics':         { color: '#e63946', cx: 0.22, cy: 0.18 },
+  'Tech & Business':  { color: '#457b9d', cx: 0.58, cy: 0.12 },
+  'Culture':          { color: '#c77dff', cx: 0.85, cy: 0.24 },
+  'Climate & Science':{ color: '#2d6a4f', cx: 0.90, cy: 0.58 },
+  'Food & Lifestyle': { color: '#f4a261', cx: 0.74, cy: 0.88 },
+  'Local News':       { color: '#ffd166', cx: 0.42, cy: 0.90 },
+  'World News':       { color: '#ef476f', cx: 0.14, cy: 0.80 },
+  'Health':           { color: '#e76f51', cx: 0.06, cy: 0.48 },
+  'Media & Power':    { color: '#6d4c41', cx: 0.38, cy: 0.42 },
+};
+
+const VIZ_ANCHORS = [
+  { name: 'Aaron Rupar',       cluster: 'Politics'          },
+  { name: 'Casey Newton',      cluster: 'Tech & Business'   },
+  { name: 'Alicia Kennedy',    cluster: 'Culture'           },
+  { name: 'Emily Atkin',       cluster: 'Climate & Science' },
+  { name: 'Mosheh Oinounou',   cluster: 'Local News'        },
+  { name: 'Tim Mak',           cluster: 'World News'        },
+  { name: 'Katelyn Jetelina',  cluster: 'Health'            },
+  { name: 'Oliver Darcy',      cluster: 'Media & Power'     },
+  { name: 'Alison Roman',      cluster: 'Food & Lifestyle'  },
+];
+
+/* ════════════════════════════════════════════════════════════
+   VIZ UTILITIES
+   ════════════════════════════════════════════════════════════ */
+function hexAlpha(hex, a) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIZ FACTORY — adapted from bluesky-creator-intelligence-v4.html
+   Uses channel name instead of bsky handle in tooltip
+   ════════════════════════════════════════════════════════════ */
+function buildViz(canvas, tooltip, { startSettled = false, nodeScale = 1.0 } = {}) {
+  const container = canvas.parentElement;
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const w = container.clientWidth;
+    const h = canvas.offsetHeight || container.offsetHeight;
+    canvas.width  = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width  = w + 'px';
+    canvas.style.height = h + 'px';
+    return { w, h, dpr };
+  }
+
+  let { w, h, dpr } = resize();
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const nodes = CREATORS.map(c => {
+    const cluster = TOPIC_CLUSTER[c.topic] || 'Media & Power';
+    const cfg = CLUSTERS[cluster];
+    const angle = Math.random() * Math.PI * 2;
+    const r = (0.15 + Math.random() * 0.35) * Math.min(w, h);
+    const jx = (Math.random() - 0.5) * 44;
+    const jy = (Math.random() - 0.5) * 44;
+    const tx = cfg.cx * w + jx;
+    const ty = cfg.cy * h + jy;
+    return {
+      sx: startSettled ? tx : w / 2 + Math.cos(angle) * r,
+      sy: startSettled ? ty : h / 2 + Math.sin(angle) * r,
+      tx, ty,
+      cx: startSettled ? tx : 0,
+      cy: startSettled ? ty : 0,
+      color: cfg.color,
+      cluster,
+      name: c.name,
+      channel: c.channel,
+      driftPhase: Math.random() * Math.PI * 2,
+      driftAmp:   2 + Math.random() * 3,
+      driftSpeed: 0.4 + Math.random() * 0.6,
+    };
+  });
+
+  const anchorNodes = {};
+  VIZ_ANCHORS.forEach(a => {
+    const node = nodes.find(n => n.name === a.name);
+    if (node) anchorNodes[a.name] = { node, cluster: a.cluster };
+  });
+
+  const START    = performance.now();
+  const ANIM_DUR = 1200;
+  let labelsAlpha = 0;
+  let namesAlpha  = 0;
+  let settled     = startSettled;
+  let hoveredCluster = null;
+  let lockedCluster  = null;
+  const mouse = { x: null, y: null };
+  let rafId;
+
+  function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function getHoverCluster(mx, my) {
+    let nearest = null, minDist = Infinity;
+    Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+      const d = Math.hypot(cfg.cx * w - mx, cfg.cy * h - my);
+      if (d < minDist) { minDist = d; nearest = name; }
+    });
+    return nearest;
+  }
+
+  function drawConnectionLines(cluster) {
+    const clusterNodes = nodes.filter(n => n.cluster === cluster);
+    const cfg = CLUSTERS[cluster];
+    clusterNodes.forEach(a => {
+      clusterNodes
+        .filter(b => b !== a)
+        .map(b => ({ b, dist: Math.hypot(a.cx - b.cx, a.cy - b.cy) }))
+        .sort((x, y) => x.dist - y.dist)
+        .slice(0, 4)
+        .forEach(({ b, dist }) => {
+          const lineAlpha = Math.max(0, (1 - dist / 120)) * 0.2;
+          if (lineAlpha <= 0) return;
+          ctx.beginPath();
+          ctx.moveTo(a.cx, a.cy);
+          ctx.lineTo(b.cx, b.cy);
+          ctx.strokeStyle = hexAlpha(cfg.color, lineAlpha);
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        });
+    });
+  }
+
+  function drawLabelsAndNames() {
+    if (labelsAlpha <= 0) return;
+    const activeCluster = lockedCluster ?? hoveredCluster;
+    const isLocked = lockedCluster !== null;
+    ctx.textAlign = 'center';
+    Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+      const isActive = name === activeCluster;
+      let la, fontSize, fontWeight;
+      if      (activeCluster === null) { la = labelsAlpha; fontSize = '11px'; fontWeight = '600'; }
+      else if (isActive)               { la = 1.0;         fontSize = '14px'; fontWeight = '700'; }
+      else { la = isLocked ? labelsAlpha * 0.12 : labelsAlpha * 0.30; fontSize = '11px'; fontWeight = '600'; }
+      ctx.save();
+      ctx.globalAlpha = la;
+      ctx.font = `${fontWeight} ${fontSize} "DM Mono", monospace`;
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name.toUpperCase(), cfg.cx * w, cfg.cy * h - (isActive ? 20 : 16));
+      ctx.restore();
+    });
+    if (namesAlpha <= 0) return;
+    const activeC = lockedCluster ?? hoveredCluster;
+    ctx.font = '500 13px "Hanken Grotesk", sans-serif';
+    ctx.textAlign = 'center';
+    Object.entries(anchorNodes).forEach(([name, { node, cluster }]) => {
+      const cfg = CLUSTERS[cluster];
+      const na = activeC === null      ? namesAlpha * 0.9
+               : activeC === cluster   ? namesAlpha
+               :                        namesAlpha * 0.05;
+      if (na <= 0.02) return;
+      ctx.save();
+      ctx.globalAlpha = na * 0.75;
+      ctx.fillStyle = 'rgba(8,8,16,0.75)';
+      ctx.fillRect(node.cx - 52, node.cy - 26, 104, 16);
+      ctx.globalAlpha = na;
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name, node.cx, node.cy - 14);
+      ctx.restore();
+    });
+  }
+
+  function draw(now) {
+    ctx.clearRect(0, 0, w, h);
+    const activeCluster = lockedCluster ?? hoveredCluster;
+    const isLocked = lockedCluster !== null;
+
+    if (!settled) {
+      const t  = Math.min((now - START) / ANIM_DUR, 1);
+      const et = easeInOut(t);
+      nodes.forEach(n => {
+        n.cx = n.sx + (n.tx - n.sx) * et;
+        n.cy = n.sy + (n.ty - n.sy) * et;
+        ctx.beginPath();
+        ctx.arc(n.cx, n.cy, 3.8 * nodeScale, 0, Math.PI * 2);
+        ctx.fillStyle = hexAlpha(n.color, 0.72);
+        ctx.fill();
+      });
+      if (t >= 1) settled = true;
+      if (settled) labelsAlpha = Math.min(labelsAlpha + 0.025, 1);
+      if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
+      drawLabelsAndNames();
+    } else {
+      const td = now / 1000;
+      labelsAlpha = Math.min(labelsAlpha + 0.025, 1);
+      if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
+      if (isLocked) drawConnectionLines(lockedCluster);
+      nodes.forEach(n => {
+        n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
+        n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
+        if (mouse.x !== null) {
+          const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < 60 && d > 0) { const f = (1 - d/60) * 18; n.cx += dx/d*f; n.cy += dy/d*f; }
+        }
+        let alpha, radius;
+        if      (activeCluster === null)       { alpha = 0.72; radius = 3.8 * nodeScale; }
+        else if (n.cluster === activeCluster)  { alpha = isLocked ? 1.0  : 0.88; radius = isLocked ? 6.0 * nodeScale : 4.8 * nodeScale; }
+        else                                   { alpha = isLocked ? 0.10 : 0.28; radius = isLocked ? 2.5 * nodeScale : 3.2 * nodeScale; }
+        ctx.beginPath();
+        ctx.arc(n.cx, n.cy, radius, 0, Math.PI * 2);
+        ctx.fillStyle = hexAlpha(n.color, alpha);
+        ctx.fill();
+      });
+      drawLabelsAndNames();
+    }
+    rafId = requestAnimationFrame(draw);
+  }
+
+  rafId = requestAnimationFrame(draw);
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    mouse.x = mx; mouse.y = my;
+    if (lockedCluster === null) hoveredCluster = getHoverCluster(mx, my);
+    let nearest = null, minDist = 22;
+    nodes.forEach(n => {
+      const d = Math.hypot(n.cx - mx, n.cy - my);
+      if (d < minDist) { minDist = d; nearest = n; }
+    });
+    if (nearest) {
+      const cfg = CLUSTERS[nearest.cluster];
+      tooltip.style.display = 'block';
+      tooltip.style.left = Math.min(mx + 14, w - 204) + 'px';
+      tooltip.style.top  = Math.max(my - 14, 4) + 'px';
+      tooltip.innerHTML  = `<strong>${nearest.name}</strong><span class="tt-channel">${nearest.channel}</span><span class="tt-cluster" style="color:${cfg.color}">${nearest.cluster}</span>`;
+    } else {
+      tooltip.style.display = 'none';
+    }
+    canvas.style.cursor = settled ? 'pointer' : 'default';
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+    mouse.x = null; mouse.y = null;
+    canvas.style.cursor = 'default';
+    if (lockedCluster === null) hoveredCluster = null;
+  });
+
+  canvas.addEventListener('click', e => {
+    if (!settled) return;
+    const rect = canvas.getBoundingClientRect();
+    const clicked = getHoverCluster(e.clientX - rect.left, e.clientY - rect.top);
+    lockedCluster  = (clicked === lockedCluster) ? null : clicked;
+    hoveredCluster = lockedCluster === null
+      ? getHoverCluster(e.clientX - rect.left, e.clientY - rect.top)
+      : null;
+  });
+
+  const ro = new ResizeObserver(() => {
+    const dims = resize();
+    w = dims.w; h = dims.h; dpr = dims.dpr;
+    ctx.scale(dpr, dpr);
+    nodes.forEach(n => {
+      const cfg = CLUSTERS[n.cluster];
+      const jx = (Math.random() - 0.5) * 44, jy = (Math.random() - 0.5) * 44;
+      n.tx = cfg.cx * w + jx;
+      n.ty = cfg.cy * h + jy;
+    });
+  });
+  ro.observe(container);
+
+  return { stop: () => cancelAnimationFrame(rafId) };
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  buildViz(
+    document.getElementById('hero-b-canvas'),
+    document.getElementById('hero-b-tooltip'),
+    { startSettled: false }
+  );
+});
+</script>
+</body>
+</html>

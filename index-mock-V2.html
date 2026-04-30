@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Homepage — Mock V2: Audience First</title>
+<link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+<link rel="stylesheet" href="assets/css/variables.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--color-bg, #efeff2); color: var(--color-text, #313131); font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 16px; line-height: 1.5; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+
+/* ── BUTTONS ── */
+.btn-lime {
+  background: #97d600;
+  color: #313131;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-lime:hover { background: #5d7400; color: #fff; }
+
+.btn-lime-lg {
+  background: #97d600;
+  color: #313131;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 13px 32px;
+  border-radius: 6px;
+  border: 1.5px solid #5d7400;
+  display: inline-block;
+  transition: background 0.12s, color 0.12s;
+}
+.btn-lime-lg:hover { background: #5d7400; color: #fff; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 1: HERO
+   ═══════════════════════════════════════════════ */
+.hero-v2 {
+  background: #fff;
+  padding: 64px 40px 56px;
+  border-bottom: 1px solid #d4d4d8;
+}
+.hero-v2-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 48px;
+  align-items: center;
+}
+.hero-v2-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #97d600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 16px;
+}
+.hero-v2-h1 {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #000;
+}
+.hero-v2-subhead {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.75;
+  max-width: 480px;
+  margin-top: 20px;
+}
+.hero-v2-ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.hero-v2-text-link {
+  font-size: 13px;
+  color: #5d7400;
+  font-weight: 500;
+  text-decoration: underline;
+  transition: color 0.12s;
+}
+.hero-v2-text-link:hover { color: #000; }
+
+/* Name wall */
+.name-wall {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  align-items: baseline;
+}
+.name-wall a { color: #313131; transition: color 0.12s; }
+.name-wall a:hover { color: #5d7400; }
+.nw-bold { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.nw-med  { font-size: 17px; font-weight: 500; }
+.nw-reg  { font-size: 14px; font-weight: 400; color: #777; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 2: GUIDED PATHS
+   ═══════════════════════════════════════════════ */
+.guided-paths {
+  background: #000;
+  padding: 64px 40px;
+}
+.guided-paths-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.gp-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+}
+.gp-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.gp-subtext {
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.guided-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.guided-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 6px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 3px solid #ceff00;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-decoration: none;
+}
+.guided-card:hover {
+  background: #161616;
+  border-color: #333;
+  border-left-color: #ceff00;
+}
+.gc-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #ceff00;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.gc-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.gc-body {
+  font-size: 14px;
+  color: rgba(255,255,255,0.42);
+  line-height: 1.65;
+  flex: 1;
+}
+.gc-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: #ceff00;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 3: STAT STRIP
+   ═══════════════════════════════════════════════ */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: #fff;
+  border-bottom: 1px solid #d4d4d8;
+}
+.stat-cell {
+  padding: 26px 28px 22px;
+  border-right: 1px solid #d4d4d8;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin-bottom: 7px;
+}
+.stat-num.green { color: #97d600; }
+.stat-num.dark  { color: #313131; }
+.stat-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #888;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.55;
+}
+.stat-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #5d7400;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 4: BEAT CLUSTER TILES
+   ═══════════════════════════════════════════════ */
+.cluster-section {
+  background: #efeff2;
+  padding: 56px 40px;
+}
+.cluster-section-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.cs-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+}
+.cs-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.cs-desc {
+  font-size: 14px;
+  color: #666;
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.cluster-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.cluster-tile {
+  background: #1a1a1a;
+  border-radius: 4px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+.cluster-tile:hover { background: #242424; }
+.ct-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+.ct-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: #ceff00;
+  line-height: 1;
+  margin: 4px 0;
+}
+.ct-count span {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+.ct-creators {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.8;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 10px;
+  margin-top: 6px;
+}
+.cluster-footer {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #888;
+}
+.cluster-footer a { color: #5d7400; font-weight: 500; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 5: PARTNER STRIP
+   ═══════════════════════════════════════════════ */
+.partner-section {
+  background: #f5f5f7;
+  padding: 32px 40px;
+  border-top: 1px solid #d4d4d8;
+  border-bottom: 1px solid #d4d4d8;
+}
+.partner-section-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.partner-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 20px;
+}
+.partner-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.partner-slot {
+  padding: 12px 32px;
+  border-right: 1px solid #d4d4d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.partner-slot:first-child { padding-left: 0; }
+.partner-slot:last-child  { border-right: none; }
+.partner-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+  letter-spacing: -0.01em;
+}
+.partner-placeholder {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1.5px dashed #d4d4d8;
+  padding: 8px 20px;
+  border-radius: 3px;
+}
+.partner-footer {
+  margin-top: 18px;
+  font-size: 12px;
+  color: #888;
+}
+.partner-footer a { color: #5d7400; font-weight: 500; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 6: DATABASE ENTRY
+   ═══════════════════════════════════════════════ */
+.db-entry {
+  background: #efeff2;
+  padding: 64px 40px 80px;
+}
+.db-entry-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.db-entry-header {
+  margin-bottom: 24px;
+}
+.db-entry-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.db-entry-header p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+.db-filter-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+}
+.db-filter-select {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 12px;
+  color: #555;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  padding: 6px 10px;
+  background: #fff;
+  cursor: pointer;
+}
+.db-filter-input {
+  flex: 1;
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 12px;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  padding: 6px 10px;
+  min-width: 140px;
+  outline: none;
+}
+.db-filter-input:focus { border-color: #97d600; }
+.db-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.db-card {
+  background: #fff;
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 0.12s;
+}
+.db-card:hover { border-color: #b0b0b8; }
+.db-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: -0.01em;
+}
+.db-card-channel {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #888;
+  margin-top: 1px;
+}
+.db-card-pills {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.db-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  border: 1px solid #d4d4d8;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.db-pill.platform { background: #f5f5f7; }
+.db-entry-cta {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════
+   SITE FOOTER
+   ═══════════════════════════════════════════════ */
+.site-footer {
+  background: #000;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo img { height: 28px; display: block; }
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.08em;
+}
+</style>
+<link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1: HERO
+     ═══════════════════════════════════════════════════════════ -->
+<section class="hero-v2">
+  <div class="hero-v2-inner">
+
+    <!-- Left: Headline + CTAs -->
+    <div class="hero-v2-left">
+      <div class="hero-v2-eyebrow">Independent Journalism Atlas</div>
+      <h1 class="hero-v2-h1">Independent journalism<br>didn't disappear.<br>It moved.</h1>
+      <p class="hero-v2-subhead">The Atlas is a verified map of 1,200+ independent journalists and creator-journalists — newsletters, video, podcasts, websites. Human-curated. Platform-agnostic. Growing every week.</p>
+      <div class="hero-v2-ctas">
+        <a href="/" class="btn-lime">Explore the Atlas →</a>
+        <a href="/postcard" class="hero-v2-text-link">Build a Starter Pack</a>
+      </div>
+    </div>
+
+    <!-- Right: Name Wall -->
+    <div class="hero-v2-right">
+      <div class="name-wall">
+        <a href="/#" class="nw-bold">Casey Newton</a>
+        <a href="/#" class="nw-bold">Taylor Lorenz</a>
+        <a href="/#" class="nw-med">Emily Atkin</a>
+        <a href="/#" class="nw-bold">Aaron Rupar</a>
+        <a href="/#" class="nw-bold">Judd Legum</a>
+        <a href="/#" class="nw-reg">Erin Reed</a>
+        <a href="/#" class="nw-bold">Marques Brownlee</a>
+        <a href="/#" class="nw-med">Kyla Scanlon</a>
+        <a href="/#" class="nw-bold">Jessica Valenti</a>
+        <a href="/#" class="nw-bold">Katelyn Jetelina</a>
+        <a href="/#" class="nw-bold">Mosheh Oinounou</a>
+        <a href="/#" class="nw-reg">Bill McKibben</a>
+        <a href="/#" class="nw-med">Ryan Broderick</a>
+        <a href="/#" class="nw-reg">Anne Helen Petersen</a>
+        <a href="/#" class="nw-reg">Hunter Harris</a>
+        <a href="/#" class="nw-reg">Charlie Meyerson</a>
+        <a href="/#" class="nw-reg">Oliver Darcy</a>
+        <a href="/#" class="nw-med">Alex Kantrowitz</a>
+        <a href="/#" class="nw-reg">Alicia Kennedy</a>
+        <a href="/#" class="nw-med">Tim Mak</a>
+        <a href="/#" class="nw-reg">Alissa Walker</a>
+        <a href="/#" class="nw-reg">Nathan Tankus</a>
+        <a href="/#" class="nw-reg">Craig Silverman</a>
+        <a href="/#" class="nw-reg">Emily Sundberg</a>
+        <a href="/#" class="nw-med">Cleo Abram</a>
+        <a href="/#" class="nw-reg">Charlotte Wilder</a>
+        <a href="/#" class="nw-bold">Aaron Parnas</a>
+        <a href="/#" class="nw-reg">Alison Roman</a>
+        <a href="/#" class="nw-reg">Parker Molloy</a>
+        <a href="/#" class="nw-med">Max Read</a>
+        <a href="/#" class="nw-reg">Marisa Kabas</a>
+        <a href="/#" class="nw-reg">Isaac Saul</a>
+        <a href="/#" class="nw-reg">Adam Tooze</a>
+        <a href="/#" class="nw-reg">Adrienne Keene</a>
+        <a href="/#" class="nw-reg">Matt Kiser</a>
+        <a href="/#" class="nw-reg">Kyle Tharp</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2: GUIDED PATHS
+     ═══════════════════════════════════════════════════════════ -->
+<section class="guided-paths">
+  <div class="guided-paths-inner">
+    <div class="gp-eyebrow">Where do you want to go?</div>
+    <h2 class="gp-title">The Atlas is built for different kinds of work</h2>
+    <p class="gp-subtext">Not everyone comes to the Atlas the same way. Some are looking for new voices. Some are mapping the ecosystem. Some are building businesses on top of it. Start with who you are.</p>
+
+    <div class="guided-grid">
+
+      <!-- Card 1: Readers -->
+      <a href="/" class="guided-card">
+        <div class="gc-eyebrow">For Readers</div>
+        <div class="gc-title">I'm looking for new journalists and creators to follow</div>
+        <div class="gc-body">Browse by topic, platform, or geography. Find journalists covering the beats you care about — and discover voices you haven't heard yet.</div>
+        <div class="gc-link">Browse the database →</div>
+      </a>
+
+      <!-- Card 2: Researchers / Journalists -->
+      <a href="/" class="guided-card">
+        <div class="gc-eyebrow">For Journalists &amp; Researchers</div>
+        <div class="gc-title">I'm mapping the independent journalism landscape</div>
+        <div class="gc-body">Full database with advanced filters — platform, geography, topic, reach. Build reports, find sources, track beats, understand the ecosystem.</div>
+        <div class="gc-link">Open the full database →</div>
+      </a>
+
+      <!-- Card 3: Funders & Partners -->
+      <a href="/who-we-are" class="guided-card">
+        <div class="gc-eyebrow">For Funders &amp; Partners</div>
+        <div class="gc-title">I'm interested in supporting or partnering with independent journalism</div>
+        <div class="gc-body">The Atlas works with foundations, newsrooms, and organizations to surface, map, and amplify independent journalism infrastructure.</div>
+        <div class="gc-link">Learn about partnerships →</div>
+      </a>
+
+      <!-- Card 4: Brands & Comms -->
+      <a href="/who-we-are" class="guided-card">
+        <div class="gc-eyebrow">For Brands &amp; Communications Teams</div>
+        <div class="gc-title">I need to find and connect with independent journalists</div>
+        <div class="gc-body">The Atlas intelligence layer helps communications teams identify the right independent journalists for partnerships, coverage, and engagement — by beat, platform, and geography.</div>
+        <div class="gc-link">Talk to the Atlas team →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3: STAT STRIP
+     ═══════════════════════════════════════════════════════════ -->
+<div class="stat-strip">
+  <div class="stat-cell">
+    <div class="stat-num green">1,200+</div>
+    <div class="stat-lbl">Verified creators</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">50</div>
+    <div class="stat-lbl">US states covered</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">80+</div>
+    <div class="stat-lbl">Countries represented</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">6</div>
+    <div class="stat-lbl">Primary platforms tracked</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num green">353</div>
+    <div class="stat-lbl">RSS feeds in Atlas Pulse</div>
+    <div class="stat-sub">→ what they're publishing now</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4: BEAT CLUSTER TILES
+     ═══════════════════════════════════════════════════════════ -->
+<section class="cluster-section">
+  <div class="cluster-section-inner">
+    <div class="cs-eyebrow">The Atlas by beat</div>
+    <h2 class="cs-title">Nine communities of independent journalism</h2>
+    <p class="cs-desc">Each cluster is a beat — and a community of journalists who've built independent platforms to cover it.</p>
+
+    <div class="cluster-tiles">
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Politics</div>
+        <div class="ct-count">161 <span>creators</span></div>
+        <div class="ct-creators">Aaron Rupar<br>Chris Cillizza<br>Judd Legum</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Tech &amp; Business</div>
+        <div class="ct-count">192 <span>creators</span></div>
+        <div class="ct-creators">Casey Newton<br>Marques Brownlee<br>Kyla Scanlon</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Culture</div>
+        <div class="ct-count">174 <span>creators</span></div>
+        <div class="ct-creators">Alicia Kennedy<br>Hunter Harris<br>Anne Helen Petersen</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Local News</div>
+        <div class="ct-count">107 <span>creators</span></div>
+        <div class="ct-creators">Mosheh Oinounou<br>Charlie Meyerson<br>Alissa Walker</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Climate &amp; Science</div>
+        <div class="ct-count">127 <span>creators</span></div>
+        <div class="ct-creators">Emily Atkin<br>Bill McKibben<br>Andrew Dessler</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Media &amp; Power</div>
+        <div class="ct-count">121 <span>creators</span></div>
+        <div class="ct-creators">Oliver Darcy<br>Alec Karakatsanis<br>Brian Morrissey</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Health</div>
+        <div class="ct-count">60 <span>creators</span></div>
+        <div class="ct-creators">Katelyn Jetelina<br>Dr. Jen Gunter<br>Aaron Carroll</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">Food &amp; Lifestyle</div>
+        <div class="ct-count">138 <span>creators</span></div>
+        <div class="ct-creators">Alison Roman<br>Charlotte Wilder<br>Andrew Janjigian</div>
+      </a>
+
+      <a href="/#" class="cluster-tile">
+        <div class="ct-name">World News</div>
+        <div class="ct-count">53 <span>creators</span></div>
+        <div class="ct-creators">Tim Mak<br>Bill Bishop<br>Bisan Owda</div>
+      </a>
+
+    </div>
+
+    <div class="cluster-footer">
+      <a href="/">Filter by topic in the full database →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5: PARTNER STRIP
+     ═══════════════════════════════════════════════════════════ -->
+<section class="partner-section">
+  <div class="partner-section-inner">
+    <div class="partner-eyebrow">Curated lists from our partners</div>
+    <div class="partner-row">
+      <div class="partner-slot">
+        <span class="partner-name">Chris Cillizza</span>
+      </div>
+      <div class="partner-slot">
+        <span class="partner-name">Grist</span>
+      </div>
+      <div class="partner-slot">
+        <span class="partner-name">ICFJ</span>
+      </div>
+      <div class="partner-slot">
+        <span class="partner-placeholder">Partner slot</span>
+      </div>
+      <div class="partner-slot">
+        <span class="partner-placeholder">Partner slot</span>
+      </div>
+      <div class="partner-slot">
+        <span class="partner-placeholder">Partner slot</span>
+      </div>
+    </div>
+    <div class="partner-footer">
+      <a href="/who-we-are">Become an Atlas partner →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6: DATABASE ENTRY
+     ═══════════════════════════════════════════════════════════ -->
+<section class="db-entry">
+  <div class="db-entry-inner">
+    <div class="db-entry-header">
+      <h2>Start exploring the Atlas</h2>
+      <p>1,200+ verified creators. Filter by topic, platform, or geography — or search by name.</p>
+    </div>
+
+    <div class="db-filter-bar">
+      <select class="db-filter-select">
+        <option>All Topics</option>
+        <option>Politics</option>
+        <option>Tech &amp; Business</option>
+        <option>Culture</option>
+        <option>Local News</option>
+        <option>Climate &amp; Science</option>
+        <option>Media &amp; Power</option>
+        <option>Health</option>
+        <option>Food &amp; Lifestyle</option>
+        <option>World News</option>
+      </select>
+      <select class="db-filter-select">
+        <option>All Platforms</option>
+        <option>Newsletter</option>
+        <option>Video</option>
+        <option>Podcast</option>
+        <option>Website</option>
+        <option>Social</option>
+      </select>
+      <input class="db-filter-input" type="text" placeholder="Search by name or channel…">
+    </div>
+
+    <div class="db-cards">
+      <div class="db-card">
+        <div class="db-card-name">Casey Newton</div>
+        <div class="db-card-channel">Platformer</div>
+        <div class="db-card-pills">
+          <span class="db-pill platform">Newsletter</span>
+          <span class="db-pill">Tech</span>
+          <span class="db-pill">National</span>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Emily Atkin</div>
+        <div class="db-card-channel">Heated</div>
+        <div class="db-card-pills">
+          <span class="db-pill platform">Newsletter</span>
+          <span class="db-pill">Climate</span>
+          <span class="db-pill">National</span>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Aaron Rupar</div>
+        <div class="db-card-channel">Public Notice</div>
+        <div class="db-card-pills">
+          <span class="db-pill platform">Newsletter</span>
+          <span class="db-pill">Politics</span>
+          <span class="db-pill">National</span>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Katelyn Jetelina</div>
+        <div class="db-card-channel">Your Local Epidemiologist</div>
+        <div class="db-card-pills">
+          <span class="db-pill platform">Newsletter</span>
+          <span class="db-pill">Health</span>
+          <span class="db-pill">National</span>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Mosheh Oinounou</div>
+        <div class="db-card-channel">Mo News</div>
+        <div class="db-card-pills">
+          <span class="db-pill platform">Video</span>
+          <span class="db-pill">Local News</span>
+          <span class="db-pill">National</span>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Alicia Kennedy</div>
+        <div class="db-card-channel">From the Desk of Alicia Kennedy</div>
+        <div class="db-card-pills">
+          <span class="db-pill platform">Newsletter</span>
+          <span class="db-pill">Culture</span>
+          <span class="db-pill">Puerto Rico</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="db-entry-cta">
+      <a href="/" class="btn-lime-lg">Explore all 1,200+ creators →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SITE FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <a href="/" class="footer-logo">
+    <img src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Independent Journalism Atlas">
+  </a>
+  <div class="footer-copy">&copy; 2026 Independent Journalism Atlas</div>
+</footer>
+
+</body>
+</html>
