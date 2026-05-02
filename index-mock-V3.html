@@ -8,7 +8,7 @@
   <style>
     /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; background: #000; color: #efeff2; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); }
+    body { margin: 0; background: #efeff2; color: #efeff2; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); }
     a { text-decoration: none; }
 
     /* ── ANNOTATION SYSTEM ── */
@@ -23,7 +23,7 @@
     .annot-new  { background: rgba(206,255,0,0.1); color: #ceff00; border: 1px solid rgba(206,255,0,0.25); }
     .annot-v1v2 { background: #0d0d0d; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
     .annot-banner {
-      position: sticky; top: 56px; z-index: 190;
+      position: sticky; top: 56px; z-index: 180;
       background: #0a0a0a; border-bottom: 1px solid #1f1f1f;
       padding: 8px 40px; display: flex; align-items: center; gap: 16px;
     }
@@ -112,11 +112,11 @@
     .hero-stat-badge-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
 
     /* ── GUIDED PATHS ── */
-    .guided-paths { background: #111; padding: 64px 40px; position: relative; }
+    .guided-paths { background: #313131; padding: 64px 40px; position: relative; }
     .guided-paths-inner { max-width: 1440px; margin: 0 auto; }
     .gp-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px; }
-    .gp-title { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; }
-    .gp-subtext { font-size: 15px; color: rgba(255,255,255,0.45); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
+    .gp-title { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 36px; margin-bottom: 12px; }
+    .gp-subtext { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
     .guided-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .guided-card {
       background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px;
@@ -132,7 +132,7 @@
     .guided-card:hover::before { transform: scaleX(1); }
     .gc-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; text-transform: uppercase; letter-spacing: 0.14em; }
     .gc-title { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.2; }
-    .gc-body { font-size: 14px; color: rgba(255,255,255,0.42); line-height: 1.65; flex: 1; }
+    .gc-body { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; flex: 1; }
     .gc-link { font-family: 'DM Mono', monospace; font-size: 10px; color: #ceff00; letter-spacing: 0.08em; }
 
     /* ── STAT STRIP ── */
@@ -153,7 +153,7 @@
     .featured-inner { max-width: 1440px; margin: 0 auto; }
     .featured-header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
     .featured-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px; }
-    .featured-title { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+    .featured-title { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 36px; }
     .featured-sub { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 480px; margin-top: 8px; }
     .featured-view-all { font-family: 'DM Mono', monospace; font-size: 10px; color: #ceff00; letter-spacing: 0.08em; white-space: nowrap; }
     .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #1f1f1f; }
@@ -168,11 +168,11 @@
     .featured-link:hover { color: #ceff00; }
 
     /* ── PULSE MODULE ── */
-    .pulse-section { background: #111; padding: 64px 40px; position: relative; }
+    .pulse-section { background: #313131; padding: 64px 40px; position: relative; }
     .pulse-inner { max-width: 1440px; margin: 0 auto; }
     .pulse-live-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; text-transform: uppercase; letter-spacing: 0.14em; background: rgba(206,255,0,0.08); border: 1px solid rgba(206,255,0,0.2); padding: 4px 10px; border-radius: 100px; margin-bottom: 20px; }
     .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: #ceff00; animation: pulseDot 1.8s ease-in-out infinite; }
-    .pulse-headline { font-size: 24px; font-weight: 700; color: #fff; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .pulse-headline { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 36px; margin-bottom: 8px; }
     .pulse-sub { font-size: 14px; color: rgba(255,255,255,0.4); max-width: 520px; line-height: 1.7; margin-bottom: 24px; }
     .pulse-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
     .pulse-header-left {}
@@ -194,23 +194,23 @@
     .intel-section { background: #efeff2; padding: 56px 40px; position: relative; }
     .intel-section-header { margin-bottom: 24px; }
     .intel-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 8px; }
-    .intel-title { font-size: 22px; font-weight: 700; color: #000; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .intel-title { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.02em; line-height: 36px; margin-bottom: 8px; }
     .intel-desc { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; }
     .intel-narrative { font-size: 14px; color: #999; line-height: 1.7; max-width: 520px; margin-top: 6px; font-style: italic; }
     .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .cluster-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 24px 22px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: border-color 0.15s; text-decoration: none; }
+    .cluster-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 20px 18px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: border-color 0.15s; text-decoration: none; }
     .cluster-card:hover { border-color: #b0b0b8; }
     .cluster-accent { position: absolute; top: 0; left: 0; width: 100%; height: 3px; }
-    .cluster-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; margin-top: 8px; margin-bottom: 6px; }
+    .cluster-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; margin-top: 8px; margin-bottom: 6px; min-height: 44px; }
     .cluster-count { display: flex; align-items: baseline; gap: 4px; margin-bottom: 12px; }
     .cluster-count-n { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: #97d600; }
     .cluster-count-lbl { font-size: 11px; color: #aaa; font-weight: 400; }
     .fp-bar { height: 4px; border-radius: 3px; display: flex; overflow: hidden; gap: 1px; margin-bottom: 6px; }
     .fp-seg { height: 100%; border-radius: 1px; min-width: 2px; }
-    .fp-labels { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .fp-labels { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; min-height: 56px; align-content: flex-start; }
     .fp-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; display: flex; align-items: center; gap: 3px; }
     .fp-swatch { width: 6px; height: 6px; border-radius: 1px; flex-shrink: 0; }
-    .cluster-creators { border-top: 1px solid #e8e8eb; padding-top: 10px; display: flex; flex-direction: column; gap: 3px; }
+    .cluster-creators { border-top: 1px solid #e8e8eb; padding-top: 10px; display: flex; flex-direction: column; gap: 3px; height: 68px; overflow: hidden; }
     .cluster-creator-name { font-size: 11px; color: #555; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .cluster-explore-link { display: block; font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; letter-spacing: 0.08em; text-transform: uppercase; margin-top: auto; padding-top: 10px; opacity: 0; transition: opacity 0.2s; }
     .cluster-card:hover .cluster-explore-link { opacity: 1; }
@@ -312,7 +312,7 @@
   <div class="hero-left">
     <div>
       <div class="hero-eyebrow-pill">1,200+ verified creator-journalists</div>
-      <h1 class="hero-headline">Independent journalism<br>didn't disappear.<br>It <em>moved.</em></h1>
+      <h1 class="hero-headline">Independent Journalism<br>Didn't Disappear.<br>It <em>Moved.</em></h1>
       <p class="hero-subhead">The Atlas will help you find it. We've mapped 1,200+ verified independent journalists — by beat, platform, geography, and audience.</p>
     </div>
     <div>
@@ -347,34 +347,34 @@
   <div class="annot-pill annot-v2">← V2</div>
   <div class="guided-paths-inner">
     <div class="gp-eyebrow">Who is this for?</div>
-    <h2 class="gp-title">Find your way in.</h2>
+    <h2 class="gp-title">Find Your Way In.</h2>
     <p class="gp-subtext">The Atlas serves different people in different ways. Start with who you are.</p>
     <div class="guided-grid">
 
       <a href="/" class="guided-card">
         <div class="gc-eyebrow">For Readers</div>
-        <div class="gc-title">I want to find independent journalists covering what matters to me.</div>
+        <div class="gc-title">I Want to Find Independent Journalists Covering What Matters to Me.</div>
         <div class="gc-body">Browse by topic, platform, or geography. Find journalists covering the beats you care about — and discover voices you haven't heard yet.</div>
         <div class="gc-link">Start exploring →</div>
       </a>
 
       <a href="/" class="guided-card">
         <div class="gc-eyebrow">For Journalists &amp; Researchers</div>
-        <div class="gc-title">I'm mapping the ecosystem or looking for sources.</div>
+        <div class="gc-title">I'm Mapping the Ecosystem or Looking for Sources.</div>
         <div class="gc-body">Full database with advanced filters — platform, geography, topic, reach. Build reports, find sources, understand the ecosystem.</div>
         <div class="gc-link">Open full database →</div>
       </a>
 
       <a href="/who-we-are" class="guided-card">
         <div class="gc-eyebrow">For Funders &amp; Partners</div>
-        <div class="gc-title">I want to understand what this infrastructure is and how to work with it.</div>
+        <div class="gc-title">I Want to Understand What This Infrastructure Is and How to Work With It.</div>
         <div class="gc-body">The Atlas works with foundations, newsrooms, and organizations to surface, map, and amplify independent journalism infrastructure.</div>
         <div class="gc-link">See how we work →</div>
       </a>
 
       <a href="/who-we-are" class="guided-card">
         <div class="gc-eyebrow">For Brands &amp; Comms Teams</div>
-        <div class="gc-title">I need to find specific journalists for partnerships or coverage.</div>
+        <div class="gc-title">I Need to Find Specific Journalists for Partnerships or Coverage.</div>
         <div class="gc-body">The Atlas intelligence layer helps communications teams identify the right independent journalists — by beat, platform, and geography.</div>
         <div class="gc-link">Find journalists →</div>
       </a>
@@ -420,7 +420,7 @@
     <div class="featured-header-row">
       <div class="featured-header-left">
         <div class="featured-eyebrow">Featured in the Atlas</div>
-        <div class="featured-title">Journalists doing the work.</div>
+        <div class="featured-title">Journalists Doing the Work.</div>
         <div class="featured-sub">A rotating selection from our verified creator pool. Updated weekly.</div>
       </div>
       <a href="/" class="featured-view-all">View all featured →</a>
@@ -473,7 +473,7 @@
     <div class="pulse-header-row">
       <div class="pulse-header-left">
         <div class="pulse-live-badge"><span class="pulse-dot"></span> Live</div>
-        <div class="pulse-headline">What the Atlas is reading right now.</div>
+        <div class="pulse-headline">What the Atlas Is Reading Right Now.</div>
         <div class="pulse-sub">353 creator feeds, monitored in real time. Summaries by beat, updated continuously.</div>
       </div>
       <a href="/" class="pulse-open-btn">Open full Pulse feed →</a>
@@ -577,7 +577,7 @@
     <!-- Left column -->
     <div class="research-left">
       <div class="research-badge">New Research</div>
-      <h2 class="research-headline">The economics of independent journalism, at scale.</h2>
+      <h2 class="research-headline">The Economics of Independent Journalism, at Scale.</h2>
       <p class="research-sub">Our first major research output with ASU and the Knight Foundation — a revenue cohort analysis examining what sustainability actually looks like across 1,000+ independent journalists.</p>
       <div class="research-partners">
         <span class="research-partner-chip">Knight Foundation</span>
@@ -611,7 +611,7 @@
   <span class="annot-pill annot-v1">← V1</span>
   <div class="intel-section-header">
     <div class="intel-eyebrow">How the Atlas is organized</div>
-    <div class="intel-title">Nine communities of independent journalism.</div>
+    <div class="intel-title">Nine Communities of Independent Journalism.</div>
     <div class="intel-narrative"><em>Liz: cluster intro copy — 1–2 sentences explaining what clusters are and why the breakdown matters. Tabled for copy.</em></div>
   </div>
   <div class="intel-grid">
@@ -891,7 +891,7 @@
   <span class="annot-pill annot-v1v2">← V1+V2</span>
   <div class="db-header">
     <div>
-      <h2>Start exploring the Atlas.</h2>
+      <h2>Start Exploring the Atlas.</h2>
       <p>1,200+ verified creators. Filter by topic, platform, or geography — or search by name.</p>
     </div>
     <div class="db-header-note">1,200+ verified creators</div>
