@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Homepage Mock — V3 (Review Draft)</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #000; color: #efeff2; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); }
+    a { text-decoration: none; }
+
+    /* ── ANNOTATION SYSTEM ── */
+    .annot-pill {
+      position: absolute; top: 10px; left: 10px;
+      font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 500;
+      padding: 2px 7px; border-radius: 100px; pointer-events: none;
+      z-index: 50; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .annot-v1   { background: rgba(0,229,255,0.12); color: #00e5ff; border: 1px solid rgba(0,229,255,0.3); }
+    .annot-v2   { background: rgba(255,102,255,0.12); color: #ff66ff; border: 1px solid rgba(255,102,255,0.3); }
+    .annot-new  { background: rgba(206,255,0,0.1); color: #ceff00; border: 1px solid rgba(206,255,0,0.25); }
+    .annot-v1v2 { background: #0d0d0d; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
+    .annot-banner {
+      position: sticky; top: 56px; z-index: 190;
+      background: #0a0a0a; border-bottom: 1px solid #1f1f1f;
+      padding: 8px 40px; display: flex; align-items: center; gap: 16px;
+    }
+    .annot-banner-title {
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.14em;
+    }
+    .annot-legend { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+    .annot-legend-item {
+      font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 500;
+      padding: 2px 7px; border-radius: 100px; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-acid {
+      background: #ceff00; color: #000;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-weight: 700; font-size: 13px;
+      padding: 11px 24px; border-radius: 6px; border: none;
+      cursor: pointer; display: inline-block; transition: background 0.15s;
+    }
+    .btn-acid:hover { background: #d8ff33; }
+    .btn-ghost-white {
+      border: 1.5px solid rgba(255,255,255,0.35); color: #fff;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 13px;
+      padding: 10px 22px; border-radius: 6px;
+      display: inline-block; transition: border-color 0.15s;
+    }
+    .btn-ghost-white:hover { border-color: #fff; }
+    .btn-lime {
+      background: #97d600; color: #313131;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-weight: 700; font-size: 13px;
+      padding: 11px 24px; border-radius: 6px; border: 1.5px solid #5d7400;
+      display: inline-block; transition: background 0.15s, color 0.15s;
+    }
+    .btn-lime:hover { background: #5d7400; color: #fff; }
+    .btn-lime-lg {
+      background: #97d600; color: #313131; font-weight: 700; font-size: 14px;
+      padding: 13px 32px; border-radius: 6px; border: 1.5px solid #5d7400;
+      display: inline-block; transition: background 0.15s, color 0.15s;
+    }
+    .btn-lime-lg:hover { background: #5d7400; color: #fff; }
+
+    /* ── HERO ── */
+    .hero { display: grid; grid-template-columns: 52fr 48fr; min-height: 540px; position: relative; }
+    .hero-left {
+      background: #000; padding: 64px 56px 56px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      border-right: 1px solid #1a1a1a;
+    }
+    .hero-eyebrow-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00;
+      border: 1px solid rgba(206,255,0,0.35); padding: 4px 12px; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px;
+      background: rgba(206,255,0,0.06);
+    }
+    .hero-headline { font-size: clamp(34px, 4vw, 56px); font-weight: 700; line-height: 1.03; letter-spacing: -0.03em; color: #fff; }
+    .hero-headline em { font-style: normal; color: #ceff00; }
+    .hero-subhead { font-size: 18px; color: #a8a8a8; line-height: 1.7; max-width: 440px; margin-top: 20px; }
+    .hero-ctas { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+    .hero-small-note { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 12px; }
+    .hero-right { position: relative; overflow: hidden; background: #050505; min-height: 540px; }
+    .viz-label {
+      position: absolute; top: 14px; left: 16px;
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      color: rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 0.14em;
+      z-index: 2; pointer-events: none;
+    }
+    #hero-b-canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; }
+    #hero-b-tooltip {
+      display: none; position: absolute; background: rgba(8,8,18,0.94);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 9px 12px;
+      pointer-events: none; z-index: 10; max-width: 200px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    #hero-b-tooltip strong { font-size: 12px; color: #fff; display: block; margin-bottom: 2px; font-weight: 700; }
+    #hero-b-tooltip .tt-channel {
+      font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.45);
+      display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px;
+    }
+    #hero-b-tooltip .tt-cluster {
+      font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase;
+      letter-spacing: 0.1em; display: block; margin-top: 5px; font-weight: 500;
+    }
+    .hero-stat-badge { position: absolute; bottom: 20px; left: 16px; z-index: 5; pointer-events: none; }
+    .hero-stat-badge-num { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 500; color: #ceff00; line-height: 1; letter-spacing: -0.04em; }
+    .hero-stat-badge-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+    /* ── GUIDED PATHS ── */
+    .guided-paths { background: #111; padding: 64px 40px; position: relative; }
+    .guided-paths-inner { max-width: 1440px; margin: 0 auto; }
+    .gp-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px; }
+    .gp-title { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; }
+    .gp-subtext { font-size: 15px; color: rgba(255,255,255,0.45); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
+    .guided-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .guided-card {
+      background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px;
+      padding: 32px 28px; display: flex; flex-direction: column; gap: 10px;
+      cursor: pointer; transition: background 0.15s, border-color 0.15s;
+      text-decoration: none; position: relative; overflow: hidden;
+    }
+    .guided-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: #ceff00; transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease;
+    }
+    .guided-card:hover { background: #222; border-color: #333; }
+    .guided-card:hover::before { transform: scaleX(1); }
+    .gc-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; text-transform: uppercase; letter-spacing: 0.14em; }
+    .gc-title { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.2; }
+    .gc-body { font-size: 14px; color: rgba(255,255,255,0.42); line-height: 1.65; flex: 1; }
+    .gc-link { font-family: 'DM Mono', monospace; font-size: 10px; color: #ceff00; letter-spacing: 0.08em; }
+
+    /* ── STAT STRIP ── */
+    .stat-strip { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-bottom: 1px solid #d4d4d8; position: relative; }
+    .stat-cell { padding: 24px 28px 20px; border-right: 1px solid #d4d4d8; }
+    .stat-cell:last-child { border-right: none; }
+    .stat-num { font-size: 36px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; margin-bottom: 6px; }
+    .stat-num .stat-plus { color: #5d7400; }
+    .stat-num.green { color: #97d600; }
+    .stat-num.dark  { color: #000; }
+    .stat-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.55; }
+    .stat-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; font-weight: 500; margin-top: 3px; letter-spacing: 0.04em; }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+    .stat-live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #5d7400; margin-right: 3px; vertical-align: middle; animation: pulseDot 1.8s ease-in-out infinite; }
+
+    /* ── FEATURED CREATORS ── */
+    .featured-section { background: #000; padding: 64px 40px; position: relative; }
+    .featured-inner { max-width: 1440px; margin: 0 auto; }
+    .featured-header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
+    .featured-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px; }
+    .featured-title { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+    .featured-sub { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 480px; margin-top: 8px; }
+    .featured-view-all { font-family: 'DM Mono', monospace; font-size: 10px; color: #ceff00; letter-spacing: 0.08em; white-space: nowrap; }
+    .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #1f1f1f; }
+    .featured-card { padding: 32px 28px; border-right: 1px solid #1f1f1f; display: flex; flex-direction: column; gap: 12px; }
+    .featured-card:last-child { border-right: none; }
+    .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #313131; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #a8a8a8; flex-shrink: 0; }
+    .featured-name { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+    .featured-pub { font-size: 13px; color: #a8a8a8; font-weight: 500; }
+    .featured-beat { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; background: rgba(206,255,0,0.1); border: 1px solid rgba(206,255,0,0.2); padding: 2px 8px; border-radius: 100px; display: inline-block; text-transform: uppercase; letter-spacing: 0.1em; }
+    .featured-quote { font-size: 14px; font-style: italic; color: #a8a8a8; line-height: 1.6; }
+    .featured-link { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; transition: color 0.15s; margin-top: auto; }
+    .featured-link:hover { color: #ceff00; }
+
+    /* ── PULSE MODULE ── */
+    .pulse-section { background: #111; padding: 64px 40px; position: relative; }
+    .pulse-inner { max-width: 1440px; margin: 0 auto; }
+    .pulse-live-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; text-transform: uppercase; letter-spacing: 0.14em; background: rgba(206,255,0,0.08); border: 1px solid rgba(206,255,0,0.2); padding: 4px 10px; border-radius: 100px; margin-bottom: 20px; }
+    .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: #ceff00; animation: pulseDot 1.8s ease-in-out infinite; }
+    .pulse-headline { font-size: 24px; font-weight: 700; color: #fff; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .pulse-sub { font-size: 14px; color: rgba(255,255,255,0.4); max-width: 520px; line-height: 1.7; margin-bottom: 24px; }
+    .pulse-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+    .pulse-header-left {}
+    .pulse-open-btn { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; border: 1px solid rgba(206,255,0,0.3); padding: 6px 14px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; transition: background 0.15s; }
+    .pulse-open-btn:hover { background: rgba(206,255,0,0.08); }
+    .pulse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
+    .pulse-col { background: #1a1a1a; border-radius: 6px; padding: 20px; }
+    .pulse-col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pulse-beat-name { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; }
+    .pulse-beat-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
+    .pulse-item { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .pulse-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .pulse-item-creator { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+    .pulse-item-headline { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.45; margin-bottom: 4px; }
+    .pulse-item-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); }
+    .pulse-free-notice { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #606068; font-weight: 500; margin-top: 8px; }
+
+    /* ── INTEL / CLUSTER GRID ── */
+    .intel-section { background: #efeff2; padding: 56px 40px; position: relative; }
+    .intel-section-header { margin-bottom: 24px; }
+    .intel-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 8px; }
+    .intel-title { font-size: 22px; font-weight: 700; color: #000; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .intel-desc { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; }
+    .intel-narrative { font-size: 14px; color: #999; line-height: 1.7; max-width: 520px; margin-top: 6px; font-style: italic; }
+    .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .cluster-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 24px 22px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: border-color 0.15s; text-decoration: none; }
+    .cluster-card:hover { border-color: #b0b0b8; }
+    .cluster-accent { position: absolute; top: 0; left: 0; width: 100%; height: 3px; }
+    .cluster-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; margin-top: 8px; margin-bottom: 6px; }
+    .cluster-count { display: flex; align-items: baseline; gap: 4px; margin-bottom: 12px; }
+    .cluster-count-n { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: #97d600; }
+    .cluster-count-lbl { font-size: 11px; color: #aaa; font-weight: 400; }
+    .fp-bar { height: 4px; border-radius: 3px; display: flex; overflow: hidden; gap: 1px; margin-bottom: 6px; }
+    .fp-seg { height: 100%; border-radius: 1px; min-width: 2px; }
+    .fp-labels { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .fp-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; display: flex; align-items: center; gap: 3px; }
+    .fp-swatch { width: 6px; height: 6px; border-radius: 1px; flex-shrink: 0; }
+    .cluster-creators { border-top: 1px solid #e8e8eb; padding-top: 10px; display: flex; flex-direction: column; gap: 3px; }
+    .cluster-creator-name { font-size: 11px; color: #555; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cluster-explore-link { display: block; font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; letter-spacing: 0.08em; text-transform: uppercase; margin-top: auto; padding-top: 10px; opacity: 0; transition: opacity 0.2s; }
+    .cluster-card:hover .cluster-explore-link { opacity: 1; }
+    .intel-footer { margin-top: 16px; font-size: 13px; color: #888; font-weight: 500; }
+    .intel-footer a { color: #5d7400; font-weight: 500; }
+
+    /* ── RESEARCH MODULE ── */
+    .research-section { background: #fff; padding: 72px 40px; position: relative; }
+    .research-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 55fr 45fr; gap: 64px; align-items: center; }
+    .research-badge { font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; background: rgba(151,214,0,0.12); border: 1px solid rgba(151,214,0,0.3); padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 16px; }
+    .research-headline { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; }
+    .research-sub { font-size: 16px; color: #555; line-height: 1.7; max-width: 480px; margin-bottom: 24px; }
+    .research-partners { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .research-partner-chip { font-family: 'DM Mono', monospace; font-size: 9px; color: #555; background: #efeff2; border: 1px solid #d4d4d8; padding: 4px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .research-small-note { font-family: 'DM Mono', monospace; font-size: 10px; color: #999; margin-top: 12px; letter-spacing: 0.06em; }
+    .liz-flag { font-style: italic; font-size: 12px; color: #bbb; margin-top: 10px; display: block; }
+    .research-card { background: #fff; border: 1px solid #d4d4d8; border-radius: 6px; overflow: hidden; }
+    .research-card-header { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); padding: 32px 24px; min-height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .research-card-header::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(255,255,255,0.03) 24px, rgba(255,255,255,0.03) 25px), repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(255,255,255,0.03) 24px, rgba(255,255,255,0.03) 25px); }
+    .research-card-title-text { font-size: 16px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; position: relative; z-index: 1; }
+    .research-card-body { padding: 20px 24px; }
+    .research-card-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 12px; }
+    .research-card-link { font-size: 12px; color: #5d7400; font-weight: 500; }
+
+    /* ── PARTNER STRIP ── */
+    .partner-section-v3 { background: #fff; padding: 40px 40px; border-top: 1px solid #d4d4d8; border-bottom: 1px solid #d4d4d8; position: relative; }
+    .partner-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 0.14em; text-align: center; margin-bottom: 20px; }
+    .partner-logos-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .partner-logo-slot { padding: 8px 32px; border-right: 1px solid #d4d4d8; }
+    .partner-logo-slot:last-child { border-right: none; }
+    .partner-logo-text { font-size: 15px; font-weight: 700; color: #b0b0b8; transition: color 0.15s; white-space: nowrap; display: block; }
+    .partner-logo-text:hover { color: #313131; }
+
+    /* ── DATABASE ENTRY ── */
+    .db-section { background: #efeff2; padding: 64px 40px 80px; position: relative; }
+    .db-header { margin-bottom: 20px; }
+    .db-header h2 { font-size: 20px; font-weight: 700; color: #000; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .db-header p { font-size: 14px; color: #666; }
+    .db-filter-bar { background: #fff; border: 1px solid #d4d4d8; border-radius: 6px; padding: 16px 20px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
+    .db-filter-select { font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 13px; color: #555; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; background: #fff; cursor: pointer; }
+    .db-filter-input { flex: 1; min-width: 160px; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 13px; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; outline: none; transition: border-color 0.15s; }
+    .db-filter-input:focus { border-color: #97d600; }
+    .db-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .db-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 18px 16px; display: flex; flex-direction: column; transition: border-color 0.15s; }
+    .db-card:hover { border-color: #b0b0b8; }
+    .db-card-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; }
+    .db-card-pub { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; margin-top: 1px; }
+    .db-card-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .db-pill { font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .db-pill.platform { background: #000; color: #fff; }
+    .db-pill.topic { border: 1px solid #d4d4d8; color: #666; }
+    .db-cta { margin-top: 28px; display: flex; justify-content: center; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: #000; padding: 56px 40px 32px; position: relative; }
+    .footer-inner { max-width: 1440px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 200px 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 28px; display: block; margin-bottom: 12px; }
+    .footer-tagline { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; line-height: 1.6; }
+    .footer-col-title { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.55); transition: color 0.15s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #1f1f1f; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; }
+    .footer-legal { display: flex; gap: 16px; }
+    .footer-legal a { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.5); }
+
+    /* ── CMS NOTICE ── */
+    .cms-notice { display: flex; align-items: flex-start; gap: 10px; border: 1px dashed rgba(206,255,0,0.3); background: rgba(206,255,0,0.03); border-radius: 6px; padding: 14px 18px; margin-top: 24px; }
+    .cms-notice-text { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(206,255,0,0.45); line-height: 1.7; }
+  </style>
+  <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<!-- ══════════════════════════════════════════════════════════
+     ANNOTATION BANNER
+     ══════════════════════════════════════════════════════════ -->
+<div class="annot-banner">
+  <span class="annot-banner-title">Atlas Index Mock V3 — Synthesis Review Draft</span>
+  <div class="annot-legend">
+    <span class="annot-legend-item annot-v1">← V1</span>
+    <span class="annot-legend-item annot-v2">← V2</span>
+    <span class="annot-legend-item annot-new">★ NEW</span>
+    <span class="annot-legend-item annot-v1v2">← V1+V2</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 2: HERO
+     ══════════════════════════════════════════════════════════ -->
+<section class="hero" style="position:relative;">
+  <div class="annot-pill annot-v1">← V1</div>
+
+  <!-- Left: Text Panel -->
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow-pill">1,200+ verified creator-journalists</div>
+      <h1 class="hero-headline">Independent journalism<br>didn't disappear.<br>It <em>moved.</em></h1>
+      <p class="hero-subhead">The Atlas will help you find it. We've mapped 1,200+ verified independent journalists — by beat, platform, geography, and audience.</p>
+    </div>
+    <div>
+      <div class="hero-ctas">
+        <a href="/" class="btn-acid">Explore the Atlas →</a>
+        <a href="/who-we-are" class="btn-ghost-white">How we built this</a>
+      </div>
+      <p class="hero-small-note">Free to explore. No account required.</p>
+    </div>
+  </div>
+
+  <!-- Right: Animated Canvas -->
+  <div class="hero-right">
+    <span class="viz-label">1,200+ verified creators · 9 topic clusters</span>
+    <canvas id="hero-b-canvas"></canvas>
+    <div id="hero-b-tooltip">
+      <strong></strong>
+      <span class="tt-channel"></span>
+      <span class="tt-cluster"></span>
+    </div>
+    <div class="hero-stat-badge">
+      <div class="hero-stat-badge-num">1,200+</div>
+      <div class="hero-stat-badge-lbl">Verified creators</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 3: GUIDED PATHS
+     ══════════════════════════════════════════════════════════ -->
+<section class="guided-paths">
+  <div class="annot-pill annot-v2">← V2</div>
+  <div class="guided-paths-inner">
+    <div class="gp-eyebrow">Who is this for?</div>
+    <h2 class="gp-title">Find your way in.</h2>
+    <p class="gp-subtext">The Atlas serves different people in different ways. Start with who you are.</p>
+    <div class="guided-grid">
+
+      <a href="/" class="guided-card">
+        <div class="gc-eyebrow">For Readers</div>
+        <div class="gc-title">I want to find independent journalists covering what matters to me.</div>
+        <div class="gc-body">Browse by topic, platform, or geography. Find journalists covering the beats you care about — and discover voices you haven't heard yet.</div>
+        <div class="gc-link">Start exploring →</div>
+      </a>
+
+      <a href="/" class="guided-card">
+        <div class="gc-eyebrow">For Journalists &amp; Researchers</div>
+        <div class="gc-title">I'm mapping the ecosystem or looking for sources.</div>
+        <div class="gc-body">Full database with advanced filters — platform, geography, topic, reach. Build reports, find sources, understand the ecosystem.</div>
+        <div class="gc-link">Open full database →</div>
+      </a>
+
+      <a href="/who-we-are" class="guided-card">
+        <div class="gc-eyebrow">For Funders &amp; Partners</div>
+        <div class="gc-title">I want to understand what this infrastructure is and how to work with it.</div>
+        <div class="gc-body">The Atlas works with foundations, newsrooms, and organizations to surface, map, and amplify independent journalism infrastructure.</div>
+        <div class="gc-link">See how we work →</div>
+      </a>
+
+      <a href="/who-we-are" class="guided-card">
+        <div class="gc-eyebrow">For Brands &amp; Comms Teams</div>
+        <div class="gc-title">I need to find specific journalists for partnerships or coverage.</div>
+        <div class="gc-body">The Atlas intelligence layer helps communications teams identify the right independent journalists — by beat, platform, and geography.</div>
+        <div class="gc-link">Find journalists →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 4: STAT STRIP
+     ══════════════════════════════════════════════════════════ -->
+<div class="stat-strip" style="position:relative;">
+  <div class="annot-pill annot-v1v2">← V1+V2</div>
+  <div class="stat-cell">
+    <div class="stat-num green">1,200+</div>
+    <div class="stat-lbl">Verified creator-journalists</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">45<span class="stat-plus">+</span></div>
+    <div class="stat-lbl">Countries represented</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">9</div>
+    <div class="stat-lbl">Beat clusters mapped</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num green">353</div>
+    <div class="stat-lbl">Creator RSS feeds</div>
+    <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num dark">12</div>
+    <div class="stat-lbl">Institutional partners</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 5: FEATURED CREATORS
+     ══════════════════════════════════════════════════════════ -->
+<section class="featured-section">
+  <div class="annot-pill annot-new">★ NEW</div>
+  <div class="featured-inner">
+    <div class="featured-header-row">
+      <div class="featured-header-left">
+        <div class="featured-eyebrow">Featured in the Atlas</div>
+        <div class="featured-title">Journalists doing the work.</div>
+        <div class="featured-sub">A rotating selection from our verified creator pool. Updated weekly.</div>
+      </div>
+      <a href="/" class="featured-view-all">View all featured →</a>
+    </div>
+
+    <div class="featured-grid">
+
+      <div class="featured-card">
+        <div class="featured-avatar">CN</div>
+        <div class="featured-name">Casey Newton</div>
+        <div class="featured-pub">Platformer</div>
+        <span class="featured-beat">Technology</span>
+        <div class="featured-quote">"The essential read on what's actually happening inside big tech."</div>
+        <a href="/#" class="featured-link">View Atlas profile →</a>
+      </div>
+
+      <div class="featured-card">
+        <div class="featured-avatar">AW</div>
+        <div class="featured-name">Amy Westervelt</div>
+        <div class="featured-pub">Drilled News</div>
+        <span class="featured-beat">Climate</span>
+        <div class="featured-quote">"Investigative climate journalism connecting policy to industry to impact."</div>
+        <a href="/#" class="featured-link">View Atlas profile →</a>
+      </div>
+
+      <div class="featured-card">
+        <div class="featured-avatar">JH</div>
+        <div class="featured-name">Jessica Huseman</div>
+        <div class="featured-pub">Votebeat</div>
+        <span class="featured-beat">Politics &amp; Elections</span>
+        <div class="featured-quote">"The most rigorous reporting on election infrastructure in the country."</div>
+        <a href="/#" class="featured-link">View Atlas profile →</a>
+      </div>
+
+    </div>
+
+    <div class="cms-notice">
+      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.4);flex-shrink:0;margin-top:1px;">info</span>
+      <span class="cms-notice-text">CMS-driven module — requires feature-ready pool field in database (Ryan flag) and JSON feed or CMS hook (Justin flag). Placeholder creators shown.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 6: PULSE MODULE
+     ══════════════════════════════════════════════════════════ -->
+<section class="pulse-section">
+  <div class="annot-pill annot-new">★ NEW</div>
+  <div class="pulse-inner">
+    <div class="pulse-header-row">
+      <div class="pulse-header-left">
+        <div class="pulse-live-badge"><span class="pulse-dot"></span> Live</div>
+        <div class="pulse-headline">What the Atlas is reading right now.</div>
+        <div class="pulse-sub">353 creator feeds, monitored in real time. Summaries by beat, updated continuously.</div>
+      </div>
+      <a href="/" class="pulse-open-btn">Open full Pulse feed →</a>
+    </div>
+
+    <div class="pulse-grid">
+
+      <!-- Technology -->
+      <div class="pulse-col">
+        <div class="pulse-col-header">
+          <span class="pulse-beat-name">Technology</span>
+          <span class="pulse-beat-count">47 active</span>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Casey Newton</div>
+          <div class="pulse-item-headline">The real cost of OpenAI's latest restructuring</div>
+          <div class="pulse-item-meta">2h ago · Platformer</div>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Ben Thompson</div>
+          <div class="pulse-item-headline">Aggregation theory revisited: what AI changes</div>
+          <div class="pulse-item-meta">4h ago · Stratechery</div>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Kara Swisher</div>
+          <div class="pulse-item-headline">Why every tech CEO suddenly wants to talk about media</div>
+          <div class="pulse-item-meta">Yesterday</div>
+        </div>
+      </div>
+
+      <!-- Climate -->
+      <div class="pulse-col">
+        <div class="pulse-col-header">
+          <span class="pulse-beat-name">Climate</span>
+          <span class="pulse-beat-count">31 active</span>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Amy Westervelt</div>
+          <div class="pulse-item-headline">The fossil fuel industry's new playbook for blocking carbon rules</div>
+          <div class="pulse-item-meta">3h ago · Drilled</div>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Emily Atkin</div>
+          <div class="pulse-item-headline">What "net zero" actually means in the fine print</div>
+          <div class="pulse-item-meta">5h ago · HEATED</div>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Robinson Meyer</div>
+          <div class="pulse-item-headline">Congress's energy bill has a quiet climate provision</div>
+          <div class="pulse-item-meta">Yesterday · Heatmap</div>
+        </div>
+      </div>
+
+      <!-- Politics -->
+      <div class="pulse-col">
+        <div class="pulse-col-header">
+          <span class="pulse-beat-name">Politics</span>
+          <span class="pulse-beat-count">62 active</span>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Judd Legum</div>
+          <div class="pulse-item-headline">Corporate donors are back — quietly</div>
+          <div class="pulse-item-meta">1h ago · Popular Information</div>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Jessica Huseman</div>
+          <div class="pulse-item-headline">Election infrastructure under pressure from new state laws</div>
+          <div class="pulse-item-meta">6h ago · Votebeat</div>
+        </div>
+        <div class="pulse-item">
+          <div class="pulse-item-creator">Greg Sargent</div>
+          <div class="pulse-item-headline">The Senate GOP's internal rift is wider than reported</div>
+          <div class="pulse-item-meta">Yesterday</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pulse-free-notice">
+      <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
+      Atlas Pulse is always free. No account required.
+    </div>
+
+    <div class="cms-notice">
+      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.4);flex-shrink:0;margin-top:1px;">info</span>
+      <span class="cms-notice-text">Live data module — most technically complex homepage element. Requires direct implementation conversation before building. Placeholder content shown.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     v3-bot.html continues: sections 7–11 + canvas JS
+     ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7: RESEARCH MODULE
+     ═══════════════════════════════════════════════════════════ -->
+<section class="research-section" style="position:relative;">
+  <span class="annot-pill annot-new">★ NEW</span>
+  <div class="research-inner">
+
+    <!-- Left column -->
+    <div class="research-left">
+      <div class="research-badge">New Research</div>
+      <h2 class="research-headline">The economics of independent journalism, at scale.</h2>
+      <p class="research-sub">Our first major research output with ASU and the Knight Foundation — a revenue cohort analysis examining what sustainability actually looks like across 1,000+ independent journalists.</p>
+      <div class="research-partners">
+        <span class="research-partner-chip">Knight Foundation</span>
+        <span class="research-partner-chip">Arizona State University</span>
+      </div>
+      <a href="#" class="btn-lime">Read the white paper</a>
+      <p class="research-small-note">Publishing May 2026 · Full report on /our-research</p>
+      <div class="liz-flag">Liz: homepage research module headline and one-line editorial context needed per brief.</div>
+    </div>
+
+    <!-- Right column -->
+    <div class="research-right">
+      <div class="research-card">
+        <div class="research-card-header">
+          <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
+        </div>
+        <div class="research-card-body">
+          <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like.</p>
+          <a href="/our-research" class="research-card-link" style="color:#5d7400;">View full research index →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 8: INTELLIGENCE CLUSTER GRID
+     ═══════════════════════════════════════════════════════════ -->
+<section class="intel-section" style="position:relative;">
+  <span class="annot-pill annot-v1">← V1</span>
+  <div class="intel-section-header">
+    <div class="intel-eyebrow">How the Atlas is organized</div>
+    <div class="intel-title">Nine communities of independent journalism.</div>
+    <div class="intel-narrative"><em>Liz: cluster intro copy — 1–2 sentences explaining what clusters are and why the breakdown matters. Tabled for copy.</em></div>
+  </div>
+  <div class="intel-grid">
+
+    <!-- Technology -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#457b9d;"></div>
+      <div class="cluster-name">Technology</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">183</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:62%;background:#457b9d;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:20%;background:#457b9d;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:18%;background:#457b9d;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:1.0;"></span>Substack 113</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:0.65;"></span>Podcast 37</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:0.4;"></span>YouTube 33</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Casey Newton</span>
+        <span class="cluster-creator-name">Ben Thompson</span>
+        <span class="cluster-creator-name">Kara Swisher</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- Politics & Government -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#e63946;"></div>
+      <div class="cluster-name">Politics &amp; Government</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">241</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:71%;background:#e63946;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:19%;background:#e63946;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:10%;background:#e63946;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:1.0;"></span>Substack 171</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:0.65;"></span>Podcast 46</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:0.4;"></span>YouTube 24</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Judd Legum</span>
+        <span class="cluster-creator-name">Jessica Huseman</span>
+        <span class="cluster-creator-name">Greg Sargent</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- Climate & Environment -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#2d6a4f;"></div>
+      <div class="cluster-name">Climate &amp; Environment</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">97</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:55%;background:#2d6a4f;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:28%;background:#2d6a4f;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:17%;background:#2d6a4f;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:1.0;"></span>Substack 53</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:0.65;"></span>Podcast 27</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:0.4;"></span>YouTube 17</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Amy Westervelt</span>
+        <span class="cluster-creator-name">Emily Atkin</span>
+        <span class="cluster-creator-name">Robinson Meyer</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- Local News -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#ffd166;"></div>
+      <div class="cluster-name">Local News</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">156</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:48%;background:#ffd166;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:35%;background:#ffd166;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:17%;background:#ffd166;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:1.0;"></span>Substack 75</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.65;"></span>Own Site 55</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.4;"></span>Podcast 26</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Block Club Chicago</span>
+        <span class="cluster-creator-name">The Oaklandside</span>
+        <span class="cluster-creator-name">Signal Cleveland</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- Business & Finance -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#f4a261;"></div>
+      <div class="cluster-name">Business &amp; Finance</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">118</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:58%;background:#f4a261;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:27%;background:#f4a261;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:15%;background:#f4a261;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:1.0;"></span>Substack 68</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:0.65;"></span>Podcast 32</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:0.4;"></span>YouTube 18</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Matt Levine</span>
+        <span class="cluster-creator-name">Felix Salmon</span>
+        <span class="cluster-creator-name">Erin Griffith</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- Health & Science -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#06d6a0;"></div>
+      <div class="cluster-name">Health &amp; Science</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">84</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:52%;background:#06d6a0;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:31%;background:#06d6a0;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:17%;background:#06d6a0;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:1.0;"></span>Substack 44</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:0.65;"></span>Podcast 26</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:0.4;"></span>YouTube 14</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Eric Topol</span>
+        <span class="cluster-creator-name">Zeynep Tufekci</span>
+        <span class="cluster-creator-name">Ed Yong</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- Culture & Media -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#c77dff;"></div>
+      <div class="cluster-name">Culture &amp; Media</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">109</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:61%;background:#c77dff;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:24%;background:#c77dff;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:15%;background:#c77dff;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:1.0;"></span>Substack 66</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:0.65;"></span>Podcast 26</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:0.4;"></span>YouTube 17</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Anne Helen Petersen</span>
+        <span class="cluster-creator-name">Kyle Chayka</span>
+        <span class="cluster-creator-name">Embedded</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- International -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#118ab2;"></div>
+      <div class="cluster-name">International</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">72</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:44%;background:#118ab2;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:38%;background:#118ab2;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:18%;background:#118ab2;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:1.0;"></span>Substack 32</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.65;"></span>Own Site 27</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.4;"></span>YouTube 13</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">Bellingcat</span>
+        <span class="cluster-creator-name">OCCRP</span>
+        <span class="cluster-creator-name">Rest of World</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+    <!-- Sports -->
+    <a href="/#" class="cluster-card">
+      <div class="cluster-accent" style="background:#ff9f1c;"></div>
+      <div class="cluster-name">Sports</div>
+      <div class="cluster-count">
+        <span class="cluster-count-n">61</span>
+        <span class="cluster-count-lbl">creators</span>
+      </div>
+      <div class="fp-bar">
+        <div class="fp-seg" style="width:49%;background:#ff9f1c;opacity:1.0;"></div>
+        <div class="fp-seg" style="width:33%;background:#ff9f1c;opacity:0.65;"></div>
+        <div class="fp-seg" style="width:18%;background:#ff9f1c;opacity:0.4;"></div>
+      </div>
+      <div class="fp-labels">
+        <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:1.0;"></span>Substack 30</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:0.65;"></span>Podcast 20</span>
+        <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:0.4;"></span>YouTube 11</span>
+      </div>
+      <div class="cluster-creators">
+        <span class="cluster-creator-name">The Athletic</span>
+        <span class="cluster-creator-name">Pablo Torre</span>
+        <span class="cluster-creator-name">Richard Deitsch</span>
+      </div>
+      <a href="/#" class="cluster-explore-link">Explore cluster →</a>
+    </a>
+
+  </div><!-- /intel-grid -->
+  <div class="intel-footer">
+    <a href="/">Filter by topic in the full database →</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 9: PARTNER STRIP
+     ═══════════════════════════════════════════════════════════ -->
+<section class="partner-section-v3" style="position:relative;">
+  <span class="annot-pill annot-v1v2">← V1+V2</span>
+  <div class="partner-label">Trusted by journalism organizations</div>
+  <div class="partner-logos-row">
+    <div class="partner-logo-slot">
+      <span class="partner-logo-text">SembraMedia</span>
+    </div>
+    <div class="partner-logo-slot">
+      <span class="partner-logo-text">ICFJ</span>
+    </div>
+    <div class="partner-logo-slot">
+      <span class="partner-logo-text">Smart News</span>
+    </div>
+    <div class="partner-logo-slot">
+      <span class="partner-logo-text">Stacker</span>
+    </div>
+    <div class="partner-logo-slot">
+      <span class="partner-logo-text">NatGeo</span>
+    </div>
+    <div class="partner-logo-slot">
+      <span class="partner-logo-text">News Creator Corps</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 10: DATABASE ENTRY
+     ═══════════════════════════════════════════════════════════ -->
+<section class="db-section" style="position:relative;">
+  <span class="annot-pill annot-v1v2">← V1+V2</span>
+  <div class="db-header">
+    <div>
+      <h2>Start exploring the Atlas.</h2>
+      <p>1,200+ verified creators. Filter by topic, platform, or geography — or search by name.</p>
+    </div>
+    <div class="db-header-note">1,200+ verified creators</div>
+  </div>
+  <div class="db-filter-bar">
+    <select class="db-filter-select">
+      <option>All Topics</option>
+      <option>Technology</option>
+      <option>Politics &amp; Government</option>
+      <option>Climate &amp; Environment</option>
+      <option>Local News</option>
+      <option>Business &amp; Finance</option>
+      <option>Health &amp; Science</option>
+      <option>Culture &amp; Media</option>
+      <option>International</option>
+      <option>Sports</option>
+    </select>
+    <select class="db-filter-select">
+      <option>All Platforms</option>
+      <option>Newsletter</option>
+      <option>Video</option>
+      <option>Podcast</option>
+      <option>Website</option>
+    </select>
+    <select class="db-filter-select">
+      <option>All Geographies</option>
+      <option>United States</option>
+      <option>International</option>
+    </select>
+    <select class="db-filter-select">
+      <option>All Sizes</option>
+      <option>Under 10K</option>
+      <option>10K–100K</option>
+      <option>100K+</option>
+    </select>
+    <input type="text" class="db-filter-input" placeholder="Search by name…">
+  </div>
+  <div class="db-cards">
+
+    <div class="db-card">
+      <div class="db-card-name">Casey Newton</div>
+      <div class="db-card-pub">Platformer</div>
+      <div class="db-card-pills">
+        <span class="db-pill">Newsletter</span>
+        <span class="db-pill">Technology</span>
+      </div>
+    </div>
+
+    <div class="db-card">
+      <div class="db-card-name">Emily Atkin</div>
+      <div class="db-card-pub">HEATED</div>
+      <div class="db-card-pills">
+        <span class="db-pill">Newsletter</span>
+        <span class="db-pill">Climate &amp; Environment</span>
+      </div>
+    </div>
+
+    <div class="db-card">
+      <div class="db-card-name">Jessica Huseman</div>
+      <div class="db-card-pub">Votebeat</div>
+      <div class="db-card-pills">
+        <span class="db-pill">Website</span>
+        <span class="db-pill">Politics &amp; Government</span>
+      </div>
+    </div>
+
+    <div class="db-card">
+      <div class="db-card-name">Matt Levine</div>
+      <div class="db-card-pub">Money Stuff</div>
+      <div class="db-card-pills">
+        <span class="db-pill">Newsletter</span>
+        <span class="db-pill">Business &amp; Finance</span>
+      </div>
+    </div>
+
+    <div class="db-card">
+      <div class="db-card-name">Block Club Chicago</div>
+      <div class="db-card-pub">Block Club Chicago</div>
+      <div class="db-card-pills">
+        <span class="db-pill">Website</span>
+        <span class="db-pill">Local News</span>
+      </div>
+    </div>
+
+    <div class="db-card">
+      <div class="db-card-name">Eric Topol</div>
+      <div class="db-card-pub">Ground Truths</div>
+      <div class="db-card-pills">
+        <span class="db-pill">Newsletter</span>
+        <span class="db-pill">Health &amp; Science</span>
+      </div>
+    </div>
+
+  </div><!-- /db-cards -->
+  <div class="db-cta">
+    <a href="index.html" class="btn-lime-lg">Explore all 1,200+ creators →</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 11: FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<footer class="site-footer" style="position:relative;">
+  <span class="annot-pill annot-v1v2">← V1+V2</span>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Journalism Atlas">
+        <p class="footer-tagline">Mapping independent journalism since 2024.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <a href="#">The Atlas Database</a>
+        <a href="#">Beat Clusters</a>
+        <a href="#">City Labs</a>
+        <a href="#">Atlas Pulse</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">About</div>
+        <a href="#">Who We Are</a>
+        <a href="#">How We Did This</a>
+        <a href="#">Our Research</a>
+        <a href="#">Advisory Boards</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Connect</div>
+        <a href="#">Submit a Creator</a>
+        <a href="#">Updates</a>
+        <a href="#">Partner with Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Independent Journalism Atlas</span>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const CREATORS = [{"name":"Adam Cole","channel":"Howtown","topic":"Climate & Science","platform":"Video"},{"name":"Emily Atkin","channel":"Heated","topic":"Climate & Science","platform":"Newsletter"},{"name":"Johnny Harris","channel":"Johnny Harris","topic":"Climate & Science","platform":"Video"},{"name":"Joss Fong","channel":"Howtown","topic":"Climate & Science","platform":"Video"},{"name":"Kahlil Greene","channel":"Gen Z Historian","topic":"Climate & Science","platform":"Video"},{"name":"Phil Edwards","channel":"Phil Edwards","topic":"Climate & Science","platform":"Video"},{"name":"Sam Ellis","channel":"Search Party","topic":"Climate & Science","platform":"Video"},{"name":"Adam Mastroianni","channel":"Experimental History","topic":"Climate & Science","platform":"Newsletter"},{"name":"Alex Steffen","channel":"The Snap Forward","topic":"Climate & Science","platform":"Newsletter"},{"name":"Alexander C. Kaufman","channel":"FIELD NOTES","topic":"Climate & Science","platform":"Newsletter"},{"name":"Amy Westervelt","channel":"Drilled","topic":"Climate & Science","platform":"Podcast"},{"name":"Andrew Dessler","channel":"The Climate Brink","topic":"Climate & Science","platform":"Newsletter"},{"name":"Andy Revkin","channel":"Sustain What","topic":"Climate & Science","platform":"Newsletter"},{"name":"Ayana Elizabeth Johnson","channel":"What If We Get It Right?","topic":"Climate & Science","platform":"Newsletter"},{"name":"Bill McKibben","channel":"The Crucial Years","topic":"Climate & Science","platform":"Newsletter"},{"name":"Bill Nye","channel":"Bill Nye","topic":"Climate & Science","platform":"Website"},{"name":"Bill Spindle","channel":"The Energy Adventure(r)","topic":"Climate & Science","platform":"Newsletter"},{"name":"Caroline Saunders","channel":"Pale Blue Tart","topic":"Climate & Science","platform":"Newsletter"},{"name":"Charlie Kilman","channel":"Our Changing Climate","topic":"Climate & Science","platform":"Video"},{"name":"Emily Grubert","channel":"Energy Nerd","topic":"Climate & Science","platform":"Newsletter"},{"name":"Grant Sanderson","channel":"3Blue1Brown","topic":"Climate & Science","platform":"Video"},{"name":"Heatmap News","channel":"Heatmap News","topic":"Climate & Science","platform":"Newsletter"},{"name":"Jesse Jenkins","channel":"Shift Key","topic":"Climate & Science","platform":"Podcast"},{"name":"Kate Mackenzie","channel":"Overheated","topic":"Climate & Science","platform":"Newsletter"},{"name":"Kendra Pierre-Louis","channel":"Heated","topic":"Climate & Science","platform":"Newsletter"},{"name":"Alexios Mantzarlis","channel":"Indicator","topic":"Tech & Business","platform":"Newsletter"},{"name":"Becca Farsace","channel":"Taking Tech Outside","topic":"Tech & Business","platform":"Video"},{"name":"Casey Lewis","channel":"After School","topic":"Tech & Business","platform":"Newsletter"},{"name":"Casey Newton","channel":"Platformer","topic":"Tech & Business","platform":"Newsletter"},{"name":"Cleo Abram","channel":"Huge If True","topic":"Tech & Business","platform":"Video"},{"name":"Craig Silverman","channel":"Indicator","topic":"Tech & Business","platform":"Newsletter"},{"name":"Eric Newcomer","channel":"Newcomer","topic":"Tech & Business","platform":"Newsletter"},{"name":"Kyla Scanlon","channel":"In This Economy?","topic":"Tech & Business","platform":"Video"},{"name":"Marques Brownlee","channel":"MKBHD","topic":"Tech & Business","platform":"Video"},{"name":"Max Read","channel":"Read Max","topic":"Tech & Business","platform":"Newsletter"},{"name":"Parker Molloy","channel":"The Present Age","topic":"Tech & Business","platform":"Newsletter"},{"name":"Ryan Broderick","channel":"Garbage Day","topic":"Tech & Business","platform":"Newsletter"},{"name":"Taylor Lorenz","channel":"UserMag","topic":"Tech & Business","platform":"Newsletter"},{"name":"Adam Tooze","channel":"Chartbook","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alberto Cairo","channel":"Open Visualization Academy","topic":"Tech & Business","platform":"Website"},{"name":"Alex Heath","channel":"Sources","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alex Kantrowitz","channel":"Big Technology","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alex Konrad","channel":"Upstarts Media","topic":"Tech & Business","platform":"Newsletter"},{"name":"Andrew Gelman","channel":"Statistical Modeling","topic":"Tech & Business","platform":"Newsletter"},{"name":"Ben Thompson","channel":"Stratechery","topic":"Tech & Business","platform":"Newsletter"},{"name":"Brian Merchant","channel":"Blood in the Machine","topic":"Tech & Business","platform":"Newsletter"},{"name":"Charlotte Jee","channel":"Future of You","topic":"Tech & Business","platform":"Newsletter"},{"name":"Caitlin Dewey","channel":"Links I Would GChat You","topic":"Tech & Business","platform":"Newsletter"},{"name":"Dan Primack","channel":"Pro Rata","topic":"Tech & Business","platform":"Newsletter"},{"name":"Alicia Kennedy","channel":"From the Desk of Alicia Kennedy","topic":"Culture","platform":"Newsletter"},{"name":"Andy Dehnart","channel":"Reality Blurred","topic":"Culture","platform":"Newsletter"},{"name":"Emily Sundberg","channel":"Feed Me","topic":"Culture","platform":"Newsletter"},{"name":"Erin Reed","channel":"Erin In the Morning","topic":"Culture","platform":"Newsletter"},{"name":"Hunter Harris","channel":"Hung Up","topic":"Culture","platform":"Newsletter"},{"name":"Adrienne Keene","channel":"All My Relations Podcast","topic":"Culture","platform":"Podcast"},{"name":"Allie Jones","channel":"Gossip Time","topic":"Culture","platform":"Newsletter"},{"name":"Alyssa Rosenberg","channel":"Across the Movie Aisle","topic":"Culture","platform":"Newsletter"},{"name":"Amanda Montei","channel":"Mad Woman","topic":"Culture","platform":"Newsletter"},{"name":"Anand Giridharadas","channel":"Anand Giridharadas","topic":"Culture","platform":"Video"},{"name":"Andrew Ricketts","channel":"Big Black Commentary","topic":"Culture","platform":"Newsletter"},{"name":"Anne Helen Petersen","channel":"Culture Study","topic":"Culture","platform":"Newsletter"},{"name":"Becky Bullard","channel":"Democrasexy","topic":"Culture","platform":"Video"},{"name":"Chris Cillizza","channel":"So What","topic":"Politics","platform":"Newsletter"},{"name":"Chris Geidner","channel":"Law Dork","topic":"Politics","platform":"Newsletter"},{"name":"Isaac Saul","channel":"Tangle News","topic":"Politics","platform":"Newsletter"},{"name":"Jessica Valenti","channel":"Abortion Every Day","topic":"Politics","platform":"Newsletter"},{"name":"Judd Legum","channel":"Popular Info","topic":"Politics","platform":"Newsletter"},{"name":"Kyle Tharp","channel":"Chaotic Era","topic":"Politics","platform":"Newsletter"},{"name":"Lisa Remillard","channel":"The News Girl","topic":"Politics","platform":"Video"},{"name":"Marisa Kabas","channel":"The Handbasket","topic":"Politics","platform":"Newsletter"},{"name":"Matt Kiser","channel":"WTF Just Happened Today?","topic":"Politics","platform":"Newsletter"},{"name":"Nathan Tankus","channel":"Notes on the Crisis","topic":"Politics","platform":"Newsletter"},{"name":"Aaron Parnas","channel":"Aaron Parnas","topic":"Politics","platform":"Video"},{"name":"Aaron Rupar","channel":"Public Notice","topic":"Politics","platform":"Newsletter"},{"name":"Adam Mockler","channel":"Adam Mockler","topic":"Politics","platform":"Video"},{"name":"Alastair Campbell","channel":"Rest Is Politics","topic":"Politics","platform":"Video"},{"name":"Andrew Sullivan","channel":"The Weekly Dish","topic":"Politics","platform":"Newsletter"},{"name":"Azi Paybarah","channel":"Azi Paybarah","topic":"Politics","platform":"Newsletter"},{"name":"Briahna Joy Gray","channel":"Bad Faith","topic":"Politics","platform":"Video"},{"name":"Brian Tyler Cohen","channel":"Brian Tyler Cohen","topic":"Politics","platform":"Video"},{"name":"Bruce Maples","channel":"Forward Kentucky","topic":"Politics","platform":"Website"},{"name":"Ezra Klein","channel":"The Ezra Klein Show","topic":"Politics","platform":"Podcast"},{"name":"Katelyn Jetelina","channel":"Your Local Epidemiologist","topic":"Health","platform":"Newsletter"},{"name":"Aaron Carroll","channel":"Healthcare Triage","topic":"Health","platform":"Video"},{"name":"Adam Kucharski","channel":"Understanding the Unseen","topic":"Health","platform":"Newsletter"},{"name":"Caitlin Rivers","channel":"Force of Infection","topic":"Health","platform":"Newsletter"},{"name":"Cara Goodwin","channel":"Parenting Translator","topic":"Health","platform":"Newsletter"},{"name":"Dan Harris","channel":"10% Happier","topic":"Health","platform":"Newsletter"},{"name":"Dr. Jen Gunter","channel":"The Vagenda","topic":"Health","platform":"Newsletter"},{"name":"Emily Oster","channel":"Parent Data","topic":"Health","platform":"Website"},{"name":"Esther Perel","channel":"Where Should We Begin?","topic":"Health","platform":"Podcast"},{"name":"Gideon Meyerowitz-Katz","channel":"Health Nerd","topic":"Health","platform":"Newsletter"},{"name":"Jacqueline Nesi","channel":"Techno Sapiens","topic":"Health","platform":"Newsletter"},{"name":"Jeremy Faust","channel":"Inside Medicine","topic":"Health","platform":"Newsletter"},{"name":"Katherine Wu","channel":"The Atlantic","topic":"Health","platform":"Newsletter"},{"name":"Lucia Starbuck","channel":"Lucia Starbuck","topic":"Health","platform":"Video"},{"name":"Matt Brown","channel":"Extra Points","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Sandie S.","channel":"A Dork and Her Fork","topic":"Food & Lifestyle","platform":"Video"},{"name":"Ali Slagle","channel":"40 Ingredients Forever","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Alison Roman","channel":"a newsletter","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Andrew Donlan","channel":"Still Gotta Come Through Chicago","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Andrew Janjigian","channel":"Word Loaf","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Bill Oakley","channel":"That Bill Oakley","topic":"Food & Lifestyle","platform":"Video"},{"name":"Brandon Perna","channel":"Thats Good Sports","topic":"Food & Lifestyle","platform":"Video"},{"name":"Brett Kollmann","channel":"Brett Kollmann","topic":"Food & Lifestyle","platform":"Video"},{"name":"Caroline Chambers","channel":"What to Cook When You Don't Feel Like Cooking","topic":"Food & Lifestyle","platform":"Video"},{"name":"Charlotte Wilder","channel":"Sports Gossip Show","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Chase Vondran","channel":"Explore With Chase","topic":"Food & Lifestyle","platform":"Video"},{"name":"Craig Calcaterra","channel":"Cup of Coffee","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Dani Beckett","channel":"The Sidebar","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"David Chang","channel":"The Dave Chang Show","topic":"Food & Lifestyle","platform":"Podcast"},{"name":"Ed Tipton","channel":"Sports Card Investor","topic":"Food & Lifestyle","platform":"Video"},{"name":"Elazar Sontag","channel":"Eating in Translation","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Evan Andrews","channel":"Time Travelers ONLY","topic":"Food & Lifestyle","platform":"Video"},{"name":"Greta Lee Jackson","channel":"GretaLeeJackson","topic":"Food & Lifestyle","platform":"Video"},{"name":"Hannah Cutting-Jones","channel":"Alimentary","topic":"Food & Lifestyle","platform":"Newsletter"},{"name":"Mosheh Oinounou","channel":"Mo News","topic":"Local News","platform":"Video"},{"name":"Alex Kellerman","channel":"The F*ckin' News","topic":"Local News","platform":"Video"},{"name":"Alexander Russo","channel":"The Grade","topic":"Local News","platform":"Newsletter"},{"name":"Alissa Walker","channel":"Torched LA","topic":"Local News","platform":"Newsletter"},{"name":"Ambreen Ali","channel":"Central Desi","topic":"Local News","platform":"Newsletter"},{"name":"Andy DeMeo","channel":"Granite Goodness","topic":"Local News","platform":"Newsletter"},{"name":"Annie Dance","channel":"Cops & Congress by Annie Dance","topic":"Local News","platform":"Newsletter"},{"name":"Austin Graff","channel":"Austin K Graff","topic":"Local News","platform":"Video"},{"name":"Brian Skinner","channel":"Marin Buzz","topic":"Local News","platform":"Newsletter"},{"name":"Brianna Wickey","channel":"Scoop Charlotte","topic":"Local News","platform":"Newsletter"},{"name":"Caroline Crampton","channel":"The Browser","topic":"Local News","platform":"Newsletter"},{"name":"Charlie Meyerson","channel":"Chicago Public Square","topic":"Local News","platform":"Newsletter"},{"name":"Charlotte Salley","channel":"Hot Bones","topic":"Local News","platform":"Newsletter"},{"name":"Chris La Tray","channel":"The Irritable Métis","topic":"Local News","platform":"Newsletter"},{"name":"Claudine Zap","channel":"Must Like Fog","topic":"Local News","platform":"Newsletter"},{"name":"Corey Hutchins","channel":"Inside the News in Colorado","topic":"Local News","platform":"Newsletter"},{"name":"Daniel Hernandez","channel":"LA Taco","topic":"Local News","platform":"Newsletter"},{"name":"Defne Gürsoy","channel":"Defne Gürsoy","topic":"Local News","platform":"Newsletter"},{"name":"Ellyn Fortino","channel":"Illinois Policy Institute","topic":"Local News","platform":"Newsletter"},{"name":"Oliver Darcy","channel":"Status","topic":"Media & Power","platform":"Newsletter"},{"name":"A.B. Burns-Tucker","channel":"I am legally hype","topic":"Media & Power","platform":"Video"},{"name":"Abbie Richards","channel":"Tofology","topic":"Media & Power","platform":"Video"},{"name":"Adam Johnson","channel":"Citations Needed","topic":"Media & Power","platform":"Podcast"},{"name":"Adam Klasfeld","channel":"All Rise News","topic":"Media & Power","platform":"Newsletter"},{"name":"Alec Karakatsanis","channel":"Copaganda Newsletter","topic":"Media & Power","platform":"Newsletter"},{"name":"Andrew Callaghan","channel":"Channel 5","topic":"Media & Power","platform":"Video"},{"name":"Anna Pujol-Mazzini","channel":"Good Story","topic":"Media & Power","platform":"Newsletter"},{"name":"Beth Shelburne","channel":"Moth to flame","topic":"Media & Power","platform":"Newsletter"},{"name":"Brian Morrissey","channel":"The Rebooting","topic":"Media & Power","platform":"Newsletter"},{"name":"Brian Reed","channel":"Question Everything","topic":"Media & Power","platform":"Podcast"},{"name":"Cam Rodriguez","channel":"foiaday","topic":"Media & Power","platform":"Newsletter"},{"name":"Catherine Herridge","channel":"Catherine Herridge Reports","topic":"Media & Power","platform":"Newsletter"},{"name":"Cheryl Rofer","channel":"Nuclear Diner","topic":"Media & Power","platform":"Website"},{"name":"Dan Froomkin","channel":"Press Watch","topic":"Media & Power","platform":"Website"},{"name":"Dan Sinker","channel":"The Ongoing History of the Chicago River","topic":"Media & Power","platform":"Newsletter"},{"name":"Danny Gold","channel":"Irregular Warfare","topic":"Media & Power","platform":"Newsletter"},{"name":"Donie O'Sullivan","channel":"Donie O'Sullivan","topic":"Media & Power","platform":"Newsletter"},{"name":"Drew Harwell","channel":"The Monitor","topic":"Media & Power","platform":"Newsletter"},{"name":"Ed Brayton","channel":"Dispatches from the Culture Wars","topic":"Media & Power","platform":"Newsletter"},{"name":"Tim Mak","channel":"The Counteroffensive","topic":"World News","platform":"Newsletter"},{"name":"Alex H","channel":"A Map Nerd","topic":"World News","platform":"Video"},{"name":"Anders Puck Nielsen","channel":"Anders Puck Nielsen","topic":"World News","platform":"Video"},{"name":"Andrew Free","channel":"DetentionKills","topic":"World News","platform":"Newsletter"},{"name":"Angus Hervey","channel":"Fix The News","topic":"World News","platform":"Newsletter"},{"name":"Austin Kocher","channel":"Austin Kocher","topic":"World News","platform":"Newsletter"},{"name":"Bill Bishop","channel":"Sinocism","topic":"World News","platform":"Newsletter"},{"name":"Bisan Owda","channel":"Bisan Owda","topic":"World News","platform":"Video"},{"name":"Branko Milanovic","channel":"Global Inequality and More 3.0","topic":"World News","platform":"Newsletter"},{"name":"Carla Angola","channel":"Carla Angola","topic":"World News","platform":"Video"},{"name":"Chico Felitti","channel":"Chico Felitti","topic":"World News","platform":"Video"},{"name":"Daniel Drezner","channel":"Drezner's World","topic":"World News","platform":"Newsletter"},{"name":"Daniel Larison","channel":"Eunomia","topic":"World News","platform":"Newsletter"},{"name":"Dylan Burns","channel":"DylanBurnsTV","topic":"World News","platform":"Video"},{"name":"Evan Hadfield","channel":"Rare Earth","topic":"World News","platform":"Video"},{"name":"Felipe De La Hoz","channel":"Borderlines","topic":"World News","platform":"Newsletter"},{"name":"Gaby Del Valle","channel":"Borderlines","topic":"World News","platform":"Newsletter"},{"name":"Jake Broe","channel":"Jake Broe","topic":"World News","platform":"Video"},{"name":"Jared Keller","channel":"Laser Wars","topic":"World News","platform":"Newsletter"}];
+
+const TOPIC_CLUSTER = {
+  'Politics': 'Politics',
+  'Tech & Business': 'Tech & Business',
+  'Culture': 'Culture',
+  'Climate & Science': 'Climate & Science',
+  'Health': 'Health',
+  'Food & Lifestyle': 'Food & Lifestyle',
+  'Local News': 'Local News',
+  'Media & Power': 'Media & Power',
+  'World News': 'World News',
+};
+
+const CLUSTERS = {
+  'Politics':         { color: '#e63946', cx: 0.22, cy: 0.18 },
+  'Tech & Business':  { color: '#457b9d', cx: 0.58, cy: 0.12 },
+  'Culture':          { color: '#c77dff', cx: 0.85, cy: 0.24 },
+  'Climate & Science':{ color: '#2d6a4f', cx: 0.90, cy: 0.58 },
+  'Food & Lifestyle': { color: '#f4a261', cx: 0.74, cy: 0.88 },
+  'Local News':       { color: '#ffd166', cx: 0.42, cy: 0.90 },
+  'World News':       { color: '#ef476f', cx: 0.14, cy: 0.80 },
+  'Health':           { color: '#e76f51', cx: 0.06, cy: 0.48 },
+  'Media & Power':    { color: '#6d4c41', cx: 0.38, cy: 0.42 },
+};
+
+const VIZ_ANCHORS = [
+  { name: 'Aaron Rupar',       cluster: 'Politics'          },
+  { name: 'Casey Newton',      cluster: 'Tech & Business'   },
+  { name: 'Alicia Kennedy',    cluster: 'Culture'           },
+  { name: 'Emily Atkin',       cluster: 'Climate & Science' },
+  { name: 'Mosheh Oinounou',   cluster: 'Local News'        },
+  { name: 'Tim Mak',           cluster: 'World News'        },
+  { name: 'Katelyn Jetelina',  cluster: 'Health'            },
+  { name: 'Oliver Darcy',      cluster: 'Media & Power'     },
+  { name: 'Alison Roman',      cluster: 'Food & Lifestyle'  },
+];
+
+/* ════════════════════════════════════════════════════════════
+   VIZ UTILITIES
+   ════════════════════════════════════════════════════════════ */
+function hexAlpha(hex, a) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIZ FACTORY — adapted from bluesky-creator-intelligence-v4.html
+   Uses channel name instead of bsky handle in tooltip
+   ════════════════════════════════════════════════════════════ */
+function buildViz(canvas, tooltip, { startSettled = false, nodeScale = 1.0 } = {}) {
+  const container = canvas.parentElement;
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const w = container.clientWidth;
+    const h = canvas.offsetHeight || container.offsetHeight;
+    canvas.width  = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width  = w + 'px';
+    canvas.style.height = h + 'px';
+    return { w, h, dpr };
+  }
+
+  let { w, h, dpr } = resize();
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const nodes = CREATORS.map(c => {
+    const cluster = TOPIC_CLUSTER[c.topic] || 'Media & Power';
+    const cfg = CLUSTERS[cluster];
+    const angle = Math.random() * Math.PI * 2;
+    const r = (0.15 + Math.random() * 0.35) * Math.min(w, h);
+    const jx = (Math.random() - 0.5) * 44;
+    const jy = (Math.random() - 0.5) * 44;
+    const tx = cfg.cx * w + jx;
+    const ty = cfg.cy * h + jy;
+    return {
+      sx: startSettled ? tx : w / 2 + Math.cos(angle) * r,
+      sy: startSettled ? ty : h / 2 + Math.sin(angle) * r,
+      tx, ty,
+      cx: startSettled ? tx : 0,
+      cy: startSettled ? ty : 0,
+      color: cfg.color,
+      cluster,
+      name: c.name,
+      channel: c.channel,
+      driftPhase: Math.random() * Math.PI * 2,
+      driftAmp:   2 + Math.random() * 3,
+      driftSpeed: 0.4 + Math.random() * 0.6,
+    };
+  });
+
+  const anchorNodes = {};
+  VIZ_ANCHORS.forEach(a => {
+    const node = nodes.find(n => n.name === a.name);
+    if (node) anchorNodes[a.name] = { node, cluster: a.cluster };
+  });
+
+  const START    = performance.now();
+  const ANIM_DUR = 1200;
+  let labelsAlpha = 0;
+  let namesAlpha  = 0;
+  let settled     = startSettled;
+  let hoveredCluster = null;
+  let lockedCluster  = null;
+  const mouse = { x: null, y: null };
+  let rafId;
+
+  function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function getHoverCluster(mx, my) {
+    let nearest = null, minDist = Infinity;
+    Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+      const d = Math.hypot(cfg.cx * w - mx, cfg.cy * h - my);
+      if (d < minDist) { minDist = d; nearest = name; }
+    });
+    return nearest;
+  }
+
+  function drawConnectionLines(cluster) {
+    const clusterNodes = nodes.filter(n => n.cluster === cluster);
+    const cfg = CLUSTERS[cluster];
+    clusterNodes.forEach(a => {
+      clusterNodes
+        .filter(b => b !== a)
+        .map(b => ({ b, dist: Math.hypot(a.cx - b.cx, a.cy - b.cy) }))
+        .sort((x, y) => x.dist - y.dist)
+        .slice(0, 4)
+        .forEach(({ b, dist }) => {
+          const lineAlpha = Math.max(0, (1 - dist / 120)) * 0.2;
+          if (lineAlpha <= 0) return;
+          ctx.beginPath();
+          ctx.moveTo(a.cx, a.cy);
+          ctx.lineTo(b.cx, b.cy);
+          ctx.strokeStyle = hexAlpha(cfg.color, lineAlpha);
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        });
+    });
+  }
+
+  function drawLabelsAndNames() {
+    if (labelsAlpha <= 0) return;
+    const activeCluster = lockedCluster ?? hoveredCluster;
+    const isLocked = lockedCluster !== null;
+    ctx.textAlign = 'center';
+    Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+      const isActive = name === activeCluster;
+      let la, fontSize, fontWeight;
+      if      (activeCluster === null) { la = labelsAlpha; fontSize = '11px'; fontWeight = '600'; }
+      else if (isActive)               { la = 1.0;         fontSize = '14px'; fontWeight = '700'; }
+      else { la = isLocked ? labelsAlpha * 0.12 : labelsAlpha * 0.30; fontSize = '11px'; fontWeight = '600'; }
+      ctx.save();
+      ctx.globalAlpha = la;
+      ctx.font = `${fontWeight} ${fontSize} "DM Mono", monospace`;
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name.toUpperCase(), cfg.cx * w, cfg.cy * h - (isActive ? 20 : 16));
+      ctx.restore();
+    });
+    if (namesAlpha <= 0) return;
+    const activeC = lockedCluster ?? hoveredCluster;
+    ctx.font = '500 13px "Hanken Grotesk", sans-serif';
+    ctx.textAlign = 'center';
+    Object.entries(anchorNodes).forEach(([name, { node, cluster }]) => {
+      const cfg = CLUSTERS[cluster];
+      const na = activeC === null      ? namesAlpha * 0.9
+               : activeC === cluster   ? namesAlpha
+               :                        namesAlpha * 0.05;
+      if (na <= 0.02) return;
+      ctx.save();
+      ctx.globalAlpha = na * 0.75;
+      ctx.fillStyle = 'rgba(8,8,16,0.75)';
+      ctx.fillRect(node.cx - 52, node.cy - 26, 104, 16);
+      ctx.globalAlpha = na;
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name, node.cx, node.cy - 14);
+      ctx.restore();
+    });
+  }
+
+  function draw(now) {
+    ctx.clearRect(0, 0, w, h);
+    const activeCluster = lockedCluster ?? hoveredCluster;
+    const isLocked = lockedCluster !== null;
+
+    if (!settled) {
+      const t  = Math.min((now - START) / ANIM_DUR, 1);
+      const et = easeInOut(t);
+      nodes.forEach(n => {
+        n.cx = n.sx + (n.tx - n.sx) * et;
+        n.cy = n.sy + (n.ty - n.sy) * et;
+        ctx.beginPath();
+        ctx.arc(n.cx, n.cy, 3.8 * nodeScale, 0, Math.PI * 2);
+        ctx.fillStyle = hexAlpha(n.color, 0.72);
+        ctx.fill();
+      });
+      if (t >= 1) settled = true;
+      if (settled) labelsAlpha = Math.min(labelsAlpha + 0.025, 1);
+      if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
+      drawLabelsAndNames();
+    } else {
+      const td = now / 1000;
+      labelsAlpha = Math.min(labelsAlpha + 0.025, 1);
+      if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
+      if (isLocked) drawConnectionLines(lockedCluster);
+      nodes.forEach(n => {
+        n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
+        n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
+        if (mouse.x !== null) {
+          const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < 60 && d > 0) { const f = (1 - d/60) * 18; n.cx += dx/d*f; n.cy += dy/d*f; }
+        }
+        let alpha, radius;
+        if      (activeCluster === null)       { alpha = 0.72; radius = 3.8 * nodeScale; }
+        else if (n.cluster === activeCluster)  { alpha = isLocked ? 1.0  : 0.88; radius = isLocked ? 6.0 * nodeScale : 4.8 * nodeScale; }
+        else                                   { alpha = isLocked ? 0.10 : 0.28; radius = isLocked ? 2.5 * nodeScale : 3.2 * nodeScale; }
+        ctx.beginPath();
+        ctx.arc(n.cx, n.cy, radius, 0, Math.PI * 2);
+        ctx.fillStyle = hexAlpha(n.color, alpha);
+        ctx.fill();
+      });
+      drawLabelsAndNames();
+    }
+    rafId = requestAnimationFrame(draw);
+  }
+
+  rafId = requestAnimationFrame(draw);
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    mouse.x = mx; mouse.y = my;
+    if (lockedCluster === null) hoveredCluster = getHoverCluster(mx, my);
+    let nearest = null, minDist = 22;
+    nodes.forEach(n => {
+      const d = Math.hypot(n.cx - mx, n.cy - my);
+      if (d < minDist) { minDist = d; nearest = n; }
+    });
+    if (nearest) {
+      const cfg = CLUSTERS[nearest.cluster];
+      tooltip.style.display = 'block';
+      tooltip.style.left = Math.min(mx + 14, w - 204) + 'px';
+      tooltip.style.top  = Math.max(my - 14, 4) + 'px';
+      tooltip.innerHTML  = `<strong>${nearest.name}</strong><span class="tt-channel">${nearest.channel}</span><span class="tt-cluster" style="color:${cfg.color}">${nearest.cluster}</span>`;
+    } else {
+      tooltip.style.display = 'none';
+    }
+    canvas.style.cursor = settled ? 'pointer' : 'default';
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+    mouse.x = null; mouse.y = null;
+    canvas.style.cursor = 'default';
+    if (lockedCluster === null) hoveredCluster = null;
+  });
+
+  canvas.addEventListener('click', e => {
+    if (!settled) return;
+    const rect = canvas.getBoundingClientRect();
+    const clicked = getHoverCluster(e.clientX - rect.left, e.clientY - rect.top);
+    lockedCluster  = (clicked === lockedCluster) ? null : clicked;
+    hoveredCluster = lockedCluster === null
+      ? getHoverCluster(e.clientX - rect.left, e.clientY - rect.top)
+      : null;
+  });
+
+  const ro = new ResizeObserver(() => {
+    const dims = resize();
+    w = dims.w; h = dims.h; dpr = dims.dpr;
+    ctx.scale(dpr, dpr);
+    nodes.forEach(n => {
+      const cfg = CLUSTERS[n.cluster];
+      const jx = (Math.random() - 0.5) * 44, jy = (Math.random() - 0.5) * 44;
+      n.tx = cfg.cx * w + jx;
+      n.ty = cfg.cy * h + jy;
+    });
+  });
+  ro.observe(container);
+
+  return { stop: () => cancelAnimationFrame(rafId) };
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  buildViz(
+    document.getElementById('hero-b-canvas'),
+    document.getElementById('hero-b-tooltip'),
+    { startSettled: false }
+  );
+});
+</script>
+</body>
+</html>
