@@ -21,6 +21,8 @@ All visual implementation references `DESIGN-TOKENS.md` at the project root as t
 
 **Do not infer or improvise colors, type sizes, spacing, or component states — look them up.**
 
+**Designer's principles:** James Bareham's 15 web design principles live at `_reference/james-design-principles.md`. Read this before making any structural or layout decisions. Key principles that come up constantly: The Explanation Principle (every module needs a narrative entry point), The Surface Hierarchy Principle (dark = stage, light = workspace), The Placeholder Principle (no empty states in public-facing design), and The Tool Principle (every element must serve the user's task).
+
 ### Non-negotiable rules (memorize these)
 
 - **Acid green `#ceff00` = dark backgrounds only** — never on light/white surfaces
