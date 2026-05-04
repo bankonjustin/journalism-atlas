@@ -121,6 +121,14 @@ Old root-level partner URLs redirect to new paths via `_redirects` at repo root.
 
 ---
 
+## Data Pipeline
+
+`creators-master.csv` → `node convert.js` → `creators-data.json` (live site reads this).
+
+See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and how to keep Ryan's master in sync.
+
+---
+
 ## Key Constraints
 
 - **Single deployable HTML file** — no build step, no external dependencies beyond CDNs
@@ -136,7 +144,7 @@ Old root-level partner URLs redirect to new paths via `_redirects` at repo root.
 
 | File | Description | Creator count | CSS approach |
 |------|-------------|--------------|--------------|
-| `index.html` | Main database | ~1,180+ (live JSON) | External: `main.css` |
+| `index.html` | Main database | ~1,453 (live JSON) | External: `main.css` |
 | `postcard.html` | Starter Pack builder | — | Inline `<style>` |
 | `partners/_shell.html` | Partner page shell (template) | — | Inline `<style>` |
 | `partners/cillizza.html` | Chris Cillizza curated list | 17 | Inline `<style>` |
