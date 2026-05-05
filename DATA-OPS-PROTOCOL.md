@@ -45,6 +45,22 @@ The key rule: **every creator on the live site must have a row in `creators-mast
 
 ---
 
+## Geo field standards
+
+These are the canonical formats. When Ryan delivers a new CSV, run a geo audit as part of step 3 and apply these before converting.
+
+| Field | Standard | Common violations to fix |
+|-------|----------|--------------------------|
+| `Geo State` | 2-letter abbreviation: `DC`, `NY`, `CA` | `D.C.` → `DC`; `New York` → `NY`; `Massachussetts` → `MA`; full state name in city field with `U.S.` in state field → swap |
+| `Geo Country` | Full English name: `United States`, `United Kingdom`, `New Zealand` | `US` and `United States` both appear — normalize to `US`; `UK` → `United Kingdom`; `NZ` → `New Zealand` |
+| `Geo City` | Proper spelling | `Seatlle` → `Seattle` |
+
+**DC entries:** state=`DC`, country=`US`. The old `D.C.` variant (128 rows, May 2026 migration) has been cleaned.
+
+**Ambiguous flag for Ryan:** 8 entries have `state='Washington'` with no city — unclear if DC or WA state. Ryan to clarify: Anne Helen Petersen, David Roberts, Ellen Weatherford, Gregory Foster, Joel Bervell, Lawrence Pintak, Paul Queary, Ulrike Langer.
+
+---
+
 ## What NOT to do
 
 - Don't edit `creators-data.json` directly
