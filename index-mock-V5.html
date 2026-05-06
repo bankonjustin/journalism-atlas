@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Homepage Mock — V5 (Full-Bleed Hero / Upgraded Viz)</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #efeff2; color: #efeff2; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); }
+    a { text-decoration: none; }
+
+    /* ── ANNOTATION ── */
+    .annot-pill {
+      position: absolute; top: 10px; left: 10px;
+      font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 500;
+      padding: 2px 7px; border-radius: 100px; pointer-events: none;
+      z-index: 50; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .annot-v5   { background: rgba(206,255,0,0.1); color: #ceff00; border: 1px solid rgba(206,255,0,0.25); }
+    .annot-v1v2 { background: #0d0d0d; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
+    .annot-banner {
+      position: sticky; top: 56px; z-index: 180;
+      background: #0a0a0a; border-bottom: 1px solid #1f1f1f;
+      padding: 8px 40px; display: flex; align-items: center; gap: 16px;
+    }
+    .annot-banner-title { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.14em; }
+    .annot-legend { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+    .annot-legend-item { font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 500; padding: 2px 7px; border-radius: 100px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ── BUTTONS ── */
+    .btn-acid {
+      background: #ceff00; color: #000;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-weight: 700; font-size: 13px;
+      padding: 11px 24px; border-radius: 6px; border: none;
+      cursor: pointer; display: inline-block; transition: background 0.15s;
+    }
+    .btn-acid:hover { background: #d8ff33; }
+    .btn-ghost-white {
+      border: 1.5px solid rgba(255,255,255,0.35); color: #fff;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 13px;
+      padding: 10px 22px; border-radius: 6px;
+      display: inline-block; transition: border-color 0.15s;
+    }
+    .btn-ghost-white:hover { border-color: #fff; }
+
+    /* ── HERO V5: FULL-BLEED ── */
+    .hero-v5 {
+      position: relative; overflow: hidden;
+      background: #000;
+      min-height: 640px;
+    }
+
+    /* Canvas: layer 1 — fills the full hero */
+    #hero-canvas {
+      display: block; position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      cursor: crosshair; z-index: 1;
+    }
+
+    /* Gradient vignette: layer 2 — darkens top-left for copy readability */
+    .gradient-vignette {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(
+        135deg,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.55) 28%,
+        rgba(0,0,0,0.22) 55%,
+        rgba(0,0,0,0.05) 100%
+      );
+    }
+
+    /* Copy overlay: layer 5 — floats over canvas */
+    .copy-overlay {
+      position: absolute; inset: 0; z-index: 5;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      padding: 56px 64px;
+      pointer-events: none;
+    }
+
+    /* Eyebrow pill */
+    .hero-eyebrow-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00;
+      border: 1px solid rgba(206,255,0,0.35); padding: 4px 12px; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px;
+      background: rgba(206,255,0,0.06);
+    }
+    .hero-headline {
+      font-size: clamp(36px, 4.5vw, 62px); font-weight: 700;
+      line-height: 1.03; letter-spacing: -0.03em; color: #fff;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.8); margin: 0;
+    }
+    .hero-headline em { font-style: normal; color: #ceff00; }
+    .hero-subhead {
+      font-size: 18px; color: rgba(220,220,220,0.85); line-height: 1.7;
+      max-width: 460px; margin-top: 20px;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.7);
+    }
+    .hero-ctas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+    .hero-small-note { font-size: 12px; color: rgba(255,255,255,0.28); margin-top: 12px; }
+
+    /* Cluster panel: layer 10 — top-right corner of hero */
+    #cluster-panel {
+      display: none; position: absolute; top: 70px; right: 64px;
+      background: rgba(8,8,18,0.92); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 14px 16px; z-index: 10; min-width: 168px;
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.12s ease, transform 0.12s ease;
+    }
+
+    /* Tooltip: layer 15 */
+    #hero-tooltip {
+      display: none; position: absolute;
+      background: rgba(8,8,18,0.94); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 9px 12px;
+      pointer-events: none; z-index: 15; max-width: 200px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    /* Platform legend: bottom-left */
+    .platform-legend {
+      position: absolute; bottom: 24px; left: 64px; z-index: 6;
+      pointer-events: none; font-family: 'DM Mono', monospace;
+      font-size: 8px; color: rgba(255,255,255,0.25);
+      display: flex; gap: 14px; opacity: 0; letter-spacing: 0.06em;
+      transition: opacity 0.6s ease 0.3s;
+    }
+
+    /* Viz label: top-left of canvas, inside copy zone */
+    .viz-label {
+      position: absolute; top: 14px; left: 64px;
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      color: rgba(255,255,255,0.18); text-transform: uppercase; letter-spacing: 0.14em;
+      z-index: 6; pointer-events: none;
+    }
+
+    /* ── STUB BELOW HERO ── */
+    .content-stub {
+      background: #efeff2; padding: 64px 40px; text-align: center;
+      border-top: 1px solid #d4d4d8;
+    }
+    .content-stub p {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin: 0;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hero-v5 { min-height: 480px; }
+      .copy-overlay { padding: 36px 24px; }
+      .hero-subhead { font-size: 15px; }
+      /* Heavy gradient covers ~80% of canvas on mobile, leaving viz as a glimpse */
+      .gradient-vignette {
+        background: linear-gradient(
+          90deg,
+          rgba(0,0,0,0.92) 0%,
+          rgba(0,0,0,0.85) 55%,
+          rgba(0,0,0,0.40) 80%,
+          rgba(0,0,0,0.08) 100%
+        );
+      }
+      #cluster-panel { display: none !important; }
+      #hero-tooltip { font-size: 10px; max-width: 160px; }
+      .platform-legend { left: 24px; bottom: 16px; font-size: 7px; gap: 8px; }
+      .viz-label { left: 24px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<div class="annot-banner">
+  <span class="annot-banner-title">Atlas Index Mock V5 — Full-Bleed Hero / Upgraded Viz</span>
+  <div class="annot-legend">
+    <span class="annot-legend-item annot-v5">★ V5</span>
+    <span class="annot-legend-item annot-v1v2">← V3 below</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO V5: FULL-BLEED
+     ══════════════════════════════════════════════════════════ -->
+<section class="hero-v5" style="position:relative;">
+  <div class="annot-pill annot-v5">★ V5</div>
+
+  <!-- Layer 1: Canvas -->
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Layer 2: Gradient vignette (top-left dark → bottom-right clear) -->
+  <div class="gradient-vignette"></div>
+
+  <!-- Layer 5: Copy overlay -->
+  <div class="copy-overlay">
+    <!-- Top-left: all content -->
+    <div style="max-width:540px; pointer-events:auto;">
+      <div class="hero-eyebrow-pill">1,200+ verified creator-journalists</div>
+      <h1 class="hero-headline">
+        Independent Journalism<br>
+        Didn't Disappear.<br>
+        It <em>Moved.</em>
+      </h1>
+      <p class="hero-subhead">
+        The Atlas will help you find it. We've mapped 1,200+ verified independent journalists — by beat, platform, geography, and audience.
+      </p>
+      <div class="hero-ctas">
+        <a href="index.html" class="btn-acid">Explore the Atlas →</a>
+        <a href="lists.html" class="btn-ghost-white">Browse Collections →</a>
+      </div>
+      <p class="hero-small-note">Free to explore. No account required.</p>
+    </div>
+
+    <!-- Bottom-right: tertiary link -->
+    <div style="text-align:right; pointer-events:auto; align-self:flex-end;">
+      <a href="about-this-project.html" style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.38);letter-spacing:0.08em;transition:color 0.15s;"
+         onmouseover="this.style.color='rgba(255,255,255,0.65)'"
+         onmouseout="this.style.color='rgba(255,255,255,0.38)'">
+        How we built this →
+      </a>
+    </div>
+  </div>
+
+  <!-- Viz label (above gradient) -->
+  <span class="viz-label">1,200+ verified creator-journalists · 9 beats · 4 platforms</span>
+
+  <!-- Layer 10: Cluster panel (top-right, offset from edge) -->
+  <div id="cluster-panel"></div>
+
+  <!-- Layer 15: Tooltip -->
+  <div id="hero-tooltip"></div>
+
+  <!-- Platform legend -->
+  <div class="platform-legend" id="platform-legend">
+    <span>● Newsletter</span>
+    <span>▲ Video</span>
+    <span>◆ Podcast</span>
+    <span>■ Website</span>
+  </div>
+</section>
+
+<div class="content-stub">
+  <p>Sections 3–11 · Identical to V3 · Not rendered in this hero mock</p>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   DATA  (loaded async from creators-data.json)
+   ════════════════════════════════════════════════════════════ */
+
+const TOPIC_MAP = {
+  /* Politics */
+  'Politics':'Politics','Activism':'Politics','LGBTQIA':'Politics','Human Rights':'Politics',
+  'Immigration':'Politics','Labor/Workers Rights':'Politics','Gender':'Politics',
+  'Identity/Belonging':'Politics','Criminal Justice':'Politics','Policy':'Politics',
+  'Voting/Elections':'Politics','Civil Rights':'Politics','Economic Policy':'Politics',
+  /* Tech & Business */
+  'Tech':'Tech & Business','Business':'Tech & Business','Finance/Economics':'Tech & Business',
+  'Personal Finance':'Tech & Business','Data Visualization':'Tech & Business',
+  'Careers':'Tech & Business','Energy':'Tech & Business','Aviation':'Tech & Business',
+  'Self Help':'Tech & Business','Startups':'Tech & Business','AI':'Tech & Business',
+  'Crypto/Web3':'Tech & Business','Real Estate':'Tech & Business',
+  /* Culture */
+  'Culture':'Culture','Entertainment/Hollywood':'Culture','Art':'Culture','Music':'Culture',
+  'Film/Movies':'Culture','Books/Writing':'Culture','Fashion':'Culture','Design':'Culture',
+  'Architecture':'Culture','History':'Culture','Comedy':'Culture','Games/Gaming':'Culture',
+  'Gossip':'Culture','Internet Culture':'Culture','Language':'Culture','Museums':'Culture',
+  'Photography':'Culture','Vintage':'Culture','Theater':'Culture','Television':'Culture',
+  /* Climate & Science */
+  'Climate/Environment':'Climate & Science','Science':'Climate & Science',
+  'Explanatory':'Climate & Science','Agriculture':'Climate & Science','Weather':'Climate & Science',
+  'Outdoors':'Climate & Science','Animals':'Climate & Science','Space':'Climate & Science',
+  'Biology':'Climate & Science','Physics':'Climate & Science',
+  /* Health */
+  'Health/Wellness':'Health','Mental Health':'Health','Parenting':'Health','Fitness':'Health',
+  'Running':'Health','Dating/Romance':'Health','Divorce':'Health','Motherhood':'Health',
+  'Cancer':'Health','Medicine':'Health','Nutrition':'Health','Aging':'Health',
+  /* Food & Lifestyle */
+  'Food':'Food & Lifestyle','Travel':'Food & Lifestyle','Lifestyle':'Food & Lifestyle',
+  'Recipes':'Food & Lifestyle','Restaurants':'Food & Lifestyle','Sports':'Food & Lifestyle',
+  'Day in a Life':'Food & Lifestyle','Day in a life':'Food & Lifestyle',
+  'Coffee':'Food & Lifestyle','Home':'Food & Lifestyle','Things to Do':'Food & Lifestyle',
+  'Things to do':'Food & Lifestyle','Bars':'Food & Lifestyle','Sailing':'Food & Lifestyle',
+  'Estate sales':'Food & Lifestyle','Cars':'Food & Lifestyle','Outdoors/Adventure':'Food & Lifestyle',
+  /* Local News */
+  'Local News':'Local News','Housing':'Local News','Transit/Transportation':'Local News',
+  'Transportation':'Local News','Urban Planning':'Local News','Urban planning':'Local News',
+  'Community':'Local News','Education':'Local News',
+  /* Media & Power */
+  'Media/Power':'Media & Power','Investigative':'Media & Power',
+  'Government Accountability':'Media & Power','Law/Legal Issues':'Media & Power',
+  'National Security':'Media & Power','Crime':'Media & Power','Foreign Policy':'Media & Power',
+  'Misinformation/Disinformation':'Media & Power','Press Freedom':'Media & Power',
+  /* World News */
+  'World':'World News','General News':'World News',
+  'Positive News':'World News','Positive news':'World News','Faith/Religion':'World News',
+  'Military':'World News','Solutions Journalism':'World News','International':'World News',
+  'Global Affairs':'World News','Diplomacy':'World News',
+};
+
+function topicToCluster(rawTopic) {
+  const primary = (rawTopic || '').split(',')[0].trim();
+  return TOPIC_MAP[primary] || 'Media & Power';
+}
+
+/* V5 CLUSTERS — constellation shifted rightward so copy (top-left) stays readable.
+   cx_v5 = 0.25 + cx_v4 * 0.70, placing the field in the center-right of the full canvas.
+   Health and World News (leftmost) partially dissolve into the gradient — intentional depth cue. */
+const CLUSTERS = {
+  'Politics':          { color: '#ff66ff', cx: 0.404, cy: 0.18 },
+  'Tech & Business':   { color: '#00e5ff', cx: 0.656, cy: 0.12 },
+  'Culture':           { color: '#ffaa00', cx: 0.845, cy: 0.24 },
+  'Climate & Science': { color: '#ceff00', cx: 0.880, cy: 0.58 },
+  'Food & Lifestyle':  { color: '#fff700', cx: 0.768, cy: 0.88 },
+  'Local News':        { color: '#97d600', cx: 0.544, cy: 0.90 },
+  'World News':        { color: '#4db8ff', cx: 0.348, cy: 0.80 },
+  'Health':            { color: '#ff33cc', cx: 0.292, cy: 0.48 },
+  'Media & Power':     { color: '#ff4422', cx: 0.516, cy: 0.42 },
+};
+
+const VIZ_ANCHORS = [
+  { name: 'Aaron Rupar',      cluster: 'Politics'          },
+  { name: 'Casey Newton',     cluster: 'Tech & Business'   },
+  { name: 'Alicia Kennedy',   cluster: 'Culture'           },
+  { name: 'Emily Atkin',      cluster: 'Climate & Science' },
+  { name: 'Mosheh Oinounou',  cluster: 'Local News'        },
+  { name: 'Tim Mak',          cluster: 'World News'        },
+  { name: 'Katelyn Jetelina', cluster: 'Health'            },
+  { name: 'Oliver Darcy',     cluster: 'Media & Power'     },
+  { name: 'Alison Roman',     cluster: 'Food & Lifestyle'  },
+];
+
+/* CLUSTER_STATS is computed inside buildViz once creators are loaded */
+
+/* ════════════════════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════════════════════ */
+function hexAlpha(hex, a) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+function easeOut(t) { return 1 - Math.pow(1 - t, 2.8); }
+
+const PLATFORM_ICONS = { Newsletter: '●', Video: '▲', Podcast: '◆', Website: '■' };
+
+function drawNode(ctx, x, y, r, platform) {
+  ctx.beginPath();
+  if (!platform || platform === 'Newsletter') {
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+  } else if (platform === 'Video') {
+    ctx.moveTo(x, y - r * 1.2);
+    ctx.lineTo(x + r, y + r * 0.7);
+    ctx.lineTo(x - r, y + r * 0.7);
+    ctx.closePath();
+  } else if (platform === 'Podcast') {
+    ctx.moveTo(x, y - r * 1.2);
+    ctx.lineTo(x + r * 0.85, y);
+    ctx.lineTo(x, y + r * 1.2);
+    ctx.lineTo(x - r * 0.85, y);
+    ctx.closePath();
+  } else if (platform === 'Website') {
+    const s = r * 0.85;
+    ctx.rect(x - s, y - s, s * 2, s * 2);
+  }
+  ctx.fill();
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIZ FACTORY
+   ════════════════════════════════════════════════════════════ */
+function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
+  /* Compute per-cluster stats from the live creator list */
+  const CLUSTER_STATS = {};
+  Object.keys(clusters).forEach(cluster => {
+    const members = creators.filter(c => c.cluster === cluster);
+    CLUSTER_STATS[cluster] = {
+      count: members.length,
+      platforms: {
+        Newsletter: members.filter(c => c.platform === 'Newsletter').length,
+        Video:      members.filter(c => c.platform === 'Video').length,
+        Podcast:    members.filter(c => c.platform === 'Podcast').length,
+        Website:    members.filter(c => c.platform === 'Website').length,
+      },
+      anchors: VIZ_ANCHORS.filter(a => a.cluster === cluster).map(a => a.name),
+    };
+  });
+
+  const container = canvasEl.parentElement;
+  let w, h;
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    w = container.clientWidth;
+    h = container.clientHeight || 640;
+    canvasEl.width  = w * dpr;
+    canvasEl.height = h * dpr;
+    canvasEl.style.width  = w + 'px';
+    canvasEl.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  const ctx = canvasEl.getContext('2d');
+  resize();
+
+  const CLUSTER_ORDER = [
+    'Politics','Tech & Business','Health','Media & Power',
+    'Climate & Science','Culture','World News','Local News','Food & Lifestyle'
+  ];
+  const STAGGER_MS = 70;
+  const FLIGHT_MS  = 700;
+  const SETTLED_AT = (CLUSTER_ORDER.length - 1) * STAGGER_MS + 40 + FLIGHT_MS;
+
+  const nodes = creators.map(c => {
+    const cluster = c.cluster;
+    const cfg = clusters[cluster];
+    const jx = (Math.random() - 0.5) * 64;
+    const jy = (Math.random() - 0.5) * 64;
+    const tx = cfg.cx * w + jx;
+    const ty = cfg.cy * h + jy;
+    const ci = CLUSTER_ORDER.indexOf(cluster);
+    const birthDelay = ci * STAGGER_MS + Math.random() * 40;
+    const isAnchor = VIZ_ANCHORS.some(a => a.name === c.name);
+    return {
+      sx: cfg.cx * w, sy: cfg.cy * h,
+      tx, ty, cx: cfg.cx * w, cy: cfg.cy * h,
+      color: cfg.color, cluster,
+      name: c.name, channel: c.channel, platform: c.platform,
+      isAnchor, birthDelay, born: false,
+      driftPhase: Math.random() * Math.PI * 2,
+      driftAmp:   1.5 + Math.random() * 2.5,
+      driftSpeed: 0.3 + Math.random() * 0.5,
+    };
+  });
+
+  const anchorMap = {};
+  VIZ_ANCHORS.forEach(a => {
+    const n = nodes.find(n => n.name === a.name);
+    if (n) anchorMap[a.name] = { node: n, cluster: a.cluster };
+  });
+
+  const START = performance.now();
+  let settled = false;
+  let labelsAlpha = 0, namesAlpha = 0;
+  let hoveredCluster = null, lockedCluster = null;
+  const mouse = { x: null, y: null };
+  let pulses = [];
+  let rafId;
+  let panelCurrentCluster = null;
+
+  /* ── CLUSTER PANEL ── */
+  function renderPanel(cluster) {
+    if (!cluster || !panelEl) return;
+    const s = CLUSTER_STATS[cluster];
+    const color = clusters[cluster].color;
+    panelEl.innerHTML = `
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:${color};text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;font-weight:500;">${cluster}</div>
+      <div style="font-family:'DM Mono',monospace;margin-bottom:10px;line-height:1.2;">
+        <span style="font-size:18px;color:#ceff00;font-weight:500;letter-spacing:-0.03em;">${s.count}</span>
+        <span style="font-size:9px;color:rgba(255,255,255,0.45);"> creators</span>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;font-family:'DM Mono',monospace;font-size:9px;display:flex;flex-direction:column;gap:5px;">
+        ${Object.entries(s.platforms).map(([p, n]) => `
+          <div style="display:flex;justify-content:space-between;gap:16px;">
+            <span style="color:rgba(255,255,255,0.45);">${PLATFORM_ICONS[p]} ${p}</span>
+            <span style="color:rgba(255,255,255,0.75);">${n}</span>
+          </div>
+        `).join('')}
+      </div>
+      ${s.anchors.length ? `
+        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:9px;margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.38);display:flex;flex-direction:column;gap:3px;">
+          ${s.anchors.map(n => `<div>${n}</div>`).join('')}
+        </div>
+      ` : ''}
+    `;
+  }
+
+  function showPanel(cluster) {
+    if (!panelEl) return;
+    if (!cluster) {
+      panelEl.style.opacity = '0';
+      panelEl.style.transform = 'translateY(4px)';
+      setTimeout(() => { if (!lockedCluster && !hoveredCluster) panelEl.style.display = 'none'; }, 130);
+      panelCurrentCluster = null;
+      return;
+    }
+    if (cluster === panelCurrentCluster) return;
+    if (panelCurrentCluster !== null) {
+      panelEl.style.opacity = '0';
+      setTimeout(() => {
+        renderPanel(cluster);
+        panelEl.style.opacity = '1';
+        panelEl.style.transform = 'translateY(0)';
+      }, 80);
+    } else {
+      panelEl.style.display = 'block';
+      renderPanel(cluster);
+      requestAnimationFrame(() => {
+        panelEl.style.opacity = '1';
+        panelEl.style.transform = 'translateY(0)';
+      });
+    }
+    panelCurrentCluster = cluster;
+  }
+
+  /* ── CONNECTION LINES ── */
+  function drawConnections(cluster) {
+    const cn = nodes.filter(n => n.cluster === cluster && n.born);
+    const color = clusters[cluster].color;
+    cn.forEach(a => {
+      cn.filter(b => b !== a)
+        .map(b => ({ b, d: Math.hypot(a.cx - b.cx, a.cy - b.cy) }))
+        .sort((x, y) => x.d - y.d)
+        .slice(0, 4)
+        .forEach(({ b, d }) => {
+          const alpha = Math.max(0, 1 - d / 100) * 0.16;
+          if (alpha <= 0) return;
+          ctx.beginPath();
+          ctx.moveTo(a.cx, a.cy);
+          ctx.lineTo(b.cx, b.cy);
+          ctx.strokeStyle = hexAlpha(color, alpha);
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        });
+    });
+  }
+
+  /* ── LABELS + ANCHOR NAMES ── */
+  function drawLabels() {
+    if (labelsAlpha <= 0) return;
+    const active = lockedCluster ?? hoveredCluster;
+    ctx.textAlign = 'center';
+
+    Object.entries(clusters).forEach(([name, cfg]) => {
+      const isActive = name === active;
+      const la = active === null ? labelsAlpha : isActive ? 1.0 : labelsAlpha * 0.12;
+      if (la < 0.02) return;
+      ctx.save();
+      ctx.globalAlpha = la;
+      const x = cfg.cx * w, y = cfg.cy * h;
+      ctx.font = '500 10px "DM Mono", monospace';
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name.toUpperCase(), x, y - 18);
+      ctx.font = '400 9px "DM Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.32)';
+      ctx.fillText(`${CLUSTER_STATS[name]?.count || 0} creators`, x, y - 7);
+      ctx.restore();
+    });
+
+    if (namesAlpha <= 0) return;
+    const activeC = lockedCluster ?? hoveredCluster;
+    Object.entries(anchorMap).forEach(([name, { node, cluster }]) => {
+      if (!node.born) return;
+      const cfg = clusters[cluster];
+      const na = activeC === null ? namesAlpha * 0.85
+               : activeC === cluster ? namesAlpha
+               : namesAlpha * 0.04;
+      if (na < 0.04) return;
+      ctx.save();
+      ctx.font = '500 10px "Hanken Grotesk", sans-serif';
+      const tw = ctx.measureText(name).width;
+      const px = 5, py = 3;
+      ctx.globalAlpha = na * 0.7;
+      ctx.fillStyle = 'rgba(8,8,16,0.8)';
+      ctx.beginPath();
+      ctx.roundRect(node.cx - tw / 2 - px, node.cy - 30 - py, tw + px * 2, 13 + py * 2, 3);
+      ctx.fill();
+      ctx.globalAlpha = na;
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name, node.cx, node.cy - 21);
+      ctx.restore();
+    });
+  }
+
+  /* ── PULSES ── */
+  function drawPulses(now) {
+    pulses = pulses.filter(p => now - p.born < 600);
+    pulses.forEach(p => {
+      const age = (now - p.born) / 600;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, age * 130, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.30})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, age * 80, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.11})`;
+      ctx.lineWidth = 4;
+      ctx.stroke();
+    });
+  }
+
+  /* ── MAIN DRAW LOOP ── */
+  function draw(now) {
+    ctx.clearRect(0, 0, w, h);
+    const elapsed = now - START;
+    const active  = lockedCluster ?? hoveredCluster;
+
+    if (!settled) {
+      nodes.forEach(n => {
+        if (elapsed < n.birthDelay) return;
+        if (!n.born) n.born = true;
+        const localT = Math.min((elapsed - n.birthDelay) / FLIGHT_MS, 1);
+        const et     = easeOut(localT);
+        n.cx = n.sx + (n.tx - n.sx) * et;
+        n.cy = n.sy + (n.ty - n.sy) * et;
+        const glow   = localT < 0.12 ? (1 - localT / 0.12) * 0.45 : 0;
+        const r      = (n.isAnchor ? 4.5 : 2.5) + glow * 1.5;
+        ctx.fillStyle = hexAlpha(n.color, 0.72 + glow * 0.3);
+        drawNode(ctx, n.cx, n.cy, r, n.platform);
+      });
+
+      if (elapsed >= SETTLED_AT) {
+        settled = true;
+        nodes.forEach(n => { n.born = true; n.cx = n.tx; n.cy = n.ty; });
+        if (legendEl) legendEl.style.opacity = '1';
+      }
+
+      if (elapsed > SETTLED_AT * 0.65) labelsAlpha = Math.min(labelsAlpha + 0.018, 1);
+      if (labelsAlpha > 0.6) namesAlpha = Math.min(namesAlpha + 0.014, 1);
+      drawLabels();
+
+    } else {
+      const td = now / 1000;
+      labelsAlpha = Math.min(labelsAlpha + 0.022, 1);
+      if (labelsAlpha > 0.6) namesAlpha = Math.min(namesAlpha + 0.016, 1);
+
+      if (active) drawConnections(active);
+
+      nodes.forEach(n => {
+        n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
+        n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
+
+        if (mouse.x !== null) {
+          const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < 60 && d > 0) { const f = (1 - d / 60) * 18; n.cx += dx / d * f; n.cy += dy / d * f; }
+        }
+
+        pulses.forEach(p => {
+          const age = (now - p.born) / 600;
+          const pr  = age * 130;
+          const dx  = n.cx - p.x, dy = n.cy - p.y;
+          const d   = Math.sqrt(dx * dx + dy * dy);
+          if (Math.abs(d - pr) < 22 && d > 0) {
+            const f = (1 - Math.abs(d - pr) / 22) * 14;
+            n.cx += dx / d * f; n.cy += dy / d * f;
+          }
+        });
+
+        let alpha, radius;
+        if (active === null) {
+          alpha = n.isAnchor ? 0.88 : 0.72; radius = n.isAnchor ? 4.5 : 2.5;
+        } else if (n.cluster === active) {
+          alpha = 1.0; radius = n.isAnchor ? 5.5 : 3.5;
+        } else {
+          alpha = 0.10; radius = n.isAnchor ? 3.0 : 2.0;
+        }
+        ctx.fillStyle = hexAlpha(n.color, alpha);
+        drawNode(ctx, n.cx, n.cy, radius, n.platform);
+      });
+
+      drawLabels();
+      if (pulses.length) drawPulses(now);
+    }
+
+    rafId = requestAnimationFrame(draw);
+  }
+
+  rafId = requestAnimationFrame(draw);
+
+  /* ── EVENTS ── */
+  canvasEl.addEventListener('mousemove', e => {
+    const rect = canvasEl.getBoundingClientRect();
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    mouse.x = mx; mouse.y = my;
+
+    if (lockedCluster === null) {
+      let nc = null, nd = Infinity;
+      Object.entries(clusters).forEach(([name, cfg]) => {
+        const d = Math.hypot(cfg.cx * w - mx, cfg.cy * h - my);
+        if (d < nd) { nd = d; nc = name; }
+      });
+      hoveredCluster = nd < w * 0.16 ? nc : null;
+    }
+
+    let nearest = null, minD = 14;
+    nodes.forEach(n => {
+      if (!n.born) return;
+      const d = Math.hypot(n.cx - mx, n.cy - my);
+      if (d < minD) { minD = d; nearest = n; }
+    });
+
+    if (nearest) {
+      tooltipEl.style.display = 'block';
+      tooltipEl.style.left = Math.min(mx + 14, w - 212) + 'px';
+      tooltipEl.style.top  = Math.max(my - 10, 4) + 'px';
+      const color = clusters[nearest.cluster].color;
+      tooltipEl.innerHTML = `
+        <strong style="font-size:12px;color:#fff;display:block;margin-bottom:2px;font-family:'Hanken Grotesk',sans-serif;">${nearest.name}</strong>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.45);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">${nearest.channel}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.48);display:block;margin-top:3px;">${PLATFORM_ICONS[nearest.platform] || '●'} ${nearest.platform || 'Newsletter'}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;display:block;margin-top:4px;color:${color};">${nearest.cluster}</span>
+      `;
+    } else {
+      tooltipEl.style.display = 'none';
+    }
+
+    showPanel(lockedCluster ?? hoveredCluster);
+  });
+
+  canvasEl.addEventListener('mouseleave', () => {
+    tooltipEl.style.display = 'none';
+    mouse.x = null; mouse.y = null;
+    if (lockedCluster === null) { hoveredCluster = null; showPanel(null); }
+  });
+
+  canvasEl.addEventListener('click', e => {
+    if (!settled) return;
+    const rect = canvasEl.getBoundingClientRect();
+    pulses.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, born: performance.now() });
+  });
+
+  /* ── RESIZE ── */
+  const ro = new ResizeObserver(() => {
+    resize();
+    nodes.forEach(n => {
+      const cfg = clusters[n.cluster];
+      const jx = (Math.random() - 0.5) * 64, jy = (Math.random() - 0.5) * 64;
+      n.tx = cfg.cx * w + jx; n.ty = cfg.cy * h + jy;
+      if (!settled) { n.sx = cfg.cx * w; n.sy = cfg.cy * h; }
+      else          { n.cx = n.tx; n.cy = n.ty; }
+    });
+  });
+  ro.observe(container);
+
+  return { stop: () => cancelAnimationFrame(rafId) };
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', async () => {
+  let creators;
+  try {
+    const resp = await fetch('assets/data/creators-data.json');
+    const raw  = await resp.json();
+    creators = raw.map(c => ({
+      name:     c.name,
+      channel:  c.channel,
+      cluster:  topicToCluster(c.topic),
+      platform: (c.platform || '').split(' - ')[0] || 'Newsletter',
+    }));
+  } catch (err) {
+    console.warn('Atlas viz: data fetch failed, viz will not render', err);
+    return;
+  }
+
+  buildViz(
+    document.getElementById('hero-canvas'),
+    document.getElementById('hero-tooltip'),
+    document.getElementById('cluster-panel'),
+    document.getElementById('platform-legend'),
+    CLUSTERS,
+    creators
+  );
+});
+</script>
+</body>
+</html>

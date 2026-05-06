@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Homepage Mock — V4 (Split Hero / Upgraded Viz)</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #efeff2; color: #efeff2; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); }
+    a { text-decoration: none; }
+
+    /* ── ANNOTATION ── */
+    .annot-pill {
+      position: absolute; top: 10px; left: 10px;
+      font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 500;
+      padding: 2px 7px; border-radius: 100px; pointer-events: none;
+      z-index: 50; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .annot-v1   { background: rgba(0,229,255,0.12); color: #00e5ff; border: 1px solid rgba(0,229,255,0.3); }
+    .annot-v2   { background: rgba(255,102,255,0.12); color: #ff66ff; border: 1px solid rgba(255,102,255,0.3); }
+    .annot-new  { background: rgba(206,255,0,0.1); color: #ceff00; border: 1px solid rgba(206,255,0,0.25); }
+    .annot-v1v2 { background: #0d0d0d; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
+    .annot-v4   { background: rgba(206,255,0,0.1); color: #ceff00; border: 1px solid rgba(206,255,0,0.25); }
+    .annot-banner {
+      position: sticky; top: 56px; z-index: 180;
+      background: #0a0a0a; border-bottom: 1px solid #1f1f1f;
+      padding: 8px 40px; display: flex; align-items: center; gap: 16px;
+    }
+    .annot-banner-title { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.14em; }
+    .annot-legend { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+    .annot-legend-item { font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 500; padding: 2px 7px; border-radius: 100px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ── BUTTONS ── */
+    .btn-acid {
+      background: #ceff00; color: #000;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-weight: 700; font-size: 13px;
+      padding: 11px 24px; border-radius: 6px; border: none;
+      cursor: pointer; display: inline-block; transition: background 0.15s;
+    }
+    .btn-acid:hover { background: #d8ff33; }
+    .btn-ghost-white {
+      border: 1.5px solid rgba(255,255,255,0.35); color: #fff;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 13px;
+      padding: 10px 22px; border-radius: 6px;
+      display: inline-block; transition: border-color 0.15s;
+    }
+    .btn-ghost-white:hover { border-color: #fff; }
+
+    /* ── HERO (V4 SPLIT LAYOUT) ── */
+    .hero { display: grid; grid-template-columns: 52fr 48fr; min-height: 540px; position: relative; }
+    .hero-left {
+      background: #000; padding: 64px 56px 56px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      border-right: 1px solid #1a1a1a;
+    }
+    .hero-eyebrow-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00;
+      border: 1px solid rgba(206,255,0,0.35); padding: 4px 12px; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px;
+      background: rgba(206,255,0,0.06);
+    }
+    .hero-headline { font-size: clamp(34px, 4vw, 56px); font-weight: 700; line-height: 1.03; letter-spacing: -0.03em; color: #fff; margin: 0; }
+    .hero-headline em { font-style: normal; color: #ceff00; }
+    .hero-subhead { font-size: 18px; color: #a8a8a8; line-height: 1.7; max-width: 440px; margin-top: 20px; }
+    .hero-ctas { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+    .hero-small-note { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 12px; margin-bottom: 0; }
+    .hero-tertiary-link {
+      display: inline-block; margin-top: 8px;
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: rgba(255,255,255,0.4); letter-spacing: 0.08em;
+      transition: color 0.15s;
+    }
+    .hero-tertiary-link:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── CLUSTER NAV PILLS ── */
+    .hero-cluster-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 24px; }
+    .hcn-pill {
+      font-family: 'DM Mono', monospace; font-size: 8px; text-transform: uppercase;
+      letter-spacing: 0.1em; padding: 3px 10px; border-radius: 100px; border: 1px solid;
+      cursor: pointer; background: transparent; transition: background 0.15s, color 0.15s;
+      white-space: nowrap; line-height: 1.6;
+    }
+
+    /* ── HERO RIGHT / CANVAS ── */
+    .hero-right { position: relative; overflow: hidden; background: #050505; min-height: 540px; }
+    .viz-label {
+      position: absolute; top: 14px; left: 16px;
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      color: rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 0.14em;
+      z-index: 2; pointer-events: none;
+    }
+    #hero-canvas {
+      display: block; position: absolute; inset: 0;
+      width: 100%; height: 100%; cursor: crosshair;
+    }
+    #cluster-panel {
+      display: none; position: absolute; top: 14px; right: 14px;
+      background: rgba(8,8,18,0.92); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 14px 16px; z-index: 10; min-width: 168px;
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.12s ease, transform 0.12s ease;
+    }
+    #hero-tooltip {
+      display: none; position: absolute;
+      background: rgba(8,8,18,0.94); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 9px 12px;
+      pointer-events: none; z-index: 15; max-width: 200px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    .platform-legend {
+      position: absolute; bottom: 20px; left: 16px; z-index: 5;
+      pointer-events: none; font-family: 'DM Mono', monospace;
+      font-size: 8px; color: rgba(255,255,255,0.28);
+      display: flex; gap: 12px; opacity: 0; letter-spacing: 0.06em;
+      transition: opacity 0.6s ease 0.3s;
+    }
+    .hero-stat-badge { position: absolute; bottom: 20px; right: 16px; z-index: 5; pointer-events: none; text-align: right; }
+    .hero-stat-badge-num { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 500; color: #ceff00; line-height: 1; letter-spacing: -0.04em; }
+    .hero-stat-badge-lbl { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+    /* ── STUB BELOW HERO ── */
+    .content-stub {
+      background: #efeff2; padding: 64px 40px; text-align: center;
+      border-top: 1px solid #d4d4d8;
+    }
+    .content-stub p {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin: 0;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 40px 24px 36px; }
+      .hero-right { min-height: 380px; }
+      #cluster-panel { display: none !important; }
+      #hero-tooltip { font-size: 10px; max-width: 160px; }
+      .platform-legend { font-size: 7px; gap: 8px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<div class="annot-banner">
+  <span class="annot-banner-title">Atlas Index Mock V4 — Split Hero / Upgraded Viz</span>
+  <div class="annot-legend">
+    <span class="annot-legend-item annot-v4">★ V4</span>
+    <span class="annot-legend-item annot-v1v2">← V3 below</span>
+  </div>
+</div>
+
+<section class="hero" style="position:relative;">
+  <div class="annot-pill annot-v4">★ V4</div>
+
+  <!-- LEFT: Copy + CTAs + Cluster Nav -->
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow-pill">1,200+ verified creator-journalists</div>
+      <h1 class="hero-headline">Independent Journalism<br>Didn't Disappear.<br>It <em>Moved.</em></h1>
+      <p class="hero-subhead">The Atlas will help you find it. We've mapped 1,200+ verified independent journalists — by beat, platform, geography, and audience.</p>
+    </div>
+    <div>
+      <div class="hero-ctas">
+        <a href="index.html" class="btn-acid">Explore the Atlas →</a>
+        <a href="lists.html" class="btn-ghost-white">Browse Collections →</a>
+      </div>
+      <p class="hero-small-note">Free to explore. No account required.</p>
+      <a href="about-this-project.html" class="hero-tertiary-link">How we built this →</a>
+
+      <nav class="hero-cluster-nav" aria-label="Explore by beat cluster">
+        <button class="hcn-pill" data-cluster="Politics">Politics</button>
+        <button class="hcn-pill" data-cluster="Tech &amp; Business">Tech</button>
+        <button class="hcn-pill" data-cluster="Culture">Culture</button>
+        <button class="hcn-pill" data-cluster="Climate &amp; Science">Climate</button>
+        <button class="hcn-pill" data-cluster="Health">Health</button>
+        <button class="hcn-pill" data-cluster="Food &amp; Lifestyle">Food</button>
+        <button class="hcn-pill" data-cluster="Local News">Local</button>
+        <button class="hcn-pill" data-cluster="Media &amp; Power">Media</button>
+        <button class="hcn-pill" data-cluster="World News">World</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- RIGHT: Viz Canvas -->
+  <div class="hero-right">
+    <span class="viz-label">1,200+ verified creator-journalists · 9 beats · 4 platforms</span>
+    <canvas id="hero-canvas"></canvas>
+    <div id="cluster-panel"></div>
+    <div id="hero-tooltip"></div>
+    <div class="platform-legend" id="platform-legend">
+      <span>● Newsletter</span>
+      <span>▲ Video</span>
+      <span>◆ Podcast</span>
+      <span>■ Website</span>
+    </div>
+    <div class="hero-stat-badge">
+      <div class="hero-stat-badge-num">1,200+</div>
+      <div class="hero-stat-badge-lbl">Verified creators</div>
+    </div>
+  </div>
+</section>
+
+<div class="content-stub">
+  <p>Sections 3–11 · Identical to V3 · Not rendered in this hero mock</p>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   DATA  (loaded async from creators-data.json)
+   ════════════════════════════════════════════════════════════ */
+
+/* Maps first segment of a creator's comma-separated topic field → one of our 9 cluster names */
+const TOPIC_MAP = {
+  /* Politics */
+  'Politics':'Politics','Activism':'Politics','LGBTQIA':'Politics','Human Rights':'Politics',
+  'Immigration':'Politics','Labor/Workers Rights':'Politics','Gender':'Politics',
+  'Identity/Belonging':'Politics','Criminal Justice':'Politics','Policy':'Politics',
+  'Voting/Elections':'Politics','Civil Rights':'Politics','Economic Policy':'Politics',
+  /* Tech & Business */
+  'Tech':'Tech & Business','Business':'Tech & Business','Finance/Economics':'Tech & Business',
+  'Personal Finance':'Tech & Business','Data Visualization':'Tech & Business',
+  'Careers':'Tech & Business','Energy':'Tech & Business','Aviation':'Tech & Business',
+  'Self Help':'Tech & Business','Startups':'Tech & Business','AI':'Tech & Business',
+  'Crypto/Web3':'Tech & Business','Real Estate':'Tech & Business',
+  /* Culture */
+  'Culture':'Culture','Entertainment/Hollywood':'Culture','Art':'Culture','Music':'Culture',
+  'Film/Movies':'Culture','Books/Writing':'Culture','Fashion':'Culture','Design':'Culture',
+  'Architecture':'Culture','History':'Culture','Comedy':'Culture','Games/Gaming':'Culture',
+  'Gossip':'Culture','Internet Culture':'Culture','Language':'Culture','Museums':'Culture',
+  'Photography':'Culture','Vintage':'Culture','Theater':'Culture','Television':'Culture',
+  /* Climate & Science */
+  'Climate/Environment':'Climate & Science','Science':'Climate & Science',
+  'Explanatory':'Climate & Science','Agriculture':'Climate & Science','Weather':'Climate & Science',
+  'Outdoors':'Climate & Science','Animals':'Climate & Science','Space':'Climate & Science',
+  'Biology':'Climate & Science','Physics':'Climate & Science',
+  /* Health */
+  'Health/Wellness':'Health','Mental Health':'Health','Parenting':'Health','Fitness':'Health',
+  'Running':'Health','Dating/Romance':'Health','Divorce':'Health','Motherhood':'Health',
+  'Cancer':'Health','Medicine':'Health','Nutrition':'Health','Aging':'Health',
+  /* Food & Lifestyle */
+  'Food':'Food & Lifestyle','Travel':'Food & Lifestyle','Lifestyle':'Food & Lifestyle',
+  'Recipes':'Food & Lifestyle','Restaurants':'Food & Lifestyle','Sports':'Food & Lifestyle',
+  'Day in a Life':'Food & Lifestyle','Day in a life':'Food & Lifestyle',
+  'Coffee':'Food & Lifestyle','Home':'Food & Lifestyle','Things to Do':'Food & Lifestyle',
+  'Things to do':'Food & Lifestyle','Bars':'Food & Lifestyle','Sailing':'Food & Lifestyle',
+  'Estate sales':'Food & Lifestyle','Cars':'Food & Lifestyle','Outdoors/Adventure':'Food & Lifestyle',
+  /* Local News */
+  'Local News':'Local News','Housing':'Local News','Transit/Transportation':'Local News',
+  'Transportation':'Local News','Urban Planning':'Local News','Urban planning':'Local News',
+  'Community':'Local News','Education':'Local News',
+  /* Media & Power */
+  'Media/Power':'Media & Power','Investigative':'Media & Power',
+  'Government Accountability':'Media & Power','Law/Legal Issues':'Media & Power',
+  'National Security':'Media & Power','Crime':'Media & Power','Foreign Policy':'Media & Power',
+  'Misinformation/Disinformation':'Media & Power','Press Freedom':'Media & Power',
+  /* World News */
+  'World':'World News','General News':'World News',
+  'Positive News':'World News','Positive news':'World News','Faith/Religion':'World News',
+  'Military':'World News','Solutions Journalism':'World News','International':'World News',
+  'Global Affairs':'World News','Diplomacy':'World News',
+};
+
+function topicToCluster(rawTopic) {
+  const primary = (rawTopic || '').split(',')[0].trim();
+  return TOPIC_MAP[primary] || 'Media & Power';
+}
+
+const CLUSTERS = {
+  'Politics':          { color: '#ff66ff', cx: 0.22, cy: 0.18 },
+  'Tech & Business':   { color: '#00e5ff', cx: 0.58, cy: 0.12 },
+  'Culture':           { color: '#ffaa00', cx: 0.85, cy: 0.24 },
+  'Climate & Science': { color: '#ceff00', cx: 0.90, cy: 0.58 },
+  'Food & Lifestyle':  { color: '#fff700', cx: 0.74, cy: 0.88 },
+  'Local News':        { color: '#97d600', cx: 0.42, cy: 0.90 },
+  'World News':        { color: '#4db8ff', cx: 0.14, cy: 0.80 },
+  'Health':            { color: '#ff33cc', cx: 0.06, cy: 0.48 },
+  'Media & Power':     { color: '#ff4422', cx: 0.38, cy: 0.42 },
+};
+
+const VIZ_ANCHORS = [
+  { name: 'Aaron Rupar',      cluster: 'Politics'          },
+  { name: 'Casey Newton',     cluster: 'Tech & Business'   },
+  { name: 'Alicia Kennedy',   cluster: 'Culture'           },
+  { name: 'Emily Atkin',      cluster: 'Climate & Science' },
+  { name: 'Mosheh Oinounou',  cluster: 'Local News'        },
+  { name: 'Tim Mak',          cluster: 'World News'        },
+  { name: 'Katelyn Jetelina', cluster: 'Health'            },
+  { name: 'Oliver Darcy',     cluster: 'Media & Power'     },
+  { name: 'Alison Roman',     cluster: 'Food & Lifestyle'  },
+];
+
+/* CLUSTER_STATS is computed inside buildViz once creators are loaded */
+
+/* ════════════════════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════════════════════ */
+function hexAlpha(hex, a) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+function hexRgb(hex) {
+  return `${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)}`;
+}
+function easeOut(t) { return 1 - Math.pow(1 - t, 2.8); }
+
+/* ── PLATFORM SHAPE DRAWING ── */
+const PLATFORM_ICONS = { Newsletter: '●', Video: '▲', Podcast: '◆', Website: '■' };
+
+function drawNode(ctx, x, y, r, platform) {
+  ctx.beginPath();
+  if (!platform || platform === 'Newsletter') {
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+  } else if (platform === 'Video') {
+    ctx.moveTo(x, y - r * 1.2);
+    ctx.lineTo(x + r, y + r * 0.7);
+    ctx.lineTo(x - r, y + r * 0.7);
+    ctx.closePath();
+  } else if (platform === 'Podcast') {
+    ctx.moveTo(x, y - r * 1.2);
+    ctx.lineTo(x + r * 0.85, y);
+    ctx.lineTo(x, y + r * 1.2);
+    ctx.lineTo(x - r * 0.85, y);
+    ctx.closePath();
+  } else if (platform === 'Website') {
+    const s = r * 0.85;
+    ctx.rect(x - s, y - s, s * 2, s * 2);
+  }
+  ctx.fill();
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIZ FACTORY
+   ════════════════════════════════════════════════════════════ */
+function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
+  /* Compute per-cluster stats from the live creator list */
+  const CLUSTER_STATS = {};
+  Object.keys(clusters).forEach(cluster => {
+    const members = creators.filter(c => c.cluster === cluster);
+    CLUSTER_STATS[cluster] = {
+      count: members.length,
+      platforms: {
+        Newsletter: members.filter(c => c.platform === 'Newsletter').length,
+        Video:      members.filter(c => c.platform === 'Video').length,
+        Podcast:    members.filter(c => c.platform === 'Podcast').length,
+        Website:    members.filter(c => c.platform === 'Website').length,
+      },
+      anchors: VIZ_ANCHORS.filter(a => a.cluster === cluster).map(a => a.name),
+    };
+  });
+
+  const container = canvasEl.parentElement;
+  let w, h;
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    w = container.clientWidth;
+    h = container.clientHeight || 540;
+    canvasEl.width  = w * dpr;
+    canvasEl.height = h * dpr;
+    canvasEl.style.width  = w + 'px';
+    canvasEl.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  const ctx = canvasEl.getContext('2d');
+  resize();
+
+  /* Cluster emergence order: sweeps spatially across the canvas */
+  const CLUSTER_ORDER = [
+    'Politics','Tech & Business','Health','Media & Power',
+    'Climate & Science','Culture','World News','Local News','Food & Lifestyle'
+  ];
+  const STAGGER_MS   = 70;
+  const FLIGHT_MS    = 700;
+  const SETTLED_AT   = (CLUSTER_ORDER.length - 1) * STAGGER_MS + 40 + FLIGHT_MS; // ~1420ms
+
+  /* Build nodes — cluster is pre-mapped via topicToCluster() at fetch time */
+  const nodes = creators.map(c => {
+    const cluster = c.cluster;
+    const cfg = clusters[cluster];
+    const jx = (Math.random() - 0.5) * 64;
+    const jy = (Math.random() - 0.5) * 64;
+    const tx = cfg.cx * w + jx;
+    const ty = cfg.cy * h + jy;
+    const ci = CLUSTER_ORDER.indexOf(cluster);
+    const birthDelay = ci * STAGGER_MS + Math.random() * 40;
+    const isAnchor = VIZ_ANCHORS.some(a => a.name === c.name);
+    return {
+      sx: cfg.cx * w, sy: cfg.cy * h,
+      tx, ty, cx: cfg.cx * w, cy: cfg.cy * h,
+      color: cfg.color, cluster,
+      name: c.name, channel: c.channel, platform: c.platform,
+      isAnchor, birthDelay, born: false,
+      driftPhase: Math.random() * Math.PI * 2,
+      driftAmp:   1.5 + Math.random() * 2.5,
+      driftSpeed: 0.3 + Math.random() * 0.5,
+    };
+  });
+
+  const anchorMap = {};
+  VIZ_ANCHORS.forEach(a => {
+    const n = nodes.find(n => n.name === a.name);
+    if (n) anchorMap[a.name] = { node: n, cluster: a.cluster };
+  });
+
+  const START = performance.now();
+  let settled = false;
+  let labelsAlpha = 0, namesAlpha = 0;
+  let hoveredCluster = null, lockedCluster = null;
+  let pinnedByPill = false;
+  const mouse = { x: null, y: null };
+  let pulses = [];
+  let rafId;
+  let panelCurrentCluster = null;
+
+  /* ── CLUSTER PANEL ── */
+  function renderPanel(cluster) {
+    if (!cluster || !panelEl) return;
+    const s = CLUSTER_STATS[cluster];
+    const color = clusters[cluster].color;
+    panelEl.innerHTML = `
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:${color};text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;font-weight:500;">${cluster}</div>
+      <div style="font-family:'DM Mono',monospace;margin-bottom:10px;line-height:1.2;">
+        <span style="font-size:18px;color:#ceff00;font-weight:500;letter-spacing:-0.03em;">${s.count}</span>
+        <span style="font-size:9px;color:rgba(255,255,255,0.45);"> creators</span>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-bottom:0;font-family:'DM Mono',monospace;font-size:9px;display:flex;flex-direction:column;gap:5px;">
+        ${Object.entries(s.platforms).map(([p, n]) => `
+          <div style="display:flex;justify-content:space-between;gap:16px;">
+            <span style="color:rgba(255,255,255,0.45);">${PLATFORM_ICONS[p]} ${p}</span>
+            <span style="color:rgba(255,255,255,0.75);">${n}</span>
+          </div>
+        `).join('')}
+      </div>
+      ${s.anchors.length ? `
+        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:9px;margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.38);display:flex;flex-direction:column;gap:3px;">
+          ${s.anchors.map(n => `<div>${n}</div>`).join('')}
+        </div>
+      ` : ''}
+    `;
+  }
+
+  function showPanel(cluster) {
+    if (!panelEl) return;
+    if (!cluster) {
+      panelEl.style.opacity = '0';
+      panelEl.style.transform = 'translateY(4px)';
+      setTimeout(() => { if (!lockedCluster && !hoveredCluster) panelEl.style.display = 'none'; }, 130);
+      panelCurrentCluster = null;
+      return;
+    }
+    if (cluster === panelCurrentCluster) return;
+    if (panelCurrentCluster !== null) {
+      panelEl.style.opacity = '0';
+      setTimeout(() => {
+        renderPanel(cluster);
+        panelEl.style.opacity = '1';
+        panelEl.style.transform = 'translateY(0)';
+      }, 80);
+    } else {
+      panelEl.style.display = 'block';
+      renderPanel(cluster);
+      requestAnimationFrame(() => {
+        panelEl.style.opacity = '1';
+        panelEl.style.transform = 'translateY(0)';
+      });
+    }
+    panelCurrentCluster = cluster;
+  }
+
+  /* ── CONNECTION LINES ── */
+  function drawConnections(cluster) {
+    const cn = nodes.filter(n => n.cluster === cluster && n.born);
+    const color = clusters[cluster].color;
+    cn.forEach(a => {
+      cn.filter(b => b !== a)
+        .map(b => ({ b, d: Math.hypot(a.cx - b.cx, a.cy - b.cy) }))
+        .sort((x, y) => x.d - y.d)
+        .slice(0, 4)
+        .forEach(({ b, d }) => {
+          const alpha = Math.max(0, 1 - d / 100) * 0.16;
+          if (alpha <= 0) return;
+          ctx.beginPath();
+          ctx.moveTo(a.cx, a.cy);
+          ctx.lineTo(b.cx, b.cy);
+          ctx.strokeStyle = hexAlpha(color, alpha);
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        });
+    });
+  }
+
+  /* ── LABELS + ANCHOR NAMES ── */
+  function drawLabels() {
+    if (labelsAlpha <= 0) return;
+    const active = lockedCluster ?? hoveredCluster;
+    ctx.textAlign = 'center';
+
+    Object.entries(clusters).forEach(([name, cfg]) => {
+      const isActive = name === active;
+      const la = active === null ? labelsAlpha : isActive ? 1.0 : labelsAlpha * 0.12;
+      if (la < 0.02) return;
+      ctx.save();
+      ctx.globalAlpha = la;
+      const x = cfg.cx * w, y = cfg.cy * h;
+      ctx.font = '500 10px "DM Mono", monospace';
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name.toUpperCase(), x, y - 18);
+      ctx.font = '400 9px "DM Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.32)';
+      ctx.fillText(`${CLUSTER_STATS[name]?.count || 0} creators`, x, y - 7);
+      ctx.restore();
+    });
+
+    if (namesAlpha <= 0) return;
+    const activeC = lockedCluster ?? hoveredCluster;
+    Object.entries(anchorMap).forEach(([name, { node, cluster }]) => {
+      if (!node.born) return;
+      const cfg = clusters[cluster];
+      const na = activeC === null ? namesAlpha * 0.85
+               : activeC === cluster ? namesAlpha
+               : namesAlpha * 0.04;
+      if (na < 0.04) return;
+      ctx.save();
+      ctx.font = '500 10px "Hanken Grotesk", sans-serif';
+      const tw = ctx.measureText(name).width;
+      const px = 5, py = 3;
+      ctx.globalAlpha = na * 0.7;
+      ctx.fillStyle = 'rgba(8,8,16,0.8)';
+      ctx.beginPath();
+      const rx = node.cx - tw / 2 - px, ry = node.cy - 30 - py;
+      const rw = tw + px * 2, rh = 13 + py * 2;
+      ctx.roundRect(rx, ry, rw, rh, 3);
+      ctx.fill();
+      ctx.globalAlpha = na;
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name, node.cx, node.cy - 21);
+      ctx.restore();
+    });
+  }
+
+  /* ── PULSES ── */
+  function drawPulses(now) {
+    pulses = pulses.filter(p => now - p.born < 600);
+    pulses.forEach(p => {
+      const age = (now - p.born) / 600;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, age * 130, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.30})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, age * 80, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.11})`;
+      ctx.lineWidth = 4;
+      ctx.stroke();
+    });
+  }
+
+  /* ── MAIN DRAW LOOP ── */
+  function draw(now) {
+    ctx.clearRect(0, 0, w, h);
+    const elapsed = now - START;
+    const active  = lockedCluster ?? hoveredCluster;
+
+    if (!settled) {
+      /* EMERGENCE PHASE */
+      nodes.forEach(n => {
+        if (elapsed < n.birthDelay) return;
+        if (!n.born) n.born = true;
+        const localT  = Math.min((elapsed - n.birthDelay) / FLIGHT_MS, 1);
+        const et      = easeOut(localT);
+        n.cx = n.sx + (n.tx - n.sx) * et;
+        n.cy = n.sy + (n.ty - n.sy) * et;
+        const glow    = localT < 0.12 ? (1 - localT / 0.12) * 0.45 : 0;
+        const r       = (n.isAnchor ? 4.5 : 2.5) + glow * 1.5;
+        ctx.fillStyle = hexAlpha(n.color, 0.72 + glow * 0.3);
+        drawNode(ctx, n.cx, n.cy, r, n.platform);
+      });
+
+      if (elapsed >= SETTLED_AT) {
+        settled = true;
+        nodes.forEach(n => { n.born = true; n.cx = n.tx; n.cy = n.ty; });
+        if (legendEl) legendEl.style.opacity = '1';
+      }
+
+      /* Labels begin fading in as first clusters settle */
+      if (elapsed > SETTLED_AT * 0.65) labelsAlpha = Math.min(labelsAlpha + 0.018, 1);
+      if (labelsAlpha > 0.6) namesAlpha = Math.min(namesAlpha + 0.014, 1);
+      drawLabels();
+
+    } else {
+      /* SETTLED PHASE */
+      const td = now / 1000;
+      labelsAlpha = Math.min(labelsAlpha + 0.022, 1);
+      if (labelsAlpha > 0.6) namesAlpha = Math.min(namesAlpha + 0.016, 1);
+
+      if (active) drawConnections(active);
+
+      nodes.forEach(n => {
+        /* Ambient drift */
+        n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
+        n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
+
+        /* Mouse repulsion */
+        if (mouse.x !== null) {
+          const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < 60 && d > 0) { const f = (1 - d / 60) * 18; n.cx += dx / d * f; n.cy += dy / d * f; }
+        }
+
+        /* Shockwave nudge */
+        pulses.forEach(p => {
+          const age = (now - p.born) / 600;
+          const pr  = age * 130;
+          const dx  = n.cx - p.x, dy = n.cy - p.y;
+          const d   = Math.sqrt(dx * dx + dy * dy);
+          if (Math.abs(d - pr) < 22 && d > 0) {
+            const f = (1 - Math.abs(d - pr) / 22) * 14;
+            n.cx += dx / d * f; n.cy += dy / d * f;
+          }
+        });
+
+        /* Draw */
+        let alpha, radius;
+        if (active === null) {
+          alpha = n.isAnchor ? 0.88 : 0.72; radius = n.isAnchor ? 4.5 : 2.5;
+        } else if (n.cluster === active) {
+          alpha = 1.0; radius = n.isAnchor ? 5.5 : 3.5;
+        } else {
+          alpha = 0.10; radius = n.isAnchor ? 3.0 : 2.0;
+        }
+        ctx.fillStyle = hexAlpha(n.color, alpha);
+        drawNode(ctx, n.cx, n.cy, radius, n.platform);
+      });
+
+      drawLabels();
+      if (pulses.length) drawPulses(now);
+    }
+
+    rafId = requestAnimationFrame(draw);
+  }
+
+  rafId = requestAnimationFrame(draw);
+
+  /* ── EVENTS ── */
+  canvasEl.addEventListener('mousemove', e => {
+    const rect = canvasEl.getBoundingClientRect();
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    mouse.x = mx; mouse.y = my;
+
+    /* If cluster was pinned by pill, hand off to canvas hover */
+    if (pinnedByPill) { pinnedByPill = false; lockedCluster = null; panelCurrentCluster = null; }
+
+    if (lockedCluster === null) {
+      let nc = null, nd = Infinity;
+      Object.entries(clusters).forEach(([name, cfg]) => {
+        const d = Math.hypot(cfg.cx * w - mx, cfg.cy * h - my);
+        if (d < nd) { nd = d; nc = name; }
+      });
+      hoveredCluster = nd < w * 0.18 ? nc : null;
+    }
+
+    /* Tooltip: find nearest node within 14px */
+    let nearest = null, minD = 14;
+    nodes.forEach(n => {
+      if (!n.born) return;
+      const d = Math.hypot(n.cx - mx, n.cy - my);
+      if (d < minD) { minD = d; nearest = n; }
+    });
+
+    if (nearest) {
+      tooltipEl.style.display = 'block';
+      tooltipEl.style.left = Math.min(mx + 14, w - 212) + 'px';
+      tooltipEl.style.top  = Math.max(my - 10, 4) + 'px';
+      const color = clusters[nearest.cluster].color;
+      tooltipEl.innerHTML = `
+        <strong style="font-size:12px;color:#fff;display:block;margin-bottom:2px;font-family:'Hanken Grotesk',sans-serif;">${nearest.name}</strong>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.45);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">${nearest.channel}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.48);display:block;margin-top:3px;">${PLATFORM_ICONS[nearest.platform] || '●'} ${nearest.platform || 'Newsletter'}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;display:block;margin-top:4px;color:${color};">${nearest.cluster}</span>
+      `;
+    } else {
+      tooltipEl.style.display = 'none';
+    }
+
+    showPanel(lockedCluster ?? hoveredCluster);
+  });
+
+  canvasEl.addEventListener('mouseleave', () => {
+    tooltipEl.style.display = 'none';
+    mouse.x = null; mouse.y = null;
+    if (!pinnedByPill && lockedCluster === null) {
+      hoveredCluster = null;
+      showPanel(null);
+    }
+  });
+
+  canvasEl.addEventListener('click', e => {
+    if (!settled) return;
+    const rect = canvasEl.getBoundingClientRect();
+    pulses.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, born: performance.now() });
+  });
+
+  /* ── RESIZE ── */
+  const ro = new ResizeObserver(() => {
+    resize();
+    nodes.forEach(n => {
+      const cfg = clusters[n.cluster];
+      const jx = (Math.random() - 0.5) * 64, jy = (Math.random() - 0.5) * 64;
+      n.tx = cfg.cx * w + jx; n.ty = cfg.cy * h + jy;
+      if (!settled) { n.sx = cfg.cx * w; n.sy = cfg.cy * h; }
+      else          { n.cx = n.tx; n.cy = n.ty; }
+    });
+  });
+  ro.observe(container);
+
+  /* ── PUBLIC API ── */
+  function setActiveCluster(clusterName) {
+    if (lockedCluster === clusterName) {
+      lockedCluster = null; hoveredCluster = null; pinnedByPill = false;
+      showPanel(null);
+      return null;
+    }
+    lockedCluster = clusterName;
+    hoveredCluster = null;
+    pinnedByPill = true;
+    panelCurrentCluster = null; // force re-render
+    showPanel(clusterName);
+    return clusterName;
+  }
+
+  return { setActiveCluster, stop: () => cancelAnimationFrame(rafId) };
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', async () => {
+  let creators;
+  try {
+    const resp = await fetch('assets/data/creators-data.json');
+    const raw  = await resp.json();
+    creators = raw.map(c => ({
+      name:     c.name,
+      channel:  c.channel,
+      cluster:  topicToCluster(c.topic),
+      platform: (c.platform || '').split(' - ')[0] || 'Newsletter',
+    }));
+  } catch (err) {
+    console.warn('Atlas viz: data fetch failed, viz will not render', err);
+    return;
+  }
+
+  const viz = buildViz(
+    document.getElementById('hero-canvas'),
+    document.getElementById('hero-tooltip'),
+    document.getElementById('cluster-panel'),
+    document.getElementById('platform-legend'),
+    CLUSTERS,
+    creators
+  );
+
+  /* Wire cluster nav pills */
+  const pills = document.querySelectorAll('.hcn-pill');
+
+  function updatePillStates(activeCluster) {
+    pills.forEach(pill => {
+      const cluster = pill.dataset.cluster;
+      const color   = CLUSTERS[cluster]?.color || '#fff';
+      const rgb     = hexRgb(color);
+      if (cluster === activeCluster) {
+        pill.style.background = color;
+        pill.style.color = '#000';
+        pill.style.borderColor = color;
+      } else {
+        pill.style.background = `rgba(${rgb},0.08)`;
+        pill.style.color = color;
+        pill.style.borderColor = color;
+      }
+    });
+  }
+
+  updatePillStates(null);
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const cluster   = pill.dataset.cluster;
+      const newActive = viz.setActiveCluster(cluster);
+      updatePillStates(newActive);
+    });
+  });
+});
+</script>
+</body>
+</html>
