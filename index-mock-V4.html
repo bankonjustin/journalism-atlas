@@ -104,10 +104,19 @@
     }
     #hero-tooltip {
       display: none; position: absolute;
-      background: rgba(8,8,18,0.94); border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 4px; padding: 9px 12px;
-      pointer-events: none; z-index: 15; max-width: 200px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      background: rgba(8,8,18,0.96); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 6px; padding: 11px 14px;
+      pointer-events: none; z-index: 15; max-width: 210px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    #creator-card {
+      display: none; position: fixed; z-index: 200; width: 300px;
+      background: rgba(6,6,14,0.97); border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 8px; padding: 20px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(206,255,0,0.08);
+      pointer-events: auto;
+      transition: opacity 0.15s, transform 0.15s;
+      opacity: 0; transform: translateY(6px) scale(0.98);
     }
     .platform-legend {
       position: absolute; bottom: 20px; left: 16px; z-index: 5;
@@ -146,7 +155,7 @@
 <script src="/assets/js/header.js"></script>
 
 <div class="annot-banner">
-  <span class="annot-banner-title">Atlas Index Mock V4 — Split Hero / Upgraded Viz</span>
+  <span class="annot-banner-title">Atlas Index Mock V4 — Living Directory / Creator Cards</span>
   <div class="annot-legend">
     <span class="annot-legend-item annot-v4">★ V4</span>
     <span class="annot-legend-item annot-v1v2">← V3 below</span>
@@ -203,6 +212,8 @@
     </div>
   </div>
 </section>
+
+<div id="creator-card"></div>
 
 <div class="content-stub">
   <p>Sections 3–11 · Identical to V3 · Not rendered in this hero mock</p>
@@ -340,6 +351,11 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
   const CLUSTER_STATS = {};
   Object.keys(clusters).forEach(cluster => {
     const members = creators.filter(c => c.cluster === cluster);
+    const anchorNames = VIZ_ANCHORS.filter(a => a.cluster === cluster).map(a => a.name);
+    const otherNames  = members
+      .filter(c => !anchorNames.includes(c.name))
+      .slice(0, 12 - anchorNames.length)
+      .map(c => c.name);
     CLUSTER_STATS[cluster] = {
       count: members.length,
       platforms: {
@@ -348,7 +364,7 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
         Podcast:    members.filter(c => c.platform === 'Podcast').length,
         Website:    members.filter(c => c.platform === 'Website').length,
       },
-      anchors: VIZ_ANCHORS.filter(a => a.cluster === cluster).map(a => a.name),
+      anchors: [...anchorNames, ...otherNames].slice(0, 12),
     };
   });
 
@@ -407,6 +423,15 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
     if (n) anchorMap[a.name] = { node: n, cluster: a.cluster };
   });
 
+  /* 5 stable featured nodes per cluster for hover-reveal labels (deterministic, no per-hover randomness) */
+  const CLUSTER_FEATURED = {};
+  Object.keys(clusters).forEach(cluster => {
+    const pool   = nodes.filter(n => n.cluster === cluster && !n.isAnchor);
+    const sorted = pool.slice().sort((a, b) => b.name.length - a.name.length);
+    const start  = Math.floor(sorted.length * 0.15);
+    CLUSTER_FEATURED[cluster] = sorted.slice(start, start + 5);
+  });
+
   const START = performance.now();
   let settled = false;
   let labelsAlpha = 0, namesAlpha = 0;
@@ -414,33 +439,51 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
   let pinnedByPill = false;
   const mouse = { x: null, y: null };
   let pulses = [];
+  let floatingNames = [];
+  let floatingNamesLastSpawn = 0;
   let rafId;
   let panelCurrentCluster = null;
 
   /* ── CLUSTER PANEL ── */
   function renderPanel(cluster) {
     if (!cluster || !panelEl) return;
-    const s = CLUSTER_STATS[cluster];
+    const s     = CLUSTER_STATS[cluster];
     const color = clusters[cluster].color;
+    const total = s.count;
+    const platformOrder = ['Newsletter', 'Video', 'Podcast', 'Website'];
+    const voices = s.anchors;
+
+    const barsHtml = platformOrder.map(p => {
+      const n = s.platforms[p];
+      if (n === 0) return '';
+      const pct      = Math.round((n / total) * 100);
+      const barWidth = Math.max(pct, 2);
+      return `
+        <div style="margin-bottom:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.45);">${PLATFORM_ICONS[p] || '●'} ${p}</span>
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.55);">${n}</span>
+          </div>
+          <div style="height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;">
+            <div style="height:100%;width:${barWidth}%;background:${color};opacity:0.7;border-radius:2px;transition:width 0.4s ease;"></div>
+          </div>
+        </div>`;
+    }).join('');
+
+    const voicesHtml = voices.length ? `
+      <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:9px;margin-top:10px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">In this cluster</div>
+        <div class="panel-voice-name" style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);transition:opacity 0.25s ease,transform 0.25s ease;min-height:16px;">${voices[0]}</div>
+      </div>` : '';
+
     panelEl.innerHTML = `
       <div style="font-family:'DM Mono',monospace;font-size:9px;color:${color};text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;font-weight:500;">${cluster}</div>
       <div style="font-family:'DM Mono',monospace;margin-bottom:10px;line-height:1.2;">
         <span style="font-size:18px;color:#ceff00;font-weight:500;letter-spacing:-0.03em;">${s.count}</span>
         <span style="font-size:9px;color:rgba(255,255,255,0.45);"> creators</span>
       </div>
-      <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-bottom:0;font-family:'DM Mono',monospace;font-size:9px;display:flex;flex-direction:column;gap:5px;">
-        ${Object.entries(s.platforms).map(([p, n]) => `
-          <div style="display:flex;justify-content:space-between;gap:16px;">
-            <span style="color:rgba(255,255,255,0.45);">${PLATFORM_ICONS[p]} ${p}</span>
-            <span style="color:rgba(255,255,255,0.75);">${n}</span>
-          </div>
-        `).join('')}
-      </div>
-      ${s.anchors.length ? `
-        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:9px;margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.38);display:flex;flex-direction:column;gap:3px;">
-          ${s.anchors.map(n => `<div>${n}</div>`).join('')}
-        </div>
-      ` : ''}
+      <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">${barsHtml}</div>
+      ${voicesHtml}
     `;
   }
 
@@ -451,9 +494,29 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
       panelEl.style.transform = 'translateY(4px)';
       setTimeout(() => { if (!lockedCluster && !hoveredCluster) panelEl.style.display = 'none'; }, 130);
       panelCurrentCluster = null;
+      if (window._voiceCycleInterval) { clearInterval(window._voiceCycleInterval); window._voiceCycleInterval = null; }
       return;
     }
     if (cluster === panelCurrentCluster) return;
+
+    /* Start voice cycling for this cluster */
+    if (window._voiceCycleInterval) clearInterval(window._voiceCycleInterval);
+    let voiceIndex = 0;
+    const voices = CLUSTER_STATS[cluster]?.anchors || [];
+    function updateVoice() {
+      const voiceEl = panelEl.querySelector('.panel-voice-name');
+      if (!voiceEl || !voices.length) return;
+      voiceEl.style.opacity = '0';
+      voiceEl.style.transform = 'translateY(3px)';
+      setTimeout(() => {
+        voiceIndex = (voiceIndex + 1) % voices.length;
+        voiceEl.textContent = voices[voiceIndex];
+        voiceEl.style.opacity = '1';
+        voiceEl.style.transform = 'translateY(0)';
+      }, 250);
+    }
+    window._voiceCycleInterval = setInterval(updateVoice, 2500);
+
     if (panelCurrentCluster !== null) {
       panelEl.style.opacity = '0';
       setTimeout(() => {
@@ -494,12 +557,13 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
     });
   }
 
-  /* ── LABELS + ANCHOR NAMES ── */
-  function drawLabels() {
+  /* ── LABELS + ANCHOR NAMES + FLOATING NAMES + HOVER NAMES ── */
+  function drawLabels(now) {
     if (labelsAlpha <= 0) return;
     const active = lockedCluster ?? hoveredCluster;
     ctx.textAlign = 'center';
 
+    /* 1 — Cluster centroid labels */
     Object.entries(clusters).forEach(([name, cfg]) => {
       const isActive = name === active;
       const la = active === null ? labelsAlpha : isActive ? 1.0 : labelsAlpha * 0.12;
@@ -518,6 +582,8 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
 
     if (namesAlpha <= 0) return;
     const activeC = lockedCluster ?? hoveredCluster;
+
+    /* 2 — Permanent anchor name pills */
     Object.entries(anchorMap).forEach(([name, { node, cluster }]) => {
       if (!node.born) return;
       const cfg = clusters[cluster];
@@ -532,15 +598,66 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
       ctx.globalAlpha = na * 0.7;
       ctx.fillStyle = 'rgba(8,8,16,0.8)';
       ctx.beginPath();
-      const rx = node.cx - tw / 2 - px, ry = node.cy - 30 - py;
-      const rw = tw + px * 2, rh = 13 + py * 2;
-      ctx.roundRect(rx, ry, rw, rh, 3);
+      ctx.roundRect(node.cx - tw / 2 - px, node.cy - 30 - py, tw + px * 2, 13 + py * 2, 3);
       ctx.fill();
       ctx.globalAlpha = na;
       ctx.fillStyle = cfg.color;
       ctx.fillText(name, node.cx, node.cy - 21);
       ctx.restore();
     });
+
+    /* 3 — Auto-reveal floating names (at rest only) */
+    if (now !== undefined && activeC === null && settled) {
+      floatingNames.forEach(entry => {
+        const age = now - entry.born;
+        let alpha;
+        if (age < entry.FADE_IN) {
+          alpha = (age / entry.FADE_IN) * 0.82;
+        } else if (age < entry.FADE_IN + entry.HOLD) {
+          alpha = 0.82;
+        } else {
+          const fadeAge = age - entry.FADE_IN - entry.HOLD;
+          alpha = Math.max(0, (1 - fadeAge / entry.FADE_OUT) * 0.82);
+          if (alpha <= 0) { entry.done = true; return; }
+        }
+        const n = entry.node;
+        const label = `${PLATFORM_ICONS[n.platform] || '●'} ${n.name}`;
+        ctx.save();
+        ctx.font = '500 10px "Hanken Grotesk", sans-serif';
+        const tw = ctx.measureText(label).width;
+        ctx.globalAlpha = alpha * 0.72;
+        ctx.fillStyle = 'rgba(8,8,16,0.82)';
+        ctx.beginPath();
+        ctx.roundRect(n.cx - tw / 2 - 6, n.cy - 46, tw + 12, 16, 3);
+        ctx.fill();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = hexAlpha(n.color, 1.0);
+        ctx.fillText(label, n.cx, n.cy - 34);
+        ctx.restore();
+      });
+    }
+
+    /* 4 — Cluster hover names: 5 featured nodes per active cluster */
+    if (activeC !== null) {
+      const featured = CLUSTER_FEATURED[activeC] || [];
+      featured.forEach(n => {
+        if (!n.born) return;
+        const label = `${PLATFORM_ICONS[n.platform] || '●'} ${n.name}`;
+        ctx.save();
+        ctx.font = '500 10px "Hanken Grotesk", sans-serif';
+        const tw = ctx.measureText(label).width;
+        const px = 6, py = 3;
+        ctx.globalAlpha = namesAlpha * 0.65;
+        ctx.fillStyle = 'rgba(8,8,16,0.75)';
+        ctx.beginPath();
+        ctx.roundRect(n.cx - tw / 2 - px, n.cy - 28 - py, tw + px * 2, 14 + py * 2, 3);
+        ctx.fill();
+        ctx.globalAlpha = namesAlpha * 0.8;
+        ctx.fillStyle = hexAlpha(clusters[activeC].color, 0.9);
+        ctx.fillText(label, n.cx, n.cy - 19);
+        ctx.restore();
+      });
+    }
   }
 
   /* ── PULSES ── */
@@ -591,7 +708,7 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
       /* Labels begin fading in as first clusters settle */
       if (elapsed > SETTLED_AT * 0.65) labelsAlpha = Math.min(labelsAlpha + 0.018, 1);
       if (labelsAlpha > 0.6) namesAlpha = Math.min(namesAlpha + 0.014, 1);
-      drawLabels();
+      drawLabels(now);
 
     } else {
       /* SETTLED PHASE */
@@ -638,7 +755,21 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
         drawNode(ctx, n.cx, n.cy, radius, n.platform);
       });
 
-      drawLabels();
+      /* ── AUTO-REVEAL: manage floatingNames lifecycle ── */
+      floatingNames = floatingNames.filter(f => !f.done);
+      if (active === null && floatingNames.length < 3 && now - floatingNamesLastSpawn > 1000) {
+        const eligible = nodes.filter(n =>
+          n.born && !n.isAnchor && n.name.length > 8 &&
+          !floatingNames.some(f => f.node === n)
+        );
+        if (eligible.length > 0) {
+          floatingNamesLastSpawn = now;
+          const pick = eligible[Math.floor(Math.random() * eligible.length)];
+          floatingNames.push({ node: pick, done: false, born: now, FADE_IN: 600, HOLD: 3200, FADE_OUT: 800 });
+        }
+      }
+
+      drawLabels(now);
       if (pulses.length) drawPulses(now);
     }
 
@@ -679,10 +810,13 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
       tooltipEl.style.top  = Math.max(my - 10, 4) + 'px';
       const color = clusters[nearest.cluster].color;
       tooltipEl.innerHTML = `
-        <strong style="font-size:12px;color:#fff;display:block;margin-bottom:2px;font-family:'Hanken Grotesk',sans-serif;">${nearest.name}</strong>
-        <span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.45);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">${nearest.channel}</span>
-        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.48);display:block;margin-top:3px;">${PLATFORM_ICONS[nearest.platform] || '●'} ${nearest.platform || 'Newsletter'}</span>
-        <span style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;display:block;margin-top:4px;color:${color};">${nearest.cluster}</span>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;line-height:1.2;">${nearest.name}</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">${nearest.channel}</div>
+        <div style="display:flex;align-items:center;gap:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;margin-bottom:6px;">
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.55);letter-spacing:0.04em;">${PLATFORM_ICONS[nearest.platform] || '●'} ${nearest.platform || 'Newsletter'}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:${color};text-transform:uppercase;letter-spacing:0.1em;">· ${nearest.cluster}</span>
+        </div>
+        <a href="/creators/${nearest.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}" style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:#ceff00;letter-spacing:0.06em;text-decoration:none;text-transform:uppercase;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">View in Atlas →</a>
       `;
     } else {
       tooltipEl.style.display = 'none';
@@ -703,7 +837,16 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
   canvasEl.addEventListener('click', e => {
     if (!settled) return;
     const rect = canvasEl.getBoundingClientRect();
-    pulses.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, born: performance.now() });
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    pulses.push({ x: mx, y: my, born: performance.now() });
+    let clicked = null, minD = 16;
+    nodes.forEach(n => {
+      if (!n.born) return;
+      const d = Math.hypot(n.cx - mx, n.cy - my);
+      if (d < minD) { minD = d; clicked = n; }
+    });
+    if (!clicked) { closeCreatorCard(); return; }
+    openCreatorCard(clicked, e.clientX, e.clientY);
   });
 
   /* ── RESIZE ── */
@@ -734,7 +877,64 @@ function buildViz(canvasEl, tooltipEl, panelEl, legendEl, clusters, creators) {
     return clusterName;
   }
 
-  return { setActiveCluster, stop: () => cancelAnimationFrame(rafId) };
+  /* ── CREATOR CARD ── */
+  function openCreatorCard(node, clientX, clientY) {
+    const card = document.getElementById('creator-card');
+    if (!card) return;
+    const color = clusters[node.cluster]?.color || '#ceff00';
+    const platformSlug = (node.platform || 'newsletter').toLowerCase().replace(/\s+/g, '-');
+    const nameSlug = node.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    card.innerHTML = `
+      <div style="height:3px;background:${color};border-radius:3px 3px 0 0;margin:-16px -16px 14px -16px;"></div>
+      <button onclick="document.getElementById('creator-card').style.opacity='0';setTimeout(()=>{document.getElementById('creator-card').style.display='none'},150)" style="position:absolute;top:10px;right:10px;background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:16px;line-height:1;padding:2px 6px;" aria-label="Close">×</button>
+      <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:3px;padding-right:24px;line-height:1.3;">${node.name}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.45);margin-bottom:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${node.channel}</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.08);border-radius:100px;padding:3px 8px;letter-spacing:0.04em;">${PLATFORM_ICONS[node.platform] || '●'} ${node.platform || 'Newsletter'}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:${color};background:rgba(255,255,255,0.05);border-radius:100px;padding:3px 8px;letter-spacing:0.06em;text-transform:uppercase;">${node.cluster}</span>
+      </div>
+      <a href="/creators/${nameSlug}" style="display:block;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;color:#060606;background:#ceff00;border-radius:6px;padding:7px 12px;text-decoration:none;text-align:center;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">View in Atlas →</a>
+      <div style="display:flex;gap:8px;">
+        <a href="#" style="flex:1;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05);border-radius:6px;padding:6px 8px;text-decoration:none;text-align:center;letter-spacing:0.04em;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Follow</a>
+        <a href="#" style="flex:1;font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05);border-radius:6px;padding:6px 8px;text-decoration:none;text-align:center;letter-spacing:0.04em;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Share</a>
+      </div>
+    `;
+    card.style.display = 'block';
+    card.style.transform = 'translateY(8px)';
+    card.style.opacity = '0';
+    requestAnimationFrame(() => {
+      card.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    });
+    // Position: prefer left of click, shift up to keep in viewport
+    const W = card.offsetWidth || 300;
+    const H = card.offsetHeight || 240;
+    let left, top;
+    if (window.innerWidth < 480) {
+      left = Math.max(8, (window.innerWidth - W) / 2);
+      top = window.innerHeight - H - 80;
+    } else {
+      left = clientX - W - 18;
+      if (left < 8) left = clientX + 18;
+      top = clientY - H / 2;
+      if (top < 8) top = 8;
+      if (top + H > window.innerHeight - 8) top = window.innerHeight - H - 8;
+    }
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+  }
+
+  function closeCreatorCard() {
+    const card = document.getElementById('creator-card');
+    if (!card || card.style.display === 'none') return;
+    card.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(6px)';
+    setTimeout(() => { card.style.display = 'none'; }, 150);
+  }
+
+  return { setActiveCluster, closeCreatorCard, stop: () => cancelAnimationFrame(rafId) };
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -793,6 +993,13 @@ window.addEventListener('DOMContentLoaded', async () => {
       const newActive = viz.setActiveCluster(cluster);
       updatePillStates(newActive);
     });
+  });
+
+  const canvasEl = document.getElementById('hero-canvas');
+  document.addEventListener('click', e => {
+    const card = document.getElementById('creator-card');
+    if (!card || card.style.display === 'none') return;
+    if (!card.contains(e.target) && e.target !== canvasEl) viz.closeCreatorCard();
   });
 });
 </script>
