@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Search Mock V1 · /search</title>
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #efeff2; color: #313131; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── ANNOTATION ── */
+    .annot-new  { background: rgba(206,255,0,0.1); color: #ceff00; border: 1px solid rgba(206,255,0,0.25); }
+    .annot-banner {
+      position: sticky; top: 56px; z-index: 180;
+      background: #0a0a0a; border-bottom: 1px solid #1f1f1f;
+      padding: 8px 40px; display: flex; align-items: center; gap: 16px;
+    }
+    .annot-banner-title { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.14em; }
+    .annot-legend { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+    .annot-legend-item { font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 500; padding: 2px 7px; border-radius: 100px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ── SEARCH TOPPER ── */
+    .search-topper { background: #fff; border-bottom: 1px solid #d4d4d8; padding: 48px 40px 40px; }
+    .search-topper-inner { max-width: 1440px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; }
+    .search-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 8px; }
+    .search-headline { font-size: clamp(28px, 3vw, 40px); font-weight: 700; letter-spacing: -0.02em; color: #000; margin: 0 0 12px; }
+    .search-sub { font-size: 15px; color: #666; line-height: 1.7; max-width: 520px; margin: 0; }
+    .search-topper-right { display: flex; gap: 40px; flex-shrink: 0; }
+    .search-stat-num { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; color: #000; line-height: 1; letter-spacing: -0.04em; }
+    .search-stat-lbl { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+    /* ── FILTER BAR ── */
+    .search-filter-bar { background: #efeff2; border-bottom: 1px solid #d4d4d8; padding: 14px 40px; position: sticky; top: 92px; z-index: 100; }
+    .search-filter-inner { max-width: 1440px; margin: 0 auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .db-filter-select { font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 13px; color: #555; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; background: #fff; cursor: pointer; }
+    .db-filter-input { flex: 1; min-width: 160px; font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-size: 13px; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; outline: none; transition: border-color 0.15s; }
+    .db-filter-input:focus { border-color: #97d600; }
+
+    /* ── VIEW SWITCHER ── */
+    .view-switcher { background: #fff; border-bottom: 1px solid #d4d4d8; padding: 0 40px; }
+    .view-switcher-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; gap: 4px; padding: 10px 0; }
+    .view-tab {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 6px 14px; border-radius: 6px;
+      border: 1px solid #d4d4d8; background: transparent;
+      color: #666; cursor: pointer; transition: all 0.15s;
+    }
+    .view-tab:hover { background: #efeff2; color: #313131; }
+    .view-tab.active { background: #313131; color: #fff; border-color: #313131; }
+    .view-tab .material-symbols-outlined { font-size: 15px; }
+    .view-switcher-note { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(0,0,0,0.3); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* Wheel tab pulsing nudge */
+    .view-tab--wheel:not(.active) {
+      border-color: rgba(93,116,0,0.3);
+      color: #5d7400;
+      background: rgba(151,214,0,0.05);
+      animation: wheelNudge 2.8s ease-in-out infinite;
+    }
+    .view-tab--wheel.active { background: #313131; color: #fff; border-color: #313131; animation: none; }
+    @keyframes wheelNudge {
+      0%, 100% { border-color: rgba(93,116,0,0.2); box-shadow: none; }
+      50% { border-color: rgba(151,214,0,0.65); box-shadow: 0 0 0 2px rgba(151,214,0,0.12); }
+    }
+    .pulse-dot-small {
+      display: inline-block; width: 5px; height: 5px;
+      border-radius: 50%; background: #97d600;
+      margin-right: 2px; vertical-align: middle;
+      animation: pulseDot 1.8s ease-in-out infinite;
+    }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+
+    /* ── GRID PANE ── */
+    .db-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 1440px; margin: 0 auto; }
+    .db-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 18px 16px; display: flex; flex-direction: column; transition: border-color 0.15s; }
+    .db-card:hover { border-color: #b0b0b8; }
+    .db-card-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; }
+    .db-card-pub { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; margin-top: 1px; }
+    .db-card-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .db-pill { font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 8px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .db-pill.platform { background: #000; color: #fff; }
+    .db-pill.topic { border: 1px solid #d4d4d8; color: #666; }
+
+    .db-cta { max-width: 1440px; margin: 32px auto 0; }
+    .btn-lime-lg {
+      display: inline-block; background: #97d600; color: #000;
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif); font-weight: 700; font-size: 14px;
+      padding: 13px 28px; border-radius: 6px; transition: background 0.15s;
+    }
+    .btn-lime-lg:hover { background: #a8e800; }
+
+    /* ── LIST PANE ── */
+    .list-view { max-width: 1440px; margin: 0 auto; }
+    .list-header {
+      display: grid; grid-template-columns: 200px 1fr 120px 160px 80px;
+      gap: 16px; padding: 0 0 10px; border-bottom: 2px solid #d4d4d8;
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      color: rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .list-row {
+      display: grid; grid-template-columns: 200px 1fr 120px 160px 80px;
+      gap: 16px; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid #e4e4e8;
+      font-size: 14px; color: #313131;
+    }
+    .list-row:nth-child(even) { background: rgba(0,0,0,0.015); }
+    .list-name { font-weight: 700; }
+    .list-pub { color: #666; }
+    .list-pill-wrap { display: flex; }
+    .list-geo { font-family: 'DM Mono', monospace; font-size: 10px; color: #999; }
+
+    /* ── PLACEHOLDER PANES ── */
+    .view-placeholder { text-align: center; padding: 120px 40px; }
+    .view-placeholder-sub { font-size: 13px; color: #999; margin-top: 8px; max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: #000; padding: 56px 40px 32px; }
+    .footer-inner { max-width: 1440px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+    .footer-brand img { height: 28px; display: block; }
+    .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 12px; }
+    .footer-col-title { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.55); transition: color 0.15s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #1f1f1f; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 16px; }
+    .footer-legal a { font-size: 11px; color: rgba(255,255,255,0.25); transition: color 0.15s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.6); }
+  </style>
+  <link rel="stylesheet" href="assets/css/header.css">
+</head>
+<body>
+
+<script src="assets/js/header.js"></script>
+
+<div class="annot-banner">
+  <span class="annot-banner-title">Atlas Search Mock V1 · /search · New Page</span>
+  <div class="annot-legend">
+    <span class="annot-legend-item annot-new">★ NEW</span>
+    <span class="annot-legend-item" style="color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);">Destination for "For Journalists &amp; Researchers" Guided Path</span>
+  </div>
+</div>
+
+<!-- SEARCH TOPPER -->
+<section class="search-topper">
+  <div class="search-topper-inner">
+    <div class="search-topper-left">
+      <div class="search-eyebrow">Atlas Search</div>
+      <h1 class="search-headline">Start Exploring the Atlas.</h1>
+      <p class="search-sub">1,200+ verified creator-journalists. Filter by topic, platform, or geography — or search by name. Free to explore, no account required.</p>
+    </div>
+    <div class="search-topper-right">
+      <div class="search-stat">
+        <div class="search-stat-num">1,200+</div>
+        <div class="search-stat-lbl">Verified creators</div>
+      </div>
+      <div class="search-stat">
+        <div class="search-stat-num">9</div>
+        <div class="search-stat-lbl">Beat clusters</div>
+      </div>
+      <div class="search-stat">
+        <div class="search-stat-num">45+</div>
+        <div class="search-stat-lbl">Countries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR (sticky) -->
+<div class="search-filter-bar">
+  <div class="search-filter-inner">
+    <select class="db-filter-select">
+      <option>All Topics</option>
+      <option>Technology</option>
+      <option>Politics &amp; Government</option>
+      <option>Climate &amp; Environment</option>
+      <option>Local News</option>
+      <option>Business &amp; Finance</option>
+      <option>Health &amp; Science</option>
+      <option>Culture &amp; Media</option>
+      <option>International</option>
+      <option>Sports</option>
+    </select>
+    <select class="db-filter-select">
+      <option>All Platforms</option>
+      <option>Newsletter</option>
+      <option>Video</option>
+      <option>Podcast</option>
+      <option>Website</option>
+    </select>
+    <select class="db-filter-select">
+      <option>All Geographies</option>
+      <option>United States</option>
+      <option>International</option>
+    </select>
+    <select class="db-filter-select">
+      <option>All Sizes</option>
+      <option>Under 10K</option>
+      <option>10K–100K</option>
+      <option>100K+</option>
+    </select>
+    <input type="text" class="db-filter-input" placeholder="Search by name…">
+  </div>
+</div>
+
+<!-- VIEW SWITCHER -->
+<div class="view-switcher">
+  <div class="view-switcher-inner">
+    <button class="view-tab active" data-view="grid">
+      <span class="material-symbols-outlined">grid_view</span> Grid
+    </button>
+    <button class="view-tab" data-view="list">
+      <span class="material-symbols-outlined">list</span> List
+    </button>
+    <button class="view-tab view-tab--wheel" data-view="wheel">
+      <span class="pulse-dot-small"></span>
+      <span class="material-symbols-outlined">donut_large</span> Wheel
+    </button>
+    <button class="view-tab" data-view="bubbles">
+      <span class="material-symbols-outlined">bubble_chart</span> Bubbles
+    </button>
+    <button class="view-tab" data-view="treemap">
+      <span class="material-symbols-outlined">grid_on</span> Treemap
+    </button>
+    <div class="view-switcher-note">5 ways to explore 1,200+ creators</div>
+  </div>
+</div>
+
+<!-- RESULTS PANES -->
+<div class="view-panes" style="background: #efeff2; min-height: 400px;">
+
+  <!-- GRID (default) -->
+  <div class="view-pane" data-view="grid" style="padding: 32px 40px;">
+    <div class="db-cards">
+      <div class="db-card">
+        <div class="db-card-name">Casey Newton</div>
+        <div class="db-card-pub">Platformer</div>
+        <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Technology</span></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Emily Atkin</div>
+        <div class="db-card-pub">HEATED</div>
+        <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Climate &amp; Environment</span></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Jessica Huseman</div>
+        <div class="db-card-pub">Votebeat</div>
+        <div class="db-card-pills"><span class="db-pill platform">Website</span><span class="db-pill topic">Politics &amp; Government</span></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Matt Levine</div>
+        <div class="db-card-pub">Money Stuff</div>
+        <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Business &amp; Finance</span></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Block Club Chicago</div>
+        <div class="db-card-pub">Block Club Chicago</div>
+        <div class="db-card-pills"><span class="db-pill platform">Website</span><span class="db-pill topic">Local News</span></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-name">Eric Topol</div>
+        <div class="db-card-pub">Ground Truths</div>
+        <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Health &amp; Science</span></div>
+      </div>
+    </div>
+    <div class="db-cta">
+      <a href="index.html" class="btn-lime-lg">Explore all 1,200+ creators in full database →</a>
+    </div>
+    <!-- CMS: grid loads from creators-data.json in production -->
+  </div>
+
+  <!-- LIST -->
+  <div class="view-pane" data-view="list" style="display:none; padding: 32px 40px;">
+    <div class="list-view">
+      <div class="list-header">
+        <div>Name</div><div>Publication</div><div>Platform</div><div>Topic</div><div>Geo</div>
+      </div>
+      <div class="list-row">
+        <div class="list-name">Casey Newton</div>
+        <div class="list-pub">Platformer</div>
+        <div class="list-pill-wrap"><span class="db-pill platform">Newsletter</span></div>
+        <div class="list-pill-wrap"><span class="db-pill topic">Technology</span></div>
+        <div class="list-geo">US</div>
+      </div>
+      <div class="list-row">
+        <div class="list-name">Emily Atkin</div>
+        <div class="list-pub">HEATED</div>
+        <div class="list-pill-wrap"><span class="db-pill platform">Newsletter</span></div>
+        <div class="list-pill-wrap"><span class="db-pill topic">Climate</span></div>
+        <div class="list-geo">US</div>
+      </div>
+      <div class="list-row">
+        <div class="list-name">Jessica Huseman</div>
+        <div class="list-pub">Votebeat</div>
+        <div class="list-pill-wrap"><span class="db-pill platform">Website</span></div>
+        <div class="list-pill-wrap"><span class="db-pill topic">Politics</span></div>
+        <div class="list-geo">US</div>
+      </div>
+      <div class="list-row">
+        <div class="list-name">Matt Levine</div>
+        <div class="list-pub">Money Stuff</div>
+        <div class="list-pill-wrap"><span class="db-pill platform">Newsletter</span></div>
+        <div class="list-pill-wrap"><span class="db-pill topic">Business</span></div>
+        <div class="list-geo">US</div>
+      </div>
+      <div class="list-row">
+        <div class="list-name">Block Club Chicago</div>
+        <div class="list-pub">Block Club Chicago</div>
+        <div class="list-pill-wrap"><span class="db-pill platform">Website</span></div>
+        <div class="list-pill-wrap"><span class="db-pill topic">Local News</span></div>
+        <div class="list-geo">US</div>
+      </div>
+      <div class="list-row">
+        <div class="list-name">Eric Topol</div>
+        <div class="list-pub">Ground Truths</div>
+        <div class="list-pill-wrap"><span class="db-pill platform">Newsletter</span></div>
+        <div class="list-pill-wrap"><span class="db-pill topic">Health</span></div>
+        <div class="list-geo">US</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHEEL -->
+  <div class="view-pane" data-view="wheel" style="display:none;">
+    <div class="view-placeholder">
+      <span class="material-symbols-outlined" style="font-size:48px; color:#d4d4d8;">donut_large</span>
+      <div style="font-size:16px; font-weight:700; color:#313131; margin-top:16px;">Wheel View</div>
+      <div class="view-placeholder-sub">Interactive cluster wheel — coming soon. Renders from live data in production.</div>
+    </div>
+  </div>
+
+  <!-- BUBBLES -->
+  <div class="view-pane" data-view="bubbles" style="display:none;">
+    <div class="view-placeholder">
+      <span class="material-symbols-outlined" style="font-size:48px; color:#d4d4d8;">bubble_chart</span>
+      <div style="font-size:16px; font-weight:700; color:#313131; margin-top:16px;">Bubble View</div>
+      <div class="view-placeholder-sub">Interactive bubble chart — coming soon. Renders from live data in production.</div>
+    </div>
+  </div>
+
+  <!-- TREEMAP -->
+  <div class="view-pane" data-view="treemap" style="display:none;">
+    <div class="view-placeholder">
+      <span class="material-symbols-outlined" style="font-size:48px; color:#d4d4d8;">grid_on</span>
+      <div style="font-size:16px; font-weight:700; color:#313131; margin-top:16px;">Treemap View</div>
+      <div class="view-placeholder-sub">Treemap visualization — coming soon. Renders from live data in production.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Journalism Atlas">
+        <p class="footer-tagline">Mapping independent journalism since 2024.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a href="index.html">The Atlas Database</a></li>
+          <li><a href="lists.html">Beat Clusters</a></li>
+          <li><a href="city-lab-chicago.html">City Labs</a></li>
+          <li><a href="about-this-project.html">Atlas Pulse</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">About</div>
+        <ul>
+          <li><a href="about-this-project.html">Who We Are</a></li>
+          <li><a href="about-this-project.html">How We Did This</a></li>
+          <li><a href="about-this-project.html">Our Research</a></li>
+          <li><a href="about-this-project.html">Advisory Boards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Connect</div>
+        <ul>
+          <li><a href="about-this-project.html">Submit a Creator</a></li>
+          <li><a href="about-this-project.html">Updates</a></li>
+          <li><a href="about-this-project.html">Partner with Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Independent Journalism Atlas</span>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs  = document.querySelectorAll('.view-tab');
+  const panes = document.querySelectorAll('.view-pane');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const view = tab.dataset.view;
+      panes.forEach(p => p.style.display = p.dataset.view === view ? 'block' : 'none');
+    });
+  });
+});
+</script>
+
+</body>
+</html>
