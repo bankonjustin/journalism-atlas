@@ -525,9 +525,9 @@
   <!-- LEFT: Copy + CTAs + Cluster Nav -->
   <div class="hero-left">
     <div>
-      <div class="hero-eyebrow-pill">1,200+ verified creator-journalists</div>
+      <div class="hero-eyebrow-pill"><span class="js-creator-count">1,453</span> verified creator-journalists</div>
       <h1 class="hero-headline">Independent Journalism<br>Didn't Disappear.<br>It's <em>Moving.</em></h1>
-      <p class="hero-subhead">The Atlas will help you find it. We've mapped 1,200+ verified independent journalists — by beat, platform, geography, and audience.</p>
+      <p class="hero-subhead">The Atlas will help you find it. We've mapped <span class="js-creator-count">1,453</span> verified independent journalists — by beat, platform, geography, and audience.</p>
     </div>
     <div>
       <div class="hero-ctas">
@@ -553,7 +553,7 @@
 
   <!-- RIGHT: Viz Canvas -->
   <div class="hero-right">
-    <span class="viz-label">1,200+ verified creator-journalists · 9 beats · 4 platforms</span>
+    <span class="viz-label"><span class="js-creator-count">1,453</span> verified creator-journalists · 9 beats · 4 platforms</span>
     <canvas id="hero-canvas"></canvas>
     <div id="cluster-panel"></div>
     <div id="hero-tooltip"></div>
@@ -564,7 +564,7 @@
       <span>■ Website</span>
     </div>
     <div class="hero-stat-badge">
-      <div class="hero-stat-badge-num">1,200+</div>
+      <div class="hero-stat-badge-num js-creator-count">1,453</div>
       <div class="hero-stat-badge-lbl">Verified creators</div>
     </div>
   </div>
@@ -616,7 +616,7 @@
       <a href="lists.html" class="guided-card">
         <div class="gc-eyebrow">For Readers</div>
         <div class="gc-title">I Want to Find Independent Journalists Covering What Matters to Me.</div>
-        <div class="gc-body">Browse 1,200+ verified creator-journalists by topic, platform, or geography. Search by name or explore by beat — climate, politics, tech, local news, and more.</div>
+        <div class="gc-body">Browse <span class="js-creator-count">1,453</span> verified creator-journalists by topic, platform, or geography. Search by name or explore by beat — climate, politics, tech, local news, and more.</div>
         <div class="gc-link">Explore the Atlas →</div>
       </a>
 
@@ -654,7 +654,7 @@
 <div class="stat-strip" style="position:relative;">
   <div class="annot-pill annot-v1v2">← V1+V2</div>
   <div class="stat-cell">
-    <div class="stat-num green">1,200+</div>
+    <div class="stat-num green js-creator-count">1,453</div>
     <div class="stat-lbl">Verified creator-journalists</div>
   </div>
   <div class="stat-cell">
@@ -1107,9 +1107,9 @@
   <div class="db-header">
     <div>
       <h2>Start Exploring the Atlas.</h2>
-      <p>1,200+ verified creator-journalists. Filter by topic, platform, or geography — or search by name. Free to explore, no account required.</p>
+      <p><span class="js-creator-count">1,453</span> verified creator-journalists. Filter by topic, platform, or geography — or search by name. Free to explore, no account required.</p>
     </div>
-    <div class="db-header-note">1,200+ verified — and growing</div>
+    <div class="db-header-note"><span class="js-creator-count">1,453</span> verified — and growing</div>
   </div>
   <div class="db-filter-bar">
     <select class="db-filter-select">
@@ -1177,7 +1177,7 @@
     </div>
   </div>
   <div class="db-cta">
-    <a href="index.html" class="btn-lime-lg">Explore all 1,200+ creators →</a>
+    <a href="index.html" class="btn-lime-lg">Explore all <span class="js-creator-count">1,453</span> creators →</a>
   </div>
 </section>
 
@@ -2103,6 +2103,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     console.warn('Atlas viz: data fetch failed, viz will not render', err);
     return;
   }
+
+  const countStr = allCreators.length.toLocaleString();
+  document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = countStr; });
 
   viz = buildViz(
     document.getElementById('hero-canvas'),
