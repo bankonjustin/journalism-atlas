@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Field Has Already Reorganized — V10.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --ink: #1a1a18;
+    --ink-light: #4a4a46;
+    --ink-faint: #888880;
+    --rule: #ddddd8;
+    --rule-light: #eeeeea;
+    --bg: #faf9f5;
+    --bg-warm: #f5f4ef;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --red: #A32D2D;
+    --green: #0F6E56;
+    --amber: #BA7517;
+    --purple: #533DB7;
+    --max-w: 740px;
+    --font-body: 'Libre Baskerville', Georgia, serif;
+    --font-ui: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.75;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 2.5rem 2rem 1.5rem;
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  .masthead-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+  }
+
+  .masthead h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .masthead-sub {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--ink-light);
+    margin-bottom: 1.25rem;
+  }
+
+  .masthead-meta {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--ink-faint);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .draft-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* LAYOUT */
+  .content {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+  }
+
+  h3 {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+    color: var(--ink);
+  }
+
+  p {
+    margin-bottom: 1.1rem;
+    font-size: 0.975rem;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  /* INTRO */
+  .intro {
+    margin-top: 2.5rem;
+  }
+
+  .intro p:first-of-type {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  /* EXEC SUMMARY BOX */
+  .exec-summary {
+    background: var(--bg-warm);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--ink);
+    padding: 2rem 2rem 1.75rem;
+    margin: 2.5rem 0;
+  }
+
+  .exec-summary-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+  }
+
+  .exec-summary h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .exec-summary p {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.85rem;
+  }
+
+  /* FINDINGS BOX */
+  .findings-box {
+    background: var(--blue-light);
+    border: 1px solid #c5d9ef;
+    padding: 1.75rem 2rem;
+    margin: 2rem 0;
+  }
+
+  .findings-box .findings-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+
+  .findings-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .findings-box li {
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+    color: var(--ink);
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    border-bottom: 1px solid #c5d9ef;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .findings-box li:last-child { border-bottom: none; }
+
+  .findings-box li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* INFO BOXES */
+  .info-box {
+    border: 1px solid var(--rule);
+    background: var(--bg-warm);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .info-box.warning {
+    border-color: #f0d5b0;
+    background: #fdf5e8;
+    border-left: 3px solid var(--amber);
+  }
+
+  .info-box.danger {
+    border-color: #f0c5c5;
+    background: #fdf0f0;
+    border-left: 3px solid var(--red);
+  }
+
+  .info-box.success {
+    border-color: #b8ddd3;
+    background: #f0faf7;
+    border-left: 3px solid var(--green);
+  }
+
+  .info-box-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: var(--ink-faint);
+  }
+
+  .info-box p {
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--ink-light);
+    margin-bottom: 0;
+  }
+
+  .info-box strong { color: var(--ink); }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.25rem 0;
+    margin: 2.5rem 0;
+  }
+
+  .pull-quote p {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .pull-quote cite {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    font-style: normal;
+  }
+
+  /* STAT CALLOUTS */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+
+  .stat-cell {
+    background: var(--bg);
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--font-ui);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .stat-label {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+
+  /* TABLES */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-family: var(--font-ui);
+    font-size: 0.825rem;
+  }
+
+  .data-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--ink);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+
+  .data-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--rule-light);
+    color: var(--ink-light);
+    vertical-align: top;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+
+  .data-table td:first-child { color: var(--ink); font-weight: 500; }
+
+  .data-table tr.highlight td {
+    background: var(--blue-light);
+    color: var(--ink);
+  }
+
+  /* VIZ WRAPPERS */
+  .viz-wrap {
+    margin: 2.5rem 0;
+  }
+
+  .viz-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  .viz-caption {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    margin-top: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .viz-container {
+    background: #fff;
+    border: 1px solid var(--rule);
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+
+  .viz-container.dark-bg {
+    background: #0f1117;
+    padding: 0;
+  }
+
+  /* CEILING MECHANISMS */
+  .mechanisms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 1.5rem 0;
+  }
+
+  .mechanism-cell {
+    background: var(--bg);
+    padding: 1.25rem 1.25rem;
+  }
+
+  .mechanism-num {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.4rem;
+  }
+
+  .mechanism-name {
+    font-family: var(--font-ui);
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .mechanism-example {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    line-height: 1.4;
+  }
+
+  /* CREATOR ARCHETYPES */
+  .archetypes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 1.5rem 0;
+  }
+
+  .archetype-cell {
+    background: var(--bg);
+    padding: 1.25rem 1rem;
+  }
+
+  .archetype-cell:nth-child(2) { background: #f0faf7; }
+  .archetype-cell:nth-child(2) .archetype-name { color: var(--green); }
+
+  .archetype-name {
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .archetype-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .archetype-key {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .archetype-val {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    line-height: 1.4;
+  }
+
+  .archetype-examples {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    margin-top: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    line-height: 1.4;
+  }
+
+  /* SME TABLE */
+  .sme-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+  }
+
+  .sme-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--ink);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+
+  .sme-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule-light);
+    vertical-align: top;
+    color: var(--ink-light);
+  }
+
+  .sme-table td:first-child { font-weight: 500; color: var(--ink); }
+  .sme-table tr:last-child td { border-bottom: none; }
+
+  /* SECTION TRANSITIONS */
+  .section-num {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.25rem;
+  }
+
+  /* OPEN QUESTIONS */
+  .questions-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .questions-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule-light);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .questions-list li:last-child { border-bottom: none; }
+
+  .question-label {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .question-body {
+    color: var(--ink-light);
+    font-size: 0.875rem;
+  }
+
+  /* APPENDIX */
+  .appendix-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .appendix-item:last-child { border-bottom: none; }
+
+  .appendix-title {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  /* FOOTER */
+  .footer {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 2rem 2rem 3rem;
+    border-top: 2px solid var(--ink);
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* UTILITY */
+  .text-center { text-align: center; }
+  .mt-sm { margin-top: 0.75rem; }
+  .mt-md { margin-top: 1.5rem; }
+
+  @media (max-width: 600px) {
+    .stat-row { grid-template-columns: 1fr; }
+    .mechanisms-grid { grid-template-columns: 1fr; }
+    .archetypes-grid { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<!-- PASSWORD GATE -->
+<div id="pw-gate" style="position:fixed;inset:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',system-ui,sans-serif;">
+  <div style="background:#111;border:1px solid #333;border-radius:16px;padding:48px 40px;max-width:420px;width:90%;text-align:center;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#ceff00;margin-bottom:16px;">Independent Journalism Atlas</div>
+    <h1 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2;">The Field Has Already Reorganized</h1>
+    <p style="font-size:14px;color:#888;margin-bottom:32px;line-height:1.6;">This document is confidential and intended for invited readers only.</p>
+    <input id="pw-input" type="password" placeholder="Enter password" style="width:100%;padding:12px 16px;border-radius:8px;border:1px solid #444;background:#1a1a1a;color:#fff;font-size:15px;margin-bottom:12px;outline:none;box-sizing:border-box;font-family:inherit;" />
+    <div id="pw-error" style="color:#ff5555;font-size:13px;margin-bottom:12px;min-height:18px;"></div>
+    <button id="pw-btn" style="width:100%;padding:12px;background:#ceff00;color:#000;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.03em;font-family:inherit;">Access Report →</button>
+  </div>
+</div>
+<div id="main-content" style="display:none">
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-label">Knight Center for the Future of News · ASU Cronkite School</div>
+  <h1>The Field Has Already Reorganized</h1>
+  <div class="masthead-sub">How Journalism Is Built, Funded, and Distributed in 2026</div>
+  <div class="masthead-meta">
+    <span>Justin Bank (Independent Journalism Atlas) · Andy Pergam (Knight Center ASU)</span>
+    <span class="draft-badge">Working draft — V10.1 · May 2026 · Not for distribution</span>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="exec-summary" style="margin-top: 2.5rem;">
+    <div class="exec-summary-label">Executive Summary</div>
+    <p>American journalism in 2026 is not a broken industry awaiting repair. It is a reorganized field — nine distinct types of journalism operators, six revenue architectures, and a set of production and distribution layers that are interoperable in ways they weren't five years ago. The integrated 20th-century newsroom has no single successor. What has replaced it does, collectively, what the newsroom used to do alone.</p>
+    <p>The funding environment has collapsed. Meta referral traffic stands at 32% of its 2020 peak. Google Search referrals to publishers fell 33% globally in a single year, with losses of 60% for small publishers. The pattern across every failure is identical: <strong>concentrated dependency leads to collapse.</strong></p>
+    <p>Every independent journalism model hits the same ceiling. Across all nine cohorts, independent operators tend to plateau between $3.5M and $10M in annual revenue, regardless of governance structure or funding model. The ceiling is broken by only four mechanisms: B2B pricing discipline, institutional bundle mechanics, ideological capture of a dedicated audience, and organizational scaling.</p>
+    <p>The most durable response is combination. No single model is sufficient. States Newsroom produces statehouse journalism the Washington Post distributes. City Bureau coordinates civic documentation that investigative reporters use as leads. Individual creator brands maintain direct reader relationships that platforms cannot revoke. <strong>Collaborations are the future hiding in plain sight.</strong></p>
+    <p>Two new producer classes are reshaping the field: subject matter experts fulfilling audience jobs institutional journalism structurally cannot, and ethnic/diaspora media representing the field's most significant underexploited commercial opportunity — a $45.83 billion multicultural advertising market growing at 8.4% annually, with almost no organized advertising infrastructure to capture it.</p>
+  </div>
+
+  <!-- FINDINGS BOX -->
+  <div class="findings-box">
+    <div class="findings-label">Top-Level Findings</div>
+    <ul>
+      <li>There is no single successor to the integrated 20th-century newsroom. Nine distinct operator types now do collectively what it used to do alone.</li>
+      <li>Every independent journalism model converges toward the same revenue ceiling — $3.5M–$10M — regardless of governance structure or funding model.</li>
+      <li>The ceiling is broken by only four mechanisms: B2B pricing, institutional bundling, ideological audience capture, and organizational scaling.</li>
+      <li>Dismediation — journalism's content traveling while its economic value is captured by intermediaries who didn't produce it — is the field's defining structural threat.</li>
+      <li>Collaboration is the field's most powerful underutilized response. The survival rate of journalism collaboratives past year two is the most important unresolved empirical question in this study.</li>
+      <li>Subject Matter Expert creators are fulfilling audience jobs institutional journalism structurally cannot: trusted translation, parasocial peer access, decision support, B2B professional tooling.</li>
+      <li>Ethnic and diaspora media represent the field's largest commercial opportunity. URL Media and Word In Black have cracked the model. The question is who scales it.</li>
+      <li>AI is reorganizing the field at two levels simultaneously: as workflow infrastructure inside newsrooms, and as competitive threat to journalism's distribution economics.</li>
+      <li>The federated protocol layer — Bluesky ATProto, ActivityPub, Ghost 6.0 — is a directional signal, not yet a proven model. The Boston Globe documents 4.5× better subscription conversion per Bluesky follower than Threads.</li>
+    </ul>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro section">
+    <div class="section-label">Introduction</div>
+    <h2>A Rapid Reorganization</h2>
+
+    <p>The integrated 20th-century newsroom has no single successor. What has replaced it is a layered field — nine distinct types of journalism operators, using six different revenue architectures, solving different pieces of a coverage problem that no single institution can solve alone. The layers are interoperable in ways they weren't five years ago. And they are reorganizing under pressure fast enough that the field looks meaningfully different than it did when we began this research.</p>
+
+    <p>No single event marked the transition. It happened incrementally — through layoffs and launches, through platform withdrawals and newsletter migrations, through the quiet proliferation of nonprofit wires and civic documentation networks and creator brands built by former institutional journalists who took their audiences with them. But by 2026, the reorganization is clearly legible in what journalism operators are actually doing.</p>
+
+    <p>A nonprofit wire has replaced the commercial statehouse wire. States Newsroom operates 39 fully-funded state-capital newsrooms on $27.45 million in philanthropic revenue, distributing everything under Creative Commons — republished by other publishers, including the Washington Post. Civic documentation has been distributed at scale: City Bureau's Documenters Network paid community members $369,000 in stipends to cover 3,253 public meetings across 14 states in 2025, at an average cost of $113 per meeting. A new kind of portfolio conglomerate is investing in the production layer: the American Journalism Project has backed 50 local newsrooms since 2019, generating $128 million in combined portfolio revenue in 2024 — a claimed three-to-one return. And independent journalism has become structurally platform-promiscuous: Casey Newton enters his fifth year on Ghost — his third email service provider — while simultaneously licensing content to The Verge, co-hosting a podcast with the New York Times, and migrating his audience across surfaces as needed.</p>
+
+    <div class="pull-quote">
+      <p>"The most revealing case is Roger Sollenberger. On February 15, 2026, publishing on Substack, he reported new information placing President Trump within the redacted portions of the Epstein files. Nine days later, NPR confirmed the reporting. Congressional action followed. The FBI case files were released. Sollenberger's GoFundMe raised $8,665."</p>
+      <cite>The sharpest single illustration of two forces this paper keeps returning to: how trust travels in a disaggregated field, and how completely the economic infrastructure behind that trust has collapsed.</cite>
+    </div>
+
+    <p>At the same moment, AI is acquiring journalism's distribution infrastructure from a different direction. On April 3, 2026, OpenAI acquired TBPN — a podcast and YouTube daily talk show that had streamed for 18 months — for a reported sum in the low hundred millions. OpenAI was not buying journalism. It was buying a production format, an audience relationship, and distribution infrastructure.</p>
+
+    <p>These cases don't point in the same direction. That's the point. The field has reorganized into forms that solve for different problems simultaneously — some building journalism's production and distribution capacity in new distributed forms, others dissolving its economic return. Both forces are accelerating.</p>
+
+    <p>This field study maps that reorganization. It identifies nine governance-based cohorts of journalism operators, documents the six revenue architectures they use, and names two structural findings that hold across all of them: that independent journalism operators tend to plateau at the same revenue ceiling regardless of model — and that the most durable response to that ceiling is combination. Collaboration. The layered architecture that does collectively what no single organization can do alone.</p>
+
+    <p><strong>The collaborations are the future hiding in plain sight.</strong> This paper explains why — and what stands in the way.</p>
+  </div>
+
+  <!-- SECTION I: FUNDING COLLAPSE -->
+  <div class="section">
+    <div class="section-num">I.</div>
+    <div class="section-label">Context</div>
+    <h2>The Funding Collapse</h2>
+
+    <p>The context for everything that follows is a funding environment experiencing a multi-year collapse.</p>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-number">32%</div>
+        <div class="stat-label">Facebook referral traffic remaining vs. 2020 peak</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">–60%</div>
+        <div class="stat-label">Google Search referral loss for small publishers over two years</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">$271M</div>
+        <div class="stat-label">USAID journalism funding frozen January 20, 2025</div>
+      </div>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 1 — Funding Collapse Timeline, 2019–2026</div>
+      <div class="viz-container" style="height: 460px; padding: 1rem;">
+        <div id="fc-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem;font-size:12px;font-family:var(--font-ui);color:var(--ink-faint);"></div>
+        <div style="position:relative;width:100%;height:380px;">
+          <canvas id="fcChart" role="img" aria-label="Timeline of journalism funding shocks from 2019 to 2026"></canvas>
+        </div>
+      </div>
+      <div class="viz-caption">Bubble size approximates dollar impact. Hover for details. Events span platform withdrawal, government defunding, private equity retrenchment, and nonprofit failure.</div>
+    </div>
+
+    <p>The pattern across all of these failures is the same: <strong>concentrated dependency leads to collapse.</strong> OCCRP lost 52% of its budget to the USAID freeze in a single week. The Center for Public Integrity fell $2.5 million short of its fundraising goal and had nowhere to turn. Each organization had over-indexed on a single source — one platform, one government funder, one private-equity owner, one billionaire — and when that source moved, there was nothing to catch the fall.</p>
+
+    <p>In response, the market is developing more resilient, distributed, diversified funding structures. The most consequential of those responses isn't any individual business model. It's the emergence of a collaboration layer: a set of cross-outlet arrangements, shared infrastructure, and coordination networks that are beginning to do collectively what no single organization can do alone. Major investigations have become the clearest expression: the Missouri Independent, MuckRock, and AP collaborating on St. Louis radioactive contamination; States Newsroom and the New York Times Local Investigations Fellowship working ICE detention in Adams County; ProPublica's Local Reporting Network operating across four states simultaneously in 2025. These are not special projects. They are becoming the default structure for resource-intensive accountability journalism.</p>
+
+    <div class="info-box warning">
+      <div class="info-box-label">The Twin Forces</div>
+      <p><strong>Collaborations</strong> are the future hiding in plain sight — building journalism's production capacity in new distributed forms. And <strong>dismediation</strong> — journalism's informational content traveling through the media field while its economic value is captured by intermediaries who did not produce it — is the threat moving in the opposite direction simultaneously. Both forces are examined in detail below.</p>
+    </div>
+  </div>
+
+  <!-- SECTION II: TAXONOMY -->
+  <div class="section">
+    <div class="section-num">II.</div>
+    <div class="section-label">Taxonomy</div>
+    <h2>The Nine Cohorts</h2>
+
+    <p>The taxonomy is governance-based. Governance and ownership structure determine cohort; publishing platform does not. Nine cohorts capture the full range of journalism operators currently producing in the United States.</p>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 2 — Nine Cohorts of Journalism Operators</div>
+      <div class="viz-container">
+        <style>
+          .cohort-wrap { padding: 0.5rem 0 1rem; }
+          .group-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888880; margin: 1.25rem 0 0.6rem; padding-left: 2px; font-family: 'DM Sans', sans-serif; }
+          .group-label:first-of-type { margin-top: 0; }
+          .cohort-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+          .c-card { border-radius: 6px; padding: 0.85rem 1rem; border-left: 3px solid var(--c-accent); background: #faf9f5; border-top: 0.5px solid #ddddd8; border-right: 0.5px solid #ddddd8; border-bottom: 0.5px solid #ddddd8; }
+          .c-num { font-size: 10px; font-weight: 600; color: #888880; letter-spacing: 0.05em; margin-bottom: 3px; font-family: 'DM Sans', sans-serif; }
+          .c-name { font-size: 13px; font-weight: 600; color: #1a1a18; margin-bottom: 6px; line-height: 1.3; font-family: 'DM Sans', sans-serif; }
+          .c-def { font-size: 11px; color: #4a4a46; margin-bottom: 8px; line-height: 1.5; font-family: 'DM Sans', sans-serif; }
+          .c-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+          .c-tag { font-size: 10px; padding: 2px 7px; border-radius: 3px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+          .c-tension { font-size: 11px; color: #888880; line-height: 1.4; border-top: 0.5px solid #ddddd8; padding-top: 6px; margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+          .c-tension::before { content: "↳ "; }
+          @media (max-width: 600px) { .cohort-grid { grid-template-columns: 1fr; } }
+        </style>
+        <div class="cohort-wrap">
+          <div class="group-label">Consumer-familiar journalism — reorganizing under pressure</div>
+          <div class="cohort-grid" id="group1"></div>
+          <div class="group-label">Public-minded funding — philanthropy and civic architecture</div>
+          <div class="cohort-grid" id="group2"></div>
+          <div class="group-label">Audience and market funded — the forward-leaning models</div>
+          <div class="cohort-grid" id="group3"></div>
+        </div>
+      </div>
+      <div class="viz-caption">Cohorts are governance-based. Publishing platform does not determine cohort assignment. Cross-cohort ethnic and diaspora media (≈243 Black American newspapers, 224 Latino-Hispanic newspapers, 173 Latino TV stations) are systematically undercounted in all assessments.</div>
+    </div>
+  </div>
+
+  <!-- SECTION III: REVENUE -->
+  <div class="section">
+    <div class="section-num">III.</div>
+    <div class="section-label">Revenue Architecture</div>
+    <h2>How the Nine Cohorts Are Funded</h2>
+
+    <p>Every cohort solves for revenue differently. The matrix below maps six revenue streams across all nine cohorts — and makes visible why no single model is portable across cohorts.</p>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 3 — Revenue Architecture Matrix</div>
+      <div class="viz-container">
+        <style>
+          .rm-wrap { padding: 0.5rem 0; }
+          .rm-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+          .rm-table th { font-size: 11px; font-weight: 600; color: #4a4a46; text-align: center; padding: 6px 4px; line-height: 1.3; font-family: 'DM Sans', sans-serif; }
+          .rm-table th.stream-head { text-align: left; padding-left: 0; width: 160px; }
+          .rm-table td { text-align: center; padding: 5px 4px; border-top: 0.5px solid #ddddd8; }
+          .rm-table td.stream-label { text-align: left; font-size: 12px; color: #1a1a18; padding-left: 0; font-family: 'DM Sans', sans-serif; }
+          .cell-p { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 26px; border-radius: 4px; font-size: 11px; font-weight: 600; font-family: 'DM Sans', sans-serif; }
+          .cell-P { background: #185FA5; color: #E6F1FB; }
+          .cell-S { background: #B5D4F4; color: #0C447C; }
+          .cell-none { color: #ddddd8; }
+          .cohort-head { font-size: 10px; font-weight: 600; line-height: 1.25; font-family: 'DM Sans', sans-serif; }
+          .cohort-num { display: block; font-size: 9px; color: #888880; margin-bottom: 1px; }
+          .risk-flag { display: inline-block; margin-left: 4px; font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; vertical-align: middle; font-family: 'DM Sans', sans-serif; }
+          .risk-volatile { background: #fdf0f0; color: #A32D2D; }
+          .risk-safe { background: #f0faf7; color: #0F6E56; }
+          .rm-legend { display: flex; gap: 20px; margin: 1rem 0 0; font-size: 12px; color: #4a4a46; font-family: 'DM Sans', sans-serif; flex-wrap: wrap; }
+          .rm-legend-item { display: flex; align-items: center; gap: 6px; }
+          .rm-legend-swatch { width: 28px; height: 18px; border-radius: 4px; }
+        </style>
+        <div class="rm-wrap">
+          <table class="rm-table">
+            <thead>
+              <tr>
+                <th class="stream-head">Revenue stream</th>
+                <th><span class="cohort-head"><span class="cohort-num">C1</span>Legacy</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C2</span>Creator</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C3</span>Barbell</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C4</span>Philanth.</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C5</span>Public</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C6</span>Collab.</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C7</span>Co-op</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C8</span>Civic</span></th>
+                <th style="background:#f5f4ef;border-radius:6px 6px 0 0;"><span class="cohort-head"><span class="cohort-num">C9</span>B2B</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="stream-label">Subscription / reader</td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-P">P</span></td></tr>
+              <tr><td class="stream-label">Advertising / sponsorship</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-S">S</span></td></tr>
+              <tr><td class="stream-label">Enterprise / B2B subscription</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-P">P</span></td></tr>
+              <tr><td class="stream-label">Platform rev-share <span class="risk-flag risk-volatile">most volatile</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-none">—</span></td></tr>
+              <tr><td class="stream-label">Philanthropy / grants <span class="risk-flag risk-safe">structurally safer</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-P">P</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-none">—</span></td></tr>
+              <tr><td class="stream-label">AI licensing / syndication</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-S">S</span></td></tr>
+              <tr><td class="stream-label">Events / services / products</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-S">S</span></td></tr>
+            </tbody>
+          </table>
+          <div class="rm-legend">
+            <div class="rm-legend-item"><span class="rm-legend-swatch" style="background:#185FA5;"></span><span>P — primary revenue source</span></div>
+            <div class="rm-legend-item"><span class="rm-legend-swatch" style="background:#B5D4F4;"></span><span>S — secondary</span></div>
+            <div class="rm-legend-item" style="font-style:italic;color:#888880;">C9: only cohort with no philanthropy dependency and no platform rev-share exposure</div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-caption">The most durable observed pattern: subscription-primary with one or two diversified secondary streams, no single source above 50% of total revenue. Tangle (85%/15%). Defector (82% + four secondaries). Texas Tribune (25%/24%/19%/18%). In each case, diversification is not an accident of success — it is the strategy.</div>
+    </div>
+  </div>
+
+  <!-- SECTION IV: CEILINGS -->
+  <div class="section">
+    <div class="section-num">IV.</div>
+    <div class="section-label">Structural Finding</div>
+    <h2>Finite Ceilings Are a Feature, Not a Bug</h2>
+
+    <p>The most important finding in this study is not about any individual organizational model. It is about what every model runs into: a consistent revenue ceiling across all cohorts. Independent journalism operators — regardless of model, governance structure, or funding strategy — tend to plateau between approximately $3.5M and $10M in annual revenue.</p>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 4 — Defector's Five-Year Revenue Plateau</div>
+      <div class="viz-container" style="height: 340px;">
+        <div style="position:relative;width:100%;height:320px;">
+          <canvas id="defChart" role="img" aria-label="Defector revenue trajectory showing plateau at 4.4M in years three and four"></canvas>
+        </div>
+      </div>
+      <div class="viz-caption">Defector is the only organization in the dataset with five consecutive years of publicly disclosed, audited annual revenue. Years 3 and 4 are identical. Year 5 subscription revenue did not grow. Jasper Wang has said explicitly: "Worker ownership is an operating and governance model, not a funding or revenue model."</div>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 5 — The Scale Ceiling Across All Cohorts</div>
+      <div class="viz-container">
+        <div style="margin-bottom:0.75rem;">
+          <div id="filters" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+        </div>
+        <div style="position:relative;width:100%;height:480px;">
+          <canvas id="scaleChart" role="img" aria-label="Dot plot of journalism organization revenues showing convergence band"></canvas>
+        </div>
+        <div id="legend" style="display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:1rem;font-size:12px;font-family:'DM Sans',sans-serif;color:#4a4a46;"></div>
+      </div>
+      <div class="viz-caption">76+ US journalism organization observations. Five different organizational models — creator brands, philanthropic nonprofits, worker-owned co-ops, barbell hybrids, collaboration-layer organizations — cluster in the same $3.5M–$10M band. No single model "owns" the ceiling. This is a structural finding about information economics.</div>
+    </div>
+
+    <p><strong>An important qualification:</strong> 23% of organizations in the full dataset operate at stable, sustainable levels below $3.5M — not as failures, but by choice or structural constraint. El Tímpano (~$2M), Aftermath ($485K), Hell Gate (below $1M until late 2025), MinnPost ($1.7M after 17 years. The thesis: <em>independent journalism operators that attempt to scale tend to plateau in the $3.5M–$10M range. A substantial minority operate sustainably below this band, with no ceiling to break.</em></p>
+
+    <h3>The Ceiling Is Broken By Four Mechanisms Only</h3>
+
+    <div class="mechanisms-grid">
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Mechanism 1</div>
+        <div class="mechanism-name">B2B Pricing Discipline</div>
+        <div class="mechanism-example">When journalism prices information for professionals who expense it, the addressable market is fundamentally different. The decision-maker is not the consumer. Industry Dive ($525M exit), Politico Pro (~$100M), The Ankler (~$10M) are the proof points at different scales.</div>
+      </div>
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Mechanism 2</div>
+        <div class="mechanism-name">Institutional Bundle Mechanics</div>
+        <div class="mechanism-example">The NYT bundle captures a subscriber's entire information budget across multiple products. No single-product creator can compete for the same dollar. The Athletic integration is the clearest recent example of bundle mechanics working at the acquisition level.</div>
+      </div>
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Mechanism 3</div>
+        <div class="mechanism-name">Ideological Capture of a Dedicated Audience</div>
+        <div class="mechanism-example">Fox News ($16.3B Fox Corp), Daily Wire ($200M+), Turning Point USA ($85M) serve audiences with high willingness to pay and high churn resistance, because the product is identity as much as information.</div>
+      </div>
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Mechanism 4</div>
+        <div class="mechanism-name">Organizational Scaling</div>
+        <div class="mechanism-example">The $3.5M–$10M ceiling is partly a single-creator or small-team ceiling. Organizations that build multiple revenue streams and grow headcount move through it — States Newsroom ($27.45M), Semafor ($40M), Crooked Media (~$25–32M operating revenue).</div>
+      </div>
+    </div>
+
+    <div class="info-box danger">
+      <div class="info-box-label">The Uncomfortable Math</div>
+      <p>The nonprofit news sector — approximately 400 organizations — generates $650–700M in collective annual revenue: <strong>roughly 1% of what newspapers produced twenty years ago.</strong> It would take roughly 100 Defector-sized publications to offset the 2,700 journalism jobs lost in 2023 alone. The structural response is combination — not combination as editorial goodwill, but as economic architecture.</p>
+    </div>
+  </div>
+
+  <!-- SECTION V: HOW JOURNALISM IS BUILT -->
+  <div class="section">
+    <div class="section-num">V.</div>
+    <div class="section-label">Production</div>
+    <h2>How Journalism Is Built</h2>
+
+    <p>The default production architecture of American journalism — beat reporter, assignment desk, copy editor, publication — persists. It exists most cleanly within fully staffed newsrooms publishing legacy products with mature revenue models. Below the institutional tier, six distinct production models have emerged.</p>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 6 — Six Production Models</div>
+      <div class="viz-container">
+        <style>
+          .pm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0.5rem 0 1rem; }
+          .pm-card { background: #faf9f5; border: 0.5px solid #ddddd8; border-radius: 6px; padding: 1rem 1.1rem; border-left: 3px solid var(--accent); }
+          .pm-num { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #888880; margin-bottom: 4px; font-family: 'DM Sans', sans-serif; }
+          .pm-name { font-size: 14px; font-weight: 600; color: #1a1a18; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+          .pm-attrs { display: flex; flex-direction: column; gap: 4px; }
+          .pm-attr { display: flex; gap: 6px; font-size: 12px; font-family: 'DM Sans', sans-serif; }
+          .pm-attr-label { color: #888880; flex-shrink: 0; min-width: 72px; }
+          .pm-attr-val { color: #4a4a46; }
+          .pm-example { margin-top: 8px; font-size: 11px; color: #888880; padding-top: 8px; border-top: 0.5px solid #ddddd8; font-family: 'DM Sans', sans-serif; }
+          .new-badge { display: inline-block; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; background: #f0faf7; color: #0F6E56; margin-left: 6px; font-family: 'DM Sans', sans-serif; }
+          @media (max-width: 600px) { .pm-grid { grid-template-columns: 1fr; } }
+        </style>
+        <div class="pm-grid">
+          <div class="pm-card" style="--accent:#185FA5;">
+            <div class="pm-num">Model 1</div>
+            <div class="pm-name">Audience-need beats</div>
+            <div class="pm-attrs">
+              <div class="pm-attr"><span class="pm-attr-label">Team</span><span class="pm-attr-val">5–20 staff</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Funding</span><span class="pm-attr-val">Philanthropy + civic earned</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Output</span><span class="pm-attr-val">Multilingual, SMS, WhatsApp</span></div>
+            </div>
+            <div class="pm-example">El Tímpano · Outlier Media · Documented NYC</div>
+          </div>
+          <div class="pm-card" style="--accent:#0F6E56;">
+            <div class="pm-num">Model 2</div>
+            <div class="pm-name">Solo creator production</div>
+            <div class="pm-attrs">
+              <div class="pm-attr"><span class="pm-attr-label">Team</span><span class="pm-attr-val">1–3 people</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Funding</span><span class="pm-attr-val">Subscription + platform rev-share</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Output</span><span class="pm-attr-val">Newsletter, podcast, video</span></div>
+            </div>
+            <div class="pm-example">Tangle · Letters from an American · Pragmatic Engineer</div>
+          </div>
+          <div class="pm-card" style="--accent:#BA7517;">
+            <div class="pm-num">Model 3</div>
+            <div class="pm-name">Small-team co-op production</div>
+            <div class="pm-attrs">
+              <div class="pm-attr"><span class="pm-attr-label">Team</span><span class="pm-attr-val">4–30 staff, worker-owned</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Funding</span><span class="pm-attr-val">Subscription-primary</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Constraint</span><span class="pm-attr-val">Pre-built audience required</span></div>
+            </div>
+            <div class="pm-example">Defector · 404 Media · Hell Gate · Aftermath</div>
+          </div>
+          <div class="pm-card" style="--accent:#993556;">
+            <div class="pm-num">Model 4</div>
+            <div class="pm-name">Distributed civic contribution</div>
+            <div class="pm-attrs">
+              <div class="pm-attr"><span class="pm-attr-label">Team</span><span class="pm-attr-val">Small core + community</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Funding</span><span class="pm-attr-val">Philanthropy + stipends</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Output</span><span class="pm-attr-val">Meeting coverage, public records</span></div>
+            </div>
+            <div class="pm-example">City Bureau Documenters — 3,253 assignments, 14 states, $113/meeting</div>
+          </div>
+          <div class="pm-card" style="--accent:#533DB7;">
+            <div class="pm-num">Model 5</div>
+            <div class="pm-name">Nonprofit wire and syndication</div>
+            <div class="pm-attrs">
+              <div class="pm-attr"><span class="pm-attr-label">Team</span><span class="pm-attr-val">Large, multi-newsroom</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Funding</span><span class="pm-attr-val">Philanthropy; free CC syndication</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Output</span><span class="pm-attr-val">Statehouse; investigative wire</span></div>
+            </div>
+            <div class="pm-example">States Newsroom ($27.45M, 39 newsrooms)</div>
+          </div>
+          <div class="pm-card" style="--accent:#3d6e0f;">
+            <div class="pm-num">Model 6 <span class="new-badge">new</span></div>
+            <div class="pm-name">Video-native newsroom building</div>
+            <div class="pm-attrs">
+              <div class="pm-attr"><span class="pm-attr-label">Team</span><span class="pm-attr-val">Talent network (collective)</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Funding</span><span class="pm-attr-val">YouTube RPM + sponsorship</span></div>
+              <div class="pm-attr"><span class="pm-attr-label">Key fact</span><span class="pm-attr-val">Zero audience acquisition cost</span></div>
+            </div>
+            <div class="pm-example">Newpress — Harris, Ellis, Haubursin, Fisher · 10M subscribers, launched Feb 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">AI in Production: Infrastructure, Not Output</div>
+      <p>AI has become standard workflow infrastructure across every cohort, primarily absorbing work that previously occupied junior staff. <strong>AP's 2024 survey: nearly 70% of staff had used generative AI</strong> for social posts, newsletters, headlines, translation, or transcription. INN members: AI usage jumped from 34% to 63% in a single year. Reuters Institute 2026: <strong>67% of publishers say AI has not yet saved any jobs</strong> despite heavy adoption. The ethic that has emerged at most institutional newsrooms is clear: AI is embedded in workflow, not output. The shift anticipated for 2026 is toward agentic AI — multi-step autonomous workflows for monitoring, document analysis, and research.</p>
+    </div>
+  </div>
+
+  <!-- SECTION VI: DISTRIBUTION -->
+  <div class="section">
+    <div class="section-num">VI.</div>
+    <div class="section-label">Distribution</div>
+    <h2>How Journalism Is Distributed</h2>
+
+    <p>For approximately twenty years, digital journalism operated on a distribution assumption so dominant it was treated as infrastructure: produce journalism, optimize for search, share on social, receive readers from algorithmic referrals, monetize attention. Every element of that chain is now broken.</p>
+
+    <table class="data-table" style="margin: 1.5rem 0;">
+      <thead>
+        <tr>
+          <th>Publisher size (daily page views)</th>
+          <th>Search traffic loss, two years</th>
+          <th>Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td>Small (1,000–10,000)</td>
+          <td>–60%</td>
+          <td>The INN median member. Least equipped to recover.</td>
+        </tr>
+        <tr>
+          <td>Mid-sized (10,000–100,000)</td>
+          <td>–47%</td>
+          <td>Regional and metro newsrooms.</td>
+        </tr>
+        <tr>
+          <td>Large (100,000+)</td>
+          <td>–22%</td>
+          <td>The organization absorbing the least loss is the New York Times.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 7 — Distribution Stack: Reach, Conversion, Ownership, Trend</div>
+      <div class="viz-container">
+        <style>
+          .ds-wrap { padding: 0.5rem 0 1rem; }
+          .ds-table { width: 100%; border-collapse: collapse; }
+          .ds-table th { font-size: 11px; font-weight: 600; color: #888880; text-align: center; padding: 6px 8px 10px; letter-spacing: 0.04em; font-family: 'DM Sans', sans-serif; }
+          .ds-table th.channel-head { text-align: left; }
+          .ds-table td { padding: 8px 8px; border-top: 0.5px solid #ddddd8; font-size: 12px; color: #4a4a46; text-align: center; vertical-align: middle; font-family: 'DM Sans', sans-serif; }
+          .ds-table td.channel-name { text-align: left; font-size: 13px; font-weight: 600; color: #1a1a18; }
+          .ds-table td.channel-note { text-align: left; font-size: 11px; color: #888880; padding-top: 2px; padding-bottom: 10px; border-top: none; }
+          .ownership { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; }
+          .own { background: #f0faf7; color: #0F6E56; }
+          .borrow { background: #fdf0f0; color: #A32D2D; }
+          .partial { background: #faeeda; color: #BA7517; }
+          .traj { font-size: 14px; }
+          .traj-up { color: #0F6E56; }
+          .traj-dn { color: #A32D2D; }
+          .traj-flat { color: #888880; }
+          .reach-bar { display: inline-block; height: 8px; border-radius: 4px; background: #888880; opacity: 0.4; vertical-align: middle; }
+          .conv-bar { display: inline-block; height: 8px; border-radius: 4px; background: #185FA5; opacity: 0.7; vertical-align: middle; }
+          .badge-live { display: inline-block; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; background: #f0faf7; color: #0F6E56; margin-left: 4px; font-family: 'DM Sans', sans-serif; }
+          .badge-signal { display: inline-block; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; background: #faeeda; color: #BA7517; margin-left: 4px; font-family: 'DM Sans', sans-serif; }
+        </style>
+        <div class="ds-wrap">
+          <table class="ds-table">
+            <thead>
+              <tr>
+                <th class="channel-head" style="width:28%">Channel</th>
+                <th style="width:14%">Reach</th>
+                <th style="width:18%">Conversion</th>
+                <th style="width:22%">Ownership</th>
+                <th style="width:18%">Trend 2023→26</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="channel-name">Email / newsletter</td><td><span class="reach-bar" style="width:52px"></span></td><td><span class="conv-bar" style="width:58px"></span> High</td><td><span class="ownership own">owned</span></td><td><span class="traj traj-up">↑</span> rising</td></tr>
+              <tr class="note-row"><td></td><td colspan="4" class="channel-note">Tangle 16% free-to-paid — highest documented. Portable. Not subject to algorithmic suppression.</td></tr>
+              <tr><td class="channel-name">Podcast / audio</td><td><span class="reach-bar" style="width:48px"></span></td><td><span class="conv-bar" style="width:38px"></span> Medium</td><td><span class="ownership own">owned (RSS)</span></td><td><span class="traj traj-up">↑</span> rising</td></tr>
+              <tr class="note-row"><td></td><td colspan="4" class="channel-note">18–34 weekly reach (52%) now equals weekly TV. YouTube is top podcast platform for 33% of listeners.</td></tr>
+              <tr><td class="channel-name">YouTube long-form</td><td><span class="reach-bar" style="width:62px"></span></td><td><span class="conv-bar" style="width:30px"></span> Medium</td><td><span class="ownership partial">platform</span></td><td><span class="traj traj-up">↑</span> +74 net</td></tr>
+              <tr class="note-row"><td></td><td colspan="4" class="channel-note">RPM $8–$15/1,000 views long-form. Primary news source for under-35s. Requires native production investment.</td></tr>
+              <tr><td class="channel-name">Google Search</td><td><span class="reach-bar" style="width:66px"></span></td><td><span class="conv-bar" style="width:14px"></span> Low</td><td><span class="ownership borrow">borrowed</span></td><td><span class="traj traj-dn">↓</span> –33% YoY</td></tr>
+              <tr class="note-row"><td></td><td colspan="4" class="channel-note">AI Overviews cut CTR 47% when present. Fewer than 1% click links inside Overviews. –60% for small publishers.</td></tr>
+              <tr><td class="channel-name">Social (Meta/X)</td><td><span class="reach-bar" style="width:60px"></span></td><td><span class="conv-bar" style="width:6px"></span> Very low</td><td><span class="ownership borrow">borrowed</span></td><td><span class="traj traj-dn">↓</span> –75% (X)</td></tr>
+              <tr class="note-row"><td></td><td colspan="4" class="channel-note">Facebook referrals at 32% of 2020 peak. X referrals down 75% since 2019. No obligation to news producers.</td></tr>
+              <tr><td class="channel-name">Bluesky / ATProto <span class="badge-signal">signal</span></td><td><span class="reach-bar" style="width:18px"></span></td><td><span class="conv-bar" style="width:46px"></span> High/user</td><td><span class="ownership own">protocol-owned</span></td><td><span class="traj traj-up">↑</span> directional</td></tr>
+              <tr class="note-row"><td></td><td colspan="4" class="channel-note">Boston Globe: 4.5× more subscription conversions per follower vs Threads. 23M users vs 275M — conversion advantage reflects selection effect, not scale.</td></tr>
+              <tr><td class="channel-name">Ghost ActivityPub <span class="badge-live">live</span></td><td><span class="reach-bar" style="width:12px"></span></td><td><span class="conv-bar" style="width:36px"></span> TBD</td><td><span class="ownership own">owned</span></td><td><span class="traj traj-up">↑</span> in field</td></tr>
+              <tr class="note-row"><td></td><td colspan="4" class="channel-note">Ghost 6.0 ships native ActivityPub. Subscriber lists now also federated social graphs. In field as of 2025.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 8 — Federated Distribution Stack for Journalism</div>
+      <div class="viz-container" style="background:#0f1117; padding: 1.25rem;">
+        <svg width="100%" viewBox="0 0 680 520" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Federated distribution stack for journalism</title>
+<text x="16" y="68" text-anchor="start" transform="rotate(-90,16,68)" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Layer 4 — output</text>
+<text x="16" y="205" text-anchor="start" transform="rotate(-90,16,205)" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Layer 3 — apps</text>
+<text x="16" y="340" text-anchor="start" transform="rotate(-90,16,340)" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Layer 2 — platform</text>
+<text x="16" y="460" text-anchor="start" transform="rotate(-90,16,460)" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Layer 1 — protocol</text>
+<g><rect x="44" y="28" width="170" height="52" rx="8" fill="#085041" stroke="#5DCAA5" stroke-width="0.5"/><text x="129" y="50" text-anchor="middle" dominant-baseline="central" fill="#9FE1CB" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Creator brands</text><text x="129" y="66" text-anchor="middle" dominant-baseline="central" fill="#5DCAA5" style="font-family:'DM Sans',sans-serif;font-size:12px;">C2 poly-platform</text></g>
+<g><rect x="230" y="28" width="170" height="52" rx="8" fill="#085041" stroke="#5DCAA5" stroke-width="0.5"/><text x="315" y="50" text-anchor="middle" dominant-baseline="central" fill="#9FE1CB" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Civic &amp; co-op newsrooms</text><text x="315" y="66" text-anchor="middle" dominant-baseline="central" fill="#5DCAA5" style="font-family:'DM Sans',sans-serif;font-size:12px;">C7, C8 producers</text></g>
+<g><rect x="416" y="28" width="220" height="52" rx="8" fill="#085041" stroke="#5DCAA5" stroke-width="0.5"/><text x="526" y="50" text-anchor="middle" dominant-baseline="central" fill="#9FE1CB" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Investigative / wire</text><text x="526" y="66" text-anchor="middle" dominant-baseline="central" fill="#5DCAA5" style="font-family:'DM Sans',sans-serif;font-size:12px;">States Newsroom, ICIJ, ProPublica</text></g>
+<line x1="129" y1="80" x2="129" y2="148" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="1"/>
+<line x1="315" y1="80" x2="248" y2="148" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="1"/>
+<line x1="315" y1="80" x2="380" y2="148" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="0.7" stroke-dasharray="4 3"/>
+<line x1="526" y1="80" x2="526" y2="148" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="0.7" stroke-dasharray="4 3"/>
+<defs><marker id="farrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#9c9a92" stroke-width="1.5"/></marker></defs>
+<g><rect x="44" y="148" width="188" height="56" rx="8" fill="#0C447C" stroke="#85B7EB" stroke-width="0.5"/><text x="138" y="170" text-anchor="middle" dominant-baseline="central" fill="#B5D4F4" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Bluesky Verified News</text><text x="138" y="186" text-anchor="middle" dominant-baseline="central" fill="#85B7EB" style="font-family:'DM Sans',sans-serif;font-size:12px;">Aendra Rininsland (FT) · 120K DAU</text></g>
+<rect x="248" y="148" width="160" height="56" rx="8" stroke-width="1" stroke-dasharray="5 3" fill="none" stroke="#378ADD"/>
+<text x="328" y="170" text-anchor="middle" dominant-baseline="central" fill="#faf9f5" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Sill / Tiles</text>
+<text x="328" y="186" text-anchor="middle" dominant-baseline="central" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Tyler Fisher · in development</text>
+<rect x="424" y="148" width="200" height="56" rx="8" stroke-width="1" stroke-dasharray="5 3" fill="none" stroke="#378ADD"/>
+<text x="524" y="170" text-anchor="middle" dominant-baseline="central" fill="#faf9f5" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Protocols for Publishers</text>
+<text x="524" y="186" text-anchor="middle" dominant-baseline="central" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Chad Kohalyk · in development</text>
+<line x1="138" y1="204" x2="138" y2="272" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="1"/>
+<line x1="328" y1="204" x2="250" y2="272" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="0.7" stroke-dasharray="4 3"/>
+<line x1="328" y1="204" x2="410" y2="272" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="0.7" stroke-dasharray="4 3"/>
+<line x1="524" y1="204" x2="500" y2="272" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="0.7" stroke-dasharray="4 3"/>
+<g><rect x="44" y="272" width="188" height="56" rx="8" fill="#0C447C" stroke="#85B7EB" stroke-width="0.5"/><text x="138" y="294" text-anchor="middle" dominant-baseline="central" fill="#B5D4F4" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Bluesky</text><text x="138" y="310" text-anchor="middle" dominant-baseline="central" fill="#85B7EB" style="font-family:'DM Sans',sans-serif;font-size:12px;">ATProto · 23M users · working</text></g>
+<g><rect x="248" y="272" width="165" height="56" rx="8" fill="#3C3489" stroke="#AFA9EC" stroke-width="0.5"/><text x="330" y="294" text-anchor="middle" dominant-baseline="central" fill="#CECBF6" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Ghost 6.0</text><text x="330" y="310" text-anchor="middle" dominant-baseline="central" fill="#AFA9EC" style="font-family:'DM Sans',sans-serif;font-size:12px;">ActivityPub live · in field</text></g>
+<g><rect x="424" y="272" width="150" height="56" rx="8" fill="#3C3489" stroke="#AFA9EC" stroke-width="0.5"/><text x="499" y="294" text-anchor="middle" dominant-baseline="central" fill="#CECBF6" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">Mastodon</text><text x="499" y="310" text-anchor="middle" dominant-baseline="central" fill="#AFA9EC" style="font-family:'DM Sans',sans-serif;font-size:12px;">ActivityPub · Ghost ↔ working</text></g>
+<rect x="584" y="272" width="82" height="56" rx="8" fill="none" stroke="#555" stroke-dasharray="3 3" stroke-width="0.5"/>
+<text x="625" y="294" text-anchor="middle" dominant-baseline="central" fill="#666" style="font-family:'DM Sans',sans-serif;font-size:12px;">Threads</text>
+<text x="625" y="310" text-anchor="middle" dominant-baseline="central" fill="#666" style="font-family:'DM Sans',sans-serif;font-size:12px;">"barely works"</text>
+<line x1="138" y1="328" x2="200" y2="396" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="1.2"/>
+<line x1="330" y1="328" x2="370" y2="396" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="1.2"/>
+<line x1="499" y1="328" x2="450" y2="396" marker-end="url(#farrow)" stroke="#9c9a92" stroke-width="1.2"/>
+<g><rect x="44" y="396" width="288" height="56" rx="8" fill="#0C447C" stroke="#85B7EB" stroke-width="0.5"/><text x="188" y="418" text-anchor="middle" dominant-baseline="central" fill="#B5D4F4" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">ATProto (Bluesky)</text><text x="188" y="434" text-anchor="middle" dominant-baseline="central" fill="#85B7EB" style="font-family:'DM Sans',sans-serif;font-size:12px;">Follow graph owned by user · portable</text></g>
+<g><rect x="348" y="396" width="288" height="56" rx="8" fill="#3C3489" stroke="#AFA9EC" stroke-width="0.5"/><text x="492" y="418" text-anchor="middle" dominant-baseline="central" fill="#CECBF6" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">ActivityPub (W3C standard)</text><text x="492" y="434" text-anchor="middle" dominant-baseline="central" fill="#AFA9EC" style="font-family:'DM Sans',sans-serif;font-size:12px;">Open standard · federated identity</text></g>
+<rect x="44" y="476" width="14" height="10" rx="2" fill="#185FA5"/>
+<text x="64" y="484" dominant-baseline="central" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Working / live in field</text>
+<rect x="190" y="476" width="14" height="10" rx="2" fill="none" stroke="#378ADD" stroke-dasharray="4 2" stroke-width="1.2"/>
+<text x="210" y="484" dominant-baseline="central" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">In development</text>
+<rect x="350" y="476" width="14" height="10" rx="2" fill="none" stroke="#555" stroke-dasharray="3 2" stroke-width="1"/>
+<text x="370" y="484" dominant-baseline="central" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Announced, not yet built</text>
+        </svg>
+      </div>
+      <div class="viz-caption">Ghost ActivityPub is live and in the field. Bluesky is functionally centralized despite its ATProto architecture. The directional signal is real; the scale is not yet there.</div>
+    </div>
+  </div>
+
+  <!-- SECTION VII: DISMEDIATION -->
+  <div class="section">
+    <div class="section-num">VII.</div>
+    <div class="section-label">Structural Threat</div>
+    <h2>Dismediation and the News Streamer</h2>
+
+    <p>The deepest distribution problem in 2026 is not platform suppression, though that is real. The greater disruption is <strong>dismediation</strong>: the process by which journalism's informational content travels through the media field while the economic value of that journalism is captured by intermediaries who did not produce it.</p>
+
+    <p>A journalist produces an investigation; a social user shares a screenshot of the headline; a news streamer discusses it for forty minutes to an audience of 200,000 subscribers; a TikTok creator makes a 90-second explainer that gets five million views; an AI Overview summarizes the investigation in three sentences. Each node in this chain receives audience attention. Only the original newsroom produced the work that set the chain in motion.</p>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 9 — The Dismediation Chain: The Sollenberger Case</div>
+      <div class="viz-container" style="background:#0f1117; padding: 1.25rem; overflow-x: auto;">
+        <svg width="100%" viewBox="0 0 680 540" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>The dismediation chain</title>
+<defs>
+  <marker id="darrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#9c9a92" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  <marker id="rarrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#E24B4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<text x="340" y="20" text-anchor="middle" dominant-baseline="central" fill="#faf9f5" style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;">The dismediation chain</text>
+<text x="340" y="36" text-anchor="middle" dominant-baseline="central" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">The Sollenberger case · Feb 15 – Mar 2026</text>
+<text x="340" y="60" text-anchor="middle" dominant-baseline="central" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">audience reaches   →   →   →</text>
+<g>
+  <rect x="30" y="78" width="88" height="68" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text x="74" y="96" text-anchor="middle" dominant-baseline="central" fill="#0C447C" style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Independent</text>
+  <text x="74" y="112" text-anchor="middle" dominant-baseline="central" fill="#0C447C" style="font-family:'DM Sans',sans-serif;font-size:12px;">journalist</text>
+  <text x="74" y="128" text-anchor="middle" dominant-baseline="central" fill="#185FA5" style="font-family:'DM Sans',sans-serif;font-size:10px;">Sollenberger</text>
+</g>
+<g>
+  <rect x="138" y="78" width="88" height="68" rx="8" fill="#f0faf7" stroke="#0F6E56" stroke-width="0.8"/>
+  <text x="182" y="96" text-anchor="middle" dominant-baseline="central" fill="#085041" style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Institutional</text>
+  <text x="182" y="112" text-anchor="middle" dominant-baseline="central" fill="#085041" style="font-family:'DM Sans',sans-serif;font-size:12px;">confirmation</text>
+  <text x="182" y="128" text-anchor="middle" dominant-baseline="central" fill="#0F6E56" style="font-family:'DM Sans',sans-serif;font-size:10px;">NPR · Day 9</text>
+</g>
+<g>
+  <rect x="246" y="78" width="88" height="68" rx="8" fill="#faeeda" stroke="#BA7517" stroke-width="0.8"/>
+  <text x="290" y="96" text-anchor="middle" dominant-baseline="central" fill="#6B4400" style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Social</text>
+  <text x="290" y="112" text-anchor="middle" dominant-baseline="central" fill="#6B4400" style="font-family:'DM Sans',sans-serif;font-size:12px;">amplification</text>
+  <text x="290" y="128" text-anchor="middle" dominant-baseline="central" fill="#BA7517" style="font-family:'DM Sans',sans-serif;font-size:10px;">Screenshots · viral</text>
+</g>
+<g>
+  <rect x="354" y="78" width="88" height="68" rx="8" fill="#f8f0fb" stroke="#7B2D8B" stroke-width="0.8"/>
+  <text x="398" y="96" text-anchor="middle" dominant-baseline="central" fill="#4A1A55" style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">News</text>
+  <text x="398" y="112" text-anchor="middle" dominant-baseline="central" fill="#4A1A55" style="font-family:'DM Sans',sans-serif;font-size:12px;">streamers</text>
+  <text x="398" y="128" text-anchor="middle" dominant-baseline="central" fill="#7B2D8B" style="font-family:'DM Sans',sans-serif;font-size:10px;">3.4B hrs Q1 2025</text>
+</g>
+<g>
+  <rect x="462" y="78" width="88" height="68" rx="8" fill="#fff0f0" stroke="#E24B4A" stroke-width="0.8"/>
+  <text x="506" y="96" text-anchor="middle" dominant-baseline="central" fill="#7A1A1A" style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">AI Overviews</text>
+  <text x="506" y="112" text-anchor="middle" dominant-baseline="central" fill="#7A1A1A" style="font-family:'DM Sans',sans-serif;font-size:12px;">/ LLM synthesis</text>
+  <text x="506" y="128" text-anchor="middle" dominant-baseline="central" fill="#E24B4A" style="font-family:'DM Sans',sans-serif;font-size:10px;">&lt;1% click through</text>
+</g>
+<g>
+  <rect x="570" y="78" width="88" height="68" rx="8" fill="#f5f4ef" stroke="#888880" stroke-width="0.8"/>
+  <text x="614" y="96" text-anchor="middle" dominant-baseline="central" fill="#333" style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;">Policy</text>
+  <text x="614" y="112" text-anchor="middle" dominant-baseline="central" fill="#333" style="font-family:'DM Sans',sans-serif;font-size:12px;">outcome</text>
+  <text x="614" y="128" text-anchor="middle" dominant-baseline="central" fill="#666" style="font-family:'DM Sans',sans-serif;font-size:10px;">FBI files released</text>
+</g>
+<line x1="118" y1="112" x2="138" y2="112" marker-end="url(#darrow)" stroke="#9c9a92" stroke-width="1.5"/>
+<line x1="226" y1="112" x2="246" y2="112" marker-end="url(#darrow)" stroke="#9c9a92" stroke-width="1.5"/>
+<line x1="334" y1="112" x2="354" y2="112" marker-end="url(#darrow)" stroke="#9c9a92" stroke-width="1.5"/>
+<line x1="442" y1="112" x2="462" y2="112" marker-end="url(#darrow)" stroke="#9c9a92" stroke-width="1.5"/>
+<line x1="550" y1="112" x2="570" y2="112" marker-end="url(#darrow)" stroke="#9c9a92" stroke-width="1.5"/>
+<text x="340" y="170" text-anchor="middle" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:11px;">economic value captured   ←   ←   ←</text>
+<text x="74" y="200" text-anchor="middle" fill="#888880" style="font-family:'DM Sans',sans-serif;font-size:11px;">$8,665</text>
+<text x="182" y="200" text-anchor="middle" fill="#888880" style="font-family:'DM Sans',sans-serif;font-size:11px;">some</text>
+<text x="290" y="200" text-anchor="middle" fill="#888880" style="font-family:'DM Sans',sans-serif;font-size:11px;">attention</text>
+<text x="398" y="200" text-anchor="middle" fill="#888880" style="font-family:'DM Sans',sans-serif;font-size:11px;">$millions</text>
+<text x="506" y="200" text-anchor="middle" fill="#888880" style="font-family:'DM Sans',sans-serif;font-size:11px;">$100B/qtr</text>
+<text x="614" y="200" text-anchor="middle" fill="#888880" style="font-family:'DM Sans',sans-serif;font-size:11px;">—</text>
+<rect x="36" y="218" width="88" height="5" rx="2" fill="#185FA5"/>
+<rect x="150" y="218" width="88" height="5" rx="2" fill="#3B6D11" opacity="0.7"/>
+<rect x="256" y="218" width="88" height="5" rx="2" fill="#BA7517" opacity="0.4"/>
+<rect x="362" y="218" width="88" height="5" rx="2" fill="#888" opacity="0.25"/>
+<rect x="468" y="218" width="88" height="5" rx="2" fill="#bbb" opacity="0.2"/>
+<rect x="560" y="218" width="88" height="5" rx="2" fill="#ddd" opacity="0.15"/>
+<rect x="44" y="244" width="592" height="52" rx="8" fill="none" stroke="#E24B4A" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="340" y="262" text-anchor="middle" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">Sollenberger's GoFundMe raised $8,665. The trust chain traveled from a Substack post to congressional</text>
+<text x="340" y="278" text-anchor="middle" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:12px;">action and the full release of FBI case files. The originating journalist captured none of the economic value.</text>
+<text x="44" y="320" fill="#9c9a92" style="font-family:'DM Sans',sans-serif;font-size:11px;">Attribution bar width = strength of attribution chain at each node (fades to nothing)</text>
+        </svg>
+      </div>
+      <div class="viz-caption">The Sollenberger case is the sharpest illustration of how trust travels in a disaggregated field and how economic value does not travel with it.</div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Entity</th>
+          <th>Est. annual revenue</th>
+          <th>Confidence</th>
+          <th>Anchor source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>The Daily Wire (Shapiro)</td><td>$200M+</td><td>★★★</td><td>Axios, December 2024</td></tr>
+        <tr><td>Turning Point USA (Kirk)</td><td>$85M</td><td>★★★</td><td>IRS Form 990</td></tr>
+        <tr><td>Crooked Media</td><td>~$25–32M operating</td><td>★★</td><td>Business analysis; SXM deal ≠ operating revenue</td></tr>
+        <tr><td>HasanAbi (Hasan Piker)</td><td>$3–4M</td><td>★★</td><td>2021 Twitch data × audience growth</td></tr>
+        <tr><td>David Pakman</td><td>$2–3.5M</td><td>★★</td><td>vidIQ estimate</td></tr>
+        <tr><td>Brian Tyler Cohen</td><td>$1.5–2M</td><td>★★</td><td>Estimate range convergence</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box danger">
+      <div class="info-box-label">The Economic Gap</div>
+      <p>Individual news streamers routinely out-earn a 20-person local newsroom's entire operating budget. <strong>Alphabet's Q3 2025 revenue: $100 billion</strong> — its first-ever $100B quarter. All bargaining-code payments globally total roughly US$350M annually. The Gao, Lee, and Murphy (2020) municipal bond research: three years after a newspaper closure, municipal bond yields rise 5.5 basis points, adding approximately $650,000 to the cost of an average $65M bond issue. Journalism's social value is measurable in financial markets. It is not captured by journalism's economic model.</p>
+    </div>
+  </div>
+
+  <!-- SECTION VIII: SME -->
+  <div class="section">
+    <div class="section-num">VIII.</div>
+    <div class="section-label">New Producer Class</div>
+    <h2>The Subject Matter Expert Journalist: A Productive Thesis</h2>
+
+    <p>In August 2022, Kyla Scanlon coined the term "vibecession" in a newsletter post. Within months, mainstream economists and Federal Reserve officials were grappling with it as a real analytical challenge. Major newspapers ran explainers based on her framing. She started as a C2 poly-platform creator and has since developed C3 barbell relationships with publishers across C1 and C5. She may be morphing from SME to journalist. It may not matter to her or her audience. It's journalism, not journalist.</p>
+
+    <p>This research offers a thesis, not yet a confirmed finding: these creators are not competing with journalists for the same audience job. They are fulfilling different jobs that institutional journalism structurally cannot fulfill.</p>
+
+    <h3>Four Audience Jobs SME Creators Fill</h3>
+
+    <div class="archetypes-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Job 1</div>
+        <div class="mechanism-name">The Trusted-Translator Job</div>
+        <div class="mechanism-example">Complex domains — medicine, engineering, finance, AI, law — produce information that general-audience journalism systematically mistranslates. Not from bad faith, but from structural constraint. The SME creator's native domain fluency allows them to translate accurately. Jay Rosen's "view from nowhere" critique is being resolved by market forces, not institutional reform.</div>
+      </div>
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Job 2</div>
+        <div class="mechanism-name">The Parasocial Peer Access Job</div>
+        <div class="mechanism-example">SME creators give audiences insider access to professional worlds they cannot otherwise enter. Orosz writes about engineering culture in a way that makes a developer feel understood by a peer, not profiled by an outsider. Academic research confirms audiences extend epistemic authority to parasocial "peers" more readily than institutional authorities.</div>
+      </div>
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Job 3</div>
+        <div class="mechanism-name">The Decision-Support Job</div>
+        <div class="mechanism-example">Traditional journalism informs. SME creators help audiences make specific decisions. ParentData's explicit tagline: "data-driven, judgment-free decision support" — a product description, not an editorial mission. Thompson, Orosz, and Rachitsky all operate as paid intelligence for working professionals.</div>
+      </div>
+      <div class="mechanism-cell">
+        <div class="mechanism-num">Job 4</div>
+        <div class="mechanism-name">The B2B Professional Tooling Job</div>
+        <div class="mechanism-example">This fourth job is economically the most important: it largely dissolves journalism's willingness-to-pay problem. The reader is not personally paying. The addressable market is fundamentally different from what journalism conventionally competes for. Thompson and Orosz compete not with the NYT, but with analytics software.</div>
+      </div>
+    </div>
+
+    <table class="sme-table">
+      <thead>
+        <tr>
+          <th>Creator</th>
+          <th>Domain</th>
+          <th>Est. revenue</th>
+          <th>Primary job</th>
+          <th>Employer-expensed?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ben Thompson (Stratechery)</td><td>Technology strategy</td><td>~$5M+</td><td>Translator + B2B</td><td>Yes ($199–$399/yr)</td></tr>
+        <tr><td>Gergely Orosz (Pragmatic Engineer)</td><td>Software engineering</td><td>~$1.5M+</td><td>Peer access + B2B</td><td>Widely expensed</td></tr>
+        <tr><td>Lenny Rachitsky (Lenny's Newsletter)</td><td>Product management</td><td>~$2M+</td><td>Decision support + B2B</td><td>Yes (Product Pass)</td></tr>
+        <tr><td>Kyla Scanlon</td><td>Economics / finance</td><td>—</td><td>Trusted translator</td><td>No</td></tr>
+        <tr><td>Katelyn Jetelina (Your Local Epidemiologist)</td><td>Epidemiology</td><td>—</td><td>Translator + decision support</td><td>Partial</td></tr>
+        <tr><td>Emily Oster (ParentData)</td><td>Pediatric data / parenting</td><td>—</td><td>Decision support</td><td>No</td></tr>
+        <tr><td>Byrne Hobart (The Diff)</td><td>Finance / strategy</td><td>—</td><td>B2B tooling</td><td>Finance-sector expensed</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box warning">
+      <div class="info-box-label">The Thesis Has a Sharp Limit</div>
+      <p>The SME creator's native domain — technology, finance, health, software engineering, economics — is not the domain of accountability journalism. <strong>Scanlon can name a vibecession; she cannot subpoena bank records. Orosz can map software engineering culture; he cannot FOIA the Department of Labor.</strong> The Sollenberger pipeline — the independent accountability journalist whose most socially valuable work generates no guaranteed economic return to its producer — remains the sharpest failure mode in the field. The SME thesis and the Sollenberger case must be held simultaneously: markets are confirming one, and markets are structurally unable to solve the other.</p>
+    </div>
+  </div>
+
+  <!-- SECTION IX: ETHNIC MEDIA -->
+  <div class="section">
+    <div class="section-num">IX.</div>
+    <div class="section-label">Underexploited Opportunity</div>
+    <h2>Ethnic and Diaspora Media</h2>
+
+    <p>The United States has a substantial ethnic and diaspora journalism sector that the field consistently undercounts. The UNC News Deserts database catalogues approximately 243 Black American newspapers, 224 Latino-Hispanic newspapers, 173 Latino TV stations, 35 Asian American outlets, 10 Native American outlets, and 67 other language outlets.</p>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-number">$45.8B</div>
+        <div class="stat-label">Multicultural advertising market in 2024, growing at 8.4% annually</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">5%</div>
+        <div class="stat-label">Of local news articles covering Latino communities despite 18% of population (2015 Media Matters)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">44%</div>
+        <div class="stat-label">Of California ethnic media organizations reporting annual revenue of $100K–$500K</div>
+      </div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Organization</th><th>Revenue / scale</th><th>Model</th><th>Key note</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>TelevisaUnivision</td><td>$5.1B (FY2024)</td><td>Legacy broadcaster</td><td>ViX streaming: $1B revenue yr 2; non-Latino owned</td></tr>
+        <tr><td>Capital B</td><td>$9.4M raised (2021–2026)</td><td>Philanthropic nonprofit</td><td>Black news; Atlanta + Gary, IN; 2 more newsrooms planned</td></tr>
+        <tr class="highlight"><td>URL Media</td><td>Profitable 4 of 5 yrs</td><td>Collaborative ad network</td><td>40 outlets; 27M people; Nike, Hulu, McKinsey</td></tr>
+        <tr class="highlight"><td>Word In Black</td><td>PBC (Knight + MacKenzie Scott)</td><td>Collaborative newsletter</td><td>10 legacy Black publishers; newsletter ad network</td></tr>
+        <tr><td>Documented NYC</td><td>~$3M (85% philanthropic)</td><td>Civic / immigrant journalism</td><td>4 languages; WhatsApp 6K; national training program</td></tr>
+        <tr><td>El Tímpano</td><td>~$2M (philanthropic + civic)</td><td>Audience-need / SMS</td><td>$600K earned since 2022 — most innovative civic revenue model</td></tr>
+        <tr><td>Epoch Times</td><td>~$122M (2021 990)</td><td>Subscription-primary</td><td>685% revenue growth 2019–2021; CFO indicted 2024</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box success">
+      <div class="info-box-label">The Model That's Working</div>
+      <p>URL Media and Word In Black are the only two collaboration-layer organizations in this study that have built meaningful earned revenue from non-philanthropic sources. Both are identity-based networks. <strong>The demographic coherence of the audience is not incidental to the business model — it is the business model.</strong> The $45.83B multicultural advertising market overwhelmingly flows to Univision, Telemundo, and digital platforms. The question of who builds the advertising infrastructure to redirect meaningful portions of that market toward independent ethnic media is the most important unresolved commercial question in this field study.</p>
+    </div>
+  </div>
+
+  <!-- SECTION X: PRODUCTS -->
+  <div class="section">
+    <div class="section-num">X.</div>
+    <div class="section-label">Products</div>
+    <h2>News Products Across Cohorts: The Ownership Imperative</h2>
+
+    <p>For approximately two decades, the article page was journalism's unit of commerce. That model is collapsing in real time. Google AI Overviews drove a 47% relative decline in click-through rates when they appear. Facebook referrals are at 32% of their March 2020 peak. The article page is not disappearing; it is depreciating as a commercial asset.</p>
+
+    <div class="pull-quote">
+      <p>"The most durable journalism products are the ones where the audience relationship belongs to the journalist, not to the platform. Reach without ownership is acquisition infrastructure, not a product."</p>
+    </div>
+
+    <p>Email subscriber lists are portable. Podcast RSS feeds are portable. A direct app relationship is owned. Social followers, search traffic, and algorithmic distribution are the top of the funnel. They have never been the business. The journalism organizations most exposed in 2026 are the ones that spent the last decade optimizing for the top of the funnel and never built the owned-channel relationship that converts reach into revenue.</p>
+  </div>
+
+  <!-- SECTION XI: WHAT COMES NEXT -->
+  <div class="section">
+    <div class="section-num">XI.</div>
+    <div class="section-label">Conclusion</div>
+    <h2>Decentralization and What Comes Next</h2>
+
+    <p>The research began with a thesis: concentrated dependency leads to failure. The rational — and now market-driven — response has been distributed, diversified structures.</p>
+
+    <p>The most durable revenue pattern is subscription-primary with one or two diversified secondary streams, and no single source above 50% of revenue. Tangle (85%/15%). The Dispatch (85%/10%/5%). Defector (82% subscription plus four secondaries). Texas Tribune (25%/24%/19%/18%). In each case, diversification is not an accident of success — it is the strategy.</p>
+
+    <p>The distribution corollary: distributed, owned-first audience relationships are the resilience model against platform dependency. Email addresses are portable. Podcast subscribers acquired through a direct website relationship are portable. Platform followers are borrowed from a platform that may change its terms, its algorithm, or its existence.</p>
+
+    <p>Collaboration is the structural response — not collaboration as editorial goodwill, but as economic architecture: the production layer, coordination layer, and distribution layer each handled by the form best suited to it. States Newsroom handles statehouse production. ICIJ handles cross-border investigation. City Bureau handles civic documentation. INN's NewsMatch handles philanthropic infrastructure. Individual creator brands handle direct reader relationships and niche depth. These layers are interoperable in a way they were not five years ago. A Documenters note becomes a States Newsroom reporter's lead, which gets republished by the Washington Post, which feeds a creator's newsletter. No single institution designed this. It emerged from the field's reorganization under pressure.</p>
+
+    <div class="pull-quote">
+      <p>"The collaborations are the future that has been hiding in plain sight."</p>
+    </div>
+  </div>
+
+  <!-- OPEN QUESTIONS -->
+  <div class="section">
+    <div class="section-label">Open Questions</div>
+    <h2>What the Research Cannot Yet Answer</h2>
+
+    <ul class="questions-list">
+      <li>
+        <div class="question-label">Collaborative survival rates past year two</div>
+        <div class="question-body">Stefanie Murray at the Center for Cooperative Media has the data — more than 1,160 collaborative journalism projects tracked since 2018. Murray's database is the only systematic source tracking collaboration survival rates at this scale. This is the paper's most important empirical gap. <em>[Priority interview: Collaborative Journalism Summit, May 2026.]</em></div>
+      </li>
+      <li>
+        <div class="question-label">The SME thesis, tested</div>
+        <div class="question-body">Do SME creators understand themselves as fulfilling distinct audience jobs? Do those jobs map onto willingness to pay? The four-job framework is a structural inference from economic and audience data — it needs practitioner confirmation or correction.</div>
+      </li>
+      <li>
+        <div class="question-label">The news streamer dependency</div>
+        <div class="question-body">Does any news streamer have a disclosed view on their dependency on journalism production they don't fund? The Tenet Media indictment opened a crack in the economics of political creator content.</div>
+      </li>
+      <li>
+        <div class="question-label">CPB dissolution long-term</div>
+        <div class="question-body">Does it accelerate consolidation of public-media spectrum into commercial ownership, or reset around state and local funding models? The NJ Civic Information Consortium is the only functioning evidence of what a state-level architecture looks like.</div>
+      </li>
+      <li>
+        <div class="question-label">The federated distribution horizon</div>
+        <div class="question-body">Ghost ActivityPub is live and in the field; Bluesky is functionally centralized despite its architecture. When does protocol-based distribution become a journalism use case at scale, rather than a practitioner signal? <em>[ATmosphere May 2026 produced practitioner evidence to incorporate here.]</em></div>
+      </li>
+      <li>
+        <div class="question-label">Ethnic media economic infrastructure</div>
+        <div class="question-body">Multicultural advertising spending reached $45.83B in 2024. Almost none flows to independent ethnic media. URL Media and Word In Black have cracked the model. Who scales it?</div>
+      </li>
+      <li>
+        <div class="question-label">The Dispatch FY2025 watch</div>
+        <div class="question-body">The Dispatch at ~$5.5M (FY2024) is targeting $10M for 2025 via organizational scaling: SCOTUSblog acquisition, new verticals, B2B professional tier development. If it reaches $10M on a subscription-primary model, it confirms ORG_SCALING as the fourth ceiling-breaking mechanism working at sub-100-staff scale.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- APPENDIX -->
+  <div class="section">
+    <div class="section-label">Appendices</div>
+    <h2>Supporting Materials</h2>
+
+    <div class="appendix-item">
+      <div class="appendix-title">Appendix A: Full Cohort Profiles</div>
+      <p style="font-family:var(--font-ui);font-size:0.875rem;color:var(--ink-faint);margin-top:0.25rem;">Complete cohort profiles with revenue tables, named examples, and structural notes for all nine cohorts.</p>
+    </div>
+    <div class="appendix-item">
+      <div class="appendix-title">Appendix B: Revenue Architecture</div>
+      <p style="font-family:var(--font-ui);font-size:0.875rem;color:var(--ink-faint);margin-top:0.25rem;">Extended annotations and methodology for the nine-cohort revenue matrix.</p>
+    </div>
+    <div class="appendix-item">
+      <div class="appendix-title">Appendix E: AI Monetization Map</div>
+      <table class="data-table" style="margin-top:0.75rem;">
+        <thead><tr><th>Deal</th><th>Value</th><th>Year</th></tr></thead>
+        <tbody>
+          <tr><td>News Corp / OpenAI</td><td>&gt;$250M over 5 years</td><td>May 2024</td></tr>
+          <tr><td>Meta / News Corp</td><td>Up to $50M/yr × 3 years</td><td>March 2026</td></tr>
+          <tr><td>Amazon / NYT</td><td>~$20–25M/yr</td><td>May 2025</td></tr>
+          <tr><td>Axel Springer / OpenAI</td><td>~$10–15M/yr</td><td>December 2023</td></tr>
+          <tr><td>Dotdash Meredith / OpenAI</td><td>~$16M+</td><td>May 2024</td></tr>
+          <tr><td>AP / OpenAI</td><td>Terms undisclosed</td><td>July 2023</td></tr>
+        </tbody>
+      </table>
+      <p style="font-family:var(--font-ui);font-size:0.8rem;color:var(--ink-faint);margin-top:0.5rem;">Total committed value (all known deals): $1.0–1.5B through 2030. Heavily concentrated in English-language premium publishers. For INN median members ($532K, 4 staff), AI licensing is not a near-term revenue source.</p>
+    </div>
+    <div class="appendix-item">
+      <div class="appendix-title">Appendix F: Scale Ceilings Dataset</div>
+      <p style="font-family:var(--font-ui);font-size:0.875rem;color:var(--ink-faint);margin-top:0.25rem;">76+ unique US journalism organization observations as of May 2026. Revenue, cohort, revenue mix, confidence level, ceiling-breaking mechanism (where applicable), data quality flags. See band_analysis_v3.md and revenue_table_v3.csv.</p>
+    </div>
+    <div class="appendix-item">
+      <div class="appendix-title">Appendix G: Cumulative Bibliography</div>
+      <p style="font-family:var(--font-ui);font-size:0.875rem;color:var(--ink-faint);margin-top:0.25rem;">350+ sources organized by topic section with source-type tags and quality caveats.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <span>Working draft — V10.1 · May 2026 · Not for distribution</span>
+  <span>Justin Bank (Independent Journalism Atlas) · Andy Pergam (Knight Center for the Future of News, ASU Cronkite School)</span>
+</footer>
+
+<!-- JAVASCRIPT: All chart logic -->
+<script>
+// ─── COHORT GRID ────────────────────────────────────────────────────────────
+const cohorts = [
+  { num:'C1', name:'Legacy publishers\n& freelance networks', def:'Established publishers with institutional brand capital and legacy revenue models.', revenue_tag:'sub + ads', tag_color:'#185FA5', accent:'#185FA5', examples:'NYT · WaPo · Fox · The Atlantic · AP', tension:'Bifurcating fast. Subscriber moats survive; ad-dependent operations contract.', group:1 },
+  { num:'C2', name:'Poly-platform\ncreator brands', def:'Full-stack independents building across platforms. Platform-promiscuity as strategy.', revenue_tag:'sub + rev-share', tag_color:'#0F6E56', accent:'#0F6E56', examples:'Tangle · Letters from an American · The Dispatch', tension:'Survivorship-bias cohort. Median Substack creator: ~$4K/yr. Top 50: $1M+.', group:1 },
+  { num:'C3', name:'Barbell\nhybrids', def:'Staff journalists with semi-independent platforms alongside institutional employment.', revenue_tag:'sub + events', tag_color:'#BA7517', accent:'#BA7517', examples:'Semafor · Zeteo · Platformer · Puck · The Free Press', tension:'The Weiss trajectory: creator → acquired brand → institutional exec. First documented full pipeline.', group:1 },
+  { num:'C4', name:'Philanthropic\nmesh networks', def:'Foundation-funded nonprofits. ProPublica = ~7% of all INN revenue from one org among 500.', revenue_tag:'philanthropy', tag_color:'#533DB7', accent:'#533DB7', examples:'ProPublica · States Newsroom · Texas Tribune · Capital B', tension:'Winner-take-all. Press Forward ($500M+) is the largest journalism philanthropy infrastructure investment in history.', group:2 },
+  { num:'C5', name:'Public media\nnetworks', def:'Public broadcasters funded by government appropriation, listener support, and underwriting.', revenue_tag:'public funding', tag_color:'#3d6e0f', accent:'#3d6e0f', examples:'NPR · WNYC · KQED · WBEZ', tension:'CPB dissolved Jan 5, 2026. US: $3/capita. Norway: $180. Nine counties now have no local news source.', group:2 },
+  { num:'C6', name:'Collaboration &\ncoordination layers', def:'Cross-outlet networks and shared infrastructure enabling journalism across multiple organizations.', revenue_tag:'philanthropy + network', tag_color:'#993556', accent:'#993556', examples:'ICIJ · MuckRock · URL Media · Word In Black · INN', tension:'Most underdeveloped cohort relative to its importance. Survival rate past year two: the key empirical gap.', group:2 },
+  { num:'C7', name:'Worker-owned\nco-ops & collectives', def:'Journalism organizations with worker ownership, born from institutional collapses.', revenue_tag:'subscription', tag_color:'#993C1D', accent:'#993C1D', examples:'Defector · 404 Media · Hell Gate · Aftermath', tension:'Every successful co-op launched with a pre-built audience. Zero documented launches from scratch.', group:3 },
+  { num:'C8', name:'Civic &\ncommunity actors', def:'Libraries, civic intermediaries, immigrant outlets producing journalism as civic function.', revenue_tag:'philanthropy + earned', tag_color:'#5F5E5A', accent:'#5F5E5A', examples:'El Tímpano · City Bureau · Documented NYC · Outlier Media', tension:'El Tímpano Civic Partnerships: $600K earned since 2022. Most innovative non-philanthropic civic revenue model.', group:3 },
+  { num:'C9', name:'B2B & professional\ninformation services', def:'Journalism priced for professional buyers who expense the subscription. Employer is the economic decider.', revenue_tag:'B2B subscription', tag_color:'#042C53', accent:'#042C53', examples:'Industry Dive · Politico Pro · Morning Brew · The Ankler · Stratechery', tension:'Only cohort with no philanthropy dependency and no platform rev-share exposure.', group:3 },
+];
+
+[1,2,3].forEach(g => {
+  const container = document.getElementById('group'+g);
+  if (!container) return;
+  cohorts.filter(c => c.group === g).forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'c-card';
+    card.style.setProperty('--c-accent', c.accent);
+    card.innerHTML = `
+      <div class="c-num">${c.num}</div>
+      <div class="c-name">${c.name.replace('\n','<br>')}</div>
+      <div class="c-def">${c.def}</div>
+      <div class="c-tags"><span class="c-tag" style="background:${c.tag_color}18;color:${c.tag_color}">${c.revenue_tag}</span></div>
+      <div style="font-size:10px;color:#888880;margin-bottom:6px;font-family:'DM Sans',sans-serif;">${c.examples}</div>
+      <div class="c-tension">${c.tension}</div>`;
+    container.appendChild(card);
+  });
+});
+
+// ─── FUNDING COLLAPSE TIMELINE ───────────────────────────────────────────────
+const categories = {
+  'Platform withdrawal':  { color:'#534AB7' },
+  'Government defunding': { color:'#A32D2D' },
+  'Private equity':       { color:'#BA7517' },
+  'Nonprofit failure':    { color:'#5F5E5A' },
+};
+
+const events = [
+  { year:2019, label:'Facebook news\ndeprioritization', cat:'Platform withdrawal', impact:120, note:'Algorithm shifts; referral traffic begins decline' },
+  { year:2021, label:'Alden Global\nbuys Tribune', cat:'Private equity', impact:200, note:'200+ newsrooms; aggressive cost-cutting begins' },
+  { year:2022, label:'Twitter/X\nalgorithm shift', cat:'Platform withdrawal', impact:90, note:'News referral traffic begins steep decline' },
+  { year:2022, label:'Vice Media\nbankruptcy path', cat:'Private equity', impact:150, note:'Digital-native collapse; 2,500 jobs at peak' },
+  { year:2023, label:'BuzzFeed News\nclosed', cat:'Private equity', impact:100, note:'Pulitzer-winning newsroom shut; 180 jobs' },
+  { year:2024, label:'Meta kills\nFacebook News tab', cat:'Platform withdrawal', impact:300, note:'Ends per-publisher payments; referrals at 32% of 2020 peak' },
+  { year:2024, label:'Google AI Overviews\nlaunched', cat:'Platform withdrawal', impact:600, note:'33% decline in search referrals globally; 60% for small publishers' },
+  { year:2024, label:'LA Times\n70% newsroom cuts', cat:'Private equity', impact:120, note:'Patrick Soon-Shiong cuts 115 of 170 newsroom staff' },
+  { year:2025, label:'USAID journalism\nfunding frozen', cat:'Government defunding', impact:271, note:'$271.5M frozen Jan 20; OCCRP lost 52% of budget in one week' },
+  { year:2025, label:'Center for Public\nIntegrity closed', cat:'Nonprofit failure', impact:40, note:'36 years; fell $2.5M short of fundraising goal' },
+  { year:2025, label:'WaPo loses\n$177M (2yr)', cat:'Private equity', impact:177, note:'300 staff cut Feb 2026; billionaire ownership instability' },
+  { year:2026, label:'CPB dissolved', cat:'Government defunding', impact:535, note:'$535M annual appropriation; 9 counties lose only local news source' },
+  { year:2026, label:'VOA / RFE\nshuttered', cat:'Government defunding', impact:350, note:'Voice of America, Radio Free Europe defunded' },
+];
+
+const legendEl = document.getElementById('fc-legend');
+Object.entries(categories).forEach(([cat, c]) => {
+  legendEl.innerHTML += `<div style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border-radius:3px;background:${c.color};display:inline-block;flex-shrink:0;"></span><span>${cat}</span></div>`;
+});
+
+const fcDatasets = Object.entries(categories).map(([cat, c]) => ({
+  label: cat,
+  data: events.filter(e => e.cat === cat).map(e => ({
+    x: e.year + (Math.random() * 0.3 - 0.15),
+    y: e.impact,
+    _e: e,
+  })),
+  backgroundColor: c.color + 'bb',
+  borderColor: c.color,
+  borderWidth: 1.5,
+  pointRadius: events.filter(e=>e.cat===cat).map(e => Math.max(6, Math.sqrt(e.impact)*1.1)),
+  pointHoverRadius: events.filter(e=>e.cat===cat).map(e => Math.max(8, Math.sqrt(e.impact)*1.2)),
+}));
+
+new Chart(document.getElementById('fcChart'), {
+  type: 'bubble',
+  data: { datasets: fcDatasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: ctx => ctx[0].raw._e.label.replace('\n',' '),
+          label: ctx => { const e=ctx.raw._e; return [`Year: ${e.year}`,`Impact: ~$${e.impact}M`,e.note]; }
+        }
+      }
+    },
+    scales: {
+      x: { min:2018.5, max:2026.7, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{stepSize:1,callback:v=>Number.isInteger(v)?v:'',color:'#888880',font:{size:12,family:'DM Sans'}} },
+      y: { min:0, max:750, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{color:'#888880',font:{size:11,family:'DM Sans'},callback:v=>v===0?'':'$'+v+'M'}, title:{display:true,text:'estimated dollar impact',color:'#888880',font:{size:11,family:'DM Sans'}} }
+    }
+  }
+});
+
+// ─── DEFECTOR CHART ──────────────────────────────────────────────────────────
+const defLabels = ['Year 1\n(launch)','Year 2','Year 3','Year 4','Year 5'];
+const defData = [3.2, 3.8, 4.4, 4.4, 4.65];
+
+const bandPlugin = {
+  id:'band',
+  beforeDraw(chart) {
+    const {ctx, scales:{x,y}} = chart;
+    const top = y.getPixelForValue(10), bot = y.getPixelForValue(3.5);
+    const left = x.getPixelForValue(-0.5), right = x.getPixelForValue(4.5);
+    ctx.save();
+    ctx.fillStyle = 'rgba(24,95,165,0.07)';
+    ctx.fillRect(left,top,right-left,bot-top);
+    ctx.strokeStyle = 'rgba(24,95,165,0.25)';
+    ctx.lineWidth = 1; ctx.setLineDash([4,3]);
+    ctx.beginPath(); ctx.moveTo(left,top); ctx.lineTo(right,top); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(left,bot); ctx.lineTo(right,bot); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = '11px "DM Sans",sans-serif';
+    ctx.fillStyle = 'rgba(24,95,165,0.8)';
+    ctx.textAlign = 'right';
+    ctx.fillText('convergence band ceiling  $10M', right-6, top-5);
+    ctx.restore();
+  },
+  afterDraw(chart) {
+    const {ctx, scales:{x,y}} = chart;
+    ctx.save();
+    const x3=x.getPixelForValue(2), x4=x.getPixelForValue(3), yp=y.getPixelForValue(4.4)-26;
+    ctx.font = '500 11px "DM Sans",sans-serif';
+    ctx.fillStyle = '#A32D2D'; ctx.textAlign = 'center';
+    ctx.fillText('plateau', (x3+x4)/2, yp);
+    ctx.strokeStyle = '#A32D2D'; ctx.lineWidth = 1.5; ctx.setLineDash([3,3]);
+    ctx.beginPath(); ctx.moveTo(x3,y.getPixelForValue(4.4)); ctx.lineTo(x4,y.getPixelForValue(4.4)); ctx.stroke();
+    ctx.setLineDash([]);
+    const x5=x.getPixelForValue(4), y5=y.getPixelForValue(4.65);
+    ctx.font = '11px "DM Sans",sans-serif'; ctx.fillStyle = '#666'; ctx.textAlign = 'center';
+    ctx.fillText('subscription revenue flat', x5, y5-22);
+    ctx.fillText('(total up 6%)', x5, y5-10);
+    ctx.restore();
+  }
+};
+
+new Chart(document.getElementById('defChart'), {
+  type:'line',
+  data: {
+    labels: defLabels,
+    datasets:[{
+      label:'Annual revenue', data:defData,
+      borderColor:'#185FA5', backgroundColor:'rgba(24,95,165,0.08)',
+      borderWidth:2.5, fill:true, tension:0.25,
+      pointBackgroundColor: defData.map((_,i)=>(i===2||i===3)?'#A32D2D':'#185FA5'),
+      pointBorderColor:'#fff', pointRadius:7, pointHoverRadius:9, pointBorderWidth:2,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>`$${ctx.raw.toFixed(2)}M annual revenue`}} },
+    scales: {
+      x:{ grid:{display:false}, ticks:{color:'#888880',font:{size:12,family:'DM Sans'}} },
+      y:{ min:2.5, max:11, grid:{color:'rgba(0,0,0,0.06)'}, ticks:{color:'#888880',font:{size:11,family:'DM Sans'},callback:v=>'$'+v.toFixed(1)+'M'} }
+    }
+  },
+  plugins:[bandPlugin]
+});
+
+// ─── SCALE CEILING DOT PLOT ──────────────────────────────────────────────────
+const cohortColors = {
+  'C1 Legacy':'#533DB7','C2 Creator':'#0F6E56','C3 Barbell':'#BA7517',
+  'C4 Philanth.':'#185FA5','C5 Public':'#3d6e0f','C6 Collab.':'#993556',
+  'C7 Co-op':'#993C1D','C8 Civic':'#73726c','C9 B2B':'#042C53',
+};
+
+const orgs = [
+  {name:'Fox Corp',rev:16300,cohort:'C1 Legacy',mech:'Ideological capture'},
+  {name:'TelevisaUnivision',rev:5100,cohort:'C1 Legacy',mech:'Institutional scale'},
+  {name:'NYT',rev:2820,cohort:'C1 Legacy',mech:'Bundle'},
+  {name:'AP',rev:550,cohort:'C1 Legacy',mech:'Cooperative scale'},
+  {name:'ACBJ',rev:305,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Daily Wire',rev:200,cohort:'C1 Legacy',mech:'Ideological capture'},
+  {name:'Morning Brew',rev:70,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Epoch Times',rev:122,cohort:'C1 Legacy',mech:'Ideological capture'},
+  {name:'NPR',rev:325,cohort:'C5 Public',mech:'Org. scaling'},
+  {name:'WNYC',rev:73.9,cohort:'C5 Public',mech:'Org. scaling'},
+  {name:'KQED',rev:45,cohort:'C5 Public',mech:'Org. scaling'},
+  {name:'Industry Dive',rev:100,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Politico Pro',rev:100,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'ProPublica',rev:45,cohort:'C4 Philanth.',mech:'Org. scaling'},
+  {name:'Semafor',rev:40,cohort:'C3 Barbell',mech:'Org. scaling'},
+  {name:'States Newsroom',rev:27.45,cohort:'C4 Philanth.',mech:'Org. scaling'},
+  {name:'The Free Press',rev:20,cohort:'C3 Barbell',mech:'Org. scaling'},
+  {name:'The Ankler',rev:10,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Marshall Project',rev:15.2,cohort:'C4 Philanth.',mech:'Org. scaling'},
+  {name:'The Bulwark',rev:9.5,cohort:'C3 Barbell',band:true},
+  {name:'Capital B',rev:9.4,cohort:'C4 Philanth.',band:true},
+  {name:'Texas Tribune',rev:9,cohort:'C4 Philanth.',band:true},
+  {name:'ICIJ',rev:6.37,cohort:'C6 Collab.',band:true},
+  {name:'Stratechery',rev:5.5,cohort:'C9 B2B',band:true},
+  {name:'The Dispatch',rev:5.5,cohort:'C2 Creator',band:true},
+  {name:'Letters from an American',rev:5,cohort:'C2 Creator',band:true},
+  {name:'Defector (Yr 5)',rev:4.65,cohort:'C7 Co-op',band:true,anchor:true},
+  {name:'Tangle',rev:4.15,cohort:'C2 Creator',band:true},
+  {name:'MuckRock',rev:3.78,cohort:'C6 Collab.',band:true},
+  {name:'Zeteo',rev:3.9,cohort:'C3 Barbell',band:true},
+  {name:'VTDigger',rev:2.82,cohort:'C4 Philanth.'},
+  {name:'Documented NYC',rev:3,cohort:'C8 Civic'},
+  {name:'MinnPost',rev:1.7,cohort:'C4 Philanth.'},
+  {name:'The Intercept',rev:1.55,cohort:'C4 Philanth.'},
+  {name:'Pragmatic Engineer',rev:1.5,cohort:'C9 B2B'},
+  {name:'El Tímpano',rev:2,cohort:'C8 Civic'},
+  {name:'404 Media',rev:1.8,cohort:'C7 Co-op'},
+  {name:'Hell Gate',rev:0.85,cohort:'C7 Co-op'},
+  {name:'Aftermath',rev:0.485,cohort:'C7 Co-op'},
+  {name:'City Bureau',rev:1.1,cohort:'C8 Civic'},
+];
+
+const filterDiv = document.getElementById('filters');
+const filterBtns = [['all','All organizations'],['band','In-band only'],['mech','Above band (ceiling breakers)']];
+let activeF = 'all';
+
+filterBtns.forEach(([val,label]) => {
+  const btn = document.createElement('button');
+  btn.textContent = label;
+  btn.style.cssText = `font-size:11px;padding:4px 10px;border-radius:4px;border:1px solid #ddddd8;background:${val==='all'?'#1a1a18':'#faf9f5'};color:${val==='all'?'#faf9f5':'#4a4a46'};cursor:pointer;font-family:'DM Sans',sans-serif;`;
+  btn.onclick = () => {
+    activeF = val;
+    document.querySelectorAll('#filters button').forEach(b => { b.style.background='#faf9f5'; b.style.color='#4a4a46'; });
+    btn.style.background = '#1a1a18'; btn.style.color = '#faf9f5';
+    updateScale();
+  };
+  filterDiv.appendChild(btn);
+});
+
+const scaleCtx = document.getElementById('scaleChart').getContext('2d');
+let scaleChart;
+
+function buildScaleChart() {
+  const cohortNames = Object.keys(cohortColors);
+  const datasets = cohortNames.map(name => {
+    const pts = orgs.filter(o => o.cohort === name);
+    return {
+      label: name,
+      data: pts.map((o, i) => ({ x: cohortNames.indexOf(name) + (Math.random()*0.5-0.25), y: o.rev, _org: o })),
+      backgroundColor: cohortColors[name] + 'bb',
+      borderColor: cohortColors[name],
+      borderWidth: 1, pointRadius: 7, pointHoverRadius: 9,
+    };
+  });
+
+  scaleChart = new Chart(scaleCtx, {
+    type:'scatter',
+    data:{datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false, animation:{duration:300},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>{const o=ctx.raw._org;let s=`${o.name}: $${o.rev>=100?(o.rev/1000).toFixed(1)+'B':o.rev+'M'}`;if(o.mech)s+=` · ${o.mech}`;return s;}}}
+      },
+      scales:{
+        x:{display:false,min:-0.5,max:8.5},
+        y:{type:'logarithmic',min:0.3,max:25000,grid:{color:'rgba(0,0,0,0.06)'},
+          ticks:{color:'#888880',font:{size:11,family:'DM Sans'},callback:v=>{const l={0.5:'$500K',1:'$1M',3.5:'$3.5M',10:'$10M',100:'$100M',1000:'$1B',10000:'$10B'};return l[v]||'';}}}
+      }
+    },
+    plugins:[{
+      id:'bandShading',
+      beforeDraw(chart) {
+        const {ctx,scales:{y,x}} = chart;
+        const top=y.getPixelForValue(10),bot=y.getPixelForValue(3.5);
+        const left=x.getPixelForValue(-0.5),right=x.getPixelForValue(8.5);
+        ctx.save();
+        ctx.fillStyle='rgba(24,95,165,0.08)';
+        ctx.fillRect(left,top,right-left,bot-top);
+        ctx.strokeStyle='rgba(24,95,165,0.3)';
+        ctx.lineWidth=1; ctx.setLineDash([4,3]);
+        ctx.beginPath();ctx.moveTo(left,top);ctx.lineTo(right,top);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(left,bot);ctx.lineTo(right,bot);ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.font='500 11px "DM Sans",sans-serif';
+        ctx.fillStyle='rgba(24,95,165,0.9)'; ctx.textAlign='left';
+        ctx.fillText('convergence band  $3.5M – $10M', left+8, top-6);
+        ctx.restore();
+      }
+    }]
+  });
+
+  // build legend
+  const legendEl = document.getElementById('legend');
+  Object.entries(cohortColors).forEach(([name,color]) => {
+    legendEl.innerHTML += `<div style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:${color};display:inline-block;flex-shrink:0;"></span><span>${name}</span></div>`;
+  });
+}
+
+function updateScale() {
+  const filtered = orgs.filter(o => {
+    if (activeF === 'band') return o.rev >= 3.5 && o.rev <= 10;
+    if (activeF === 'mech') return o.rev > 10;
+    return true;
+  });
+  const cohortNames = Object.keys(cohortColors);
+  scaleChart.data.datasets.forEach(ds => {
+    ds.data = filtered.filter(o => o.cohort === ds.label).map(o => ({
+      x: cohortNames.indexOf(ds.label) + (Math.random()*0.5-0.25),
+      y: o.rev, _org: o
+    }));
+  });
+  scaleChart.update();
+}
+
+buildScaleChart();
+</script>
+</div><!-- /main-content -->
+<script>
+(function() {
+  var HASH = "c873caa9802aa3b44eedd102b3a8f05612b5b2219ce2ae9adde19c3e9b539d91";
+  async function sha256(msg) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,"0"); }).join("");
+  }
+  async function checkPassword() {
+    var val = document.getElementById("pw-input").value;
+    var h = await sha256(val);
+    if (h === HASH) {
+      sessionStorage.setItem("atlas-field-study-auth", HASH);
+      document.getElementById("pw-gate").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    } else {
+      document.getElementById("pw-error").textContent = "Incorrect password. Please try again.";
+      document.getElementById("pw-input").focus();
+    }
+  }
+  document.getElementById("pw-btn").addEventListener("click", checkPassword);
+  document.getElementById("pw-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkPassword();
+    document.getElementById("pw-error").textContent = "";
+  });
+  if (sessionStorage.getItem("atlas-field-study-auth") === HASH) {
+    document.getElementById("pw-gate").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+  }
+})();
+</script>
+</body>
+</html>
