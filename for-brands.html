@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Brands &amp; Comms Teams | The Independent Journalism Atlas</title>
+  <meta property="og:title" content="For Brands &amp; Comms Teams | The Independent Journalism Atlas">
+  <meta property="og:description" content="The journalists covering your issues aren't in your media list. The Atlas maps 1,453 verified independent creator-journalists — filterable by beat, platform, and geography.">
+  <meta property="og:url" content="https://journalismatlas.com/for-brands">
+  <meta property="og:type" content="website">
+
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/variables.css">
+
+  <style>
+    /* ── BASE ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Hanken Grotesk', sans-serif; color: #111111; background: #111111; }
+    a { text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 24px; line-height: 1; display: inline-block; vertical-align: middle;
+    }
+
+    /* ── LAYOUT HELPERS ── */
+    .section-inner { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── SECTION EYEBROW ── */
+    .eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .eyebrow--dark { color: rgba(255,255,255,0.35); }
+    .eyebrow--light { color: rgba(17,17,17,0.4); }
+
+    /* ── SHARED HEADING STYLES ── */
+    .h2-dark { font-size: clamp(28px, 3vw, 44px); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin: 0 0 24px; line-height: 1.1; }
+    .h2-light { font-size: clamp(28px, 3vw, 44px); font-weight: 700; letter-spacing: -0.025em; color: #111111; margin: 0 0 24px; line-height: 1.1; }
+
+    /* ── SOURCE ATTRIBUTION ── */
+    .source-attr { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 4px; }
+    .source-attr--light { font-size: 11px; color: rgba(0,0,0,0.35); margin-top: 4px; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-block; background: #ceff00; color: #111111;
+      font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 15px;
+      padding: 13px 28px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #d8ff33; }
+    .btn-ghost {
+      display: inline-block;
+      border: 1.5px solid rgba(255,255,255,0.35); color: #fff;
+      font-family: 'Hanken Grotesk', sans-serif; font-size: 15px;
+      padding: 12px 26px; border-radius: 6px; transition: border-color 0.15s; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 2 — HERO
+    ═══════════════════════════════════════════════════════════ */
+    .hero-section { background: #111111; padding: 96px 40px 88px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .hero-eyebrow-pill {
+      display: inline-block;
+      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700;
+      color: #ceff00; background: rgba(206,255,0,0.07);
+      border: 1px solid rgba(206,255,0,0.3); border-radius: 100px;
+      padding: 5px 16px; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .hero-h1 {
+      font-size: clamp(36px, 5vw, 64px); font-weight: 700;
+      letter-spacing: -0.03em; color: #fff; line-height: 1.03;
+      margin: 0 0 24px; max-width: 820px;
+    }
+    .hero-sub {
+      font-size: 18px; color: #a8a8a8; line-height: 1.7;
+      max-width: 600px; margin: 0 0 40px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 3 — THE PROBLEM
+    ═══════════════════════════════════════════════════════════ */
+    .problem-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .problem-lede {
+      font-size: 18px; color: #a8a8a8; line-height: 1.75;
+      max-width: 700px; margin: 0 0 56px;
+    }
+    .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .stat-item {}
+    .stat-num {
+      font-family: 'DM Mono', monospace; font-size: 48px; font-weight: 700;
+      color: #fff; line-height: 1; letter-spacing: -0.03em;
+    }
+    .stat-label { font-size: 14px; color: #a8a8a8; margin-top: 8px; line-height: 1.5; max-width: 200px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 4 — COMPARISON TABLE
+    ═══════════════════════════════════════════════════════════ */
+    .compare-section { background: #f5f5f5; padding: 80px 40px; }
+    .compare-framing {
+      font-size: 18px; color: #444; line-height: 1.75;
+      max-width: 680px; margin: 0 0 48px;
+    }
+    .compare-wrap { overflow-x: auto; }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr 1fr;
+      border: 1px solid #dddde0; border-radius: 6px; overflow: hidden;
+      min-width: 600px;
+    }
+
+    /* Header row */
+    .compare-spacer { background: #f0f0f0; border-bottom: 1px solid #dddde0; padding: 14px 20px; }
+    .compare-th {
+      padding: 16px 24px; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-bottom: 2px solid #dddde0;
+    }
+    .compare-th--left { background: #fff9e0; color: #666; border-left: 1px solid #dddde0; }
+    .compare-th--right { background: #ceff00; color: #111111; border-left: 1px solid #b8e600; }
+
+    /* Data rows */
+    .compare-row-label {
+      padding: 14px 20px; font-size: 13px; font-weight: 700;
+      color: #111111; background: #f0f0f0;
+      border-top: 1px solid #dddde0;
+      display: flex; align-items: center;
+    }
+    .compare-cell {
+      padding: 14px 24px; font-size: 15px; color: #333;
+      border-top: 1px solid #dddde0; border-left: 1px solid #dddde0;
+      display: flex; align-items: center; background: #fff; line-height: 1.5;
+    }
+    .compare-grid > *:nth-child(6n+4),
+    .compare-grid > *:nth-child(6n+5),
+    .compare-grid > *:nth-child(6n+6) {
+      background: #fafafa;
+    }
+    .compare-grid > *:nth-child(6n+5) { background: #fdfdf5; }
+    .compare-source { font-size: 12px; color: rgba(0,0,0,0.4); margin-top: 20px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 5 — THREE WAYS BRANDS SHOW UP
+    ═══════════════════════════════════════════════════════════ */
+    .three-ways-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .three-ways-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+    .way-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 32px 28px;
+    }
+    .way-card-icon {
+      color: #ceff00; font-size: 32px; margin-bottom: 16px;
+    }
+    .way-card-title {
+      font-size: 20px; font-weight: 700; color: #fff;
+      margin: 0 0 12px; letter-spacing: -0.01em;
+    }
+    .way-card-body { font-size: 16px; color: #a8a8a8; line-height: 1.7; margin: 0; }
+    .three-ways-note {
+      font-size: 15px; color: rgba(255,255,255,0.4); line-height: 1.7;
+      text-align: center; max-width: 640px; margin: 0 auto;
+    }
+    .three-ways-note em { color: rgba(255,255,255,0.6); font-style: normal; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 6 — GOOD NEWS (dark — acid green numbers correct on dark)
+    ═══════════════════════════════════════════════════════════ */
+    .good-news-section { background: #0d0d0d; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .good-news-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-bottom: 48px; }
+    .good-news-stat {}
+    .good-news-num {
+      font-family: 'DM Mono', monospace; font-size: clamp(64px, 8vw, 96px);
+      font-weight: 700; color: #ceff00; line-height: 1; letter-spacing: -0.04em;
+    }
+    .good-news-label { font-size: 18px; color: #fff; margin-top: 16px; line-height: 1.5; max-width: 320px; }
+    .good-news-followup {
+      font-size: 18px; color: #a8a8a8; line-height: 1.75; max-width: 680px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 7 — WHAT THE ATLAS DOES
+    ═══════════════════════════════════════════════════════════ */
+    .atlas-does-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .atlas-does-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    .atlas-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 28px 24px;
+    }
+    .atlas-card-icon { color: rgba(255,255,255,0.5); font-size: 28px; margin-bottom: 14px; }
+    .atlas-card-title { font-size: 17px; font-weight: 700; color: #fff; margin: 0 0 10px; }
+    .atlas-card-body { font-size: 16px; color: #a8a8a8; line-height: 1.7; margin: 0; }
+    .atlas-cta-link {
+      font-size: 15px; font-weight: 500; color: #ceff00;
+      transition: opacity 0.15s; display: inline-block; margin-top: 8px;
+    }
+    .atlas-cta-link:hover { opacity: 0.75; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 8 — PROTOTYPE GALLERY
+    ═══════════════════════════════════════════════════════════ */
+    .gallery-section { background: #0d0d0d; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .gallery-intro { font-size: 17px; color: #a8a8a8; margin: 0 0 48px; max-width: 560px; line-height: 1.7; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .gallery-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 28px 24px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .gallery-card:hover { border-color: rgba(206,255,0,0.3); background: rgba(206,255,0,0.03); }
+    .gallery-card-eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
+      color: rgba(255,255,255,0.3); letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .gallery-card-name { font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 12px; letter-spacing: -0.01em; }
+    .gallery-card-desc { font-size: 15px; color: #a8a8a8; line-height: 1.65; flex: 1; margin: 0 0 20px; }
+    .gallery-card-link {
+      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+      color: #ceff00; letter-spacing: 0.08em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: opacity 0.15s;
+    }
+    .gallery-card-link:hover { opacity: 0.7; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 9 — CAPTURE FORM
+    ═══════════════════════════════════════════════════════════ */
+    .form-section { background: #111111; padding: 88px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .form-inner { max-width: 640px; }
+    .form-body-text { font-size: 17px; color: #a8a8a8; line-height: 1.75; margin: 0 0 48px; }
+    .capture-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .form-input, .form-textarea {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 12px 16px;
+      font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: #fff;
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-input:focus, .form-textarea:focus {
+      border-color: #ceff00;
+      box-shadow: 0 0 0 2px rgba(206,255,0,0.12);
+    }
+    .form-textarea { resize: vertical; min-height: 96px; }
+    .form-submit {
+      background: #ceff00; color: #111111;
+      font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 16px;
+      padding: 15px 32px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 0.15s; align-self: flex-start; margin-top: 8px;
+    }
+    .form-submit:hover { background: #d8ff33; }
+    .form-disclaimer { font-size: 13px; color: rgba(255,255,255,0.3); text-align: center; margin-top: 20px; line-height: 1.6; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 10 — CREDENTIALING STRIP
+    ═══════════════════════════════════════════════════════════ */
+    .cred-section { background: #fff; padding: 56px 40px; border-top: 1px solid #e4e4e8; }
+    .cred-intro { font-size: 14px; color: #999; text-align: center; margin: 0 0 20px; }
+    .cred-names {
+      font-size: 14px; color: #888; text-align: center;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      line-height: 2;
+    }
+    .cred-sep { margin: 0 10px; opacity: 0.4; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 11 — FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    .site-footer { background: #000; padding: 48px 40px 32px; }
+    .footer-inner { max-width: 1440px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
+    .footer-brand img { height: 26px; }
+    .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 10px; }
+    .footer-links { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; padding-top: 4px; }
+    .footer-links a { font-size: 14px; color: rgba(255,255,255,0.5); transition: color 0.15s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #1a1a1a; margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; max-width: 1440px; margin-left: auto; margin-right: auto; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+
+    /* ═══════════════════════════════════════════════════════════
+       MOBILE RESPONSIVE — 375px
+    ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .hero-section, .problem-section, .compare-section, .three-ways-section,
+      .good-news-section, .atlas-does-section, .gallery-section,
+      .form-section, .cred-section, .site-footer { padding-left: 20px; padding-right: 20px; }
+
+      .hero-section { padding-top: 56px; padding-bottom: 56px; }
+      .hero-ctas { flex-direction: column; }
+      .btn-primary, .btn-ghost { text-align: center; }
+
+      .stat-strip { grid-template-columns: 1fr; gap: 32px; }
+      .compare-section { padding-top: 56px; padding-bottom: 56px; }
+      .three-ways-grid { grid-template-columns: 1fr; }
+      .good-news-stats { grid-template-columns: 1fr; gap: 40px; }
+      .atlas-does-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+
+      .form-submit { width: 100%; }
+      .footer-inner { flex-direction: column; gap: 24px; }
+      .footer-links { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+
+<script src="assets/js/header.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 — HERO
+═══════════════════════════════════════════════════════════ -->
+<section class="hero-section">
+  <div class="section-inner">
+    <div class="hero-eyebrow-pill">For Public Affairs · PR · Comms</div>
+    <h1 class="hero-h1">The journalists covering your issues<br>aren't in your media list.</h1>
+    <p class="hero-sub">Independent creator journalists have built loyal, paying audiences around the exact topics you care about. They're not hard to find. They're just not in the places you're looking.</p>
+    <div class="hero-ctas">
+      <a href="#capture-form" class="btn-primary">Request a discovery call</a>
+      <a href="index.html" class="btn-ghost">Explore the Atlas →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — THE PROBLEM
+═══════════════════════════════════════════════════════════ -->
+<section class="problem-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--dark">The Landscape Has Changed</div>
+    <p class="problem-lede">News employment has dropped more than 75% since 2005. More than 3,500 newspapers have closed. The journalists who left didn't disappear — they went independent. One in three journalists now publishes independently. They took their audiences with them.</p>
+    <p class="source-attr" style="margin-bottom:48px;">Source: Medill Local News Report</p>
+    <div class="stat-strip">
+      <div class="stat-item">
+        <div class="stat-num">1 in 3</div>
+        <div class="stat-label">journalists now publishes independently</div>
+        <div class="source-attr">Reuters Institute, Journalism, Media and Technology Trends and Predictions 2026</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">50M</div>
+        <div class="stat-label">active Substack users, 5M paying</div>
+        <div class="source-attr">Substack company data / eMarketer, 2025</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">$43.9B</div>
+        <div class="stat-label">creator economy ad spend in 2026</div>
+        <div class="source-attr">IAB / eMarketer, 2025 Creator Economy Ad Spend &amp; Strategy Report</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — CREATOR JOURNALISTS ≠ INFLUENCERS
+═══════════════════════════════════════════════════════════ -->
+<section class="compare-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--light">Know Who You're Working With</div>
+    <h2 class="h2-light">Creator journalists are not influencers.</h2>
+    <p class="compare-framing">The distinction matters for your strategy. A bad brand deal costs an influencer one awkward post. It costs a creator journalist their entire business — which means they're far more selective, and far more valuable when they say yes.</p>
+    <div class="compare-wrap">
+      <div class="compare-grid">
+        <!-- Header row -->
+        <div class="compare-spacer"></div>
+        <div class="compare-th compare-th--left">Influencer / Creator for Hire</div>
+        <div class="compare-th compare-th--right">Creator Journalist</div>
+        <!-- Row 1 -->
+        <div class="compare-row-label">Value Proposition</div>
+        <div class="compare-cell">Reach and aesthetic</div>
+        <div class="compare-cell">Credibility and trust</div>
+        <!-- Row 2 -->
+        <div class="compare-row-label">Audience Relationship</div>
+        <div class="compare-cell">Followers / algorithm-driven views</div>
+        <div class="compare-cell">Subscribers who pay or choose to show up</div>
+        <!-- Row 3 -->
+        <div class="compare-row-label">Content Driver</div>
+        <div class="compare-cell">Brand deals, trends, platform algorithm</div>
+        <div class="compare-cell">Editorial agenda, public interest, expertise</div>
+        <!-- Row 4 -->
+        <div class="compare-row-label">Can Pivot Topics?</div>
+        <div class="compare-cell">Yes — skincare to fashion to home goods</div>
+        <div class="compare-cell">No — audience leaves if they sense compromise</div>
+        <!-- Row 5 -->
+        <div class="compare-row-label">How They Make Money</div>
+        <div class="compare-cell">Primarily brand partnerships</div>
+        <div class="compare-cell">Diversified: subscriptions, sponsorships, events, consulting</div>
+        <!-- Row 6 -->
+        <div class="compare-row-label">What a Bad Deal Costs</div>
+        <div class="compare-cell">One awkward post</div>
+        <div class="compare-cell" style="font-weight:700;">Their entire business</div>
+        <!-- Row 7 -->
+        <div class="compare-row-label">What They Want From You</div>
+        <div class="compare-cell">Money and product</div>
+        <div class="compare-cell">Access and stories worth telling</div>
+      </div>
+    </div>
+    <p class="compare-source">Adapted from Project C / Independent Journalism Atlas research. Source data: Muck Rack.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — THREE WAYS BRANDS SHOW UP
+═══════════════════════════════════════════════════════════ -->
+<section class="three-ways-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--dark">Your Relationship Options</div>
+    <h2 class="h2-dark">Three ways brands engage with creator journalists.</h2>
+    <div class="three-ways-grid">
+      <div class="way-card">
+        <div class="way-card-icon"><span class="material-symbols-outlined">article</span></div>
+        <div class="way-card-title">As the story.</div>
+        <p class="way-card-body">A creator covers you — favorably, critically, or somewhere in between. You don't choose this. Your only choice is whether you're prepared. The Atlas tells you who's covering your beat before they publish.</p>
+      </div>
+      <div class="way-card">
+        <div class="way-card-icon"><span class="material-symbols-outlined">handshake</span></div>
+        <div class="way-card-title">As the sponsor.</div>
+        <p class="way-card-body">You underwrite the work. You don't shape the editorial. You're buying association with their credibility, not control of their output. Think NPR underwriting, not native advertising.</p>
+      </div>
+      <div class="way-card">
+        <div class="way-card-icon"><span class="material-symbols-outlined">group</span></div>
+        <div class="way-card-title">As the collaborator.</div>
+        <p class="way-card-body">You co-create something — a series, a live event, a piece of access reporting. The creator keeps editorial independence; you bring something they couldn't make alone.</p>
+      </div>
+    </div>
+    <p class="three-ways-note">88% of creator journalists agree there should be shared standards for brand partnerships. <em>Your job is to be the brand they say yes to.</em><br><span style="font-size:12px;color:rgba(255,255,255,0.25);display:block;margin-top:8px;">— Project C / Muck Rack</span></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6 — THE GOOD NEWS (dark background — acid green numbers correct here)
+═══════════════════════════════════════════════════════════ -->
+<section class="good-news-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--dark">The Good News for Communicators</div>
+    <h2 class="h2-dark">They want to hear from you.</h2>
+    <div class="good-news-stats">
+      <div class="good-news-stat">
+        <div class="good-news-num">82%</div>
+        <div class="good-news-label">of creator journalists say some stories start with a pitch</div>
+        <div class="source-attr">Muck Rack</div>
+      </div>
+      <div class="good-news-stat">
+        <div class="good-news-num">32%</div>
+        <div class="good-news-label">see PR professionals as essential partners</div>
+        <div class="source-attr">Muck Rack</div>
+      </div>
+    </div>
+    <p class="good-news-followup">The opportunity is real. The barrier is discoverability. Most comms teams don't know which creator journalists are covering their issues, in their markets, at the scale that matters. That's the gap the Atlas closes.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7 — WHAT THE ATLAS DOES
+═══════════════════════════════════════════════════════════ -->
+<section class="atlas-does-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--dark">The Intelligence Layer</div>
+    <h2 class="h2-dark">1,453 verified creator journalists. Mapped, filtered, monitored.</h2>
+    <div class="atlas-does-grid">
+      <div class="atlas-card">
+        <div class="atlas-card-icon"><span class="material-symbols-outlined">search</span></div>
+        <div class="atlas-card-title">Find journalists on your beat.</div>
+        <p class="atlas-card-body">Filter by topic, platform, geography, and audience size. Every creator is human-verified. No algorithmic noise.</p>
+      </div>
+      <div class="atlas-card">
+        <div class="atlas-card-icon"><span class="material-symbols-outlined">rss_feed</span></div>
+        <div class="atlas-card-title">See what they're covering now.</div>
+        <p class="atlas-card-body">Atlas Pulse tracks 353 active creator feeds in real time. Know what's being published across your beats before your morning briefing.</p>
+      </div>
+      <div class="atlas-card">
+        <div class="atlas-card-icon"><span class="material-symbols-outlined">summarize</span></div>
+        <div class="atlas-card-title">Custom intelligence for your team.</div>
+        <p class="atlas-card-body">We build filtered creator lists, coverage briefings, and audience intelligence packages for comms teams. Built on the same infrastructure. Tuned to your issues.</p>
+      </div>
+    </div>
+    <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="atlas-cta-link">See a live example →</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 8 — PROTOTYPE GALLERY
+═══════════════════════════════════════════════════════════ -->
+<section class="gallery-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--dark">What We've Built</div>
+    <h2 class="h2-dark">Live prototypes. Built for partners. Available for your team.</h2>
+    <p class="gallery-intro">These aren't mockups. They're working intelligence products built on the Atlas data layer.</p>
+    <div class="gallery-grid">
+      <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
+        <div class="gallery-card-eyebrow">Creator Intelligence Brief</div>
+        <div class="gallery-card-name">Bluesky Creator Intelligence</div>
+        <p class="gallery-card-desc">Platform-specific audience intelligence. Beat-filtered creator clusters with follower data, cross-platform reach, and coverage signals.</p>
+        <span class="gallery-card-link">View prototype →</span>
+      </a>
+      <!-- TODO: Update href to /pulse when that page goes live -->
+      <a href="index.html" class="gallery-card">
+        <div class="gallery-card-eyebrow">Atlas Pulse</div>
+        <div class="gallery-card-name">What the ecosystem is covering right now.</div>
+        <p class="gallery-card-desc">Live digest from 353 independent creator feeds. Updated daily. Free, always.</p>
+        <span class="gallery-card-link">View digest →</span>
+      </a>
+      <a href="city-lab-chicago.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
+        <div class="gallery-card-eyebrow">City Ecosystem Lab</div>
+        <div class="gallery-card-name">Chicago Creator Journalism Lab</div>
+        <p class="gallery-card-desc">Every independent creator journalist in a single market. Beat coverage, platform breakdown, creator counts.</p>
+        <span class="gallery-card-link">View Chicago lab →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 9 — CAPTURE FORM
+═══════════════════════════════════════════════════════════ -->
+<section class="form-section" id="capture-form">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--dark">Get Early Access</div>
+    <h2 class="h2-dark">We're building the comms intelligence product.<br>You should be in the room.</h2>
+    <p class="form-body-text">We're conducting discovery interviews with PR, public affairs, and communications professionals before we finalize the product scope. If you manage earned media, crisis communications, or stakeholder relationships, we want to hear from you. There's no pitch. Just a conversation.</p>
+
+    <!-- TODO: Replace mailto action with Formspree endpoint when ready -->
+    <form class="capture-form" action="mailto:hell&#111;&#64;journalismatlas.com" method="GET">
+      <div class="form-field">
+        <label class="form-label" for="f-name">Name</label>
+        <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-title">Title / Role</label>
+        <input class="form-input" id="f-title" name="title" type="text" placeholder="VP Communications, Director of Public Affairs, etc." required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-org">Organization</label>
+        <input class="form-input" id="f-org" name="organization" type="text" placeholder="Your organization" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-email">Email</label>
+        <input class="form-input" id="f-email" name="email" type="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-challenge">What communications challenge are you trying to solve? <span style="color:rgba(255,255,255,0.25);font-size:9px;letter-spacing:0.05em;">OPTIONAL</span></label>
+        <textarea class="form-textarea" id="f-challenge" name="challenge" rows="3" placeholder="Tell us what you're working on…"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Request a discovery call</button>
+    </form>
+    <p class="form-disclaimer">We'll follow up within 48 hours. No spam. No sales pressure. We're mapping the market.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 10 — CREDENTIALING STRIP
+═══════════════════════════════════════════════════════════ -->
+<section class="cred-section">
+  <div class="section-inner">
+    <p class="cred-intro">Built on relationships with the organizations working to map independent journalism.</p>
+    <p class="cred-names">
+      Stacker<span class="cred-sep">·</span>Smart News<span class="cred-sep">·</span>ICFJ<span class="cred-sep">·</span>SembraMedia<span class="cred-sep">·</span>Chicago Public Media
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 11 — FOOTER
+═══════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Journalism Atlas">
+      <p class="footer-tagline">Mapping independent journalism since 2024.</p>
+    </div>
+    <nav class="footer-links">
+      <a href="about-this-project.html">About</a>
+      <a href="index.html">The Atlas</a>
+      <a href="about-this-project.html">Submit a Creator</a>
+      <a href="mailto:hell&#111;&#64;journalismatlas.com">hell&#111;&#64;journalismatlas.com</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 The Independent Journalism Atlas</span>
+  </div>
+</footer>
+
+</body>
+</html>
