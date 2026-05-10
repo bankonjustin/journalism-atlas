@@ -70737,6 +70737,10 @@ document.getElementById('load-more-btn').addEventListener('click', () => {
   renderPosts();
 });
 
+// ── URL param: pre-select beat (e.g. pulse.html?beat=Politics) ───────────────
+const urlBeat = new URLSearchParams(location.search).get('beat');
+if (urlBeat && BEAT_PILLS_ORDER.includes(urlBeat)) activeBeat = urlBeat;
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 renderBadge();
 renderStatStrip();

@@ -221,7 +221,10 @@
     .pulse-item { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #e8e8eb; }
     .pulse-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .pulse-item-creator { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
-    .pulse-item-headline { font-size: 13px; color: #313131; line-height: 1.45; margin-bottom: 4px; }
+    .pulse-item-headline { display: block; font-size: 13px; color: #313131; line-height: 1.45; margin-bottom: 4px; text-decoration: none; }
+    .pulse-item-headline:hover { color: #5d7400; }
+    .pulse-col-more { display: block; font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; text-decoration: none; }
+    .pulse-col-more:hover { text-decoration: underline; }
     .pulse-item-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: #aaa; }
     .pulse-free-notice { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #888; font-weight: 500; margin-top: 8px; }
 
@@ -666,7 +669,7 @@
     <div class="stat-lbl">Beat clusters mapped</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num green">353</div>
+    <div class="stat-num green">882</div>
     <div class="stat-lbl">Creator RSS feeds</div>
     <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse</div>
   </div>
@@ -741,97 +744,32 @@
 <section class="pulse-section">
   <div class="annot-pill annot-new">★ NEW</div>
   <div class="pulse-inner">
+
     <div class="pulse-header-row">
       <div class="pulse-header-left">
-        <div class="pulse-live-badge"><span class="pulse-dot"></span> Live</div>
+        <div class="pulse-live-badge">
+          <span class="pulse-dot"></span>
+          <span id="pulse-badge-date">Updated May 9, 2026</span>
+        </div>
         <div class="pulse-headline">What the Atlas Is Reading Right Now.</div>
-        <div class="pulse-sub">353 creator feeds, monitored in real time. Summaries by beat, updated continuously.</div>
+        <div class="pulse-sub">
+          882 creator feeds, monitored weekly. Summaries by beat, updated continuously.
+        </div>
       </div>
-      <!-- TODO: route to /pulse when built -->
-      <a href="about-this-project.html" class="pulse-open-btn">Open full Pulse feed →</a>
+      <a href="pulse.html" class="pulse-open-btn">Open full Pulse feed →</a>
     </div>
 
-    <div class="pulse-grid">
-
-      <div class="pulse-col">
-        <div class="pulse-col-header">
-          <span class="pulse-beat-name">Technology</span>
-          <span class="pulse-beat-count">47 active</span>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Casey Newton</div>
-          <div class="pulse-item-headline">The real cost of OpenAI's latest restructuring</div>
-          <div class="pulse-item-meta">2h ago · Platformer</div>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Ben Thompson</div>
-          <div class="pulse-item-headline">Aggregation theory revisited: what AI changes</div>
-          <div class="pulse-item-meta">4h ago · Stratechery</div>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Kara Swisher</div>
-          <div class="pulse-item-headline">Why every tech CEO suddenly wants to talk about media</div>
-          <div class="pulse-item-meta">Yesterday</div>
-        </div>
-      </div>
-
-      <div class="pulse-col">
-        <div class="pulse-col-header">
-          <span class="pulse-beat-name">Climate</span>
-          <span class="pulse-beat-count">31 active</span>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Amy Westervelt</div>
-          <div class="pulse-item-headline">The fossil fuel industry's new playbook for blocking carbon rules</div>
-          <div class="pulse-item-meta">3h ago · Drilled</div>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Emily Atkin</div>
-          <div class="pulse-item-headline">What "net zero" actually means in the fine print</div>
-          <div class="pulse-item-meta">5h ago · HEATED</div>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Robinson Meyer</div>
-          <div class="pulse-item-headline">Congress's energy bill has a quiet climate provision</div>
-          <div class="pulse-item-meta">Yesterday · Heatmap</div>
-        </div>
-      </div>
-
-      <div class="pulse-col">
-        <div class="pulse-col-header">
-          <span class="pulse-beat-name">Politics</span>
-          <span class="pulse-beat-count">62 active</span>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Judd Legum</div>
-          <div class="pulse-item-headline">Corporate donors are back — quietly</div>
-          <div class="pulse-item-meta">1h ago · Popular Information</div>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Jessica Huseman</div>
-          <div class="pulse-item-headline">Election infrastructure under pressure from new state laws</div>
-          <div class="pulse-item-meta">6h ago · Votebeat</div>
-        </div>
-        <div class="pulse-item">
-          <div class="pulse-item-creator">Greg Sargent</div>
-          <div class="pulse-item-headline">The Senate GOP's internal rift is wider than reported</div>
-          <div class="pulse-item-meta">Yesterday</div>
-        </div>
-      </div>
-
-    </div>
+    <div class="pulse-grid" id="pulse-grid"></div>
 
     <div class="pulse-free-notice">
       <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
-      Atlas Pulse is always free. No account required.
+      Atlas Pulse is always free. No account required. &nbsp;
+      <a href="pulse.html" style="color:#5d7400; font-size:13px;">Explore the full digest →</a>
     </div>
 
-    <div class="cms-notice">
-      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.4);flex-shrink:0;margin-top:1px;">info</span>
-      <span class="cms-notice-text">Live data module — requires direct implementation conversation before building. Placeholder content shown.</span>
-    </div>
   </div>
 </section>
+
 
 <!-- ══════════════════════════════════════════════════════════
      SECTION 7: RESEARCH MODULE
@@ -2193,6 +2131,74 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (!card.contains(e.target) && e.target !== canvasEl) viz.closeCreatorCard();
   });
 });
+
+// ── Atlas Pulse snapshot — update generated_at + posts weekly ─────────────────
+const PULSE_SNAPSHOT_INDEX = {
+  generated_at: "2026-05-09",
+  beats: [
+    {
+      name: "Tech",
+      active_creators: 76,
+      posts: [
+        // SWAP: replace these objects when running pulse weekly
+        { creator: "Dwarkesh Patel", channel: "Dwarkesh Podcast", title: "Why Humans Stopped Evolving Smarter 2,000 Years Ago", url: "https://www.youtube.com/@DwarkeshPatel", published: "2026-05-09", platform: "YouTube" },
+        { creator: "M.G. Siegler", channel: "500ish", title: "CapEx, Clauses, & Compute", url: "https://500ish.com", published: "2026-05-09", platform: "Website" },
+        { creator: "Louis Rossmann", channel: "Louis Rossmann", title: "I'll put up $10,000 to teach Bambu Labs a lesson", url: "https://www.youtube.com/@rossmanngroup", published: "2026-05-09", platform: "YouTube" }
+      ]
+    },
+    {
+      name: "Culture",
+      active_creators: 58,
+      posts: [
+        { creator: "Tommy Tomlinson", channel: "The Riff", title: "Braves' old world", url: "https://tommytomlinson.substack.com", published: "2026-05-09", platform: "Substack" },
+        { creator: "Diana Butler Bass", channel: "The Cottage", title: "On Wonder and the Sacred in Everyday Life", url: "https://dianabutlerbass.substack.com", published: "2026-05-08", platform: "Substack" },
+        { creator: "Amelia Dimoldenberg", channel: "Chicken Shop Date", title: "The episode everyone's been waiting for", url: "https://www.youtube.com/@AmeliaDimoldenberg", published: "2026-05-09", platform: "YouTube" }
+      ]
+    },
+    {
+      name: "Politics",
+      active_creators: 136,
+      posts: [
+        { creator: "Roland S. Martin", channel: "Roland Martin Unfiltered", title: "Virginia Court Kills Redistricting Vote. NAACP Fights Tennessee Black District Attack", url: "https://www.youtube.com/@rolandmartinunfiltered", published: "2026-05-09", platform: "YouTube" },
+        { creator: "Joyce Vance", channel: "Civil Discourse", title: "Remembering What The Stakes Are", url: "https://joycewhitevance.substack.com", published: "2026-05-08", platform: "Substack" },
+        { creator: "Jessica Huseman", channel: "Votebeat", title: "Election infrastructure under pressure from new state laws", url: "https://votebeat.org", published: "2026-05-07", platform: "Website" }
+      ]
+    }
+  ]
+};
+
+function renderPulseGrid() {
+  const grid = document.getElementById('pulse-grid');
+  if (!grid) return;
+
+  const badgeEl = document.getElementById('pulse-badge-date');
+  if (badgeEl && PULSE_SNAPSHOT_INDEX.generated_at) {
+    const d = new Date(PULSE_SNAPSHOT_INDEX.generated_at + 'T00:00:00');
+    badgeEl.textContent = 'Updated ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  grid.innerHTML = PULSE_SNAPSHOT_INDEX.beats.map(beat => {
+    const items = beat.posts.map(p => {
+      const dateStr = new Date(p.published + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const channel = p.channel !== p.creator ? p.channel : p.platform;
+      return `<div class="pulse-item">
+          <div class="pulse-item-creator">${p.creator}</div>
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="pulse-item-headline">${p.title}</a>
+          <div class="pulse-item-meta">${dateStr} · ${channel}</div>
+        </div>`;
+    }).join('');
+    return `<div class="pulse-col">
+        <div class="pulse-col-header">
+          <span class="pulse-beat-name">${beat.name}</span>
+          <span class="pulse-beat-count">${beat.active_creators} active</span>
+        </div>
+        ${items}
+        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pulse-col-more">More ${beat.name} →</a>
+      </div>`;
+  }).join('');
+}
+
+renderPulseGrid();
 </script>
 </body>
 </html>

@@ -352,9 +352,38 @@
     .brief-confirm-headline { font-size: 20px; font-weight: 700; color: #ceff00; margin: 0 0 12px; }
     .brief-confirm-body { font-size: 16px; color: #a8a8a8; line-height: 1.7; margin: 0; }
 
+    .atlas-card-link { display: inline-block; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(206,255,0,0.8); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; text-decoration: none; }
+    .atlas-card-link:hover { color: #ceff00; }
+
+    /* ── Pulse Intelligence Section ── */
+    .pulse-intel-section { background: #1a1a1a; padding: 72px 40px; }
+    .pulse-intel-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; gap: 24px; }
+    .pulse-intel-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; }
+    .pulse-intel-cta { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; border: 1px solid rgba(206,255,0,0.3); padding: 8px 16px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; flex-shrink: 0; align-self: flex-start; text-decoration: none; transition: background 0.15s; }
+    .pulse-intel-cta:hover { background: rgba(206,255,0,0.06); }
+    .pulse-intel-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-bottom: 32px; }
+    @media (max-width: 900px) { .pulse-intel-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .pulse-intel-grid { grid-template-columns: 1fr; } }
+    .pi-beat-col { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; padding: 20px 16px; }
+    .pi-beat-header { margin-bottom: 10px; }
+    .pi-beat-name { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; margin-bottom: 2px; }
+    .pi-beat-stats { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em; }
+    .pi-beat-bar-track { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-bottom: 16px; overflow: hidden; }
+    .pi-beat-bar-fill { height: 100%; background: #ceff00; border-radius: 2px; opacity: 0.6; }
+    .pi-post { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .pi-post:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 8px; }
+    .pi-post-title { display: block; font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 4px; text-decoration: none; }
+    .pi-post-title:hover { color: #ceff00; }
+    .pi-post-meta { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.05em; }
+    .pi-beat-more { display: block; font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(206,255,0,0.5); text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; margin-top: 4px; }
+    .pi-beat-more:hover { color: #ceff00; }
+    .pulse-intel-footer { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.08em; }
+    .pulse-intel-footer a { color: rgba(206,255,0,0.5); text-decoration: none; }
+    .pulse-intel-footer a:hover { color: #ceff00; }
+
     @media (max-width: 768px) {
       .hero-section, .problem-section, .compare-section, .three-ways-section,
-      .good-news-section, .atlas-does-section, .gallery-section,
+      .good-news-section, .atlas-does-section, .gallery-section, .pulse-intel-section,
       .brief-section, .form-section, .cred-section, .site-footer { padding-left: 20px; padding-right: 20px; }
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
@@ -538,7 +567,8 @@
       <div class="atlas-card">
         <div class="atlas-card-icon"><span class="material-symbols-outlined">rss_feed</span></div>
         <div class="atlas-card-title">See what they're covering now.</div>
-        <p class="atlas-card-body">Atlas Pulse tracks 353 active creator feeds in real time. Know what's being published across your beats before your morning briefing.</p>
+        <p class="atlas-card-body">Atlas Pulse monitors 882 active creator feeds weekly. Know what's being published across your beats — by topic, by platform, by market — before your morning briefing.</p>
+        <a href="pulse.html" class="atlas-card-link" target="_blank" rel="noopener noreferrer">View the live digest →</a>
       </div>
       <div class="atlas-card">
         <div class="atlas-card-icon"><span class="material-symbols-outlined">summarize</span></div>
@@ -565,12 +595,11 @@
         <p class="gallery-card-desc">Platform-specific audience intelligence. Beat-filtered creator clusters with follower data, cross-platform reach, and coverage signals.</p>
         <span class="gallery-card-link">View prototype →</span>
       </a>
-      <!-- TODO: Update href to /pulse when that page goes live -->
-      <a href="index.html" class="gallery-card">
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
         <div class="gallery-card-eyebrow">Atlas Pulse</div>
         <div class="gallery-card-name">What the ecosystem is covering right now.</div>
-        <p class="gallery-card-desc">Live digest from 353 independent creator feeds. Updated daily. Free, always.</p>
-        <span class="gallery-card-link">View digest →</span>
+        <p class="gallery-card-desc">Weekly digest from 882 creator feeds. Beat-filtered. Platform-broken down. Free, always.</p>
+        <span class="gallery-card-link">View the digest →</span>
       </a>
       <a href="city-lab-chicago.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
         <div class="gallery-card-eyebrow">City Ecosystem Lab</div>
@@ -578,6 +607,31 @@
         <p class="gallery-card-desc">Every independent creator journalist in a single market. Beat coverage, platform breakdown, creator counts.</p>
         <span class="gallery-card-link">View Chicago lab →</span>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION: PULSE COVERAGE INTELLIGENCE
+═══════════════════════════════════════════════════════════ -->
+<section class="pulse-intel-section">
+  <div class="section-inner">
+    <div class="pulse-intel-header">
+      <div>
+        <div class="eyebrow eyebrow--dark">Atlas Pulse · Coverage Intelligence</div>
+        <h2 class="h2-dark">What the ecosystem is publishing this week.</h2>
+        <p class="pulse-intel-sub">
+          <span id="brands-pulse-date">Updated May 9, 2026</span> · 882 feeds ·
+          <span id="brands-pulse-active">574</span> creators active this week
+        </p>
+      </div>
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta">See full digest →</a>
+    </div>
+    <div class="pulse-intel-grid" id="pulse-intel-grid"></div>
+    <div class="pulse-intel-footer">
+      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">lock_open</span>
+      Atlas Pulse is always free. &nbsp;
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer">Explore the full digest →</a>
     </div>
   </div>
 </section>
@@ -729,6 +783,83 @@
 
 
 <script>
+// ── Atlas Pulse snapshot — update generated_at + posts weekly ─────────────────
+const PULSE_SNAPSHOT_BRANDS = {
+  generated_at: "2026-05-09",
+  active_7d: 574,
+  total_rss_resolved: 882,
+  beats: [
+    {
+      name: "Politics", post_count_7d: 915, creator_count_7d: 136, bar_pct: 100,
+      posts: [
+        // SWAP weekly
+        { creator: "Roland S. Martin", title: "Virginia Court Kills Redistricting Vote. NAACP Fights Tennessee Black District Attack", url: "https://www.youtube.com/@rolandmartinunfiltered", platform: "YouTube", published: "2026-05-09" },
+        { creator: "Joyce Vance", title: "Remembering What The Stakes Are", url: "https://joycewhitevance.substack.com", platform: "Substack", published: "2026-05-08" }
+      ]
+    },
+    {
+      name: "Tech", post_count_7d: 226, creator_count_7d: 76, bar_pct: 25,
+      posts: [
+        { creator: "Dwarkesh Patel", title: "Why Humans Stopped Evolving Smarter 2,000 Years Ago", url: "https://www.youtube.com/@DwarkeshPatel", platform: "YouTube", published: "2026-05-09" },
+        { creator: "M.G. Siegler", title: "CapEx, Clauses, & Compute", url: "https://500ish.com", platform: "Website", published: "2026-05-09" }
+      ]
+    },
+    {
+      name: "Finance", post_count_7d: 139, creator_count_7d: 42, bar_pct: 15,
+      posts: [
+        { creator: "Matt Yglesias", title: "This Mother's Day, let moms have Waymo", url: "https://www.slowboring.com", platform: "Substack", published: "2026-05-09" },
+        { creator: "Herb Greenberg", title: "The Wrap: Talking Modine, GFL, UPS", url: "https://herbgreenberg.substack.com", platform: "Substack", published: "2026-05-09" }
+      ]
+    },
+    {
+      name: "Culture", post_count_7d: 207, creator_count_7d: 61, bar_pct: 23,
+      posts: [
+        { creator: "Tommy Tomlinson", title: "Braves' old world", url: "https://tommytomlinson.substack.com", platform: "Substack", published: "2026-05-09" },
+        { creator: "Diana Butler Bass", title: "On Wonder and the Sacred in Everyday Life", url: "https://dianabutlerbass.substack.com", platform: "Substack", published: "2026-05-08" }
+      ]
+    },
+    {
+      name: "Media & Power", post_count_7d: 158, creator_count_7d: 53, bar_pct: 17,
+      posts: [
+        { creator: "Priti Patnaik", title: "The New Gatekeepers: Who Controls the Independent Web", url: "https://gijnetwork.substack.com", platform: "Substack", published: "2026-05-08" },
+        { creator: "Caitlin Johnstone", title: "They're Attacking Online Anonymity, And Other Notes", url: "https://caitlinjohnstone.substack.com", platform: "Substack", published: "2026-05-09" }
+      ]
+    }
+  ]
+};
+
+function renderBrandsPulse() {
+  const grid = document.getElementById('pulse-intel-grid');
+  if (!grid) return;
+
+  const dateEl = document.getElementById('brands-pulse-date');
+  if (dateEl && PULSE_SNAPSHOT_BRANDS.generated_at) {
+    const d = new Date(PULSE_SNAPSHOT_BRANDS.generated_at + 'T00:00:00');
+    dateEl.textContent = 'Updated ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  grid.innerHTML = PULSE_SNAPSHOT_BRANDS.beats.map(beat => {
+    const posts = beat.posts.map(p => {
+      const dateStr = new Date(p.published + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return `<div class="pi-post">
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="pi-post-title">${p.title}</a>
+          <div class="pi-post-meta">${p.creator} · ${p.platform} · ${dateStr}</div>
+        </div>`;
+    }).join('');
+    return `<div class="pi-beat-col">
+        <div class="pi-beat-header">
+          <div class="pi-beat-name">${beat.name}</div>
+          <div class="pi-beat-stats">${beat.post_count_7d} posts · ${beat.creator_count_7d} creators</div>
+        </div>
+        <div class="pi-beat-bar-track"><div class="pi-beat-bar-fill" style="width:${beat.bar_pct}%"></div></div>
+        <div class="pi-posts">${posts}</div>
+        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more">More ${beat.name} →</a>
+      </div>`;
+  }).join('');
+}
+
+renderBrandsPulse();
+
 document.getElementById('brief-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const form = e.target;
