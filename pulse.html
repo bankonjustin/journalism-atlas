@@ -298,6 +298,40 @@
     }
     #load-more-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
 
+    /* ── HEAT CALENDAR ── */
+    .heat-calendar-section { background: #fff; padding: 32px 40px; border-top: 1px solid #e4e4e8; border-bottom: 1px solid #e4e4e8; }
+    .heat-grid { margin-top: 20px; overflow-x: auto; }
+    .heat-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .heat-beat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; width: 180px; flex-shrink: 0; text-align: right; padding-right: 12px; }
+    .heat-cells { display: flex; gap: 3px; }
+    .heat-cell { width: 22px; height: 18px; border-radius: 2px; cursor: default; transition: opacity 0.1s; flex-shrink: 0; }
+    .heat-cell:hover { opacity: 0.7; }
+    .heat-date-axis { display: flex; align-items: flex-start; gap: 6px; margin-top: 6px; }
+    .heat-date-labels { display: flex; width: calc(30 * 22px + 29 * 3px); position: relative; height: 16px; }
+    .heat-date-tick { font-family: 'DM Mono', monospace; font-size: 8px; color: #aaa; position: absolute; white-space: nowrap; }
+
+    /* ── CO-OCCURRENCE MATRIX ── */
+    .beat-relationship-section { background: #efeff2; padding: 32px 40px; }
+    .co-section-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: #bbb; letter-spacing: 0.04em; margin-top: 4px; margin-bottom: 20px; }
+    .co-matrix-wrap { overflow-x: auto; }
+    .co-matrix { border-collapse: collapse; }
+    .co-corner { width: 140px; }
+    .co-col-label { font-family: 'DM Mono', monospace; font-size: 8px; color: #888; text-align: center; padding: 4px 6px; letter-spacing: 0.05em; min-width: 44px; }
+    .co-row-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #666; padding: 4px 12px 4px 0; text-align: right; white-space: nowrap; }
+    .co-cell { width: 44px; height: 36px; text-align: center; vertical-align: middle; font-family: 'DM Mono', monospace; font-size: 9px; border-radius: 2px; cursor: default; transition: opacity 0.1s; }
+    .co-cell:hover:not(.co-diagonal) { opacity: 0.75; }
+    .co-diagonal { background: #e0e0e4; color: #aaa; }
+    .co-cell-zero { background: #f4f4f6; color: transparent; }
+
+    /* ── PLATFORM BREAKDOWN ── */
+    .platform-breakdown { margin-bottom: 24px; padding: 16px 20px; background: #fff; border-radius: 6px; border: 1px solid #e4e4e8; }
+    .plat-intro { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .plat-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .plat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #555; width: 80px; flex-shrink: 0; }
+    .plat-bar-track { flex: 1; height: 6px; background: #efeff2; border-radius: 3px; overflow: hidden; }
+    .plat-bar-fill { height: 100%; background: #1a1a1a; border-radius: 3px; transition: width 0.25s ease; }
+    .plat-pct { font-family: 'DM Mono', monospace; font-size: 9px; color: #aaa; width: 32px; text-align: right; flex-shrink: 0; }
+
     /* ── FOOTER ── */
     .site-footer { background: #000; padding: 56px 40px 32px; position: relative; }
     .footer-inner { max-width: 1440px; margin: 0 auto; }
@@ -351,6 +385,19 @@
   <div class="beat-rows" id="beat-rows"></div>
 </section>
 
+<!-- BEAT HEAT CALENDAR -->
+<section class="heat-calendar-section">
+  <div class="section-eyebrow" id="heat-eyebrow">Publishing rhythm</div>
+  <div class="heat-grid" id="heat-grid"></div>
+</section>
+
+<!-- BEAT CO-OCCURRENCE MATRIX -->
+<section class="beat-relationship-section">
+  <div class="section-eyebrow">Beat co-occurrence — how beats travel together</div>
+  <div class="co-section-sub">Posts tagged with both beats in the 30-day window</div>
+  <div class="co-matrix-wrap" id="co-matrix-wrap"></div>
+</section>
+
 <!-- CONTROLS ROW -->
 <div class="controls-row">
   <div class="controls-inner">
@@ -362,6 +409,7 @@
 <!-- POST LIST -->
 <div class="post-list-section">
   <div class="post-count-label" id="post-count-label"></div>
+  <div class="platform-breakdown" id="platform-breakdown"></div>
   <div id="post-list"></div>
   <div class="load-more-wrap" id="load-more-wrap" style="display:none">
     <button id="load-more-btn">Load 50 more</button>
@@ -70471,6 +70519,7 @@ function renderBeatPills() {
       activeBeat = pill.dataset.beat;
       visibleCount = 50;
       renderBeatPills();
+      renderPlatformBreakdown(activeBeat);
       renderPosts();
     });
   });
@@ -70516,6 +70565,172 @@ function renderPosts() {
   }
 }
 
+// ── Clean window bounds (derived from data, not hardcoded) ────────────────────
+const WINDOW_END = (() => {
+  const d = new Date(PULSE_DATA.generated_at);
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().slice(0, 10);
+})();
+const WINDOW_START = (() => {
+  const d = new Date(PULSE_DATA.generated_at);
+  d.setDate(d.getDate() - PULSE_DATA.window_days);
+  return d.toISOString().slice(0, 10);
+})();
+
+function inCleanWindow(dateStr) {
+  return dateStr >= WINDOW_START && dateStr <= WINDOW_END;
+}
+
+// ── Color scale (grayscale, shared by calendar + matrix) ──────────────────────
+function grayCell(count, maxVal) {
+  if (count === 0) return { bg: '#f0f0f2', color: '#313131' };
+  const t = Math.min(count / maxVal, 1);
+  const l = Math.round(23 + (1 - t) * 205);
+  return { bg: `rgb(${l},${l},${l})`, color: t > 0.35 ? '#fff' : '#313131' };
+}
+
+// ── Beat Heat Calendar ────────────────────────────────────────────────────────
+function renderHeatCalendar() {
+  const TOP_BEATS = Object.keys(PULSE_DATA.beat_activity).slice(0, 10);
+
+  const dates = [];
+  const startD = new Date(WINDOW_START);
+  for (let i = 0; i < PULSE_DATA.window_days; i++) {
+    const d = new Date(startD);
+    d.setDate(startD.getDate() + i);
+    dates.push(d.toISOString().slice(0, 10));
+  }
+
+  const matrix = {};
+  TOP_BEATS.forEach(beat => {
+    matrix[beat] = {};
+    dates.forEach(d => { matrix[beat][d] = 0; });
+  });
+
+  PULSE_DATA.posts.forEach(p => {
+    if (!inCleanWindow(p.published)) return;
+    p.topic.split(',').map(t => t.trim()).forEach(t => {
+      if (matrix[t] && matrix[t][p.published] !== undefined) matrix[t][p.published]++;
+    });
+  });
+
+  const maxVal = Math.max(...TOP_BEATS.flatMap(b => dates.map(d => matrix[b][d])));
+
+  const rowsHtml = TOP_BEATS.map(beat => {
+    const cells = dates.map((date, i) => {
+      const count = matrix[beat][date];
+      const { bg } = grayCell(count, maxVal);
+      const label = fmtDateShort(date);
+      return `<div class="heat-cell" style="background:${bg}" title="${esc(beat)} · ${label} · ${count} post${count !== 1 ? 's' : ''}"></div>`;
+    }).join('');
+    return `<div class="heat-row">
+      <div class="heat-beat-label">${esc(beat)}</div>
+      <div class="heat-cells">${cells}</div>
+    </div>`;
+  }).join('');
+
+  const TICK_DAYS = [0, 5, 10, 15, 20, 25, 29];
+  const ticksHtml = TICK_DAYS.map(i =>
+    `<span class="heat-date-tick" style="left:${i * 25}px">${fmtDateShort(dates[i])}</span>`
+  ).join('');
+
+  const axisHtml = `<div class="heat-date-axis">
+    <div class="heat-beat-label"></div>
+    <div class="heat-date-labels">${ticksHtml}</div>
+  </div>`;
+
+  document.getElementById('heat-eyebrow').textContent =
+    'Publishing rhythm — ' + fmtDateShort(WINDOW_START) + ' to ' + fmtDateShort(WINDOW_END);
+  document.getElementById('heat-grid').innerHTML = rowsHtml + axisHtml;
+}
+
+// ── Beat Co-occurrence Matrix ─────────────────────────────────────────────────
+const BEAT_ABBREVS = {
+  'Politics': 'POL', 'Local News': 'LOC', 'Tech': 'TECH',
+  'Media/Power': 'MED', 'Culture': 'CULT', 'World': 'WRLD',
+  'Finance/Economics': 'FIN', 'Government Accountability': 'GOV',
+  'Climate/Environment': 'CLIM', 'Science': 'SCI'
+};
+
+function renderCoMatrix() {
+  const TOP_BEATS = Object.keys(PULSE_DATA.beat_activity).slice(0, 10);
+
+  const co = {};
+  TOP_BEATS.forEach(b1 => { co[b1] = {}; TOP_BEATS.forEach(b2 => { co[b1][b2] = 0; }); });
+
+  PULSE_DATA.posts.forEach(p => {
+    if (!inCleanWindow(p.published)) return;
+    const beats = p.topic.split(',').map(t => t.trim()).filter(t => TOP_BEATS.includes(t));
+    for (let i = 0; i < beats.length; i++) {
+      for (let j = i + 1; j < beats.length; j++) {
+        co[beats[i]][beats[j]]++;
+        co[beats[j]][beats[i]]++;
+      }
+    }
+  });
+
+  const maxCo = Math.max(...TOP_BEATS.flatMap(b1 => TOP_BEATS.map(b2 => b1 !== b2 ? co[b1][b2] : 0)));
+
+  const headerCells = TOP_BEATS.map(b =>
+    `<th class="co-col-label" title="${esc(b)}">${esc(BEAT_ABBREVS[b] || b.slice(0,4).toUpperCase())}</th>`
+  ).join('');
+
+  const bodyRows = TOP_BEATS.map(b1 => {
+    const cells = TOP_BEATS.map(b2 => {
+      if (b1 === b2) return `<td class="co-cell co-diagonal">—</td>`;
+      const count = co[b1][b2];
+      if (count === 0) return `<td class="co-cell co-cell-zero">0</td>`;
+      const { bg, color } = grayCell(count, maxCo);
+      return `<td class="co-cell" style="background:${bg};color:${color}">${count}</td>`;
+    }).join('');
+    return `<tr><td class="co-row-label">${esc(b1)}</td>${cells}</tr>`;
+  }).join('');
+
+  document.getElementById('co-matrix-wrap').innerHTML = `
+    <table class="co-matrix">
+      <thead><tr><th class="co-corner"></th>${headerCells}</tr></thead>
+      <tbody>${bodyRows}</tbody>
+    </table>`;
+}
+
+// ── Platform Breakdown ────────────────────────────────────────────────────────
+function renderPlatformBreakdown(beatFilter) {
+  const posts = PULSE_DATA.posts.filter(p => {
+    if (!inCleanWindow(p.published)) return false;
+    if (beatFilter && beatFilter !== 'all') {
+      return p.topic.split(',').map(t => t.trim()).includes(beatFilter);
+    }
+    return true;
+  });
+
+  const platforms = {};
+  posts.forEach(p => {
+    let plat = p.platform || 'Other';
+    if (plat.includes(' - ')) plat = plat.split(' - ')[1];
+    platforms[plat] = (platforms[plat] || 0) + 1;
+  });
+
+  const total = posts.length;
+  const sorted = Object.entries(platforms)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([name, count]) => ({ name, count, pct: Math.round(100 * count / total) }));
+
+  const label = (beatFilter && beatFilter !== 'all')
+    ? `In <strong>${esc(beatFilter)}</strong>, posts publish to:`
+    : 'Across all beats, posts publish to:';
+
+  const barsHtml = sorted.map(({ name, pct }) => `
+    <div class="plat-bar-row">
+      <div class="plat-label">${esc(name)}</div>
+      <div class="plat-bar-track"><div class="plat-bar-fill" style="width:${pct}%"></div></div>
+      <div class="plat-pct">${pct}%</div>
+    </div>`).join('');
+
+  document.getElementById('platform-breakdown').innerHTML =
+    `<div class="plat-intro">${label}</div><div class="plat-bars">${barsHtml}</div>`;
+}
+
 // ── Load more ─────────────────────────────────────────────────────────────────
 document.getElementById('load-more-btn').addEventListener('click', () => {
   visibleCount += 50;
@@ -70526,8 +70741,11 @@ document.getElementById('load-more-btn').addEventListener('click', () => {
 renderBadge();
 renderStatStrip();
 renderBeatBar();
+renderHeatCalendar();
+renderCoMatrix();
 renderRecencyToggle();
 renderBeatPills();
+renderPlatformBreakdown('all');
 renderPosts();
 </script>
 </body>
