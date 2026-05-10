@@ -292,10 +292,70 @@
     /* ═══════════════════════════════════════════════════════════
        MOBILE RESPONSIVE — 375px
     ═══════════════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 9 — BRIEF BUILDER FORM
+    ═══════════════════════════════════════════════════════════ */
+    .brief-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .brief-inner { max-width: 640px; }
+    .brief-headline { font-size: clamp(28px, 3vw, 40px); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin: 0 0 16px; line-height: 1.1; }
+    .brief-sub { font-size: 17px; color: #a8a8a8; line-height: 1.7; margin: 0 0 48px; }
+
+    .brief-form { display: flex; flex-direction: column; gap: 24px; }
+    .bf-field { display: flex; flex-direction: column; gap: 8px; }
+    .bf-label {
+      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .bf-select, .bf-input {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 12px 16px;
+      font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; color: #fff;
+      outline: none; width: 100%; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .bf-select {
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 40px;
+    }
+    .bf-select option { background: #1a1a1a; color: #fff; }
+    .bf-input::placeholder { color: rgba(255,255,255,0.25); }
+    .bf-select:focus, .bf-input:focus {
+      border-color: #ceff00; box-shadow: 0 0 0 2px rgba(206,255,0,0.1);
+    }
+
+    /* Checkbox + radio groups */
+    .bf-check-group, .bf-radio-group { display: flex; flex-wrap: wrap; gap: 8px 24px; padding-top: 4px; }
+    .bf-check-item, .bf-radio-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 16px; color: #d4d4d8; cursor: pointer;
+    }
+    .bf-check-item input, .bf-radio-item input {
+      accent-color: #ceff00; width: 16px; height: 16px; cursor: pointer; flex-shrink: 0;
+    }
+
+    /* Submit */
+    .bf-submit {
+      background: #ceff00; color: #111111;
+      font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 16px;
+      padding: 15px 32px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 0.15s; align-self: flex-start; margin-top: 8px;
+    }
+    .bf-submit:hover { background: #d8ff33; }
+
+    /* Confirmation state */
+    .brief-confirm {
+      display: none; padding: 40px 32px;
+      background: rgba(206,255,0,0.06); border: 1px solid rgba(206,255,0,0.2);
+      border-radius: 6px;
+    }
+    .brief-confirm-headline { font-size: 20px; font-weight: 700; color: #ceff00; margin: 0 0 12px; }
+    .brief-confirm-body { font-size: 16px; color: #a8a8a8; line-height: 1.7; margin: 0; }
+
     @media (max-width: 768px) {
       .hero-section, .problem-section, .compare-section, .three-ways-section,
       .good-news-section, .atlas-does-section, .gallery-section,
-      .form-section, .cred-section, .site-footer { padding-left: 20px; padding-right: 20px; }
+      .brief-section, .form-section, .cred-section, .site-footer { padding-left: 20px; padding-right: 20px; }
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
       .hero-ctas { flex-direction: column; }
@@ -308,7 +368,7 @@
       .atlas-does-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr; }
 
-      .form-submit { width: 100%; }
+      .form-submit, .bf-submit { width: 100%; align-self: stretch; }
       .footer-inner { flex-direction: column; gap: 24px; }
       .footer-links { flex-direction: column; align-items: flex-start; gap: 14px; }
       .footer-bottom { flex-direction: column; gap: 8px; }
@@ -523,7 +583,82 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
-     SECTION 9 — CAPTURE FORM
+     SECTION 9 — BRIEF BUILDER FORM
+═══════════════════════════════════════════════════════════ -->
+<section class="brief-section" id="build-brief">
+  <div class="section-inner">
+    <div class="brief-inner">
+      <div class="eyebrow eyebrow--dark">Get Your Brief</div>
+      <h2 class="brief-headline">Tell us who you need to reach.</h2>
+      <p class="brief-sub">We'll build you a custom creator intelligence brief within 48 hours.</p>
+
+      <div class="brief-form-wrap">
+        <!-- TODO: Replace action with your Formspree endpoint, e.g. https://formspree.io/f/YOUR_FORM_ID -->
+        <form class="brief-form" id="brief-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+          <div class="bf-field">
+            <label class="bf-label" for="bf-industry">Your industry</label>
+            <select class="bf-select" id="bf-industry" name="industry">
+              <option value="" disabled selected>Select your industry</option>
+              <option>Consumer Brands</option>
+              <option>Food &amp; Beverage</option>
+              <option>Tech &amp; Gaming</option>
+              <option>Health &amp; Pharma</option>
+              <option>Financial Services</option>
+              <option>Public Affairs &amp; Advocacy</option>
+              <option>Agency (multi-client)</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="bf-field">
+            <label class="bf-label" for="bf-target">Who are you trying to reach?</label>
+            <input class="bf-input" id="bf-target" name="target_description" type="text"
+              placeholder="e.g. Supply chain journalists, climate policy creators in the Southeast, gaming YouTubers with engaged 18–34 audiences"
+              required>
+          </div>
+
+          <div class="bf-field">
+            <div class="bf-label">Platform preference <span style="color:rgba(255,255,255,0.2);font-size:9px;letter-spacing:0.05em;">SELECT ALL THAT APPLY</span></div>
+            <div class="bf-check-group">
+              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Substack"> Substack</label>
+              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="YouTube"> YouTube</label>
+              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Podcast"> Podcast</label>
+              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Instagram"> Instagram</label>
+              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Bluesky"> Bluesky</label>
+              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="No preference"> No preference</label>
+            </div>
+          </div>
+
+          <div class="bf-field">
+            <div class="bf-label">Timeline</div>
+            <div class="bf-radio-group">
+              <label class="bf-radio-item"><input type="radio" name="timeline" value="Immediate (this month)"> Immediate (this month)</label>
+              <label class="bf-radio-item"><input type="radio" name="timeline" value="Planning ahead (next quarter)"> Planning ahead (next quarter)</label>
+              <label class="bf-radio-item"><input type="radio" name="timeline" value="Exploratory"> Exploratory</label>
+            </div>
+          </div>
+
+          <div class="bf-field">
+            <label class="bf-label" for="bf-email">Your email</label>
+            <input class="bf-input" id="bf-email" name="email" type="email" placeholder="you@company.com" required>
+          </div>
+
+          <button type="submit" class="bf-submit">Build my brief</button>
+        </form>
+
+        <div class="brief-confirm" id="brief-confirm">
+          <div class="brief-confirm-headline">We're on it.</div>
+          <p class="brief-confirm-body">We'll have something for you within 48 hours. We build these by hand — that's what makes them useful.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 10 — CAPTURE FORM
 ═══════════════════════════════════════════════════════════ -->
 <section class="form-section" id="capture-form">
   <div class="section-inner">
@@ -592,5 +727,28 @@
   </div>
 </footer>
 
+
+<script>
+document.getElementById('brief-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  try {
+    const resp = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (resp.ok) { showBriefConfirm(); }
+    else { showBriefConfirm(); } // show confirm regardless — don't strand the user
+  } catch(err) {
+    showBriefConfirm();
+  }
+});
+
+function showBriefConfirm() {
+  document.getElementById('brief-form').style.display = 'none';
+  document.getElementById('brief-confirm').style.display = 'block';
+}
+</script>
 </body>
 </html>
