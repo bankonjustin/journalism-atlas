@@ -181,6 +181,9 @@
     .stat-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; font-weight: 500; margin-top: 3px; letter-spacing: 0.04em; }
     @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
     .stat-live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #5d7400; margin-right: 3px; vertical-align: middle; animation: pulseDot 1.8s ease-in-out infinite; }
+    .stat-cell--linked { text-decoration: none; color: inherit; cursor: pointer; transition: opacity 0.15s; display: block; }
+    .stat-cell--linked:hover { opacity: 0.75; }
+    .stat-cell--linked .stat-sub { color: #5d7400; }
 
     /* ── FEATURED CREATORS ── */
     .featured-section { background: #000; padding: 64px 40px; position: relative; }
@@ -216,8 +219,12 @@
     .pulse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
     .pulse-col { background: #fff; border-radius: 6px; padding: 20px; }
     .pulse-col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e8e8eb; }
+    .pulse-col-header--linked { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+    .pulse-col-header--linked:hover .pulse-beat-name { color: #1a1a1a; }
+    .pulse-col-header--linked:hover .pulse-beat-count { color: #5d7400; }
     .pulse-beat-name { font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; }
     .pulse-beat-count { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; }
+    .pulse-dot-sm { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #5d7400; animation: pulseDot 1.8s ease-in-out infinite; vertical-align: middle; margin: 0 2px; position: relative; top: -1px; }
     .pulse-item { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #e8e8eb; }
     .pulse-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .pulse-item-creator { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
@@ -637,10 +644,7 @@
         <div class="gc-link">See how we work →</div>
       </a>
 
-      <!-- TODO: This card needs its own destination — a dedicated intelligence/commercial page.
-           Current routing to about-this-project.html is a placeholder.
-           Future: /intelligence or /for-brands -->
-      <a href="about-this-project.html" class="guided-card">
+      <a href="for-brands.html" class="guided-card">
         <div class="gc-eyebrow">For Brands &amp; Communications Teams</div>
         <div class="gc-title">I Need to Find the Right Independent Journalists for My Work.</div>
         <div class="gc-body">The Atlas intelligence layer helps communications teams identify verified independent journalists by beat, platform, geography, and audience — without the noise of platform search.</div>
@@ -668,11 +672,11 @@
     <div class="stat-num dark">9</div>
     <div class="stat-lbl">Beat clusters mapped</div>
   </div>
-  <div class="stat-cell">
+  <a href="pulse.html" class="stat-cell stat-cell--linked">
     <div class="stat-num green">882</div>
     <div class="stat-lbl">Creator RSS feeds</div>
-    <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse</div>
-  </div>
+    <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
+  </a>
   <div class="stat-cell">
     <div class="stat-num dark">12</div>
     <div class="stat-lbl">Institutional partners</div>
@@ -753,7 +757,8 @@
         </div>
         <div class="pulse-headline">What the Atlas Is Reading Right Now.</div>
         <div class="pulse-sub">
-          882 creator feeds, monitored weekly. Summaries by beat, updated continuously.
+          882 creator feeds, monitored weekly.
+          <span class="pulse-dot-sm"></span> Summaries by beat, updated continuously.
         </div>
       </div>
       <a href="pulse.html" class="pulse-open-btn">Open full Pulse feed →</a>
@@ -2188,10 +2193,10 @@ function renderPulseGrid() {
         </div>`;
     }).join('');
     return `<div class="pulse-col">
-        <div class="pulse-col-header">
+        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pulse-col-header pulse-col-header--linked">
           <span class="pulse-beat-name">${beat.name}</span>
-          <span class="pulse-beat-count">${beat.active_creators} active</span>
-        </div>
+          <span class="pulse-beat-count">${beat.active_creators} active ↗</span>
+        </a>
         ${items}
         <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pulse-col-more">More ${beat.name} →</a>
       </div>`;

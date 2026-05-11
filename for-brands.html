@@ -205,6 +205,95 @@
     /* ═══════════════════════════════════════════════════════════
        SECTION 8 — PROTOTYPE GALLERY
     ═══════════════════════════════════════════════════════════ */
+    /* ── Brief Preview Section ── */
+    .brief-preview-section { background: #111; padding: 72px 0; overflow: hidden; }
+    .brief-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .brief-preview-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 480px;
+    }
+    .brief-preview-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: #ceff00;
+      border: 1px solid rgba(206,255,0,0.3);
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: flex-start;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .brief-preview-cta:hover { background: rgba(206,255,0,0.06); }
+    .brief-preview-frame {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .brief-preview-mask {
+      height: 420px;
+      overflow: hidden;
+      position: relative;
+    }
+    .brief-preview-mask::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent, #111);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .brief-preview-iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+      transform-origin: top left;
+      transform: scale(0.85);
+      width: calc(100% / 0.85);
+      pointer-events: none;
+    }
+    .brief-preview-overlay {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    .brief-preview-overlay-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .brief-preview-overlay-btn:hover { border-color: rgba(206,255,0,0.4); background: #222; }
+
     .gallery-section { background: #0d0d0d; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
     .gallery-intro { font-size: 17px; color: #a8a8a8; margin: 0 0 48px; max-width: 560px; line-height: 1.7; }
     .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -368,8 +457,25 @@
     .pi-beat-header { margin-bottom: 10px; }
     .pi-beat-name { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; margin-bottom: 2px; }
     .pi-beat-stats { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em; }
-    .pi-beat-bar-track { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; margin-bottom: 16px; overflow: hidden; }
-    .pi-beat-bar-fill { height: 100%; background: #ceff00; border-radius: 2px; opacity: 0.6; }
+    .pi-bar-label { font-family: 'DM Mono', monospace; font-size: 7px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.2); margin-bottom: 4px; }
+    .pi-beat-bar-track { height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; margin-bottom: 16px; overflow: hidden; }
+    .pi-beat-bar-fill { height: 100%; background: #ceff00; border-radius: 4px; opacity: 0.85; transition: width 0.3s ease; }
+    .pulse-dot-acid {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ceff00;
+      animation: pulse-dot-anim 2.4s ease-in-out infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+      position: relative;
+      top: -1px;
+    }
+    @keyframes pulse-dot-anim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.7); }
+    }
     .pi-post { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .pi-post:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 8px; }
     .pi-post-title { display: block; font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 4px; text-decoration: none; }
@@ -401,6 +507,11 @@
       .footer-inner { flex-direction: column; gap: 24px; }
       .footer-links { flex-direction: column; align-items: flex-start; gap: 14px; }
       .footer-bottom { flex-direction: column; gap: 8px; }
+
+      .brief-preview-mask { height: 280px; }
+      .brief-preview-iframe { transform: scale(0.55); width: calc(100% / 0.55); height: 600px; }
+      .brief-preview-header { flex-direction: column; }
+      .brief-preview-cta { align-self: flex-start; }
     }
   </style>
   <link rel="stylesheet" href="/assets/css/header.css">
@@ -581,7 +692,44 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
-     SECTION 8 — PROTOTYPE GALLERY
+     SECTION 8 — BRIEF PREVIEW
+═══════════════════════════════════════════════════════════ -->
+<section class="brief-preview-section">
+  <div class="section-inner">
+    <div class="brief-preview-header">
+      <div>
+        <div class="eyebrow eyebrow--dark">What You Get</div>
+        <h2 class="h2-dark">This is what a creator intelligence brief looks like.</h2>
+        <p class="brief-preview-sub">Built on the Atlas data layer. Filtered to your beat, platform, and market. Delivered within 48 hours.</p>
+      </div>
+      <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="brief-preview-cta">
+        Explore live example →
+      </a>
+    </div>
+    <div class="brief-preview-frame">
+      <div class="brief-preview-mask">
+        <iframe
+          src="bluesky-creator-intelligence-v4.html"
+          class="brief-preview-iframe"
+          loading="lazy"
+          scrolling="no"
+          tabindex="-1"
+          aria-hidden="true"
+          title="Sample creator intelligence brief preview"
+        ></iframe>
+      </div>
+      <div class="brief-preview-overlay">
+        <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="brief-preview-overlay-btn">
+          <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>
+          View full interactive brief
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 9 — PROTOTYPE GALLERY
 ═══════════════════════════════════════════════════════════ -->
 <section class="gallery-section">
   <div class="section-inner">
@@ -618,7 +766,7 @@
   <div class="section-inner">
     <div class="pulse-intel-header">
       <div>
-        <div class="eyebrow eyebrow--dark">Atlas Pulse · Coverage Intelligence</div>
+        <div class="eyebrow eyebrow--dark"><span class="pulse-dot-acid"></span>Atlas Pulse · Coverage Intelligence</div>
         <h2 class="h2-dark">What the ecosystem is publishing this week.</h2>
         <p class="pulse-intel-sub">
           <span id="brands-pulse-date">Updated May 9, 2026</span> · 882 feeds ·
@@ -805,7 +953,7 @@ const PULSE_SNAPSHOT_BRANDS = {
       ]
     },
     {
-      name: "Finance", post_count_7d: 139, creator_count_7d: 42, bar_pct: 15,
+      name: "Finance/Economics", post_count_7d: 139, creator_count_7d: 42, bar_pct: 15,
       posts: [
         { creator: "Matt Yglesias", title: "This Mother's Day, let moms have Waymo", url: "https://www.slowboring.com", platform: "Substack", published: "2026-05-09" },
         { creator: "Herb Greenberg", title: "The Wrap: Talking Modine, GFL, UPS", url: "https://herbgreenberg.substack.com", platform: "Substack", published: "2026-05-09" }
@@ -819,7 +967,7 @@ const PULSE_SNAPSHOT_BRANDS = {
       ]
     },
     {
-      name: "Media & Power", post_count_7d: 158, creator_count_7d: 53, bar_pct: 17,
+      name: "Media/Power", post_count_7d: 158, creator_count_7d: 53, bar_pct: 17,
       posts: [
         { creator: "Priti Patnaik", title: "The New Gatekeepers: Who Controls the Independent Web", url: "https://gijnetwork.substack.com", platform: "Substack", published: "2026-05-08" },
         { creator: "Caitlin Johnstone", title: "They're Attacking Online Anonymity, And Other Notes", url: "https://caitlinjohnstone.substack.com", platform: "Substack", published: "2026-05-09" }
@@ -846,14 +994,16 @@ function renderBrandsPulse() {
           <div class="pi-post-meta">${p.creator} · ${p.platform} · ${dateStr}</div>
         </div>`;
     }).join('');
+    const displayName = beat.name.includes('/') ? beat.name.split('/')[0] : beat.name;
     return `<div class="pi-beat-col">
         <div class="pi-beat-header">
-          <div class="pi-beat-name">${beat.name}</div>
+          <div class="pi-beat-name">${displayName}</div>
           <div class="pi-beat-stats">${beat.post_count_7d} posts · ${beat.creator_count_7d} creators</div>
         </div>
+        <div class="pi-bar-label">Coverage volume</div>
         <div class="pi-beat-bar-track"><div class="pi-beat-bar-fill" style="width:${beat.bar_pct}%"></div></div>
         <div class="pi-posts">${posts}</div>
-        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more">More ${beat.name} →</a>
+        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more">More ${displayName} →</a>
       </div>`;
   }).join('');
 }

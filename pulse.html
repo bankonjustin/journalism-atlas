@@ -99,35 +99,45 @@
       color: #aaa;
       margin-bottom: 20px;
     }
-    .beat-rows { max-width: 640px; }
+    .beat-rows { max-width: 900px; }
     .beat-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      height: 28px;
-      margin-bottom: 4px;
+      gap: 12px;
+      height: 36px;
+      margin-bottom: 6px;
+      cursor: pointer;
     }
+    .beat-row:hover .beat-bar-fill { opacity: 0.75; }
     .beat-name {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 11px;
       color: #313131;
-      min-width: 180px;
+      min-width: 200px;
       flex-shrink: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-weight: 500;
     }
-    .beat-bar-track { flex: 1; }
+    .beat-bar-track {
+      flex: 1;
+      background: #e8e8eb;
+      border-radius: 3px;
+      overflow: hidden;
+      height: 14px;
+    }
     .beat-bar-fill {
       background: #1a1a1a;
-      border-radius: 2px;
-      height: 8px;
+      border-radius: 3px;
+      height: 100%;
+      transition: width 0.3s ease, opacity 0.15s;
     }
     .beat-count {
       font-family: 'DM Mono', monospace;
       font-size: 10px;
       color: #888;
-      min-width: 36px;
+      min-width: 48px;
       text-align: right;
       flex-shrink: 0;
     }
@@ -300,7 +310,38 @@
 
     /* ── HEAT CALENDAR ── */
     .heat-calendar-section { background: #fff; padding: 32px 40px; border-top: 1px solid #e4e4e8; border-bottom: 1px solid #e4e4e8; }
-    .heat-grid { margin-top: 20px; overflow-x: auto; }
+    .heat-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .heat-header-row .section-eyebrow { margin-bottom: 0; }
+    .heat-toggle {
+      display: flex;
+      gap: 2px;
+      background: #e4e4e8;
+      border-radius: 4px;
+      padding: 2px;
+    }
+    .heat-toggle-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      background: transparent;
+      border: none;
+      border-radius: 3px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .heat-toggle-btn.active {
+      background: #fff;
+      color: #1a1a1a;
+    }
+    .heat-grid { overflow-x: auto; }
     .heat-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
     .heat-beat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; width: 180px; flex-shrink: 0; text-align: right; padding-right: 12px; }
     .heat-cells { display: flex; gap: 3px; }
@@ -309,6 +350,80 @@
     .heat-date-axis { display: flex; align-items: flex-start; gap: 6px; margin-top: 6px; }
     .heat-date-labels { display: flex; width: calc(30 * 22px + 29 * 3px); position: relative; height: 16px; }
     .heat-date-tick { font-family: 'DM Mono', monospace; font-size: 8px; color: #aaa; position: absolute; white-space: nowrap; }
+
+    /* ── PULSE DOT INLINE ── */
+    .pulse-dot-inline {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #5d7400;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+      vertical-align: middle;
+      margin-right: 5px;
+      position: relative;
+      top: -1px;
+    }
+
+    /* ── CREATOR STRIP ── */
+    .creator-strip { margin-bottom: 20px; }
+    .creator-strip-header {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .creator-strip-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .creator-strip-scroll::-webkit-scrollbar { display: none; }
+    .creator-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #e4e4e8;
+      border-radius: 100px;
+      padding: 6px 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: default;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .creator-chip:hover {
+      border-color: #5d7400;
+      background: rgba(93,116,0,0.04);
+    }
+    .creator-chip-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #1a1a1a;
+      letter-spacing: -0.01em;
+    }
+    .creator-chip-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: #5d7400;
+      background: rgba(93,116,0,0.08);
+      border-radius: 100px;
+      padding: 1px 6px;
+      font-weight: 500;
+    }
+    .creator-chip-platform {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
 
     /* ── CO-OCCURRENCE MATRIX ── */
     .beat-relationship-section { background: #efeff2; padding: 32px 40px; }
@@ -381,13 +496,21 @@
 
 <!-- BEAT ACTIVITY BAR -->
 <section class="beat-section">
-  <div class="section-eyebrow">Coverage by beat — last 30 days</div>
+  <div class="section-eyebrow">
+    <span class="pulse-dot-inline"></span> Coverage by beat — last 30 days
+  </div>
   <div class="beat-rows" id="beat-rows"></div>
 </section>
 
 <!-- BEAT HEAT CALENDAR -->
 <section class="heat-calendar-section">
-  <div class="section-eyebrow" id="heat-eyebrow">Publishing rhythm</div>
+  <div class="heat-header-row">
+    <div class="section-eyebrow" id="heat-eyebrow">Publishing rhythm</div>
+    <div class="heat-toggle">
+      <button class="heat-toggle-btn active" id="heat-btn-beat" data-mode="beat">By Beat</button>
+      <button class="heat-toggle-btn" id="heat-btn-platform" data-mode="platform">By Platform</button>
+    </div>
+  </div>
   <div class="heat-grid" id="heat-grid"></div>
 </section>
 
@@ -410,6 +533,7 @@
 <div class="post-list-section">
   <div class="post-count-label" id="post-count-label"></div>
   <div class="platform-breakdown" id="platform-breakdown"></div>
+  <div class="creator-strip" id="creator-strip"></div>
   <div id="post-list"></div>
   <div class="load-more-wrap" id="load-more-wrap" style="display:none">
     <button id="load-more-btn">Load 50 more</button>
@@ -70475,7 +70599,7 @@ function renderBeatBar() {
   const entries = Object.entries(PULSE_DATA.beat_activity).slice(0, 15);
   const max = entries[0][1];
   document.getElementById('beat-rows').innerHTML = entries.map(([beat, count]) => `
-    <div class="beat-row">
+    <div class="beat-row" data-beat="${esc(beat)}">
       <span class="beat-name">${esc(beat)}</span>
       <div class="beat-bar-track">
         <div class="beat-bar-fill" style="width:${(count/max*100).toFixed(1)}%"></div>
@@ -70483,6 +70607,17 @@ function renderBeatBar() {
       <span class="beat-count">${count.toLocaleString()}</span>
     </div>
   `).join('');
+  document.querySelectorAll('.beat-row[data-beat]').forEach(row => {
+    row.addEventListener('click', () => {
+      activeBeat = row.dataset.beat;
+      visibleCount = 50;
+      renderBeatPills();
+      renderPlatformBreakdown(activeBeat);
+      renderCreatorStrip();
+      renderPosts();
+      document.querySelector('.controls-row').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
 // ── Render: recency toggle ────────────────────────────────────────────────────
@@ -70492,16 +70627,19 @@ function renderRecencyToggle() {
     { key: '7d',  label: 'Last 7 days' },
     { key: '30d', label: 'Last 30 days' },
   ];
-  document.getElementById('recency-toggle').innerHTML = options.map(o => `
-    <button class="recency-btn${o.key === activeRecency ? ' active' : ''}" data-key="${o.key}">
-      ${o.label} (${PULSE_DATA.recency[o.key].toLocaleString()})
-    </button>
-  `).join('');
+  document.getElementById('recency-toggle').innerHTML = options.map(o => {
+    const dot = o.key === activeRecency ? '<span class="pulse-dot-inline"></span>' : '';
+    return `<button class="recency-btn${o.key === activeRecency ? ' active' : ''}" data-key="${o.key}">
+      ${dot}${o.label} (${PULSE_DATA.recency[o.key].toLocaleString()})
+    </button>`;
+  }).join('');
   document.querySelectorAll('.recency-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       activeRecency = btn.dataset.key;
       visibleCount = 50;
       renderRecencyToggle();
+      renderPlatformBreakdown(activeBeat);
+      renderCreatorStrip();
       renderPosts();
     });
   });
@@ -70520,6 +70658,7 @@ function renderBeatPills() {
       visibleCount = 50;
       renderBeatPills();
       renderPlatformBreakdown(activeBeat);
+      renderCreatorStrip();
       renderPosts();
     });
   });
@@ -70530,8 +70669,8 @@ function renderPosts() {
   const filtered = getFilteredPosts();
   const slice = filtered.slice(0, visibleCount);
 
-  document.getElementById('post-count-label').textContent =
-    'Showing ' + slice.length.toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' posts';
+  document.getElementById('post-count-label').innerHTML =
+    '<span class="pulse-dot-inline"></span> Showing ' + slice.length.toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' posts';
 
   document.getElementById('post-list').innerHTML = slice.map(p => {
     const beatTag = (p.topic || '').split(',')[0].trim();
@@ -70589,6 +70728,18 @@ function grayCell(count, maxVal) {
   return { bg: `rgb(${l},${l},${l})`, color: t > 0.35 ? '#fff' : '#313131' };
 }
 
+// ── Platform family mapping (used by platform heat view) ─────────────────────
+const PLATFORM_FAMILIES = {
+  'Newsletter': ['Substack', 'Ghost', 'Beehiiv', 'Other Newsletter'],
+  'Video': ['YouTube', 'TikTok', 'Instagram'],
+  'Audio': ['Podcast'],
+  'Web': ['Website', 'BlueSky', 'Other', 'Facebook', 'Twitter / X']
+};
+const PLATFORM_TO_FAMILY = {};
+Object.entries(PLATFORM_FAMILIES).forEach(([fam, plats]) => {
+  plats.forEach(pl => { PLATFORM_TO_FAMILY[pl] = fam; });
+});
+
 // ── Beat Heat Calendar ────────────────────────────────────────────────────────
 function renderHeatCalendar() {
   const TOP_BEATS = Object.keys(PULSE_DATA.beat_activity).slice(0, 10);
@@ -70614,12 +70765,14 @@ function renderHeatCalendar() {
     });
   });
 
-  const maxVal = Math.max(...TOP_BEATS.flatMap(b => dates.map(d => matrix[b][d])));
+  // Per-row normalization: each beat scaled to its own peak
+  const rowMaxes = {};
+  TOP_BEATS.forEach(b => { rowMaxes[b] = Math.max(...dates.map(d => matrix[b][d]), 1); });
 
   const rowsHtml = TOP_BEATS.map(beat => {
     const cells = dates.map((date, i) => {
       const count = matrix[beat][date];
-      const { bg } = grayCell(count, maxVal);
+      const { bg } = grayCell(count, rowMaxes[beat]);
       const label = fmtDateShort(date);
       return `<div class="heat-cell" style="background:${bg}" title="${esc(beat)} · ${label} · ${count} post${count !== 1 ? 's' : ''}"></div>`;
     }).join('');
@@ -70641,6 +70794,64 @@ function renderHeatCalendar() {
 
   document.getElementById('heat-eyebrow').textContent =
     'Publishing rhythm — ' + fmtDateShort(WINDOW_START) + ' to ' + fmtDateShort(WINDOW_END);
+  document.getElementById('heat-grid').innerHTML = rowsHtml + axisHtml;
+}
+
+// ── Platform Heat Calendar ────────────────────────────────────────────────────
+function renderHeatCalendarPlatform() {
+  const FAMILIES = ['Newsletter', 'Video', 'Audio', 'Web'];
+  const FAMILY_LABELS = {
+    'Newsletter': 'Newsletter',
+    'Video': 'Video',
+    'Audio': 'Audio / Podcast',
+    'Web': 'Web / Social'
+  };
+
+  const dates = [];
+  const startD = new Date(WINDOW_START);
+  for (let i = 0; i < PULSE_DATA.window_days; i++) {
+    const d = new Date(startD);
+    d.setDate(startD.getDate() + i);
+    dates.push(d.toISOString().slice(0, 10));
+  }
+
+  const matrix = {};
+  FAMILIES.forEach(fam => { matrix[fam] = {}; dates.forEach(d => { matrix[fam][d] = 0; }); });
+
+  PULSE_DATA.posts.forEach(p => {
+    if (!inCleanWindow(p.published)) return;
+    let pl = p.platform || '';
+    if (pl.includes(' - ')) pl = pl.split(' - ')[1];
+    const fam = PLATFORM_TO_FAMILY[pl] || 'Web';
+    if (matrix[fam][p.published] !== undefined) matrix[fam][p.published]++;
+  });
+
+  const rowMaxes = {};
+  FAMILIES.forEach(f => { rowMaxes[f] = Math.max(...dates.map(d => matrix[f][d]), 1); });
+
+  const rowsHtml = FAMILIES.map(fam => {
+    const cells = dates.map(date => {
+      const count = matrix[fam][date];
+      const { bg } = grayCell(count, rowMaxes[fam]);
+      return `<div class="heat-cell" style="background:${bg}" title="${esc(FAMILY_LABELS[fam])} · ${fmtDateShort(date)} · ${count} posts"></div>`;
+    }).join('');
+    return `<div class="heat-row">
+      <div class="heat-beat-label">${esc(FAMILY_LABELS[fam])}</div>
+      <div class="heat-cells">${cells}</div>
+    </div>`;
+  }).join('');
+
+  const TICK_DAYS = [0, 5, 10, 15, 20, 25, 29];
+  const ticksHtml = TICK_DAYS.map(i =>
+    `<span class="heat-date-tick" style="left:${i * 25}px">${fmtDateShort(dates[i])}</span>`
+  ).join('');
+  const axisHtml = `<div class="heat-date-axis">
+    <div class="heat-beat-label"></div>
+    <div class="heat-date-labels">${ticksHtml}</div>
+  </div>`;
+
+  document.getElementById('heat-eyebrow').textContent =
+    'Platform rhythm — ' + fmtDateShort(WINDOW_START) + ' to ' + fmtDateShort(WINDOW_END);
   document.getElementById('heat-grid').innerHTML = rowsHtml + axisHtml;
 }
 
@@ -70731,9 +70942,62 @@ function renderPlatformBreakdown(beatFilter) {
     `<div class="plat-intro">${label}</div><div class="plat-bars">${barsHtml}</div>`;
 }
 
+// ── Render: creator strip ─────────────────────────────────────────────────────
+function renderCreatorStrip() {
+  const beatFilter = activeBeat;
+  const cutoffDays = { '24h': 1, '7d': 7, '30d': 30 }[activeRecency];
+  const cutoff = new Date(PULSE_DATA.generated_at);
+  cutoff.setDate(cutoff.getDate() - cutoffDays);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
+
+  const posts = PULSE_DATA.posts.filter(p => {
+    if (!inCleanWindow(p.published)) return false;
+    if (p.published < cutoffStr) return false;
+    if (beatFilter !== 'all' && !p.topic.includes(beatFilter)) return false;
+    return p.title && p.title !== 'No title' && p.url;
+  });
+
+  const counts = {};
+  const platforms = {};
+  posts.forEach(p => {
+    counts[p.creator] = (counts[p.creator] || 0) + 1;
+    platforms[p.creator] = p.platform;
+  });
+
+  const top = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+
+  if (top.length === 0) {
+    document.getElementById('creator-strip').innerHTML = '';
+    return;
+  }
+
+  const beatLabel = beatFilter !== 'all' ? beatFilter : 'all beats';
+  const windowLabel = { '24h': '24h', '7d': '7 days', '30d': '30 days' }[activeRecency];
+
+  const chips = top.map(([name, count]) => {
+    const pl = abbreviatePlatform(platforms[name] || '');
+    return `<div class="creator-chip">
+      <span class="creator-chip-name">${esc(name)}</span>
+      <span class="creator-chip-count">${count}</span>
+      <span class="creator-chip-platform">${esc(pl)}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('creator-strip').innerHTML = `
+    <div class="creator-strip-header">
+      <span class="pulse-dot-inline"></span>
+      Most active on <strong>${esc(beatLabel)}</strong> · last ${windowLabel}
+    </div>
+    <div class="creator-strip-scroll">${chips}</div>
+  `;
+}
+
 // ── Load more ─────────────────────────────────────────────────────────────────
 document.getElementById('load-more-btn').addEventListener('click', () => {
   visibleCount += 50;
+  renderCreatorStrip();
   renderPosts();
 });
 
@@ -70746,10 +71010,24 @@ renderBadge();
 renderStatStrip();
 renderBeatBar();
 renderHeatCalendar();
+let heatMode = 'beat';
+document.getElementById('heat-btn-beat').addEventListener('click', () => {
+  heatMode = 'beat';
+  document.getElementById('heat-btn-beat').classList.add('active');
+  document.getElementById('heat-btn-platform').classList.remove('active');
+  renderHeatCalendar();
+});
+document.getElementById('heat-btn-platform').addEventListener('click', () => {
+  heatMode = 'platform';
+  document.getElementById('heat-btn-platform').classList.add('active');
+  document.getElementById('heat-btn-beat').classList.remove('active');
+  renderHeatCalendarPlatform();
+});
 renderCoMatrix();
 renderRecencyToggle();
 renderBeatPills();
 renderPlatformBreakdown('all');
+renderCreatorStrip();
 renderPosts();
 </script>
 </body>
