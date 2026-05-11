@@ -586,6 +586,32 @@
 </footer>
 
 <script>
+// ════════════════════════════════════════════════════════════════════════════
+// WEEKLY UPDATE CHECKLIST — run after each pulse_v2.py run
+// ════════════════════════════════════════════════════════════════════════════
+//
+// 1. Replace the entire PULSE_DATA constant below with the new JSON output.
+//    The JSON file is: rss_pulse_v2_YYYYMMDD.json
+//    Paste its full contents between the { } of `const PULSE_DATA = { ... };`
+//
+// 2. After updating PULSE_DATA here, also update these two companion files:
+//    a. index-mock-V5.html (or index.html) — PULSE_SNAPSHOT_INDEX constant
+//       → Update generated_at date
+//       → Update active_creators counts per beat
+//       → Swap in 3 new posts per beat (filter: no social platforms, no shorts)
+//    b. for-brands.html — PULSE_SNAPSHOT_BRANDS constant
+//       → Update generated_at date
+//       → Update post_count_7d and creator_count_7d per beat
+//       → Swap in 2 new posts per beat (editorially review — brands-appropriate)
+//       → Recalculate bar_pct values (Politics = 100, others relative to Politics 7d count)
+//
+// 3. Verify in browser after push:
+//    → Live badge shows correct new date
+//    → 30d post count in stat strip is plausible
+//    → Heat calendar shows new data (check rightmost column is most recent week)
+//    → Creator strip shows recent creators (not Jennifer Russell in December)
+//
+// ════════════════════════════════════════════════════════════════════════════
 const PULSE_DATA = {
   "generated_at": "2026-05-09",
   "window_days": 30,
@@ -70534,6 +70560,18 @@ const BEAT_PILLS_ORDER = [
   'Climate/Environment', 'Science', 'Investigative', 'Health/Wellness'
 ];
 
+// Social platform identifiers — excluded from post list and creator strip.
+// These are harvested social posts (BlueSky, Twitter, etc.), not published articles.
+// When a creator's primary Atlas link resolves to a social feed, their posts land here.
+// They're useful for feed health tracking but not for public-facing journalism display.
+const SOCIAL_PLATFORMS = [
+  'Social - BlueSky',
+  'Social - Twitter / X',
+  'Social - Facebook',
+  'Social - Instagram',
+  'Social - TikTok'
+];
+
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -70569,6 +70607,8 @@ function getFilteredPosts() {
 
   return PULSE_DATA.posts.filter(p => {
     if (!p.title || p.title === 'No title' || !p.url) return false;
+    if (!inCleanWindow(p.published)) return false;
+    if (SOCIAL_PLATFORMS.includes(p.platform)) return false;
     const pub = new Date(p.published);
     if (pub < anchor) return false;
     if (activeBeat !== 'all' && !p.topic.includes(activeBeat)) return false;
@@ -70721,6 +70761,13 @@ function inCleanWindow(dateStr) {
 }
 
 // ── Color scale (grayscale, shared by calendar + matrix) ──────────────────────
+// DESIGN NOTE: maxVal is intentionally different for each use case.
+// Heat calendar: per-row normalization — each beat row uses its own max daily count.
+//   This shows each beat's internal rhythm regardless of volume differences.
+//   e.g. Science (max 17/day) and Politics (max 189/day) both show full dark at their peaks.
+// Co-occurrence matrix: global max across all beat pairs (299, Politics↔Local News).
+//   All cells are on the same scale so you can compare relationships across beats.
+// Don't unify these — the different anchors are deliberate.
 function grayCell(count, maxVal) {
   if (count === 0) return { bg: '#f0f0f2', color: '#313131' };
   const t = Math.min(count / maxVal, 1);
@@ -70953,6 +71000,7 @@ function renderCreatorStrip() {
   const posts = PULSE_DATA.posts.filter(p => {
     if (!inCleanWindow(p.published)) return false;
     if (p.published < cutoffStr) return false;
+    if (SOCIAL_PLATFORMS.includes(p.platform)) return false;
     if (beatFilter !== 'all' && !p.topic.includes(beatFilter)) return false;
     return p.title && p.title !== 'No title' && p.url;
   });
