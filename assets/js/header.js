@@ -21,20 +21,20 @@
         '<nav class="top-nav" id="siteTopNav">',
         '  <div class="nav-container">',
         '    <div class="nav-logo-search">',
+        '      <!-- FLAG FOR JAMES: logo wordmark length — consider icon-only treatment to free nav space -->',
         '      <a href="/" class="nav-logo">',
         '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.png" alt="Independent Journalism Atlas">',
         '      </a>',
         '      <div class="nav-search-container">',
         '        <input type="text" class="nav-search" placeholder="Search creators, topics, places..." id="navSearch" autocomplete="off">',
+        '        <button class="nav-search-btn" id="nav-search-btn" type="button">Search</button>',
         '      </div>',
         '    </div>',
         '    <div class="nav-links">',
-        '      <a href="/who-we-are.html" class="nav-link">Who We Are</a>',
         '      <a href="/about-this-project.html" class="nav-link">About This Project</a>',
-        '      <a href="/how-we-did-this.html" class="nav-link">How We Did This</a>',
-        '      <a href="/advisory.html" class="nav-link">Advisory Boards</a>',
-        '      <a href="/submit.html" class="nav-link">Submit</a>',
-        '      <a href="/research.html" class="nav-link">Our Research</a>',
+        '      <a href="/research.html" class="nav-link">Research &amp; Writing</a>',
+        '      <a href="/pulse.html" class="nav-link nav-link--pulse"><span class="nav-pulse-dot"></span>Pulse</a>',
+        '      <a href="/contact.html" class="nav-link">Contact Us</a>',
         '    </div>',
         '    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Open menu">',
         '      <span class="material-symbols-outlined">menu</span>',
@@ -50,12 +50,10 @@
         '    </button>',
         '  </div>',
         '  <nav class="mobile-menu-links">',
-        '    <a href="/who-we-are.html" class="mobile-menu-link">Who We Are</a>',
         '    <a href="/about-this-project.html" class="mobile-menu-link">About This Project</a>',
-        '    <a href="/how-we-did-this.html" class="mobile-menu-link">How We Did This</a>',
-        '    <a href="/advisory.html" class="mobile-menu-link">Advisory Boards</a>',
-        '    <a href="/submit.html" class="mobile-menu-link">Submit</a>',
-        '    <a href="/research.html" class="mobile-menu-link">Our Research</a>',
+        '    <a href="/research.html" class="mobile-menu-link">Research &amp; Writing</a>',
+        '    <a href="/pulse.html" class="mobile-menu-link">Pulse</a>',
+        '    <a href="/contact.html" class="mobile-menu-link">Contact Us</a>',
         '  </nav>',
         '</div>'
     ].join('\n');
@@ -107,10 +105,16 @@
         var isHome = path === '/' || path === '/index.html' || path.endsWith('/index.html');
         if (isHome) return;
 
+        function doSearch() {
+            var q = input.value.trim();
+            if (q) window.location.href = '/?search=' + encodeURIComponent(q);
+        }
+
         input.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter' && this.value.trim()) {
-                window.location.href = '/?search=' + encodeURIComponent(this.value.trim());
-            }
+            if (e.key === 'Enter') doSearch();
         });
+
+        var btn = document.getElementById('nav-search-btn');
+        if (btn) btn.addEventListener('click', doSearch);
     }
 }());

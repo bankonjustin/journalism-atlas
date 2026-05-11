@@ -59,13 +59,16 @@
 }
 
 .nav-search-container {
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     flex: 1;
-    max-width: 280px;
+    max-width: 340px;
 }
 
 .nav-search {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     padding: 0.625rem 1rem;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -100,6 +103,42 @@
 
 .nav-link:hover {
     color: var(--black);
+}
+
+/* ── Search button ── */
+.nav-search-btn {
+    background: #97d600;
+    color: #313131;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+.nav-search-btn:hover { background: #5d7400; color: #fff; }
+
+/* ── Pulse nav item ── */
+.nav-link--pulse {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.nav-pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #97d600;
+    flex-shrink: 0;
+    animation: nav-pulse-anim 2.4s ease-in-out infinite;
+}
+@keyframes nav-pulse-anim {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.7); }
 }
 
 /* ── Mobile hamburger button ── */
