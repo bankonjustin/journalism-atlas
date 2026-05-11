@@ -248,7 +248,9 @@
     .research-sub { font-size: 16px; color: #555; line-height: 1.7; max-width: 480px; margin-bottom: 24px; }
     .research-partners { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
     .research-partner-chip { font-family: 'DM Mono', monospace; font-size: 9px; color: #555; background: #efeff2; border: 1px solid #d4d4d8; padding: 4px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
-    .research-small-note { font-family: 'DM Mono', monospace; font-size: 10px; color: #999; margin-top: 12px; letter-spacing: 0.06em; }
+    .research-cards-stack { display: flex; flex-direction: column; gap: 16px; }
+    .research-card--muted { opacity: 0.45; pointer-events: none; }
+    .research-card-status { font-family: 'DM Mono', monospace; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
     .research-card { background: #fff; border: 1px solid #d4d4d8; border-radius: 6px; overflow: hidden; }
     .research-card-header { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); padding: 32px 24px; min-height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
     .research-card-header::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(255,255,255,0.03) 24px, rgba(255,255,255,0.03) 25px), repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(255,255,255,0.03) 24px, rgba(255,255,255,0.03) 25px); }
@@ -741,26 +743,39 @@
   <div class="research-inner">
 
     <div class="research-left">
-      <div class="research-badge">New · May 2026</div>
-      <h2 class="research-headline">The Economics of Independent Journalism, at Scale.</h2>
-      <p class="research-sub">Our first major research output with ASU and the Knight Foundation — a revenue cohort analysis examining what sustainability actually looks like across 1,000+ independent journalists.</p>
-      <div class="research-partners">
-        <span class="research-partner-chip">Knight Foundation</span>
-        <span class="research-partner-chip">Arizona State University</span>
-      </div>
-      <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="btn-lime">Read the CNTI report →</a>
-      <p class="research-small-note">ASU / Knight Foundation paper — Coming June 2026 · <a href="about-this-project.html" style="color:#5d7400;">Full methodology on About This Project →</a></p>
+      <div class="research-badge">Research</div>
+      <h2 class="research-headline">Research from the Atlas and our partners.</h2>
+      <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. Two studies in progress.</p>
+      <a href="about-this-project.html" class="btn-lime">View all research →</a>
     </div>
 
     <div class="research-right">
-      <div class="research-card">
-        <div class="research-card-header">
-          <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
+      <div class="research-cards-stack">
+
+        <!-- Card 1: CNTI — live -->
+        <div class="research-card">
+          <div class="research-card-header">
+            <span class="research-card-title-text">US Indie Info Providers: Professionally Diverse, Mission-driven, Sometimes Lonely, Rarely Earning Profit</span>
+          </div>
+          <div class="research-card-body">
+            <div class="research-card-status">Center for News, Technology &amp; Innovation · April 2026</div>
+            <p class="research-card-desc">26 independent info providers interviewed. 1 in 5 Americans now get news from individuals, not institutions. Very few are making a full income from the work.</p>
+            <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-card-link">Read the report →</a>
+          </div>
         </div>
-        <div class="research-card-body">
-          <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like.</p>
-          <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-card-link">Read the CNTI report →</a>
+
+        <!-- Card 2: ASU/Knight — coming -->
+        <div class="research-card research-card--muted">
+          <div class="research-card-header">
+            <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
+          </div>
+          <div class="research-card-body">
+            <div class="research-card-status">Knight Foundation · Arizona State University · Coming June 2026</div>
+            <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem.</p>
+            <span class="research-card-link" style="color:#bbb;cursor:default;">Coming June 2026</span>
+          </div>
         </div>
+
       </div>
     </div>
 
