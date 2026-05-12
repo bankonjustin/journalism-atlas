@@ -302,12 +302,40 @@
                 height: 100px;
             }
         }
+        .about-subnav-link {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #888;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            transition: color 0.15s, border-color 0.15s;
+            flex-shrink: 0;
+        }
+        .about-subnav-link:hover { color: #313131; }
+        .about-subnav-link--active {
+            color: #313131;
+            border-bottom-color: #97d600;
+        }
     </style>
     <link rel="stylesheet" href="/assets/css/header.css">
 </head>
 <body>
     <script src="/assets/js/header.js"></script>
 
+    <!-- SUBPAGE NAV STRIP -->
+    <div class="about-subnav" style="background:#fff;border-bottom:1px solid #d4d4d8;padding:0 40px;">
+      <div style="max-width:1440px;margin:0 auto;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;">
+        <a href="about-this-project.html" class="about-subnav-link">Overview</a>
+        <a href="who-we-are.html" class="about-subnav-link">Who We Are</a>
+        <a href="how-we-did-this.html" class="about-subnav-link">Methodology</a>
+        <a href="advisory.html" class="about-subnav-link about-subnav-link--active">Advisory Boards</a>
+        <a href="research.html" class="about-subnav-link">Research &amp; Writing</a>
+      </div>
+    </div>
 
     <!-- Main Content -->
     <div class="content-wrapper">

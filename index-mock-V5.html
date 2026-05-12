@@ -571,7 +571,10 @@
       </div>
       <div id="cluster-drawer-footer">
         <span id="cluster-drawer-showing"></span>
-        <a id="cluster-drawer-full-link" href="#">See all in full Atlas database →</a>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <a id="cluster-drawer-postcard-link" href="postcard.html" style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.45);text-decoration:none;letter-spacing:0.06em;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Build a starter pack →</a>
+          <a id="cluster-drawer-full-link" href="#">See all in full Atlas →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -745,8 +748,8 @@
     <div class="research-left">
       <div class="research-badge">Research</div>
       <h2 class="research-headline">Research from the Atlas and our partners.</h2>
-      <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. Two studies in progress.</p>
-      <a href="about-this-project.html" class="btn-lime">View all research →</a>
+      <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. Two studies in progress, one methodology brief live.</p>
+      <a href="research.html" class="btn-lime">View all research →</a>
     </div>
 
     <div class="research-right">
@@ -764,7 +767,19 @@
           </div>
         </div>
 
-        <!-- Card 2: ASU/Knight — coming -->
+        <!-- Card 2: Bluesky Intelligence — live -->
+        <div class="research-card">
+          <div class="research-card-header" style="background: linear-gradient(135deg, #0a1628 0%, #0f2d5e 100%);">
+            <span class="research-card-title-text">Mapping Independent Journalists on Bluesky</span>
+          </div>
+          <div class="research-card-body">
+            <div class="research-card-status">Atlas Methodology Brief · May 2026</div>
+            <p class="research-card-desc">How we spidered 500+ creator-journalists across the AT Protocol — starter packs, curator networks, and the structure of the independent journalism graph on Bluesky.</p>
+            <a href="bluesky-creator-intelligence.html" class="research-card-link">Read the brief →</a>
+          </div>
+        </div>
+
+        <!-- Card 3: ASU/Knight — coming -->
         <div class="research-card research-card--muted">
           <div class="research-card-header">
             <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
@@ -1107,26 +1122,26 @@
         <div class="footer-col-title">Explore</div>
         <ul>
           <li><a href="search.html">The Atlas Database</a></li>
-          <li><a href="lists.html">Beat Clusters</a></li>
-          <li><a href="city-lab-chicago.html">City Labs</a></li>
-          <li><a href="about-this-project.html">Atlas Pulse</a></li>
+          <li><a href="lists.html">Collections</a></li>
+          <li><a href="pulse.html">Atlas Pulse</a></li>
+          <li><a href="postcard.html">Build a Starter Pack</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">About</div>
         <ul>
-          <li><a href="about-this-project.html">Who We Are</a></li>
-          <li><a href="about-this-project.html">How We Did This</a></li>
-          <li><a href="about-this-project.html">Our Research</a></li>
-          <li><a href="about-this-project.html">Advisory Boards</a></li>
+          <li><a href="about-this-project.html">About This Project</a></li>
+          <li><a href="how-we-did-this.html">How We Did This</a></li>
+          <li><a href="research.html">Research &amp; Writing</a></li>
+          <li><a href="advisory.html">Advisory Boards</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Connect</div>
         <ul>
-          <li><a href="about-this-project.html">Submit a Creator</a></li>
-          <li><a href="about-this-project.html">Updates</a></li>
-          <li><a href="about-this-project.html">Partner with Us</a></li>
+          <li><a href="mailto:hell&#111;&#64;journalismatlas.com">Email Us</a></li>
+          <li><a href="contact.html#contribute">Submit a Creator</a></li>
+          <li><a href="for-brands.html">Work With Us</a></li>
         </ul>
       </div>
     </div>
@@ -1971,6 +1986,8 @@ function openDrawer(clusterName) {
   const fullLink   = document.getElementById('cluster-drawer-full-link');
   if (atlasLink) atlasLink.href = atlasHref;
   if (fullLink)  fullLink.href  = atlasHref;
+  const postcardLink = document.getElementById('cluster-drawer-postcard-link');
+  if (postcardLink) postcardLink.href = `postcard.html?cluster=${atlasParam}`;
 
   renderDrawerGrid(drawerCreators, clusterName, '');
 
