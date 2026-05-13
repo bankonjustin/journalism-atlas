@@ -318,6 +318,11 @@
       transition: opacity 0.15s;
     }
     .gallery-card-link:hover { opacity: 0.7; }
+    .gallery-grid-asymmetric { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; }
+    .gallery-card--featured { border: 1px solid rgba(206,255,0,0.2); background: rgba(206,255,0,0.04); }
+    .gallery-card--featured .gallery-card-eyebrow { color: #ceff00; }
+    .gallery-card--featured .gallery-card-name { font-size: 22px; }
+    @media (max-width: 768px) { .gallery-grid-asymmetric { grid-template-columns: 1fr; } }
 
     /* ═══════════════════════════════════════════════════════════
        SECTION 9 — CAPTURE FORM
@@ -674,7 +679,7 @@
         <p class="atlas-card-body">We build filtered creator lists, coverage briefings, and audience intelligence packages for comms teams — tuned to your issues, your markets, your timeline.</p>
       </div>
     </div>
-    <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="atlas-cta-link">See a live example →</a>
+    <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="atlas-cta-link">See a live example →</a>
   </div>
 </section>
 
@@ -689,14 +694,14 @@
         <h2 class="h2-dark">This is what a creator intelligence brief looks like.</h2>
         <p class="brief-preview-sub">Built on the Atlas data layer. Filtered to your beat, platform, and market. Every creator is human-verified.</p>
       </div>
-      <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="brief-preview-cta">
+      <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="brief-preview-cta">
         Explore live example →
       </a>
     </div>
     <div class="brief-preview-frame">
       <div class="brief-preview-mask">
         <iframe
-          src="bluesky-creator-intelligence-v4.html"
+          src="bluesky-intelligence.html"
           class="brief-preview-iframe"
           loading="lazy"
           scrolling="no"
@@ -706,7 +711,7 @@
         ></iframe>
       </div>
       <div class="brief-preview-overlay">
-        <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="brief-preview-overlay-btn">
+        <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="brief-preview-overlay-btn">
           <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>
           View full interactive brief
         </a>
@@ -723,25 +728,25 @@
     <div class="eyebrow eyebrow--dark">What We've Built</div>
     <h2 class="h2-dark">Live prototypes. Built for partners. Available for your team.</h2>
     <p class="gallery-intro">These aren't mockups. They're working intelligence products built on the Atlas data layer.</p>
-    <div class="gallery-grid">
-      <a href="bluesky-creator-intelligence-v4.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
-        <div class="gallery-card-eyebrow">Creator Intelligence Brief</div>
+    <div class="gallery-grid-asymmetric">
+
+      <!-- Featured: Bluesky Intelligence Brief -->
+      <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer"
+         class="gallery-card gallery-card--featured">
+        <div class="gallery-card-eyebrow">Creator Intelligence Brief · Live</div>
         <div class="gallery-card-name">Bluesky Creator Intelligence</div>
-        <p class="gallery-card-desc">Platform-specific audience intelligence. Beat-filtered creator clusters with follower data, cross-platform reach, and coverage signals.</p>
-        <span class="gallery-card-link">View prototype →</span>
+        <p class="gallery-card-desc">Platform-specific audience intelligence built on the Atlas data layer. Beat-filtered creator clusters with follower data, cross-platform reach, and coverage signals. This is what a custom brief looks like — built for a partner, available to explore.</p>
+        <span class="gallery-card-link">View live brief →</span>
       </a>
+
+      <!-- Companion: Atlas Pulse -->
       <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
-        <div class="gallery-card-eyebrow">Atlas Pulse</div>
+        <div class="gallery-card-eyebrow">Atlas Pulse · Always Free</div>
         <div class="gallery-card-name">What the ecosystem is covering right now.</div>
-        <p class="gallery-card-desc">Weekly digest from 882 creator feeds. Beat-filtered. Platform-broken down. Free, always.</p>
+        <p class="gallery-card-desc">Weekly digest from 882 creator feeds. Beat-filtered, platform-broken down. Updated regularly.</p>
         <span class="gallery-card-link">View the digest →</span>
       </a>
-      <a href="city-lab-chicago.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
-        <div class="gallery-card-eyebrow">City Ecosystem Lab</div>
-        <div class="gallery-card-name">Chicago Creator Journalism Lab</div>
-        <p class="gallery-card-desc">Every independent creator journalist in a single market. Beat coverage, platform breakdown, creator counts.</p>
-        <span class="gallery-card-link">View Chicago lab →</span>
-      </a>
+
     </div>
   </div>
 </section>
@@ -782,8 +787,7 @@
       <p class="brief-sub">Tell us what you need. We'll build a custom creator intelligence brief — by hand, tuned to your issues.</p>
 
       <div class="brief-form-wrap">
-        <!-- TODO: Replace action with your Formspree endpoint, e.g. https://formspree.io/f/YOUR_FORM_ID -->
-        <form class="brief-form" id="brief-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <form class="brief-form" id="brief-form" action="https://formspree.io/f/xzznlvgj" method="POST">
 
           <div class="bf-field">
             <label class="bf-label" for="bf-industry">Your industry</label>

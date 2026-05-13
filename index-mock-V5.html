@@ -175,7 +175,9 @@
     .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #1f1f1f; }
     .featured-card { padding: 32px 28px; border-right: 1px solid #1f1f1f; display: flex; flex-direction: column; gap: 12px; }
     .featured-card:last-child { border-right: none; }
-    .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #a8a8a8; flex-shrink: 0; }
+    .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #a8a8a8; flex-shrink: 0; overflow: hidden; position: relative; }
+    .featured-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
+    .featured-avatar[data-initials]::after { content: attr(data-initials); font-size: 18px; font-weight: 700; color: #a8a8a8; }
     .featured-name { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
     .featured-pub { font-size: 13px; color: #a8a8a8; font-weight: 500; }
     .featured-beat { font-family: 'DM Mono', monospace; font-size: 9px; color: #ceff00; background: rgba(206,255,0,0.1); border: 1px solid rgba(206,255,0,0.2); padding: 2px 8px; border-radius: 100px; display: inline-block; text-transform: uppercase; letter-spacing: 0.1em; }
@@ -280,7 +282,11 @@
 
     /* ── RESEARCH MODULE ── */
     .research-section { background: #fff; padding: 72px 40px; position: relative; }
-    .research-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 55fr 45fr; gap: 64px; align-items: center; }
+    .research-inner { max-width: 1440px; margin: 0 auto; }
+    .research-header-band { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; margin-bottom: 40px; flex-wrap: wrap; }
+    .research-header-left { max-width: 640px; }
+    .research-cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    @media (max-width: 768px) { .research-cards-grid { grid-template-columns: 1fr; } .research-header-band { flex-direction: column; align-items: flex-start; } }
     .research-badge { font-family: 'DM Mono', monospace; font-size: 9px; color: #5d7400; background: rgba(151,214,0,0.12); border: 1px solid rgba(151,214,0,0.3); padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 16px; }
     .research-headline { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; }
     .research-sub { font-size: 16px; color: #555; line-height: 1.7; max-width: 480px; margin-bottom: 24px; }
@@ -296,6 +302,12 @@
     .research-card-body { padding: 20px 24px; }
     .research-card-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 12px; }
     .research-card-link { font-size: 12px; color: #5d7400; font-weight: 500; }
+    .research-card--feature-link { text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
+    .research-card--feature-link:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .research-card-header--photo { position: relative; display: flex; align-items: flex-end; padding: 16px 24px; min-height: 160px; background-size: cover; background-position: center top; }
+    .research-card-photo-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%); }
+    .research-card-source-pill { font-family: 'DM Mono', monospace; font-size: 9px; color: #000; background: #ceff00; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.1em; position: relative; z-index: 1; }
+    .research-card-title-body { font-size: 14px; font-weight: 700; color: #000; line-height: 1.3; margin-bottom: 8px; }
 
     /* ── PARTNER STRIP ── */
     .partner-section-v3 { background: #fff; padding: 40px 40px; border-top: 1px solid #d4d4d8; border-bottom: 1px solid #d4d4d8; position: relative; }
@@ -629,15 +641,12 @@
     <p class="gp-subtext">The Atlas maps 1,400+ verified creator-journalists by beat, platform, and geography. Start with what you need — or explore freely.</p>
     <div class="guided-grid">
 
-      <div class="guided-card">
+      <a href="search.html" class="guided-card">
         <div class="gc-eyebrow">For Readers</div>
         <div class="gc-title">Find independent journalists covering what matters to me.</div>
         <div class="gc-body">Browse the full database by topic, platform, or geography. Or explore curated collections by beat — no account required.</div>
-        <div style="display:flex;flex-direction:column;gap:4px;margin-top:auto;">
-          <a href="search.html" class="gc-link">Explore the database →</a>
-          <a href="lists.html" class="gc-link" style="opacity:0.6;">Browse collections →</a>
-        </div>
-      </div>
+        <div class="gc-link">Explore the database →</div>
+      </a>
 
       <a href="search.html" class="guided-card">
         <div class="gc-eyebrow">For Journalists &amp; Researchers</div>
@@ -681,8 +690,10 @@
     <div class="featured-grid">
 
       <div class="featured-card">
-        <div class="featured-avatar">CN</div>
-        <!-- CMS: replace avatar with <img src="..." alt="Casey Newton"> when photo sourced -->
+        <div class="featured-avatar">
+          <img src="assets/images/creators/casey_newton.jpg" alt="Casey Newton"
+               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','CN')">
+        </div>
         <div class="featured-name">Casey Newton</div>
         <div class="featured-pub">Platformer</div>
         <span class="featured-beat">Technology</span>
@@ -691,25 +702,27 @@
       </div>
 
       <div class="featured-card">
-        <div class="featured-avatar">AW</div>
-        <!-- CMS: replace avatar with <img src="..." alt="Amy Westervelt"> when photo sourced -->
-        <div class="featured-name">Amy Westervelt</div>
-        <div class="featured-pub">Drilled News</div>
-        <span class="featured-beat">Climate</span>
-        <div class="featured-editorial">Westervelt built a full investigative climate operation from scratch — podcast, newsletter, and production company — doing the accountability work big newsrooms walked away from. <strong>No institution required.</strong></div>
-        <!-- TODO: replace with partners/amy-westervelt when built; emily-atkin.html is closest current climate partner page -->
-        <a href="partners/emily-atkin.html" class="featured-link">View Atlas profile →</a>
+        <div class="featured-avatar">
+          <img src="assets/images/creators/jessica_valenti.jpg" alt="Jessica Valenti"
+               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','JV')">
+        </div>
+        <div class="featured-name">Jessica Valenti</div>
+        <div class="featured-pub">Abortion, Every Day</div>
+        <span class="featured-beat">Gender &amp; Rights</span>
+        <div class="featured-editorial">Valenti launched Abortion, Every Day the week <em>Roe</em> fell and built it into the most closely-read independent newsletter on reproductive rights in the country — faster, more granular, and more trusted than any institutional outlet covering the same beat. <strong>The story found its reporter.</strong></div>
+        <a href="search.html?q=Jessica+Valenti" class="featured-link">View in Atlas →</a>
       </div>
 
       <div class="featured-card">
-        <div class="featured-avatar">JH</div>
-        <!-- CMS: replace avatar with <img src="..." alt="Jessica Huseman"> when photo sourced -->
-        <div class="featured-name">Jessica Huseman</div>
-        <div class="featured-pub">Votebeat</div>
-        <span class="featured-beat">Politics &amp; Elections</span>
-        <div class="featured-editorial">Huseman built Votebeat into the country's only newsroom dedicated to election infrastructure — a beat that didn't exist before she named it. <strong>Covering the systems democracy actually runs on.</strong></div>
-        <!-- TODO: route to /features/jessica-huseman when editorial layer is built -->
-        <a href="about-this-project.html" class="featured-link">View Atlas profile →</a>
+        <div class="featured-avatar">
+          <img src="assets/images/creators/alicia_kennedy.jpeg" alt="Alicia Kennedy"
+               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','AK')">
+        </div>
+        <div class="featured-name">Alicia Kennedy</div>
+        <div class="featured-pub">From the Desk of Alicia Kennedy</div>
+        <span class="featured-beat">Food &amp; Culture</span>
+        <div class="featured-editorial">Kennedy turned food writing into moral and political inquiry — her newsletter on what we eat, why it matters, and who profits is essential reading in food media and well beyond it. Built a loyal paid subscriber base without a masthead behind her. <strong>The beat is bigger than the institution ever made it.</strong></div>
+        <a href="search.html?q=Alicia+Kennedy" class="featured-link">View in Atlas →</a>
       </div>
 
     </div>
@@ -794,55 +807,73 @@
 <section class="research-section" style="position:relative;">
   <div class="research-inner">
 
-    <div class="research-left">
-      <div class="research-badge">Research</div>
-      <h2 class="research-headline">Original analysis of an ecosystem most journalism coverage ignores.</h2>
-      <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. One methodology brief live. Two major studies landing this summer.</p>
+    <!-- Header band: headline + CTA -->
+    <div class="research-header-band">
+      <div class="research-header-left">
+        <div class="research-badge">Research</div>
+        <h2 class="research-headline">Original analysis of an ecosystem most journalism coverage ignores.</h2>
+        <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. One methodology brief live. Two major studies landing this summer.</p>
+      </div>
       <a href="research.html" class="btn-lime">View all research →</a>
     </div>
 
-    <div class="research-right">
-      <div class="research-cards-stack">
+    <!-- 2×2 card grid -->
+    <div class="research-cards-grid">
 
-        <!-- Card 1: CNTI — live -->
-        <div class="research-card">
-          <div class="research-card-header">
-            <span class="research-card-title-text">US Indie Info Providers: Professionally Diverse, Mission-driven, Sometimes Lonely, Rarely Earning Profit</span>
-          </div>
-          <div class="research-card-body">
-            <div class="research-card-status">Center for News, Technology &amp; Innovation · April 2026</div>
-            <p class="research-card-desc">26 independent info providers interviewed. 1 in 5 Americans now get news from individuals, not institutions. Very few are making a full income from the work.</p>
-            <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-card-link">Read the report →</a>
-          </div>
+      <!-- Card 1: CNTI — live -->
+      <div class="research-card">
+        <div class="research-card-header">
+          <span class="research-card-title-text">US Indie Info Providers: Professionally Diverse, Mission-driven, Sometimes Lonely, Rarely Earning Profit</span>
         </div>
-
-        <!-- Card 2: Bluesky Intelligence — live -->
-        <div class="research-card">
-          <div class="research-card-header" style="background: linear-gradient(135deg, #0a1628 0%, #0f2d5e 100%);">
-            <span class="research-card-title-text">Mapping Independent Journalists on Bluesky</span>
-          </div>
-          <div class="research-card-body">
-            <div class="research-card-status">Atlas Methodology Brief · May 2026</div>
-            <p class="research-card-desc">How we spidered 500+ creator-journalists across the AT Protocol — starter packs, curator networks, and the structure of the independent journalism graph on Bluesky.</p>
-            <a href="bluesky-creator-intelligence.html" class="research-card-link">Read the brief →</a>
-          </div>
+        <div class="research-card-body">
+          <div class="research-card-status">Center for News, Technology &amp; Innovation · April 2026</div>
+          <p class="research-card-desc">26 independent info providers interviewed. 1 in 5 Americans now get news from individuals, not institutions. Very few are making a full income from the work.</p>
+          <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-card-link">Read the report →</a>
         </div>
-
-        <!-- Card 3: ASU/Knight — coming -->
-        <div class="research-card research-card--muted">
-          <div class="research-card-header">
-            <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
-          </div>
-          <div class="research-card-body">
-            <div class="research-card-status">Knight Foundation · Arizona State University · Coming June 2026</div>
-            <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem.</p>
-            <span class="research-card-link" style="color:#bbb;cursor:default;">Coming June 2026</span>
-          </div>
-        </div>
-
       </div>
-    </div>
 
+      <!-- Card 2: Bluesky Intelligence — live -->
+      <div class="research-card">
+        <div class="research-card-header" style="background: linear-gradient(135deg, #0a1628 0%, #0f2d5e 100%);">
+          <span class="research-card-title-text">Mapping Independent Journalists on Bluesky</span>
+        </div>
+        <div class="research-card-body">
+          <div class="research-card-status">Atlas Methodology Brief · May 2026</div>
+          <p class="research-card-desc">How we spidered 500+ creator-journalists across the AT Protocol — starter packs, curator networks, and the structure of the independent journalism graph on Bluesky.</p>
+          <a href="bluesky-intelligence.html" class="research-card-link">Read the brief →</a>
+        </div>
+      </div>
+
+      <!-- Card 3: ASU/Knight — coming -->
+      <div class="research-card research-card--muted">
+        <div class="research-card-header">
+          <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
+        </div>
+        <div class="research-card-body">
+          <div class="research-card-status">Knight Foundation · Arizona State University · Coming June 2026</div>
+          <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem.</p>
+          <span class="research-card-link" style="color:#bbb;cursor:default;">Coming June 2026</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Project C feature — Marisa Kabas -->
+      <a href="https://newsletter.projectc.biz/p/the-accountability-beat-has-moved"
+         target="_blank" rel="noopener noreferrer"
+         class="research-card research-card--feature-link">
+        <div class="research-card-header research-card-header--photo"
+             style="background-image: url('https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/4fe562d4-6ad9-40db-9c86-47fe4dc8d601/Beehiiv_thumbnail_cover_art__840_x_560_px___25_.png');">
+          <div class="research-card-photo-overlay"></div>
+          <span class="research-card-source-pill">Project C</span>
+        </div>
+        <div class="research-card-body">
+          <div class="research-card-status">Liz Kelly Nelson &amp; Justin Bank · April 2026</div>
+          <p class="research-card-title-body">The reporting is moving. The credit isn't.</p>
+          <p class="research-card-desc">Marisa Kabas spent a year in federal court to get the footage. Then a TV station called with three hours notice. A story about accountability journalism outside the institution — and who gets credit for it.</p>
+          <span class="research-card-link">Read on Project C →</span>
+        </div>
+      </a>
+
+    </div>
   </div>
 </section>
 
@@ -967,7 +998,7 @@
       <div class="cluster-creators">
         <span class="cluster-creator-name">Matt Levine</span>
         <span class="cluster-creator-name">Felix Salmon</span>
-        <span class="cluster-creator-name">Erin Griffith</span>
+        <span class="cluster-creator-name">Doomberg</span>
       </div>
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
@@ -1011,7 +1042,7 @@
       <div class="cluster-creators">
         <span class="cluster-creator-name">Anne Helen Petersen</span>
         <span class="cluster-creator-name">Kyle Chayka</span>
-        <span class="cluster-creator-name">Embedded</span>
+        <span class="cluster-creator-name">Kate Lindsay</span>
       </div>
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
@@ -1031,9 +1062,9 @@
         <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.4;"></span>YouTube 13</span>
       </div>
       <div class="cluster-creators">
+        <span class="cluster-creator-name">Jane Ferguson</span>
         <span class="cluster-creator-name">Bellingcat</span>
         <span class="cluster-creator-name">OCCRP</span>
-        <span class="cluster-creator-name">Rest of World</span>
       </div>
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
