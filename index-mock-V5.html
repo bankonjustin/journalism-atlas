@@ -172,6 +172,8 @@
     .featured-title { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 36px; }
     .featured-sub { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 480px; margin-top: 8px; }
     .featured-view-all { font-family: 'DM Mono', monospace; font-size: 10px; color: #ceff00; letter-spacing: 0.08em; white-space: nowrap; }
+    .featured-grid-wrap { position: relative; }
+    .featured-grid-wrap::after { content: ''; position: absolute; top: 0; right: 0; width: 160px; height: 100%; background: linear-gradient(to right, transparent, #000 85%); pointer-events: none; z-index: 2; }
     .featured-grid { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-right: 80px; cursor: grab; }
     .featured-grid::-webkit-scrollbar { display: none; }
     .featured-grid:active { cursor: grabbing; }
@@ -183,8 +185,6 @@
     .featured-scroll-arrow { font-size: 16px; color: rgba(255,255,255,0.2); animation: arrowPulse 2s ease-in-out infinite; }
     .featured-scroll-label { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.14em; text-transform: uppercase; }
     @keyframes arrowPulse { 0%, 100% { transform: translateX(0); opacity: 0.2; } 50% { transform: translateX(5px); opacity: 0.5; } }
-    @keyframes nudgeScroll { 0% { transform: translateX(0); } 15% { transform: translateX(-18px); } 30% { transform: translateX(0); } 100% { transform: translateX(0); } }
-    .featured-grid--nudge { animation: nudgeScroll 2.4s ease-in-out 1.2s 1 both; }
     .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #a8a8a8; flex-shrink: 0; overflow: hidden; position: relative; }
     .featured-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
     .featured-avatar[data-initials]::after { content: attr(data-initials); font-size: 18px; font-weight: 700; color: #a8a8a8; }
@@ -704,6 +704,7 @@
       </div>
     </div>
 
+    <div class="featured-grid-wrap">
     <div class="featured-grid">
 
       <div class="featured-card">
@@ -768,7 +769,34 @@
         <a href="search.html?q=Kyla+Scanlon" class="featured-link">View in Atlas →</a>
       </div>
 
+      <!-- Card 6: Kahlil Greene -->
+      <div class="featured-card">
+        <div class="featured-avatar">
+          <img src="assets/images/creators/kahlil_greene.jpg" alt="Kahlil Greene"
+               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','KG')">
+        </div>
+        <div class="featured-name">Kahlil Greene</div>
+        <div class="featured-pub">History Can't Hide</div>
+        <span class="featured-beat">History &amp; Culture</span>
+        <div class="featured-editorial">Greene built a million-follower operation making suppressed American history impossible to ignore — Emmy-nominated, Peabody-winning, and now a National Geographic docuseries. Yale-educated, first Black student body president, entirely independent. <strong>The credential is the audience, not the institution.</strong></div>
+        <a href="search.html?q=Kahlil+Greene" class="featured-link">View in Atlas →</a>
+      </div>
+
+      <!-- Card 7: Tim Mak -->
+      <div class="featured-card">
+        <div class="featured-avatar">
+          <img src="assets/images/creators/tim_mak.jpg" alt="Tim Mak"
+               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','TM')">
+        </div>
+        <div class="featured-name">Tim Mak</div>
+        <div class="featured-pub">The Counteroffensive</div>
+        <span class="featured-beat">International</span>
+        <div class="featured-editorial">NPR laid Mak off. He flew back to Kyiv alone, launched the first Substack dedicated to war correspondence, and built a team of seven journalists on the ground. Now 142,000 subscribers — Substack's largest international publication. <strong>The foreign bureau didn't disappear. It went independent.</strong></div>
+        <a href="search.html?q=Tim+Mak" class="featured-link">View in Atlas →</a>
+      </div>
+
     </div>
+    </div><!-- /.featured-grid-wrap -->
 
   </div>
 </section>
@@ -777,10 +805,43 @@
 (function() {
   var grid = document.querySelector('.featured-grid');
   if (!grid) return;
-  grid.classList.add('featured-grid--nudge');
-  grid.addEventListener('scroll', function() {
-    grid.classList.remove('featured-grid--nudge');
-  }, { once: true });
+
+  // Scroll-peek: scroll right to reveal card 2's edge, then ease back
+  var peeked = false;
+  function scrollPeek() {
+    if (peeked) return;
+    peeked = true;
+    var target = 200;
+    var duration = 520;
+    var start = null;
+    function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      grid.scrollLeft = easeInOut(progress) * target;
+      if (progress < 1) { requestAnimationFrame(step); }
+      else {
+        // pause then ease back
+        setTimeout(function() {
+          var start2 = null;
+          function stepBack(ts2) {
+            if (!start2) start2 = ts2;
+            var p = Math.min((ts2 - start2) / 420, 1);
+            grid.scrollLeft = target * (1 - easeInOut(p));
+            if (p < 1) requestAnimationFrame(stepBack);
+          }
+          requestAnimationFrame(stepBack);
+        }, 480);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Fire peek after a short delay, cancel if user scrolls first
+  var peekTimer = setTimeout(scrollPeek, 1400);
+  grid.addEventListener('scroll', function() { clearTimeout(peekTimer); peeked = true; }, { once: true });
+
+  // Mouse drag to scroll
   var isDown = false, startX, scrollLeft;
   grid.addEventListener('mousedown', function(e) {
     isDown = true;
