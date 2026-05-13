@@ -184,6 +184,41 @@
     .featured-link { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; transition: color 0.15s; margin-top: auto; }
     .featured-link:hover { color: #ceff00; }
 
+    /* ── CREDENTIALS STRIP ── */
+    .credentials-strip {
+      background: #0a0a0a;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .credentials-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      text-align: center;
+      margin: 0;
+    }
+    .credentials-orgs {
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.06em;
+    }
+    .credentials-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #ceff00;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+    .credentials-link:hover { opacity: 0.7; }
+
     /* ── PULSE MODULE ── */
     .pulse-section { background: #efeff2; padding: 64px 40px; position: relative; }
     .pulse-inner { max-width: 1440px; margin: 0 auto; }
@@ -219,6 +254,9 @@
     .intel-section-header { margin-bottom: 24px; }
     .intel-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 8px; }
     .intel-title { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.02em; line-height: 36px; margin-bottom: 8px; }
+    .intel-thesis { margin-bottom: 32px; }
+    .intel-thesis p { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; color: #000; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 4px; }
+    .intel-thesis-coda { font-size: clamp(14px, 1.4vw, 18px) !important; font-weight: 400 !important; color: #888 !important; letter-spacing: -0.01em !important; margin-top: 10px !important; }
     .intel-narrative { font-size: 14px; color: #999; line-height: 1.7; max-width: 520px; margin-top: 6px; }
     .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .cluster-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 20px 18px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: border-color 0.15s; text-decoration: none; }
@@ -503,7 +541,7 @@
     <div>
       <div class="hero-eyebrow-pill"><span class="js-creator-count">1,453</span> verified creator-journalists</div>
       <h1 class="hero-headline">Independent Journalism<br>Didn't Disappear.<br>It's <em>Moving.</em></h1>
-      <p class="hero-subhead">The Atlas will help you find it. We've mapped <span class="js-creator-count">1,453</span> verified independent journalists — by beat, platform, geography, and audience.</p>
+      <p class="hero-subhead">The Atlas maps it — <span class="js-creator-count">1,453</span> verified creator-journalists, organized by beat, platform, and geography.</p>
     </div>
     <div>
       <div class="hero-ctas">
@@ -586,15 +624,15 @@
      ══════════════════════════════════════════════════════════ -->
 <section class="guided-paths">
   <div class="guided-paths-inner">
-    <div class="gp-eyebrow">Start here</div>
-    <h2 class="gp-title">What are you trying to do?</h2>
-    <p class="gp-subtext">The Atlas maps 1,400+ verified creator-journalists by beat, platform, and geography. Start with what you need.</p>
+    <div class="gp-eyebrow">Four ways in</div>
+    <h2 class="gp-title">Who are you, and what do you need?</h2>
+    <p class="gp-subtext">The Atlas maps 1,400+ verified creator-journalists by beat, platform, and geography. Start with what you need — or explore freely.</p>
     <div class="guided-grid">
 
       <div class="guided-card">
         <div class="gc-eyebrow">For Readers</div>
-        <div class="gc-title">I want to find independent journalists covering what matters to me.</div>
-        <div class="gc-body">Browse the full database by topic, platform, or geography — or explore curated collections by beat.</div>
+        <div class="gc-title">Find independent journalists covering what matters to me.</div>
+        <div class="gc-body">Browse the full database by topic, platform, or geography. Or explore curated collections by beat — no account required.</div>
         <div style="display:flex;flex-direction:column;gap:4px;margin-top:auto;">
           <a href="search.html" class="gc-link">Explore the database →</a>
           <a href="lists.html" class="gc-link" style="opacity:0.6;">Browse collections →</a>
@@ -603,15 +641,15 @@
 
       <a href="search.html" class="guided-card">
         <div class="gc-eyebrow">For Journalists &amp; Researchers</div>
-        <div class="gc-title">I'm mapping the ecosystem or looking for sources.</div>
-        <div class="gc-body">Advanced filters by platform, geography, topic, and reach. Build source lists, explore beat clusters, track what's being published.</div>
+        <div class="gc-title">I need sources, or I'm mapping the ecosystem.</div>
+        <div class="gc-body">Advanced filters by platform, geography, topic, and reach. Build source lists, explore beat clusters, and track what independent journalists are actually publishing.</div>
         <div class="gc-link">Search the full database →</div>
       </a>
 
       <a href="about-this-project.html" class="guided-card">
         <div class="gc-eyebrow">For Funders &amp; Partners</div>
-        <div class="gc-title">I want to understand the infrastructure and how to support it.</div>
-        <div class="gc-body">The Atlas is a verification and mapping layer for independent journalism. We work with foundations, newsrooms, and journalism organizations to surface what's being built.</div>
+        <div class="gc-title">I want to understand the infrastructure — and how to support it.</div>
+        <div class="gc-body">The Atlas is a verification and mapping layer for independent journalism. We work with foundations, newsrooms, and journalism organizations to document what's being built outside the institution.</div>
         <div class="gc-link">See how we work →</div>
       </a>
 
@@ -633,9 +671,9 @@
   <div class="featured-inner">
     <div class="featured-header-row">
       <div class="featured-header-left">
-        <div class="featured-eyebrow">Featured in the Atlas</div>
-        <div class="featured-title">Journalists Doing the Work.</div>
-        <div class="featured-sub">A rotating selection from our verified creator pool — updated weekly. Each pick reflects the ecosystem's depth, not just its most familiar names.</div>
+        <div class="featured-eyebrow">From the verified pool</div>
+        <div class="featured-title">Who We're Watching Right Now.</div>
+        <div class="featured-sub">A rotating selection from our verified creator pool, updated weekly. Each pick reflects the depth of the ecosystem — <strong>not just its most familiar names.</strong></div>
       </div>
       <a href="search.html" class="featured-view-all">View all featured →</a>
     </div>
@@ -648,7 +686,7 @@
         <div class="featured-name">Casey Newton</div>
         <div class="featured-pub">Platformer</div>
         <span class="featured-beat">Technology</span>
-        <div class="featured-editorial">Newton left The Verge to build one of the most closely-read newsletters on the business and culture of big tech — proof that the institutional byline isn't the credential anymore.</div>
+        <div class="featured-editorial">Newton left The Verge to build Platformer into one of the most closely-read newsletters in tech — breaking stories institutional outlets follow up on. Proof that the byline isn't the credential anymore. <strong>The work is.</strong></div>
         <a href="search.html" class="featured-link">View in Atlas →</a>
       </div>
 
@@ -658,7 +696,7 @@
         <div class="featured-name">Amy Westervelt</div>
         <div class="featured-pub">Drilled News</div>
         <span class="featured-beat">Climate</span>
-        <div class="featured-editorial">Westervelt built an investigative climate journalism operation from scratch — podcast, newsletter, and a production company — doing the accountability work institutional newsrooms deprioritized.</div>
+        <div class="featured-editorial">Westervelt built a full investigative climate operation from scratch — podcast, newsletter, and production company — doing the accountability work big newsrooms walked away from. <strong>No institution required.</strong></div>
         <!-- TODO: replace with partners/amy-westervelt when built; emily-atkin.html is closest current climate partner page -->
         <a href="partners/emily-atkin.html" class="featured-link">View Atlas profile →</a>
       </div>
@@ -669,7 +707,7 @@
         <div class="featured-name">Jessica Huseman</div>
         <div class="featured-pub">Votebeat</div>
         <span class="featured-beat">Politics &amp; Elections</span>
-        <div class="featured-editorial">Huseman built Votebeat into the country's only dedicated election infrastructure newsroom — a category that didn't exist before she created it, covering the systems democracy runs on.</div>
+        <div class="featured-editorial">Huseman built Votebeat into the country's only newsroom dedicated to election infrastructure — a beat that didn't exist before she named it. <strong>Covering the systems democracy actually runs on.</strong></div>
         <!-- TODO: route to /features/jessica-huseman when editorial layer is built -->
         <a href="about-this-project.html" class="featured-link">View Atlas profile →</a>
       </div>
@@ -678,6 +716,18 @@
 
   </div>
 </section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CREDENTIALS STRIP
+     ══════════════════════════════════════════════════════════ -->
+<div class="credentials-strip">
+  <p class="credentials-text">
+    Built by journalists who have worked at
+    <span class="credentials-orgs">The Washington Post · The New York Times · NPR · Axios · Vox · USA Today</span>
+    — because the map didn't exist.
+  </p>
+  <a href="about-this-project.html#who-we-are" class="credentials-link">Meet the team →</a>
+</div>
 
 <!-- ══════════════════════════════════════════════════════════
      SECTION 6: PULSE MODULE
@@ -691,10 +741,9 @@
           <span class="pulse-dot"></span>
           <span id="pulse-badge-date">Atlas Pulse · Updated May 9, 2026</span>
         </div>
-        <div class="pulse-headline">Atlas Pulse — What the Ecosystem Is Publishing Right Now.</div>
+        <div class="pulse-headline">What the Ecosystem Is Publishing.</div>
         <div class="pulse-sub">
-          882 creator feeds, monitored weekly.
-          <span class="pulse-dot-sm"></span> Summaries by beat, updated continuously.
+          882 creator feeds, monitored regularly. Summaries by beat.
         </div>
       </div>
       <a href="pulse.html" class="pulse-open-btn">Open full Pulse feed →</a>
@@ -725,8 +774,8 @@
     <div class="stat-lbl">Countries represented</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num dark">9</div>
-    <div class="stat-lbl">Beat clusters mapped</div>
+    <div class="stat-num dark">180<span class="stat-plus">+</span></div>
+    <div class="stat-lbl">Cities represented</div>
   </div>
   <a href="pulse.html" class="stat-cell stat-cell--linked">
     <div class="stat-num green">882</div>
@@ -747,8 +796,8 @@
 
     <div class="research-left">
       <div class="research-badge">Research</div>
-      <h2 class="research-headline">Research from the Atlas and our partners.</h2>
-      <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. Two studies in progress, one methodology brief live.</p>
+      <h2 class="research-headline">Original analysis of an ecosystem most journalism coverage ignores.</h2>
+      <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. One methodology brief live. Two major studies landing this summer.</p>
       <a href="research.html" class="btn-lime">View all research →</a>
     </div>
 
@@ -802,7 +851,11 @@
      ══════════════════════════════════════════════════════════ -->
 <section class="intel-section" style="position:relative;">
   <div class="intel-section-header">
-    <div class="intel-eyebrow">How the Atlas is organized</div>
+    <div class="intel-thesis">
+      <p>Independent journalism didn't collapse.</p>
+      <p>It reorganized — around beats and platforms, not mastheads.</p>
+      <p class="intel-thesis-coda">These nine clusters map where the work is happening.</p>
+    </div>
     <div class="intel-title">Nine Communities of Independent Journalism.</div>
     <div class="intel-narrative">Independent journalism didn't collapse — it reorganized around beats and platforms rather than mastheads. These nine clusters map where the work is happening and who's doing it.</div>
   </div>
@@ -1017,13 +1070,11 @@
      SECTION 9: PARTNER STRIP
      ══════════════════════════════════════════════════════════ -->
 <section class="partner-section-v3" style="position:relative;">
-  <div class="partner-label">Trusted by journalism organizations</div>
+  <div class="partner-label">Working with</div>
   <div class="partner-logos-row">
     <div class="partner-logo-slot"><span class="partner-logo-text">Chicago Press Forward</span></div>
     <div class="partner-logo-slot"><span class="partner-logo-text">ICFJ</span></div>
     <div class="partner-logo-slot"><span class="partner-logo-text">SembraMedia</span></div>
-    <div class="partner-logo-slot"><span class="partner-logo-text">Smart News</span></div>
-    <div class="partner-logo-slot"><span class="partner-logo-text">Stacker</span></div>
   </div>
 </section>
 
@@ -1033,10 +1084,8 @@
 <section class="db-section" style="position:relative;">
   <div class="db-header">
     <div>
-      <h2>Start Exploring the Atlas.</h2>
-      <p><span class="js-creator-count">1,453</span> verified creator-journalists. Filter by topic, platform, or geography — or search by name. Free to explore, no account required.</p>
+      <h2>1,453 creators. Free to explore. No account required.</h2>
     </div>
-    <div class="db-header-note"><span class="js-creator-count">1,453</span> verified — and growing</div>
   </div>
   <div class="db-filter-bar">
     <select class="db-filter-select">
@@ -1116,7 +1165,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <img src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Journalism Atlas">
-        <p class="footer-tagline">Mapping independent journalism since 2024.</p>
+        <p class="footer-tagline">Independent journalism is moving. We're following it.</p>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Explore</div>
