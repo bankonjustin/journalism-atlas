@@ -165,16 +165,26 @@
     .stat-cell--linked .stat-sub { color: #5d7400; }
 
     /* ── FEATURED CREATORS ── */
-    .featured-section { background: #000; padding: 64px 40px; position: relative; }
+    .featured-section { background: #000; padding: 64px 0 64px 40px; position: relative; overflow: hidden; }
     .featured-inner { max-width: 1440px; margin: 0 auto; }
-    .featured-header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
+    .featured-header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; padding-right: 40px; }
     .featured-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px; }
     .featured-title { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 36px; }
     .featured-sub { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 480px; margin-top: 8px; }
     .featured-view-all { font-family: 'DM Mono', monospace; font-size: 10px; color: #ceff00; letter-spacing: 0.08em; white-space: nowrap; }
-    .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #1f1f1f; }
-    .featured-card { padding: 32px 28px; border-right: 1px solid #1f1f1f; display: flex; flex-direction: column; gap: 12px; }
-    .featured-card:last-child { border-right: none; }
+    .featured-grid { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-right: 80px; cursor: grab; }
+    .featured-grid::-webkit-scrollbar { display: none; }
+    .featured-grid:active { cursor: grabbing; }
+    .featured-card { flex: 0 0 380px; padding: 32px 28px; border: 1px solid #1f1f1f; border-left: none; display: flex; flex-direction: column; gap: 12px; scroll-snap-align: start; }
+    .featured-card:first-child { border-left: 1px solid #1f1f1f; }
+    .featured-grid::after { content: ''; flex: 0 0 40px; }
+    .featured-header-right { display: flex; align-items: center; gap: 20px; padding-right: 40px; }
+    .featured-scroll-hint { display: flex; align-items: center; gap: 6px; }
+    .featured-scroll-arrow { font-size: 16px; color: rgba(255,255,255,0.2); animation: arrowPulse 2s ease-in-out infinite; }
+    .featured-scroll-label { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.14em; text-transform: uppercase; }
+    @keyframes arrowPulse { 0%, 100% { transform: translateX(0); opacity: 0.2; } 50% { transform: translateX(5px); opacity: 0.5; } }
+    @keyframes nudgeScroll { 0% { transform: translateX(0); } 15% { transform: translateX(-18px); } 30% { transform: translateX(0); } 100% { transform: translateX(0); } }
+    .featured-grid--nudge { animation: nudgeScroll 2.4s ease-in-out 1.2s 1 both; }
     .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #a8a8a8; flex-shrink: 0; overflow: hidden; position: relative; }
     .featured-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
     .featured-avatar[data-initials]::after { content: attr(data-initials); font-size: 18px; font-weight: 700; color: #a8a8a8; }
@@ -252,14 +262,15 @@
     .pulse-free-notice { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #888; font-weight: 500; margin-top: 8px; }
 
     /* ── INTEL / CLUSTER GRID ── */
-    .intel-section { background: #efeff2; padding: 56px 40px; position: relative; }
-    .intel-section-header { margin-bottom: 24px; }
-    .intel-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 8px; }
-    .intel-title { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.02em; line-height: 36px; margin-bottom: 8px; }
-    .intel-thesis { margin-bottom: 32px; }
-    .intel-thesis p { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; color: #000; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 4px; }
-    .intel-thesis-coda { font-size: clamp(14px, 1.4vw, 18px) !important; font-weight: 400 !important; color: #888 !important; letter-spacing: -0.01em !important; margin-top: 10px !important; }
-    .intel-narrative { font-size: 14px; color: #999; line-height: 1.7; max-width: 520px; margin-top: 6px; }
+    .intel-thesis-band { background: #000; padding: 56px 40px 52px; }
+    .intel-thesis-band-inner { max-width: 1440px; margin: 0 auto; }
+    .intel-thesis p { font-size: clamp(28px, 4vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 0; }
+    .intel-thesis p:first-child { color: rgba(255,255,255,0.35); }
+    .intel-thesis p:nth-child(2) { color: #fff; }
+    .intel-thesis-coda { display: block; font-family: 'DM Mono', monospace; font-size: 11px !important; font-weight: 400 !important; color: rgba(255,255,255,0.25) !important; letter-spacing: 0.12em !important; text-transform: uppercase; margin-top: 28px !important; line-height: 1.6 !important; }
+    .intel-section { background: #efeff2; padding: 40px 40px 56px; position: relative; }
+    .intel-section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .intel-title { font-size: 20px; font-weight: 700; color: #000; letter-spacing: -0.02em; }
     .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .cluster-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 20px 18px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: border-color 0.15s; text-decoration: none; }
     .cluster-card:hover { border-color: #b0b0b8; }
@@ -684,7 +695,13 @@
         <div class="featured-title">Who We're Watching Right Now.</div>
         <div class="featured-sub">A rotating selection from our verified creator pool, updated weekly. Each pick reflects the depth of the ecosystem — <strong>not just its most familiar names.</strong></div>
       </div>
-      <a href="search.html" class="featured-view-all">View all featured →</a>
+      <div class="featured-header-right">
+        <div class="featured-scroll-hint">
+          <span class="featured-scroll-arrow">&#8594;</span>
+          <span class="featured-scroll-label">scroll</span>
+        </div>
+        <a href="search.html" class="featured-view-all">View all →</a>
+      </div>
     </div>
 
     <div class="featured-grid">
@@ -725,10 +742,65 @@
         <a href="search.html?q=Alicia+Kennedy" class="featured-link">View in Atlas →</a>
       </div>
 
+      <!-- Card 4: Amy Westervelt -->
+      <div class="featured-card">
+        <div class="featured-avatar">
+          <img src="assets/images/creators/amy_westervelt.jpg" alt="Amy Westervelt"
+               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','AW')">
+        </div>
+        <div class="featured-name">Amy Westervelt</div>
+        <div class="featured-pub">Drilled News</div>
+        <span class="featured-beat">Climate</span>
+        <div class="featured-editorial">Westervelt built a full investigative climate operation from scratch — podcast, newsletter, and production company — doing the accountability work big newsrooms walked away from. <strong>No institution required.</strong></div>
+        <a href="search.html?q=Amy+Westervelt" class="featured-link">View in Atlas →</a>
+      </div>
+
+      <!-- Card 5: Jessica Huseman -->
+      <div class="featured-card">
+        <div class="featured-avatar">
+          <img src="assets/images/creators/jessica_huseman.jpg" alt="Jessica Huseman"
+               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','JH')">
+        </div>
+        <div class="featured-name">Jessica Huseman</div>
+        <div class="featured-pub">Votebeat</div>
+        <span class="featured-beat">Politics &amp; Elections</span>
+        <div class="featured-editorial">Huseman built Votebeat into the country's only newsroom dedicated to election infrastructure — a beat that didn't exist before she named it. <strong>Covering the systems democracy actually runs on.</strong></div>
+        <a href="search.html?q=Jessica+Huseman" class="featured-link">View in Atlas →</a>
+      </div>
+
     </div>
 
   </div>
 </section>
+
+<script>
+(function() {
+  var grid = document.querySelector('.featured-grid');
+  if (!grid) return;
+  grid.classList.add('featured-grid--nudge');
+  grid.addEventListener('scroll', function() {
+    grid.classList.remove('featured-grid--nudge');
+  }, { once: true });
+  var isDown = false, startX, scrollLeft;
+  grid.addEventListener('mousedown', function(e) {
+    isDown = true;
+    grid.style.userSelect = 'none';
+    startX = e.pageX - grid.offsetLeft;
+    scrollLeft = grid.scrollLeft;
+  });
+  grid.addEventListener('mouseleave', function() { isDown = false; });
+  grid.addEventListener('mouseup', function() {
+    isDown = false;
+    grid.style.userSelect = '';
+  });
+  grid.addEventListener('mousemove', function(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - grid.offsetLeft;
+    grid.scrollLeft = scrollLeft - (x - startX);
+  });
+})();
+</script>
 
 <!-- ══════════════════════════════════════════════════════════
      CREDENTIALS STRIP
@@ -880,15 +952,19 @@
 <!-- ══════════════════════════════════════════════════════════
      SECTION 8: INTELLIGENCE CLUSTER GRID
      ══════════════════════════════════════════════════════════ -->
-<section class="intel-section" style="position:relative;">
-  <div class="intel-section-header">
+<div class="intel-thesis-band">
+  <div class="intel-thesis-band-inner">
     <div class="intel-thesis">
       <p>Independent journalism didn't collapse.</p>
       <p>It reorganized — around beats and platforms, not mastheads.</p>
-      <p class="intel-thesis-coda">These nine clusters map where the work is happening.</p>
+      <span class="intel-thesis-coda">These nine clusters map where the work is happening.</span>
     </div>
+  </div>
+</div>
+
+<section class="intel-section" style="position:relative;">
+  <div class="intel-section-header">
     <div class="intel-title">Nine Communities of Independent Journalism.</div>
-    <div class="intel-narrative">Independent journalism didn't collapse — it reorganized around beats and platforms rather than mastheads. These nine clusters map where the work is happening and who's doing it.</div>
   </div>
   <div class="intel-grid">
 
@@ -996,9 +1072,9 @@
         <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:0.4;"></span>YouTube 18</span>
       </div>
       <div class="cluster-creators">
-        <span class="cluster-creator-name">Matt Levine</span>
-        <span class="cluster-creator-name">Felix Salmon</span>
-        <span class="cluster-creator-name">Doomberg</span>
+        <span class="cluster-creator-name">Kyla Scanlon</span>
+        <span class="cluster-creator-name">Byrne Hobart</span>
+        <span class="cluster-creator-name">Bryce Covert</span>
       </div>
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
@@ -1041,7 +1117,7 @@
       </div>
       <div class="cluster-creators">
         <span class="cluster-creator-name">Anne Helen Petersen</span>
-        <span class="cluster-creator-name">Kyle Chayka</span>
+        <span class="cluster-creator-name">Ryan Broderick</span>
         <span class="cluster-creator-name">Kate Lindsay</span>
       </div>
       <span class="cluster-explore-link">Explore cluster →</span>
@@ -1062,9 +1138,9 @@
         <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.4;"></span>YouTube 13</span>
       </div>
       <div class="cluster-creators">
-        <span class="cluster-creator-name">Jane Ferguson</span>
-        <span class="cluster-creator-name">Bellingcat</span>
-        <span class="cluster-creator-name">OCCRP</span>
+        <span class="cluster-creator-name">Bisan Owda</span>
+        <span class="cluster-creator-name">Bill Bishop</span>
+        <span class="cluster-creator-name">Tim Mak</span>
       </div>
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
