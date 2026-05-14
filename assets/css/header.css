@@ -4,7 +4,7 @@
    HTML injected by assets/js/header.js
    ===================================================== */
 
-/* ── Global typography baseline ── */
+/* ── Global typography baseline — set here for cascade priority (header.css loads last in <head> on every page) ── */
 body {
     font-size: 16px;
     line-height: 1.6;
@@ -245,19 +245,21 @@ body {
     border-left-color: var(--lime-green);
 }
 
-/* ── Footer wordmark ── */
-/* Eliminates the L-shaped white artifact (border/shadow on img element)
-   and standardises the rendered height to match the header logo. */
-.footer-logo img,
-.site-footer .wordmark img,
-.site-footer .footer-logo img {
-    height: 40px;
-    width: auto;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    display: block;
-}
+/* ── Shared site footer ── */
+.site-footer { background: #000; padding: 56px 40px 32px; }
+.footer-inner { max-width: 1440px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 200px 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand img { height: 28px; width: auto; display: block; margin-bottom: 12px; border: none; outline: none; box-shadow: none; }
+.footer-tagline { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; line-height: 1.6; }
+.footer-col-title { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 16px; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+.footer-col ul li a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid #1f1f1f; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; }
+.footer-legal { display: flex; gap: 16px; }
+.footer-legal a { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; text-decoration: none; }
+.footer-legal a:hover { color: rgba(255,255,255,0.5); }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
@@ -297,5 +299,20 @@ body {
     .nav-search {
         font-size: 14px;
         padding: 0.5rem 0.75rem;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+
+    .site-footer {
+        padding: 40px 20px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-top {
+        grid-template-columns: 1fr;
     }
 }
