@@ -161,6 +161,7 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 | `partners/noah-smith.html` | Noah Smith economics picks | 8 | Inline `<style>` |
 | `city-lab-chicago.html` | Chicago journalism ecosystem | 245+ | Inline `<style>` + inlined data |
 | `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |
+| `nj-lab.html` | NJ State Lab — CCM partnership. 51 creators (CCM NJ Influencer Study), 6 sections, filterable grid, CSS vizzes. | 51 | Inline `<style>` + inlined data |
 
 All pages above have been swept to the design token system (variables.css linked first, slim `:root` alias block, no canonical token redefinitions inline). Design sweep completed April 2026.
 

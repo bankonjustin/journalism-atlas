@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atlas Pulse — What Independent Journalists Are Publishing Now</title>
+  <title>Atlas Pulse — What the Ecosystem Is Publishing</title>
   <meta property="og:url" content="https://journalismatlas.com/pulse">
-  <meta property="og:title" content="Atlas Pulse — What Independent Journalists Are Publishing Now">
+  <meta property="og:title" content="Atlas Pulse — What the Ecosystem Is Publishing">
   <meta property="og:description" content="A live reading-intelligence surface showing what 1,400+ creator journalists are actively publishing, organized by beat.">
   <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <meta property="og:type" content="website">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://journalismatlas.com/pulse">
-  <meta property="twitter:title" content="Atlas Pulse — What Independent Journalists Are Publishing Now">
+  <meta property="twitter:title" content="Atlas Pulse — What the Ecosystem Is Publishing">
   <meta property="twitter:description" content="A live reading-intelligence surface showing what 1,400+ creator journalists are actively publishing, organized by beat.">
   <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
@@ -143,7 +143,7 @@
     }
     .beat-rows {
       max-width: 900px;
-      max-height: 50vh;
+      max-height: 260px;
       overflow: hidden;
       position: relative;
     }
@@ -151,7 +151,7 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 64px;
+      height: 48px;
       background: linear-gradient(to bottom, transparent, #fff);
       pointer-events: none;
     }
@@ -159,8 +159,8 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      height: 28px;
-      margin-bottom: 3px;
+      height: 24px;
+      margin-bottom: 2px;
       cursor: pointer;
     }
     .beat-row:hover .beat-bar-fill { opacity: 0.75; }
@@ -666,6 +666,7 @@
       </div>
     </div>
     <div class="post-list-section">
+      <div class="section-eyebrow" style="margin-bottom:12px;">Today's Pulse</div>
       <div class="post-count-label" id="post-count-label"></div>
       <div class="platform-breakdown" id="platform-breakdown"></div>
       <div class="creator-strip" id="creator-strip"></div>
@@ -721,7 +722,8 @@
         </div>
 
         <div class="analysis-pane" id="pane-overlap">
-          <div class="section-eyebrow" style="margin-bottom:8px;">Beat overlap — which topics travel together</div>
+          <div class="section-eyebrow" style="margin-bottom:4px;">Beat co-occurrence</div>
+          <div style="font-size:12px;color:#999;margin-bottom:12px;line-height:1.5;">Which topics travel together — where beats overlap in the same creator's work.</div>
           <div class="co-section-sub" style="margin-bottom:16px;">Click any cell to filter posts tagged with both beats.</div>
           <div class="co-matrix-wrap" id="co-matrix-wrap"></div>
         </div>

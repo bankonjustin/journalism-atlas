@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Jersey's Independent News Ecosystem | The Independent Journalism Atlas</title>
+  <meta name="description" content="A joint mapping of New Jersey's social-first creator journalism ecosystem by the Independent Journalism Atlas and the Center for Cooperative Media at Montclair State University.">
+  <meta property="og:url" content="https://journalismatlas.com/nj-lab">
+  <meta property="og:title" content="New Jersey's Independent News Ecosystem | The Independent Journalism Atlas">
+  <meta property="og:description" content="49 creators. 3,650 posts analyzed. The first systematic map of who's covering New Jersey outside traditional newsrooms.">
+  <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+  <meta property="og:type" content="website">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://journalismatlas.com/nj-lab">
+  <meta property="twitter:title" content="New Jersey's Independent News Ecosystem | The Independent Journalism Atlas">
+  <meta property="twitter:description" content="49 creators. 3,650 posts analyzed. The first systematic map of who's covering New Jersey outside traditional newsrooms.">
+  <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <style>
+    /*
+     * nj-lab.html — NJ State Lab
+     * Scrolling page, 6 alternating sections: Dark → Light → Light → Dark → Light → Dark
+     * Dark surfaces (#313131): acid green (#ceff00) accents only
+     * Light surfaces (#efeff2/#ffffff): lime green (#97d600) accents only
+     * DESIGN-TOKENS.md is source of truth. variables.css loaded above.
+     */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #efeff2;
+      color: #313131;
+      font-size: 16px;
+      line-height: 1.5;
+      padding-top: 72px;
+    }
+
+    /* ── SECTION WRAPPERS ── */
+    .section-dark  { background: #313131; color: #efeff2; }
+    .section-light { background: #efeff2; color: #313131; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 48px;
+    }
+
+    /* ── SECTION 1: HERO (DARK) ── */
+    .hero { background: #313131; padding: 80px 48px 72px; }
+    .hero-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* CCM logo placeholder — add assets/images/curators/ccm-logo.png when available */
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #ceff00; margin-bottom: 16px;
+    }
+    .hero-title {
+      font-size: 44px; font-weight: 700; line-height: 1.05;
+      letter-spacing: -0.02em; color: #efeff2; max-width: 720px;
+      margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-size: 16px; line-height: 1.6; color: rgba(239,239,242,0.65);
+      max-width: 640px; margin-bottom: 48px;
+    }
+    .hero-stats {
+      display: flex; gap: 48px; flex-wrap: wrap;
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .hero-stat { display: flex; flex-direction: column; }
+    .hero-stat-num {
+      font-size: 40px; font-weight: 700; line-height: 1;
+      color: #ceff00; letter-spacing: -0.02em;
+    }
+    .hero-stat-label {
+      font-size: 12px; font-weight: 500; color: rgba(239,239,242,0.5);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px;
+    }
+
+    /* ── SECTION 2: RESEARCH CONTEXT (LIGHT) ── */
+    .research-context { background: #efeff2; }
+    .research-context .section-inner {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .rc-headline {
+      font-size: 28px; font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.01em; color: #313131; margin-bottom: 20px;
+    }
+    .rc-body {
+      font-size: 16px; line-height: 1.7; color: #313131; margin-bottom: 24px;
+    }
+    .rc-attribution {
+      font-size: 13px; color: #606068; line-height: 1.6;
+    }
+    .rc-attribution a {
+      color: #5d7400; text-decoration: underline;
+    }
+    .rc-attribution a:hover { color: #313131; }
+
+    .rc-stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .rc-stat-card {
+      background: #ffffff; border: 0.5px solid #d4d4d8;
+      border-radius: 6px; padding: 20px 18px;
+    }
+    .rc-stat-num {
+      font-size: 30px; font-weight: 700; line-height: 1;
+      color: #313131; margin-bottom: 8px;
+    }
+    .rc-stat-label {
+      font-size: 13px; color: #606068; line-height: 1.45;
+    }
+
+    /* ── SECTION 3: CREATOR ECOSYSTEM (LIGHT) ── */
+    .ecosystem { background: #efeff2; border-top: 1px solid #d4d4d8; }
+    .ecosystem .section-inner { padding-top: 56px; }
+
+    .eco-header { margin-bottom: 8px; }
+    .eco-title {
+      font-size: 24px; font-weight: 700; color: #313131;
+      letter-spacing: -0.01em; margin-bottom: 6px;
+    }
+    .eco-subtitle { font-size: 14px; color: #606068; margin-bottom: 28px; }
+
+    /* Filter chips */
+    .filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+    }
+    .filter-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 14px; border-radius: 100px;
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      border: 0.5px solid #d4d4d8; background: #ffffff;
+      color: #313131; cursor: pointer;
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+      white-space: nowrap;
+    }
+    .filter-chip:hover {
+      background: #efeff2; border-color: #b0b0b8;
+    }
+    .filter-chip.active {
+      background: #97d600; border-color: #5d7400; color: #313131;
+    }
+    .chip-count {
+      font-size: 11px; font-weight: 700; opacity: 0.65;
+    }
+
+    /* Creator grid */
+    .creator-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .creator-card {
+      background: #ffffff; border: 0.5px solid #d4d4d8;
+      border-radius: 6px; padding: 16px 18px;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .creator-card:hover {
+      background: #efeff2; border-color: #b0b0b8;
+    }
+    .card-name {
+      font-size: 15px; font-weight: 700; color: #313131;
+      margin-bottom: 3px; line-height: 1.3;
+    }
+    .card-handle {
+      font-size: 13px; color: #b0b0b8; margin-bottom: 10px;
+    }
+    .card-platforms {
+      display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .plat-pill {
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .plat-instagram { background: #fce4ec; color: #ad1457; }
+    .plat-tiktok    { background: #f0f0f0; color: #313131; }
+    .plat-youtube   { background: #ffebee; color: #b71c1c; }
+    .card-beat {
+      font-size: 13px; color: #606068; line-height: 1.4;
+      margin-bottom: 10px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-badge {
+      display: inline-block; font-size: 12px; font-weight: 500;
+      padding: 3px 10px; border-radius: 100px; line-height: 1.4;
+    }
+    .badge-verified {
+      background: #97d600; color: #313131;
+    }
+    .badge-inhouse {
+      background: #efeff2; color: #606068; border: 1px solid #d4d4d8;
+    }
+
+    .eco-count {
+      font-size: 13px; color: #606068; margin-bottom: 16px;
+    }
+    .eco-empty {
+      font-size: 14px; color: #b0b0b8; font-style: italic;
+      grid-column: 1 / -1; padding: 32px 0;
+    }
+
+    /* ── SECTION 4: RESEARCH FINDINGS (DARK) ── */
+    .findings { background: #313131; }
+    .findings-title {
+      font-size: 24px; font-weight: 700; color: #efeff2;
+      letter-spacing: -0.01em; margin-bottom: 8px;
+    }
+    .findings-subtitle {
+      font-size: 14px; color: rgba(239,239,242,0.55);
+      margin-bottom: 48px;
+    }
+    .findings-vizzes {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      margin-bottom: 32px;
+    }
+    .viz-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(239,239,242,0.45);
+      margin-bottom: 20px;
+    }
+
+    /* Viz A — Horizontal bar chart */
+    /* TODO: update to ATLAS_VIZ_COLORS when defined */
+    .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 100px 1fr 44px;
+      align-items: center; gap: 10px;
+    }
+    .bar-label {
+      font-size: 13px; color: rgba(239,239,242,0.75);
+      text-align: right; white-space: nowrap;
+    }
+    .bar-track {
+      height: 10px; border-radius: 100px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 100px;
+      background: rgba(255,255,255,0.25);
+      transition: width 0.3s;
+    }
+    .bar-fill.primary { background: #ceff00; }
+    .bar-pct {
+      font-size: 12px; font-weight: 700;
+      color: rgba(255,255,255,0.6); text-align: right;
+    }
+    .bar-pct.primary { color: #ceff00; }
+
+    /* Viz B — Stacked bar */
+    .stacked-bar-wrap { display: flex; flex-direction: column; gap: 16px; }
+    .stacked-bar {
+      display: flex; border-radius: 6px; overflow: hidden;
+      height: 32px; width: 100%;
+    }
+    .stacked-seg {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      color: #313131; white-space: nowrap; overflow: hidden;
+      transition: width 0.3s;
+    }
+    .stacked-seg.joy          { background: #ceff00; color: #313131; }
+    .stacked-seg.anticipation { background: #ffaa00; color: #313131; }
+    .stacked-seg.neutral      { background: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
+    .stacked-seg.trust        { background: #00e5ff; color: #313131; }
+    .stacked-seg.negative     { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); }
+    .stacked-legend {
+      display: flex; flex-wrap: wrap; gap: 12px 20px;
+    }
+    .stacked-legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: rgba(239,239,242,0.65);
+    }
+    .legend-swatch {
+      width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+    }
+    .swatch-joy          { background: #ceff00; }
+    .swatch-anticipation { background: #ffaa00; }
+    .swatch-neutral      { background: rgba(255,255,255,0.3); }
+    .swatch-trust        { background: #00e5ff; }
+    .swatch-negative     { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); }
+    .legend-pct { font-weight: 700; color: #efeff2; }
+
+    .findings-caption {
+      font-size: 14px; line-height: 1.6; color: rgba(239,239,242,0.55);
+      border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px;
+      font-style: italic;
+    }
+    .findings-caption strong {
+      display: block; margin-top: 6px; font-style: normal;
+      font-size: 12px; color: rgba(239,239,242,0.35);
+    }
+
+    /* ── SECTION 5: ABOUT THE PARTNERSHIP (LIGHT) ── */
+    .partnership { background: #efeff2; }
+    .partnership .section-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+      align-items: start;
+    }
+    .partner-col-name {
+      font-size: 18px; font-weight: 700; color: #313131; margin-bottom: 10px;
+    }
+    .partner-col-body {
+      font-size: 16px; line-height: 1.7; color: #313131; margin-bottom: 16px;
+    }
+    .partner-col-link {
+      font-size: 14px; font-weight: 700; color: #5d7400;
+      text-decoration: none;
+    }
+    .partner-col-link:hover { color: #313131; text-decoration: underline; }
+    .partner-logo {
+      display: block; height: 36px; width: auto; margin-bottom: 16px;
+    }
+
+    .pull-quote-strip {
+      background: #313131; text-align: center;
+      padding: 48px 48px;
+    }
+    .pull-quote-text {
+      font-size: 28px; font-weight: 700; color: #ceff00;
+      letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 12px;
+    }
+    .pull-quote-attr {
+      font-size: 14px; color: rgba(239,239,242,0.5);
+    }
+
+    /* ── SECTION 6: CTA FOOTER (DARK) ── */
+    .cta-section { background: #313131; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-section .section-inner { padding-top: 56px; padding-bottom: 56px; }
+    .cta-row {
+      display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center;
+      padding: 14px 28px; border-radius: 6px;
+      font-family: inherit; font-size: 15px; font-weight: 700;
+      text-decoration: none; cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .cta-primary {
+      background: #ceff00; color: #313131; border: 1.5px solid #ceff00;
+    }
+    .cta-primary:hover { background: #b8e600; border-color: #b8e600; }
+    .cta-ghost {
+      background: transparent; color: #ceff00;
+      border: 1.5px solid #ceff00;
+    }
+    .cta-ghost:hover { background: rgba(206,255,0,0.08); }
+
+    /* ── SITE FOOTER ── */
+    .site-footer {
+      background: #000000; color: rgba(255,255,255,0.6);
+      padding: 48px 48px 32px;
+    }
+    .site-footer-inner {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px; margin-bottom: 32px;
+    }
+    .footer-logo { display: block; height: 32px; width: auto; margin-bottom: 12px; }
+    .footer-tagline { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.4); }
+    .footer-col-head {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-bottom: 14px;
+    }
+    .footer-col a {
+      display: block; font-size: 14px; color: rgba(255,255,255,0.6);
+      text-decoration: none; margin-bottom: 8px;
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: #ceff00; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px; font-size: 13px; color: rgba(255,255,255,0.3);
+      text-align: center; line-height: 1.6;
+    }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-bottom a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── FOCUS RINGS ── */
+    .filter-chip:focus-visible,
+    .cta-btn:focus-visible {
+      outline: 2px solid #97d600;
+      outline-offset: 2px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { padding: 56px 24px 56px; }
+      .section-inner { padding: 48px 24px; }
+      .hero-title { font-size: 32px; }
+      .hero-stats { gap: 32px; }
+      .hero-stat-num { font-size: 32px; }
+
+      .research-context .section-inner { grid-template-columns: 1fr; gap: 40px; }
+      .creator-grid { grid-template-columns: repeat(2, 1fr); }
+      .findings-vizzes { grid-template-columns: 1fr; gap: 40px; }
+      .partnership .section-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 20px 48px; }
+      .section-inner { padding: 40px 20px; }
+      .hero-title { font-size: 26px; }
+      .hero-stats { gap: 24px; }
+      .hero-stat-num { font-size: 28px; }
+
+      .rc-stat-grid { grid-template-columns: 1fr 1fr; }
+      .creator-grid { grid-template-columns: 1fr; }
+      .cta-row { flex-direction: column; align-items: stretch; }
+      .cta-btn { justify-content: center; }
+      .filter-bar { gap: 6px; }
+      .stacked-bar { flex-direction: column; height: auto; border-radius: 6px; }
+      .stacked-seg { width: 100% !important; padding: 8px; justify-content: flex-start; padding-left: 12px; border-radius: 0; }
+      .pull-quote-strip { padding: 40px 24px; }
+      .pull-quote-text { font-size: 22px; }
+      .site-footer { padding: 40px 20px 24px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .bar-row { grid-template-columns: 80px 1fr 40px; }
+      .bar-label { font-size: 11px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+  <script src="/assets/js/header.js"></script>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 1: HERO — Dark (#313131)
+  ══════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <!-- CCM logo placeholder — add assets/images/curators/ccm-logo.png when available -->
+      <p class="hero-eyebrow">Atlas State Lab · New Jersey</p>
+      <h1 class="hero-title">New Jersey's Independent News Ecosystem</h1>
+      <p class="hero-subtitle">A joint mapping by the Independent Journalism Atlas and the Center for Cooperative Media at Montclair State University</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">50</span>
+          <span class="hero-stat-label">Creators studied</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">3,650</span>
+          <span class="hero-stat-label">Posts analyzed</span>
+        </div>
+        <div class="hero-stat">
+          <!-- Atlas-verified count: 19 after May 2026 spidering (17 original + lexlivinglife + tipsycritic). Update when Liz confirms remaining 5. -->
+          <span class="hero-stat-num">19</span>
+          <span class="hero-stat-label">Atlas-verified</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">3</span>
+          <span class="hero-stat-label">Platforms mapped</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 2: RESEARCH CONTEXT — Light (#efeff2)
+  ══════════════════════════════════════════════════════ -->
+  <section class="research-context">
+    <div class="section-inner">
+      <div class="rc-left">
+        <h2 class="rc-headline">New Jersey has a news problem. And a creator solution.</h2>
+        <p class="rc-body">New Jersey ranks 49th among all 50 states, with just 5.1 journalists per 100,000 residents. Traditional local coverage has collapsed. But something else has emerged: a layer of independent social-video creators covering communities, school boards, high school sports, restaurant culture, emergency response, and civic life with surprising consistency. The Center for Cooperative Media spent a year finding them. The Atlas mapped them.</p>
+        <p class="rc-attribution">Research by Carrie Brown, Ph.D., Tara George, M.A., and Joe Amditis, M.A. — Center for Cooperative Media, Montclair State University, April 2026. <a href="https://www.centerforcooperativemedia.org/">Read the full study →</a></p>
+      </div>
+      <div class="rc-right">
+        <div class="rc-stat-grid">
+          <div class="rc-stat-card">
+            <div class="rc-stat-num">16.7%</div>
+            <div class="rc-stat-label">Posts classified as news, opinion, or educational content</div>
+          </div>
+          <div class="rc-stat-card">
+            <div class="rc-stat-num">49.0%</div>
+            <div class="rc-stat-label">Posts with high NJ relevance score (≥0.7)</div>
+          </div>
+          <div class="rc-stat-card">
+            <div class="rc-stat-num">43.1%</div>
+            <div class="rc-stat-label">Posts using informative rhetorical mode</div>
+          </div>
+          <div class="rc-stat-card">
+            <div class="rc-stat-num">+0.24</div>
+            <div class="rc-stat-label">Mean sentiment score (scale −1 to +1)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 3: CREATOR ECOSYSTEM — Light (#efeff2)
+  ══════════════════════════════════════════════════════ -->
+  <section class="ecosystem">
+    <div class="section-inner">
+      <div class="eco-header">
+        <h2 class="eco-title">The Ecosystem</h2>
+        <p class="eco-subtitle" id="ecoSubtitle">Creators from the CCM study. Badges indicate Atlas verification status.</p>
+      </div>
+
+      <div class="filter-bar" id="filterBar" role="group" aria-label="Filter by category">
+        <button class="filter-chip active" data-cat="all">All <span class="chip-count" id="count-all"></span></button>
+        <button class="filter-chip" data-cat="news">News &amp; Community <span class="chip-count" id="count-news"></span></button>
+        <button class="filter-chip" data-cat="sports">Sports <span class="chip-count" id="count-sports"></span></button>
+        <button class="filter-chip" data-cat="education">Education <span class="chip-count" id="count-education"></span></button>
+        <button class="filter-chip" data-cat="politics">Politics <span class="chip-count" id="count-politics"></span></button>
+        <button class="filter-chip" data-cat="alerts">Alerts <span class="chip-count" id="count-alerts"></span></button>
+        <button class="filter-chip" data-cat="lifestyle">Lifestyle <span class="chip-count" id="count-lifestyle"></span></button>
+        <button class="filter-chip" data-cat="entertainment">Entertainment <span class="chip-count" id="count-entertainment"></span></button>
+        <button class="filter-chip" data-cat="weird-nj">Weird NJ <span class="chip-count" id="count-weird-nj"></span></button>
+      </div>
+
+      <p class="eco-count" id="gridCount"></p>
+      <div class="creator-grid" id="creatorGrid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 4: RESEARCH FINDINGS — Dark (#313131)
+  ══════════════════════════════════════════════════════ -->
+  <section class="findings section-dark">
+    <div class="section-inner">
+      <h2 class="findings-title">What the Research Found</h2>
+      <p class="findings-subtitle">Computational analysis of 3,650 posts across Instagram, TikTok, and YouTube.</p>
+
+      <div class="findings-vizzes">
+        <!-- Viz A: Content Type Breakdown -->
+        <!-- TODO: update to ATLAS_VIZ_COLORS when defined -->
+        <div>
+          <p class="viz-title">Content Type Distribution</p>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <span class="bar-label">Lifestyle</span>
+              <div class="bar-track"><div class="bar-fill primary" style="width:33.2%"></div></div>
+              <span class="bar-pct primary">33.2%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Other</span>
+              <div class="bar-track"><div class="bar-fill" style="width:29.6%"></div></div>
+              <span class="bar-pct">29.6%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">News</span>
+              <div class="bar-track"><div class="bar-fill" style="width:11.4%"></div></div>
+              <span class="bar-pct">11.4%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Entertainment</span>
+              <div class="bar-track"><div class="bar-fill" style="width:9.2%"></div></div>
+              <span class="bar-pct">9.2%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Promotion</span>
+              <div class="bar-track"><div class="bar-fill" style="width:8.1%"></div></div>
+              <span class="bar-pct">8.1%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Opinion</span>
+              <div class="bar-track"><div class="bar-fill" style="width:3.5%"></div></div>
+              <span class="bar-pct">3.5%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Educational</span>
+              <div class="bar-track"><div class="bar-fill" style="width:2.7%"></div></div>
+              <span class="bar-pct">2.7%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Reaction</span>
+              <div class="bar-track"><div class="bar-fill" style="width:2.2%"></div></div>
+              <span class="bar-pct">2.2%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Viz B: Primary Emotion Distribution -->
+        <!-- TODO: update to ATLAS_VIZ_COLORS when defined -->
+        <div>
+          <p class="viz-title">Primary Emotion Profile</p>
+          <div class="stacked-bar-wrap">
+            <div class="stacked-bar" role="img" aria-label="Emotion distribution: Joy 47.7%, Anticipation 20.2%, Neutral 16.5%, Trust 11.1%, Negative 7.5%">
+              <div class="stacked-seg joy"          style="width:47.7%" title="Joy 47.7%">Joy</div>
+              <div class="stacked-seg anticipation" style="width:20.2%" title="Anticipation 20.2%">Anticipation</div>
+              <div class="stacked-seg neutral"       style="width:16.5%" title="Neutral 16.5%"></div>
+              <div class="stacked-seg trust"         style="width:11.1%" title="Trust 11.1%">Trust</div>
+              <div class="stacked-seg negative"      style="width:7.5%"  title="Negative 7.5%"></div>
+            </div>
+            <div class="stacked-legend">
+              <div class="stacked-legend-item">
+                <div class="legend-swatch swatch-joy"></div>
+                Joy <span class="legend-pct">47.7%</span>
+              </div>
+              <div class="stacked-legend-item">
+                <div class="legend-swatch swatch-anticipation"></div>
+                Anticipation <span class="legend-pct">20.2%</span>
+              </div>
+              <div class="stacked-legend-item">
+                <div class="legend-swatch swatch-neutral"></div>
+                Neutral <span class="legend-pct">16.5%</span>
+              </div>
+              <div class="stacked-legend-item">
+                <div class="legend-swatch swatch-trust"></div>
+                Trust <span class="legend-pct">11.1%</span>
+              </div>
+              <div class="stacked-legend-item">
+                <div class="legend-swatch swatch-negative"></div>
+                Negative <span class="legend-pct">7.5%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="findings-caption">
+        <em>"NJ news influencers have adapted to platform incentives toward positivity — delivering local information within an affectively positive frame."</em>
+        <strong>— Center for Cooperative Media, 2026</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 5: ABOUT THE PARTNERSHIP — Light (#efeff2)
+  ══════════════════════════════════════════════════════ -->
+  <section class="partnership">
+    <div class="section-inner">
+      <div class="partner-col">
+        <!-- CCM logo placeholder — add assets/images/curators/ccm-logo.png when available -->
+        <p class="partner-col-name">Center for Cooperative Media</p>
+        <p class="partner-col-body">CCM has spent a decade strengthening journalism in New Jersey through research, collaboration, and training. Their annual report on journalism collaborations is the most comprehensive in the field. The NJ Influencer Study is their first systematic mapping of the state's social-first creator layer.</p>
+        <a class="partner-col-link" href="https://www.centerforcooperativemedia.org/" target="_blank" rel="noopener">centerforcooperativemedia.org →</a>
+      </div>
+      <div class="partner-col">
+        <img class="partner-logo" src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.png" alt="Independent Journalism Atlas">
+        <p class="partner-col-body">The Independent Journalism Atlas documents 1,400+ independent creator-journalists outside traditional media structures. We are infrastructure for the independent journalism ecosystem — a trust map, a discovery layer, and a growing network of partnerships with researchers, funders, and institutions who are building the same thing we are.</p>
+        <a class="partner-col-link" href="https://journalismatlas.com" target="_blank" rel="noopener">journalismatlas.com →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pull quote — dark strip between partnership and CTA -->
+  <div class="pull-quote-strip">
+    <p class="pull-quote-text">"Bridges are the new moats."</p>
+    <p class="pull-quote-attr">— Independent Journalism Atlas</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 6: CTA FOOTER — Dark (#313131)
+  ══════════════════════════════════════════════════════ -->
+  <section class="cta-section">
+    <div class="section-inner">
+      <div class="cta-row">
+        <a class="cta-btn cta-primary" href="https://journalismatlas.com">Explore the full Atlas →</a>
+        <a class="cta-btn cta-ghost" href="/partners/ccm">View the curated NJ list →</a>
+        <a class="cta-btn cta-ghost" href="https://www.centerforcooperativemedia.org/">Read the CCM research →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SITE FOOTER ── -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-top">
+        <div>
+          <img class="footer-logo" src="assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Independent Journalism Atlas">
+          <p class="footer-tagline">Mapping independent creator-journalism since 2023.</p>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-head">Project</p>
+          <a href="/about-this-project">About This Project</a>
+          <a href="/who-we-are">Who We Are</a>
+          <a href="/research">Research</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-head">Contact</p>
+          <a href="mailto:hello&#64;journalismatlas.com">hello&#64;journalismatlas.com</a>
+          <a href="/partners/ccm">NJ Partner Page</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Independent Journalism Atlas · <a href="mailto:hello&#64;journalismatlas.com">hello&#64;journalismatlas.com</a> · <a href="/about-this-project">About</a> · <a href="/who-we-are">Who We Are</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── NJ CREATORS DATA ──────────────────────────────────────────────────────
+    // 49 creators from CCM NJ Influencer Study (50 minus Hoboken Girl duplicate)
+    // Fields: name, handle, platforms, category, beat, atlasEligible, inHouse
+    // Badge logic: inHouse:true → "In-House Creator" | atlasEligible:true → "Atlas Verified" | else → none
+    const NJ_CREATORS = [
+      // ── ATLAS VERIFIED ──────────────────────────────────────────────────────
+      { name: "Garden State",                    handle: "gardenstate",           platforms: ["instagram","tiktok","youtube"], category: "news",          beat: "NJ news, culture & politics",                      atlasEligible: true,      inHouse: false },
+      { name: "SP Sullivan",                     handle: "spsullivan",            platforms: ["instagram"],                   category: "news",          beat: "NJ investigative & social journalism",             atlasEligible: true,      inHouse: true  },
+      { name: "Jersey Sports Zone",              handle: "jerseysportszone",      platforms: ["instagram","tiktok","youtube"], category: "sports",        beat: "NJ high school sports",                           atlasEligible: true,      inHouse: false },
+      { name: "NJ Athletics",                    handle: "njathletics",           platforms: ["instagram","tiktok","youtube"], category: "sports",        beat: "NJ high school athletics",                        atlasEligible: true,      inHouse: false },
+      { name: "NJ Hoop Recruit",                 handle: "njhoopsrecruit",        platforms: ["instagram","tiktok","youtube"], category: "sports",        beat: "NJ basketball recruiting",                        atlasEligible: true,      inHouse: false },
+      { name: "Teacher Pay With K",              handle: "teacherpaywithk",       platforms: ["instagram","tiktok","youtube"], category: "education",     beat: "Teacher compensation, NJ education policy & labor", atlasEligible: true,      inHouse: false },
+      { name: "Teacher in NJ",                   handle: "teacherinnj",           platforms: ["tiktok"],                      category: "education",     beat: "NJ education funding, PFAS contamination",        atlasEligible: true,      inHouse: false },
+      { name: "Graham Colligan (Towns of NJ)",   handle: "townsofnj",             platforms: ["tiktok"],                      category: "news",          beat: "NJ local news & politics",                        atlasEligible: true,      inHouse: false },
+      { name: "Jersey News",                     handle: "jersey__news",          platforms: ["instagram","tiktok"],           category: "alerts",        beat: "NJ breaking news & community alerts",             atlasEligible: true,      inHouse: false },
+      { name: "Jersey Shore Fire Response",      handle: "jerseyshorefireresponse", platforms: ["instagram","tiktok","youtube"], category: "alerts",      beat: "Emergency fire response & community alerts",      atlasEligible: true,      inHouse: false },
+      { name: "NewarkNJblog",                    handle: "newarknjblog",           platforms: ["instagram","tiktok"],           category: "news",          beat: "Newark community, culture & history",             atlasEligible: true,      inHouse: false },
+      { name: "Hoboken Girl",                    handle: "hobokengirl",            platforms: ["instagram","tiktok"],           category: "lifestyle",     beat: "Hoboken & Jersey City lifestyle journalism",      atlasEligible: true,      inHouse: false },
+      { name: "BobbyzWorld90",                   handle: "bobbyzworld90",          platforms: ["instagram","tiktok"],           category: "politics",      beat: "NJ politics & civic explainers",                  atlasEligible: true,      inHouse: false },
+      { name: "No Regulars Podcast",             handle: "noregularspodcast",      platforms: ["instagram","tiktok","youtube"], category: "education",     beat: "Education policy & civic commentary",             atlasEligible: true,      inHouse: false },
+      { name: "Noreaster Nick",                  handle: "noreasternick",          platforms: ["instagram"],                   category: "alerts",        beat: "NJ weather",                                      atlasEligible: true,      inHouse: false },
+      { name: "Jersey Talks",                    handle: "jerseytalks",            platforms: ["instagram","tiktok"],           category: "news",          beat: "NJ local culture & community",                    atlasEligible: true,      inHouse: false },
+      { name: "The Montclair Pod",               handle: "themontclairpod",        platforms: ["instagram"],                   category: "news",          beat: "Montclair community journalism",                  atlasEligible: true,      inHouse: false },
+      { name: "Ms. Morristown",                  handle: "ms.morristown",          platforms: ["instagram"],                   category: "news",          beat: "Morristown community",                            atlasEligible: true,      inHouse: false },
+      { name: "Lex (NJ Eats)",                   handle: "lexlivinglife",          platforms: ["tiktok"],                      category: "lifestyle",     beat: "NJ restaurant reviews",                           atlasEligible: true,      inHouse: false },
+      { name: "Kyle (Tipsy Critic)",             handle: "tipsycritic",            platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "NJ food & drink",                                 atlasEligible: true,      inHouse: false },
+
+      // ── PENDING VERIFICATION ─────────────────────────────────────────────────
+      { name: "Christine Eliza",                 handle: "christineelliza",        platforms: ["instagram","tiktok"],           category: "lifestyle",     beat: "NJ dining & travel",                              atlasEligible: "pending", inHouse: false },
+      { name: "Meg",                             handle: "megthings_",             platforms: ["instagram","tiktok"],           category: "lifestyle",     beat: "NJ lifestyle & dining",                           atlasEligible: "pending", inHouse: false },
+      { name: "Lynn Hazan-Bush",                 handle: "lynnhazan_",             platforms: ["instagram","tiktok"],           category: "lifestyle",     beat: "Jersey City lifestyle & culture",                 atlasEligible: "pending", inHouse: false },
+      { name: "Mar (Modern Vibes)",              handle: "marmodernvibes",         platforms: ["instagram","tiktok"],           category: "lifestyle",     beat: "NJ coffee & lifestyle",                           atlasEligible: "pending", inHouse: false },
+      { name: "Ricky (Revealed by Ricky)",       handle: "revealedbyricky",        platforms: ["instagram"],                   category: "lifestyle",     beat: "NJ food discovery",                               atlasEligible: "pending", inHouse: false },
+
+      // ── IN STUDY — no Atlas badge ────────────────────────────────────────────
+      { name: "Elena Gergis (madewithsaz0n)",    handle: "madewithsaz0n",          platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "NJ food & dining",                                atlasEligible: false,     inHouse: false },
+      { name: "Jessica Alexandra",               handle: "lifestylejessica",       platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "NJ dining & events",                              atlasEligible: false,     inHouse: false },
+      { name: "Sally Slices",                    handle: "sallyslices",            platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "NJ pizza & local food",                           atlasEligible: false,     inHouse: false },
+      { name: "Erika Batista",                   handle: "byerikabatista",         platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "NJ lifestyle & motherhood",                       atlasEligible: false,     inHouse: false },
+      { name: "Aiyana Figueroa",                 handle: "aiyanafig",              platforms: ["instagram","tiktok"],           category: "lifestyle",     beat: "NJ dining & fashion",                             atlasEligible: false,     inHouse: false },
+      { name: "Danielle Gould (realmofvibes)",   handle: "realmofvibes",           platforms: ["instagram"],                   category: "lifestyle",     beat: "NJ places",                                       atlasEligible: false,     inHouse: false },
+      { name: "Melissa Gorga",                   handle: "melissagorga",           platforms: ["instagram"],                   category: "entertainment", beat: "Reality TV & fashion",                            atlasEligible: false,     inHouse: false },
+      { name: "Joe Bartolozzi",                  handle: "joebartolozzi",          platforms: ["instagram","tiktok","youtube"], category: "entertainment", beat: "Mental health & creator culture",                 atlasEligible: false,     inHouse: false },
+      { name: "Shakur Stevenson",                handle: "shakurstevenson",        platforms: ["instagram"],                   category: "sports",        beat: "Boxing",                                          atlasEligible: false,     inHouse: false },
+      { name: "Jersey Joe",                      handle: "jerseyjoe",              platforms: ["instagram","tiktok","youtube"], category: "entertainment", beat: "Dance & social trends",                           atlasEligible: false,     inHouse: false },
+      { name: "Dileiny Baron",                   handle: "dileinybaron",           platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "Fashion & lifestyle styling",                     atlasEligible: false,     inHouse: false },
+      { name: "Keri Fay",                        handle: "kerifay",                platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "Fashion & hair",                                  atlasEligible: false,     inHouse: false },
+      { name: "Mark Gregory (Phat Papi)",        handle: "phatpapi",               platforms: ["instagram","tiktok","youtube"], category: "lifestyle",     beat: "Food & product promotion",                        atlasEligible: false,     inHouse: false },
+      { name: "Kate Watt Photo",                 handle: "katewattphoto",          platforms: ["instagram","tiktok"],           category: "lifestyle",     beat: "Wedding photography",                             atlasEligible: false,     inHouse: false },
+      { name: "Francesca (Finding Francesca)",   handle: "findingfrancesca_",      platforms: ["instagram"],                   category: "lifestyle",     beat: "Travel",                                          atlasEligible: false,     inHouse: false },
+      { name: "Pustika Samara",                  handle: "pustika_samaddar",       platforms: ["instagram"],                   category: "lifestyle",     beat: "Undetermined",                                    atlasEligible: false,     inHouse: false },
+      { name: "NJ Takedown",                     handle: "njtakedown",             platforms: ["instagram"],                   category: "weird-nj",      beat: "NJ commentary",                                   atlasEligible: false,     inHouse: false },
+      { name: "New Jersey Shade",                handle: "newjerseyshade",         platforms: ["instagram"],                   category: "weird-nj",      beat: "NJ gossip & commentary",                          atlasEligible: false,     inHouse: false },
+      { name: "Debbie Zelasny (The Jersey Momma)", handle: "thejerseymomma",       platforms: ["instagram"],                   category: "lifestyle",     beat: "Travel & lifestyle",                              atlasEligible: false,     inHouse: false },
+      { name: "Lauren Perrotto",                 handle: "happilyeverlcp",         platforms: ["instagram"],                   category: "lifestyle",     beat: "Family & lifestyle",                              atlasEligible: false,     inHouse: false },
+      { name: "The Jersey Shore Life",           handle: "thejerseyshorelife",     platforms: ["tiktok"],                      category: "lifestyle",     beat: "Jersey Shore lifestyle",                          atlasEligible: false,     inHouse: false },
+      { name: "Amanda Morrison",                 handle: "dontsithome",            platforms: ["instagram"],                   category: "lifestyle",     beat: "Lifestyle & events",                              atlasEligible: false,     inHouse: false },
+      { name: "Jessica Hawk (myteacherface)",    handle: "myteacherface",          platforms: ["instagram","tiktok","youtube"], category: "education",     beat: "Education lifestyle",                             atlasEligible: false,     inHouse: false },
+      { name: "Stacey (Wannabe Foodie)",         handle: "staceyakawannabefoodie", platforms: ["instagram"],                   category: "lifestyle",     beat: "Food",                                            atlasEligible: false,     inHouse: false },
+      { name: "Cassandra",                       handle: "cassandracorinne",       platforms: ["tiktok"],                      category: "lifestyle",     beat: "Lifestyle",                                       atlasEligible: false,     inHouse: false },
+      { name: "The Drop Podcast",                handle: "thedroppodcast",         platforms: ["instagram","youtube"],          category: "lifestyle",     beat: "NJ golf culture",                                 atlasEligible: false,     inHouse: false },
+    ];
+
+    // ── FILTER + RENDER ───────────────────────────────────────────────────────
+
+    const PLATFORM_LABELS = { instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube' };
+    const CAT_COUNTS = {};
+
+    function buildBadge(creator) {
+      if (creator.inHouse) {
+        return `<span class="card-badge badge-inhouse">In-House Creator</span>`;
+      }
+      if (creator.atlasEligible === true) {
+        return `<span class="card-badge badge-verified">✓ Atlas Verified</span>`;
+      }
+      return '';
+    }
+
+    function renderCard(c) {
+      const platforms = c.platforms.map(p =>
+        `<span class="plat-pill plat-${p}">${PLATFORM_LABELS[p] || p}</span>`
+      ).join('');
+      const badge = buildBadge(c);
+      return `
+        <div class="creator-card">
+          <div class="card-name">${c.name}</div>
+          <div class="card-handle">@${c.handle}</div>
+          <div class="card-platforms">${platforms}</div>
+          <div class="card-beat">${c.beat}</div>
+          ${badge}
+        </div>`;
+    }
+
+    function render(cat) {
+      const grid = document.getElementById('creatorGrid');
+      const countEl = document.getElementById('gridCount');
+      const filtered = cat === 'all' ? NJ_CREATORS : NJ_CREATORS.filter(c => c.category === cat);
+      grid.innerHTML = filtered.length
+        ? filtered.map(renderCard).join('')
+        : '<p class="eco-empty">No creators in this category.</p>';
+      countEl.textContent = `Showing ${filtered.length} of ${NJ_CREATORS.length} creators`;
+    }
+
+    function buildCounts() {
+      NJ_CREATORS.forEach(c => {
+        CAT_COUNTS[c.category] = (CAT_COUNTS[c.category] || 0) + 1;
+      });
+      document.getElementById('count-all').textContent = NJ_CREATORS.length;
+      ['news','sports','education','politics','alerts','lifestyle','entertainment','weird-nj'].forEach(cat => {
+        const el = document.getElementById(`count-${cat}`);
+        if (el) el.textContent = CAT_COUNTS[cat] || 0;
+      });
+    }
+
+    // Wire filter chips
+    document.getElementById('filterBar').addEventListener('click', e => {
+      const chip = e.target.closest('.filter-chip');
+      if (!chip) return;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      render(chip.dataset.cat);
+    });
+
+    document.getElementById('ecoSubtitle').textContent =
+      `${NJ_CREATORS.length} creators from the CCM study. Badges indicate Atlas verification status.`;
+
+    buildCounts();
+    render('all');
+  </script>
+</body>
+</html>

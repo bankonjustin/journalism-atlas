@@ -44,6 +44,20 @@
 
 ---
 
+## City Lab Partnerships
+
+| Lab | Partner | Status | Lab URL | Partner page |
+|-----|---------|--------|---------|--------------|
+| NJ State Lab | Center for Cooperative Media, Montclair State University | Live — May 2026 | `/nj-lab` | `/partners/ccm` (not yet built — brief: ccm-partner-page-brief.md) |
+
+**CCM notes:**
+- Research by Carrie Brown, Ph.D., Tara George, M.A., Joe Amditis, M.A.
+- CCM logo pending — placeholder comment in nj-lab.html
+- Paper URL placeholder — update `<a href>` in Section 2 and CTA when paper is published
+- `partners/ccm.html` needs to be built (separate session)
+
+---
+
 ## Asset Locations
 
 | Asset type | Location |
