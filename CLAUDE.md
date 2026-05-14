@@ -133,7 +133,7 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 
 - **Single deployable HTML file** — no build step, no external dependencies beyond CDNs
 - **City Lab pages** — inline all data as JS constants (no fetch). Hard constraint.
-- **pack.html, lists.html, mobile.html, index.html** — fetch() from `assets/data/creators-data.json`. Do NOT convert to inline constants (data is too large).
+- **pack.html, lists.html, mobile.html, search.html** — fetch() from `assets/data/creators-data.json`. Do NOT convert to inline constants (data is too large).
 - **Cloudflare intercepts plain-text email** — encode as HTML entities or use `[at]` notation
 - **Git push via GitHub Desktop** — never attempt `git push` from terminal
 - **Clean up dead code while working** — remove dead CSS, unused classes, stale placeholder comments as they become irrelevant
@@ -144,7 +144,8 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 
 | File | Description | Creator count | CSS approach |
 |------|-------------|--------------|--------------|
-| `index.html` | Main database | ~1,453 (live JSON) | External: `main.css` |
+| `index.html` | Homepage — hero, guided paths, stat strip, cluster grid | — | `variables.css` + inline `<style>` + `header.css` |
+| `search.html` | Full creator database — filters, search, card grid | ~1,453 (live JSON) | External: `main.css` |
 | `postcard.html` | Starter Pack builder | — | Inline `<style>` |
 | `partners/_shell.html` | Partner page shell (template) | — | Inline `<style>` |
 | `partners/cillizza.html` | Chris Cillizza curated list | 17 | Inline `<style>` |
@@ -179,6 +180,7 @@ All pages above have been swept to the design token system (variables.css linked
 | `chicago-analysis.html`, `chicago-survey.html` | Internal research — not public |
 | `knight-brief.html`, `atlas-signal-brief.html` | Internal briefs — not public |
 | `index-exploration-V1.html` | Dev experiment — not public |
+| `index-pre-homepage.html` | Pre-homepage-launch archive — do not delete until homepage is confirmed stable |
 | `partners/_shell.html` | Partner page template — not public |
 
 ### Logo files (assets/images/logos/)
@@ -187,7 +189,7 @@ All pages above have been swept to the design token system (variables.css linked
 |------|-----|
 | `Journalism_Atlas_wordmark_horizontal_lockup_black.png` | Site header (white background) |
 | `Journalism_Atlas_wordmark_horizontal_lockup_white.png` | Footer (black background) |
-| `Journalism_Atlas_wordmark_stacked_green_white (3).png` | Hero section on index.html |
+| `Journalism_Atlas_wordmark_stacked_green_white (3).png` | Hero section on search.html |
 | `Journalism_Atlas_logo_acid_green.png` | Icon-only uses |
 
 The `_lockup_` files (no "horizontal" in name) are the old equivalents — prefer the `_horizontal_lockup_` versions going forward.

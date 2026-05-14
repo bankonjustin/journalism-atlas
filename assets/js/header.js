@@ -100,14 +100,14 @@
         var input = document.getElementById('navSearch');
         if (!input) return;
 
-        // On the home page main.js owns the search; skip navigation handler
+        // On the search page main.js owns the search; skip navigation handler
         var path = window.location.pathname;
-        var isHome = path === '/' || path === '/index.html' || path.endsWith('/index.html');
-        if (isHome) return;
+        var isSearch = path === '/search' || path === '/search.html' || path.endsWith('/search.html');
+        if (isSearch) return;
 
         function doSearch() {
             var q = input.value.trim();
-            if (q) window.location.href = '/?search=' + encodeURIComponent(q);
+            if (q) window.location.href = '/search?search=' + encodeURIComponent(q);
         }
 
         input.addEventListener('keypress', function (e) {
