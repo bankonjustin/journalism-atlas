@@ -831,6 +831,19 @@
                 filterState.filters.search = params.get('search');
                 document.getElementById('navSearch').value = params.get('search');
             }
+
+            // q param — alias for search (homepage featured creator links use ?q=)
+            if (params.has('q') && !params.has('search')) {
+                filterState.filters.search = params.get('q');
+                document.getElementById('navSearch').value = params.get('q');
+            }
+
+            // cluster param — homepage cluster drawer "View in Atlas" links use ?cluster=slug
+            if (params.has('cluster') && !filterState.filters.search) {
+                const term = params.get('cluster').replace(/-/g, ' ');
+                filterState.filters.search = term;
+                document.getElementById('navSearch').value = term;
+            }
         }
 
         // Scroll behavior
