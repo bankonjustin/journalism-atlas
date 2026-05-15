@@ -363,7 +363,7 @@
         // Load and parse CSV data
         async function loadCreatorsData() {
             try {
-                const response = await fetch('assets/data/creators-data.json');
+                const response = await fetch('/assets/data/creators-data.json');
                 const data = await response.json();
                 
                 allCreators = data;
