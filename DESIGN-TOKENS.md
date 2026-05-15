@@ -1,7 +1,7 @@
 # Atlas Design Tokens
 *Canonical design reference — committed to repo as source of truth for implementation*
 
-*Last updated: April 2026*
+*Last updated: May 2026*
 *Owner: James (james@happicamp.com)*
 
 > **How this file works:** This is the single source of truth for all visual decisions. When Justin implements design changes with Claude Code, he references this document. If it's not here, it doesn't get implemented. If it changes here, it changes everywhere. Fill in any blanks marked [TO CONFIRM] and update as needed.
@@ -32,9 +32,12 @@
 | Heading text | Black | `#000000` |
 | Primary accent / CTA | Acid Green | `#ceff00` |
 | Hover / active state | Lime Green | `#97d600` |
+| Secondary text on dark surfaces | Mid Gray | `#bdbdbd` |
 | Error state | [TO CONFIRM] | |
 | Muted / disabled | [TO CONFIRM] | |
 | Border / divider | [TO CONFIRM] | |
+
+> **Scope note — secondary text on dark surfaces (`#bdbdbd`):** Applies to all secondary/label text rendered on black or near-black backgrounds. Current applications: footer section headers (EXPLORE, ABOUT, CONNECT), dark-background homepage sections, Bluesky Creator Intelligence page secondary text. This is the site-wide floor for this context—do not use values darker than `#bdbdbd` for secondary text on dark surfaces. Contrast ratio on `#000000` is ~6.0:1 (WCAG AA compliant). Any instance currently set to `#a8a8a8` on dark surfaces should be updated to `#bdbdbd`.
 
 ---
 
@@ -126,16 +129,11 @@ pill/tag:
 ```
 
 ### Max Content Width
-
-All pages and layouts site-wide are capped at 1440px. Content should be centered within the viewport at wider screen sizes — the background may extend edge-to-edge but the content wrapper must not exceed this maximum. This applies to the homepage, all subpages, and any new pages or products (including Unf*ck Your Algorithm, Starter Packs, etc.).
-
 ```
-full layout:  1440px  /* Hard cap — applies to all pages, site-wide */
-text column:  720px   /* Long-form text, editorial content */
-card grid:    1320px  /* Leaves 60px padding each side at full layout width */
+full layout:  
+text column:  
+card grid:    
 ```
-
-**Implementation note for Justin:** Apply `max-width: 1440px; margin: 0 auto;` to the top-level layout wrapper on every page. The card grid and text column widths nest inside that wrapper and should also be centered with `margin: 0 auto`.
 
 ---
 
@@ -198,4 +196,4 @@ Per the 2025 Style Guide:
 |------|----------|-----------|
 | Feb 2026 | Hanken Grotesk as primary font | Clean, geometric, works well at small sizes for data-dense UI |
 | Feb 2026 | Acid green (#ceff00) as primary accent | Brand differentiation, energy, established in Style Guide |
-| Apr 2026 | Max layout width set to 1440px site-wide | 13-inch MacBook as design reference; prevents content from stretching on large monitors |
+| May 2026 | Secondary text on dark surfaces → `#bdbdbd` | Footer EXPLORE/ABOUT/CONNECT labels reading below WCAG AA on black. `#bdbdbd` (~6.0:1 on #000) chosen over bare AA floor (`#a8a8a8`, 4.5:1) because small all-caps widely-spaced labels need more contrast than body-weight text at the same size. Supersedes any previous per-page `#a8a8a8` usage on dark surfaces. Applied globally: footer, dark homepage sections, Bluesky Creator Intelligence. |

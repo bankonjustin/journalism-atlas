@@ -66,7 +66,7 @@
     }
     .hero-headline { font-size: clamp(34px, 4vw, 56px); font-weight: 700; line-height: 1.03; letter-spacing: -0.03em; color: #fff; margin: 0; }
     .hero-headline em { font-style: normal; color: #ceff00; }
-    .hero-subhead { font-size: 18px; color: #a8a8a8; line-height: 1.7; max-width: 440px; margin-top: 20px; }
+    .hero-subhead { font-size: 18px; color: #bdbdbd; line-height: 1.7; max-width: 440px; margin-top: 20px; }
     .hero-ctas { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
     .hero-small-note { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 12px; margin-bottom: 0; }
     .hero-tertiary-link {
@@ -173,7 +173,8 @@
     .gc-link { font-family: 'DM Mono', monospace; font-size: 10px; color: #5d7400; letter-spacing: 0.08em; }
 
     /* ── STAT STRIP ── */
-    .stat-strip { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-bottom: 1px solid #d4d4d8; position: relative; }
+    .stat-strip { background: #fff; border-bottom: 1px solid #d4d4d8; position: relative; }
+    .stat-strip-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
     .stat-cell { padding: 24px 28px 20px; border-right: 1px solid #d4d4d8; }
     .stat-cell:last-child { border-right: none; }
     .stat-num { font-size: 36px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; margin-bottom: 6px; }
@@ -209,14 +210,14 @@
     .featured-scroll-arrow { font-size: 16px; color: rgba(255,255,255,0.2); animation: arrowPulse 2s ease-in-out infinite; }
     .featured-scroll-label { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.14em; text-transform: uppercase; }
     @keyframes arrowPulse { 0%, 100% { transform: translateX(0); opacity: 0.2; } 50% { transform: translateX(5px); opacity: 0.5; } }
-    .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #a8a8a8; flex-shrink: 0; overflow: hidden; position: relative; }
+    .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #bdbdbd; flex-shrink: 0; overflow: hidden; position: relative; }
     .featured-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
-    .featured-avatar[data-initials]::after { content: attr(data-initials); font-size: 18px; font-weight: 700; color: #a8a8a8; }
+    .featured-avatar[data-initials]::after { content: attr(data-initials); font-size: 18px; font-weight: 700; color: #bdbdbd; }
     .featured-name { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
-    .featured-pub { font-size: 13px; color: #a8a8a8; font-weight: 500; }
+    .featured-pub { font-size: 13px; color: #bdbdbd; font-weight: 500; }
     .featured-beat { font-family: 'DM Mono', monospace; font-size: 13px; color: #ceff00; background: rgba(206,255,0,0.1); border: 1px solid rgba(206,255,0,0.2); padding: 2px 8px; border-radius: 100px; display: inline-block; text-transform: uppercase; letter-spacing: 0.1em; }
     .featured-editorial { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-top: 10px; flex: 1; }
-    .featured-quote { font-size: 14px; font-style: italic; color: #a8a8a8; line-height: 1.6; }
+    .featured-quote { font-size: 14px; font-style: italic; color: #bdbdbd; line-height: 1.6; }
     .featured-link { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; transition: color 0.15s; margin-top: auto; }
     .featured-link:hover { color: #ceff00; }
 
@@ -293,6 +294,7 @@
     .intel-thesis p:nth-child(2) { color: #fff; }
     .intel-thesis-coda { display: block; font-family: 'DM Mono', monospace; font-size: 11px !important; font-weight: 400 !important; color: rgba(255,255,255,0.25) !important; letter-spacing: 0.12em !important; text-transform: uppercase; margin-top: 28px !important; line-height: 1.6 !important; }
     .intel-section { background: #efeff2; padding: 40px 40px 56px; position: relative; }
+    .intel-inner { max-width: 1440px; margin: 0 auto; }
     .intel-section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
     .intel-title { font-size: 20px; font-weight: 700; color: #000; letter-spacing: -0.02em; }
     .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -355,6 +357,7 @@
 
     /* ── DATABASE ENTRY ── */
     .db-section { background: #efeff2; padding: 64px 40px 80px; position: relative; }
+    .db-inner { max-width: 1440px; margin: 0 auto; }
     .db-header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
     .db-header h2 { font-size: 20px; font-weight: 700; color: #000; letter-spacing: -0.02em; margin-bottom: 6px; margin-top: 0; }
     .db-header p { font-size: 14px; color: #666; margin: 0; }
@@ -920,26 +923,28 @@
      STAT STRIP
      ══════════════════════════════════════════════════════════ -->
 <div class="stat-strip" style="position:relative;">
-  <div class="stat-cell">
-    <div class="stat-num green js-creator-count">1,453</div>
-    <div class="stat-lbl">Verified creator-journalists</div>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-num dark">45<span class="stat-plus">+</span></div>
-    <div class="stat-lbl">Countries represented</div>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-num dark">180<span class="stat-plus">+</span></div>
-    <div class="stat-lbl">Cities represented</div>
-  </div>
-  <a href="pulse.html" class="stat-cell stat-cell--linked">
-    <div class="stat-num green">882</div>
-    <div class="stat-lbl">Creator RSS feeds</div>
-    <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
-  </a>
-  <div class="stat-cell">
-    <div class="stat-num dark">12</div>
-    <div class="stat-lbl">Institutional partners</div>
+  <div class="stat-strip-inner">
+    <div class="stat-cell">
+      <div class="stat-num green js-creator-count">1,453</div>
+      <div class="stat-lbl">Verified creator-journalists</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num dark">45<span class="stat-plus">+</span></div>
+      <div class="stat-lbl">Countries represented</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num dark">180<span class="stat-plus">+</span></div>
+      <div class="stat-lbl">Cities represented</div>
+    </div>
+    <a href="pulse.html" class="stat-cell stat-cell--linked">
+      <div class="stat-num green">882</div>
+      <div class="stat-lbl">Creator RSS feeds</div>
+      <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
+    </a>
+    <div class="stat-cell">
+      <div class="stat-num dark">12</div>
+      <div class="stat-lbl">Institutional partners</div>
+    </div>
   </div>
 </div>
 
@@ -1033,6 +1038,7 @@
 </div>
 
 <section class="intel-section" style="position:relative;">
+  <div class="intel-inner">
   <div class="intel-section-header">
     <div class="intel-title">Nine Communities of Independent Journalism.</div>
   </div>
@@ -1239,6 +1245,7 @@
   <div class="intel-footer">
     <a href="search.html">Filter by topic in the full database →</a>
   </div>
+  </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -1257,6 +1264,7 @@
      SECTION 10: DATABASE ENTRY
      ══════════════════════════════════════════════════════════ -->
 <section class="db-section" style="position:relative;">
+  <div class="db-inner">
   <div class="db-header">
     <div>
       <h2>1,453 creators. Free to explore. No account required.</h2>
@@ -1329,6 +1337,7 @@
   </div>
   <div class="db-cta">
     <a href="search.html" class="btn-lime-lg">Explore all <span class="js-creator-count">1,453</span> creators →</a>
+  </div>
   </div>
 </section>
 
