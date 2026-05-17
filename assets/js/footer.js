@@ -12,7 +12,7 @@
         '  <div class="footer-inner">',
         '    <div class="footer-top">',
         '      <div class="footer-brand">',
-        '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_stacked_white.png" alt="Independent Journalism Atlas" class="footer-wordmark">',
+        '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Independent Journalism Atlas" class="footer-wordmark">',
         '        <p class="footer-tagline">Independent journalism is moving. We\'re following it.</p>',
         '      </div>',
         '      <div class="footer-col">',
