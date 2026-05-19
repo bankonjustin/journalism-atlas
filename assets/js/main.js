@@ -860,12 +860,13 @@
             });
         }
 
-        // Read more button
+        // Read more button (index.html only)
         function setupReadMore() {
             const btn = document.getElementById('readMoreBtn');
+            if (!btn) return;
             const intro = document.getElementById('heroIntro');
             const text = document.getElementById('readMoreText');
-            
+
             btn.addEventListener('click', () => {
                 intro.classList.toggle('expanded');
                 if (intro.classList.contains('expanded')) {
