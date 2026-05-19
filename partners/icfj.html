@@ -1,13 +1,3 @@
-<!--
-  PARTNER PAGE — ICFJ / International Center for Journalists
-  File: partner-icfj-V3.html
-  Shell: partner-page-shell-V3.html
-  Built: 2026-04-27
-
-  21 creators, all with blurbs. Grouped: LatAm 7, Africa 5, MENA 9.
-  hasGroups: true — region nav + 2-col grid + per-group rank numbers.
-  region field on each creator drives group assignment.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,16 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Independent journalists from around the world, in partnership with ICFJ — Independent Journalism Atlas</title>
 <meta name="description" content="The International Center for Journalists and the Independent Journalism Atlas present 21 creator-journalists across Latin America, Africa, and MENA doing essential independent work.">
-<meta property="og:title" content="21 Independent Journalists Around the World — ICFJ × Independent Journalism Atlas">
-<meta property="og:description" content="ICFJ curates creator-journalists building direct, independent relationships with their audiences across Latin America, Africa, and MENA.">
-<meta property="og:url" content="https://journalismatlas.com/partners/icfj">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-    <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
-    <meta property="twitter:url" content="https://journalismatlas.com/partners/icfj">
-    <meta property="twitter:title" content="Independent journalists from around the world, in partnership with ICFJ — Independent Journalism Atlas">
-    <meta property="twitter:description" content="Discover 1,180+ independent creator-journalists across every beat, platform, and geography.">
-    <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
@@ -33,128 +15,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap');
 
 :root {
-  --acid:    #ceff00;
-  --lime:    #97d600;
-  --olive:   #5d7400;
-  --page-bg: #efeff2;
-  --border:  #d4d4d8;
+  --acid:       #ceff00;
+  --lime:       #97d600;
+  --olive:      #5d7400;
+  --page-bg:    #efeff2;
+  --border:     #d4d4d8;
+  --nav-height: 56px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
-body { font-family: 'Hanken Grotesk', sans-serif; background: var(--page-bg); color: #313131; line-height: 1.5; overflow-x: hidden; 
-            padding-top: 72px;
-        }
+body {
+  font-family: 'Hanken Grotesk', sans-serif;
+  background: var(--page-bg);
+  color: #313131;
+  line-height: 1.5;
+  overflow-x: hidden;
+  padding-top: 72px;
+}
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
 .container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 40px; }
 
-/* ── NAV — white, sticky ── */
-
-/* ── HERO — black ── */
-.hero { background: #000; padding: 88px 0 72px; }
-.hero-grid { display: flex; flex-direction: column; gap: 32px; }
-
-.hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 20px; }
-.hero-h1 { font-size: 44px; font-weight: 700; line-height: 52px; letter-spacing: -0.5px; color: #fff; margin-bottom: 20px; }
-.hero-body { font-size: 17px; font-weight: 400; line-height: 28px; color: rgba(255,255,255,0.72); max-width: 600px; margin-bottom: 32px; }
-
-.hero-stats {
-  display: flex;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  overflow: hidden;
-  max-width: 640px;
-  margin-bottom: 24px;
+.consent-warning {
+  position: fixed; top: var(--nav-height); left: 0; right: 0; z-index: 999;
+  background: #ffb700; color: #000; font-size: 13px; font-weight: 700;
+  text-align: center; padding: 8px 16px;
 }
-.hero-stat { flex: 1; padding: 20px 24px; border-right: 1px solid rgba(255,255,255,0.15); }
-.hero-stat:last-child { border-right: none; }
-.hero-stat-num { font-size: 36px; font-weight: 700; line-height: 1; color: var(--acid); margin-bottom: 6px; }
-.hero-stat-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
 
-.hero-collab { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; color: rgba(255,255,255,0.4); }
+.hero { background: #000; padding: 48px 0 0; }
+.hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 14px; }
+.hero-h1 { font-size: 36px; font-weight: 700; line-height: 44px; letter-spacing: -0.5px; color: #fff; margin-bottom: 12px; }
+.hero-body { font-size: 15px; font-weight: 400; line-height: 26px; color: rgba(255,255,255,0.62); max-width: 600px; margin-bottom: 20px; }
 
-/* Partner identity card */
-.partner-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 32px; }
-.partner-card-logo { margin-bottom: 16px; }
-.partner-card-logo img { height: 40px; width: auto; }
-.partner-name { font-size: 22px; font-weight: 700; color: #000; line-height: 1.25; margin-bottom: 8px; }
-.partner-role { font-size: 14px; font-weight: 400; color: #888; line-height: 1.55; margin-bottom: 12px; }
-.partner-url { font-size: 14px; font-weight: 500; color: var(--olive); transition: color 0.15s; }
-.partner-url:hover { color: #000; }
+.pull-quote { max-width: 600px; margin-bottom: 28px; display: flex; align-items: flex-start; gap: 10px; }
+.pull-quote-mark { font-size: 40px; font-weight: 700; line-height: 1; color: var(--acid); display: block; font-family: Georgia, serif; flex-shrink: 0; margin-top: -2px; }
+.pull-quote-text { font-size: 17px; font-weight: 500; line-height: 1.5; color: rgba(255,255,255,0.85); letter-spacing: -0.1px; }
 
-/* ── REGION NAV — sticky below main nav ── */
-.region-nav { position: sticky; top: 56px; z-index: 90; background: #fff; border-bottom: 1px solid var(--border); }
-.region-nav-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; display: flex; align-items: stretch; }
-.region-nav-link {
-  display: inline-flex; align-items: center;
-  padding: 18px 24px;
-  font-size: 15px; font-weight: 500; color: #313131;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  transition: border-color 0.15s, color 0.15s;
-}
-.region-nav-link:hover { border-bottom-color: rgba(0,0,0,0.12); }
-.region-nav-link.active { color: #000; border-bottom-color: var(--lime); }
+.curator-strip { background: #000; border-top: none; padding: 20px 0 28px; }
+.curator-strip-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; gap: 16px; }
+.curator-photo-wrap { flex-shrink: 0; }
+.curator-photo { width: 56px; height: 56px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); object-fit: cover; display: block; }
+.curator-monogram { width: 56px; height: 56px; border-radius: 50%; background: #2a2a2a; border: 2px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.02em; flex-shrink: 0; }
+.curator-strip-text { flex: 1; }
+.curator-strip-name { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.2px; margin-bottom: 4px; }
+.curator-strip-meta { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
+.curator-strip-url { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.35); transition: color 0.15s; }
+.curator-strip-url:hover { color: var(--acid); }
+.hero-collab { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; color: rgba(255,255,255,0.3); margin-top: 12px; }
 
-/* ── GRID SECTION ── */
-.grid-section { background: var(--page-bg); padding: 64px 0; }
-.grid-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; }
-.grid-h2 { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; }
-.grid-context { font-size: 13px; font-weight: 500; color: #888; letter-spacing: 0.04em; }
+.filter-bar { position: sticky; top: var(--nav-height); z-index: 90; background: #fff; border-bottom: 0.5px solid var(--border); padding: 16px 0; }
+.filter-bar-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+.filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.filter-row + .filter-row { margin-top: 10px; }
+.filter-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #888; white-space: nowrap; min-width: 100px; }
+.chip { display: inline-flex; align-items: center; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; background: var(--page-bg); border: 0.5px solid var(--border); color: #313131; cursor: pointer; transition: background 0.12s, border-color 0.12s, color 0.12s; user-select: none; }
+.chip:hover { background: #e4e4e9; border-color: #b0b0b8; }
+.chip.active { background: var(--lime); border-color: var(--olive); color: #313131; }
+.chip:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 
-/* ── REGION SECTIONS ── */
-.creator-section { padding-bottom: 72px; }
-.region-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
-.region-header { display: flex; align-items: center; gap: 12px; padding: 40px 0 24px; }
-.region-label { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive); }
-.creator-count-pill { font-size: 12px; font-weight: 500; color: #313131; border: 1px solid var(--border); border-radius: 100px; padding: 4px 12px; background: #fff; }
+.act-divider { background: #fff; height: 48px; padding: 0 40px; }
+.act-divider-inner { width: 100%; max-width: 1040px; margin: 0 auto; height: 100%; display: flex; align-items: center; }
+.act-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); white-space: nowrap; }
+.act-rule { flex: 1; height: 1px; background: var(--border); margin: 0 24px; }
+.act-count-pill { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; background: #fff; border: 0.5px solid var(--border); color: #313131; white-space: nowrap; }
 
-/* ── CREATOR GRID ── */
-.creator-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.creator-grid.two-col { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-section { background: var(--page-bg); padding: 48px 0 64px; }
+.creator-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
-/* Creator card */
-.creator-card {
-  position: relative;
-  background: #fff;
-  border: 0.5px solid var(--border);
-  border-radius: 6px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.15s;
-}
-.creator-card:hover { border-color: var(--lime); }
-.card-rank { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 500; color: #b0b0b8; letter-spacing: 0.04em; }
+.creator-card { background: #fff; border: 0.5px solid var(--border); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; transition: background 0.15s, border-color 0.15s; }
+.creator-card:hover { background: #efeff2; border-color: #b0b0b8; }
 .creator-name { font-size: 18px; font-weight: 700; color: #000; line-height: 1.3; margin-bottom: 4px; }
-.creator-channel { font-size: 14px; font-weight: 500; color: var(--olive); margin-bottom: 12px; }
-.card-blurb { font-size: 14px; font-weight: 400; color: #606068; line-height: 22px; margin-bottom: 16px; }
+.creator-channel { font-size: 14px; font-weight: 500; color: var(--olive); margin-bottom: 6px; }
+.creator-descriptor { font-size: 13px; font-weight: 400; font-style: italic; color: #606068; line-height: 1.5; margin-bottom: 10px; }
 .creator-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.pill {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 4px 12px; border-radius: 100px;
-  font-size: 12px; font-weight: 500;
-  background: #efeff2; border: 0.5px solid var(--border); color: #313131;
-}
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; background: #efeff2; border: 0.5px solid var(--border); color: #313131; }
 .pill.platform { background: var(--lime); border-color: var(--olive); }
-.pill .material-symbols-outlined {
-  font-size: 14px; line-height: 1;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 14;
-}
+.pill .material-symbols-outlined { font-size: 14px; line-height: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 14; }
 .card-divider { border: none; border-top: 0.5px solid var(--border); margin-bottom: 16px; }
-.card-link {
-  font-size: 14px; font-weight: 500; color: var(--olive);
-  margin-top: auto;
-  display: inline-flex; align-items: center;
-  padding: 6px 12px; border-radius: 6px; margin-left: -12px;
-  transition: color 0.15s, background 0.15s;
-}
+.card-link { font-size: 14px; font-weight: 500; color: var(--olive); margin-top: auto; display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 6px; margin-left: -12px; transition: color 0.15s, background 0.15s; }
 .card-link:hover { color: #313131; background: var(--lime); }
 .card-link:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 
-/* ── ABOUT SECTION — white ── */
+.empty-state { grid-column: 1 / -1; padding: 64px 0; text-align: center; color: #888; font-size: 16px; }
+
+.atlas-attribution { background: #fff; border: 0.5px solid var(--border); border-radius: 6px; padding: 16px 20px; margin-top: 32px; display: flex; align-items: flex-start; gap: 14px; }
+.atlas-attribution-badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 100px; background: #000; color: var(--acid); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+.atlas-attribution-body { font-size: 14px; font-weight: 400; color: #606068; line-height: 22px; }
+.atlas-attribution-body a { font-weight: 500; color: var(--olive); }
+.atlas-attribution-body a:hover { color: #000; }
+
 .about-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 .about-section { background: #fff; padding: 80px 0; }
 .about-inner { max-width: 640px; }
@@ -166,19 +117,11 @@ img { max-width: 100%; display: block; }
 .about-link { font-size: 14px; font-weight: 500; color: var(--olive); transition: color 0.15s; }
 .about-link:hover { color: #000; }
 
-/* ── ATLAS FOOTER — dark gray ── */
 .atlas-footer { background: #313131; padding: 80px 0; }
 .atlas-footer-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
 .atlas-footer-logo img { height: 20px; width: auto; }
 .atlas-footer-tagline { font-size: 16px; font-weight: 400; line-height: 26px; color: rgba(255,255,255,0.65); max-width: 480px; }
-.atlas-footer-btn {
-  display: inline-flex; align-items: center;
-  padding: 12px 24px;
-  background: var(--acid); color: #000;
-  font-family: 'Hanken Grotesk', sans-serif;
-  font-size: 14px; font-weight: 700; border-radius: 6px;
-  transition: opacity 0.15s; margin-top: 4px;
-}
+.atlas-footer-btn { display: inline-flex; align-items: center; padding: 12px 24px; background: var(--acid); color: #000; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 700; border-radius: 6px; transition: opacity 0.15s; margin-top: 4px; }
 .atlas-footer-btn:hover { opacity: 0.88; }
 .atlas-footer-btn:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 
@@ -186,64 +129,61 @@ img { max-width: 100%; display: block; }
 ::-webkit-scrollbar-track { background: var(--page-bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); }
 
-/* ── RESPONSIVE ── */
-@media (min-width: 1024px) {
-  .hero-grid { display: grid; grid-template-columns: 55fr 45fr; gap: 48px; align-items: start; }
-}
-
 @media (max-width: 768px) {
-  .hero { padding: 56px 0 48px; }
-  .hero-h1 { font-size: 32px; line-height: 40px; }
-  .hero-body { font-size: 16px; }
-  .creator-grid.two-col { grid-template-columns: 1fr; }
+  .hero { padding: 36px 0 0; }
+  .hero-h1 { font-size: 28px; line-height: 36px; }
+  .hero-body { font-size: 14px; margin-bottom: 16px; }
+  .curator-strip { padding: 16px 0 20px; }
+  .creator-grid { grid-template-columns: 1fr; }
+  .filter-label { min-width: 80px; font-size: 10px; }
+  .act-divider { padding: 0 20px; }
+  .atlas-attribution { flex-direction: column; gap: 10px; }
 }
 
 @media (max-width: 480px) {
   .container { padding: 0 20px; }
-  .region-nav-inner { padding: 0 20px; }
-  .hero { padding: 48px 0 40px; }
-  .hero-h1 { font-size: 26px; line-height: 34px; }
-  .hero-body { font-size: 16px; line-height: 26px; }
-  .hero-stat { padding: 16px 18px; }
-  .hero-stat-num { font-size: 28px; }
-  .grid-section { padding: 48px 0; }
+  .filter-bar-inner { padding: 0 20px; }
+  .curator-strip-inner { padding: 0 20px; }
+  .hero { padding: 28px 0 0; }
+  .hero-h1 { font-size: 24px; line-height: 32px; }
+  .grid-section { padding: 40px 0 56px; }
   .about-section { padding: 56px 0; }
   .atlas-footer { padding: 56px 0; }
-  .region-nav-link { padding: 14px 16px; font-size: 14px; }
 }
 </style>
-    <link rel="stylesheet" href="/assets/css/header.css">
+<link rel="stylesheet" href="/assets/css/header.css">
 </head>
 <body>
-    <script src="/assets/js/header.js"></script>
+<script src="/assets/js/header.js"></script>
 
+<div class="consent-warning" id="consent-warning" style="display:none;">
+  &#9888;&#xFE0E; DRAFT — Curator consent not confirmed. Do not deploy live.
+</div>
 
-
-<!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="hero-left" id="hero-left"></div>
-      <div class="hero-right" id="hero-right"></div>
-    </div>
+  <div class="container" id="hero-content"></div>
+  <div class="curator-strip">
+    <div class="curator-strip-inner" id="curator-strip-content"></div>
   </div>
 </section>
 
-<!-- REGION NAV — rendered by JS when hasGroups: true -->
-<nav class="region-nav" id="region-nav"></nav>
+<div id="filter-bar-mount"></div>
 
-<!-- CREATOR GRID -->
+<div class="act-divider">
+  <div class="act-divider-inner">
+    <span class="act-label">The List</span>
+    <div class="act-rule"></div>
+    <span class="act-count-pill" id="act-count-pill"></span>
+  </div>
+</div>
+
 <section class="grid-section">
   <div class="container">
-    <div class="grid-header">
-      <h2 class="grid-h2" id="grid-heading"></h2>
-      <span class="grid-context" id="grid-context"></span>
-    </div>
-    <div id="creator-grid"></div>
+    <div class="creator-grid" id="creator-grid"></div>
+    <div class="atlas-attribution" id="atlas-attribution"></div>
   </div>
 </section>
 
-<!-- ABOUT -->
 <div class="about-rule"></div>
 <section class="about-section">
   <div class="container">
@@ -251,201 +191,76 @@ img { max-width: 100%; display: block; }
   </div>
 </section>
 
-<!-- ATLAS FOOTER -->
 <footer class="atlas-footer">
   <div class="container">
     <div class="atlas-footer-inner">
       <div class="atlas-footer-logo">
         <img src="../assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Independent Journalism Atlas">
       </div>
-      <p class="atlas-footer-tagline">Discover 1,200+ independent creator-journalists across newsletters, video, podcasts, and social.</p>
-      <a href="https://journalismatlas.com" class="atlas-footer-btn">Explore the Atlas →</a>
+      <p class="atlas-footer-tagline">Discover 1,400+ independent creator-journalists across newsletters, video, podcasts, and social.</p>
+      <a href="https://journalismatlas.com" class="atlas-footer-btn">Explore the Atlas &rarr;</a>
     </div>
   </div>
 </footer>
 
 <script>
-/* =========================================================
-   PARTNER CONFIG
-   ========================================================= */
 const PARTNER_CONFIG = {
   curatorName:    'ICFJ',
   curatorChannel: 'International Center for Journalists',
   curatorUrl:     'https://icfj.org',
-  curatorNote:    'The International Center for Journalists works with media professionals in more than 180 countries. This list surfaces independent creator-journalists from the ICFJ network \u2014 reporters working outside legacy institutions across the Americas, Africa, and the Middle East.',
-
-  pageTitle:       'Independent journalists from around the world, in partnership with ICFJ \u2014 Independent Journalism Atlas',
-  pageDescription: 'The International Center for Journalists and the Independent Journalism Atlas present 21 creator-journalists across Latin America, Africa, and MENA doing essential independent work.',
-  pageUrl:         'https://journalismatlas.com/partners/icfj',
-
-  stats: [
-    { num: '21', label: 'Creators'              },
-    { num: '13', label: 'Countries represented' },
-    { num: '4',  label: 'Platforms'             },
-    { num: '9',  label: 'Beats'                 },
-  ],
-
-  logoWhite: '../assets/images/curators/ICFJ+ Logo_White.png',
-  logoColor: '../assets/images/curators/ICFJ+ July 2025 Logo_Blue.png',
-
+  curatorPhoto:   null,
+  curatorNote:    'The International Center for Journalists works with media professionals in more than 180 countries. This list surfaces independent creator-journalists from the ICFJ network — reporters working outside legacy institutions across the Americas, Africa, and the Middle East.',
+  curatorQuote:   '',
+  pageTitle:      'Independent journalists from around the world, in partnership with ICFJ — Independent Journalism Atlas',
+  pageDescription:'The International Center for Journalists and the Independent Journalism Atlas present 21 creator-journalists across Latin America, Africa, and MENA doing essential independent work.',
+  pageUrl:        'https://journalismatlas.com/partners/icfj',
+  showFilters:    true,
+  logoColor:      '../assets/images/curators/ICFJ+ July 2025 Logo_Blue.png',
+  logoWhite:      '../assets/images/curators/ICFJ+ Logo_White.png',
+  consentConfirmed: false,
+  consentDate:    '',
+  consentNotes:   '',
   aboutHeadline:   'About ICFJ',
   aboutParagraphs: [
-    'The International Center for Journalists (ICFJ) is one of the world\u2019s leading journalism support organizations, working with media professionals in more than 180 countries to strengthen independent reporting. ICFJ provides training, fellowships, and resources to journalists working in some of the most challenging environments for press freedom.',
-    'The creators on this list are drawn from the ICFJ network \u2014 independent journalists who have participated in ICFJ programs and are now building their own platforms and audiences outside traditional media structures. They represent the growing global layer of the independent journalism ecosystem that the Atlas is working to map.',
+    'The International Center for Journalists (ICFJ) is one of the world’s leading journalism support organizations, working with media professionals in more than 180 countries to strengthen independent reporting. ICFJ provides training, fellowships, and resources to journalists working in some of the most challenging environments for press freedom.',
+    'The creators on this list are drawn from the ICFJ network — independent journalists who have participated in ICFJ programs and are now building their own platforms and audiences outside traditional media structures. They represent the growing global layer of the independent journalism ecosystem that the Atlas is working to map.',
     'This page is part of an ongoing collaboration between ICFJ and the Independent Journalism Atlas. Atlas provides the infrastructure to surface and verify these creators; ICFJ provides the curatorial knowledge and network relationships that make global discovery possible.',
   ],
   aboutLinkText: 'Visit ICFJ.org',
   aboutLinkUrl:  'https://icfj.org',
-
-  hasGroups: true,
-  groups: [
-    { key: 'Latin America', label: 'Latin America', id: 'latam'  },
-    { key: 'Africa',        label: 'Africa',        id: 'africa' },
-    { key: 'MENA',          label: 'MENA',          id: 'mena'   },
-  ],
-
   creators: [
-    // Latin America
-    {
-      name: 'Bianca Graulau', channel: 'Bianca Graulau',
-      link: 'https://instagram.com/biancagraulau',
-      platform: 'Social - Instagram', topic: 'Investigative', geography: 'Puerto Rico', region: 'Latin America',
-      blurb: 'Puerto Rico-based independent journalist and filmmaker whose investigative reporting on land rights, colonialism, and the island\u2019s energy crisis reaches millions across Instagram, YouTube, and Substack.',
-    },
-    {
-      name: 'Nicol\u00e1s Copano', channel: 'Copano.News / Turno',
-      link: 'https://twitter.com/copano',
-      platform: 'Newsletter - Other', topic: 'Politics', geography: 'Chile', region: 'Latin America',
-      blurb: 'Chilean journalist and digital media entrepreneur who runs Copano.News and produces Turno, Chile\u2019s first live streaming news channel, recognized in the Reuters Institute\u2019s Digital News Report.',
-    },
-    {
-      name: 'Yuri Fernandes', channel: 'Colabora (#Colabora)',
-      link: 'https://youtube.com/@colaborajornalismo',
-      platform: 'Video - YouTube', topic: 'Human Rights', geography: 'Brazil', region: 'Latin America',
-      blurb: 'Co-founder and director of #Colabora, a Brazilian journalism platform focused on sustainability, human rights, and LGBTQ+ issues, whose documentary series won the inaugural ICFJ News Creator Award in 2025.',
-    },
-    {
-      name: 'Marcela Trejo', channel: 'Focos',
-      link: 'https://youtube.com/@focostv',
-      platform: 'Video - TikTok', topic: 'Investigative', geography: 'El Salvador', region: 'Latin America',
-      blurb: 'Salvadoran multimedia journalist at Focos using short-form video on TikTok and YouTube to make accountability journalism accessible to young audiences across Central America. 2025 ICFJ News Creator Award winner.',
-    },
-    {
-      name: 'Miguel Lago', channel: 'Miguel Lago',
-      link: 'https://twitter.com/miguelago',
-      platform: 'Newsletter - Other', topic: 'Policy', geography: 'Brazil', region: 'Latin America',
-      blurb: 'Brazilian political scientist and opinion writer whose columns in The New York Times and Folha de S.Paulo, alongside an active social media presence, have built a direct audience around political and health policy discourse.',
-    },
-    {
-      name: 'La Pulla', channel: 'La Pulla',
-      link: 'https://www.youtube.com/@LaPulla',
-      platform: 'Video - YouTube', topic: 'Politics', geography: 'Colombia', region: 'Latin America',
-      blurb: 'Colombian YouTube channel known for sharp, satirical political explainers that won the Sim\u00f3n Bol\u00edvar National Journalism Award and built an audience of over half a million subscribers.',
-    },
-    {
-      name: 'Gustavo Faleiros', channel: 'InfoAmazonia',
-      link: 'https://infoamazonia.org',
-      platform: 'Website', topic: 'Environment', geography: 'Brazil', region: 'Latin America',
-      blurb: 'Brazilian environmental journalist and founder of InfoAmazonia, a pioneering digital platform using satellite imagery and open data to track deforestation across the nine countries of the Amazon basin.',
-    },
-    // Africa
-    {
-      name: 'Aproko Doctor (Chinonso Egemba)', channel: 'Aproko Doctor',
-      link: 'https://instagram.com/aproko_doctor',
-      platform: 'Social - Instagram', topic: 'Health', geography: 'Nigeria', region: 'Africa',
-      blurb: 'Nigerian physician and health communicator who has built a direct audience of nearly 10 million followers by translating complex medical information into accessible, engaging public health content.',
-    },
-    {
-      name: 'Lynn Ngugi', channel: 'Lynn Ngugi Network',
-      link: 'https://youtube.com/@LynnNgugi',
-      platform: 'Video - YouTube', topic: 'Human Interest', geography: 'Kenya', region: 'Africa',
-      blurb: 'Kenyan journalist and creator behind The Lynn Ngugi Show, a YouTube channel with over 1.2 million subscribers, recognized as one of the BBC\u2019s 100 inspiring women.',
-    },
-    {
-      name: 'Desmond Latham', channel: 'History of South Africa',
-      link: 'https://podcasts.apple.com/us/podcast/history-of-south-africa-podcast/id1553731049',
-      platform: 'Podcast', topic: 'History', geography: 'South Africa', region: 'Africa',
-      blurb: 'South Africa-based broadcaster and podcaster whose History of South Africa podcast \u2014 a long-running, independently produced series \u2014 was named one of Apple Podcasts\u2019 Best Shows of 2025.',
-    },
-    {
-      name: 'Kiki Mordi', channel: 'Kiki Mordi',
-      link: 'https://www.youtube.com/@KikiMordi',
-      platform: 'Video - YouTube', topic: 'Investigative', geography: 'Nigeria', region: 'Africa',
-      blurb: 'Nigerian investigative journalist and filmmaker best known for the Emmy-nominated BBC Africa Eye documentary Sex for Grades, which exposed sexual harassment in West African universities and led to immediate institutional consequences.',
-    },
-    {
-      name: 'Ruona Meyer', channel: 'Ruona Meyer',
-      link: 'https://x.com/RGAMeyer',
-      platform: 'Podcast', topic: 'Investigative', geography: 'Nigeria', region: 'Africa',
-      blurb: 'Nigerian investigative journalist and filmmaker whose Emmy-nominated BBC Africa Eye documentary Sweet, Sweet Codeine prompted the Nigerian government to ban codeine-based cough syrup imports within 24 hours of its broadcast.',
-    },
-    // MENA
-    {
-      name: 'Motaz Azaiza', channel: 'motaz_azaiza',
-      link: 'https://instagram.com/motaz_azaiza',
-      platform: 'Social - Instagram', topic: 'Conflict', geography: 'Gaza', region: 'MENA',
-      blurb: 'Palestinian photojournalist whose frontline documentation of the war grew his Instagram following from 25,000 to over 18 million, earning a place on Time\u2019s 100 Most Influential People list and a Nobel Peace Prize nomination.',
-    },
-    {
-      name: 'Bisan Owda', channel: 'Bisan from Gaza',
-      link: 'https://instagram.com/bisanowda',
-      platform: 'Social - Instagram', topic: 'Conflict', geography: 'Gaza', region: 'MENA',
-      blurb: 'Palestinian journalist and filmmaker whose dispatches \u2014 each beginning with \u201cIt\u2019s Bisan from Gaza and I\u2019m still alive\u201d \u2014 have won both a Peabody Award and a News and Documentary Emmy.',
-    },
-    {
-      name: 'Hadeel Arja', channel: 'Tiny Hand',
-      link: 'https://www.instagram.com/tiny___hand/',
-      platform: 'Website', topic: 'Human Rights', geography: 'Syria', region: 'MENA',
-      blurb: 'Syrian journalist and founder of Tiny Hand, an investigative platform reporting on children in conflict zones, whose work on forced child marriage in displacement camps won the 2024 Samir Kassir Award for Freedom of the Press.',
-    },
-    {
-      name: 'Hind Khoudary', channel: 'hindkhoudary',
-      link: 'https://instagram.com/hindkhoudary',
-      platform: 'Social - Instagram', topic: 'Conflict', geography: 'Gaza', region: 'MENA',
-      blurb: 'Palestinian journalist reporting from inside Gaza for Al Jazeera English, whose frontline coverage has drawn nearly 1.5 million followers as one of the few remaining journalists in the territory.',
-    },
-    {
-      name: 'Tala Al-Sharif', channel: 'Female Chimeras',
-      link: 'https://www.instagram.com/femalechimeras/',
-      platform: 'Website', topic: 'Human Rights', geography: 'Palestine', region: 'MENA',
-      blurb: 'Palestinian journalist from Hebron and founder of Female Chimeras, a video storytelling platform that amplifies the voices and experiences of Palestinian women through documentary and animation.',
-    },
-    {
-      name: 'Louay Cherni', channel: 'Must Last / \u0627\u0628\u0648 \u064a\u062d\u064a\u0649',
-      link: 'https://www.instagram.com/louay.cherni',
-      platform: 'Social - Instagram', topic: 'Education', geography: 'Tunisia', region: 'MENA',
-      blurb: 'Former Nawaat contributor who has built one of Tunisia\u2019s largest independent audiences by translating Arab politics, history, and socio-economic issues into accessible explainers for young Arabic-speaking audiences that legacy media consistently misses.',
-    },
-    {
-      name: 'Eman Sobhy', channel: 'What If \u2014 \u0645\u0627\u0630\u0627 \u0644\u0648',
-      link: 'https://www.instagram.com/whatif.emansobhy',
-      platform: 'Social - Instagram', topic: 'Education', geography: 'Egypt', region: 'MENA',
-      blurb: 'Humphrey Fellow and UNHCR Egypt partner who applies rigorous civic curiosity to speculative history and social questions, building one of the largest Arabic creator-journalist audiences in the world with 6.5M+ followers.',
-    },
-    {
-      name: 'Mohammad Taher', channel: 'The Airport Guy',
-      link: 'https://www.instagram.com/theairportguy',
-      platform: 'Social - Instagram', topic: 'Education', geography: 'Iraq', region: 'MENA',
-      blurb: 'Aerospace engineer and UK Department for Transport Aviation Ambassador who turns aviation careers, industry access, and workforce development into impactful independent journalism with measurable real-world influence on hiring.',
-    },
-    {
-      name: 'Farah ElKordy', channel: '\u0641\u0631\u062d \u0627\u0644\u0643\u0631\u062f\u064a',
-      link: 'https://www.instagram.com/farahelkordy_',
-      platform: 'Social - Instagram', topic: 'Technology', geography: 'Egypt', region: 'MENA',
-      blurb: 'UAE Media Licensed and Forbes Middle East-recognized journalist covering tech, business, and global news in accessible Arabic-language explainers for an audience of 5M+, clearly positioned as an independent news creator at scale.',
-    },
+    { name: 'Bianca Graulau',                    channel: 'Bianca Graulau',               link: 'https://instagram.com/biancagraulau',           platform: 'Social - Instagram', topic: 'Investigative',  geography: 'Puerto Rico',   descriptor: 'Puerto Rico-based independent journalist and filmmaker whose investigative reporting on land rights, colonialism, and the island’s energy crisis reaches millions across Instagram, YouTube, and Substack.' },
+    { name: 'Nicolás Copano',               channel: 'Copano.News / Turno',          link: 'https://twitter.com/copano',                    platform: 'Newsletter - Other', topic: 'Politics',       geography: 'Chile',         descriptor: 'Chilean journalist and digital media entrepreneur who runs Copano.News and produces Turno, Chile’s first live streaming news channel.' },
+    { name: 'Yuri Fernandes',                    channel: 'Colabora (#Colabora)',         link: 'https://youtube.com/@colaborajornalismo',       platform: 'Video - YouTube',    topic: 'Human Rights',   geography: 'Brazil',        descriptor: 'Co-founder and director of #Colabora, a Brazilian journalism platform focused on sustainability, human rights, and LGBTQ+ issues. 2025 ICFJ News Creator Award winner.' },
+    { name: 'Marcela Trejo',                     channel: 'Focos',                        link: 'https://youtube.com/@focostv',                  platform: 'Video - TikTok',     topic: 'Investigative',  geography: 'El Salvador',   descriptor: 'Salvadoran multimedia journalist using short-form video to make accountability journalism accessible to young audiences across Central America. 2025 ICFJ News Creator Award winner.' },
+    { name: 'Miguel Lago',                       channel: 'Miguel Lago',                  link: 'https://twitter.com/miguelago',                 platform: 'Newsletter - Other', topic: 'Policy',         geography: 'Brazil',        descriptor: 'Brazilian political scientist and opinion writer whose columns in The New York Times and Folha de S.Paulo have built a direct audience around political and health policy discourse.' },
+    { name: 'La Pulla',                          channel: 'La Pulla',                     link: 'https://www.youtube.com/@LaPulla',              platform: 'Video - YouTube',    topic: 'Politics',       geography: 'Colombia',      descriptor: 'Colombian YouTube channel known for sharp, satirical political explainers that won the Simón Bolívar National Journalism Award and built an audience of over half a million subscribers.' },
+    { name: 'Gustavo Faleiros',                  channel: 'InfoAmazonia',                 link: 'https://infoamazonia.org',                      platform: 'Website',            topic: 'Environment',    geography: 'Brazil',        descriptor: 'Brazilian environmental journalist and founder of InfoAmazonia, a pioneering digital platform using satellite imagery and open data to track deforestation across the nine countries of the Amazon basin.' },
+    { name: 'Aproko Doctor (Chinonso Egemba)',   channel: 'Aproko Doctor',                link: 'https://instagram.com/aproko_doctor',           platform: 'Social - Instagram', topic: 'Health',         geography: 'Nigeria',       descriptor: 'Nigerian physician and health communicator who has built a direct audience of nearly 10 million followers by translating complex medical information into accessible public health content.' },
+    { name: 'Lynn Ngugi',                        channel: 'Lynn Ngugi Network',           link: 'https://youtube.com/@LynnNgugi',                platform: 'Video - YouTube',    topic: 'Human Interest', geography: 'Kenya',         descriptor: 'Kenyan journalist and creator behind The Lynn Ngugi Show, a YouTube channel with over 1.2 million subscribers, recognized as one of the BBC’s 100 inspiring women.' },
+    { name: 'Desmond Latham',                    channel: 'History of South Africa',      link: 'https://podcasts.apple.com/us/podcast/history-of-south-africa-podcast/id1553731049', platform: 'Podcast', topic: 'History', geography: 'South Africa', descriptor: 'South Africa-based broadcaster and podcaster whose History of South Africa podcast was named one of Apple Podcasts’ Best Shows of 2025.' },
+    { name: 'Kiki Mordi',                        channel: 'Kiki Mordi',                   link: 'https://www.youtube.com/@KikiMordi',            platform: 'Video - YouTube',    topic: 'Investigative',  geography: 'Nigeria',       descriptor: 'Nigerian investigative journalist and filmmaker best known for the Emmy-nominated BBC Africa Eye documentary Sex for Grades, which exposed sexual harassment in West African universities.' },
+    { name: 'Ruona Meyer',                       channel: 'Ruona Meyer',                  link: 'https://x.com/RGAMeyer',                        platform: 'Podcast',            topic: 'Investigative',  geography: 'Nigeria',       descriptor: 'Nigerian investigative journalist whose Emmy-nominated BBC Africa Eye documentary Sweet, Sweet Codeine prompted the Nigerian government to ban codeine-based cough syrup imports within 24 hours of broadcast.' },
+    { name: 'Motaz Azaiza',                      channel: 'motaz_azaiza',                 link: 'https://instagram.com/motaz_azaiza',            platform: 'Social - Instagram', topic: 'Conflict',       geography: 'Gaza',          descriptor: 'Palestinian photojournalist whose frontline documentation grew his Instagram following from 25,000 to over 18 million, earning a place on Time’s 100 Most Influential People list.' },
+    { name: 'Bisan Owda',                        channel: 'Bisan from Gaza',              link: 'https://instagram.com/bisanowda',               platform: 'Social - Instagram', topic: 'Conflict',       geography: 'Gaza',          descriptor: 'Palestinian journalist whose dispatches — each beginning with “It’s Bisan from Gaza and I’m still alive” — have won both a Peabody Award and a News and Documentary Emmy.' },
+    { name: 'Hadeel Arja',                       channel: 'Tiny Hand',                    link: 'https://www.instagram.com/tiny___hand/',        platform: 'Website',            topic: 'Human Rights',   geography: 'Syria',         descriptor: 'Syrian journalist and founder of Tiny Hand, an investigative platform reporting on children in conflict zones. Winner of the 2024 Samir Kassir Award for Freedom of the Press.' },
+    { name: 'Hind Khoudary',                     channel: 'hindkhoudary',                 link: 'https://instagram.com/hindkhoudary',            platform: 'Social - Instagram', topic: 'Conflict',       geography: 'Gaza',          descriptor: 'Palestinian journalist reporting from inside Gaza for Al Jazeera English, whose frontline coverage has drawn nearly 1.5 million followers.' },
+    { name: 'Tala Al-Sharif',                    channel: 'Female Chimeras',              link: 'https://www.instagram.com/femalechimeras/',     platform: 'Website',            topic: 'Human Rights',   geography: 'Palestine',     descriptor: 'Palestinian journalist from Hebron and founder of Female Chimeras, a video storytelling platform that amplifies Palestinian women’s voices through documentary and animation.' },
+    { name: 'Louay Cherni',                      channel: 'Must Last / ابو يحيى', link: 'https://www.instagram.com/louay.cherni', platform: 'Social - Instagram', topic: 'Education', geography: 'Tunisia', descriptor: 'Former Nawaat contributor who has built one of Tunisia’s largest independent audiences by translating Arab politics, history, and socio-economic issues into accessible explainers for young audiences.' },
+    { name: 'Eman Sobhy',                        channel: 'What If — ماذا لو', link: 'https://www.instagram.com/whatif.emansobhy', platform: 'Social - Instagram', topic: 'Education', geography: 'Egypt', descriptor: 'Humphrey Fellow and UNHCR Egypt partner who applies rigorous civic curiosity to speculative history, building one of the largest Arabic creator-journalist audiences in the world with 6.5M+ followers.' },
+    { name: 'Mohammad Taher',                    channel: 'The Airport Guy',              link: 'https://www.instagram.com/theairportguy',       platform: 'Social - Instagram', topic: 'Education',      geography: 'Iraq',          descriptor: 'Aerospace engineer and UK Department for Transport Aviation Ambassador who turns aviation careers and workforce development into impactful independent journalism.' },
+    { name: 'Farah ElKordy',                     channel: 'فرح الكردي', link: 'https://www.instagram.com/farahelkordy_', platform: 'Social - Instagram', topic: 'Technology', geography: 'Egypt', descriptor: 'UAE Media Licensed and Forbes Middle East-recognized journalist covering tech, business, and global news in accessible Arabic-language explainers for an audience of 5M+.' },
   ],
 };
 
-/* =========================================================
-   UTILITIES
-   ========================================================= */
+function truncateToSentences(text, n) {
+  const sentences = text.match(/[^.!?]+[.!?]+(\s|$)/g) || [text];
+  return sentences.slice(0, n).join('').trim();
+}
+
 function esc(str) {
   return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function getPlatformInfo(platform) {
@@ -461,161 +276,190 @@ function getPlatformInfo(platform) {
     'Website':               { icon: 'language',    name: 'Website'    },
   };
   if (map[platform]) return map[platform];
-  if (platform && platform.startsWith('Social')) {
-    return { icon: 'alternate_email', name: platform.replace('Social - ', '') };
-  }
+  if (platform && platform.startsWith('Social')) return { icon: 'alternate_email', name: platform.replace('Social - ', '') };
   return { icon: 'language', name: platform || '' };
 }
 
-/* =========================================================
-   RENDER
-   ========================================================= */
-function renderHeroLeft() {
-  const statsHTML = PARTNER_CONFIG.stats.map(s => `
-    <div class="hero-stat">
-      <div class="hero-stat-num">${esc(s.num)}</div>
-      <div class="hero-stat-label">${esc(s.label)}</div>
-    </div>
-  `).join('');
-
-  document.getElementById('hero-left').innerHTML = `
-    <p class="hero-eyebrow">A Curated List from ${esc(PARTNER_CONFIG.curatorName)}</p>
-    <h1 class="hero-h1">${esc(PARTNER_CONFIG.pageTitle.replace(' \u2014 Independent Journalism Atlas', ''))}</h1>
-    <p class="hero-body">${esc(PARTNER_CONFIG.curatorNote)}</p>
-    <div class="hero-stats">${statsHTML}</div>
-    <p class="hero-collab">Curated by ${esc(PARTNER_CONFIG.curatorName)} &times; Independent Journalism Atlas</p>
-  `;
+function getMonogramInitials(name) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  return parts[0][0].toUpperCase();
 }
 
-function renderHeroRight() {
-  const logoHTML = PARTNER_CONFIG.logoWhite
-    ? `<div class="partner-card-logo"><img src="${esc(PARTNER_CONFIG.logoWhite)}" alt="${esc(PARTNER_CONFIG.curatorName)}"></div>`
-    : '';
-
-  document.getElementById('hero-right').innerHTML = `
-    <div class="partner-card">
-      ${logoHTML}
-      <h3 class="partner-name">${esc(PARTNER_CONFIG.curatorName)}</h3>
-      <p class="partner-role">${esc(PARTNER_CONFIG.curatorChannel)}</p>
-      <a href="${esc(PARTNER_CONFIG.curatorUrl)}" target="_blank" rel="noopener" class="partner-url">${esc(PARTNER_CONFIG.curatorUrl.replace('https://', ''))}</a>
-    </div>
-  `;
-}
-
-function renderRegionNav() {
-  const nav = document.getElementById('region-nav');
-  if (!PARTNER_CONFIG.hasGroups) {
-    nav.style.display = 'none';
-    return;
+function renderConsentBanner() {
+  if (!PARTNER_CONFIG.consentConfirmed) {
+    document.getElementById('consent-warning').style.display = '';
   }
-  nav.innerHTML = `
-    <div class="region-nav-inner">
-      ${PARTNER_CONFIG.groups.map((g, i) => `
-        <a class="region-nav-link${i === 0 ? ' active' : ''}" href="#region-${esc(g.id)}">${esc(g.label)}</a>
-      `).join('')}
+}
+
+function renderHero() {
+  const { curatorName, curatorNote, curatorQuote, curatorChannel, curatorUrl, curatorPhoto, logoWhite } = PARTNER_CONFIG;
+  const pullQuoteHTML = curatorQuote ? `
+    <div class="pull-quote">
+      <span class="pull-quote-mark">&ldquo;</span>
+      <p class="pull-quote-text">${esc(curatorQuote)}</p>
+    </div>` : '';
+  document.getElementById('hero-content').innerHTML = `
+    <p class="hero-eyebrow">A Curated List</p>
+    <h1 class="hero-h1">${esc(PARTNER_CONFIG.pageTitle.replace(' — Independent Journalism Atlas', ''))}</h1>
+    <p class="hero-body">${esc(truncateToSentences(curatorNote, 2))}</p>
+    ${pullQuoteHTML}
+  `;
+  const photoHTML = logoWhite
+    ? `<div class="curator-photo-wrap"><img class="curator-photo" src="${esc(logoWhite)}" alt="${esc(curatorName)}" style="border-radius:6px;width:auto;height:56px;"></div>`
+    : curatorPhoto
+      ? `<div class="curator-photo-wrap"><img class="curator-photo" src="${esc(curatorPhoto)}" alt="${esc(curatorName)}"></div>`
+      : `<div class="curator-monogram">${esc(getMonogramInitials(curatorName))}</div>`;
+  document.getElementById('curator-strip-content').innerHTML = `
+    ${photoHTML}
+    <div class="curator-strip-text">
+      <p class="curator-strip-name">${esc(curatorName)}</p>
+      <p class="curator-strip-meta">${esc(curatorChannel)}</p>
+      <a href="${esc(curatorUrl)}" target="_blank" rel="noopener" class="curator-strip-url">${esc(curatorUrl.replace('https://', ''))}</a>
+      <p class="hero-collab">Curated by ${esc(curatorName)} &times; Independent Journalism Atlas</p>
     </div>
   `;
 }
 
-function creatorCardHTML(c, rank) {
-  const { icon, name: platformName } = getPlatformInfo(c.platform);
-  const rankHTML  = rank != null ? `<span class="card-rank">${String(rank).padStart(2, '0')}</span>` : '';
-  const blurbHTML = c.blurb    ? `<p class="card-blurb">${esc(c.blurb)}</p>`         : '';
-  const geoHTML   = c.geography ? `<span class="pill">${esc(c.geography)}</span>`     : '';
-  const topicHTML = c.topic     ? `<span class="pill">${esc(c.topic)}</span>`         : '';
+function renderFilterBar() {
+  const { creators } = PARTNER_CONFIG;
+  const topics    = [...new Set(creators.map(c => c.topic))].sort();
+  const platforms = [...new Set(creators.map(c => c.platform))].sort();
 
-  return `
-    <div class="creator-card">
-      ${rankHTML}
-      <div class="creator-name">${esc(c.name)}</div>
-      <div class="creator-channel">${esc(c.channel)}</div>
-      ${blurbHTML}
-      <div class="creator-pills">
-        ${geoHTML}
-        ${topicHTML}
-        <span class="pill platform">
-          <span class="material-symbols-outlined">${icon}</span>${esc(platformName)}
-        </span>
+  function chipsHTML(values, dimension) {
+    const allChip = `<button class="chip active" data-dimension="${esc(dimension)}" data-value="">All</button>`;
+    const rest = values.map(v =>
+      `<button class="chip" data-dimension="${esc(dimension)}" data-value="${esc(v)}">${esc(v)}</button>`
+    ).join('');
+    return allChip + rest;
+  }
+
+  const el = document.createElement('div');
+  el.className = 'filter-bar';
+  el.innerHTML = `
+    <div class="filter-bar-inner">
+      <div class="filter-row">
+        <span class="filter-label">By topic</span>
+        ${chipsHTML(topics, 'topic')}
       </div>
-      <hr class="card-divider">
-      <a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link">Visit &rarr;</a>
+      <div class="filter-row">
+        <span class="filter-label">By platform</span>
+        ${chipsHTML(platforms, 'platform')}
+      </div>
     </div>
   `;
+  document.getElementById('filter-bar-mount').appendChild(el);
 }
 
-function renderCreators() {
-  const { creators, groups, hasGroups } = PARTNER_CONFIG;
-  document.getElementById('grid-heading').textContent = `${PARTNER_CONFIG.curatorName}\u2019s Picks`;
-  document.getElementById('grid-context').textContent = `${creators.length} creators`;
-
-  if (!hasGroups) {
-    document.getElementById('creator-grid').innerHTML = creators.map(c => creatorCardHTML(c, null)).join('');
-    return;
-  }
-
-  document.getElementById('creator-grid').innerHTML = groups.map((group, gi) => {
-    const groupCreators = creators.filter(c => c.region === group.key);
-    const divider = gi > 0 ? '<hr class="region-divider">' : '';
+function renderGrid() {
+  document.getElementById('act-count-pill').textContent = `${PARTNER_CONFIG.creators.length} creators`;
+  document.getElementById('creator-grid').innerHTML = PARTNER_CONFIG.creators.map(c => {
+    const { icon, name: platformName } = getPlatformInfo(c.platform);
+    const geoHTML        = c.geography  ? `<span class="pill">${esc(c.geography)}</span>`  : '';
+    const topicHTML      = c.topic      ? `<span class="pill">${esc(c.topic)}</span>`      : '';
+    const descriptorHTML = c.descriptor ? `<p class="creator-descriptor">${esc(c.descriptor)}</p>` : '';
     return `
-      ${divider}
-      <div class="creator-section" id="region-${esc(group.id)}" data-region="${esc(group.id)}">
-        <div class="region-header">
-          <span class="region-label">${esc(group.label)}</span>
-          <span class="creator-count-pill">${groupCreators.length} journalists</span>
+      <div class="creator-card" data-topic="${esc(c.topic)}" data-platform="${esc(c.platform)}">
+        <div class="creator-name">${esc(c.name)}</div>
+        <div class="creator-channel">${esc(c.channel)}</div>
+        ${descriptorHTML}
+        <div class="creator-pills">
+          ${geoHTML}
+          ${topicHTML}
+          <span class="pill platform">
+            <span class="material-symbols-outlined">${icon}</span>${esc(platformName)}
+          </span>
         </div>
-        <div class="creator-grid two-col">
-          ${groupCreators.map((c, idx) => creatorCardHTML(c, idx + 1)).join('')}
-        </div>
+        <hr class="card-divider">
+        <a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link">Visit &rarr;</a>
       </div>
     `;
   }).join('');
-
-  setupRegionNav();
-}
-
-function setupRegionNav() {
-  const navLinks = document.querySelectorAll('.region-nav-link');
-  if (!navLinks.length) return;
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(l => l.classList.remove('active'));
-        const link = document.querySelector(`.region-nav-link[href="#region-${entry.target.dataset.region}"]`);
-        if (link) link.classList.add('active');
-      }
-    });
-  }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
-
-  document.querySelectorAll('.creator-section').forEach(s => observer.observe(s));
+  document.getElementById('atlas-attribution').innerHTML = `
+    <span class="atlas-attribution-badge">Atlas Verified</span>
+    <p class="atlas-attribution-body">
+      Creators on this list are independently verified by the
+      <a href="https://journalismatlas.com" target="_blank" rel="noopener">Independent Journalism Atlas</a> &mdash;
+      a human-curated database of 1,400+ creator-journalists.
+      <a href="https://journalismatlas.com/about-this-project" target="_blank" rel="noopener">How we verify &rarr;</a>
+    </p>
+  `;
 }
 
 function renderAbout() {
-  const logoHTML = PARTNER_CONFIG.logoColor
-    ? `<div class="about-logo"><img src="${esc(PARTNER_CONFIG.logoColor)}" alt="${esc(PARTNER_CONFIG.curatorName)}"></div>`
-    : `<p class="about-text-name">${esc(PARTNER_CONFIG.curatorName)}</p>`;
-
-  const parasHTML = PARTNER_CONFIG.aboutParagraphs
-    .map(p => `<p class="about-body">${esc(p)}</p>`)
-    .join('');
-
+  const { curatorName, logoColor, aboutHeadline, aboutParagraphs, aboutLinkText, aboutLinkUrl } = PARTNER_CONFIG;
+  const logoHTML  = logoColor
+    ? `<div class="about-logo"><img src="${esc(logoColor)}" alt="${esc(curatorName)}"></div>`
+    : `<p class="about-text-name">${esc(curatorName)}</p>`;
+  const parasHTML = aboutParagraphs.map(p => `<p class="about-body">${esc(p)}</p>`).join('');
   document.getElementById('about-inner').innerHTML = `
     ${logoHTML}
-    <h2 class="about-headline">${esc(PARTNER_CONFIG.aboutHeadline)}</h2>
+    <h2 class="about-headline">${esc(aboutHeadline)}</h2>
     ${parasHTML}
-    <a href="${esc(PARTNER_CONFIG.aboutLinkUrl)}" target="_blank" rel="noopener" class="about-link">${esc(PARTNER_CONFIG.aboutLinkText)} &nearr;</a>
+    <a href="${esc(aboutLinkUrl)}" target="_blank" rel="noopener" class="about-link">${esc(aboutLinkText)} &nearr;</a>
   `;
+}
+
+function initFilters() {
+  const cards   = Array.from(document.querySelectorAll('.creator-card'));
+  const countEl = document.getElementById('act-count-pill');
+  const total   = cards.length;
+  let activeTopic    = null;
+  let activePlatform = null;
+
+  function applyFilters() {
+    let visible = 0;
+    cards.forEach(card => {
+      const topicMatch    = !activeTopic    || card.dataset.topic    === activeTopic;
+      const platformMatch = !activePlatform || card.dataset.platform === activePlatform;
+      const show = topicMatch && platformMatch;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countEl.textContent = `${visible} of ${total} creators`;
+    const emptyEl = document.getElementById('empty-state');
+    if (visible === 0) {
+      if (!emptyEl) {
+        const el = document.createElement('p');
+        el.id = 'empty-state'; el.className = 'empty-state';
+        el.textContent = 'No creators match these filters.';
+        document.getElementById('creator-grid').appendChild(el);
+      }
+    } else if (emptyEl) { emptyEl.remove(); }
+  }
+
+  function updateChipState(dimension, value) {
+    document.querySelectorAll(`.chip[data-dimension="${dimension}"]`).forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.value === value);
+    });
+  }
+
+  document.getElementById('filter-bar-mount').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    const { dimension, value } = chip.dataset;
+    if (dimension === 'topic') {
+      activeTopic = (activeTopic === value || value === '') ? null : value;
+      updateChipState('topic', activeTopic ?? '');
+    } else if (dimension === 'platform') {
+      activePlatform = (activePlatform === value || value === '') ? null : value;
+      updateChipState('platform', activePlatform ?? '');
+    }
+    applyFilters();
+  });
+
+  applyFilters();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   document.title = PARTNER_CONFIG.pageTitle;
   document.querySelector('meta[name="description"]').setAttribute('content', PARTNER_CONFIG.pageDescription);
-
-  renderHeroLeft();
-  renderHeroRight();
-  renderRegionNav();
-  renderCreators();
+  renderConsentBanner();
+  renderHero();
+  if (PARTNER_CONFIG.showFilters) renderFilterBar();
+  renderGrid();
   renderAbout();
+  if (PARTNER_CONFIG.showFilters) initFilters();
 });
 </script>
 </body>
