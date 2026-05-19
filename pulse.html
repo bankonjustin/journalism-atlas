@@ -363,7 +363,6 @@
     #load-more-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
 
     /* ── HEAT CALENDAR ── */
-    /* ── HEAT CALENDAR ── */
     .heat-header-row {
       display: flex;
       align-items: center;
@@ -585,6 +584,132 @@
     .beat-rows::after { display: none; }
 
     /* ── RESPONSIVE ── */
+    /* ── BEAT DISCOVERY ── */
+    .beat-discovery {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+    .beat-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      padding: 6px 10px;
+      max-width: 360px;
+    }
+    .beat-search-icon { font-size: 14px; color: #aaa; flex-shrink: 0; }
+    .beat-search-input {
+      border: none;
+      outline: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #313131;
+      background: transparent;
+      width: 100%;
+      letter-spacing: 0.04em;
+    }
+    .beat-search-input::placeholder { color: #bbb; }
+    .beat-pills-tier2-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 4px;
+      border-top: 1px dashed #e4e4e8;
+    }
+    .beat-more-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      background: transparent;
+      border: 1px dashed #d4d4d8;
+      border-radius: 100px;
+      padding: 3px 10px;
+      cursor: pointer;
+      width: fit-content;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .beat-more-btn:hover { color: #5d7400; border-color: #97d600; }
+
+    /* ── RHYTHM VIEW TOGGLE ── */
+    .rhythm-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .rhythm-view-toggle {
+      display: flex;
+      gap: 2px;
+      background: #e4e4e8;
+      border-radius: 4px;
+      padding: 2px;
+    }
+    .rhythm-view-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      background: transparent;
+      border: none;
+      border-radius: 3px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .rhythm-view-btn.active { background: #fff; color: #1a1a1a; }
+    .heat-cell-weekly { width: 80px; border-radius: 4px; }
+
+    /* ── FOR-BRANDS CTA ── */
+    .pulse-brands-cta {
+      border-top: 1px solid #e4e4e8;
+      padding: 20px;
+      background: #fafafa;
+    }
+    .pulse-brands-cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .pulse-brands-cta-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin-bottom: 3px;
+    }
+    .pulse-brands-cta-sub {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.5;
+      max-width: 320px;
+    }
+    .pulse-brands-cta-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #5d7400;
+      border: 1px solid rgba(93,116,0,0.35);
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .pulse-brands-cta-btn:hover { background: rgba(93,116,0,0.06); }
+
     @media (max-width: 767px) {
       .page-header { padding: 32px 20px 28px; }
       .header-inner { grid-template-columns: 1fr; gap: 0; }
@@ -672,6 +797,15 @@
         <button id="load-more-btn">Load 50 more</button>
       </div>
     </div>
+    <div class="pulse-brands-cta">
+      <div class="pulse-brands-cta-inner">
+        <div>
+          <div class="pulse-brands-cta-label">Need this for your team?</div>
+          <div class="pulse-brands-cta-sub">The Atlas builds custom intelligence briefs for communications and research teams.</div>
+        </div>
+        <a href="for-brands.html" class="pulse-brands-cta-btn">Learn more →</a>
+      </div>
+    </div>
   </div>
 
   <!-- RIGHT: tabbed analysis panel -->
@@ -705,12 +839,19 @@
         </div>
 
         <div class="analysis-pane" id="pane-rhythm">
-          <div class="heat-header-row" style="margin-bottom:16px;">
-            <div class="section-eyebrow" id="heat-eyebrow">Publishing rhythm</div>
-            <div class="heat-toggle">
+          <div class="rhythm-controls">
+            <div class="rhythm-view-toggle">
+              <button class="rhythm-view-btn active" id="rhythm-btn-daily" data-view="daily">Daily</button>
+              <button class="rhythm-view-btn" id="rhythm-btn-rolling" data-view="rolling">7-day avg</button>
+              <button class="rhythm-view-btn" id="rhythm-btn-weekly" data-view="weekly">Weekly</button>
+            </div>
+            <div class="heat-toggle" id="heat-mode-toggle">
               <button class="heat-toggle-btn active" id="heat-btn-beat" data-mode="beat">By Beat</button>
               <button class="heat-toggle-btn" id="heat-btn-platform" data-mode="platform">By Platform</button>
             </div>
+          </div>
+          <div class="heat-header-row" style="margin-bottom:16px;">
+            <div class="section-eyebrow" id="heat-eyebrow">Publishing rhythm</div>
           </div>
           <div class="heat-grid-wrap">
             <div class="heat-label-col" id="heat-label-col"></div>
@@ -841,6 +982,14 @@ function populateHeaderPosts() {
         <a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer" class="header-post-link">${esc(p.title)}</a>
         <div class="header-post-meta">${esc(p.creator)} · ${fmtDateShort(p.published)}</div>
       </div>`).join('');
+  document.getElementById('header-top-posts').insertAdjacentHTML('beforeend', `
+    <div style="margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1);">
+      <div style="font-family:'DM Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.3); margin-bottom:8px;">For teams</div>
+      <a href="for-brands.html" style="font-size:12px; color:rgba(255,255,255,0.7); text-decoration:none; line-height:1.5; display:block;">
+        Custom intelligence briefs built on Atlas data. <span style="color:#ceff00;">Learn how →</span>
+      </a>
+    </div>
+  `);
 }
 
 // ── Render: live badge ────────────────────────────────────────────────────────
@@ -958,6 +1107,29 @@ function renderBeatPills(filterStr) {
   });
 }
 
+// ── Render: single post item ──────────────────────────────────────────────────
+function renderPostItem(p) {
+  const beatTag = (p.topic || '').split(',')[0].trim();
+  const platform = abbreviatePlatform(p.platform);
+  const showGeo = p.geography && p.geography !== 'National - US';
+  return `
+    <div class="post-row">
+      <div class="post-meta-row">
+        <div class="post-meta-left">
+          ${beatTag ? `<span class="beat-tag">${esc(beatTag)}</span>` : ''}
+          <span class="creator-name">${esc(p.creator)}</span>
+          ${platform ? `<span class="platform-tag">· ${esc(platform)}</span>` : ''}
+        </div>
+        <span class="post-date">${fmtDateShort(p.published)}</span>
+      </div>
+      <div class="post-title">
+        <a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a>
+      </div>
+      ${showGeo ? `<div class="post-geo">${esc(p.geography)}</div>` : ''}
+    </div>
+  `;
+}
+
 // ── Render: post list ─────────────────────────────────────────────────────────
 function renderPosts() {
   const filtered = getFilteredPosts();
@@ -966,27 +1138,7 @@ function renderPosts() {
   document.getElementById('post-count-label').innerHTML =
     '<span class="pulse-dot-inline"></span> Showing ' + slice.length.toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' posts';
 
-  document.getElementById('post-list').innerHTML = slice.map(p => {
-    const beatTag = (p.topic || '').split(',')[0].trim();
-    const platform = abbreviatePlatform(p.platform);
-    const showGeo = p.geography && p.geography !== 'National - US';
-    return `
-      <div class="post-row">
-        <div class="post-meta-row">
-          <div class="post-meta-left">
-            ${beatTag ? `<span class="beat-tag">${esc(beatTag)}</span>` : ''}
-            <span class="creator-name">${esc(p.creator)}</span>
-            ${platform ? `<span class="platform-tag">· ${esc(platform)}</span>` : ''}
-          </div>
-          <span class="post-date">${fmtDateShort(p.published)}</span>
-        </div>
-        <div class="post-title">
-          <a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a>
-        </div>
-        ${showGeo ? `<div class="post-geo">${esc(p.geography)}</div>` : ''}
-      </div>
-    `;
-  }).join('');
+  document.getElementById('post-list').innerHTML = slice.map(p => renderPostItem(p)).join('');
 
   const wrap = document.getElementById('load-more-wrap');
   if (filtered.length > visibleCount) {
@@ -1353,28 +1505,186 @@ document.getElementById('load-more-btn').addEventListener('click', () => {
   renderPosts();
 });
 
+// ── Render: 7-day rolling average calendar ────────────────────────────────────
+function renderHeatCalendarRolling() {
+  const TOP_BEATS = Object.keys(PULSE_DATA.beat_activity).slice(0, 10);
+  const dates = [];
+  const startD = new Date(WINDOW_START);
+  for (let i = 0; i < PULSE_DATA.window_days; i++) {
+    const d = new Date(startD);
+    d.setDate(startD.getDate() + i);
+    dates.push(d.toISOString().slice(0, 10));
+  }
+
+  const daily = {};
+  TOP_BEATS.forEach(b => { daily[b] = {}; dates.forEach(d => { daily[b][d] = 0; }); });
+  PULSE_DATA.posts.forEach(p => {
+    if (!inCleanWindow(p.published)) return;
+    p.topic.split(',').map(t => t.trim()).forEach(t => {
+      if (daily[t] && daily[t][p.published] !== undefined) daily[t][p.published]++;
+    });
+  });
+
+  const rolling = {};
+  TOP_BEATS.forEach(beat => {
+    rolling[beat] = {};
+    dates.forEach((date, i) => {
+      const window = dates.slice(Math.max(0, i - 6), i + 1);
+      rolling[beat][date] = window.reduce((sum, d) => sum + daily[beat][d], 0) / window.length;
+    });
+  });
+
+  const rowMaxes = {};
+  TOP_BEATS.forEach(b => { rowMaxes[b] = Math.max(...dates.map(d => rolling[b][d]), 0.1); });
+
+  const labelsHtml = TOP_BEATS.map(beat =>
+    `<div class="heat-beat-label">${esc(beat)}</div>`
+  ).join('') + '<div class="heat-beat-label heat-axis-spacer"></div>';
+
+  const cellsHtml = TOP_BEATS.map(beat => {
+    const cells = dates.map(date => {
+      const val = rolling[beat][date];
+      const { bg } = beatCellColor(beat, val, rowMaxes[beat]);
+      return `<div class="heat-cell" style="background:${bg}" title="${esc(beat)} · ${fmtDateShort(date)} · ${val.toFixed(1)} avg/day"></div>`;
+    }).join('');
+    return `<div class="heat-cells-row">${cells}</div>`;
+  }).join('');
+
+  const TICK_DAYS = [0, 5, 10, 15, 20, 25, 29];
+  const ticksHtml = TICK_DAYS.map(i =>
+    `<span class="heat-date-tick" style="left:${i * 25}px">${fmtDateShort(dates[i])}</span>`
+  ).join('');
+
+  document.getElementById('heat-label-col').innerHTML = labelsHtml;
+  document.getElementById('heat-scroll-col').innerHTML = cellsHtml +
+    `<div class="heat-date-axis"><div class="heat-date-labels">${ticksHtml}</div></div>`;
+  document.getElementById('heat-eyebrow').textContent =
+    '7-day rolling avg — ' + fmtDateShort(WINDOW_START) + ' to ' + fmtDateShort(WINDOW_END);
+}
+
+// ── Render: weekly calendar ───────────────────────────────────────────────────
+function renderHeatCalendarWeekly() {
+  const TOP_BEATS = Object.keys(PULSE_DATA.beat_activity).slice(0, 10);
+  const startD = new Date(WINDOW_START);
+  const weeks = [0, 1, 2, 3].map(w => {
+    const wStart = new Date(startD);
+    wStart.setDate(startD.getDate() + w * 7);
+    const wEnd = new Date(wStart);
+    wEnd.setDate(wStart.getDate() + 6);
+    return {
+      label: 'Wk ' + fmtDateShort(wStart.toISOString().slice(0, 10)),
+      start: wStart.toISOString().slice(0, 10),
+      end: wEnd.toISOString().slice(0, 10)
+    };
+  });
+
+  const matrix = {};
+  TOP_BEATS.forEach(b => { matrix[b] = weeks.map(() => 0); });
+  PULSE_DATA.posts.forEach(p => {
+    if (!inCleanWindow(p.published)) return;
+    p.topic.split(',').map(t => t.trim()).forEach(beat => {
+      if (!matrix[beat]) return;
+      weeks.forEach((w, i) => {
+        if (p.published >= w.start && p.published <= w.end) matrix[beat][i]++;
+      });
+    });
+  });
+
+  const rowMaxes = {};
+  TOP_BEATS.forEach(b => { rowMaxes[b] = Math.max(...matrix[b], 1); });
+
+  const CELL_W = 80;
+  const CELL_GAP = 6;
+
+  const labelsHtml = TOP_BEATS.map(beat =>
+    `<div class="heat-beat-label">${esc(beat)}</div>`
+  ).join('') + '<div class="heat-beat-label heat-axis-spacer"></div>';
+
+  const cellsHtml = TOP_BEATS.map(beat => {
+    const cells = matrix[beat].map((count, i) => {
+      const { bg } = beatCellColor(beat, count, rowMaxes[beat]);
+      return `<div class="heat-cell heat-cell-weekly" style="background:${bg};width:${CELL_W}px" title="${esc(beat)} · ${weeks[i].label} · ${count} posts"></div>`;
+    }).join('');
+    return `<div class="heat-cells-row">${cells}</div>`;
+  }).join('');
+
+  const ticksHtml = weeks.map((w, i) =>
+    `<span class="heat-date-tick" style="left:${i * (CELL_W + CELL_GAP)}px">${esc(w.label)}</span>`
+  ).join('');
+
+  document.getElementById('heat-label-col').innerHTML = labelsHtml;
+  document.getElementById('heat-scroll-col').innerHTML = cellsHtml +
+    `<div class="heat-date-axis"><div class="heat-date-labels">${ticksHtml}</div></div>`;
+  document.getElementById('heat-eyebrow').textContent =
+    'Weekly volume — ' + fmtDateShort(WINDOW_START) + ' to ' + fmtDateShort(WINDOW_END);
+}
+
 // ── URL param: pre-select beat (e.g. pulse.html?beat=Politics) ───────────────
 const urlBeat = new URLSearchParams(location.search).get('beat');
-if (urlBeat && BEAT_PILLS_ORDER.includes(urlBeat)) activeBeat = urlBeat;
+if (urlBeat && (BEAT_PILLS_ORDER.includes(urlBeat) || BEAT_PILLS_TIER2.includes(urlBeat))) activeBeat = urlBeat;
 
 // ── Init ──────────────────────────────────────────────────────────────────────
+let heatMode = 'beat';
+let rhythmView = 'daily';
+
+function renderCurrentCalendar() {
+  if (rhythmView === 'daily') {
+    if (heatMode === 'beat') renderHeatCalendar();
+    else renderHeatCalendarPlatform();
+  } else if (rhythmView === 'rolling') {
+    renderHeatCalendarRolling();
+  } else if (rhythmView === 'weekly') {
+    renderHeatCalendarWeekly();
+  }
+}
+
+function syncHeatModeToggle() {
+  const showModeToggle = rhythmView === 'daily';
+  document.getElementById('heat-mode-toggle').style.display = showModeToggle ? '' : 'none';
+}
+
 renderBadge();
 renderStatStrip();
 renderBeatBar();
 renderHeatCalendar();
-let heatMode = 'beat';
+
+// By Beat / By Platform toggle
 document.getElementById('heat-btn-beat').addEventListener('click', () => {
   heatMode = 'beat';
   document.getElementById('heat-btn-beat').classList.add('active');
   document.getElementById('heat-btn-platform').classList.remove('active');
-  renderHeatCalendar();
+  renderCurrentCalendar();
 });
 document.getElementById('heat-btn-platform').addEventListener('click', () => {
   heatMode = 'platform';
   document.getElementById('heat-btn-platform').classList.add('active');
   document.getElementById('heat-btn-beat').classList.remove('active');
-  renderHeatCalendarPlatform();
+  renderCurrentCalendar();
 });
+
+// Daily / 7-day avg / Weekly toggle
+document.getElementById('rhythm-btn-daily').addEventListener('click', () => {
+  rhythmView = 'daily';
+  document.querySelectorAll('.rhythm-view-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('rhythm-btn-daily').classList.add('active');
+  syncHeatModeToggle();
+  renderCurrentCalendar();
+});
+document.getElementById('rhythm-btn-rolling').addEventListener('click', () => {
+  rhythmView = 'rolling';
+  document.querySelectorAll('.rhythm-view-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('rhythm-btn-rolling').classList.add('active');
+  syncHeatModeToggle();
+  renderCurrentCalendar();
+});
+document.getElementById('rhythm-btn-weekly').addEventListener('click', () => {
+  rhythmView = 'weekly';
+  document.querySelectorAll('.rhythm-view-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('rhythm-btn-weekly').classList.add('active');
+  syncHeatModeToggle();
+  renderCurrentCalendar();
+});
+
 populateHeaderPosts();
 renderCoMatrix();
 renderRecencyToggle();
@@ -1382,6 +1692,69 @@ renderBeatPills();
 renderPlatformBreakdown('all');
 renderCreatorStrip();
 renderPosts();
+
+// Beat/creator search
+document.getElementById('beat-search').addEventListener('input', function() {
+  const query = this.value.trim();
+  if (query.length === 0) {
+    renderBeatPills();
+    return;
+  }
+  if (query.length < 2) return;
+
+  const allBeats = [...BEAT_PILLS_ORDER.filter(b => b !== 'All'), ...BEAT_PILLS_TIER2];
+  const beatMatch = allBeats.find(b => b.toLowerCase() === query.toLowerCase());
+  if (beatMatch) {
+    activeBeat = beatMatch;
+    visibleCount = 50;
+    renderBeatPills();
+    renderPlatformBreakdown(activeBeat);
+    renderCreatorStrip();
+    renderPosts();
+    return;
+  }
+
+  const creatorQuery = query.toLowerCase();
+  const filtered = PULSE_DATA.posts.filter(p => {
+    if (!inCleanWindow(p.published)) return false;
+    if (SOCIAL_PLATFORMS.includes(p.platform)) return false;
+    if (!p.title || p.title === 'No title' || !p.url) return false;
+    return p.creator.toLowerCase().includes(creatorQuery);
+  });
+
+  const slice = filtered.slice(0, 50);
+  document.getElementById('post-count-label').innerHTML =
+    `<span class="pulse-dot-inline"></span> ${filtered.length} posts from creators matching "<strong>${esc(query)}</strong>"`;
+  document.getElementById('post-list').innerHTML = slice.map(p => renderPostItem(p)).join('');
+
+  renderBeatPills(query);
+
+  const lmw = document.getElementById('load-more-wrap');
+  if (filtered.length > 50) {
+    lmw.style.display = '';
+    document.getElementById('load-more-btn').textContent =
+      'Load 50 more (' + (filtered.length - 50).toLocaleString() + ' remaining)';
+  } else {
+    lmw.style.display = 'none';
+  }
+});
+
+// Expander toggle
+document.getElementById('beat-more-btn').addEventListener('click', () => {
+  tier2Visible = !tier2Visible;
+  renderBeatPills();
+});
+
+// Clear search on Escape
+document.getElementById('beat-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    this.value = '';
+    renderBeatPills();
+    renderPosts();
+    document.getElementById('post-count-label').innerHTML =
+      `<span class="pulse-dot-inline"></span> Showing ${Math.min(visibleCount, getFilteredPosts().length).toLocaleString()} of ${getFilteredPosts().length.toLocaleString()} posts`;
+  }
+});
 
 // ── ANALYSIS PANEL TAB SWITCHING ──────────────────────────────
 (function() {
