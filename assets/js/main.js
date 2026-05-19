@@ -162,7 +162,7 @@
                     if (this.filters.topic.size > 0 && !this.filters.topic.has(creator.topic)) return false;
                     if (this.filters.search) {
                         const s = this.filters.search.toLowerCase();
-                        return creator.name.toLowerCase().includes(s) || creator.channel.toLowerCase().includes(s) ||
+                        return (creator.name || '').toLowerCase().includes(s) || (creator.channel || '').toLowerCase().includes(s) ||
                                (creator.topic && creator.topic.toLowerCase().includes(s)) ||
                                (creator.geography && creator.geography.toLowerCase().includes(s)) ||
                                (creator.group && creator.group.toLowerCase().includes(s));
@@ -309,8 +309,8 @@
                     if (this.filters.search) {
                         const searchLower = this.filters.search.toLowerCase();
                         return (
-                            creator.name.toLowerCase().includes(searchLower) ||
-                            creator.channel.toLowerCase().includes(searchLower) ||
+                            (creator.name || '').toLowerCase().includes(searchLower) ||
+                            (creator.channel || '').toLowerCase().includes(searchLower) ||
                             (creator.topic && creator.topic.toLowerCase().includes(searchLower)) ||
                             (creator.geography && creator.geography.toLowerCase().includes(searchLower)) ||
                             (creator.group && creator.group.toLowerCase().includes(searchLower))
@@ -368,8 +368,9 @@
                 
                 allCreators = data;
                 
-                // Update total count in the intro text
-                document.getElementById('totalCreatorsCount').textContent = allCreators.length;
+                // Update total count in the intro text (element only exists on index.html)
+                const totalEl = document.getElementById('totalCreatorsCount');
+                if (totalEl) totalEl.textContent = allCreators.length;
                 
                 // Build filter options
                 buildFilterOptions();
