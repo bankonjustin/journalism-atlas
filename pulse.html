@@ -970,18 +970,90 @@ function getFilteredPosts() {
   });
 }
 
-// ── Render: header top posts ──────────────────────────────────────────────────
+// ── Render: header top posts (diverse, clean-window-filtered) ─────────────────
+//
+// SELECTION ALGORITHM:
+// Goal: 6 posts that feel like a representative cross-section of the ecosystem.
+// Rules:
+//   1. Must be within the clean window (no future-dated posts)
+//   2. No social platform posts (BlueSky, Twitter, etc.)
+//   3. Skip low-signal post types (roundups, digests, meeting minutes, shorts)
+//   4. One post per beat (beat = first topic tag)
+//   5. One post per creator
+//   6. Prefer newsletter/website/podcast over YouTube (platform quality tier)
+//   7. Prefer last 7 days over older posts within those constraints
+//
 function populateHeaderPosts() {
-  const recent = PULSE_DATA.posts
-    .filter(p => p.title && p.title !== 'No title' && p.url && !SOCIAL_PLATFORMS.includes(p.platform))
-    .slice(0, 6);
+
+  // Platform quality tiers (lower = prefer first)
+  const PLATFORM_TIER = {
+    'Substack': 1, 'Ghost': 1, 'Beehiiv': 1, 'Website': 1,
+    'Podcast': 2, 'YouTube': 2,
+  };
+  function getPlatformTier(platform) {
+    const pl = platform && platform.includes(' - ') ? platform.split(' - ')[1] : (platform || '');
+    return PLATFORM_TIER[pl] || 3;
+  }
+
+  // Title patterns that signal low editorial value for a showcase surface
+  const SKIP_TITLE_FRAGMENTS = [
+    'open thread', 'weekly roundup', 'week in review', 'daily update',
+    'this week', 'digest', 'recap', 'wrap:', 'the wrap', 'newsletter',
+    'too long', 'tuned out', 'live stream', 'live:', 'watch:',
+    'episode ', 'ep. ', 'ep ', '#substack', 'shorts',
+    'committee meeting', 'council meeting', 'board of commissioners',
+    'close out meeting', 'landing page',
+  ];
+
+  function isHeroWorthy(p) {
+    if (!p.title || p.title === 'No title' || !p.url) return false;
+    if (SOCIAL_PLATFORMS.includes(p.platform)) return false;
+    if (!inCleanWindow(p.published)) return false;
+    if (p.title.length < 25) return false;
+    const tl = p.title.toLowerCase();
+    if (SKIP_TITLE_FRAGMENTS.some(f => tl.includes(f))) return false;
+    return true;
+  }
+
+  // Anchor to generated_at so freshness stays meaningful relative to the run date
+  const SEVEN_DAYS_AGO = (() => {
+    const d = new Date(PULSE_DATA.generated_at);
+    d.setDate(d.getDate() - 7);
+    return d.toISOString().slice(0, 10);
+  })();
+
+  const candidates = PULSE_DATA.posts
+    .filter(isHeroWorthy)
+    .sort((a, b) => {
+      const aRecent = a.published >= SEVEN_DAYS_AGO ? 0 : 1;
+      const bRecent = b.published >= SEVEN_DAYS_AGO ? 0 : 1;
+      if (aRecent !== bRecent) return aRecent - bRecent;
+      return getPlatformTier(a.platform) - getPlatformTier(b.platform);
+    });
+
+  // Greedy selection: one post per beat, one per creator
+  const usedBeats = new Set();
+  const usedCreators = new Set();
+  const selected = [];
+
+  for (const p of candidates) {
+    if (selected.length >= 6) break;
+    const beat = (p.topic || '').split(',')[0].trim();
+    if (usedBeats.has(beat)) continue;
+    if (usedCreators.has(p.creator)) continue;
+    usedBeats.add(beat);
+    usedCreators.add(p.creator);
+    selected.push(p);
+  }
+
   document.getElementById('header-top-posts').innerHTML =
     `<div class="header-posts-label">Recent</div>` +
-    recent.map(p => `
+    selected.map(p => `
       <div class="header-post-item">
         <a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer" class="header-post-link">${esc(p.title)}</a>
-        <div class="header-post-meta">${esc(p.creator)} · ${fmtDateShort(p.published)}</div>
+        <div class="header-post-meta">${esc(p.creator)} · ${esc(fmtDateShort(p.published))}</div>
       </div>`).join('');
+
   document.getElementById('header-top-posts').insertAdjacentHTML('beforeend', `
     <div style="margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1);">
       <div style="font-family:'DM Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.3); margin-bottom:8px;">For teams</div>
