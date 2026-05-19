@@ -314,6 +314,19 @@
 
     <script src="assets/js/main.js"></script>
 
+    <script>
+      // Per-page init — index-pre-homepage.html only.
+      document.addEventListener('DOMContentLoaded', function() {
+        setupReadMore();
+        loadFiltersFromURL();
+        loadCreatorsData();
+        var backdrop = document.getElementById('packModalBackdrop');
+        if (backdrop) backdrop.addEventListener('click', function(e) {
+          if (e.target === this) closePackModal();
+        });
+      });
+    </script>
+
     <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">

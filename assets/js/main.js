@@ -341,13 +341,10 @@
         // Initialize filter state manager
         const filterState = new FilterStateManager();
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadCreatorsData();
-            setupScrollBehavior();
-            setupReadMore();
-            loadFiltersFromURL();
-        });
+        // Init is handled by per-page inline scripts at the bottom of each page's <body>.
+        // Each page calls only the functions it needs, in the correct order:
+        // loadFiltersFromURL() MUST run before loadCreatorsData() so filter state is set
+        // when applyFilters() fires on data load.
 
         // Re-render active visualization on window resize (debounced)
         let resizeTimer;
@@ -360,31 +357,30 @@
             }, 250);
         });
 
-        // Load and parse CSV data
+        // Load and parse creator data
         async function loadCreatorsData() {
+            // Catch is scoped to fetch/parse only — rendering errors below surface as console errors,
+            // not as misleading "Error loading data" messages shown to users.
             try {
                 const response = await fetch('/assets/data/creators-data.json');
-                const data = await response.json();
-                
-                allCreators = data;
-                
-                // Update total count in the intro text (element only exists on index.html)
-                const totalEl = document.getElementById('totalCreatorsCount');
-                if (totalEl) totalEl.textContent = allCreators.length;
-                
-                // Build filter options
-                buildFilterOptions();
-                
-                // Initial render
-                filterState.applyFilters();
-
-                // Hide loading state
-                document.getElementById('loadingState').style.display = 'none';
-                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                allCreators = await response.json();
             } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('loadingState').innerHTML = '<p style="color: red;">Error loading data. Please refresh the page.</p>';
+                console.error('Data fetch failed:', error);
+                const loadingEl = document.getElementById('loadingState');
+                if (loadingEl) loadingEl.innerHTML = '<p style="color: red;">Error loading creator data. Please refresh the page.</p>';
+                return;
             }
+
+            // Data loaded. Errors from here are rendering bugs, not data failures.
+            const totalEl = document.getElementById('totalCreatorsCount');
+            if (totalEl) totalEl.textContent = allCreators.length;
+
+            buildFilterOptions();
+            filterState.applyFilters();
+
+            const loadingEl = document.getElementById('loadingState');
+            if (loadingEl) loadingEl.style.display = 'none';
         }
 
         // Build filter options from data
@@ -759,10 +755,13 @@
 
         // Nav search functionality (debounced for performance)
         let searchDebounceTimer;
-        document.getElementById('navSearch').addEventListener('input', function(e) {
-            clearTimeout(searchDebounceTimer);
-            searchDebounceTimer = setTimeout(() => filterState.setSearch(e.target.value), 150);
-        });
+        const navSearchInput = document.getElementById('navSearch');
+        if (navSearchInput) {
+            navSearchInput.addEventListener('input', function(e) {
+                clearTimeout(searchDebounceTimer);
+                searchDebounceTimer = setTimeout(() => filterState.setSearch(e.target.value), 150);
+            });
+        }
 
         // URL parameter handling for permalinks
         function updateURL() {
@@ -3121,7 +3120,4 @@
         }, 3000);
     }
 
-    // Close modal on backdrop click
-    document.getElementById('packModalBackdrop').addEventListener('click', function(e) {
-        if (e.target === this) closePackModal();
-    });
+    // packModalBackdrop click-to-close is wired in each page's per-page init script.

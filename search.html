@@ -285,6 +285,20 @@
 
     <script src="assets/js/main.js"></script>
 
+    <script>
+      // Per-page init — search.html only.
+      // loadFiltersFromURL MUST run before loadCreatorsData so filter state is set
+      // when applyFilters() fires on data resolve.
+      document.addEventListener('DOMContentLoaded', function() {
+        loadFiltersFromURL();
+        loadCreatorsData();
+        var backdrop = document.getElementById('packModalBackdrop');
+        if (backdrop) backdrop.addEventListener('click', function(e) {
+          if (e.target === this) closePackModal();
+        });
+      });
+    </script>
+
     <script src="/assets/js/footer.js"></script>
 
 </body>
