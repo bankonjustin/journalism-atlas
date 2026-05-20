@@ -78,8 +78,8 @@ const ATLAS_VIZ_COLORS = [
 | Role | Family | Notes |
 |------|--------|-------|
 | Primary / UI | Hanken Grotesk | Google Fonts — confirmed in use |
-| Secondary / editorial | Merriweather | Google Fonts — [TO CONFIRM: still in use?] |
-| Monospace (if any) | [TO CONFIRM] | |
+| Secondary / editorial | Merriweather | Google Fonts — confirmed in use |
+| Monospace / data & numeric | JetBrains Mono | Google Fonts |
 
 ### Type Scale
 
@@ -87,61 +87,60 @@ const ATLAS_VIZ_COLORS = [
 
 | Level | Size | Weight | Use |
 |-------|------|--------|-----|
-| Display | | | Hero headings |
-| H1 | | | Page titles |
-| H2 | | | Section heads |
-| H3 | | | Card titles |
-| Body | | | Default text |
-| Small | | | Meta, labels, tags |
-| Micro | | | Captions, timestamps |
+| Display | 36px | 800 | Hero headings |
+| H1 | 28px | 700 | Page titles |
+| H2 | 22px | 700 | Section heads |
+| H3 | 16px | 700 | Card titles |
+| Body | 17px | 400 | Default reading text |
+| Small | 15px | 400 | Meta, labels, tags |
+| Micro | 13px | 400 | Captions, timestamps |
+| Editorial body | 18px | 400 | Merriweather — long-form editorial only |
 
 ### Font Weights in Use
-*[TO CONFIRM — list weights James has approved]*
 - 400 (regular)
-- 600 (semibold)?
-- 700 (bold)?
-- 800 (extrabold)?
+- 700 (bold)
+- 800 (extrabold)
+
+Note: 500 and 600 are not approved.
 
 ---
 
 ## Spacing & Layout
 
-*[TO FILL IN — James to define or confirm]*
-
 ### Base Unit
-Base spacing unit: [TO CONFIRM — e.g., 4px or 8px]
+Base spacing unit: 4px
 
 ### Spacing Scale
 ```
-xs:  
-sm:  
-md:  
-lg:  
-xl:  
-2xl: 
+xs:  4px
+sm:  8px
+md:  16px
+lg:  24px
+xl:  40px
+2xl: 64px
 ```
 
 ### Border Radius
 ```
-card:    
-button:  
-pill/tag: 
+card:     6px
+button:   6px
+pill/tag: 9999px
 ```
 
 ### Max Content Width
 ```
-full layout:  
-text column:  
-card grid:    
+full layout: 1440px
+text column: 720px
+card grid:   1440px
 ```
 
 ---
 
 ## Iconography
 
-- **Icon set:** Material Icons (currently in use — [TO CONFIRM: still the approved set?])
+- **Icon set:** Material Symbols Outlined
+- **Style variant:** Outlined (default), Filled (active states only)
 - **Icon size defaults:** [TO CONFIRM]
-- **Icon weight/style variant:** [TO CONFIRM — outlined, filled, rounded?]
 
 ---
 
@@ -197,3 +196,6 @@ Per the 2025 Style Guide:
 | Feb 2026 | Hanken Grotesk as primary font | Clean, geometric, works well at small sizes for data-dense UI |
 | Feb 2026 | Acid green (#ceff00) as primary accent | Brand differentiation, energy, established in Style Guide |
 | May 2026 | Secondary text on dark surfaces → `#bdbdbd` | Footer EXPLORE/ABOUT/CONNECT labels reading below WCAG AA on black. `#bdbdbd` (~6.0:1 on #000) chosen over bare AA floor (`#a8a8a8`, 4.5:1) because small all-caps widely-spaced labels need more contrast than body-weight text at the same size. Supersedes any previous per-page `#a8a8a8` usage on dark surfaces. Applied globally: footer, dark homepage sections, Bluesky Creator Intelligence. |
+| May 2026 | Typography scale and spacing confirmed | James via #atlas-design May 7 2026. Display 36/800 through Micro 13/400. Spacing base 4px. Border radius 6px/9999px. Max width 1440px. |
+| May 2026 | Font weights: 400, 700, 800 only | 500 and 600 removed from approved set. Supersedes CLAUDE.md which previously listed 400/500/700. |
+| May 2026 | JetBrains Mono added as monospace font | For data and numeric contexts. Third confirmed typeface alongside Hanken Grotesk and Merriweather. |

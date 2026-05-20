@@ -28,11 +28,11 @@ All visual implementation references `DESIGN-TOKENS.md` at the project root as t
 - **Acid green `#ceff00` = dark backgrounds only** — never on light/white surfaces
 - **Lime green `#97d600` = light backgrounds only** — never on dark surfaces
 - **Header text = always `#000000`** regardless of mode or surface color
-- **Body Large (16px) is the minimum reading size** — do not go below this for body copy
+- **Body copy minimum 16px** — Small (15px) and Micro (13px) are approved for labels, tags, and metadata only. Never use below 16px for reading/paragraph text.
 - **Material Symbols Outlined only** — no legacy Material Icons; Filled variant reserved for active states only
-- **8px base spacing unit** — all spacing must be multiples of 8 (xs = 4px is the only exception)
-- **Font weights: 400 / 500 / 700 only** — do not introduce 600 or 800
-- **Border radius: 6px for cards/buttons/inputs; 100px for pills/tags**
+- **4px base spacing unit** — spacing scale: xs 4px / sm 8px / md 16px / lg 24px / xl 40px / 2xl 64px
+- **Font weights: 400 / 700 / 800 only** — do not introduce 500, 600, or other weights
+- **Border radius: 6px for cards/buttons/inputs; 9999px for pills/tags**
 
 ### CSS token architecture
 
