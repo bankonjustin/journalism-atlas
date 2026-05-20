@@ -133,13 +133,21 @@
             
             // Toggle a filter value (add if not present, remove if present)
             toggle(type, value) {
-                if (this.filters[type].has(value)) {
-                    this.filters[type].delete(value);
-                } else {
+                const adding = !this.filters[type].has(value);
+                if (adding) {
                     this.filters[type].add(value);
+                } else {
+                    this.filters[type].delete(value);
                 }
                 this.syncUI(type, value);
                 this.applyFilters();
+                if (adding) {
+                    window.atlasTrack('filter_applied', {
+                        filter_type: type,
+                        filter_value: value,
+                        result_count: filteredCreators.length
+                    });
+                }
             }
 
             // Toggle filter without re-rendering views (for in-visualization navigation)
@@ -234,6 +242,12 @@
             setSearch(value) {
                 this.filters.search = value;
                 this.applyFilters();
+                if (value && value.length >= 2) {
+                    window.atlasTrack('search_executed', {
+                        search_term: value,
+                        result_count: filteredCreators.length
+                    });
+                }
             }
             
             // Get active filters
@@ -605,7 +619,14 @@
         function createCreatorCard(creator) {
             const card = document.createElement('div');
             card.className = 'creator-card';
-            card.onclick = () => window.open(creator.link, '_blank');
+            card.onclick = () => {
+            window.atlasTrack('creator_card_clicked', {
+                creator_name: creator.name,
+                creator_platform: creator.platform,
+                creator_group: creator.group
+            });
+            window.open(creator.link, '_blank');
+        };
 
             const initials = creator.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
@@ -653,6 +674,13 @@
                 });
             });
 
+            const suggestBtn = card.querySelector('.suggest-edits-btn');
+            if (suggestBtn) {
+                suggestBtn.addEventListener('click', () => {
+                    window.atlasTrack('suggest_edit_clicked', { creator_name: creator.name });
+                });
+            }
+
             return card;
         }
 
@@ -691,11 +719,13 @@
 
         // Clear all filters
         function clearAllFilters() {
+            window.atlasTrack('filter_cleared', {});
             filterState.clearAll();
         }
 
         // Toggle view
         function toggleView(view) {
+            window.atlasTrack('view_mode_switched', { view_mode: view });
             currentView = view;
             
             // Update button states
@@ -2272,6 +2302,7 @@
 
         // ── Share this view ──────────────────────────────────────────────────
         function shareCurrentView() {
+            window.atlasTrack('share_view_clicked', { shared_url: window.location.href });
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
                 const btn = document.getElementById('shareViewBtn');

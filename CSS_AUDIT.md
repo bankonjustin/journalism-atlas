@@ -1,5 +1,5 @@
 # Atlas CSS Token Compliance Audit
-*Last updated: 2026-05-19*
+*Last updated: 2026-05-20*
 *Reference: DESIGN-TOKENS.md (James — james@happicamp.com)*
 
 ---
@@ -8,9 +8,9 @@
 
 | Category | Count |
 |---|---|
-| Violations fixed this session | 11 |
-| Flagged for James | 7 |
-| Flagged for Justin | 9 |
+| Violations fixed this session | 37 |
+| Flagged for James | 1 |
+| Flagged for Justin | 0 |
 | Pages confirmed load-order compliant | 22 |
 | Pages with load-order violations fixed | 9 |
 
@@ -30,6 +30,58 @@
 | `how-we-did-this.html` | 31, 49 | Missing + system font | Load order + unapproved font — no `variables.css`; body set to `-apple-system` stack | Added `variables.css` link; changed body `font-family` to `var(--font-primary)` |
 | `research.html` | 31, 50 | Missing + system font | Load order + unapproved font — no `variables.css`; body set to `-apple-system` stack | Added `variables.css` link; changed body `font-family` to `var(--font-primary)` |
 | `updates.html` | 31, 50 | Missing + system font | Load order + unapproved font — no `variables.css`; body set to `-apple-system` stack | Added `variables.css` link; changed body `font-family` to `var(--font-primary)` |
+| `index.html` | 44 | `background: #d8ff33` | `.btn-acid:hover` — unknown hover color, not in DESIGN-TOKENS.md | Replaced with `var(--color-lime-green)` |
+| `for-brands.html` | 64, 423 | `background: #d8ff33` | `.btn-primary:hover` and `.bf-submit:hover` — unknown hover color on dark-bg buttons | Replaced with `var(--color-lime-green)` |
+| `for-brands.html` | 367 | `background: #a8e800` | `.form-submit:hover` on white `.form-section` — unknown hover color | Replaced with `var(--color-dark-olive)` |
+| `nj-lab.html` | 354 | `background: #b8e600` | `.cta-primary:hover` — unknown hover color | Replaced with `var(--color-lime-green)` |
+| `city-lab-chicago.html` | 617 | `background: #ceff00` | `.legend-dot` on white body background — acid green on light surface violation | Replaced with `var(--color-lime-green)` |
+| `header.css` | 253–261 | `font-family: 'DM Mono', monospace` | Unapproved typeface in shared footer — DM Mono not in DESIGN-TOKENS.md | Replaced with `'JetBrains Mono'`; added `@import` for JetBrains Mono at top of header.css |
+| `index.html` | multiple | `font-family: 'DM Mono', monospace` | Unapproved typeface used ~65 times across all monospace contexts | Replaced all instances with `'JetBrains Mono'`; added Google Fonts `<link>` in `<head>` |
+| `research.html` | 147, 158, 276, 282, 296, 301, 306, 330, 336 | `font-weight: 600` | 600 not in approved weight set | Replaced all instances with `700` |
+| `city-lab-chicago.html` | 1197, 1980, 1981 | `font-weight: 600` | 600 not in approved weight set | Replaced all instances with `700` |
+| `index.html` | 484 | `font-weight: 600` | `.drawer-creator-name` — 600 not approved | Replaced with `700` |
+| `assets/css/main.css` | multiple | `font-weight: 500` | 500 not in approved weight set — systemic across main.css | Headings/buttons → `700`; labels/metadata/tags/links → `400` (see decisions log below) |
+| `index.html` | multiple | `font-weight: 500` | 500 not in approved weight set | Prominent numbers (`.hero-stat-badge-num`, `.cluster-count-n`) → `700`; labels/metadata/names → `400` |
+| `partners/cillizza.html` | multiple | `font-weight: 500` | 500 not in approved weight set — all instances are tags/chips/labels/links | Replaced all with `400` |
+| `partners/ahp.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/icfj.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/news-creator-corps.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/joon-lee.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/jessica-stahl.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/knowledge-creators.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/emily-atkin.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/natgeo.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/karen-attiah.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/rahim-jessani.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `partners/noah-smith.html` | multiple | `font-weight: 500` | Same pattern | Replaced all with `400` |
+| `advisory.html` | 237 | `font-weight: 500` on `.about-subnav-link` | Nav link — 500 not approved | Replaced with `400` |
+| `submit.html` / `submit-thanks.html` / `updates.html` | 34–42 | Inline `:root` block with wrong values (`--lime-green: #d4ff33`, `--light-gray: #f5f5f5`, `--dark-gray: #666666`) | Local `:root` overrides canonical token values with wrong colors, wins cascade over variables.css | Deleted entire `:root { }` block from each page's inline `<style>`; pages now rely fully on variables.css |
+| `assets/css/variables.css` | 107, 161 | Comment said `500 (labels/UI)`; weight still listed without deprecation note | Stale comment conflicts with May 2026 DESIGN-TOKENS.md decision removing 500 | Updated comment to reflect 500 is no longer in approved set |
+
+### main.css font-weight decisions log
+
+| Selector | Old | New | Reason |
+|---|---|---|---|
+| `.filter-accordion-header h3` | 500 | 700 | Heading |
+| `.clear-filters-top` | 500 | 700 | Prominent action button |
+| `.mobile-filter-toggle` | 500 | 700 | Prominent action button |
+| `.share-view-btn` | 500 | 700 | Action button |
+| `.atlas-drawer-show-more` | 500 | 700 | Action button |
+| `.bubble-mode-btn` | 500 | 700 | Tab action button |
+| `.creators-table th` | 500 | 700 | Table heading |
+| `.viz-creators-table th` | 500 | 700 | Table heading |
+| `.clear-filters` | 500 | 400 | Label |
+| `.results-count` | 500 | 400 | Metadata |
+| `.view-btn` | 500 | 400 | Small toggle |
+| `.creator-tag` | 500 | 400 | Chip/tag |
+| `.filter-badge` | 500 | 400 | Count badge chip |
+| `.hero-link` | 500 | 400 | Nav link |
+| `.bubble-label` | 500 | 400 | SVG viz label |
+| `.viz-creators-table a` | 500 | 400 | Link |
+| `.legend-item span` | 500 | 400 | Label |
+| `.mobile-menu-link` | 500 | 400 | Nav link |
+| `.atlas-drawer-select-count` | 500 | 400 | Count metadata |
+| `.atlas-drawer-card-tag` | 500 | 400 | Chip/tag |
 
 ---
 
@@ -40,30 +92,6 @@ These items require James's decision before any code change. Do not fix.
 | File | Line | Value | Context | Question |
 |------|------|-------|---------|----------|
 | `index.html` | 1411–1419 | `'#ff66ff'`, `'#00e5ff'`, `'#ffaa00'`, `'#4db8ff'`, `'#ff33cc'`, `'#ff4422'` | `CLUSTERS` color array used for hero viz bubbles — same role as `ATLAS_VIZ_COLORS` | These colors are not in DESIGN-TOKENS.md. Are these the sanctioned topic-cluster colors? Needs James sign-off per CLAUDE.md § Out of Scope. |
-| `index.html` | 44 | `background: #d8ff33` | `.btn-acid:hover` — hover state on acid green button (dark bg) | `#d8ff33` is not in DESIGN-TOKENS.md. Intended as a lighter acid-green hover? Needs James to either confirm or assign a token. |
-| `for-brands.html` | 64, 423 | `background: #d8ff33` | `.btn-primary:hover` and `.bf-submit:hover` — hover on dark-bg buttons | Same unknown color as above. Confirm or tokenize. |
-| `nj-lab.html` | 354 | `background: #b8e600` | `.cta-primary:hover` | Not in DESIGN-TOKENS.md. Lighter lime-green variant for hover? Needs token or James decision. |
-| `city-lab-chicago.html` | 617 | `background: #ceff00` | `.legend-dot` (beat coverage map) on white body background — visualization legend | Visualization legend dot using acid green on a light surface. Is this intentional as a viz data marker (not UI chrome)? Flag because the rule says acid green = dark surfaces only, but this is a data legend. James to confirm whether viz legends are exempt. |
-| `header.css` | 253–261 | `font-family: 'DM Mono', monospace` | Shared site footer (`.footer-tagline`, `.footer-col-title`, `.footer-copy`, `.footer-legal a`) | `DM Mono` is not in DESIGN-TOKENS.md. Approved typefaces are Hanken Grotesk, Merriweather, JetBrains Mono. Should footer monospace be migrated to `JetBrains Mono`? James to confirm. |
-| `index.html` | multiple | `font-family: 'DM Mono', monospace` | Used ~63 times across eyebrows, data labels, stat strips, cluster cards, pulse section | Same issue — `DM Mono` not in approved font list. Index.html is heavily reliant on it. Needs James design decision before a bulk migration. |
-
----
-
-## Flagged for Justin
-
-These need your explicit confirmation before changing.
-
-| File | Line | Value | Context | Question |
-|------|------|-------|---------|----------|
-| `assets/css/main.css` | multiple | `font-weight: 500` | Used ~20 times across `.filter-accordion-header h3`, `.clear-filters`, `.view-btn`, `.results-count`, `.mobile-filter-toggle`, `.creator-tag`, and others. `main.css` is `search.html`'s primary stylesheet. | DESIGN-TOKENS.md (May 2026) removed `500` from approved weights. This is systemic across `main.css`. Confirm before bulk changing to `400` or `700` — some of these labels may need editorial judgment on which weight fits. |
-| `partners/*.html` | multiple | `font-weight: 500` | All 12 partner pages use weight 500 extensively (~185 instances total) for labels, chips, sub-headings, card metadata | Same issue. Partner pages share a template pattern with consistent use of 500. Confirm this entire pattern should shift to 400 (regular). Suggest doing a dedicated session sweep. |
-| `index.html` | multiple | `font-weight: 500` | ~15 instances across `.hero-stat-badge-num`, `.stat-lbl`, `.featured-pub`, `.cluster-count-n`, `.cluster-creator-name`, `.pulse-beat-name`, etc. | Same. Confirm direction — particularly for numeric/data labels where 500 is visually distinct from 400. |
-| `research.html` | 147, 158, 276, 282, 296, 301, 306, 330, 336 | `font-weight: 600` | Publication names, link text, "Coming June 2026" line | `600` is explicitly not approved. Need to confirm: change to `700`? |
-| `city-lab-chicago.html` | 1197, 1980, 1981 | `font-weight: 600` | "Tell us →" link, creator name in table cell JS template | Same — `600` not approved. Change to `700`? |
-| `submit.html` / `submit-thanks.html` / `updates.html` | 37–40 | `--lime-green: #d4ff33; --light-gray: #f5f5f5; --dark-gray: #666666` | Local `:root` overrides using wrong token values — `#d4ff33` is not lime green, `#f5f5f5` is not the canonical light gray, `#666666` is not dark gray | These pages override the canonical values with wrong colors. Now that `variables.css` is loaded first, the local `:root` block will win on specificity (same selector, later in cascade). Recommend deleting the inline `:root` blocks on these pages and relying fully on `variables.css`. Confirm before touching. |
-| `for-brands.html` | 362, 367 | `background: #97d600` / `#a8e800` | `.form-submit` on white `.form-section` — primary button correct; hover `#a8e800` not in DESIGN-TOKENS.md | The hover value `#a8e800` is unknown. Is this intentional, or should it be `var(--color-dark-olive)` (#5d7400)? |
-| `advisory.html` | 237 | `font-weight: 500` | `.about-subnav-link` — shared subnav across the about section group | Part of the systemic 500 issue. Specifically: subnav link weight. Likely `400` after the sweep. |
-| `index.html` | 484 | `font-weight: 600` | `.drawer-creator-name` on dark drawer overlay | `600` not approved. Should be `700`? Confirm. |
 
 ---
 
@@ -81,7 +109,7 @@ These need your explicit confirmation before changing.
 - `pulse.html` lines 74, 83, 1061: all acid green usages confirmed on `.page-header { background: #111111 }` — correct.
 - `city-lab-chicago.html` lines 345, 362, 371, 390, 478: acid green on `#111` or `#000` dark surfaces — correct.
 - Redundant local `:root` alias blocks on partner pages (redefining `--acid`, `--lime`, `--olive`, etc. with correct values) — these match variables.css values exactly, so they are redundant but not violations. Leave for now unless a dedicated cleanup session is approved.
-- `variables.css` internal note says `--weight-medium: 500` and comment says "500 (labels/UI)" — this conflicts with the May 2026 DESIGN-TOKENS.md decision removing 500. The `variables.css` comment needs updating when the systemic weight-500 sweep is done.
+- `variables.css` `--weight-medium: 500` variable retained for transition period; comment updated to reflect it is no longer in the approved set (May 2026).
 
 ---
 

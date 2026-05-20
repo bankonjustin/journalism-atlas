@@ -4,6 +4,29 @@
    CSS: assets/css/header.css (must be linked in <head>)
    ===================================================== */
 
+// ── GA4 Analytics ────────────────────────────────────────────────────────────
+(function() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HZ9F351MRS';
+    document.head.appendChild(script);
+})();
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HZ9F351MRS', {
+    page_path: window.location.pathname
+});
+
+// Safe event helper — guards against ad blockers suppressing gtag
+window.atlasTrack = function(eventName, params) {
+    if (typeof gtag === 'function') {
+        gtag('event', eventName, params || {});
+    }
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
 (function () {
     // Ensure required fonts are loaded (no-op if already present)
     function ensureFont(href) {
