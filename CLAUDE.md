@@ -3,6 +3,8 @@
 *Project: Independent Journalism Atlas (journalismatlas.com)*
 *Owner: Justin | Design system: James (james@happicamp.com)*
 
+**Read at session start:** This file + `WORKFLOW.md` (decision authority, "done" definition, Chat→Code handoff protocol, deploy process).
+
 ---
 
 ## Project Overview
