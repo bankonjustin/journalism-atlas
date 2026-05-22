@@ -111,24 +111,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .topic-tag { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; padding: 2px 8px; border-radius: 2px; color: var(--text-muted); border: 1px solid var(--border); display: inline-block; }
 .poly-note { font-size: 12px; color: var(--text-secondary); line-height: 1.7; max-width: 640px; padding: 14px 18px; background: var(--card-bg); border-left: 3px solid var(--lime); border-radius: 0 3px 3px 0; font-style: italic; }
 
-/* ── SPIDERING FRONTIER ───────────────────────────────────── */
-.frontier-layout { display: grid; grid-template-columns: 1fr 340px; gap: 56px; align-items: start; }
-.frontier-copy p { font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
-.frontier-copy p:last-child { margin-bottom: 0; }
-.frontier-copy strong { color: var(--text-primary); font-weight: 600; }
-.frontier-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 24px; }
-.f-stat { background: var(--card-bg); border: 1px solid var(--border); border-radius: 3px; padding: 14px 16px; }
-.f-stat-num { font-size: 26px; font-weight: 900; letter-spacing: -0.04em; line-height: 1; margin-bottom: 5px; }
-.f-stat-num.lime { color: var(--lime); }
-.f-stat-num.orange { color: var(--watch); }
-.f-stat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.55; }
-.method-row { margin-top: 20px; }
-.method-row-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
-.method-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.m-tag { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 10px; border-radius: 2px; border: 1px solid var(--border); color: var(--text-secondary); background: var(--card-bg); }
-.frontier-diagram { background: var(--card-bg); border: 1px solid var(--border); border-radius: 3px; padding: 20px; }
-.frontier-diagram svg { width: 100%; height: auto; display: block; }
-.diagram-caption { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; text-align: center; margin-top: 12px; }
 
 /* ── WHAT THIS ENABLES ────────────────────────────────────── */
 .enables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -313,125 +295,10 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </p>
 </section>
 
-<!-- ── SECTION 3: SPIDERING FRONTIER ──────────────────────── -->
-<section class="section" id="frontier">
-  <div class="section-header">
-    <span class="section-num">03</span>
-    <h2 class="section-title">The Spidering Frontier</h2>
-    <span class="section-meta">671 seeds · follows + followers + starter packs</span>
-  </div>
-  <div class="frontier-layout">
-    <div class="frontier-copy">
-      <p>
-        The 671 creators on Bluesky aren't a list — <strong>they're a network.</strong>
-        Each one follows and is followed by dozens of other journalists not yet in the Atlas corpus.
-        Our spidering method uses the mapped corpus as seeds, then traverses their follows,
-        followers, and curated starter packs to surface new creators who meet Atlas verification standards.
-      </p>
-      <p>
-        A single curated starter pack — <strong>Amy Westervelt's "Climate Journalists" list on Bluesky,
-        149 members</strong> — yielded more than a dozen net-new Atlas-eligible creators in one session.
-        Every seed creator connects to more.
-      </p>
-      <div class="frontier-stats">
-        <div class="f-stat">
-          <div class="f-stat-num lime">671</div>
-          <div class="f-stat-label">Seeds in the<br>mapped corpus</div>
-        </div>
-        <div class="f-stat">
-          <div class="f-stat-num orange">513</div>
-          <div class="f-stat-label">Atlas creators not<br>yet found → new seeds<br>when discovered</div>
-        </div>
-        <div class="f-stat">
-          <div class="f-stat-num lime">10</div>
-          <div class="f-stat-label">Curated starter packs<br>catalogued</div>
-        </div>
-        <div class="f-stat">
-          <div class="f-stat-num lime">9</div>
-          <div class="f-stat-label">Spidering sessions<br>completed</div>
-        </div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">Traversal methods</div>
-        <div class="method-tags">
-          <span class="m-tag">follows</span>
-          <span class="m-tag">followers</span>
-          <span class="m-tag">starter packs</span>
-          <span class="m-tag">search posts</span>
-          <span class="m-tag">beat keywords</span>
-          <span class="m-tag">named seeds</span>
-        </div>
-      </div>
-    </div>
-    <div class="frontier-diagram">
-      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Network traversal diagram showing Atlas seeds radiating outward to discover new creators">
-        <!-- connection lines: seed to ring 1 -->
-        <line x1="150" y1="150" x2="150" y2="78" stroke="#e0e0e3" stroke-width="1"/>
-        <line x1="150" y1="150" x2="209" y2="91" stroke="#e0e0e3" stroke-width="1"/>
-        <line x1="150" y1="150" x2="222" y2="150" stroke="#e0e0e3" stroke-width="1"/>
-        <line x1="150" y1="150" x2="209" y2="209" stroke="#e0e0e3" stroke-width="1"/>
-        <line x1="150" y1="150" x2="150" y2="222" stroke="#e0e0e3" stroke-width="1"/>
-        <line x1="150" y1="150" x2="91" y2="209" stroke="#e0e0e3" stroke-width="1"/>
-        <line x1="150" y1="150" x2="78" y2="150" stroke="#e0e0e3" stroke-width="1"/>
-        <line x1="150" y1="150" x2="91" y2="91" stroke="#e0e0e3" stroke-width="1"/>
-        <!-- ring 1 to ring 2 connections (sparse) -->
-        <line x1="150" y1="78" x2="126" y2="42" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="150" y1="78" x2="178" y2="46" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="209" y1="91" x2="245" y2="70" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="222" y1="150" x2="258" y2="130" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="222" y1="150" x2="260" y2="168" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="209" y1="209" x2="246" y2="230" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="150" y1="222" x2="130" y2="258" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="150" y1="222" x2="170" y2="258" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="91" y1="209" x2="56" y2="228" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="78" y1="150" x2="42" y2="134" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-        <line x1="91" y1="91" x2="62" y2="62" stroke="#e8e8e8" stroke-width="0.75" stroke-dasharray="3,2"/>
-
-        <!-- ring 1: direct connections (atlas seeds, lime) -->
-        <circle cx="150" cy="78" r="7" fill="#97d600"/>
-        <circle cx="209" cy="91" r="7" fill="#97d600"/>
-        <circle cx="222" cy="150" r="7" fill="#97d600"/>
-        <circle cx="209" cy="209" r="7" fill="#97d600"/>
-        <circle cx="150" cy="222" r="7" fill="#97d600"/>
-        <circle cx="91" cy="209" r="7" fill="#97d600"/>
-        <circle cx="78" cy="150" r="7" fill="#97d600"/>
-        <circle cx="91" cy="91" r="7" fill="#97d600"/>
-
-        <!-- ring 2: discovered nodes -->
-        <circle cx="126" cy="42" r="5" fill="#97d600"/>
-        <circle cx="178" cy="46" r="5" fill="#97d600"/>
-        <circle cx="245" cy="70" r="5" fill="#c86a00"/>
-        <circle cx="258" cy="130" r="5" fill="#c86a00"/>
-        <circle cx="260" cy="168" r="5" fill="#97d600"/>
-        <circle cx="246" cy="230" r="5" fill="#888888" opacity="0.5"/>
-        <circle cx="130" cy="258" r="5" fill="#97d600"/>
-        <circle cx="170" cy="258" r="5" fill="#c86a00"/>
-        <circle cx="56" cy="228" r="5" fill="#888888" opacity="0.5"/>
-        <circle cx="42" cy="134" r="5" fill="#97d600"/>
-        <circle cx="62" cy="62" r="5" fill="#c86a00"/>
-
-        <!-- center: Atlas seed -->
-        <circle cx="150" cy="150" r="14" fill="#97d600"/>
-        <circle cx="150" cy="150" r="10" fill="#5d7400"/>
-        <text x="150" y="154" text-anchor="middle" font-family="'DM Mono', monospace" font-size="8" fill="white" font-weight="500">ATLAS</text>
-
-        <!-- legend -->
-        <circle cx="20" cy="268" r="4" fill="#97d600"/>
-        <text x="28" y="272" font-family="'DM Mono', monospace" font-size="8" fill="#888888">Atlas-eligible</text>
-        <circle cx="20" cy="282" r="4" fill="#c86a00"/>
-        <text x="28" y="286" font-family="'DM Mono', monospace" font-size="8" fill="#888888">Watchlist</text>
-        <circle cx="115" cy="268" r="4" fill="#888888" opacity="0.5"/>
-        <text x="123" y="272" font-family="'DM Mono', monospace" font-size="8" fill="#888888">Out of scope</text>
-      </svg>
-      <p class="diagram-caption">Network traversal from seed corpus</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── SECTION 4: WHAT THIS ENABLES ───────────────────────── -->
+<!-- ── SECTION 3: WHAT THIS ENABLES ───────────────────────── -->
 <section class="section on-white" id="enables">
   <div class="section-header">
-    <span class="section-num">04</span>
+    <span class="section-num">03</span>
     <h2 class="section-title">Who This Is Built For</h2>
   </div>
   <p class="enables-intro">This intelligence layer is purpose-built for three audiences. Each use case is live and queryable today.</p>
