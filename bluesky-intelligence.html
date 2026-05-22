@@ -32,7 +32,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .badge { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; font-family: 'DM Mono', monospace; }
 .badge-atlas { color: var(--olive); border: 1px solid rgba(151,214,0,0.5); background: rgba(151,214,0,0.07); }
 .badge-bsky { color: var(--blue); border: 1px solid rgba(0,94,163,0.3); }
-.header-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); text-align: right; line-height: 1.8; letter-spacing: 0.04em; }
+.header-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; display: flex; align-items: center; gap: 24px; }
 .header-right em { color: var(--text-secondary); font-style: normal; }
 
 /* ── HERO ─────────────────────────────────────────────────── */
@@ -155,10 +155,38 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 ::-webkit-scrollbar-track { background: var(--page-bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); }
 
+/* ── HEADER CTA ───────────────────────────────────────────── */
+.header-cta { display: inline-block; background: var(--lime); color: #313131; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 10px 20px; border-radius: 2px; border: 1.5px solid var(--olive); transition: background 0.18s, color 0.18s; white-space: nowrap; flex-shrink: 0; }
+.header-cta:hover { background: var(--olive); color: #ffffff; }
+
+/* ── HERO CTA ─────────────────────────────────────────────── */
+.hero-cta-row { display: flex; align-items: center; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+.btn-primary { display: inline-block; background: var(--lime); color: #313131; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; border-radius: 2px; border: 1.5px solid var(--olive); transition: background 0.18s, color 0.18s; }
+.btn-primary:hover { background: var(--olive); color: #ffffff; }
+.btn-ghost { display: inline-block; background: transparent; color: var(--text-secondary); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 13px 0; border-bottom: 1px solid var(--border); transition: color 0.18s, border-color 0.18s; }
+.btn-ghost:hover { color: var(--olive); border-color: var(--olive); }
+
+/* ── STAT SO-WHAT ─────────────────────────────────────────── */
+.stat-so-what { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-secondary); font-weight: 400; letter-spacing: 0.04em; line-height: 1.6; margin-top: 6px; font-style: italic; }
+
+/* ── SECTION SUBTITLE ─────────────────────────────────────── */
+.section-subtitle { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 560px; margin-top: 10px; margin-bottom: 32px; }
+
+/* ── ENABLES INTRO ────────────────────────────────────────── */
+.enables-intro { font-size: 14px; color: var(--text-secondary); line-height: 1.75; max-width: 640px; margin-bottom: 28px; }
+
+/* ── PARTNER HEADLINE ─────────────────────────────────────── */
+.partner-headline { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; letter-spacing: -0.03em; color: var(--acid); line-height: 1.1; margin-bottom: 14px; }
+.partner-sub { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 500px; margin-bottom: 32px; }
+
 /* ── VIZ OVERLAY ──────────────────────────────────────────── */
 #network-canvas { cursor: pointer; }
-.viz-expand-hint { position: absolute; bottom: 12px; right: 14px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; transition: color 0.2s; }
-.hero-right:hover .viz-expand-hint { color: rgba(255,255,255,0.45); }
+.viz-expand-hint { position: absolute; bottom: 12px; right: 14px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; transition: color 0.2s; animation: hintPulse 3s ease-in-out 1.5s 2; }
+.hero-right:hover .viz-expand-hint { color: rgba(255,255,255,0.6); animation: none; }
+@keyframes hintPulse {
+  0%, 100% { color: rgba(255,255,255,0.35); }
+  50% { color: rgba(255,255,255,0.7); }
+}
 
 #viz-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(6,6,14,0.97); align-items: center; justify-content: center; padding: 28px 32px; }
 #viz-overlay.open { display: flex; animation: overlayIn 0.22s ease; }
@@ -192,7 +220,8 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <span class="badge badge-bsky">Bluesky Intelligence</span>
   </div>
   <div class="header-right">
-    671 creators · 14 clusters · April 2026
+    <span>671 creators · 14 clusters · April 2026</span>
+    <a href="/for-brands" class="header-cta">Request access →</a>
   </div>
 </header>
 
@@ -214,13 +243,17 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
         organized by beat, cross-referenced against their full platform presence across newsletters,
         video, and podcast. This is the most complete map of independent journalism on Bluesky — and it grows with every session.
       </p>
+      <div class="hero-cta-row">
+        <a href="/for-brands" class="btn-primary">Request a brief →</a>
+        <a href="#enables" class="btn-ghost">See what this enables</a>
+      </div>
     </div>
   </div>
   <div class="hero-right">
     <div class="viz-label">671 creators · 14 beat clusters</div>
     <canvas id="network-canvas"></canvas>
     <div id="viz-tooltip"></div>
-    <div class="viz-expand-hint">click to expand</div>
+    <div class="viz-expand-hint">Click to explore fullscreen</div>
   </div>
 </div>
 
@@ -229,23 +262,28 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   <div class="stat-cell">
     <div class="stat-num" id="stat-total">671</div>
     <div class="stat-label">Verified creators<br>on Bluesky</div>
+    <div class="stat-so-what">Widest independent creator coverage on the platform</div>
   </div>
   <div class="stat-cell">
     <div class="stat-num">14</div>
     <div class="stat-label">Beat communities<br>mapped</div>
+    <div class="stat-so-what">Every major beat, mapped and queryable</div>
   </div>
   <div class="stat-cell">
     <div class="stat-num gray">???</div>
     <div class="stat-label">Creators yet to<br>be found</div>
+    <div class="stat-so-what">Coverage that expands automatically via network logic</div>
   </div>
   <div class="stat-cell">
     <div class="stat-num gray" id="stat-poly">—</div>
     <div class="stat-label">With multi-platform<br>presence</div>
+    <div class="stat-so-what">Find cross-platform reach in a single search</div>
   </div>
   <div class="stat-cell">
     <div class="stat-num orange">513</div>
     <div class="stat-label">Atlas creators not yet<br>found on Bluesky</div>
     <div class="stat-sub">→ the frontier</div>
+    <div class="stat-so-what">Track emerging voices before they break through</div>
   </div>
 </div>
 
@@ -256,6 +294,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <h2 class="section-title">Beat Cluster Map</h2>
     <span class="section-meta">14 communities · 671 creators</span>
   </div>
+  <p class="section-subtitle">14 editorial communities — each a distinct targeting universe for PR, partnerships, and sponsored reach.</p>
   <div class="cluster-grid" id="cluster-grid">
     <!-- rendered by JS -->
   </div>
@@ -405,21 +444,22 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <span class="section-num">04</span>
     <h2 class="section-title">Who This Is Built For</h2>
   </div>
+  <p class="enables-intro">This intelligence layer is purpose-built for three audiences. Each use case is live and queryable today.</p>
   <div class="enables-grid">
     <div class="enable-card dark">
       <div class="enable-num">01</div>
-      <div class="enable-title">For platforms and the open web</div>
-      <p class="enable-copy">671 verified journalists. Beat taxonomy. Geo data. Network topology. A trust map for the ATProto ecosystem — human-curated, not algorithmic. Built for platforms that want to understand who journalism is on their network, and where it's going next.</p>
+      <div class="enable-title">Platform &amp; Bundle Strategy</div>
+      <p class="enable-copy">Which 3 creators reach completely different audiences — no overlap, maximum bundle reach? The Atlas overlap analyzer answers that. Built for platforms building subscription products on AT Protocol: find bundle candidates by editorial identity, not just follower count.</p>
     </div>
     <div class="enable-card light">
       <div class="enable-num">02</div>
-      <div class="enable-title">For newsletter bundlers and subscription platforms</div>
-      <p class="enable-copy">The Atlas overlap analyzer shows audience intersections between Bluesky creators — who shares readers, who reaches fresh audiences, which pairings maximize bundle reach. Built for platforms building subscription products on AT Protocol. Identify bundle candidates from editorial identity, not just follower graph overlap.</p>
+      <div class="enable-title">PR &amp; Earned Media</div>
+      <p class="enable-copy">Find the right journalist-creator before you pitch — not after the story runs. Filter by beat cluster, platform, geography, and Bluesky presence. Atlas gives comms teams a targeted list, not a media database firehose.</p>
     </div>
     <div class="enable-card light">
       <div class="enable-num">03</div>
       <div class="enable-title">For media funders and creator programs</div>
-      <p class="enable-copy">Map creator programs across your portfolio — who's already on protocol-based platforms, who's ready to migrate, where audience overlap creates collaboration opportunities. Atlas distinguishes creator journalists from micro-influencers. Built for funders managing independent journalism projects across geographies and platforms.</p>
+      <p class="enable-copy">Which beats are growing on Bluesky? Which creators are building audiences across newsletter + video + podcast? Atlas surfaces the signal before it becomes conventional wisdom — useful for editorial teams, funders, and anyone tracking where independent journalism is heading.</p>
     </div>
   </div>
 </section>
@@ -427,17 +467,9 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 <!-- ── PARTNER CTA ──────────────────────────────────────────── -->
 <section class="section" id="partner" style="background: #080810; border-bottom: none;">
   <div style="max-width: 640px;">
-    <div class="hero-eyebrow" style="color: rgba(255,255,255,0.35); margin-bottom: 18px;">Work with Atlas</div>
-    <h2 style="font-size: clamp(22px, 2.8vw, 36px); font-weight: 900; letter-spacing: -0.03em; color: #ffffff; line-height: 1.1; margin-bottom: 20px;">
-      Building on Bluesky?<br>
-      <span style="color: var(--lime);">Let's map it together.</span>
-    </h2>
-    <p style="font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 520px; margin-bottom: 32px;">
-      Atlas works with platforms, funders, and publisher networks to build intelligence on the
-      independent journalism ecosystem. If you're building on AT Protocol, managing a creator
-      portfolio, or developing subscription products for independent journalism — we'd like to talk.
-    </p>
-    <a href="https://journalismatlas.com/for-brands" style="display: inline-block; background: var(--lime); color: #000; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 2px;">Request a partner brief →</a>
+    <h2 class="partner-headline">Ready to use this intelligence?</h2>
+    <p class="partner-sub">The Atlas is available for partnership, licensing, and comms team access. Tell us what you're working on.</p>
+    <a href="https://journalismatlas.com/for-brands" style="display: inline-block; background: var(--lime); color: #000; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 2px;">Talk to us →</a><a href="https://journalismatlas.com" style="display: inline-block; color: rgba(255,255,255,0.45); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.15); margin-left: 28px; transition: color 0.18s, border-color 0.18s;">Explore the Atlas →</a>
   </div>
 </section>
 
