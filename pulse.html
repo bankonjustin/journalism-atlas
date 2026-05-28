@@ -39,31 +39,7 @@
       gap: 48px;
       align-items: start;
     }
-    .header-posts-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-      margin-bottom: 16px;
-    }
-    .header-post-item { margin-bottom: 16px; }
-    .header-post-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      line-height: 1.4;
-      display: block;
-    }
-    .header-post-link:hover { color: #ceff00; }
-    .header-post-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.04em;
-      margin-top: 3px;
-    }
+    /* header-post-* removed — replaced by intel preview */
     .live-badge {
       display: inline-flex;
       align-items: center;
@@ -85,6 +61,31 @@
       animation: pulse-dot 2.4s ease-in-out infinite;
     }
     @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes intel-fade-up {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes intel-shimmer {
+      0%, 100% { background-position: 200% center; }
+      50%       { background-position: 0% center; }
+    }
+    @keyframes pulse-ring {
+      0%   { opacity: 0.55; transform: scale(1); }
+      100% { opacity: 0;    transform: scale(3.2); }
+    }
+    /* Sonar ring on Intel eyebrow live dot */
+    .header-intel-eyebrow .live-dot {
+      position: relative;
+    }
+    .header-intel-eyebrow .live-dot::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 50%;
+      background: #ceff00;
+      animation: pulse-ring 2.2s ease-out infinite;
+      pointer-events: none;
+    }
     .page-headline {
       font-size: clamp(28px, 3.5vw, 44px);
       font-weight: 700;
@@ -742,7 +743,12 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #5d7400;
-      background: rgba(151,214,0,0.12);
+      background: linear-gradient(90deg,
+        rgba(151,214,0,0.07) 0%,
+        rgba(151,214,0,0.22) 50%,
+        rgba(151,214,0,0.07) 100%);
+      background-size: 200% 100%;
+      animation: intel-shimmer 3.5s ease-in-out infinite;
       border: 1px solid rgba(151,214,0,0.3);
       border-radius: 100px;
       padding: 3px 10px;
@@ -807,6 +813,54 @@
       color: #97d600;
       font-weight: 600;
     }
+    /* ── HERO INTEL PREVIEW ── */
+    .header-intel-preview { display: flex; flex-direction: column; gap: 0; }
+    .header-intel-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+    .header-intel-topic { margin-bottom: 18px; }
+    .header-intel-topic-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .header-intel-topic-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.55;
+    }
+    .header-intel-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ceff00;
+      text-decoration: none;
+      margin-top: 4px;
+      margin-bottom: 24px;
+      display: inline-block;
+      transition: opacity 0.15s;
+    }
+    .header-intel-cta:hover { opacity: 0.7; }
+    .header-intel-brands { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .header-intel-brands-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 8px;
+    }
   </style>
   <link rel="stylesheet" href="/assets/css/header.css">
 </head>
@@ -831,7 +885,7 @@
 
 <!-- THESIS BAND -->
 <div class="pulse-thesis-band">
-  <p><strong>Prototype · Updated weekly.</strong> Pulse monitors <strong>882 creator feeds</strong> via RSS — newsletters, videos, podcasts, websites. Posts are organized by beat tag. Not every creator has a feed yet; the <strong>545 without one</strong> are tracked in the Atlas database but don't appear here. <a href="about-this-project.html" style="color:rgba(206,255,0,0.6); text-decoration:none;">Learn how the Atlas works →</a></p>
+  <p id="thesis-band-text"><strong>Beta · Updated weekly.</strong> Pulse monitors <strong id="thesis-feed-count">883 creator feeds</strong> via RSS — newsletters, videos, podcasts, websites. Posts are organized by beat tag. Not every creator has a feed yet; the <strong id="thesis-no-feed-count">570 without one</strong> are tracked in the Atlas database but don't appear here. <a href="about-this-project.html" style="color:rgba(206,255,0,0.6); text-decoration:none;">Learn how the Atlas works →</a></p>
 </div>
 
 <!-- SPLIT LAYOUT WRAPPER -->
@@ -874,8 +928,8 @@
     <div class="pulse-brands-cta">
       <div class="pulse-brands-cta-inner">
         <div>
-          <div class="pulse-brands-cta-label">Need this for your team?</div>
-          <div class="pulse-brands-cta-sub">The Atlas builds custom intelligence briefs for communications and research teams.</div>
+          <div class="pulse-brands-cta-label">Turn this into a brief for your team.</div>
+          <div class="pulse-brands-cta-sub">The Atlas packages this intelligence into custom weekly briefs for communications and research teams — curated by beat, geography, or partner.</div>
         </div>
         <a href="for-brands.html" class="pulse-brands-cta-btn">Learn more →</a>
       </div>
@@ -888,7 +942,7 @@
 
       <!-- Tab bar -->
       <div class="analysis-tabs" role="tablist">
-        <button class="analysis-tab active" data-tab="activity" role="tab">
+        <button class="analysis-tab" data-tab="activity" role="tab">
           <span class="material-symbols-outlined">bar_chart</span>
           Activity
         </button>
@@ -900,7 +954,7 @@
           <span class="material-symbols-outlined">hub</span>
           Coverage Map
         </button>
-        <button class="analysis-tab" data-tab="intel" role="tab">
+        <button class="analysis-tab active" data-tab="intel" role="tab">
           <span class="material-symbols-outlined">insights</span>
           Intel
         </button>
@@ -909,7 +963,7 @@
       <!-- Tab panels -->
       <div class="analysis-panel-body">
 
-        <div class="analysis-pane active" id="pane-activity">
+        <div class="analysis-pane" id="pane-activity">
           <div class="section-eyebrow" style="margin-bottom:16px;">
             <span class="pulse-dot-inline"></span> Publishing activity by beat — last 30 days
           </div>
@@ -944,7 +998,7 @@
           <div class="co-matrix-wrap" id="co-matrix-wrap"></div>
         </div>
 
-        <div class="analysis-pane" id="pane-intel">
+        <div class="analysis-pane active" id="pane-intel">
           <div class="section-eyebrow" style="margin-bottom:4px;">Weekly intelligence brief</div>
           <div style="font-size:12px;color:#999;margin-bottom:16px;line-height:1.5;">Synthesized from this week's posts across the creator ecosystem.</div>
           <div id="intel-content"></div>
@@ -1074,90 +1128,66 @@ function getFilteredPosts() {
 //   7. Prefer last 7 days over older posts within those constraints
 //
 function populateHeaderPosts() {
+  const topics = (DIGEST_DATA.analysis &&
+                  DIGEST_DATA.analysis.universal &&
+                  DIGEST_DATA.analysis.universal.trending_topics) || [];
+  const preview = topics.slice(0, 3);
 
-  // Platform quality tiers (lower = prefer first)
-  const PLATFORM_TIER = {
-    'Substack': 1, 'Ghost': 1, 'Beehiiv': 1, 'Website': 1,
-    'Podcast': 2, 'YouTube': 2,
-  };
-  function getPlatformTier(platform) {
-    const pl = platform && platform.includes(' - ') ? platform.split(' - ')[1] : (platform || '');
-    return PLATFORM_TIER[pl] || 3;
-  }
-
-  // Title patterns that signal low editorial value for a showcase surface
-  const SKIP_TITLE_FRAGMENTS = [
-    'open thread', 'weekly roundup', 'week in review', 'daily update',
-    'this week', 'digest', 'recap', 'wrap:', 'the wrap', 'newsletter',
-    'too long', 'tuned out', 'live stream', 'live:', 'watch:',
-    'episode ', 'ep. ', 'ep ', '#substack', 'shorts',
-    'committee meeting', 'council meeting', 'board of commissioners',
-    'close out meeting', 'landing page',
-  ];
-
-  function isHeroWorthy(p) {
-    if (!p.title || p.title === 'No title' || !p.url) return false;
-    if (SOCIAL_PLATFORMS.includes(p.platform)) return false;
-    if (!inCleanWindow(p.published)) return false;
-    if (p.title.length < 25) return false;
-    const tl = p.title.toLowerCase();
-    if (SKIP_TITLE_FRAGMENTS.some(f => tl.includes(f))) return false;
-    return true;
-  }
-
-  // Anchor to generated_at so freshness stays meaningful relative to the run date
-  const SEVEN_DAYS_AGO = (() => {
-    const d = new Date(PULSE_DATA.generated_at);
-    d.setDate(d.getDate() - 7);
-    return d.toISOString().slice(0, 10);
-  })();
-
-  const candidates = PULSE_DATA.posts
-    .filter(isHeroWorthy)
-    .sort((a, b) => {
-      const aRecent = a.published >= SEVEN_DAYS_AGO ? 0 : 1;
-      const bRecent = b.published >= SEVEN_DAYS_AGO ? 0 : 1;
-      if (aRecent !== bRecent) return aRecent - bRecent;
-      return getPlatformTier(a.platform) - getPlatformTier(b.platform);
-    });
-
-  // Greedy selection: one post per beat, one per creator
-  const usedBeats = new Set();
-  const usedCreators = new Set();
-  const selected = [];
-
-  for (const p of candidates) {
-    if (selected.length >= 6) break;
-    const beat = (p.topic || '').split(',')[0].trim();
-    if (usedBeats.has(beat)) continue;
-    if (usedCreators.has(p.creator)) continue;
-    usedBeats.add(beat);
-    usedCreators.add(p.creator);
-    selected.push(p);
-  }
-
-  document.getElementById('header-top-posts').innerHTML =
-    `<div class="header-posts-label">Recent</div>` +
-    selected.map(p => `
-      <div class="header-post-item">
-        <a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer" class="header-post-link">${esc(p.title)}</a>
-        <div class="header-post-meta">${esc(p.creator)} · ${esc(fmtDateShort(p.published))}</div>
-      </div>`).join('');
-
-  document.getElementById('header-top-posts').insertAdjacentHTML('beforeend', `
-    <div style="margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1);">
-      <div style="font-family:'DM Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.3); margin-bottom:8px;">For teams</div>
-      <a href="for-brands.html" style="font-size:12px; color:rgba(255,255,255,0.7); text-decoration:none; line-height:1.5; display:block;">
-        Custom intelligence briefs built on Atlas data. <span style="color:#ceff00;">Learn how →</span>
-      </a>
+  const topicsHtml = preview.map((t, i) => `
+    <div class="header-intel-topic" style="animation: intel-fade-up 0.55s cubic-bezier(0.2,0,0,1) both; animation-delay: ${i * 170}ms; opacity: 0;">
+      <div class="header-intel-topic-name">${esc(t.topic)}</div>
+      <div class="header-intel-topic-desc">${esc(t.description.slice(0, 105))}…</div>
     </div>
-  `);
+  `).join('');
+
+  document.getElementById('header-top-posts').innerHTML = `
+    <div class="header-intel-preview">
+      <div class="header-intel-eyebrow">
+        <span class="live-dot" style="width:5px;height:5px;flex-shrink:0;"></span>
+        This week's signal
+      </div>
+      <div id="header-intel-topics">${topicsHtml}</div>
+      <a class="header-intel-cta" href="#" id="header-intel-cta-link">Full intel brief →</a>
+      <div class="header-intel-brands">
+        <div class="header-intel-brands-label">For teams</div>
+        <a href="for-brands.html" style="font-size:12px; color:rgba(255,255,255,0.7); text-decoration:none; line-height:1.5; display:block;">
+          Custom intelligence briefs built on Atlas data. <span style="color:#ceff00;">Learn how →</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('header-intel-cta-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    const intelTab = document.querySelector('.analysis-tab[data-tab="intel"]');
+    if (intelTab) {
+      intelTab.click();
+      document.querySelector('.pulse-split').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+}
+
+
+// ── Render: thesis band (dynamic feed counts) ─────────────────────────────
+function renderThesisBand() {
+  try {
+    const monitored = PULSE_DATA.total_rss_resolved;
+    const noFeed = PULSE_DATA.total_creators - PULSE_DATA.total_rss_resolved;
+    const feedEl = document.getElementById('thesis-feed-count');
+    const noFeedEl = document.getElementById('thesis-no-feed-count');
+    if (feedEl) feedEl.textContent = monitored.toLocaleString() + ' creator feeds';
+    if (noFeedEl) noFeedEl.textContent = noFeed.toLocaleString() + ' without one';
+  } catch(e) { /* leave static fallback */ }
 }
 
 // ── Render: live badge ────────────────────────────────────────────────────────
 function renderBadge() {
-  document.getElementById('badge-text').textContent =
-    '● Updated ' + fmtDateBadge(PULSE_DATA.generated_at) + ' · ' + PULSE_DATA.window_days + '-day window';
+  try {
+    document.getElementById('badge-text').textContent =
+      '● Updated ' + fmtDateBadge(PULSE_DATA.generated_at) + ' · ' + PULSE_DATA.window_days + '-day window';
+  } catch(e) {
+    document.getElementById('badge-text').textContent = '● Atlas Pulse';
+  }
 }
 
 // ── Render: stat strip ────────────────────────────────────────────────────────
@@ -1819,8 +1849,8 @@ function renderIntel() {
 
   if (topics.length) {
     html += `<div class="intel-section-eyebrow">Trending Topics</div>`;
-    topics.forEach(t => {
-      html += `<div class="intel-topic">`;
+    topics.forEach((t, ti) => {
+      html += `<div class="intel-topic" style="animation: intel-fade-up 0.4s cubic-bezier(0.2,0,0,1) both; animation-delay: ${ti * 75}ms; opacity: 0;">`;
       html += `<div class="intel-topic-name">${esc(t.topic)}</div>`;
       html += `<div class="intel-topic-desc">${esc(t.description)}</div>`;
       html += `<ul class="intel-post-list">`;
@@ -1851,6 +1881,7 @@ function renderIntel() {
 
 renderBadge();
 renderIntel();
+renderThesisBand();
 renderStatStrip();
 renderBeatBar();
 renderHeatCalendar();
@@ -1978,6 +2009,8 @@ document.getElementById('beat-search').addEventListener('keydown', function(e) {
       this.classList.add('active');
       const pane = document.getElementById('pane-' + target);
       if (pane) pane.classList.add('active');
+      // Re-animate Intel topics each time the tab is activated
+      if (target === 'intel') renderIntel();
     });
   });
 })();
