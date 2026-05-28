@@ -1,8 +1,8 @@
-# Atlas Design Tokens — v7
+# Atlas Design Tokens — v8
 *Canonical design reference — committed to repo as source of truth for implementation*
 
 *Last updated: May 2026*
-*Previous version: v6 (May 2026)*
+*Previous version: v7 (May 2026)*
 *Owner: James (james@happicamp.com)*
 
 > **How this file works:** This is the single source of truth for all visual decisions. When Justin implements design changes with Claude Code, he references this document. If it's not here, it doesn't get implemented. If it changes here, it changes everywhere.
@@ -222,8 +222,33 @@ Per the 2026 Style Guide:
 - Logo asset master library: Google Drive folder `1BT48q5ng6FN0Y0e_XllWvNrI0LFmL_tN`
 - Transparent PNGs sized at 500×500px (icons) and 3000×3000px (full logos)
 - Contact james@happicamp.com for larger sizes or alternate formats
-- **Footer logo height standard: 40px**
-- **Footer logo asset: `Journalism_Atlas_wordmark_stacked_white.png`** — stacked lockup, white, on black footer background. Do not substitute horizontal lockup variants.
+- **Footer logo height standard: 40px** — applied to the `img` element directly, not its container
+- **Horizontal stacked lockup** = globe-plus-wordmark arranged horizontally (globe left, stacked wordmark right) — canonical name for that asset
+- **Correct footer asset:** `Journalism_Atlas_wordmark_stacked_white.png`
+- **Footer logo CSS — full required ruleset:**
+
+```css
+/* Target the img element directly — this controls the actual rendered size */
+.footer-wordmark,
+.site-footer .footer-brand img {
+  height: 40px;
+  width: auto;
+  display: block;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Target the logo's parent container — removes the vertical divider line */
+.site-footer .footer-brand {
+  border: none;
+  border-right: none;
+  border-left: none;
+  padding-right: 0;
+}
+```
+
+> ⚠ The `border-right` on the container is the cause of the white vertical line to the right of the logo. The `height: 40px` must be on the `img` tag itself — if applied to the container it will not scale the image.
 
 **Available logo variants (confirmed in repo):**
 - `Journalism_Atlas_logo_black.png`
@@ -275,3 +300,5 @@ Per the 2026 Style Guide:
 | May 2026 | Line heights specified per level | Display 1.1, H1 1.2, H2 1.25, H3 1.3, Body 1.6, Small 1.5, Micro 1.4 — tighter at large sizes, looser at reading sizes |
 | May 2026 | Max content widths locked: full layout 1440px, card grid 1200px, text column 680px | Site was sprawling to screen edges on 27" monitors; 1440px ceiling aligns with Wired (benchmark); card grid at 1200px gives comfortable margin inside 1440px outer; text column at 680px = ~70 char reading measure at 16px body |
 | May 2026 | Focus ring locked: `2px solid #97d600`, offset `2px` | Lime green is on-system (matches hover token), WCAG AA compliant |
+| May 2026 | Footer white vertical line — `border-right` on logo container, not the img element | Previous fix only addressed img-level borders; container border must also be explicitly cleared |
+| May 2026 | Footer `height: 40px` must target the `img` element directly | Applied to container it does not scale the image — selector precision critical |
