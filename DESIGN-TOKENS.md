@@ -47,31 +47,36 @@
 
 ## D3 Visualization Color Array
 
-*Used in: sunburst/wheel, bubble chart, treemap. Currently improvised — James should own this palette.*
+*Used in: sunburst/wheel, bubble chart, treemap. Signed off by James — May 2026. Full spec, rationale, and flat D3 array in `ATLAS_VIZ_COLORS.md`.*
 
 ```javascript
-// CURRENT PLACEHOLDER — needs James's sign-off
-const ATLAS_VIZ_COLORS = [
-  "#ceff00", // acid green
-  "#97d600", // lime green
-  "#5d7400", // dark olive
-  // [TO COMPLETE — James to provide full array for all topic categories]
-];
+// CONFIRMED — May 2026, signed off by James. See ATLAS_VIZ_COLORS.md for full spec.
+const ATLAS_VIZ_COLORS = {
+  // CONFIRMED (9) — live-safe, wired to Ryan's current taxonomy
+  "Politics & Government":  "#78909c",
+  "Local News":             "#ff7043",
+  "Technology":             "#ba55cc",
+  "Business & Finance":     "#c6a700",
+  "Culture & Arts":         "#ef0e61",
+  "Sports":                 "#2196f3",
+  "Health":                 "#00acc1",
+  "Environment":            "#26a69a",
+  "International":          "#d81b72",
+
+  // PROBABLE ADDITIONS (6) — pre-assigned, blocked until Ryan confirms category names/slugs
+  // "Criminal Justice":    "#e53935",
+  // "Immigration":         "#7c4dff",
+  // "Science":             "#5b7fa6",
+  // "Housing":             "#bf5a3a",
+  // "Religion / Faith":    "#a1887f",
+  // "Labor / Economy":     "#6a8d9b",
+};
 ```
 
-**Topic categories that need color assignments:**
-- Politics & Government
-- Local News
-- Technology
-- Business & Finance
-- Culture & Arts
-- Sports
-- Health
-- Environment
-- Education
-- International
-- General News
-- [others — confirm with Ryan's taxonomy]
+**Implementation rules:**
+- Only the 9 confirmed categories are live-safe — do not activate probable additions until Ryan confirms category names and slugs
+- Acid green `#ceff00` is absent by design — never a category color
+- Reserve slots (3 unassigned) have contrast warnings on dark backgrounds — do not activate without luminosity adjustment (see `ATLAS_VIZ_COLORS.md`)
 
 ---
 

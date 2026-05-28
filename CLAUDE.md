@@ -75,7 +75,6 @@ Before writing any CSS or styling-related code, read the relevant section of `DE
 
 ### What requires James's sign-off before implementing
 
-- Visualization color array (`ATLAS_VIZ_COLORS`) — assignments per topic category pending
 - Full card vs. small card definitions in the postcard system
 - Any new component type not already defined in the tokens doc
 
@@ -201,7 +200,6 @@ The `_lockup_` files (no "horizontal" in name) are the old equivalents — prefe
 
 ## Out of Scope Until Further Notice
 
-- `ATLAS_VIZ_COLORS` — pending James's color assignments per topic category
 - Full postcard card system — pending James's spec
 - Additional city lab pages beyond Chicago — same pattern as city-lab-chicago.html when ready
 - Mainstream outlet layer in city-lab-chicago (Tracy Baim / Liz feedback — separate session)
