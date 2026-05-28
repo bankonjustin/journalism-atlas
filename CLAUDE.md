@@ -30,10 +30,10 @@ All visual implementation references `DESIGN-TOKENS.md` at the project root as t
 - **Acid green `#ceff00` = dark backgrounds only** — never on light/white surfaces
 - **Lime green `#97d600` = light backgrounds only** — never on dark surfaces
 - **Header text = always `#000000`** regardless of mode or surface color
-- **Body copy minimum 16px** — Small (15px) and Micro (13px) are approved for labels, tags, and metadata only. Never use below 16px for reading/paragraph text.
+- **Body copy minimum 16px** — Small (13px) is the floor for all UI text. Micro (11px) for all-caps labels only (weight 500 min, letter-spacing 0.08–0.1em). Never below 13px for any readable content.
 - **Material Symbols Outlined only** — no legacy Material Icons; Filled variant reserved for active states only
-- **4px base spacing unit** — spacing scale: xs 4px / sm 8px / md 16px / lg 24px / xl 40px / 2xl 64px
-- **Font weights: 400 / 700 / 800 only** — do not introduce 500, 600, or other weights
+- **4px base spacing unit** — spacing scale: xs 4px / sm 8px / md 16px / lg 24px / xl 32px / 2xl 48px
+- **Font weights: 400 / 500 / 600 / 700 / 800** — 500 for Micro labels only; 600 for H3/card titles; do not introduce 900 or other weights
 - **Border radius: 6px for cards/buttons/inputs; 9999px for pills/tags**
 
 ### CSS token architecture
