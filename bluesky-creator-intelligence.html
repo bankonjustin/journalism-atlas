@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluesky Creator Intelligence — Atlas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --acid: #ceff00;
+  --lime: #97d600;
+  --olive: #5d7400;
+  --white: #ffffff;
+  --black: #000000;
+  --page-bg: #efeff2;
+  --card-bg: #ffffff;
+  --border: #e0e0e3;
+  --text-primary: #313131;
+  --text-secondary: #666666;
+  --text-muted: #888888;
+  --watch: #c86a00;
+  --blue: #005ea3;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--page-bg); color: var(--text-primary); font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; line-height: 1.5; overflow-x: hidden; }
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.header { border-bottom: 1px solid var(--border); padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); z-index: 100; }
+.header-left { display: flex; align-items: center; gap: 14px; }
+.badge { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; font-family: 'DM Mono', monospace; }
+.badge-atlas { color: var(--olive); border: 1px solid rgba(151,214,0,0.5); background: rgba(151,214,0,0.07); }
+.badge-bsky { color: var(--blue); border: 1px solid rgba(0,94,163,0.3); }
+.header-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; display: flex; align-items: center; gap: 24px; }
+.header-right em { color: var(--text-secondary); font-style: normal; }
+.header-cta { display: inline-block; background: var(--lime); color: #313131; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 10px 20px; border-radius: 2px; border: 1.5px solid var(--olive); transition: background 0.18s, color 0.18s; white-space: nowrap; flex-shrink: 0; }
+.header-cta:hover { background: var(--olive); color: #ffffff; }
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero { display: grid; grid-template-columns: 1fr 440px; min-height: 460px; border-bottom: 1px solid var(--border); }
+.hero-left { padding: 52px 44px 48px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; background: var(--card-bg); }
+.hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px; }
+.hero-title { font-size: clamp(26px, 3.4vw, 48px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: #000; }
+.hero-title .accent { color: var(--lime); }
+.hero-title .dim { color: #c8c8c8; }
+.hero-narrative { font-size: 13px; color: var(--text-secondary); line-height: 1.75; max-width: 560px; margin-top: 26px; }
+.hero-narrative strong { color: var(--text-primary); font-weight: 600; }
+.hero-right { position: relative; overflow: hidden; background: #080810; }
+.viz-label { position: absolute; top: 14px; left: 16px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.14em; z-index: 2; pointer-events: none; }
+#network-canvas { display: block; width: 100%; height: 460px; cursor: pointer; }
+#viz-tooltip {
+  display: none; position: absolute; background: rgba(8,8,18,0.94);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 9px 12px;
+  pointer-events: none; z-index: 10; max-width: 200px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+#viz-tooltip strong { font-size: 12px; color: #fff; display: block; margin-bottom: 2px; font-weight: 700; }
+#viz-tooltip .tt-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.45); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px; }
+#viz-tooltip .tt-cluster { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 5px; font-weight: 500; }
+
+/* ── STAT STRIP ───────────────────────────────────────────── */
+.stat-strip { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; border-bottom: 1px solid var(--border); background: var(--card-bg); }
+.stat-cell { padding: 26px 28px 22px; border-right: 1px solid var(--border); }
+.stat-cell:last-child { border-right: none; }
+.stat-num { font-size: 40px; font-weight: 900; letter-spacing: -0.05em; line-height: 1; color: var(--lime); margin-bottom: 7px; }
+.stat-num.gray { color: var(--text-primary); }
+.stat-num.orange { color: var(--watch); }
+.stat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.55; }
+.stat-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--watch); font-weight: 500; letter-spacing: 0.06em; margin-top: 3px; }
+.stat-so-what { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-secondary); font-weight: 400; letter-spacing: 0.04em; line-height: 1.6; margin-top: 6px; font-style: italic; }
+
+/* ── SECTION SHELL ────────────────────────────────────────── */
+.section { padding: 52px 40px; border-bottom: 1px solid var(--border); background: var(--page-bg); }
+.section.on-white { background: var(--card-bg); }
+.section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 32px; }
+.section-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; flex-shrink: 0; }
+.section-title { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; color: #000; }
+.section-meta { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; flex-shrink: 0; }
+.section-subtitle { font-size: 13px; color: var(--text-secondary); line-height: 1.7; max-width: 560px; margin-top: 10px; margin-bottom: 32px; }
+
+/* ── CLUSTER GRID ─────────────────────────────────────────── */
+.cluster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 8px; }
+.cluster-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 3px; padding: 20px 18px 16px; position: relative; overflow: hidden; transition: border-color 0.18s, box-shadow 0.18s; cursor: pointer; }
+.cluster-card:hover { border-color: #c8c8cc; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.cluster-card.active { border-color: var(--lime); box-shadow: 0 0 0 2px rgba(151,214,0,0.25); }
+.cluster-accent-bar { position: absolute; top: 0; left: 0; width: 100%; height: 2px; }
+.cluster-name { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: #000; margin-bottom: 3px; margin-top: 6px; }
+.cluster-count { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; margin-bottom: 16px; }
+.cluster-count .n { color: var(--lime); }
+.cluster-count .label { color: var(--text-muted); }
+.fp-bar { height: 5px; border-radius: 3px; display: flex; overflow: hidden; gap: 1px; margin-bottom: 7px; }
+.fp-seg { height: 100%; border-radius: 1px; min-width: 2px; }
+.fp-labels { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.fp-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+.fp-swatch { width: 6px; height: 6px; border-radius: 1px; flex-shrink: 0; }
+.cluster-creators { border-top: 1px solid var(--border); padding-top: 11px; display: flex; flex-direction: column; gap: 4px; }
+.cc-row { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.cc-name { font-size: 12px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; max-width: 115px; }
+.cc-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; text-align: right; }
+
+/* ── POLY-PLATFORM ────────────────────────────────────────── */
+.poly-intro { font-size: 13px; color: var(--text-secondary); line-height: 1.8; max-width: 680px; margin-bottom: 28px; }
+.poly-intro strong { color: var(--text-primary); font-weight: 600; }
+.creator-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 22px; }
+.creator-card { background: var(--page-bg); border: 1px solid var(--border); border-radius: 3px; padding: 20px; }
+.cc-creator-name { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #000; margin-bottom: 2px; }
+.cc-channel { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); margin-bottom: 10px; }
+.cc-bsky-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blue); margin-bottom: 12px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cc-platforms { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.platform-pill { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border); color: var(--text-secondary); background: var(--card-bg); white-space: nowrap; }
+.platform-pill.primary { background: var(--olive); color: #fff; border-color: var(--olive); }
+.topic-tag { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; padding: 2px 8px; border-radius: 2px; color: var(--text-muted); border: 1px solid var(--border); display: inline-block; }
+.poly-note { font-size: 12px; color: var(--text-secondary); line-height: 1.7; max-width: 640px; padding: 14px 18px; background: var(--card-bg); border-left: 3px solid var(--lime); border-radius: 0 3px 3px 0; font-style: italic; }
+
+/* ── WHAT THIS ENABLES ────────────────────────────────────── */
+.enables-intro { font-size: 14px; color: var(--text-secondary); line-height: 1.75; max-width: 640px; margin-bottom: 28px; }
+.enables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.enable-card { border: 1px solid var(--border); border-radius: 3px; padding: 26px 22px; }
+.enable-card.light { background: var(--page-bg); }
+.enable-card.dark { background: #0f0f18; border-color: #0f0f18; }
+.enable-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; margin-bottom: 12px; }
+.enable-card.light .enable-num { color: var(--text-muted); }
+.enable-card.dark .enable-num { color: rgba(255,255,255,0.25); }
+.enable-title { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.25; }
+.enable-card.light .enable-title { color: #000; }
+.enable-card.dark .enable-title { color: var(--acid); }
+.enable-copy { font-size: 12px; line-height: 1.75; }
+.enable-card.light .enable-copy { color: var(--text-secondary); }
+.enable-card.dark .enable-copy { color: rgba(255,255,255,0.55); }
+
+/* ── CREATOR INDEX SECTION ────────────────────────────────── */
+.index-toolbar { margin-bottom: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+/* search */
+.search-wrap { position: relative; max-width: 400px; }
+.search-input { width: 100%; padding: 10px 36px 10px 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--card-bg); font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; color: var(--text-primary); outline: none; transition: border-color 0.15s; }
+.search-input::placeholder { color: var(--text-muted); }
+.search-input:focus { border-color: var(--lime); }
+.search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; line-height: 1; padding: 2px; display: none; }
+.search-clear.visible { display: block; }
+
+/* sort bar */
+.sort-bar { display: flex; align-items: center; gap: 6px; }
+.sort-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; flex-shrink: 0; }
+.sort-btn { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: none; border: 1px solid transparent; padding: 5px 12px; border-radius: 9999px; cursor: pointer; letter-spacing: 0.04em; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
+.sort-btn:hover { color: var(--text-primary); border-color: var(--border); }
+.sort-btn.active { color: var(--olive); border-color: var(--lime); background: rgba(151,214,0,0.08); font-weight: 600; }
+
+/* filter row */
+.filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.filter-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; flex-shrink: 0; }
+.filter-pills { display: flex; gap: 5px; flex-wrap: wrap; }
+.filter-pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 12px; border-radius: 9999px; border: 1px solid var(--border); color: var(--text-muted); background: transparent; cursor: pointer; transition: all 0.15s; white-space: nowrap; letter-spacing: 0.03em; }
+.filter-pill:hover { border-color: var(--lime); color: var(--text-primary); }
+.filter-pill.active { background: var(--lime); color: #000; border-color: var(--lime); font-weight: 600; }
+.filter-divider { width: 1px; height: 18px; background: var(--border); margin: 0 4px; flex-shrink: 0; }
+
+/* status count */
+.index-status { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); padding: 8px 0 16px; letter-spacing: 0.03em; }
+.index-status strong { color: var(--text-secondary); }
+
+/* creator list */
+.creator-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+.ci-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 3px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; transition: border-color 0.15s; }
+.ci-card:hover { border-color: #c8c8cc; }
+.ci-card a { text-decoration: none; }
+.ci-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.ci-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; line-height: 1.2; }
+.ci-followers { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--lime); font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+.ci-channel { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ci-meta { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 2px; }
+.ci-beat { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
+.ci-platform { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); padding: 2px 8px; border-radius: 2px; border: 1px solid var(--border); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.06em; }
+.ci-platform.cross { background: rgba(151,214,0,0.1); border-color: rgba(151,214,0,0.4); color: var(--olive); }
+.ci-bsky { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blue); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.no-results { text-align: center; padding: 64px 0; }
+.no-results p { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-muted); }
+
+/* ── VIZ OVERLAY ──────────────────────────────────────────── */
+.viz-expand-hint { position: absolute; bottom: 12px; right: 14px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; transition: color 0.2s; animation: hintPulse 3s ease-in-out 1.5s 2; }
+.hero-right:hover .viz-expand-hint { color: rgba(255,255,255,0.6); animation: none; }
+@keyframes hintPulse {
+  0%, 100% { color: rgba(255,255,255,0.35); }
+  50% { color: rgba(255,255,255,0.7); }
+}
+#viz-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(6,6,14,0.97); align-items: center; justify-content: center; padding: 28px 32px; }
+#viz-overlay.open { display: flex; animation: overlayIn 0.22s ease; }
+@keyframes overlayIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+#overlay-inner { width: 100%; max-width: 1280px; height: 100%; display: flex; flex-direction: column; gap: 0; }
+#overlay-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; flex-shrink: 0; }
+#overlay-title { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.14em; }
+#overlay-close { background: none; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.45); width: 32px; height: 32px; border-radius: 3px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, color 0.15s; line-height: 1; }
+#overlay-close:hover { border-color: rgba(255,255,255,0.45); color: #fff; }
+#overlay-canvas-wrap { flex: 1; position: relative; min-height: 0; }
+#overlay-canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+#overlay-tooltip { display: none; position: absolute; background: rgba(8,8,18,0.94); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 9px 12px; pointer-events: none; z-index: 10; max-width: 200px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+#overlay-tooltip strong { font-size: 12px; color: #fff; display: block; margin-bottom: 2px; font-weight: 700; }
+#overlay-tooltip .tt-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.45); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px; }
+#overlay-tooltip .tt-cluster { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 5px; font-weight: 500; }
+#overlay-legend { height: 44px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 12px; flex-shrink: 0; overflow: hidden; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.legend-count { color: rgba(255,255,255,0.18); margin-left: 1px; }
+
+/* ── PARTNER CTA ──────────────────────────────────────────── */
+.partner-headline { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; letter-spacing: -0.03em; color: var(--acid); line-height: 1.1; margin-bottom: 14px; }
+.partner-sub { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 500px; margin-bottom: 32px; }
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+.footer { padding: 26px 40px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); background: var(--page-bg); }
+.footer-l { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-secondary); line-height: 2; }
+.footer-l a { color: var(--olive); text-decoration: none; }
+.footer-r { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); text-align: right; text-transform: uppercase; letter-spacing: 0.08em; line-height: 2; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--page-bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+</style>
+<link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<!-- ── PAGE HEADER ────────────────────────────────────────── -->
+<header class="header">
+  <div class="header-left">
+    <span class="badge badge-atlas">Independent Journalism Atlas</span>
+    <span class="badge badge-bsky">Bluesky Intelligence</span>
+  </div>
+  <div class="header-right">
+    <span id="header-count">671 creators · 14 clusters</span>
+    <a href="/for-brands" class="header-cta">Request a brief →</a>
+  </div>
+</header>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">AT Protocol · Verified independent journalism · Beat taxonomy · Cross-platform presence</div>
+      <h1 class="hero-title">
+        Independent journalism<br>
+        found its home on <span class="accent">Bluesky.</span><br>
+        <span class="dim">We mapped it.</span>
+      </h1>
+      <p class="hero-narrative">
+        When journalism moved off Twitter, it didn't scatter — it clustered.
+        Beat communities formed around shared networks: climate journalists following climate journalists,
+        tech reporters orbiting the same outlets, investigators surfacing in each other's feeds.
+        <strong>Atlas has mapped <span id="hero-count">671</span> verified independent journalists on Bluesky,</strong>
+        organized by beat, cross-referenced against their full platform presence across newsletters,
+        video, and podcast. This is the most complete map of independent journalism on Bluesky — and it grows with every session.
+      </p>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="viz-label" id="viz-label">671 creators · 14 beat clusters</div>
+    <canvas id="network-canvas"></canvas>
+    <div id="viz-tooltip"></div>
+    <div class="viz-expand-hint">Click to explore fullscreen</div>
+  </div>
+</div>
+
+<!-- ── STAT STRIP ──────────────────────────────────────────── -->
+<div class="stat-strip">
+  <div class="stat-cell">
+    <div class="stat-num" id="stat-total">671</div>
+    <div class="stat-label">Verified creators<br>on Bluesky</div>
+    <div class="stat-so-what">Widest independent creator coverage on the platform</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">14</div>
+    <div class="stat-label">Beat communities<br>mapped</div>
+    <div class="stat-so-what">Every major beat, mapped and queryable</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num gray" id="stat-top-followers">—</div>
+    <div class="stat-label">Top creator<br>Bluesky followers</div>
+    <div class="stat-so-what" id="stat-top-name">Largest audience in the corpus</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num gray" id="stat-poly">—</div>
+    <div class="stat-label">With multi-platform<br>presence</div>
+    <div class="stat-so-what">Find cross-platform reach in a single search</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num gray" id="stat-verified">—</div>
+    <div class="stat-label">Human-verified<br>accounts</div>
+    <div class="stat-so-what">Confirmed by Atlas research team</div>
+  </div>
+</div>
+
+<!-- ── SECTION 01: CLUSTER MAP ────────────────────────────── -->
+<section class="section" id="clusters">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Beat Cluster Map</h2>
+    <span class="section-meta" id="cluster-meta">14 communities · 671 creators</span>
+  </div>
+  <p class="section-subtitle">14 editorial communities — each a distinct targeting universe. Click any cluster to filter the creator index below.</p>
+  <div class="cluster-grid" id="cluster-grid">
+    <!-- rendered by JS -->
+  </div>
+</section>
+
+<!-- ── SECTION 02: POLY-PLATFORM LAYER ───────────────────── -->
+<section class="section on-white" id="poly">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">The Poly-Platform Layer</h2>
+    <span class="section-meta" id="poly-meta">— creators · newsletter + video + podcast</span>
+  </div>
+  <p class="poly-intro">
+    When Atlas maps a creator, we don't just record where they publish — we capture their
+    <strong>full platform surface area.</strong> A newsletter writer who also runs a YouTube channel
+    and a podcast isn't three separate creators. They're one editorial voice with three audience
+    entry points. That's the intelligence that makes discovery, bundling, and recommendation
+    actually work.
+  </p>
+  <div class="creator-cards" id="creator-cards">
+    <!-- rendered by JS -->
+  </div>
+  <p class="poly-note">
+    Cross-platform data updates with every spidering session — the map grows as journalism moves.
+    Atlas data is live. Every session adds names, beats, and platform signals across the full corpus.
+  </p>
+</section>
+
+<!-- ── SECTION 03: WHO THIS IS BUILT FOR ─────────────────── -->
+<section class="section on-white" id="enables">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Who This Is Built For</h2>
+  </div>
+  <p class="enables-intro">This intelligence layer is purpose-built for three audiences. Each use case is live and queryable today.</p>
+  <div class="enables-grid">
+    <div class="enable-card dark">
+      <div class="enable-num">01</div>
+      <div class="enable-title">Platform &amp; Bundle Strategy</div>
+      <p class="enable-copy">Which 3 creators reach completely different audiences — no overlap, maximum bundle reach? The Atlas overlap analyzer answers that. Built for platforms building subscription products on AT Protocol: find bundle candidates by editorial identity, not just follower count.</p>
+    </div>
+    <div class="enable-card light">
+      <div class="enable-num">02</div>
+      <div class="enable-title">PR &amp; Earned Media</div>
+      <p class="enable-copy">Find the right journalist-creator before you pitch — not after the story runs. Filter by beat cluster, platform, geography, and Bluesky presence. Atlas gives comms teams a targeted list, not a media database firehose.</p>
+    </div>
+    <div class="enable-card light">
+      <div class="enable-num">03</div>
+      <div class="enable-title">For media funders and creator programs</div>
+      <p class="enable-copy">Which beats are growing on Bluesky? Which creators are building audiences across newsletter + video + podcast? Atlas surfaces the signal before it becomes conventional wisdom — useful for editorial teams, funders, and anyone tracking where independent journalism is heading.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 04: CREATOR INDEX ──────────────────────────── -->
+<section class="section" id="index">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Creator Index</h2>
+    <span class="section-meta" id="index-meta">671 creators · sortable · filterable</span>
+  </div>
+
+  <div class="index-toolbar">
+    <!-- search -->
+    <div class="search-wrap">
+      <input type="text" class="search-input" id="search-input" placeholder="Search by name, channel, or beat…" autocomplete="off">
+      <button class="search-clear" id="search-clear" aria-label="Clear search">×</button>
+    </div>
+
+    <!-- sort -->
+    <div class="sort-bar">
+      <span class="sort-label">Sort:</span>
+      <div class="filter-pills">
+        <button class="sort-btn active" data-sort="followers">Bluesky Followers</button>
+        <button class="sort-btn" data-sort="name">Name A→Z</button>
+        <button class="sort-btn" data-sort="beat">Beat A→Z</button>
+      </div>
+    </div>
+
+    <!-- beat filter -->
+    <div class="filter-row">
+      <span class="filter-label">Beat:</span>
+      <div class="filter-pills" id="beat-pills">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+    <!-- platform + verified filters -->
+    <div class="filter-row">
+      <span class="filter-label">Platform:</span>
+      <div class="filter-pills">
+        <button class="filter-pill" data-platform="newsletter">Newsletter</button>
+        <button class="filter-pill" data-platform="video">Video</button>
+        <button class="filter-pill" data-platform="podcast">Podcast</button>
+        <button class="filter-pill" data-platform="cross">Cross-platform</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-pills">
+        <button class="filter-pill" data-verified="true">Verified only</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="index-status" id="index-status">Loading…</div>
+  <div class="creator-list" id="creator-list">
+    <!-- rendered by JS -->
+  </div>
+</section>
+
+<!-- ── PARTNER CTA ──────────────────────────────────────────── -->
+<section class="section" id="partner" style="background: #080810; border-bottom: none;">
+  <div style="max-width: 640px;">
+    <h2 class="partner-headline">Ready to use this intelligence?</h2>
+    <p class="partner-sub">The Atlas is available for partnership, licensing, and comms team access. Tell us what you're working on.</p>
+    <a href="https://journalismatlas.com/for-brands" style="display: inline-block; background: var(--lime); color: #000; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 2px;">Talk to us →</a><a href="https://journalismatlas.com" style="display: inline-block; color: rgba(255,255,255,0.45); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.15); margin-left: 28px; transition: color 0.18s, border-color 0.18s;">Explore the Atlas →</a>
+  </div>
+</section>
+
+<!-- ── VIZ OVERLAY ──────────────────────────────────────────── -->
+<div id="viz-overlay">
+  <div id="overlay-inner">
+    <div id="overlay-header">
+      <span id="overlay-title">Independent Journalism Atlas · Bluesky Creator Network · 671 creators · 14 clusters</span>
+      <button id="overlay-close">×</button>
+    </div>
+    <div id="overlay-canvas-wrap">
+      <canvas id="overlay-canvas"></canvas>
+      <div id="overlay-tooltip"></div>
+    </div>
+    <div id="overlay-legend"></div>
+  </div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-l">
+    Independent Journalism Atlas · <a href="https://journalismatlas.com">journalismatlas.com</a><br>
+    Data: <span id="footer-count">671</span> verified creators · Bluesky handles mapped June 2026
+  </div>
+  <div class="footer-r">
+    Atlas · Bluesky Creator Intelligence<br>
+    Data as of June 2026
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   STATIC CONFIG — cluster definitions, topic mapping, featured
+   ════════════════════════════════════════════════════════════ */
+const TOPIC_CLUSTER = {
+  'Politics': 'Politics', 'Policy': 'Politics', 'Government Accountability': 'Politics',
+  'Immigration': 'Politics', 'Activism': 'Politics', 'Labor/Workers Rights': 'Politics',
+  'Gender': 'Politics', 'LGBTQIA': 'Politics', 'Human Rights': 'Politics',
+  'Education': 'Politics',
+  'Tech': 'Tech', 'Internet Culture': 'Tech', 'Data Visualization': 'Tech', 'Games/Gaming': 'Tech',
+  'Climate/Environment': 'Climate', 'Energy': 'Climate', 'Agriculture': 'Climate', 'Outdoors': 'Climate',
+  'Media/Power': 'Media/Power', 'General News': 'Media/Power', 'Solutions Journalism': 'Media/Power',
+  'Positive News': 'Media/Power', 'Positive news': 'Media/Power',
+  'Health/Wellness': 'Health', 'Cancer': 'Health', 'Parenting': 'Health',
+  'Investigative': 'Investigations', 'Criminal Justice': 'Investigations', 'National Security': 'Investigations',
+  'Law/Legal Issues': 'Law', 'Crime': 'Law',
+  'Sports': 'Sports', 'Running': 'Sports', 'Sailing': 'Sports',
+  'Culture': 'Culture', 'Books/Writing': 'Culture', 'Music': 'Culture', 'Film/Movies': 'Culture',
+  'Entertainment/Hollywood': 'Culture', 'Comedy': 'Culture', 'Photography': 'Culture',
+  'Fashion': 'Culture', 'Design': 'Culture', 'Architecture': 'Culture', 'Language': 'Culture',
+  'History': 'Culture', 'Lifestyle': 'Culture', 'Day in a life': 'Culture', 'Travel': 'Culture',
+  'Things to do': 'Culture', 'Careers': 'Culture', 'Identity/Belonging': 'Culture',
+  'Faith/Religion': 'Culture',
+  'Finance/Economics': 'Finance', 'Business': 'Finance', 'Personal Finance': 'Finance',
+  'Science': 'Science', 'Explanatory': 'Science',
+  'Local News': 'Local News', 'Urban planning': 'Local News',
+  'World': 'World', 'Foreign Policy': 'World', 'Military': 'World',
+  'Food': 'Food', 'Recipes': 'Food', 'Restaurants': 'Food',
+};
+
+const CLUSTERS = {
+  'Politics':      { color: '#e63946', cx: 0.22, cy: 0.18, count: 79,  newsletter: 40, video: 38, podcast: 3,  website: 5,  anchors: ['Aaron Rupar', 'Chris Cillizza', 'Aaron Parnas', 'Charlotte Clymer'] },
+  'Tech':          { color: '#457b9d', cx: 0.55, cy: 0.11, count: 70,  newsletter: 31, video: 18, podcast: 11, website: 12, anchors: ['Casey Newton', 'Alex Kantrowitz', 'Marques Brownlee'] },
+  'Climate':       { color: '#2d6a4f', cx: 0.82, cy: 0.22, count: 36,  newsletter: 32, video: 10, podcast: 2,  website: 6,  anchors: ['Alex Steffen', 'Andrew Dessler', 'Amy Westervelt'] },
+  'Media/Power':   { color: '#6d4c41', cx: 0.90, cy: 0.52, count: 32,  newsletter: 21, video: 1,  podcast: 5,  website: 4,  anchors: ['Hamilton Nolan', 'Oliver Darcy', 'Adam Johnson'] },
+  'Health':        { color: '#e76f51', cx: 0.78, cy: 0.82, count: 24,  newsletter: 18, video: 8,  podcast: 1,  website: 0,  anchors: ['Katelyn Jetelina', 'Caitlin Rivers', 'Dan Harris'] },
+  'Investigations':{ color: '#f4a261', cx: 0.50, cy: 0.90, count: 33,  newsletter: 23, video: 6,  podcast: 0,  website: 5,  anchors: ['Judd Legum', 'Jessica Valenti', 'Chris Geidner'] },
+  'Law':           { color: '#8338ec', cx: 0.22, cy: 0.82, count: 20,  newsletter: 16, video: 2,  podcast: 0,  website: 2,  anchors: ['Alec Karakatsanis', 'Adam Klasfeld'] },
+  'Sports':        { color: '#fb8500', cx: 0.08, cy: 0.52, count: 23,  newsletter: 12, video: 6,  podcast: 0,  website: 5,  anchors: ['Charlotte Wilder', 'Brett Kollmann', 'Craig Calcaterra'] },
+  'Culture':       { color: '#c77dff', cx: 0.12, cy: 0.22, count: 46,  newsletter: 24, video: 16, podcast: 6,  website: 1,  anchors: ['Alicia Kennedy', 'Hunter Harris', 'Adrienne Keene'] },
+  'Finance':       { color: '#4cc9f0', cx: 0.38, cy: 0.26, count: 20,  newsletter: 17, video: 3,  podcast: 0,  website: 0,  anchors: ['Adam Tooze', 'Kyla Scanlon', 'Brad DeLong'] },
+  'Science':       { color: '#06d6a0', cx: 0.68, cy: 0.38, count: 15,  newsletter: 5,  video: 9,  podcast: 1,  website: 1,  anchors: ['Grant Sanderson', 'Adam Mastroianni'] },
+  'Local News':    { color: '#ffd166', cx: 0.65, cy: 0.72, count: 37,  newsletter: 18, video: 12, podcast: 0,  website: 9,  anchors: ['Alissa Walker', 'Charlie Meyerson', 'Chas Hundley'] },
+  'World':         { color: '#ef476f', cx: 0.35, cy: 0.70, count: 22,  newsletter: 7,  video: 12, podcast: 0,  website: 2,  anchors: ['Bill Bishop', 'Anders Puck Nielsen', 'Tim Mak'] },
+  'Food':          { color: '#a8dadc', cx: 0.18, cy: 0.54, count: 18,  newsletter: 10, video: 6,  podcast: 1,  website: 3,  anchors: ['Andrew Janjigian', 'Alicia Kennedy'] },
+};
+
+const POLY_FEATURED = [
+  { name: 'Andrew Dessler',  primaryLabel: 'Newsletter', p2Label: 'Video — YouTube',    cluster: 'Climate'   },
+  { name: 'Aaron Parnas',    primaryLabel: 'Video',      p2Label: 'Newsletter',          cluster: 'Politics'  },
+  { name: 'Dan Harris',      primaryLabel: 'Newsletter', p2Label: 'Video — Instagram',   cluster: 'Health'    },
+  { name: 'Craig Calcaterra',primaryLabel: 'Newsletter', p2Label: 'Website',             cluster: 'Sports'    },
+];
+
+const VIZ_ANCHORS = [
+  { name: 'Aaron Rupar',      cluster: 'Politics'      },
+  { name: 'Casey Newton',     cluster: 'Tech'          },
+  { name: 'Alex Steffen',     cluster: 'Climate'       },
+  { name: 'Katelyn Jetelina', cluster: 'Health'        },
+  { name: 'Judd Legum',       cluster: 'Investigations'},
+  { name: 'Alicia Kennedy',   cluster: 'Culture'       },
+  { name: 'Kyla Scanlon',     cluster: 'Finance'       },
+  { name: 'Hamilton Nolan',   cluster: 'Media/Power'   },
+];
+
+/* ════════════════════════════════════════════════════════════
+   FILTER STATE
+   ════════════════════════════════════════════════════════════ */
+const filterState = {
+  sort: 'followers',
+  search: '',
+  beat: null,       // cluster name string
+  platform: null,   // 'newsletter' | 'video' | 'podcast' | 'cross'
+  verified: false,
+};
+
+/* ════════════════════════════════════════════════════════════
+   HELPERS
+   ════════════════════════════════════════════════════════════ */
+function fmtFollowers(n) {
+  if (!n || n <= 0) return null;
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(0) + 'K';
+  return n.toLocaleString();
+}
+
+function clusterFor(c) {
+  return TOPIC_CLUSTER[c.topic] || 'Culture';
+}
+
+function platformType(c) {
+  const p = (c.platform_primary || '').toLowerCase();
+  if (p.includes('newsletter')) return 'newsletter';
+  if (p.includes('video')) return 'video';
+  if (p.includes('podcast')) return 'podcast';
+  return 'other';
+}
+
+function hexAlpha(hex, a) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT: stats
+   ════════════════════════════════════════════════════════════ */
+function initStats(creators) {
+  const total = creators.length;
+  const poly = creators.filter(c => c.platform_2).length;
+  const verified = creators.filter(c => c.confirmed === 'YES').length;
+  const top = creators.slice().sort((a,b) => (b.bsky_followers||0) - (a.bsky_followers||0))[0];
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-poly').textContent = poly || '—';
+  document.getElementById('stat-verified').textContent = verified || '—';
+
+  if (top && top.bsky_followers > 0) {
+    document.getElementById('stat-top-followers').textContent = fmtFollowers(top.bsky_followers) || '—';
+    document.getElementById('stat-top-name').textContent = top.name;
+  }
+
+  document.getElementById('hero-count').textContent = total;
+  document.getElementById('header-count').textContent = `${total} creators · 14 clusters`;
+  document.getElementById('viz-label').textContent = `${total} creators · 14 beat clusters`;
+  document.getElementById('overlay-title').textContent = `Independent Journalism Atlas · Bluesky Creator Network · ${total} creators · 14 clusters`;
+  document.getElementById('footer-count').textContent = total;
+
+  const polyCount = poly;
+  document.getElementById('poly-meta').textContent = `${polyCount} creators · newsletter + video + podcast`;
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT: cluster grid
+   ════════════════════════════════════════════════════════════ */
+function initClusterGrid(creators) {
+  const byName = {};
+  creators.forEach(c => { byName[c.name] = c; });
+
+  const grid = document.getElementById('cluster-grid');
+  grid.innerHTML = '';
+
+  Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+    const total = cfg.newsletter + cfg.video + cfg.podcast + cfg.website;
+    const platforms = [
+      { key: 'newsletter', count: cfg.newsletter, label: 'Newsletter', opacity: 1.0 },
+      { key: 'video',      count: cfg.video,      label: 'Video',      opacity: 0.72 },
+      { key: 'podcast',    count: cfg.podcast,    label: 'Podcast',    opacity: 0.48 },
+      { key: 'website',    count: cfg.website,    label: 'Website',    opacity: 0.28 },
+    ].filter(p => p.count > 0);
+
+    const fpSegs = platforms.map(p => {
+      const pct = ((p.count / total) * 100).toFixed(1);
+      return `<div class="fp-seg" style="width:${pct}%;background:${cfg.color};opacity:${p.opacity};" title="${p.label}: ${p.count}"></div>`;
+    }).join('');
+
+    const fpLabels = platforms.map(p => `
+      <span class="fp-label">
+        <span class="fp-swatch" style="background:${cfg.color};opacity:${p.opacity};"></span>
+        ${p.label} ${p.count}
+      </span>`).join('');
+
+    const anchorRows = cfg.anchors.map(aName => {
+      const creator = byName[aName];
+      const handle = creator ? `@${creator.bsky_handle}` : '';
+      return `<div class="cc-row">
+        <span class="cc-name">${aName}</span>
+        <span class="cc-handle">${handle}</span>
+      </div>`;
+    }).join('');
+
+    const card = document.createElement('div');
+    card.className = 'cluster-card';
+    card.dataset.cluster = name;
+    card.innerHTML = `
+      <div class="cluster-accent-bar" style="background:${cfg.color};opacity:0.9;"></div>
+      <div class="cluster-name">${name}</div>
+      <div class="cluster-count"><span class="n">${cfg.count}</span><span class="label"> creators</span></div>
+      <div class="fingerprint">
+        <div class="fp-bar">${fpSegs}</div>
+        <div class="fp-labels">${fpLabels}</div>
+      </div>
+      <div class="cluster-creators">${anchorRows}</div>
+    `;
+
+    card.addEventListener('click', () => {
+      const active = filterState.beat === name;
+      filterState.beat = active ? null : name;
+      document.querySelectorAll('.cluster-card').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.filter-pill[data-beat]').forEach(el => el.classList.remove('active'));
+      if (!active) {
+        card.classList.add('active');
+        const pill = document.querySelector(`.filter-pill[data-beat="${name}"]`);
+        if (pill) pill.classList.add('active');
+        document.getElementById('index').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      renderList(creators);
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT: poly-platform creator cards
+   ════════════════════════════════════════════════════════════ */
+function initPolyCards(creators) {
+  const byName = {};
+  creators.forEach(c => { byName[c.name] = c; });
+
+  const container = document.getElementById('creator-cards');
+  container.innerHTML = '';
+
+  POLY_FEATURED.forEach(({ name, primaryLabel, p2Label, cluster }) => {
+    const creator = byName[name];
+    if (!creator) return;
+
+    const clusterColor = CLUSTERS[cluster]?.color || '#888';
+    const card = document.createElement('div');
+    card.className = 'creator-card';
+    card.innerHTML = `
+      <div class="cc-creator-name">${name}</div>
+      <div class="cc-channel">${creator.channel || ''}</div>
+      <span class="cc-bsky-handle">@${creator.bsky_handle}</span>
+      <div class="cc-platforms">
+        <span class="platform-pill primary">${primaryLabel}</span>
+        <span class="platform-pill">${p2Label}</span>
+      </div>
+      <span class="topic-tag" style="border-color:${clusterColor}30;color:${clusterColor};">${cluster}</span>
+    `;
+    container.appendChild(card);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT: beat filter pills
+   ════════════════════════════════════════════════════════════ */
+function initBeatPills(creators) {
+  const beatCounts = {};
+  creators.forEach(c => {
+    const beat = clusterFor(c);
+    beatCounts[beat] = (beatCounts[beat] || 0) + 1;
+  });
+
+  const container = document.getElementById('beat-pills');
+  container.innerHTML = '';
+
+  Object.keys(CLUSTERS)
+    .filter(name => (beatCounts[name] || 0) >= 5)
+    .forEach(name => {
+      const pill = document.createElement('button');
+      pill.className = 'filter-pill';
+      pill.dataset.beat = name;
+      pill.textContent = name;
+      pill.addEventListener('click', () => {
+        const active = filterState.beat === name;
+        filterState.beat = active ? null : name;
+        document.querySelectorAll('.filter-pill[data-beat]').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.cluster-card').forEach(el => el.classList.remove('active'));
+        if (!active) {
+          pill.classList.add('active');
+          const card = document.querySelector(`.cluster-card[data-cluster="${name}"]`);
+          if (card) card.classList.add('active');
+        }
+        renderList(creators);
+      });
+      container.appendChild(pill);
+    });
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT: sort + platform + verified controls
+   ════════════════════════════════════════════════════════════ */
+function initControls(creators) {
+  /* sort buttons */
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterState.sort = btn.dataset.sort;
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderList(creators);
+    });
+  });
+
+  /* platform pills */
+  document.querySelectorAll('.filter-pill[data-platform]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const val = pill.dataset.platform;
+      const active = filterState.platform === val;
+      filterState.platform = active ? null : val;
+      document.querySelectorAll('.filter-pill[data-platform]').forEach(p => p.classList.remove('active'));
+      if (!active) pill.classList.add('active');
+      renderList(creators);
+    });
+  });
+
+  /* verified pill */
+  const verifiedPill = document.querySelector('.filter-pill[data-verified]');
+  if (verifiedPill) {
+    verifiedPill.addEventListener('click', () => {
+      filterState.verified = !filterState.verified;
+      verifiedPill.classList.toggle('active', filterState.verified);
+      renderList(creators);
+    });
+  }
+
+  /* search */
+  const searchInput = document.getElementById('search-input');
+  const searchClear = document.getElementById('search-clear');
+
+  searchInput.addEventListener('input', () => {
+    filterState.search = searchInput.value.trim().toLowerCase();
+    searchClear.classList.toggle('visible', filterState.search.length > 0);
+    renderList(creators);
+  });
+
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      filterState.search = '';
+      searchInput.value = '';
+      searchClear.classList.remove('visible');
+      renderList(creators);
+    }
+  });
+
+  searchClear.addEventListener('click', () => {
+    filterState.search = '';
+    searchInput.value = '';
+    searchClear.classList.remove('visible');
+    renderList(creators);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   RENDER: creator list
+   ════════════════════════════════════════════════════════════ */
+function renderList(creators) {
+  let filtered = creators.slice();
+
+  /* beat filter */
+  if (filterState.beat) {
+    filtered = filtered.filter(c => clusterFor(c) === filterState.beat);
+  }
+
+  /* platform filter */
+  if (filterState.platform) {
+    filtered = filtered.filter(c => {
+      if (filterState.platform === 'cross') return !!c.platform_2;
+      if (filterState.platform === 'newsletter') return (c.platform_primary || '').toLowerCase().includes('newsletter');
+      if (filterState.platform === 'video') return (c.platform_primary || '').toLowerCase().includes('video');
+      if (filterState.platform === 'podcast') return (c.platform_primary || '').toLowerCase() === 'podcast';
+      return true;
+    });
+  }
+
+  /* verified filter */
+  if (filterState.verified) {
+    filtered = filtered.filter(c => c.confirmed === 'YES');
+  }
+
+  /* search filter */
+  if (filterState.search) {
+    const q = filterState.search;
+    filtered = filtered.filter(c =>
+      (c.name || '').toLowerCase().includes(q) ||
+      (c.channel || '').toLowerCase().includes(q) ||
+      (c.topic || '').toLowerCase().includes(q) ||
+      clusterFor(c).toLowerCase().includes(q)
+    );
+  }
+
+  /* sort */
+  const total = creators.length;
+  const shown = filtered.length;
+  const anyFilter = filterState.beat || filterState.platform || filterState.verified || filterState.search;
+
+  if (filterState.sort === 'followers') {
+    filtered.sort((a, b) => {
+      const af = a.bsky_followers || 0, bf = b.bsky_followers || 0;
+      if (af === 0 && bf === 0) return (a.name || '').localeCompare(b.name || '');
+      if (af === 0) return 1;
+      if (bf === 0) return -1;
+      return bf - af;
+    });
+  } else if (filterState.sort === 'name') {
+    filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  } else if (filterState.sort === 'beat') {
+    filtered.sort((a, b) => {
+      const ca = clusterFor(a), cb = clusterFor(b);
+      if (ca !== cb) return ca.localeCompare(cb);
+      return (a.name || '').localeCompare(b.name || '');
+    });
+  }
+
+  /* status */
+  const statusEl = document.getElementById('index-status');
+  if (anyFilter) {
+    statusEl.innerHTML = `<strong>Showing ${shown.toLocaleString()} of ${total.toLocaleString()} creators</strong>`;
+  } else {
+    statusEl.innerHTML = `${total.toLocaleString()} creators &middot; sorted by Bluesky followers`;
+  }
+
+  /* render cards */
+  const list = document.getElementById('creator-list');
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="no-results"><p>No creators match these filters.</p></div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(c => {
+    const beat = clusterFor(c);
+    const cfg = CLUSTERS[beat] || {};
+    const beatColor = cfg.color || '#888';
+    const followers = fmtFollowers(c.bsky_followers);
+    const isCross = !!c.platform_2;
+    const platformLabel = (c.platform_primary || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ');
+    const p2Label = c.platform_2 ? (c.platform_2 || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ') : null;
+
+    return `<div class="ci-card">
+      <div class="ci-top">
+        <div class="ci-name">${c.name}</div>
+        ${followers ? `<div class="ci-followers">${followers}</div>` : ''}
+      </div>
+      ${c.channel ? `<div class="ci-channel">${c.channel}</div>` : ''}
+      <div class="ci-meta">
+        <span class="ci-beat" style="background:${beatColor}18;color:${beatColor};">${beat}</span>
+        <span class="ci-platform">${platformLabel}</span>
+        ${isCross ? `<span class="ci-platform cross">+ ${p2Label || c.platform_2}</span>` : ''}
+      </div>
+      ${c.bsky_handle ? `<div class="ci-bsky">@${c.bsky_handle}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIZ: shared utilities + factory
+   ════════════════════════════════════════════════════════════ */
+let CREATORS = [];
+
+function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasClick = null } = {}) {
+  const container = canvas.parentElement;
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const w = container.clientWidth;
+    const h = canvas.offsetHeight || container.offsetHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    return { w, h, dpr };
+  }
+
+  let { w, h, dpr } = resize();
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const nodes = creators.map(c => {
+    const cluster = TOPIC_CLUSTER[c.topic] || 'Culture';
+    const cfg = CLUSTERS[cluster];
+    const angle = Math.random() * Math.PI * 2;
+    const r = (0.15 + Math.random() * 0.35) * Math.min(w, h);
+    const jx = (Math.random() - 0.5) * 44;
+    const jy = (Math.random() - 0.5) * 44;
+    const tx = cfg.cx * w + jx;
+    const ty = cfg.cy * h + jy;
+    return {
+      sx: startSettled ? tx : w / 2 + Math.cos(angle) * r,
+      sy: startSettled ? ty : h / 2 + Math.sin(angle) * r,
+      tx, ty,
+      cx: startSettled ? tx : 0,
+      cy: startSettled ? ty : 0,
+      color: cfg.color,
+      cluster,
+      name: c.name,
+      handle: c.bsky_handle,
+      driftPhase: Math.random() * Math.PI * 2,
+      driftAmp:   2 + Math.random() * 3,
+      driftSpeed: 0.4 + Math.random() * 0.6,
+    };
+  });
+
+  const anchorNodes = {};
+  VIZ_ANCHORS.forEach(a => {
+    const node = nodes.find(n => n.name === a.name);
+    if (node) anchorNodes[a.name] = { node, cluster: a.cluster };
+  });
+
+  const START    = performance.now();
+  const ANIM_DUR = 1200;
+  let labelsAlpha = 0;
+  let namesAlpha  = 0;
+  let settled     = startSettled;
+  let hoveredCluster = null;
+  const mouse = { x: null, y: null };
+  let pulses  = [];
+  let rafId;
+
+  function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function drawConnectionLines() {
+    const clusterNodes = nodes.filter(n => n.cluster === hoveredCluster);
+    const cfg = CLUSTERS[hoveredCluster];
+    clusterNodes.forEach(a => {
+      clusterNodes
+        .filter(b => b !== a)
+        .map(b => ({ b, dist: Math.hypot(a.cx - b.cx, a.cy - b.cy) }))
+        .sort((x, y) => x.dist - y.dist)
+        .slice(0, 4)
+        .forEach(({ b, dist }) => {
+          const lineAlpha = Math.max(0, (1 - dist / 120)) * 0.18;
+          if (lineAlpha <= 0) return;
+          ctx.beginPath();
+          ctx.moveTo(a.cx, a.cy);
+          ctx.lineTo(b.cx, b.cy);
+          ctx.strokeStyle = hexAlpha(cfg.color, lineAlpha);
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        });
+    });
+  }
+
+  function drawLabelsAndNames() {
+    if (labelsAlpha <= 0) return;
+    ctx.textAlign = 'center';
+    Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+      const x = cfg.cx * w;
+      const y = cfg.cy * h;
+      const isHovered = hoveredCluster === name;
+      const la = hoveredCluster === null ? labelsAlpha : isHovered ? 1.0 : labelsAlpha * 0.25;
+      ctx.save();
+      ctx.globalAlpha = la;
+      ctx.font = isHovered ? '700 11px "DM Mono", monospace' : '600 9px "DM Mono", monospace';
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name.toUpperCase(), x, y - (isHovered ? 16 : 14));
+      ctx.restore();
+    });
+    if (namesAlpha <= 0) return;
+    ctx.font = '500 10px "Hanken Grotesk", sans-serif';
+    ctx.textAlign = 'center';
+    Object.entries(anchorNodes).forEach(([name, { node, cluster }]) => {
+      const cfg = CLUSTERS[cluster];
+      const na = hoveredCluster === null ? namesAlpha * 0.9
+               : hoveredCluster === cluster ? namesAlpha : namesAlpha * 0.06;
+      if (na <= 0) return;
+      ctx.save();
+      ctx.globalAlpha = na * 0.75;
+      ctx.fillStyle = 'rgba(8,8,16,0.72)';
+      ctx.fillRect(node.cx - 42, node.cy - 22, 84, 13);
+      ctx.globalAlpha = na;
+      ctx.fillStyle = cfg.color;
+      ctx.fillText(name, node.cx, node.cy - 12);
+      ctx.restore();
+    });
+  }
+
+  function drawPulses(now) {
+    pulses = pulses.filter(p => now - p.born < 600);
+    pulses.forEach(p => {
+      const age = (now - p.born) / 600;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, age * 130, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.3})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, age * 80, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.12})`;
+      ctx.lineWidth = 4;
+      ctx.stroke();
+    });
+  }
+
+  function draw(now) {
+    ctx.clearRect(0, 0, w, h);
+
+    if (!settled) {
+      const t  = Math.min((now - START) / ANIM_DUR, 1);
+      const et = easeInOut(t);
+      nodes.forEach(n => {
+        n.cx = n.sx + (n.tx - n.sx) * et;
+        n.cy = n.sy + (n.ty - n.sy) * et;
+        ctx.beginPath();
+        ctx.arc(n.cx, n.cy, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = hexAlpha(n.color, 0.72);
+        ctx.fill();
+      });
+      if (t >= 1) settled = true;
+      labelsAlpha = Math.min(labelsAlpha + (settled ? 0.025 : 0), 1);
+      if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
+      drawLabelsAndNames();
+
+    } else {
+      const td = now / 1000;
+      labelsAlpha = Math.min(labelsAlpha + 0.025, 1);
+      if (labelsAlpha >= 0.7) namesAlpha = Math.min(namesAlpha + 0.018, 1);
+
+      if (hoveredCluster !== null) drawConnectionLines();
+
+      nodes.forEach(n => {
+        n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
+        n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
+        if (mouse.x !== null) {
+          const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < 60 && d > 0) { const f = (1 - d/60) * 18; n.cx += dx/d*f; n.cy += dy/d*f; }
+        }
+        pulses.forEach(p => {
+          const age = (now - p.born) / 600;
+          const pr  = age * 130;
+          const dx  = n.cx - p.x, dy = n.cy - p.y;
+          const d   = Math.sqrt(dx*dx + dy*dy);
+          if (Math.abs(d - pr) < 22 && d > 0) {
+            const f = (1 - Math.abs(d - pr) / 22) * 14;
+            n.cx += dx/d*f; n.cy += dy/d*f;
+          }
+        });
+        let alpha, radius;
+        if      (hoveredCluster === null)          { alpha = 0.72; radius = 2.5; }
+        else if (n.cluster === hoveredCluster)     { alpha = 1.0;  radius = 4.0; }
+        else                                       { alpha = 0.12; radius = 2.0; }
+        ctx.beginPath();
+        ctx.arc(n.cx, n.cy, radius, 0, Math.PI * 2);
+        ctx.fillStyle = hexAlpha(n.color, alpha);
+        ctx.fill();
+      });
+
+      drawLabelsAndNames();
+      if (pulses.length) drawPulses(now);
+    }
+
+    rafId = requestAnimationFrame(draw);
+  }
+
+  rafId = requestAnimationFrame(draw);
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    mouse.x = mx; mouse.y = my;
+
+    let nearest = null, minDist = 18;
+    nodes.forEach(n => {
+      const d = Math.hypot(n.cx - mx, n.cy - my);
+      if (d < minDist) { minDist = d; nearest = n; }
+    });
+
+    if (nearest) {
+      hoveredCluster = nearest.cluster;
+    } else {
+      let nc = null, nd = 50;
+      Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+        const d = Math.hypot(cfg.cx * w - mx, cfg.cy * h - my);
+        if (d < nd) { nd = d; nc = name; }
+      });
+      hoveredCluster = nc;
+    }
+
+    if (nearest) {
+      const cfg = CLUSTERS[nearest.cluster];
+      tooltip.style.display = 'block';
+      tooltip.style.left = Math.min(mx + 14, w - 204) + 'px';
+      tooltip.style.top  = Math.max(my - 14, 4) + 'px';
+      tooltip.innerHTML  = `<strong>${nearest.name}</strong><span class="tt-handle">@${nearest.handle}</span><span class="tt-cluster" style="color:${cfg.color}">${nearest.cluster}</span>`;
+    } else {
+      tooltip.style.display = 'none';
+    }
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+    hoveredCluster = null;
+    mouse.x = null; mouse.y = null;
+  });
+
+  canvas.addEventListener('click', e => {
+    if (!settled) return;
+    if (onCanvasClick) {
+      onCanvasClick();
+    } else {
+      const rect = canvas.getBoundingClientRect();
+      pulses.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, born: performance.now() });
+    }
+  });
+
+  const ro = new ResizeObserver(() => {
+    const dims = resize();
+    w = dims.w; h = dims.h; dpr = dims.dpr;
+    ctx.scale(dpr, dpr);
+    nodes.forEach(n => {
+      const cfg = CLUSTERS[n.cluster];
+      const jx = (Math.random() - 0.5) * 44, jy = (Math.random() - 0.5) * 44;
+      n.tx = cfg.cx * w + jx;
+      n.ty = cfg.cy * h + jy;
+    });
+  });
+  ro.observe(container);
+
+  return { stop: () => cancelAnimationFrame(rafId) };
+}
+
+/* ════════════════════════════════════════════════════════════
+   VIZ: hero + overlay
+   ════════════════════════════════════════════════════════════ */
+let overlayViz = null;
+
+function openOverlay() {
+  const overlay = document.getElementById('viz-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!overlayViz) {
+    overlayViz = buildViz(
+      document.getElementById('overlay-canvas'),
+      document.getElementById('overlay-tooltip'),
+      CREATORS,
+      { startSettled: true }
+    );
+  }
+}
+
+function closeOverlay() {
+  document.getElementById('viz-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function initOverlay() {
+  document.getElementById('viz-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('viz-overlay')) closeOverlay();
+  });
+  document.getElementById('overlay-close').addEventListener('click', closeOverlay);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+
+  const legend = document.getElementById('overlay-legend');
+  Object.entries(CLUSTERS).forEach(([name, cfg]) => {
+    const item = document.createElement('span');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="legend-dot" style="background:${cfg.color}"></span>${name} <span class="legend-count">${cfg.count}</span>`;
+    legend.appendChild(item);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   BOOT
+   ════════════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  fetch('assets/data/bluesky-creators.json')
+    .then(r => r.json())
+    .then(data => {
+      CREATORS = data;
+      initStats(CREATORS);
+      initClusterGrid(CREATORS);
+      initPolyCards(CREATORS);
+      initBeatPills(CREATORS);
+      initControls(CREATORS);
+      renderList(CREATORS);
+      buildViz(
+        document.getElementById('network-canvas'),
+        document.getElementById('viz-tooltip'),
+        CREATORS,
+        { startSettled: false, onCanvasClick: openOverlay }
+      );
+      initOverlay();
+    })
+    .catch(err => {
+      console.error('Failed to load bluesky-creators.json:', err);
+      document.getElementById('index-status').textContent = 'Error loading creator data.';
+    });
+});
+</script>
+</body>
+</html>
