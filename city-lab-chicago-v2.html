@@ -944,8 +944,7 @@
         <option value="Education / CPS">Education / CPS</option>
         <option value="LGBTQ+">LGBTQ+</option>
         <option value="Immigration / Latino">Immigration / Latino</option>
-        <option value="Immigration / Criminal Justice">Immigration / Criminal Justice</option>
-        <option value="Labor">Labor</option>
+<option value="Labor">Labor</option>
         <option value="Housing &amp; Neighborhood">Housing &amp; Neighborhood</option>
         <option value="Environment">Environment</option>
         <option value="Investigative">Investigative</option>
@@ -1538,7 +1537,7 @@ const JOURNALISM_CREATORS = [
   { name: "Nathan Graber-Lipperman", channel: "Creator Mag", url: "https://www.creatormag.blog/", platform: "Newsletter - Substack", beat: "Media & Press Freedom", geography: "Chicago", pulse: true },
   // Added from Medill Google Sheet — not previously on page
   { name: "Chicagoverse", channel: "Chicagoverse", url: "https://podcasts.apple.com/us/podcast/chicagoverse/id1547902079", platform: "Podcast", beat: "General News", geography: "Chicago", pulse: false },
-  { name: "Unraveled Press", channel: "Unraveled Press", url: "https://www.unraveledpress.com", platform: "TikTok + Video", beat: "Immigration / Criminal Justice", geography: "Chicago", pulse: false, descriptor: "Independent documentary journalists; 9.8K TikTok, 340K likes; on-the-ground coverage of Chicago Loop ICE protests and Broadview ICE facility; followed by Injustice Watch" },
+  { name: "Unraveled Press", channel: "Unraveled Press", url: "https://www.unraveledpress.com", platform: "TikTok + Video", beat: "Immigration / Latino", geography: "Chicago", pulse: false, descriptor: "Independent documentary journalists; 9.8K TikTok, 340K likes; on-the-ground coverage of Chicago Loop ICE protests and Broadview ICE facility; followed by Injustice Watch" },
   // City Hall & Politics — new entries
   { name: "Ben Joravsky", channel: "The Ben Joravsky Show", url: "https://benjoravsky.substack.com", platform: "Podcast", beat: "City Hall & Politics", geography: "Chicago", pulse: false, descriptor: "Former Chicago Reader; daily listener-supported TIF accountability podcast; one of the city's longest-running independent political voices" },
   { name: "Politically Illinois", channel: "Politically Illinois", url: "https://politicallyillinois.substack.com", platform: "TikTok + Newsletter", beat: "City Hall & Politics", geography: "Chicago", pulse: false, descriptor: "Multi-platform Illinois/Chicago politics commentary; 15.4K TikTok, 184K likes; covers City Council and mayoral politics" },
@@ -2220,16 +2219,36 @@ renderEcoTable(MEDILL_OUTLETS);
 renderRadarTable(RADAR_DATA);
 renderEmergingVoices();
 renderEcosystemOrgs();
-// Scatter renders on tab activation so SVG has correct width
-let scatterRendered = false;
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.dataset.tab === 'creatormap' && !scatterRendered) {
-      setTimeout(renderScatter, 50);
-      scatterRendered = true;
-    }
+// Scatter renders on tab activation and rerenders on resize
+(function() {
+  const scatterContainer = document.getElementById('scatter-svg');
+  if (!scatterContainer) return;
+
+  let renderPending = false;
+  function scheduleRender() {
+    if (renderPending) return;
+    renderPending = true;
+    requestAnimationFrame(() => { renderPending = false; renderScatter(); });
+  }
+
+  // Rerender on container resize
+  if (window.ResizeObserver) {
+    new ResizeObserver(scheduleRender).observe(scatterContainer.parentElement);
+  } else {
+    window.addEventListener('resize', scheduleRender);
+  }
+
+  // Initial render on tab click (SVG hidden until then, so width = 0)
+  let scatterInit = false;
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.tab === 'creatormap' && !scatterInit) {
+        scatterInit = true;
+        setTimeout(renderScatter, 50);
+      }
+    });
   });
-});
+})();
 console.log('Chicago City Lab v2 — journalism: ' + JOURNALISM_CREATORS.length + ', lifestyle: ' + LIFESTYLE_CREATORS.length + ', ecosystem orgs: ' + ECOSYSTEM_ORGS.length);
 
 </script>
