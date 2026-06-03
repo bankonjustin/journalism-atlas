@@ -40,7 +40,7 @@ VALID_PLATFORMS = {
     "Newsletter - Substack", "Newsletter - Beehiiv", "Newsletter - Ghost",
     "Newsletter - Buttondown", "Newsletter - Other",
     "Podcast", "Website", "Patreon", "Chat - SMS",
-    "Video - YouTube", "Video - Instagram", "Video - TikTok", "Video - Twitch",
+    "Video - YouTube", "Video - Instagram", "Video - TikTok", "Video - Twitch", "Video - Rumble",
     "Social - Twitter / X", "Social - BlueSky", "Social - LinkedIn",
     "Social - Facebook", "Social - Instagram", "Social - Threads", "Social - TikTok",
 }
