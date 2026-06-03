@@ -556,15 +556,15 @@
   <p class="header-sub">Independent creator journalism · March 2026</p>
   <div class="header-meta">
     <div class="header-stat">
-      <span class="header-stat-num">69</span>
+      <span class="header-stat-num">87</span>
       <span class="header-stat-label">Creators Tracked</span>
     </div>
     <div class="header-stat">
-      <span class="header-stat-num">35</span>
+      <span class="header-stat-num">48</span>
       <span class="header-stat-label">Journalism Layer</span>
     </div>
     <div class="header-stat">
-      <span class="header-stat-num">34</span>
+      <span class="header-stat-num">39</span>
       <span class="header-stat-label">Lifestyle Layer</span>
     </div>
     <div class="header-stat">
@@ -621,22 +621,24 @@
 
     <!-- Collapsed beats (always visible) -->
     <div class="pill-grid" id="beats-collapsed">
-      <span class="pill" style="background:#ceff00;color:#000" title="7 creators — City Hall & Politics">City Hall &amp; Politics <span class="pill-count">7</span></span>
+      <span class="pill" style="background:#ceff00;color:#000" title="11 creators — City Hall & Politics">City Hall &amp; Politics <span class="pill-count">11</span></span>
+      <span class="pill" style="background:#ceff00;color:#000" title="9 creators — Black Chicago">Black Chicago <span class="pill-count">9</span></span>
       <span class="pill" style="background:#ceff00;color:#000" title="5 creators — Sports">Sports <span class="pill-count">5</span></span>
       <span class="pill" style="background:#ffff00;color:#000" title="4 creators — Arts &amp; Culture">Arts &amp; Culture <span class="pill-count">4</span></span>
-      <span class="pill" style="background:#ffff00;color:#000" title="3 creators — Media &amp; Press Freedom">Media &amp; Press Freedom <span class="pill-count">3</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="4 creators — Media &amp; Press Freedom">Media &amp; Press Freedom <span class="pill-count">4</span></span>
       <span class="pill" style="background:#ffff00;color:#000" title="3 creators — Health &amp; Science">Health &amp; Science <span class="pill-count">3</span></span>
-      <span class="pill" style="background:#ffff00;color:#000" title="3 creators — Black Chicago">Black Chicago <span class="pill-count">3</span></span>
     </div>
 
     <!-- Expanded beats (hidden until toggle) -->
     <div class="pill-grid" id="beats-expanded" style="display:none">
       <span class="pill" style="background:#ffff00;color:#000" title="2 creators — Criminal Justice">Criminal Justice <span class="pill-count">2</span></span>
       <span class="pill" style="background:#ffff00;color:#000" title="2 creators — Education (CPS)">Education / CPS <span class="pill-count">2</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="2 creators — LGBTQ+">LGBTQ+ <span class="pill-count">2</span></span>
+      <span class="pill" style="background:#ffff00;color:#000" title="2 creators — Immigration / Latino">Immigration / Latino <span class="pill-count">2</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500" title="1 creator — Labor">Labor <span class="pill-count">1</span></span>
+      <span class="pill" style="background:#ffcccc;color:#500" title="1 creator — Housing &amp; Neighborhood">Housing &amp; Neighborhood <span class="pill-count">1</span></span>
       <span class="pill" style="background:#ffcccc;color:#500" title="1 creator — Environment">Environment <span class="pill-count">1</span></span>
       <span class="pill" style="background:#ffcccc;color:#500" title="1 creator — Investigative">Investigative <span class="pill-count">1</span></span>
-      <span class="pill" style="background:#ffcccc;color:#500" title="0 creators — Latino Community">Latino Community <span class="pill-count">0</span></span>
-      <span class="pill" style="background:#ffcccc;color:#500" title="0 creators — Housing &amp; Development">Housing &amp; Development <span class="pill-count">0</span></span>
       <span class="pill" style="background:#ffcccc;color:#500" title="0 creators — Labor &amp; Workers">Labor &amp; Workers <span class="pill-count">0</span></span>
       <span class="pill" style="background:#ffcccc;color:#500" title="0 creators — CTA / Transit">CTA / Transit <span class="pill-count">0</span></span>
       <span class="pill" style="background:#ffcccc;color:#500" title="0 creators — LGBTQ+ Community">LGBTQ+ Community <span class="pill-count">0</span></span>
@@ -717,6 +719,15 @@
       </div>
     </div>
     <p style="font-size:12px;color:#aaa;margin-top:12px">Neighborhood-level coverage is a known gap — see Coverage Vacuums tab.</p>
+  </section>
+
+  <section class="section">
+    <h3 style="font-size:24px;font-weight:700;color:#000;margin-bottom:12px">Platform Distribution by Beat</h3>
+    <p style="font-size:14px;color:#555;max-width:680px;margin-bottom:20px;line-height:1.6">Each dot is one creator. Position shows their primary beat and platform type. TikTok/Video creators cluster around City Hall and Black Chicago — the same beats most dominated by newsletters and podcasts.</p>
+    <div style="background:#efeff2;border-radius:6px;overflow:hidden;padding:0">
+      <svg id="scatter-svg" width="100%" height="320" style="display:block"></svg>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px" id="scatter-legend"></div>
   </section>
 
 </div>
@@ -802,10 +813,10 @@
     <p style="font-size:14px;color:#555;margin-bottom:24px">Beats where no independent creator-journalist has established a consistent, ongoing presence. Each gap is cross-referenced against Medill's 245-outlet Chicago ecosystem tracker — showing whether the gap is creator-only, or extends across the full local media landscape.</p>
 
     <div class="vacuum-grid">
-      <div class="vacuum-card">
-        <h3>Labor &amp; Workers <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
-        <p>Chicago is one of the most union-dense cities in America — home to major labor organizing history, the Chicago Teachers Union, Teamsters activity, and a working-class infrastructure that defines South and West Side neighborhoods. Yet no independent creator-journalist has a dedicated labor beat.</p>
-        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffcccc;font-size:13px;color:#770000"><strong>Medill ecosystem check:</strong> Zero outlets — out of 245 tracked across the entire Chicago media landscape — are dedicated to the labor beat. In These Times covers labor nationally but not as a Chicago-first outlet. This is a gap across the entire ecosystem, not just the creator layer. The most union-dense major city in America has no dedicated labor press.</p>
+      <div class="vacuum-card partial">
+        <h3>Labor &amp; Workers <span class="vacuum-severity sev-gap">Emerging</span></h3>
+        <p>Chicago is one of the most union-dense cities in America — home to major labor organizing history, the Chicago Teachers Union, Teamsters activity, and a working-class infrastructure that defines South and West Side neighborhoods. One independent creator now covers this beat.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Now tracked:</strong> Jerry Mead-Lucero / Labor Express Radio (WLPN 105.5 FM, podcast since 2004) — Chicago's only English-language labor news program. Labor journalism remains institutionally concentrated: In These Times, Labor Notes, and Payday Report cover the beat nationally but no additional Chicago-specific independent creators have been found. Downgraded from Critical Gap to Emerging.</p>
       </div>
 
       <div class="vacuum-card">
@@ -814,21 +825,21 @@
         <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffcccc;font-size:13px;color:#770000"><strong>Medill ecosystem check:</strong> Streetsblog Chicago (32K following, nonprofit) is the only transit-adjacent outlet across all 245 tracked — and it's a national franchise with a Chicago edition, not a Chicago-first outlet. One outlet serving 2.7 million people on a transit system used by 1.6 million daily riders.</p>
       </div>
 
-      <div class="vacuum-card">
-        <h3>Latino Community Journalism <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
-        <p>Chicago has one of the largest Mexican and Central American populations of any U.S. city, concentrated in Pilsen, Little Village, Humboldt Park, and Albany Park. There is no independent Spanish-language or bilingual creator covering Latino Chicago politics, community accountability, or immigrant rights.</p>
-        <blockquote style="margin:10px 0;padding:12px 16px;border-left:3px solid #cc0000;background:#fff0f0;font-size:14px;font-style:italic;line-height:1.6;color:#333">
+      <div class="vacuum-card partial">
+        <h3>Immigration / Latino <span class="vacuum-severity sev-gap">Emerging</span></h3>
+        <p>Chicago has one of the largest Mexican and Central American populations of any U.S. city, concentrated in Pilsen, Little Village, Humboldt Park, and Albany Park. Two independent creators now cover immigration and Latino community issues.</p>
+        <blockquote style="margin:10px 0;padding:12px 16px;border-left:3px solid #f5a623;background:#fffbf0;font-size:14px;font-style:italic;line-height:1.6;color:#333">
   "In Spanish, Chicago is a large news desert."
-  <cite style="display:block;margin-top:6px;font-size:12px;font-style:normal;color:#888;font-weight:500">— Jesús Del Toro, Editor-in-Chief, La Raza (founded 1970) · staff of four, serving Pilsen, Little Village, Back of the Yards, McKinley Park, Logan Square</cite>
+  <cite style="display:block;margin-top:6px;font-size:12px;font-style:normal;color:#888;font-weight:500">— Jesús Del Toro, Editor-in-Chief, La Raza (founded 1970)</cite>
 </blockquote>
-        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffcccc;font-size:13px;color:#770000"><strong>Medill ecosystem check:</strong> 7 outlets serve the Latino community (La Raza, 77K following; Cicero Independiente; Enchufate; Negocios Now, 24K; El Dia; IL Latino News; Borderless Magazine). All are mission-driven organizations or legacy media — none are independent creator-model journalists. The community has institutional coverage; it has no creator equivalent.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Now tracked:</strong> Francia García Hernández / ¡Presente! (CAN TV community TV show, Pilsen/Little Village) and Unraveled Press (TikTok documentary journalism, 9.8K followers, on-the-ground ICE protest and Broadview detention coverage). Borderless Magazine in ecosystem layer. Video/social immigration coverage remains thin — the institutional gap is partially filled but the creator layer is early-stage. Downgraded from Critical Gap to Emerging.</p>
       </div>
 
-      <div class="vacuum-card">
-  <h3>LGBTQ+ Community Coverage <span class="vacuum-severity sev-critical">Critical Gap</span></h3>
-  <p>Chicago has one of the largest and most politically active LGBTQ+ communities in the United States — centered in Boystown/Lakeview, Andersonville, and Pilsen, with significant populations citywide. Windy City Times (founded 1985) remains the primary independent LGBTQ+ publication, but operates with a skeleton staff. There is no independent creator-journalist with a dedicated, platform-native presence covering LGBTQ+ Chicago politics, health policy, or community accountability.</p>
-  <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Medill ecosystem check:</strong> Windy City Times covers the beat editorially but has limited digital reach and no dedicated creator presence. Chicago Reader and WBEZ cover LGBTQ+ stories episodically. No creator in the Atlas journalism layer covers this as a primary beat — despite Chicago being home to one of the nation's oldest and most politically organized LGBTQ+ communities.</p>
-</div>
+      <div class="vacuum-card partial">
+        <h3>LGBTQ+ Community Coverage <span class="vacuum-severity sev-gap">Emerging</span></h3>
+        <p>Chicago has one of the largest and most politically active LGBTQ+ communities in the United States — centered in Boystown/Lakeview, Andersonville, and Pilsen. Two independent creators now cover this beat; the individual creator layer remains thin relative to community scale.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Now tracked:</strong> Devlyn Camp / Queer Serial (NLGJA Award 2021, They &amp; Them queer Chicago news podcast) and Anna DeShawn / Queer News (Ambie Award 2023, E3 Radio founder). Walking Chicago (@walking.chi) covers LGBTQ+ neighborhood history in the lifestyle layer. Ecosystem genuinely thin at the individual creator level — Windy City Times covers the beat institutionally but has limited digital reach. Downgraded from Critical Gap to Emerging.</p>
+      </div>
 
       <div class="vacuum-card partial">
         <h3>Education / CPS <span class="vacuum-severity sev-gap">Gap</span></h3>
@@ -841,10 +852,10 @@
         <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Medill ecosystem check:</strong> Chalkbeat Chicago (18K following, nonprofit) covers CPS from an education policy angle. The Daily Line covers City Hall politics. Neither covers CPS financial governance as a dedicated beat. Board Rule is the closest independent creator — but it's a one-person newsletter covering a $9B institution.</p>
       </div>
 
-      <div class="vacuum-card">
-        <h3>Housing &amp; Affordability <span class="vacuum-severity sev-gap">Gap</span></h3>
-        <p>Chicago has a housing crisis playing out in real time — rapid gentrification on the North Side, chronic disinvestment on the South and West Sides, and an ongoing fight over affordable housing policy. No independent creator has a primary accountability beat on housing policy, displacement, or development.</p>
-        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Medill ecosystem check:</strong> Zero dedicated housing/affordability outlets in the full 245-outlet tracker. Crib Chatter (352 followers) covers real estate from a market/investment angle. Block Club Chicago's neighborhood coverage partially fills this contextually but not as a dedicated beat. A true void across the entire ecosystem.</p>
+      <div class="vacuum-card partial">
+        <h3>Housing &amp; Neighborhood <span class="vacuum-severity sev-gap">Emerging</span></h3>
+        <p>Chicago has a housing crisis playing out in real time — rapid gentrification on the North Side, chronic disinvestment on the South and West Sides, and an ongoing fight over affordable housing policy. One independent creator now covers this beat on the Northwest Side.</p>
+        <p style="margin-top:10px;padding-top:10px;border-top:1px solid #ffe4b5;font-size:13px;color:#7a4f00"><strong>Now tracked:</strong> Ariel Parrella-Aureli / LoganSquarist — covers housing, gentrification, and low-income tax credit expirations in Logan Square. South Side and West Side housing coverage remains entirely absent from the creator layer. Medill ecosystem check: Zero dedicated housing/affordability outlets across all 245 tracked outlets. Block Club Chicago covers housing episodically but not as a primary accountability beat. Downgraded from Gap to Emerging; geographic gap persists.</p>
       </div>
 
       <div class="vacuum-card partial">
@@ -924,29 +935,33 @@
       <select class="filter-select" id="filter-beat" onchange="filterTable()">
         <option value="">All beats</option>
         <option value="City Hall &amp; Politics">City Hall &amp; Politics</option>
+        <option value="Black Chicago">Black Chicago</option>
         <option value="Sports">Sports</option>
         <option value="Arts &amp; Culture">Arts &amp; Culture</option>
         <option value="Media &amp; Press Freedom">Media &amp; Press Freedom</option>
         <option value="Health &amp; Science">Health &amp; Science</option>
-        <option value="Black Chicago">Black Chicago</option>
         <option value="Criminal Justice">Criminal Justice</option>
         <option value="Education / CPS">Education / CPS</option>
+        <option value="LGBTQ+">LGBTQ+</option>
+        <option value="Immigration / Latino">Immigration / Latino</option>
+        <option value="Immigration / Criminal Justice">Immigration / Criminal Justice</option>
+        <option value="Labor">Labor</option>
+        <option value="Housing &amp; Neighborhood">Housing &amp; Neighborhood</option>
         <option value="Environment">Environment</option>
         <option value="Investigative">Investigative</option>
         <option value="General News">General News</option>
+      </select>
+      <select class="filter-select" id="filter-platform" onchange="filterTable()">
+        <option value="">All platforms</option>
+        <option value="Newsletter">Newsletter</option>
+        <option value="Podcast">Podcast</option>
+        <option value="TikTok / Video">TikTok / Video</option>
+        <option value="Website">Website</option>
       </select>
       <select class="filter-select" id="filter-geo" onchange="filterTable()">
         <option value="">All geographies</option>
         <option value="Chicago">Chicago</option>
         <option value="Illinois">Illinois (statewide)</option>
-      </select>
-      <select class="filter-select" id="filter-platform" onchange="filterTable()">
-        <option value="">All platforms</option>
-        <option value="Newsletter">Newsletter</option>
-        <option value="Website">Website</option>
-        <option value="Video">Video</option>
-        <option value="Podcast">Podcast</option>
-        <option value="Social">Social</option>
       </select>
     </div>
 
@@ -1274,13 +1289,13 @@
 
     <div class="eco-bridge">
       <div class="eco-bridge-j">
-        <div class="eco-bridge-num">35</div>
+        <div class="eco-bridge-num">48</div>
         <div class="eco-bridge-label">Journalism &amp; Accountability</div>
         <div class="eco-bridge-sub">beats · newsletters · podcasts · public interest</div>
       </div>
       <div class="eco-bridge-plus">+</div>
       <div class="eco-bridge-l">
-        <div class="eco-bridge-num">34</div>
+        <div class="eco-bridge-num">39</div>
         <div class="eco-bridge-label">Lifestyle &amp; Culture Creators</div>
         <div class="eco-bridge-sub">TikTok · food · things to do · local life</div>
       </div>
@@ -1300,33 +1315,34 @@
       <div class="eco-panel eco-panel-j">
         <div class="eco-panel-eyebrow">Journalism Layer — Accountability</div>
         <div class="eco-panel-stats">
-          <div class="eco-ps"><span class="eco-ps-num">35</span><span class="eco-ps-label">Creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">48</span><span class="eco-ps-label">Creators</span></div>
           <div class="eco-ps"><span class="eco-ps-num">5</span><span class="eco-ps-label">In Pulse (RSS)</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">5</span><span class="eco-ps-label">Critical gaps</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">4</span><span class="eco-ps-label">New beats</span></div>
         </div>
         <div class="eco-panel-subhead">Beat Coverage</div>
         <div class="eco-pills">
-          <span class="eco-pill eco-pill-j-strong">City Hall &amp; Politics <span class="eco-pill-count">7</span></span>
+          <span class="eco-pill eco-pill-j-strong">City Hall &amp; Politics <span class="eco-pill-count">11</span></span>
+          <span class="eco-pill eco-pill-j-strong">Black Chicago <span class="eco-pill-count">9</span></span>
           <span class="eco-pill eco-pill-j-strong">Sports <span class="eco-pill-count">5</span></span>
           <span class="eco-pill eco-pill-j-mid">Arts &amp; Culture <span class="eco-pill-count">4</span></span>
-          <span class="eco-pill eco-pill-j-mid">Media &amp; Press <span class="eco-pill-count">3</span></span>
+          <span class="eco-pill eco-pill-j-mid">Media &amp; Press <span class="eco-pill-count">4</span></span>
           <span class="eco-pill eco-pill-j-mid">Health &amp; Science <span class="eco-pill-count">3</span></span>
-          <span class="eco-pill eco-pill-j-mid">Black Chicago <span class="eco-pill-count">3</span></span>
           <span class="eco-pill eco-pill-j-mid">Criminal Justice <span class="eco-pill-count">2</span></span>
           <span class="eco-pill eco-pill-j-mid">Education / CPS <span class="eco-pill-count">2</span></span>
-          <span class="eco-pill eco-pill-j-gap">Labor &amp; Workers <span class="eco-pill-count">0</span></span>
+          <span class="eco-pill eco-pill-j-mid">LGBTQ+ <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Immigration / Latino <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-mid">Labor <span class="eco-pill-count">1</span></span>
+          <span class="eco-pill eco-pill-j-mid">Housing &amp; Neighborhood <span class="eco-pill-count">1</span></span>
           <span class="eco-pill eco-pill-j-gap">CTA / Transit <span class="eco-pill-count">0</span></span>
-          <span class="eco-pill eco-pill-j-gap">Housing <span class="eco-pill-count">0</span></span>
-          <span class="eco-pill eco-pill-j-gap">Latino Community <span class="eco-pill-count">0</span></span>
         </div>
       </div>
 
       <div class="eco-panel eco-panel-l">
         <div class="eco-panel-eyebrow">Lifestyle Layer — Culture &amp; Community</div>
         <div class="eco-panel-stats">
-          <div class="eco-ps"><span class="eco-ps-num">34</span><span class="eco-ps-label">Creators</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">~70%</span><span class="eco-ps-label">TikTok</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">15+</span><span class="eco-ps-label">Food creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">39</span><span class="eco-ps-label">Creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">~60%</span><span class="eco-ps-label">TikTok</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">~30%</span><span class="eco-ps-label">Instagram</span></div>
         </div>
         <div class="eco-panel-subhead">Top Content Areas</div>
         <div class="eco-pills">
@@ -1437,19 +1453,31 @@
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
         <div class="cw-i-side"><span class="cw-inst-badge cw-inst-none">✗ Absent</span></div>
       </div>
-      <div class="cw-row cw-row-gap">
-        <div class="cw-j-side"><span class="cw-zero">—</span></div>
-        <div class="cw-label">Latino Community<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">2</span><div class="cw-bar-j" style="width:35px"></div></div>
+        <div class="cw-label">Immigration / Latino<span class="cw-label-sub">emerging coverage</span></div>
         <div class="cw-l-side"><span class="cw-zero">—</span></div>
         <div class="cw-i-side"><span class="cw-inst-badge cw-inst-yes">✓ Present</span></div>
       </div>
-      <div class="cw-row cw-row-gap">
-  <div class="cw-j-side"><span class="cw-zero">—</span></div>
-  <div class="cw-label">LGBTQ+ Community<span class="cw-label-sub"><span class="cw-gap-badge">⚠ Critical gap</span></span></div>
-  <div class="cw-l-side"><span class="cw-zero">—</span></div>
-  <div class="cw-i-side"><span class="cw-inst-badge cw-inst-partial">~ Legacy only</span></div>
-</div>
+      <div class="cw-row">
+        <div class="cw-j-side"><span class="cw-num cw-num-j">2</span><div class="cw-bar-j" style="width:35px"></div></div>
+        <div class="cw-label">LGBTQ+<span class="cw-label-sub">emerging coverage</span></div>
+        <div class="cw-l-side"><span class="cw-zero">—</span></div>
+        <div class="cw-i-side"><span class="cw-inst-badge cw-inst-partial">~ Legacy only</span></div>
+      </div>
     </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Emerging Voices — Under Monitoring</h2>
+    <p style="font-size:14px;color:#555;max-width:700px;margin-bottom:20px;line-height:1.6">4 creators · TikTok · Early stage, civic journalism function confirmed. Not yet in the journalism table — tracking for future inclusion.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" id="emerging-voices-grid"></div>
+  </section>
+
+  <section class="section">
+    <h3 style="font-size:16px;font-weight:700;color:#000;margin-bottom:8px">Broader Ecosystem</h3>
+    <p style="font-size:13px;color:#888;max-width:680px;margin-bottom:20px;line-height:1.6">Outlets, nonprofits, and institutions that anchor the Chicago independent media landscape. These are not individual creators — they're the infrastructure around them.</p>
+    <div id="ecosystem-orgs-list"></div>
   </section>
 
 </div>
@@ -1469,7 +1497,7 @@ const JOURNALISM_CREATORS = [
   { name: "Austin Berg", channel: "The Last Ward", url: "https://www.thelastward.org/", platform: "Newsletter", beat: "City Hall & Politics", geography: "Chicago", pulse: false },
   { name: "H Kapp-Klote", channel: "The Chicago 312", url: "https://hs-newsletter-e91163.beehiiv.com/", platform: "Newsletter - Beehiiv", beat: "City Hall & Politics", geography: "Chicago", pulse: false },
   { name: "Charlie Meyerson", channel: "Chicago Public Square", url: "https://www.chicagopublicsquare.com/", platform: "Newsletter", beat: "City Hall & Politics", geography: "Chicago", pulse: false },
-  { name: "Adam Mockler", channel: "Adam Mockler", url: "https://www.youtube.com/@adammockler", platform: "Video - YouTube", beat: "City Hall & Politics", geography: "Chicago", pulse: false },
+  { name: "Adam Mockler", channel: "Adam Mockler", url: "https://www.tiktok.com/@adammockler", platform: "Video - TikTok + YouTube", beat: "City Hall & Politics", geography: "Chicago", pulse: false, descriptor: "446.6K TikTok (co-primary platform); independent City Hall & Politics video coverage" },
   { name: "Rich Miller", channel: "Capitol Fax", url: "https://capitolfax.com/", platform: "Website", beat: "City Hall & Politics", geography: "Illinois", pulse: false },
   { name: "Patrick Pfingsten", channel: "The Illinoize", url: "https://www.theillinoize.com/", platform: "Website", beat: "City Hall & Politics", geography: "Illinois", pulse: false },
   // Sports
@@ -1493,7 +1521,7 @@ const JOURNALISM_CREATORS = [
   { name: "Johnny Cole Dickson", channel: "No Lab Coat Required", url: "https://www.youtube.com/@NoLabCoatRequired", platform: "Video - YouTube", beat: "Health & Science", geography: "Chicago", pulse: false },
   // Black Chicago
   { name: "Ricardo Gamboa", channel: "The Hoodoise", url: "https://hoodoisie.wordpress.com/about/", platform: "Podcast", beat: "Black Chicago", geography: "Chicago", pulse: false },
-  { name: "Shermann \"Dilla\" Thomas", channel: "Chicago Mahogany / You Don't Know Chi", url: "https://chicagomahogany.com", platform: "Video", beat: "Black Chicago", geography: "Chicago", pulse: false },
+  { name: "Shermann \"Dilla\" Thomas", channel: "Chicago Mahogany / You Don't Know Chi", url: "https://chicagomahogany.com", platform: "Video", beat: "Black Chicago", geography: "Chicago", pulse: false, descriptor: "Chicago history and culture creator; South Side native; Emmy-nominated; 122.9K TikTok (@6figga_dilla)" },
   { name: "Sara Faddah, Dario Durham", channel: "77 Flavors Of Chicago", url: "https://www.77flavorschi.com", platform: "Video - Instagram", beat: "Black Chicago", geography: "Chicago", pulse: false },
   // Criminal Justice
   { name: "Florian Sohnke", channel: "Chicago Contrarian", url: "https://www.chicagocontrarian.com/about", platform: "Website", beat: "Criminal Justice", geography: "Chicago", pulse: false },
@@ -1510,7 +1538,26 @@ const JOURNALISM_CREATORS = [
   { name: "Nathan Graber-Lipperman", channel: "Creator Mag", url: "https://www.creatormag.blog/", platform: "Newsletter - Substack", beat: "Media & Press Freedom", geography: "Chicago", pulse: true },
   // Added from Medill Google Sheet — not previously on page
   { name: "Chicagoverse", channel: "Chicagoverse", url: "https://podcasts.apple.com/us/podcast/chicagoverse/id1547902079", platform: "Podcast", beat: "General News", geography: "Chicago", pulse: false },
-  { name: "Unraveled Press", channel: "Unraveled", url: "https://unraveledpress.com", platform: "Website", beat: "Investigative", geography: "Chicago", pulse: false },
+  { name: "Unraveled Press", channel: "Unraveled Press", url: "https://www.unraveledpress.com", platform: "TikTok + Video", beat: "Immigration / Criminal Justice", geography: "Chicago", pulse: false, descriptor: "Independent documentary journalists; 9.8K TikTok, 340K likes; on-the-ground coverage of Chicago Loop ICE protests and Broadview ICE facility; followed by Injustice Watch" },
+  // City Hall & Politics — new entries
+  { name: "Ben Joravsky", channel: "The Ben Joravsky Show", url: "https://benjoravsky.substack.com", platform: "Podcast", beat: "City Hall & Politics", geography: "Chicago", pulse: false, descriptor: "Former Chicago Reader; daily listener-supported TIF accountability podcast; one of the city's longest-running independent political voices" },
+  { name: "Politically Illinois", channel: "Politically Illinois", url: "https://politicallyillinois.substack.com", platform: "TikTok + Newsletter", beat: "City Hall & Politics", geography: "Chicago", pulse: false, descriptor: "Multi-platform Illinois/Chicago politics commentary; 15.4K TikTok, 184K likes; covers City Council and mayoral politics" },
+  { name: "The JAAM", channel: "The JAAM", url: "https://thejaampod.com", platform: "Podcast + TikTok", beat: "City Hall & Politics", geography: "Chicago", pulse: false, descriptor: "Four young Black Chicagoans covering city politics and Black culture; 192.6K TikTok, 3.8M likes; CBS Chicago coverage; Mayor Johnson interview" },
+  // Black Chicago — new entries
+  { name: "Ernest Crim III", channel: "You Don't Know Chi", url: "https://ernestcrim.com", platform: "Video + Newsletter", beat: "Black Chicago", geography: "Chicago (South Side)", pulse: false, descriptor: "Emmy-nominated South Side native; Fox 32 show; 426K TikTok; covers Black Chicago history with current-events frame" },
+  { name: "Charlene Rhinehart", channel: "Chicago Southsider", url: "https://chicagosouthsider.substack.com", platform: "Newsletter - Substack", beat: "Black Chicago", geography: "Chicago (South Side)", pulse: false, descriptor: "30K+ Substack subscribers; Medill Local News Accelerator graduate; Solutions Journalism Network LEDE Fellow 2023; active weekly" },
+  { name: "Hermene Hartman", channel: "N'DIGO Studio", url: "https://ndigo.com/new-podcast/", platform: "Podcast", beat: "Black Chicago", geography: "Chicago", pulse: false, descriptor: "Founder of N'DIGO (1989); Black Chicago media institution; podcast covers politics, culture, and civic life; Apple Podcasts / Spotify / iHeart" },
+  { name: "Judith McCray", channel: "Change Agents", url: "https://changeagentsthepodcast.com", platform: "Podcast", beat: "Black Chicago", geography: "Chicago", pulse: false, descriptor: "Emmy-winning broadcast journalist; founder of Reparations Media; trains BIPOC journalists; MacArthur + Field Foundation Leaders for a New Chicago 2023" },
+  { name: "Raynard Hall", channel: "Bronzecomm", url: "https://bronzecomm.com", platform: "Newsletter", beat: "Black Chicago", geography: "Chicago (South Side)", pulse: false, descriptor: "7,200 subscribers; covers nonprofits, social justice, and neighborhoods across the Black South Side from Loop to Roseland; CIMA member; solo-run" },
+  // Immigration / Latino — new entries
+  { name: "Francia García Hernández", channel: "¡Presente!", url: "https://www.cantv.org/show/presente/", platform: "Video + Community TV", beat: "Immigration / Latino", geography: "Chicago (Pilsen / Little Village)", pulse: false, descriptor: "Co-producer of CAN TV's ¡Presente!; covers Latino voices and immigrant community issues; MA in civic media from Columbia College Chicago" },
+  // LGBTQ+ — new entries
+  { name: "Devlyn Camp", channel: "Queer Serial", url: "https://queerserial.com", platform: "Podcast", beat: "LGBTQ+", geography: "Chicago", pulse: false, descriptor: "NLGJA Excellence in Journalism Award 2021; co-hosted They & Them queer Chicago news podcast; Windy City Times 30 Under 30" },
+  { name: "Anna DeShawn", channel: "Queer News", url: "https://annadeshawn.com", platform: "Podcast + Radio", beat: "LGBTQ+", geography: "Chicago (South Side)", pulse: false, descriptor: "Queer News podcast; Ambie Award 2023; founder of E3 Radio online LGBTQ+ station; active through 2026" },
+  // Labor — new entry
+  { name: "Jerry Mead-Lucero", channel: "Labor Express Radio", url: "https://laborexpress.net", platform: "Podcast + Radio", beat: "Labor", geography: "Chicago", pulse: false, descriptor: "Chicago's only English-language labor news radio program; WLPN 105.5 FM Sundays since 2004; AFT Local 4343 + IWW member" },
+  // Housing & Neighborhood — conditional on LoganSquarist verify
+  { name: "Ariel Parrella-Aureli", channel: "LoganSquarist", url: "https://logansquarist.com", platform: "Website", beat: "Housing & Neighborhood", geography: "Chicago (Logan Square)", pulse: false, descriptor: "Editor-in-chief of LoganSquarist hyperlocal site; covers housing, gentrification, and low-income tax credit expirations on Chicago's Northwest Side" },
 ];
 
 const LIFESTYLE_CREATORS = [
@@ -1526,13 +1573,12 @@ const LIFESTYLE_CREATORS = [
   { name: "Jonathan Zaragoza", handle: "goatboyintl", channel: "goatboyintl", platform: "TikTok", url: "https://www.tiktok.com/@goatboyintl?lang=en", content_type: "food, restaurants" },
   { name: "Michael Nagrant", channel: "The Hunger", platform: "Newsletter", url: "https://thehunger.substack.com/", content_type: "food, restaurants" },
   { name: "Dennis Lee", channel: "Food Is Stupid", platform: "Newsletter", url: "https://foodisstupid.substack.com/", content_type: "food, restaurants" },
-  { name: "Dennis Lee", channel: "The Party Cut", platform: "Newsletter", url: "https://thepartycut.substack.com/", content_type: "food, restaurants, things to do" },
   // Things To Do
   { name: "Kaylee Jo Flores", handle: "kayleejochicago", channel: "Kaylee Jo Chicago", platform: "TikTok", url: "https://www.tiktok.com/@kayleejochicago?lang=en", content_type: "things to do, food, restaurants" },
   { name: "Kennedy Claire Bloom", handle: "keninchicago", channel: "KeninChicago", platform: "TikTok", url: "https://www.tiktok.com/@keninchicago?lang=en", content_type: "things to do, food, lifestyle" },
   { name: "Cori Hanna", handle: "coriinthecity", channel: "Cori In Chicago", platform: "TikTok", url: "https://www.tiktok.com/@coriinthecity?lang=en", content_type: "things to do, food, travel" },
   { name: "Megan Schibelka", handle: "meganschibelka", channel: "Megan Schibelka", platform: "TikTok", url: "https://www.tiktok.com/@meganschibelka?lang=en", content_type: "things to do, travel, food" },
-  { name: "Renee Koontz", handle: "chicago.by.ren", channel: "Chicago By Ren", platform: "TikTok", url: "https://www.tiktok.com/@chicago.by.ren?lang=en", content_type: "things to do, food, lifestyle" },
+  { name: "Renee DiNino", handle: "chicago.by.ren", channel: "Chicago By Ren", platform: "TikTok + Instagram", url: "https://www.tiktok.com/@chicago.by.ren?lang=en", content_type: "architecture, neighborhoods, city guide" },
   { name: "Hunter Haines", handle: "hunter_haines", channel: "Hunter Haines", platform: "TikTok", url: "https://www.tiktok.com/@hunter_haines", content_type: "things to do, food, lifestyle" },
   { name: "Chase Vondran", handle: "explorewithchase", channel: "Explore With Chase", platform: "TikTok", url: "https://www.tiktok.com/@explorewithchase", content_type: "things to do, travel" },
   { name: "Alexandra Stewart", handle: ".sassyconfetti", channel: "Sassy Confetti", platform: "TikTok", url: "https://www.tiktok.com/@.sassyconfetti", content_type: "things to do, food, lifestyle" },
@@ -1553,6 +1599,34 @@ const LIFESTYLE_CREATORS = [
   { name: "Whats The Word", handle: "whatsthewordtv", channel: "Whats The Word", platform: "TikTok", url: "https://www.tiktok.com/@whatsthewordtv", content_type: "comedy, things to do" },
   { name: "Sara Faddah, Dario Durham", channel: "77 Flavors of Chicago", platform: "Instagram", url: "https://www.77flavorschi.com", content_type: "comedy, food, things to do" },
   { name: "Jimmy Carrane", channel: "Improv Nerd", platform: "Podcast", url: "https://jimmycarrane.com/improv-nerd-podcast/", content_type: "comedy" },
+  // New additions
+  { name: "Johnny Viti", handle: "johnnyviti", channel: "Johnny Viti", platform: "TikTok", url: "https://www.tiktok.com/@johnnyviti", content_type: "neighborhood culture, Chicago identity, humor" },
+  { name: "Chad the Bird", handle: "chadthebirdtok", channel: "Chad the Bird", platform: "TikTok + YouTube", url: "https://www.tiktok.com/@chadthebirdtok", content_type: "political satire, Chicago culture, The Paper Machete" },
+  { name: "Walking Chicago", handle: "walking.chi", channel: "Walking Chicago", platform: "TikTok", url: "https://www.tiktok.com/@walking.chi", content_type: "neighborhood exploration, LGBTQ+ history, urbanism" },
+  { name: "Farzaan Aleem", handle: "chi.suhoor", channel: "chi.suhoor", platform: "Instagram", url: "https://www.instagram.com/chi.suhoor", content_type: "Muslim-owned restaurants, neighborhood culture, Chicago food" },
+  { name: "312food", handle: "312food", channel: "312food", platform: "Instagram", url: "https://www.instagram.com/312food", content_type: "restaurants, food, Chicago dining" },
+  { name: "Hangry in Chicago", handle: "hangry_chicago", channel: "Hangry in Chicago", platform: "Instagram", url: "https://www.instagram.com/hangry_chicago", content_type: "food, travel, Chicago lifestyle" },
+];
+
+const EMERGING_VOICES = [
+  { name: "Intersectional Urbanist", handle: "christian.chicago", url: "https://www.tiktok.com/@christian.chicago", platform: "TikTok", beat: "Housing / Power", followers: 4870, likes: 394700, signal: "Real talk about housing, justice, and power in Chicago. Exceptional engagement ratio — 394K likes on 4.8K followers." },
+  { name: "ElJardineroDel312", handle: "eljardinerodel312", url: "https://www.tiktok.com/@eljardinerodel312", platform: "TikTok", beat: "Arts & Culture / Chicago History", followers: 3823, likes: 201000, signal: "Architecture, art, culture, history, flora across South Side neighborhoods. Consistent multi-hashtag presence." },
+  { name: "Crook County TV", handle: "crookcountytv", url: "https://www.tiktok.com/@crookcountytv", platform: "TikTok + YouTube", beat: "Criminal Justice", followers: 2045, likes: 43300, signal: "Government accountability and transparency. YouTube channel active. Explicit civic mission." },
+  { name: "Nicole The News Lady", handle: "nicolethenewslady", url: "https://www.tiktok.com/@nicolethenewslady", platform: "TikTok", beat: "City Hall & Politics", followers: 1195, likes: 14300, signal: "Self-identifies as journalist. Covers specific City Council votes and mayoral housing initiatives. Early-stage." },
+];
+
+const ECOSYSTEM_ORGS = [
+  { name: "Borderless Magazine", url: "https://borderlessmag.org", type: "nonprofit", beat: "Immigration / Latino", note: "Chicago's immigration news outlet; nonprofit model; followed by Injustice Watch" },
+  { name: "City Cast Chicago", url: "https://citycast.fm/chicago", type: "outlet", beat: "City Hall & Politics", note: "Chicago's daily local news podcast; City Cast network" },
+  { name: "Illinois Answers Project", url: "https://illinoisanswers.org", type: "nonprofit", beat: "City Hall & Politics", note: "Solutions journalism; statewide Illinois focus; followed by Injustice Watch" },
+  { name: "In These Times", url: "https://inthesetimes.com", type: "outlet", beat: "Labor / Politics", note: "Chicago-based progressive journalism magazine founded 1976; covers labor and social justice" },
+  { name: "Lucy Parsons Labs", url: "https://lucyparsonslabs.com", type: "nonprofit", beat: "Criminal Justice", note: "Chicago civil liberties and police accountability nonprofit; digital security and surveillance work" },
+  { name: "Cicero Independiente", url: "https://ciceroindependiente.com", type: "nonprofit", beat: "Latino / Civic", note: "Bilingual print + digital; City Bureau fiscally sponsored; Press Forward Chicago grantee; INN member" },
+  { name: "Investigative Project on Race and Equity", url: "https://raceandequityproject.org", type: "nonprofit", beat: "Race / Equity", note: "FOIA-focused; MacArthur, Field, Joyce, CCT, Press Forward funded; partners with Block Club, Injustice Watch, Borderless" },
+  { name: "The TRiiBE", url: "https://thetriibe.com", type: "outlet", beat: "Black Chicago", note: "Black Chicago journalism outlet; TikTok active; followed by Injustice Watch and Unraveled Press" },
+  { name: "WBEZ / In The Loop", url: "https://www.wbez.org", type: "legacy", beat: "City Hall & Politics", note: "Public radio; merged with Chicago Sun-Times; In The Loop is the daily news program" },
+  { name: "E3 Radio", url: "https://e3radio.fm", type: "outlet", beat: "LGBTQ+ / Black Chicago", note: "Online LGBTQ+ radio station; founded by Anna DeShawn (tracked individually in journalism layer)" },
+  { name: "Chicago Independent Media Alliance (CIMA)", url: "https://cimadirectory.org", type: "collective", beat: "Various", note: "69 members, 81 outlets, 4.5M combined audience; key infrastructure org for Chicago independent media" },
 ];
 
 /* ═══════════════════════════════════════════════════════════ */
@@ -1565,9 +1639,11 @@ function esc(s) {
 
 function platGroup(p) {
   if (!p) return '';
-  if (p.startsWith('Newsletter')) return 'Newsletter';
-  if (p.startsWith('Video'))      return 'Video';
-  if (p.startsWith('Social'))     return 'Social';
+  const s = p.toLowerCase();
+  if (s.includes('tiktok') || s.startsWith('video')) return 'TikTok / Video';
+  if (s.includes('podcast'))    return 'Podcast';
+  if (s.includes('newsletter') || s.includes('substack') || s.includes('beehiiv') || s.includes('ghost')) return 'Newsletter';
+  if (s.includes('website'))    return 'Website';
   return p;
 }
 
@@ -1641,7 +1717,7 @@ function filterTable() {
 
   const filtered = JOURNALISM_CREATORS.filter(c => {
     const bMatch = !beat     || c.beat === beat;
-    const gMatch = !geo      || (geo === 'Illinois' ? c.geography === 'Illinois' : c.geography === 'Chicago');
+    const gMatch = !geo      || (geo === 'Illinois' ? c.geography.includes('Illinois') : c.geography.includes('Chicago'));
     const pMatch = !platform || platGroup(c.platform) === platform;
     return bMatch && gMatch && pMatch;
   });
@@ -1997,11 +2073,164 @@ function filterRadarTable() {
   renderRadarTable(filtered);
 }
 
+/* ════════════════════════════════════════════════════════════ */
+/* SCATTER VISUALIZATION                                        */
+/* ════════════════════════════════════════════════════════════ */
+function renderScatter() {
+  const svg = document.getElementById('scatter-svg');
+  const legend = document.getElementById('scatter-legend');
+  if (!svg) return;
+
+  const platGroup = p => {
+    if (!p) return 'Other';
+    const s = p.toLowerCase();
+    if (s.includes('tiktok') || s.includes('video')) return 'TikTok / Video';
+    if (s.includes('podcast')) return 'Podcast';
+    if (s.includes('newsletter') || s.includes('substack') || s.includes('beehiiv') || s.includes('ghost')) return 'Newsletter';
+    if (s.includes('website')) return 'Website';
+    return 'Other';
+  };
+
+  const platColors = {
+    'TikTok / Video': '#97d600',
+    'Podcast':        '#ffaa00',
+    'Newsletter':     '#005ea3',
+    'Website':        '#806600',
+    'Other':          '#b0b0b8',
+  };
+
+  const beats = ['City Hall & Politics', 'Black Chicago', 'Arts & Culture', 'Sports', 'Media & Press Freedom', 'Health & Science', 'Criminal Justice', 'LGBTQ+', 'Immigration / Latino'];
+  const platforms = ['TikTok / Video', 'Podcast', 'Newsletter', 'Website'];
+
+  const pad = { top: 24, right: 24, bottom: 48, left: 24 };
+  const W = svg.getBoundingClientRect().width || 700;
+  const H = 320;
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+
+  const beatX = beat => {
+    const i = beats.indexOf(beat);
+    if (i === -1) return null;
+    return pad.left + (i + 0.5) * (plotW / beats.length);
+  };
+  const platY = plat => {
+    const i = platforms.indexOf(plat);
+    if (i === -1) return null;
+    return pad.top + (i + 0.5) * (plotH / platforms.length);
+  };
+
+  const jitter = (idx, range) => {
+    const seed = (idx * 2654435761) >>> 0;
+    return ((seed % (range * 2 + 1)) - range);
+  };
+
+  const dots = JOURNALISM_CREATORS
+    .map((c, idx) => ({ c, idx, pg: platGroup(c.platform), x: beatX(c.beat), y: platY(platGroup(c.platform)) }))
+    .filter(d => d.x !== null && d.y !== null);
+
+  let svgHTML = '';
+
+  // Beat axis labels
+  beats.forEach((b, i) => {
+    const x = pad.left + (i + 0.5) * (plotW / beats.length);
+    const label = b.length > 12 ? b.replace(' & ', ' &\n').split('\n') : [b];
+    svgHTML += label.map((line, li) =>
+      `<text x="${x}" y="${H - pad.bottom + 16 + li * 13}" text-anchor="middle" font-size="10" font-weight="500" fill="#606068" font-family="Hanken Grotesk,sans-serif">${line}</text>`
+    ).join('');
+  });
+
+  // Platform axis labels
+  platforms.forEach((p, i) => {
+    const y = pad.top + (i + 0.5) * (plotH / platforms.length);
+    svgHTML += `<text x="${pad.left - 4}" y="${y + 4}" text-anchor="end" font-size="10" font-weight="500" fill="#606068" font-family="Hanken Grotesk,sans-serif">${p}</text>`;
+  });
+
+  // Grid lines
+  platforms.forEach((_, i) => {
+    const y = pad.top + (i + 0.5) * (plotH / platforms.length);
+    svgHTML += `<line x1="${pad.left}" y1="${y}" x2="${W - pad.right}" y2="${y}" stroke="#d4d4d8" stroke-width="0.5"/>`;
+  });
+
+  // Dots
+  dots.forEach(d => {
+    const xj = d.x + jitter(d.idx, 8);
+    const yj = d.y + jitter(d.idx + 100, 6);
+    const color = platColors[d.pg] || '#b0b0b8';
+    svgHTML += `<circle cx="${xj}" cy="${yj}" r="7" fill="${color}" opacity="0.85" stroke="#fff" stroke-width="1.5">
+      <title>${esc(d.c.name)} — ${esc(d.c.beat)}</title>
+    </circle>`;
+  });
+
+  svg.innerHTML = svgHTML;
+
+  // Legend
+  legend.innerHTML = Object.entries(platColors).filter(([k]) => k !== 'Other').map(([label, color]) =>
+    `<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:#efeff2;border:0.5px solid #d4d4d8;border-radius:100px;font-size:12px;font-weight:500;color:#313131">
+      <svg width="10" height="10"><circle cx="5" cy="5" r="5" fill="${color}"/></svg>${label}
+    </span>`
+  ).join('');
+}
+
+/* ════════════════════════════════════════════════════════════ */
+/* EMERGING VOICES                                              */
+/* ════════════════════════════════════════════════════════════ */
+function renderEmergingVoices() {
+  const grid = document.getElementById('emerging-voices-grid');
+  if (!grid) return;
+  grid.innerHTML = EMERGING_VOICES.map(v => {
+    const followersK = v.followers >= 1000 ? (v.followers / 1000).toFixed(1) + 'K' : v.followers;
+    const likesK = v.likes >= 1000 ? Math.round(v.likes / 1000) + 'K' : v.likes;
+    return '<div style="background:#f4f4f6;border:0.5px solid #d4d4d8;border-radius:6px;padding:16px 18px;position:relative">' +
+      '<span style="position:absolute;top:12px;right:12px;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#b0b0b8">Monitoring</span>' +
+      '<div style="font-size:13px;font-weight:700;color:#000;margin-bottom:2px">' + esc(v.name) + '</div>' +
+      '<div style="font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:#b0b0b8;margin-bottom:8px">@' + esc(v.handle) + ' · ' + esc(v.platform) + '</div>' +
+      '<div style="font-size:12px;color:#606068;margin-bottom:8px">' + esc(v.beat) + '</div>' +
+      '<div style="display:flex;gap:16px;margin-bottom:10px">' +
+        '<span style="font-size:12px;color:#313131"><strong>' + followersK + '</strong> followers</span>' +
+        '<span style="font-size:12px;color:#313131"><strong>' + likesK + '</strong> likes</span>' +
+      '</div>' +
+      '<p style="font-size:13px;font-style:italic;color:#606068;line-height:1.5;margin:0">' + esc(v.signal) + '</p>' +
+      '</div>';
+  }).join('');
+}
+
+/* ════════════════════════════════════════════════════════════ */
+/* ECOSYSTEM ORGS                                               */
+/* ════════════════════════════════════════════════════════════ */
+function renderEcosystemOrgs() {
+  const list = document.getElementById('ecosystem-orgs-list');
+  if (!list) return;
+  const typeColor = { nonprofit: '#005ea3', outlet: '#806600', legacy: '#b0b0b8', collective: '#b0b0b8' };
+  list.innerHTML = ECOSYSTEM_ORGS.map(o =>
+    '<div style="display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:0.5px solid #d4d4d8">' +
+      '<div style="flex:1;min-width:0">' +
+        '<a href="' + esc(o.url) + '" target="_blank" rel="noopener" style="font-size:14px;font-weight:500;color:#000;text-decoration:none">' + esc(o.name) + ' →</a>' +
+        '<span style="margin-left:8px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:100px;background:#efeff2;color:' + (typeColor[o.type] || '#606068') + '">' + o.type + '</span>' +
+        '<div style="font-size:13px;color:#606068;margin-top:4px;line-height:1.5">' + esc(o.note) + '</div>' +
+      '</div>' +
+      '<div style="font-size:12px;color:#b0b0b8;white-space:nowrap;flex-shrink:0;padding-top:2px">' + esc(o.beat) + '</div>' +
+    '</div>'
+  ).join('');
+}
+
 /* INIT */
 renderTable(JOURNALISM_CREATORS);
 renderLocalCreators();
 renderEcoTable(MEDILL_OUTLETS);
 renderRadarTable(RADAR_DATA);
+renderEmergingVoices();
+renderEcosystemOrgs();
+// Scatter renders on tab activation so SVG has correct width
+let scatterRendered = false;
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.tab === 'creatormap' && !scatterRendered) {
+      setTimeout(renderScatter, 50);
+      scatterRendered = true;
+    }
+  });
+});
+console.log('Chicago City Lab v2 — journalism: ' + JOURNALISM_CREATORS.length + ', lifestyle: ' + LIFESTYLE_CREATORS.length + ', ecosystem orgs: ' + ECOSYSTEM_ORGS.length);
 
 </script>
 <script src="/assets/js/footer.js"></script>
