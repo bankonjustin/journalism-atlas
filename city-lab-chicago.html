@@ -458,10 +458,30 @@
 <div class="tab-pane" id="tab-coverage">
 <div class="main">
   <div class="coverage-header">
-    <div><h2 class="coverage-title">What Chicago Is Covering</h2><p class="coverage-sub">Latest published posts from RSS-tracked creators, grouped by beat.</p></div>
-    <div class="pulse-badge"><span class="pulse-badge-dot">&#9679;</span><span class="pulse-badge-text">Powered by Atlas Pulse</span></div>
+    <div><h2 class="coverage-title">What Chicago Is Covering</h2><p class="coverage-sub">Live RSS feeds from independent creators and newsrooms, grouped by beat.</p></div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div class="coverage-layer-toggle" id="coverage-layer-toggle">
+        <button class="cov-layer-btn active" data-clayer="all" onclick="setCoverageLayer('all')">All</button>
+        <button class="cov-layer-btn" data-clayer="creator" onclick="setCoverageLayer('creator')">Creators</button>
+        <button class="cov-layer-btn" data-clayer="institution" onclick="setCoverageLayer('institution')">Institutions</button>
+      </div>
+      <div class="pulse-badge"><span class="pulse-badge-dot">&#9679;</span><span class="pulse-badge-text">Powered by Atlas Pulse</span></div>
+    </div>
   </div>
-  <div class="beat-headlines">
+  <div class="coverage-controls" id="coverage-controls">
+    <span class="coverage-sort-label">Sort by:</span>
+    <button class="cov-sort-btn active" data-sort="beat" onclick="setCoverageSort('beat')">Beat</button>
+    <button class="cov-sort-btn" data-sort="newest" onclick="setCoverageSort('newest')">Newest first</button>
+    <button class="cov-sort-btn" data-sort="source" onclick="setCoverageSort('source')">Source A–Z</button>
+    <span class="coverage-feed-count" id="coverage-feed-count"></span>
+  </div>
+  <div id="coverage-loading" style="text-align:center;padding:48px;color:#b0b0b8;font-size:13px;display:none">
+    <span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:8px">rss_feed</span>
+    Fetching feeds&hellip;
+  </div>
+  <div id="coverage-beat-groups" style="display:none"></div>
+  <div id="coverage-flat-list" class="beat-headlines" style="display:none"></div>
+  <div id="coverage-placeholder" class="beat-headlines">
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#0044cc"></span>City Hall &amp; Politics</div><a class="bhc-headline" href="https://www.thelastward.org/" target="_blank" rel="noopener">From The Last Ward: Chicago aldermanic accountability coverage</a><div class="bhc-meta"><strong>Austin Berg</strong> &middot; The Last Ward</div></div>
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#0044cc"></span>City Hall &amp; Politics</div><a class="bhc-headline" href="https://ericzorn.substack.com/" target="_blank" rel="noopener">From The Picayune Sentinel: Chicago politics and culture commentary</a><div class="bhc-meta"><strong>Eric Zorn</strong> &middot; The Picayune Sentinel</div></div>
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#006600"></span>Sports</div><a class="bhc-headline" href="https://www.blogabull.com/" target="_blank" rel="noopener">From BlogABull: Chicago Bulls analysis and community coverage</a><div class="bhc-meta"><strong>Blog A Bull</strong> &middot; Blogabull.com</div></div>
@@ -469,7 +489,7 @@
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#884400"></span>Black Chicago</div><a class="bhc-headline" href="https://hoodoisie.wordpress.com/about/" target="_blank" rel="noopener">From The Hoodoise: South Side arts, culture, and politics</a><div class="bhc-meta"><strong>Ricardo Gamboa</strong> &middot; The Hoodoise</div></div>
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#006633"></span>Environment</div><a class="bhc-headline" href="https://350chicago.substack.com/about" target="_blank" rel="noopener">From 350 Chicago: Climate and fossil fuel divestment advocacy</a><div class="bhc-meta"><strong>Josh Horwitz</strong> &middot; 350 Chicago</div></div>
   </div>
-  <p style="margin-top:24px;font-size:11px;color:#b0b0b8">Atlas Pulse last run: June 2026. Updates when pulse_v2.py is run for Chicago creators.</p>
+  <p style="margin-top:24px;font-size:11px;color:#b0b0b8" id="coverage-timestamp">Atlas Pulse last run: June 2026. Activate tab to fetch live feeds.</p>
 </div>
 </div>
 
@@ -641,7 +661,142 @@ function clearFilters(){currentBeat='';currentPlat='';document.querySelectorAll(
 function renderRadarFooter(){const el=document.getElementById('radar-footer-grid');if(!el)return;el.innerHTML=EMERGING_VOICES.map(v=>'<div class="radar-card"><div class="radar-card-head"><a class="radar-handle" href="'+esc(v.url)+'" target="_blank" rel="noopener">@'+esc(v.handle)+'</a><span class="radar-monitoring">Monitoring</span></div><div class="radar-beat">'+esc(v.beat)+'</div></div>').join('');}
 
 renderEcosystemOrgs();renderCreators();renderRadarFooter();
-console.log('Chicago City Lab v3 — journalism: '+JOURNALISM_CREATORS.length+', lifestyle: '+LIFESTYLE_CREATORS.length+', emerging: '+EMERGING_VOICES.length+', ecosystem orgs: '+ECOSYSTEM_ORGS.length);
+console.log('Chicago City Lab — journalism: '+JOURNALISM_CREATORS.length+', lifestyle: '+LIFESTYLE_CREATORS.length+', ecosystem orgs: '+ECOSYSTEM_ORGS.length);
+
+// ── COVERAGE TAB — RSS FEEDS ──────────────────────────────────────────────
+const CHICAGO_FEEDS=[
+  // City Hall & Politics — creators
+  {layer:'creator',name:'Eric Zorn',channel:'The Picayune Sentinel',beat:'City Hall & Politics',url:'https://ericzorn.substack.com',rss:'https://ericzorn.substack.com/feed',beatColor:'#0044cc'},
+  {layer:'creator',name:'Austin Berg',channel:'The Last Ward',beat:'City Hall & Politics',url:'https://www.thelastward.org',rss:'https://www.thelastward.org/feed',beatColor:'#0044cc'},
+  {layer:'creator',name:'Charlie Meyerson',channel:'Chicago Public Square',beat:'City Hall & Politics',url:'https://www.chicagopublicsquare.com',rss:'https://www.chicagopublicsquare.com/feed',beatColor:'#0044cc'},
+  {layer:'creator',name:'Rich Miller',channel:'Capitol Fax',beat:'City Hall & Politics',url:'https://capitolfax.com',rss:'https://capitolfax.com/feed',beatColor:'#0044cc'},
+  {layer:'creator',name:'Patrick Pfingsten',channel:'The Illinoize',beat:'City Hall & Politics',url:'https://www.theillinoize.com',rss:'https://www.theillinoize.com/feed',beatColor:'#0044cc'},
+  {layer:'creator',name:'Ben Joravsky',channel:'The Ben Joravsky Show',beat:'City Hall & Politics',url:'https://benjoravsky.substack.com',rss:'https://benjoravsky.substack.com/feed',beatColor:'#0044cc'},
+  {layer:'creator',name:'Politically Illinois',channel:'Politically Illinois',beat:'City Hall & Politics',url:'https://politicallyillinois.substack.com',rss:'https://politicallyillinois.substack.com/feed',beatColor:'#0044cc'},
+  {layer:'creator',name:'H Kapp-Klote',channel:'The Chicago 312',beat:'City Hall & Politics',url:'https://hs-newsletter-e91163.beehiiv.com',rss:'https://hs-newsletter-e91163.beehiiv.com/feed',beatColor:'#0044cc'},
+  // Sports — creators
+  {layer:'creator',name:'Matt Brown',channel:'Extra Points',beat:'Sports',url:'https://www.extrapointsmb.com',rss:'https://www.extrapointsmb.com/feed',beatColor:'#006600'},
+  {layer:'creator',name:'Andrew Donlan',channel:'Still Gotta Come Through Chicago',beat:'Sports',url:'https://sgctc.substack.com',rss:'https://sgctc.substack.com/feed',beatColor:'#006600'},
+  // Arts & Culture — creators
+  {layer:'creator',name:'Caroline Patton',channel:'Chicago Show Calendar',beat:'Arts & Culture',url:'https://chicagoshowcal.substack.com',rss:'https://chicagoshowcal.substack.com/feed',beatColor:'#660066'},
+  {layer:'creator',name:'Theresa Goodrich',channel:'Living Landmarks of Chicago',beat:'Arts & Culture',url:'https://chicagolandmarks.substack.com',rss:'https://chicagolandmarks.substack.com/feed',beatColor:'#660066'},
+  // Media & Press Freedom — creators
+  {layer:'creator',name:'Nathan Graber-Lipperman',channel:'Creator Mag',beat:'Media & Press Freedom',url:'https://www.creatormag.blog',rss:'https://www.creatormag.blog/feed',beatColor:'#884400'},
+  {layer:'creator',name:'Igor Studenkov',channel:'Chicago Media Journal',beat:'Media & Press Freedom',url:'https://chimediajournal.substack.com',rss:'https://chimediajournal.substack.com/feed',beatColor:'#884400'},
+  {layer:'creator',name:'Mark Jacob',channel:'Stop the Presses',beat:'Media & Press Freedom',url:'https://www.stopthepresses.news',rss:'https://www.stopthepresses.news/feed',beatColor:'#884400'},
+  {layer:'creator',name:'Parker Molloy',channel:'The Present Age',beat:'Media & Press Freedom',url:'https://www.readtpa.com',rss:'https://www.readtpa.com/feed',beatColor:'#884400'},
+  // Education / CPS — creators
+  {layer:'creator',name:'Maureen Kelleher',channel:'Board Rule',beat:'Education / CPS',url:'https://board-rule.ghost.io',rss:'https://board-rule.ghost.io/rss',beatColor:'#880000'},
+  {layer:'creator',name:'Daniel B. Rodriguez',channel:'Daniel B. Rodriguez',beat:'Education / CPS',url:'https://danielbrodriguez.substack.com',rss:'https://danielbrodriguez.substack.com/feed',beatColor:'#880000'},
+  // Black Chicago — creators
+  {layer:'creator',name:'Charlene Rhinehart',channel:'Chicago Southsider',beat:'Black Chicago',url:'https://chicagosouthsider.substack.com',rss:'https://chicagosouthsider.substack.com/feed',beatColor:'#884400'},
+  {layer:'creator',name:'The JAAM',channel:'The JAAM',beat:'Black Chicago / City Hall & Politics',url:'https://thejaampod.substack.com',rss:'https://thejaampod.substack.com/feed',beatColor:'#884400'},
+  {layer:'creator',name:'Ricardo Gamboa',channel:'The Hoodoise',beat:'Black Chicago',url:'https://hoodoisie.wordpress.com',rss:'https://hoodoisie.wordpress.com/feed',beatColor:'#884400'},
+  // Environment — creators
+  {layer:'creator',name:'Josh Horwitz',channel:'350 Chicago',beat:'Environment',url:'https://350chicago.substack.com',rss:'https://350chicago.substack.com/feed',beatColor:'#006633'},
+  // Institutions
+  {layer:'institution',name:'Block Club Chicago',channel:'Block Club Chicago',beat:'City Hall & Neighborhoods',url:'https://blockclubchicago.org',rss:'https://blockclubchicago.org/feed',beatColor:'#0044cc'},
+  {layer:'institution',name:'Injustice Watch',channel:'Injustice Watch',beat:'Criminal Justice',url:'https://injusticewatch.org',rss:'https://injusticewatch.org/feed/',beatColor:'#880000'},
+  {layer:'institution',name:'Chalkbeat Chicago',channel:'Chalkbeat Chicago',beat:'Education / CPS',url:'https://chicago.chalkbeat.org',rss:'https://chicago.chalkbeat.org/rss/feed.xml',beatColor:'#880000'},
+  {layer:'institution',name:'South Side Weekly',channel:'South Side Weekly',beat:'Black Chicago / Community',url:'https://southsideweekly.com',rss:'https://southsideweekly.com/feed',beatColor:'#884400'},
+  {layer:'institution',name:'Illinois Answers Project',channel:'Illinois Answers Project',beat:'City Hall & Politics',url:'https://illinoisanswers.org',rss:'https://illinoisanswers.org/feed',beatColor:'#0044cc'},
+  {layer:'institution',name:'Borderless Magazine',channel:'Borderless Magazine',beat:'Immigration / Latino',url:'https://borderlessmag.org',rss:'https://borderlessmag.org/feed',beatColor:'#005522'},
+  {layer:'institution',name:'Chicago Reporter',channel:'Chicago Reporter',beat:'Race / Equity',url:'https://chicagoreporter.com',rss:'https://chicagoreporter.com/feed',beatColor:'#660022'},
+  {layer:'institution',name:'Capitol News Illinois',channel:'Capitol News Illinois',beat:'City Hall & Politics / Statewide',url:'https://capitolnewsillinois.com',rss:'https://capitolnewsillinois.com/feed',beatColor:'#0044cc'},
+];
+
+let coverageLayer='all',coverageSort='beat',fetchedItems=[],coverageFetched=false;
+
+function setCoverageLayer(l){coverageLayer=l;document.querySelectorAll('.cov-layer-btn').forEach(b=>b.classList.toggle('active',b.dataset.clayer===l));renderCoverage();}
+function setCoverageSort(s){coverageSort=s;document.querySelectorAll('.cov-sort-btn').forEach(b=>b.classList.toggle('active',b.dataset.sort===s));renderCoverage();}
+
+async function fetchRSS(feed){
+  const proxy='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.rss)+'&count=3';
+  try{
+    const r=await fetch(proxy,{signal:AbortSignal.timeout(8000)});
+    if(!r.ok)return[];
+    const d=await r.json();
+    if(d.status!=='ok'||!d.items?.length)return[];
+    return d.items.slice(0,3).map(item=>({...feed,title:item.title,link:item.link||feed.url,pubDate:item.pubDate?new Date(item.pubDate):null,snippet:item.description?item.description.replace(/<[^>]+>/g,'').slice(0,120)+'…':''}));
+  }catch(e){return[];}
+}
+
+async function initCoverageFeeds(){
+  if(coverageFetched){renderCoverage();return;}
+  coverageFetched=true;
+  const ph=document.getElementById('coverage-placeholder');
+  const lo=document.getElementById('coverage-loading');
+  if(ph)ph.style.display='none';
+  if(lo)lo.style.display='block';
+  const batchSize=6,results=[];
+  for(let i=0;i<CHICAGO_FEEDS.length;i+=batchSize){
+    const batch=CHICAGO_FEEDS.slice(i,i+batchSize);
+    const br=await Promise.all(batch.map(f=>fetchRSS(f)));
+    br.forEach(items=>results.push(...items));
+    if(i+batchSize<CHICAGO_FEEDS.length)await new Promise(r=>setTimeout(r,300));
+  }
+  if(lo)lo.style.display='none';
+  if(!results.length){
+    if(lo)lo.innerHTML='<span style="font-size:13px;color:#b0b0b8">Feed data unavailable. Try refreshing the tab.</span>';
+    if(lo)lo.style.display='block';
+    return;
+  }
+  fetchedItems=results;
+  const ts=document.getElementById('coverage-timestamp');
+  if(ts)ts.textContent='Fetched '+results.length+' stories from '+new Set(results.map(i=>i.name)).size+' sources. Atlas Pulse last run: June 2026.';
+  renderCoverage();
+}
+
+function coverageCard(item){
+  const badge=item.layer==='institution'?'<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;background:#e8e8f0;color:#3a3a7a;border-radius:100px;padding:2px 7px;margin-left:6px">Institution</span>':'';
+  const dateStr=item.pubDate?item.pubDate.toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
+  return '<div class="beat-headline-card">'+
+    '<div class="bhc-beat"><span class="bhc-beat-dot" style="background:'+esc(item.beatColor)+'"></span>'+esc(item.beat)+badge+'</div>'+
+    '<a class="bhc-headline" href="'+esc(item.link)+'" target="_blank" rel="noopener">'+esc(item.title)+'</a>'+
+    '<div class="bhc-meta"><strong>'+esc(item.name)+'</strong> &middot; '+esc(item.channel)+(dateStr?'<span style="margin-left:8px;color:#b0b0b8">'+esc(dateStr)+'</span>':'')+'</div>'+
+  '</div>';
+}
+
+function renderBeatGroups(items){
+  document.getElementById('coverage-flat-list').style.display='none';
+  const el=document.getElementById('coverage-beat-groups');
+  el.style.display='block';
+  const groups={};
+  items.forEach(i=>{if(!groups[i.beat])groups[i.beat]=[];groups[i.beat].push(i);});
+  const cBeats=Object.keys(groups).filter(b=>groups[b].some(i=>i.layer==='creator')).sort();
+  const iBeats=Object.keys(groups).filter(b=>groups[b].every(i=>i.layer==='institution')).sort();
+  const allBeats=coverageLayer==='institution'?iBeats:coverageLayer==='creator'?cBeats:[...cBeats,...iBeats.filter(b=>!cBeats.includes(b))];
+  let html='';
+  allBeats.forEach(beat=>{
+    if(!groups[beat]?.length)return;
+    html+='<div class="coverage-beat-group"><div class="coverage-beat-heading"><span class="bhc-beat-dot" style="background:'+esc(groups[beat][0].beatColor)+'"></span>'+esc(beat)+'<span class="coverage-beat-count">'+groups[beat].length+'</span></div><div class="beat-headlines">'+groups[beat].map(coverageCard).join('')+'</div></div>';
+  });
+  el.innerHTML=html||'<div style="padding:48px;text-align:center;color:#b0b0b8;font-size:13px">No feeds found for this filter.</div>';
+}
+
+function renderFlatList(items){
+  document.getElementById('coverage-beat-groups').style.display='none';
+  const el=document.getElementById('coverage-flat-list');
+  el.style.display='grid';
+  el.innerHTML=items.length?items.map(coverageCard).join(''):'<div style="padding:48px;text-align:center;color:#b0b0b8;font-size:13px">No feeds found for this filter.</div>';
+}
+
+function renderCoverage(){
+  let items=coverageLayer==='all'?fetchedItems:fetchedItems.filter(i=>i.layer===coverageLayer);
+  const sources=new Set(items.map(i=>i.name)).size;
+  const el=document.getElementById('coverage-feed-count');
+  if(el)el.textContent=items.length+' stories from '+sources+' sources';
+  if(coverageSort==='beat'){renderBeatGroups(items);}
+  else{
+    if(coverageSort==='newest')items=[...items].sort((a,b)=>(b.pubDate||0)-(a.pubDate||0));
+    if(coverageSort==='source')items=[...items].sort((a,b)=>a.name.localeCompare(b.name));
+    renderFlatList(items);
+  }
+}
+
+// Wire coverage tab activation
+document.querySelector('[data-tab="coverage"]')?.addEventListener('click',()=>setTimeout(initCoverageFeeds,50));
+// ── END COVERAGE TAB ─────────────────────────────────────────────────────
 </script>
 </body>
 </html>
