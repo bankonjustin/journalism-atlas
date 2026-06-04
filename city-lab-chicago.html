@@ -711,13 +711,29 @@ function setCoverageLayer(l){coverageLayer=l;document.querySelectorAll('.cov-lay
 function setCoverageSort(s){coverageSort=s;document.querySelectorAll('.cov-sort-btn').forEach(b=>b.classList.toggle('active',b.dataset.sort===s));renderCoverage();}
 
 async function fetchRSS(feed){
-  const proxy='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.rss)+'&count=3';
+  const proxy='https://api.allorigins.win/get?url='+encodeURIComponent(feed.rss);
   try{
-    const r=await fetch(proxy,{signal:AbortSignal.timeout(8000)});
+    const signal=typeof AbortSignal.timeout==='function'?AbortSignal.timeout(10000):undefined;
+    const r=await fetch(proxy,signal?{signal}:{});
     if(!r.ok)return[];
     const d=await r.json();
-    if(d.status!=='ok'||!d.items?.length)return[];
-    return d.items.slice(0,3).map(item=>({...feed,title:item.title,link:item.link||feed.url,pubDate:item.pubDate?new Date(item.pubDate):null,snippet:item.description?item.description.replace(/<[^>]+>/g,'').slice(0,120)+'…':''}));
+    if(!d.contents)return[];
+    const xml=new DOMParser().parseFromString(d.contents,'text/xml');
+    if(xml.querySelector('parsererror'))return[];
+    // Support RSS 2.0 (<item>) and Atom (<entry>)
+    const items=[...xml.querySelectorAll('item')];
+    const isAtom=!items.length;
+    const entries=isAtom?[...xml.querySelectorAll('entry')]:items;
+    return entries.slice(0,3).map(el=>{
+      const title=el.querySelector('title')?.textContent?.trim()||'';
+      const link=isAtom
+        ?(el.querySelector('link')?.getAttribute('href')||el.querySelector('link')?.textContent||feed.url)
+        :(el.querySelector('link')?.textContent?.trim()||feed.url);
+      const dateStr=isAtom
+        ?(el.querySelector('published')?.textContent||el.querySelector('updated')?.textContent)
+        :el.querySelector('pubDate')?.textContent;
+      return{...feed,title,link:link||feed.url,pubDate:dateStr?new Date(dateStr):null};
+    }).filter(i=>i.title);
   }catch(e){return[];}
 }
 
