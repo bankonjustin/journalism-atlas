@@ -7,6 +7,13 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@300;400;500&display=swap');
 
+/* ── MAX-WIDTH SYSTEM ─────────────────────────────────────── */
+.page-wrap {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 :root {
   --acid: #ceff00;
   --lime: #97d600;
@@ -140,10 +147,13 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .ci-col:last-child { padding-right: 0; text-align: right; }
 .ci-name { font-size: 13px; font-weight: 700; color: #000; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ci-channel { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+/* TODO-JAMES: Beat badge uses cluster-specific colors from CLUSTERS map.
+   James flagged for review — confirm whether cluster color coding should be
+   preserved or replaced with neutral token. Current treatment is intentional. */
 .ci-beat { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 2px; white-space: nowrap; display: inline-block; }
 .ci-platform { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.06em; display: inline-block; }
 .ci-platform.cross { background: rgba(151,214,0,0.1); border-color: rgba(151,214,0,0.4); color: var(--olive); margin-left: 4px; }
-.ci-bsky { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blue); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ci-bsky { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ci-followers { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--lime); font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }
 .ci-followers.empty { color: var(--border); }
 /* list column header */
@@ -200,11 +210,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .partner-headline { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; letter-spacing: -0.03em; color: var(--acid); line-height: 1.1; margin-bottom: 14px; }
 .partner-sub { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 500px; margin-bottom: 32px; }
 
-/* ── FOOTER ───────────────────────────────────────────────── */
-.footer { padding: 26px 40px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); background: var(--page-bg); }
-.footer-l { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-secondary); line-height: 2; }
-.footer-l a { color: var(--olive); text-decoration: none; }
-.footer-r { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); text-align: right; text-transform: uppercase; letter-spacing: 0.08em; line-height: 2; }
 
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--page-bg); }
@@ -214,6 +219,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 </head>
 <body>
 <script src="/assets/js/header.js"></script>
+<div class="page-wrap">
 
 <!-- ── PAGE HEADER ────────────────────────────────────────── -->
 <header class="header">
@@ -284,19 +290,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 </div>
 
-<!-- ── SECTION 01: CLUSTER MAP ────────────────────────────── -->
-<section class="section" id="clusters">
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Beat Cluster Map</h2>
-    <span class="section-meta" id="cluster-meta">14 communities · 671 creators</span>
-  </div>
-  <p class="section-subtitle">14 editorial communities — each a distinct targeting universe. Click any cluster to filter the creator index below.</p>
-  <div class="cluster-grid" id="cluster-grid">
-    <!-- rendered by JS -->
-  </div>
-</section>
-
 <!-- ── INTERSTITIAL BRIDGE ─────────────────────────────────── -->
 <div class="index-bridge">
   <div class="bridge-intro">Built for three audiences — each use case is live and queryable today</div>
@@ -318,6 +311,19 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     </div>
   </div>
 </div>
+
+<!-- ── SECTION 01: CLUSTER MAP ────────────────────────────── -->
+<section class="section" id="clusters">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Beat Cluster Map</h2>
+    <span class="section-meta" id="cluster-meta">14 communities · 671 creators</span>
+  </div>
+  <p class="section-subtitle">14 editorial communities mapped across Bluesky. Click any cluster to filter the index.</p>
+  <div class="cluster-grid" id="cluster-grid">
+    <!-- rendered by JS -->
+  </div>
+</section>
 
 <!-- ── SECTION 02: CREATOR INDEX ──────────────────────────── -->
 <section class="section" id="index">
@@ -390,7 +396,9 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 </section>
 
-<!-- ── VIZ OVERLAY ──────────────────────────────────────────── -->
+</div><!-- /.page-wrap -->
+
+<!-- ── VIZ OVERLAY — fixed, outside page-wrap ─────────────── -->
 <div id="viz-overlay">
   <div id="overlay-inner">
     <div id="overlay-header">
@@ -405,17 +413,9 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 </div>
 
-<!-- ── FOOTER ──────────────────────────────────────────────── -->
-<footer class="footer">
-  <div class="footer-l">
-    Independent Journalism Atlas · <a href="https://journalismatlas.com">journalismatlas.com</a><br>
-    Data: <span id="footer-count">671</span> verified creators · Bluesky handles mapped June 2026
-  </div>
-  <div class="footer-r">
-    Atlas · Bluesky Creator Intelligence<br>
-    Data as of June 2026
-  </div>
-</footer>
+<div class="page-wrap">
+<script src="/assets/js/footer.js"></script>
+</div><!-- /.page-wrap footer -->
 
 <script>
 /* ════════════════════════════════════════════════════════════
@@ -542,7 +542,7 @@ function initStats(creators) {
   document.getElementById('header-count').textContent = `${total} creators · 14 clusters`;
   document.getElementById('viz-label').textContent = `${total} creators · 14 beat clusters`;
   document.getElementById('overlay-title').textContent = `Independent Journalism Atlas · Bluesky Creator Network · ${total} creators · 14 clusters`;
-  document.getElementById('footer-count').textContent = total;
+
 }
 
 /* ════════════════════════════════════════════════════════════
