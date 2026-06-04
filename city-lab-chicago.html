@@ -193,6 +193,18 @@
     .radar-handle:hover { text-decoration: underline; }
     .radar-monitoring { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #b0b0b8; }
     .radar-beat { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #b0b0b8; }
+    .coverage-layer-toggle { display: flex; gap: 4px; background: #f4f4f6; border-radius: 6px; padding: 3px; }
+    .cov-layer-btn { background: none; border: none; font-family: inherit; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 5px 12px; border-radius: 4px; cursor: pointer; color: #b0b0b8; transition: background 0.12s, color 0.12s; }
+    .cov-layer-btn.active { background: #fff; color: #313131; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .cov-layer-btn:hover:not(.active) { color: #313131; }
+    .coverage-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .coverage-sort-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #b0b0b8; }
+    .cov-sort-btn { background: none; border: 0.5px solid #d4d4d8; border-radius: 100px; font-family: inherit; font-size: 11px; font-weight: 500; padding: 4px 12px; cursor: pointer; color: #606068; }
+    .cov-sort-btn.active { background: #313131; color: #fff; border-color: #313131; }
+    .coverage-feed-count { margin-left: auto; font-size: 11px; color: #b0b0b8; }
+    .coverage-beat-group { margin-bottom: 32px; }
+    .coverage-beat-heading { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #313131; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e8; }
+    .coverage-beat-count { margin-left: auto; font-size: 10px; font-weight: 500; color: #b0b0b8; background: #f4f4f6; border-radius: 100px; padding: 1px 7px; }
     .coverage-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
     .coverage-title { font-size: 24px; font-weight: 700; color: #000; }
     .coverage-sub { font-size: 14px; color: #606068; margin-top: 4px; }
@@ -221,16 +233,16 @@
   <div class="hero-inner">
     <div class="hero-eyebrow">Atlas City Lab &middot; Chicago, IL</div>
     <h1 class="hero-title">Chicago Media Ecosystem</h1>
-    <p class="hero-body">An independent map of who&rsquo;s covering Chicago &mdash; 87 creators, 245 outlets, and the beats where coverage is thin.</p>
+    <p class="hero-body">An independent map of who&rsquo;s covering Chicago &mdash; 82 creators, 245 outlets, and the beats where coverage is thin.</p>
     <div class="hero-stat-primary">
       <span class="hero-stat-num-large">245</span>
       <span class="hero-stat-primary-label">Outlets in the full Chicago media ecosystem</span>
     </div>
     <div class="hero-stat-nudge"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;margin-right:4px">touch_app</span>Tap a layer to explore</div>
     <div class="hero-stat-breakdown">
-      <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">48</span><span class="hero-stat-label-child">Journalism creators →</span></div>
-      <div class="hero-stat-child" data-layer="lifestyle"><span class="hero-stat-num-child">39</span><span class="hero-stat-label-child">Lifestyle &amp; culture →</span></div>
-      <div class="hero-stat-child" data-layer="institutions"><span class="hero-stat-num-child">158</span><span class="hero-stat-label-child">Institutions →</span></div>
+      <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">45</span><span class="hero-stat-label-child">Journalism creators →</span></div>
+      <div class="hero-stat-child" data-layer="lifestyle"><span class="hero-stat-num-child">37</span><span class="hero-stat-label-child">Lifestyle &amp; culture →</span></div>
+      <div class="hero-stat-child" data-layer="institutions"><span class="hero-stat-num-child">20</span><span class="hero-stat-label-child">Institutions →</span></div>
     </div>
     <div class="hero-partner">
       <span class="hero-partner-label">Research partners:</span>
@@ -244,7 +256,7 @@
 <nav class="tab-nav" role="tablist">
   <button class="tab-btn active" data-tab="ecosystem" role="tab" aria-label="Chicago Media Ecosystem">Ecosystem</button>
   <button class="tab-btn" data-tab="beatmap" role="tab" aria-label="Beat Map">Beat Map</button>
-  <button class="tab-btn" data-tab="creators" role="tab" aria-label="Creators">Creators <span class="tab-badge">87</span></button>
+  <button class="tab-btn" data-tab="creators" role="tab" aria-label="Creators">Creators <span class="tab-badge">82</span></button>
   <button class="tab-btn" data-tab="coverage" role="tab" aria-label="What Chicago Is Covering">Coverage</button>
 </nav>
 
@@ -374,7 +386,7 @@
     <div class="context-collapse" id="vacuum-collapse">
       <div class="vacuum-grid" style="margin-top:16px">
         <div class="vacuum-card partial"><h3>Labor &amp; Workers <span class="vacuum-severity sev-gap">Emerging</span></h3><p>Chicago is one of the most union-dense cities in America. One creator now covers this beat.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Jerry Mead-Lucero / Labor Express Radio &mdash; Chicago&rsquo;s only English-language labor news program, WLPN 105.5 FM since 2004.</p></div>
-        <div class="vacuum-card partial"><h3>LGBTQ+ Community <span class="vacuum-severity sev-gap">Emerging</span></h3><p>Two creators now cover this beat. Ecosystem remains thin at the individual creator level.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Devlyn Camp / Queer Serial (NLGJA Award 2021) and Anna DeShawn / Queer News (Ambie Award 2023).</p></div>
+        <div class="vacuum-card partial"><h3>LGBTQ+ Community <span class="vacuum-severity sev-gap">Emerging</span></h3><p>One creator now covers this beat. Ecosystem remains thin at the individual creator level.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Anna DeShawn / Queer News (Ambie Award 2023, E3 Radio founder). Windy City Times covers institutionally but has limited digital reach and no creator presence.</p></div>
         <div class="vacuum-card partial"><h3>Immigration <span class="vacuum-severity sev-gap">Emerging</span></h3><p>Two creators now cover immigration and Latino community issues.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Francia Garc&iacute;a Hern&aacute;ndez / &iexcl;Presente! (CAN TV) and Unraveled Press (TikTok documentary, 9.8K followers).</p></div>
         <div class="vacuum-card partial"><h3>Housing &amp; Neighborhood <span class="vacuum-severity sev-gap">Emerging</span></h3><p>One creator covers the Northwest Side. South and West Side housing coverage remains entirely absent.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Ariel Parrella-Aureli / LoganSquarist.</p><div class="also-watching-callout">Also watching: <strong>@christian.chicago</strong> (Intersectional Urbanist) &mdash; housing, justice, and power. 4.8K followers, 394K likes.<span class="monitoring-badge">Monitoring</span></div></div>
         <div class="vacuum-card"><h3>CTA / Transit <span class="vacuum-severity sev-critical">Critical Gap</span></h3><p>No independent creator tracks CTA accountability. Streetsblog Chicago is the only transit-adjacent outlet across all 245 tracked &mdash; a national franchise, not a Chicago-first outlet. One outlet serving 2.7 million people on a system used by 1.6 million daily riders.</p></div>
@@ -390,15 +402,15 @@
 <div class="main">
   <div class="creators-subheader">
     <div class="creators-subheader-stats">
-      <button class="layer-stat-btn active" data-layer="journalism" onclick="setCreatorLayer('journalism')"><span class="layer-stat-num">48</span><span class="layer-stat-label">Journalism</span></button>
+      <button class="layer-stat-btn active" data-layer="journalism" onclick="setCreatorLayer('journalism')"><span class="layer-stat-num">45</span><span class="layer-stat-label">Journalism</span></button>
       <span class="layer-stat-divider">&middot;</span>
-      <button class="layer-stat-btn" data-layer="lifestyle" onclick="setCreatorLayer('lifestyle')"><span class="layer-stat-num">39</span><span class="layer-stat-label">Lifestyle</span></button>
+      <button class="layer-stat-btn" data-layer="lifestyle" onclick="setCreatorLayer('lifestyle')"><span class="layer-stat-num">37</span><span class="layer-stat-label">Lifestyle</span></button>
       <span class="layer-stat-divider">&middot;</span>
-      <button class="layer-stat-btn" data-layer="all" onclick="setCreatorLayer('all')"><span class="layer-stat-num">87</span><span class="layer-stat-label">All</span></button>
+      <button class="layer-stat-btn" data-layer="all" onclick="setCreatorLayer('all')"><span class="layer-stat-num">82</span><span class="layer-stat-label">All</span></button>
       <span class="layer-stat-divider">&middot;</span>
-      <button class="layer-stat-btn" data-layer="institutions" onclick="setCreatorLayer('institutions')"><span class="layer-stat-num">11</span><span class="layer-stat-label">Institutions</span></button>
+      <button class="layer-stat-btn" data-layer="institutions" onclick="setCreatorLayer('institutions')"><span class="layer-stat-num">20</span><span class="layer-stat-label">Institutions</span></button>
     </div>
-    <div class="institutions-note" id="institutions-note" style="display:none"><span style="color:#b0b0b8;font-size:12px">Showing 11 curated anchor institutions from the full 158-outlet Chicago media ecosystem. <a href="#" onclick="document.querySelector('[data-tab=ecosystem]').click();return false;" style="color:#5d7400">See full ecosystem &rarr;</a></span></div>
+    <div class="institutions-note" id="institutions-note" style="display:none"><span style="color:#b0b0b8;font-size:12px">Showing 20 curated anchor institutions from the full Chicago media ecosystem. <a href="#" onclick="document.querySelector('[data-tab=ecosystem]').click();return false;" style="color:#5d7400">See full ecosystem &rarr;</a></span></div>
     <div class="creators-view-toggle">
       <button class="view-btn active" data-view="list" title="List view" onclick="setView('list')"><span class="material-symbols-outlined" style="font-size:20px">view_list</span></button>
       <button class="view-btn" data-view="grid" title="Grid view" onclick="setView('grid')"><span class="material-symbols-outlined" style="font-size:20px">grid_view</span></button>
@@ -466,28 +478,28 @@
 
 <script>
 const JOURNALISM_CREATORS=[
-  {name:"Eric Zorn",channel:"The Picayune Sentinel",url:"https://ericzorn.substack.com/",platform:"Newsletter - Substack",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"Former Chicago Tribune columnist; now one of city's most-read independent voices"},
+  {name:"Eric Zorn",channel:"The Picayune Sentinel",url:"https://ericzorn.substack.com/",platform:"Newsletter - Substack",beat:"City Hall & Politics",geography:"Chicago",pulse:true,descriptor:"Former Chicago Tribune columnist; now one of city's most-read independent voices"},
   {name:"Austin Berg",channel:"The Last Ward",url:"https://www.thelastward.org/",platform:"Newsletter",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"City Hall and neighborhood accountability coverage"},
-  {name:"H Kapp-Klote",channel:"The Chicago 312",url:"https://hs-newsletter-e91163.beehiiv.com/",platform:"Newsletter - Beehiiv",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"Only independent creator with dedicated CTA/transit beat"},
+  {name:"H Kapp-Klote",channel:"The Chicago 312",url:"https://hs-newsletter-e91163.beehiiv.com/",platform:"Newsletter - Beehiiv",beat:"City Hall & Politics",geography:"Chicago",pulse:true,descriptor:"Only independent creator with dedicated CTA/transit beat"},
   {name:"Charlie Meyerson",channel:"Chicago Public Square",url:"https://www.chicagopublicsquare.com/",platform:"Newsletter",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"Daily news digest; 20+ year Chicago media veteran"},
   {name:"Adam Mockler",channel:"Adam Mockler",url:"https://www.tiktok.com/@adammockler",platform:"Video - TikTok + YouTube",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"Independent City Hall & Politics video coverage; 446.6K TikTok (@adammockler) — co-primary platform"},
   {name:"Rich Miller",channel:"Capitol Fax",url:"https://capitolfax.com/",platform:"Website",beat:"City Hall & Politics",geography:"Illinois",pulse:false,descriptor:"Independent Illinois statehouse and political coverage"},
   {name:"Patrick Pfingsten",channel:"The Illinoize",url:"https://www.theillinoize.com/",platform:"Website",beat:"City Hall & Politics",geography:"Illinois",pulse:false,descriptor:"Independent Illinois politics and state government coverage"},
-  {name:"Ben Joravsky",channel:"The Ben Joravsky Show",url:"https://benjoravsky.substack.com",platform:"Podcast",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"Former Chicago Reader columnist; daily listener-supported TIF accountability podcast; one of the city's longest-running independent political voices"},
-  {name:"Politically Illinois",channel:"Politically Illinois",url:"https://politicallyillinois.substack.com",platform:"TikTok + Newsletter",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"Multi-platform Illinois/Chicago politics; 15.4K TikTok, 184K likes; covers City Council and mayoral politics"},
-  {name:"The JAAM",channel:"The JAAM",url:"https://thejaampod.com",platform:"Podcast + TikTok",beat:"City Hall & Politics",geography:"Chicago",pulse:false,descriptor:"Four young Black Chicagoans covering city politics and culture; 192.6K TikTok, 3.8M likes; CBS Chicago coverage; Mayor Johnson interview"},
+  {name:"Ben Joravsky",channel:"The Ben Joravsky Show",url:"https://benjoravsky.substack.com",platform:"Podcast",beat:"City Hall & Politics",geography:"Chicago",pulse:true,descriptor:"Former Chicago Reader columnist; daily listener-supported TIF accountability podcast; one of the city's longest-running independent political voices"},
+  {name:"Politically Illinois",channel:"Politically Illinois",url:"https://politicallyillinois.substack.com",platform:"TikTok + Newsletter",beat:"City Hall & Politics",geography:"Chicago",pulse:true,descriptor:"Multi-platform Illinois/Chicago politics; 15.4K TikTok, 184K likes; covers City Council and mayoral politics"},
+  {name:"The JAAM",channel:"The JAAM",url:"https://thejaampod.substack.com",platform:"Podcast + TikTok",beat:"City Hall & Politics",geography:"Chicago",pulse:true,descriptor:"Four young Black Chicagoans covering city politics and culture; 192.6K TikTok, 3.8M likes; CBS Chicago coverage; Mayor Johnson interview"},
   {name:"Blog A Bull",channel:"Blogabull.com",url:"https://www.blogabull.com/",platform:"Newsletter",beat:"Sports",geography:"Chicago",pulse:false,descriptor:"Independent Chicago Bulls analysis and coverage"},
   {name:"Patrick, Jeremy, Randy Richardson",channel:"Wrigleyville Nation",url:"https://www.wrigleyvillenation.com/about/",platform:"Website",beat:"Sports",geography:"Chicago",pulse:false,descriptor:"Independent Chicago Cubs coverage"},
   {name:"Pat The Designer (P. Kidd)",channel:"Windy City Breeze",url:"https://www.youtube.com/@TheWindyCityBreeze",platform:"Video - YouTube",beat:"Sports",geography:"Chicago",pulse:false,descriptor:"Independent multi-sport Chicago coverage"},
-  {name:"Andrew Donlan",channel:"Still Gotta Come Through Chicago",url:"https://sgctc.substack.com/",platform:"Newsletter - Substack",beat:"Sports",geography:"Chicago",pulse:false,descriptor:"Independent Chicago sports coverage"},
+  {name:"Andrew Donlan",channel:"Still Gotta Come Through Chicago",url:"https://sgctc.substack.com/",platform:"Newsletter - Substack",beat:"Sports",geography:"Chicago",pulse:true,descriptor:"Independent Chicago sports coverage"},
   {name:"Matt Brown",channel:"Extra Points",url:"https://www.extrapointsmb.com/",platform:"Newsletter - Beehiiv",beat:"Sports",geography:"Chicago",pulse:true,descriptor:"Independent college athletics coverage; nationally recognized"},
   {name:"Sixty Inches from Center",channel:"Sixty Inches from Center",url:"https://sixtyinchesfromcenter.org/",platform:"Website",beat:"Arts & Culture",geography:"Chicago",pulse:false,descriptor:"Independent Chicago arts journalism and visual culture"},
-  {name:"Caroline Patton",channel:"Chicago Show Calendar",url:"https://chicagoshowcal.substack.com/",platform:"Newsletter - Substack",beat:"Arts & Culture",geography:"Chicago",pulse:false,descriptor:"Independent coverage of Chicago performances and show calendar"},
-  {name:"Theresa Goodrich",channel:"Living Landmarks Of Chicago",url:"https://chicagolandmarks.substack.com/",platform:"Newsletter - Substack",beat:"Arts & Culture",geography:"Chicago",pulse:false,descriptor:"Independent coverage of Chicago's architectural and historic landmarks"},
+  {name:"Caroline Patton",channel:"Chicago Show Calendar",url:"https://chicagoshowcal.substack.com/",platform:"Newsletter - Substack",beat:"Arts & Culture",geography:"Chicago",pulse:true,descriptor:"Independent coverage of Chicago performances and show calendar"},
+  {name:"Theresa Goodrich",channel:"Living Landmarks Of Chicago",url:"https://chicagolandmarks.substack.com/",platform:"Newsletter - Substack",beat:"Arts & Culture",geography:"Chicago",pulse:true,descriptor:"Independent coverage of Chicago's architectural and historic landmarks"},
   {name:"Pete Kastanes",channel:"Vanished Chicagoland Stories",url:"https://vanishedchicagoland.blog/home/",platform:"Podcast",beat:"Arts & Culture",geography:"Chicago",pulse:false,descriptor:"Independent Chicago history and vanished places podcast"},
-  {name:"Mark Jacob",channel:"Stop the Presses",url:"https://www.stopthepresses.news/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:false,descriptor:"Independent media criticism; former Chicago Tribune editor"},
-  {name:"Igor Studenkov",channel:"Chicago Media Journal",url:"https://chimediajournal.substack.com/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:false,descriptor:"Independent Chicago media industry and press coverage"},
-  {name:"Parker Molloy",channel:"The Present Age",url:"https://www.readtpa.com/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:false,descriptor:"Independent media criticism and press freedom newsletter"},
+  {name:"Mark Jacob",channel:"Stop the Presses",url:"https://www.stopthepresses.news/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent media criticism; former Chicago Tribune editor"},
+  {name:"Igor Studenkov",channel:"Chicago Media Journal",url:"https://chimediajournal.substack.com/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent Chicago media industry and press coverage"},
+  {name:"Parker Molloy",channel:"The Present Age",url:"https://www.readtpa.com/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent media criticism and press freedom newsletter"},
   {name:"Nathan Graber-Lipperman",channel:"Creator Mag",url:"https://www.creatormag.blog/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent Chicago media and creator economy coverage"},
   {name:"Erin Allmann Updyke",channel:"This Podcast Will Kill You",url:"https://thispodcastwillkillyou.com",platform:"Podcast",beat:"Health & Science",geography:"Chicago",pulse:false,descriptor:"Independent infectious disease and public health podcast"},
   {name:"Erin Welsh",channel:"This Podcast Will Kill You",url:"https://thispodcastwillkillyou.com",platform:"Podcast",beat:"Health & Science",geography:"Chicago",pulse:false,descriptor:"Independent infectious disease and public health podcast"},
@@ -496,21 +508,18 @@ const JOURNALISM_CREATORS=[
   {name:"Shermann \"Dilla\" Thomas",channel:"Chicago Mahogany / You Don't Know Chi",url:"https://chicagomahogany.com",platform:"Video",beat:"Black Chicago",geography:"Chicago",pulse:false,descriptor:"Chicago history and culture creator; South Side native; Emmy-nominated; 122.9K TikTok (@6figga_dilla)"},
   {name:"Sara Faddah, Dario Durham",channel:"77 Flavors Of Chicago",url:"https://www.77flavorschi.com",platform:"Video - Instagram",beat:"Black Chicago",geography:"Chicago",pulse:false,descriptor:"Independent Black Chicago lifestyle and culture video"},
   {name:"Ernest Crim III",channel:"You Don't Know Chi",url:"https://ernestcrim.com",platform:"Video + Newsletter",beat:"Black Chicago",geography:"Chicago (South Side)",pulse:false,descriptor:"Emmy-nominated South Side native; Fox 32 show; 426K TikTok; covers Black Chicago history with a current-events frame"},
-  {name:"Charlene Rhinehart",channel:"Chicago Southsider",url:"https://chicagosouthsider.substack.com",platform:"Newsletter - Substack",beat:"Black Chicago",geography:"Chicago (South Side)",pulse:false,descriptor:"30K+ Substack subscribers; Medill Local News Accelerator graduate; Solutions Journalism Network LEDE Fellow 2023; active weekly"},
+  {name:"Charlene Rhinehart",channel:"Chicago Southsider",url:"https://chicagosouthsider.substack.com",platform:"Newsletter - Substack",beat:"Black Chicago",geography:"Chicago (South Side)",pulse:true,descriptor:"30K+ Substack subscribers; Medill Local News Accelerator graduate; Solutions Journalism Network LEDE Fellow 2023; active weekly"},
   {name:"Hermene Hartman",channel:"N'DIGO Studio",url:"https://ndigo.com/new-podcast/",platform:"Podcast",beat:"Black Chicago",geography:"Chicago",pulse:false,descriptor:"Founder of N'DIGO (1989); Black Chicago media institution; covers politics, culture, and civic life; Apple Podcasts / Spotify / iHeart"},
-  {name:"Judith McCray",channel:"Change Agents",url:"https://changeagentsthepodcast.com",platform:"Podcast",beat:"Black Chicago",geography:"Chicago",pulse:false,descriptor:"Emmy-winning broadcast journalist; founder of Reparations Media; trains BIPOC journalists; MacArthur + Field Foundation Leaders for a New Chicago 2023"},
-  {name:"Raynard Hall",channel:"Bronzecomm",url:"https://bronzecomm.com",platform:"Newsletter",beat:"Black Chicago",geography:"Chicago (South Side)",pulse:false,descriptor:"7,200 subscribers; covers nonprofits, social justice, and neighborhoods across the Black South Side; CIMA member; solo-run"},
   {name:"Florian Sohnke",channel:"Chicago Contrarian",url:"https://www.chicagocontrarian.com/about",platform:"Website",beat:"Criminal Justice",geography:"Chicago",pulse:false,descriptor:"Independent criminal justice and police accountability coverage"},
   {name:"Cam Rodriguez",channel:"foiaday",url:"https://buttondown.com/foiaday",platform:"Newsletter",beat:"Criminal Justice",geography:"Chicago",pulse:false,descriptor:"Independent FOIA and Chicago Police accountability newsletter"},
-  {name:"Devlyn Camp",channel:"Queer Serial",url:"https://queerserial.com",platform:"Podcast",beat:"LGBTQ+",geography:"Chicago",pulse:false,descriptor:"NLGJA Excellence in Journalism Award 2021; co-hosted They & Them queer Chicago news podcast; Windy City Times 30 Under 30"},
   {name:"Anna DeShawn",channel:"Queer News",url:"https://annadeshawn.com",platform:"Podcast + Radio",beat:"LGBTQ+",geography:"Chicago (South Side)",pulse:false,descriptor:"Queer News podcast; Ambie Award 2023; founder of E3 Radio online LGBTQ+ station; active through 2026"},
   {name:"Francia Garc\u00eda Hern\u00e1ndez",channel:"\u00a1Presente!",url:"https://www.cantv.org/show/presente/",platform:"Video + Community TV",beat:"Immigration / Latino",geography:"Chicago (Pilsen / Little Village)",pulse:false,descriptor:"Co-producer of CAN TV's ¡Presente!; covers Latino voices and immigrant community issues; MA in civic media from Columbia College Chicago"},
   {name:"Unraveled Press",channel:"Unraveled Press",url:"https://www.unraveledpress.com",platform:"TikTok + Video",beat:"Immigration / Criminal Justice",geography:"Chicago",pulse:false,descriptor:"Independent documentary journalists; 9.8K TikTok, 340K likes; on-the-ground coverage of Chicago Loop ICE protests and Broadview ICE facility; followed by Injustice Watch"},
   {name:"Jerry Mead-Lucero",channel:"Labor Express Radio",url:"https://laborexpress.net",platform:"Podcast + Radio",beat:"Labor",geography:"Chicago",pulse:false,descriptor:"Chicago's only English-language labor news radio program; WLPN 105.5 FM Sundays since 2004; AFT Local 4343 + IWW member"},
   {name:"Ariel Parrella-Aureli",channel:"LoganSquarist",url:"https://logansquarist.com",platform:"Website",beat:"Housing & Neighborhood",geography:"Chicago (Logan Square)",pulse:false,descriptor:"Editor-in-chief of LoganSquarist hyperlocal site; covers housing, gentrification, and low-income tax credit expirations on Chicago's Northwest Side"},
-  {name:"Maureen Kelleher",channel:"Board Rule",url:"https://board-rule.ghost.io/",platform:"Newsletter - Ghost",beat:"Education / CPS",geography:"Chicago",pulse:false,descriptor:"Chicago's only independent creator covering CPS and education"},
-  {name:"Daniel B. Rodriguez",channel:"Daniel B. Rodriguez",url:"https://danielbrodriguez.substack.com/",platform:"Newsletter - Substack",beat:"Education / CPS",geography:"Chicago",pulse:false,descriptor:"Independent Chicago education policy and CPS coverage"},
-  {name:"Josh Horwitz",channel:"350 Chicago",url:"https://350chicago.substack.com/about",platform:"Newsletter - Substack",beat:"Environment",geography:"Chicago",pulse:false,descriptor:"Independent climate and environment advocacy coverage"},
+  {name:"Maureen Kelleher",channel:"Board Rule",url:"https://board-rule.ghost.io/",platform:"Newsletter - Ghost",beat:"Education / CPS",geography:"Chicago",pulse:true,descriptor:"Chicago's only independent creator covering CPS and education"},
+  {name:"Daniel B. Rodriguez",channel:"Daniel B. Rodriguez",url:"https://danielbrodriguez.substack.com/",platform:"Newsletter - Substack",beat:"Education / CPS",geography:"Chicago",pulse:true,descriptor:"Independent Chicago education policy and CPS coverage"},
+  {name:"Josh Horwitz",channel:"350 Chicago",url:"https://350chicago.substack.com/about",platform:"Newsletter - Substack",beat:"Environment",geography:"Chicago",pulse:true,descriptor:"Independent climate and environment advocacy coverage"},
   {name:"Julie Roys",channel:"The Roys Report",url:"https://julieroys.com/",platform:"Website",beat:"Investigative",geography:"Chicago",pulse:false,descriptor:"Independent investigative journalism covering faith and institutions"},
   {name:"Bill Cameron",channel:"Take 1 With Bill Cameron",url:"https://podcasts.apple.com/us/podcast/take-1-with-bill-cameron/id1650461689",platform:"Podcast",beat:"General News",geography:"Chicago",pulse:false,descriptor:"Veteran Chicago broadcaster; independent general news podcast"},
   {name:"Chicagoverse",channel:"Chicagoverse",url:"https://podcasts.apple.com/us/podcast/chicagoverse/id1547902079",platform:"Podcast",beat:"General News",geography:"Chicago",pulse:false,descriptor:"Independent Chicago history and culture podcast"},
@@ -518,10 +527,10 @@ const JOURNALISM_CREATORS=[
 
 const LIFESTYLE_CREATORS=[
   {name:"Amin Tomalieh & Camila Gallego",handle:"chicagofoodguide",channel:"Chicago Food Guide",platform:"TikTok + Instagram",url:"https://www.tiktok.com/@chicagofoodguide",content_type:"food, restaurants"},
+  {name:"Chicago Food Guide",handle:"chicago.food.guide",channel:"Chicago Food Guide",platform:"Instagram + TikTok",url:"https://www.instagram.com/chicago.food.guide",content_type:"restaurants, food discovery, Chicago dining"},
   {name:"Andrew Kammerer",handle:"andrewsdailyday",channel:"Andrew Kammerer",platform:"TikTok",url:"https://www.tiktok.com/@andrewsdailyday",content_type:"lifestyle, food"},
   {name:"Alexandra Stewart",handle:".sassyconfetti",channel:"Sassy Confetti",platform:"TikTok",url:"https://www.tiktok.com/@.sassyconfetti",content_type:"things to do, food, lifestyle"},
   {name:"Briana Houston",handle:"tastesofbri",channel:"Chef Bri",platform:"TikTok",url:"https://www.tiktok.com/@tastesofbri",content_type:"food, restaurants"},
-  {name:"Chad the Bird",handle:"chadthebirdtok",channel:"Chad the Bird",platform:"TikTok + YouTube",url:"https://www.tiktok.com/@chadthebirdtok",content_type:"political satire, Chicago culture, The Paper Machete"},
   {name:"Chase Vondran",handle:"explorewithchase",channel:"Explore With Chase",platform:"TikTok",url:"https://www.tiktok.com/@explorewithchase",content_type:"things to do, travel"},
   {name:"Chris Dolo",handle:".chrisdolo",channel:"Chris Dolo",platform:"TikTok",url:"https://www.tiktok.com/@.chrisdolo",content_type:"food, restaurants"},
   {name:"Cori Hanna",handle:"coriinthecity",channel:"Cori In Chicago",platform:"TikTok",url:"https://www.tiktok.com/@coriinthecity",content_type:"things to do, food, travel"},
@@ -529,16 +538,14 @@ const LIFESTYLE_CREATORS=[
   {name:"Dennis Lee",channel:"Food Is Stupid",platform:"Newsletter",url:"https://foodisstupid.substack.com/",content_type:"food, restaurants"},
   {name:"Emilia Marie",handle:"emiliamariehome",channel:"Emilia Marie Home",platform:"TikTok",url:"https://www.tiktok.com/@emiliamariehome",content_type:"lifestyle, design"},
   {name:"Erica Noblecilla",handle:"ericaeatseverything",channel:"Erica Eats Everything",platform:"TikTok",url:"https://www.tiktok.com/@ericaeatseverything",content_type:"food, restaurants"},
-  {name:"Farzaan Aleem",handle:"chi.suhoor",channel:"chi.suhoor",platform:"Instagram",url:"https://www.instagram.com/chi.suhoor",content_type:"Muslim-owned restaurants, neighborhood culture, Chicago food"},
   {name:"Grace Andrews",handle:"grace.andrewsss",channel:"Grace Andrews",platform:"TikTok",url:"https://www.tiktok.com/@grace.andrewsss",content_type:"travel, lifestyle"},
-  {name:"Hangry in Chicago",handle:"hangry_chicago",channel:"Hangry in Chicago",platform:"Instagram",url:"https://www.instagram.com/hangry_chicago",content_type:"food, travel, Chicago lifestyle"},
+  {name:"Bailey McGuire",handle:"hangry_chicago",channel:"Hangry in Chicago",platform:"Instagram",url:"https://www.instagram.com/hangry_chicago",content_type:"food, travel, Chicago lifestyle"},
   {name:"Hunter Haines",handle:"hunter_haines",channel:"Hunter Haines",platform:"TikTok",url:"https://www.tiktok.com/@hunter_haines",content_type:"things to do, food, lifestyle"},
   {name:"Jai",handle:"lavishfoodlife",channel:"Lavish Food Life",platform:"TikTok",url:"https://www.tiktok.com/@lavishfoodlife",content_type:"food, restaurants, travel"},
   {name:"Jay Zawaski",channel:"I'm Fat Podcast",platform:"Podcast",url:"https://open.spotify.com/show/2fUdUU8eVkKHanhSFDNFs5",content_type:"comedy, food"},
   {name:"Jen In Chicago",handle:"jen_in_chicago",channel:"Jen In Chicago",platform:"TikTok",url:"https://www.tiktok.com/@jen_in_chicago",content_type:"lifestyle, things to do"},
   {name:"Jimmy Carrane",channel:"Improv Nerd",platform:"Podcast",url:"https://jimmycarrane.com/improv-nerd-podcast/",content_type:"comedy"},
   {name:"Jonah Fialkow",handle:"jewishjonah",channel:"Jewish Jonah",platform:"TikTok",url:"https://www.tiktok.com/@jewishjonah",content_type:"comedy, food, things to do"},
-  {name:"Johnny Viti",handle:"johnnyviti",channel:"Johnny Viti",platform:"TikTok",url:"https://www.tiktok.com/@johnnyviti",content_type:"neighborhood culture, Chicago identity, humor"},
   {name:"Jonathan Zaragoza",handle:"goatboyintl",channel:"goatboyintl",platform:"TikTok",url:"https://www.tiktok.com/@goatboyintl",content_type:"food, restaurants"},
   {name:"Joshua Trunck",handle:"chicagofoodhq",channel:"Chicago Food HQ",platform:"TikTok",url:"https://www.tiktok.com/@chicagofoodhq",content_type:"food, restaurants"},
   {name:"Kaylee Jo Flores",handle:"kayleejochicago",channel:"Kaylee Jo Chicago",platform:"TikTok",url:"https://www.tiktok.com/@kayleejochicago",content_type:"things to do, food, restaurants"},
@@ -548,7 +555,7 @@ const LIFESTYLE_CREATORS=[
   {name:"Megan Schibelka",handle:"meganschibelka",channel:"Megan Schibelka",platform:"TikTok",url:"https://www.tiktok.com/@meganschibelka",content_type:"things to do, travel, food"},
   {name:"Michael Nagrant",channel:"The Hunger",platform:"Newsletter",url:"https://thehunger.substack.com/",content_type:"food, restaurants"},
   {name:"Renee DiNino",handle:"chicago.by.ren",channel:"Chicago By Ren",platform:"TikTok + Instagram",url:"https://www.instagram.com/chicago.by.ren",content_type:"architecture, neighborhoods, city guide"},
-  {name:"312food",handle:"312food",channel:"312food",platform:"Instagram",url:"https://www.instagram.com/312food",content_type:"restaurants, food, Chicago dining"},
+  {name:"Erin Byrne",handle:"312food",channel:"312food",platform:"Instagram",url:"https://www.instagram.com/312food",content_type:"restaurants, food, Chicago dining"},
   {name:"Samantha Roby",handle:"chicagofoodauthority",channel:"Chicago Food Authority",platform:"TikTok",url:"https://www.tiktok.com/@chicagofoodauthority",content_type:"food, restaurants"},
   {name:"Sara Faddah, Dario Durham",channel:"77 Flavors of Chicago",platform:"Instagram",url:"https://www.77flavorschi.com",content_type:"comedy, food, things to do"},
   {name:"Sarah Yi",handle:"agirlaboutchicago",channel:"A Girl About Chicago",platform:"TikTok",url:"https://www.tiktok.com/@agirlaboutchicago",content_type:"lifestyle, food, restaurants"},
@@ -577,6 +584,15 @@ const ECOSYSTEM_ORGS=[
   {name:"WBEZ / In The Loop",url:"https://www.wbez.org",type:"legacy",beat:"City Hall & Politics",note:"Public radio; merged with Chicago Sun-Times; In The Loop is the daily news program"},
   {name:"E3 Radio",url:"https://e3radio.fm",type:"outlet",beat:"LGBTQ+ / Black Chicago",note:"Online LGBTQ+ radio station; founded by Anna DeShawn (tracked individually in journalism layer)"},
   {name:"Chicago Independent Media Alliance (CIMA)",url:"https://cimadirectory.org",type:"collective",beat:"Various",note:"69 members, 81 outlets, 4.5M combined audience; key infrastructure org for Chicago independent media"},
+  {name:"Block Club Chicago",url:"https://blockclubchicago.org",type:"nonprofit",beat:"City Hall & Neighborhoods",note:"Independent hyperlocal newsroom covering all 77 Chicago neighborhoods; INN member; most-linked Chicago civic journalism source"},
+  {name:"South Side Weekly",url:"https://southsideweekly.com",type:"collective",beat:"Black Chicago / Community",note:"Worker-owned nonprofit; South Side community journalism since 2013; City Bureau partner"},
+  {name:"Injustice Watch",url:"https://injusticewatch.org",type:"nonprofit",beat:"Criminal Justice",note:"Nonprofit investigative journalism; police accountability and courts coverage; MacArthur-funded; key Atlas spidering anchor"},
+  {name:"City Bureau",url:"https://citybureau.org",type:"nonprofit",beat:"Civic / South & West Side",note:"Civic journalism lab with paid Documenters program; South/West Side community focus; fiscally sponsors Cicero Independiente"},
+  {name:"Chalkbeat Chicago",url:"https://chicago.chalkbeat.org",type:"nonprofit",beat:"Education / CPS",note:"Nonprofit education newsroom; INN member; Medill Project C case study; launched 2018"},
+  {name:"ProPublica Illinois",url:"https://www.propublica.org/illinois",type:"nonprofit",beat:"Investigative",note:"State-level investigative reporting; Pulitzer-winning collaborative investigations with Chicago newsrooms"},
+  {name:"Better Government Association",url:"https://www.bettergov.org",type:"nonprofit",beat:"Investigative / Accountability",note:"Chicago government accountability watchdog since 1923; FOIA and investigative reporting on Illinois government"},
+  {name:"Chicago Reporter",url:"https://chicagoreporter.com",type:"nonprofit",beat:"Race / Equity",note:"Nonprofit investigative outlet covering race, poverty, and inequality in Chicago since 1972"},
+  {name:"Capitol News Illinois",url:"https://capitolnewsillinois.com",type:"nonprofit",beat:"City Hall & Politics / Statewide",note:"Nonpartisan statehouse reporting; INN member; Press Forward Chicago grantee; covers Springfield and Chicago policy"},
 ];
 
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
