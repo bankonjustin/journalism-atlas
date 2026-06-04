@@ -28,8 +28,8 @@
       --gap-card-accent:   #ceff00;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; color: #000; font-size: 16px; line-height: 1.5; padding-top: 72px; }
-    .hero { background: #000; padding: 88px 0 0; }
+    body { font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; color: #000; font-size: 16px; line-height: 1.5; padding-top: 56px; }
+    .hero { background: #000; padding: 48px 0 0; }
     .hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px 64px; }
     .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #ceff00; margin-bottom: 16px; }
     .hero-title { font-size: 48px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; color: #fff; max-width: 760px; margin-bottom: 16px; }
@@ -41,8 +41,14 @@
     .hero-stat-child { display: flex; flex-direction: column; }
     .hero-stat-num-child { font-size: 28px; font-weight: 700; color: #efeff2; line-height: 1; transition: color 0.15s; }
     .hero-stat-label-child { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
-    .hero-stat-child[data-layer] { cursor: pointer; }
+    .hero-stat-nudge { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-bottom: 10px; }
+    .hero-stat-child[data-layer] { cursor: pointer; padding: 10px 14px; border-radius: 6px; border: 1px solid #2a2a2a; background: rgba(255,255,255,0.03); transition: background 0.15s, border-color 0.15s; margin: -10px -14px; }
+    .hero-stat-child[data-layer]:hover { background: rgba(206,255,0,0.08); border-color: rgba(206,255,0,0.35); }
     .hero-stat-child[data-layer]:hover .hero-stat-num-child { color: #ceff00; }
+    .hero-stat-child[data-layer]:hover .hero-stat-label-child { color: #999; }
+    .hero-stat-child[data-layer]:active { background: rgba(206,255,0,0.14); }
+    .two-layer-note { font-size: 13px; color: #606068; line-height: 1.7; padding: 16px 20px; background: #f8f8f6; border-radius: 6px; border-left: 3px solid #97d600; margin: 24px 0 32px; }
+    .two-layer-pill { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5d7400; background: #edf7d6; border-radius: 100px; padding: 2px 8px; margin-right: 8px; vertical-align: middle; }
     .hero-partner { padding: 20px 0 0; border-top: 1px solid #1a1a1a; }
     .hero-partner-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-right: 8px; }
     .hero-partner-name { font-size: 12px; font-weight: 700; color: #666; padding: 4px 12px; border: 1px solid #333; border-radius: 100px; margin-right: 8px; }
@@ -220,10 +226,11 @@
       <span class="hero-stat-num-large">245</span>
       <span class="hero-stat-primary-label">Outlets in the full Chicago media ecosystem</span>
     </div>
+    <div class="hero-stat-nudge"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;margin-right:4px">touch_app</span>Tap a layer to explore</div>
     <div class="hero-stat-breakdown">
-      <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">48</span><span class="hero-stat-label-child">Journalism creators</span></div>
-      <div class="hero-stat-child" data-layer="lifestyle"><span class="hero-stat-num-child">39</span><span class="hero-stat-label-child">Lifestyle &amp; culture</span></div>
-      <div class="hero-stat-child"><span class="hero-stat-num-child">158</span><span class="hero-stat-label-child">Legacy &amp; institutional</span></div>
+      <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">48</span><span class="hero-stat-label-child">Journalism creators →</span></div>
+      <div class="hero-stat-child" data-layer="lifestyle"><span class="hero-stat-num-child">39</span><span class="hero-stat-label-child">Lifestyle &amp; culture →</span></div>
+      <div class="hero-stat-child" data-layer="institutions"><span class="hero-stat-num-child">158</span><span class="hero-stat-label-child">Institutions →</span></div>
     </div>
     <div class="hero-partner">
       <span class="hero-partner-label">Research partners:</span>
@@ -388,7 +395,10 @@
       <button class="layer-stat-btn" data-layer="lifestyle" onclick="setCreatorLayer('lifestyle')"><span class="layer-stat-num">39</span><span class="layer-stat-label">Lifestyle</span></button>
       <span class="layer-stat-divider">&middot;</span>
       <button class="layer-stat-btn" data-layer="all" onclick="setCreatorLayer('all')"><span class="layer-stat-num">87</span><span class="layer-stat-label">All</span></button>
+      <span class="layer-stat-divider">&middot;</span>
+      <button class="layer-stat-btn" data-layer="institutions" onclick="setCreatorLayer('institutions')"><span class="layer-stat-num">11</span><span class="layer-stat-label">Institutions</span></button>
     </div>
+    <div class="institutions-note" id="institutions-note" style="display:none"><span style="color:#b0b0b8;font-size:12px">Showing 11 curated anchor institutions from the full 158-outlet Chicago media ecosystem. <a href="#" onclick="document.querySelector('[data-tab=ecosystem]').click();return false;" style="color:#5d7400">See full ecosystem &rarr;</a></span></div>
     <div class="creators-view-toggle">
       <button class="view-btn active" data-view="list" title="List view" onclick="setView('list')"><span class="material-symbols-outlined" style="font-size:20px">view_list</span></button>
       <button class="view-btn" data-view="grid" title="Grid view" onclick="setView('grid')"><span class="material-symbols-outlined" style="font-size:20px">grid_view</span></button>
@@ -589,7 +599,7 @@ function renderScatter(){const svgEl=document.getElementById('scatter-svg');cons
 
 let currentLayer='journalism',currentBeat='',currentPlat='',currentView='list';
 
-function setCreatorLayer(layer){currentLayer=layer;currentBeat='';currentPlat='';document.querySelectorAll('.layer-stat-btn').forEach(b=>b.classList.toggle('active',b.dataset.layer===layer));const showF=layer!=='lifestyle';document.getElementById('beat-filter-row').style.display=showF?'':'none';document.getElementById('plat-filter-row').style.display=showF?'':'none';document.querySelectorAll('.beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.beat));document.querySelectorAll('.plat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.plat));renderCreators();}
+function setCreatorLayer(layer){currentLayer=layer;currentBeat='';currentPlat='';document.querySelectorAll('.layer-stat-btn').forEach(b=>b.classList.toggle('active',b.dataset.layer===layer));const showF=layer==='journalism';document.getElementById('beat-filter-row').style.display=showF?'':'none';document.getElementById('plat-filter-row').style.display=showF?'':'none';const instNote=document.getElementById('institutions-note');if(instNote)instNote.style.display=layer==='institutions'?'block':'none';document.querySelectorAll('.beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.beat));document.querySelectorAll('.plat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.plat));renderCreators();}
 
 function setView(view){currentView=view;document.querySelectorAll('.view-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.getElementById('creators-list').classList.toggle('hide',view==='grid');document.getElementById('creators-grid').classList.toggle('show',view==='grid');if(view==='grid')renderGrid();}
 
@@ -598,7 +608,9 @@ document.getElementById('plat-filter-row').addEventListener('click',e=>{const ch
 
 function filteredJ(){return JOURNALISM_CREATORS.filter(c=>{const bm=!currentBeat||c.beat===currentBeat;const pm=!currentPlat||platGroup(c.platform)===currentPlat;return bm&&pm;});}
 
-function renderCreators(){const listEl=document.getElementById('creators-list');const countEl=document.getElementById('creators-count');if(currentLayer==='journalism'){const data=filteredJ();countEl.textContent=data.length+' journalism creator'+(data.length!==1?'s':'');if(!data.length){listEl.innerHTML='<div class="empty-state">No creators match this filter. <a onclick="clearFilters()">Clear filters</a></div>';if(currentView==='grid')document.getElementById('creators-grid').innerHTML='';return;}listEl.innerHTML=jRows(data);}else if(currentLayer==='lifestyle'){const data=[...LIFESTYLE_CREATORS].sort((a,b)=>a.name.localeCompare(b.name));countEl.textContent=data.length+' lifestyle creators';listEl.innerHTML=lRows(data);}else{const jData=JOURNALISM_CREATORS;const lData=[...LIFESTYLE_CREATORS].sort((a,b)=>a.name.localeCompare(b.name));countEl.textContent=(jData.length+lData.length)+' creators';listEl.innerHTML='<div class="layer-divider">Journalism &amp; Accountability &middot; '+jData.length+'</div>'+jRows(jData)+'<div class="layer-divider">Lifestyle &amp; Culture &middot; '+lData.length+'</div>'+lRows(lData);}initAccordion();if(currentView==='grid')renderGrid();}
+function instRows(data){const ts={nonprofit:'background:#e8f0e0;color:#3a6000',outlet:'background:#e8e8f0;color:#3a3a7a',legacy:'background:#efeff2;color:#606068',collective:'background:#f5f0e8;color:#6a5a00'};return data.map(o=>'<div class="anchor-row"><div><a class="anchor-name" href="'+esc(o.url)+'" target="_blank" rel="noopener">'+esc(o.name)+'</a><span class="anchor-badge" style="'+(ts[o.type]||ts.legacy)+'">'+esc(o.type)+'</span><span class="anchor-beat" style="margin-left:8px">'+esc(o.beat)+'</span><div class="anchor-note">'+esc(o.note)+'</div></div></div>').join('');}
+
+function renderCreators(){const listEl=document.getElementById('creators-list');const countEl=document.getElementById('creators-count');if(currentLayer==='journalism'){const data=filteredJ();countEl.textContent=data.length+' journalism creator'+(data.length!==1?'s':'');if(!data.length){listEl.innerHTML='<div class="empty-state">No creators match this filter. <a onclick="clearFilters()">Clear filters</a></div>';if(currentView==='grid')document.getElementById('creators-grid').innerHTML='';return;}listEl.innerHTML=jRows(data);}else if(currentLayer==='lifestyle'){const data=[...LIFESTYLE_CREATORS].sort((a,b)=>a.name.localeCompare(b.name));countEl.textContent=data.length+' lifestyle creators';listEl.innerHTML=lRows(data);}else if(currentLayer==='institutions'){countEl.textContent='11 anchor institutions';listEl.innerHTML=instRows(ECOSYSTEM_ORGS);}else{const jData=JOURNALISM_CREATORS;const lData=[...LIFESTYLE_CREATORS].sort((a,b)=>a.name.localeCompare(b.name));countEl.textContent=(jData.length+lData.length+ECOSYSTEM_ORGS.length)+' total';listEl.innerHTML='<div class="layer-divider">Journalism &amp; Accountability &middot; '+jData.length+'</div>'+jRows(jData)+'<div class="layer-divider">Lifestyle &amp; Culture &middot; '+lData.length+'</div>'+lRows(lData)+'<div class="layer-divider" style="margin-top:24px">Anchor Institutions &middot; '+ECOSYSTEM_ORGS.length+'</div>'+instRows(ECOSYSTEM_ORGS);}initAccordion();if(currentView==='grid')renderGrid();}
 
 function jRows(data){return data.map(c=>{const ch=c.channel&&c.channel!==c.name?' <span class="creator-row-channel">&middot; '+esc(c.channel)+'</span>':'';const pulse=c.pulse?' <span class="row-pulse">&#9679; In Atlas Pulse</span>':'';return'<div class="creator-row"><div class="creator-row-head"><span class="creator-row-beat">'+esc(c.beat)+'</span><span class="creator-row-name">'+esc(c.name)+ch+'</span><span class="creator-row-plat">'+esc(platGroup(c.platform))+'</span><span class="row-chevron material-symbols-outlined">chevron_right</span></div><div class="creator-row-body"><div class="row-descriptor">'+esc(c.descriptor||'')+'</div><div class="row-meta">'+esc(c.platform)+' &middot; '+esc(c.geography)+pulse+'</div><a class="row-link" href="'+esc(c.url)+'" target="_blank" rel="noopener">Visit &rarr;</a></div></div>';}).join('');}
 
