@@ -98,36 +98,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .cc-name { font-size: 12px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; max-width: 115px; }
 .cc-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; text-align: right; }
 
-/* ── POLY-PLATFORM ────────────────────────────────────────── */
-.poly-intro { font-size: 13px; color: var(--text-secondary); line-height: 1.8; max-width: 680px; margin-bottom: 28px; }
-.poly-intro strong { color: var(--text-primary); font-weight: 600; }
-.creator-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 22px; }
-.creator-card { background: var(--page-bg); border: 1px solid var(--border); border-radius: 3px; padding: 20px; }
-.cc-creator-name { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: #000; margin-bottom: 2px; }
-.cc-channel { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); margin-bottom: 10px; }
-.cc-bsky-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blue); margin-bottom: 12px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cc-platforms { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
-.platform-pill { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border); color: var(--text-secondary); background: var(--card-bg); white-space: nowrap; }
-.platform-pill.primary { background: var(--olive); color: #fff; border-color: var(--olive); }
-.topic-tag { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; padding: 2px 8px; border-radius: 2px; color: var(--text-muted); border: 1px solid var(--border); display: inline-block; }
-.poly-note { font-size: 12px; color: var(--text-secondary); line-height: 1.7; max-width: 640px; padding: 14px 18px; background: var(--card-bg); border-left: 3px solid var(--lime); border-radius: 0 3px 3px 0; font-style: italic; }
-
-/* ── WHAT THIS ENABLES ────────────────────────────────────── */
-.enables-intro { font-size: 14px; color: var(--text-secondary); line-height: 1.75; max-width: 640px; margin-bottom: 28px; }
-.enables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.enable-card { border: 1px solid var(--border); border-radius: 3px; padding: 26px 22px; }
-.enable-card.light { background: var(--page-bg); }
-.enable-card.dark { background: #0f0f18; border-color: #0f0f18; }
-.enable-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; margin-bottom: 12px; }
-.enable-card.light .enable-num { color: var(--text-muted); }
-.enable-card.dark .enable-num { color: rgba(255,255,255,0.25); }
-.enable-title { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.25; }
-.enable-card.light .enable-title { color: #000; }
-.enable-card.dark .enable-title { color: var(--acid); }
-.enable-copy { font-size: 12px; line-height: 1.75; }
-.enable-card.light .enable-copy { color: var(--text-secondary); }
-.enable-card.dark .enable-copy { color: rgba(255,255,255,0.55); }
-
 /* ── CREATOR INDEX SECTION ────────────────────────────────── */
 .index-toolbar { margin-bottom: 20px; display: flex; flex-direction: column; gap: 14px; }
 
@@ -160,19 +130,42 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .index-status strong { color: var(--text-secondary); }
 
 /* creator list */
-.creator-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
-.ci-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 3px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; transition: border-color 0.15s; }
-.ci-card:hover { border-color: #c8c8cc; }
-.ci-card a { text-decoration: none; }
-.ci-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-.ci-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; line-height: 1.2; }
-.ci-followers { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--lime); font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-.ci-channel { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ci-meta { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 2px; }
-.ci-beat { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
-.ci-platform { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); padding: 2px 8px; border-radius: 2px; border: 1px solid var(--border); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.06em; }
-.ci-platform.cross { background: rgba(151,214,0,0.1); border-color: rgba(151,214,0,0.4); color: var(--olive); }
-.ci-bsky { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blue); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* creator list — row layout */
+.creator-list { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; background: var(--card-bg); }
+.ci-row { display: grid; grid-template-columns: 2fr 1.4fr 1fr 1fr 0.8fr; align-items: center; gap: 0; border-bottom: 1px solid var(--border); padding: 11px 16px; transition: background 0.12s; min-width: 0; }
+.ci-row:last-child { border-bottom: none; }
+.ci-row:hover { background: var(--page-bg); }
+.ci-col { min-width: 0; padding: 0 8px; }
+.ci-col:first-child { padding-left: 0; }
+.ci-col:last-child { padding-right: 0; text-align: right; }
+.ci-name { font-size: 13px; font-weight: 700; color: #000; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ci-channel { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.ci-beat { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 2px; white-space: nowrap; display: inline-block; }
+.ci-platform { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.06em; display: inline-block; }
+.ci-platform.cross { background: rgba(151,214,0,0.1); border-color: rgba(151,214,0,0.4); color: var(--olive); margin-left: 4px; }
+.ci-bsky { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blue); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ci-followers { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--lime); font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }
+.ci-followers.empty { color: var(--border); }
+/* list column header */
+.ci-list-header { display: grid; grid-template-columns: 2fr 1.4fr 1fr 1fr 0.8fr; gap: 0; padding: 8px 16px; border-bottom: 2px solid var(--border); background: var(--page-bg); }
+.ci-list-header span { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); padding: 0 8px; }
+.ci-list-header span:first-child { padding-left: 0; }
+.ci-list-header span:last-child { padding-right: 0; text-align: right; }
+/* index-bridge */
+.index-bridge { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 32px 40px; }
+.bridge-intro { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+.bridge-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.bridge-card { padding: 16px 18px; border: 1px solid var(--border); border-radius: 3px; background: var(--page-bg); }
+.bridge-card-label { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--lime); margin-bottom: 6px; }
+.bridge-card-title { font-size: 13px; font-weight: 700; color: #000; letter-spacing: -0.01em; margin-bottom: 6px; }
+.bridge-card-copy { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+/* index activation pulse */
+#index.index-activated { animation: indexPulse 0.55s ease; }
+@keyframes indexPulse {
+  0%   { box-shadow: inset 0 0 0 2px rgba(151,214,0,0); }
+  30%  { box-shadow: inset 0 0 0 2px rgba(151,214,0,0.35); }
+  100% { box-shadow: inset 0 0 0 2px rgba(151,214,0,0); }
+}
 
 .no-results { text-align: center; padding: 64px 0; }
 .no-results p { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-muted); }
@@ -266,28 +259,28 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 <div class="stat-strip">
   <div class="stat-cell">
     <div class="stat-num" id="stat-total">671</div>
-    <div class="stat-label">Verified creators<br>on Bluesky</div>
-    <div class="stat-so-what">Widest independent creator coverage on the platform</div>
+    <div class="stat-label">Independent creators<br>on Bluesky</div>
+    <div class="stat-so-what">The most complete map of journalism on the platform</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num">14</div>
+    <div class="stat-num gray" id="stat-beats">14</div>
     <div class="stat-label">Beat communities<br>mapped</div>
-    <div class="stat-so-what">Every major beat, mapped and queryable</div>
+    <div class="stat-so-what">Every major editorial beat, queryable</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num" id="stat-total-followers">—</div>
+    <div class="stat-label">Combined Bluesky<br>following</div>
+    <div class="stat-so-what">Collective audience reach of the corpus</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num gray" id="stat-median-followers">—</div>
+    <div class="stat-label">Median creator<br>following</div>
+    <div class="stat-so-what">Typical reach of an Atlas creator on Bluesky</div>
   </div>
   <div class="stat-cell">
     <div class="stat-num gray" id="stat-top-followers">—</div>
-    <div class="stat-label">Top creator<br>Bluesky followers</div>
-    <div class="stat-so-what" id="stat-top-name">Largest audience in the corpus</div>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-num gray" id="stat-poly">—</div>
-    <div class="stat-label">With multi-platform<br>presence</div>
-    <div class="stat-so-what">Find cross-platform reach in a single search</div>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-num gray" id="stat-verified">—</div>
-    <div class="stat-label">Human-verified<br>accounts</div>
-    <div class="stat-so-what">Confirmed by Atlas research team</div>
+    <div class="stat-label">Largest single<br>audience</div>
+    <div class="stat-so-what" id="stat-top-name">Top creator in the corpus</div>
   </div>
 </div>
 
@@ -304,59 +297,32 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 </section>
 
-<!-- ── SECTION 02: POLY-PLATFORM LAYER ───────────────────── -->
-<section class="section on-white" id="poly">
-  <div class="section-header">
-    <span class="section-num">02</span>
-    <h2 class="section-title">The Poly-Platform Layer</h2>
-    <span class="section-meta" id="poly-meta">— creators · newsletter + video + podcast</span>
+<!-- ── INTERSTITIAL BRIDGE ─────────────────────────────────── -->
+<div class="index-bridge">
+  <div class="bridge-intro">Built for three audiences — each use case is live and queryable today</div>
+  <div class="bridge-cards">
+    <div class="bridge-card">
+      <div class="bridge-card-label">Publishing platforms</div>
+      <div class="bridge-card-title">Find creators worth recruiting</div>
+      <p class="bridge-card-copy">Filter by beat, platform type, and cross-platform presence. Identify who's already bridging short-form Bluesky and long-form publishing.</p>
+    </div>
+    <div class="bridge-card">
+      <div class="bridge-card-label">PR &amp; Comms</div>
+      <div class="bridge-card-title">Target before you pitch</div>
+      <p class="bridge-card-copy">Search by beat cluster, geography, and Bluesky presence. A targeted list, not a media database firehose.</p>
+    </div>
+    <div class="bridge-card">
+      <div class="bridge-card-label">Funders &amp; Researchers</div>
+      <div class="bridge-card-title">Track where the field is moving</div>
+      <p class="bridge-card-copy">Which beats are growing? Which creators are building multi-platform presence? Atlas surfaces signal before it becomes conventional wisdom.</p>
+    </div>
   </div>
-  <p class="poly-intro">
-    When Atlas maps a creator, we don't just record where they publish — we capture their
-    <strong>full platform surface area.</strong> A newsletter writer who also runs a YouTube channel
-    and a podcast isn't three separate creators. They're one editorial voice with three audience
-    entry points. That's the intelligence that makes discovery, bundling, and recommendation
-    actually work.
-  </p>
-  <div class="creator-cards" id="creator-cards">
-    <!-- rendered by JS -->
-  </div>
-  <p class="poly-note">
-    Cross-platform data updates with every spidering session — the map grows as journalism moves.
-    Atlas data is live. Every session adds names, beats, and platform signals across the full corpus.
-  </p>
-</section>
+</div>
 
-<!-- ── SECTION 03: WHO THIS IS BUILT FOR ─────────────────── -->
-<section class="section on-white" id="enables">
-  <div class="section-header">
-    <span class="section-num">03</span>
-    <h2 class="section-title">Who This Is Built For</h2>
-  </div>
-  <p class="enables-intro">This intelligence layer is purpose-built for three audiences. Each use case is live and queryable today.</p>
-  <div class="enables-grid">
-    <div class="enable-card dark">
-      <div class="enable-num">01</div>
-      <div class="enable-title">Platform &amp; Bundle Strategy</div>
-      <p class="enable-copy">Which 3 creators reach completely different audiences — no overlap, maximum bundle reach? The Atlas overlap analyzer answers that. Built for platforms building subscription products on AT Protocol: find bundle candidates by editorial identity, not just follower count.</p>
-    </div>
-    <div class="enable-card light">
-      <div class="enable-num">02</div>
-      <div class="enable-title">PR &amp; Earned Media</div>
-      <p class="enable-copy">Find the right journalist-creator before you pitch — not after the story runs. Filter by beat cluster, platform, geography, and Bluesky presence. Atlas gives comms teams a targeted list, not a media database firehose.</p>
-    </div>
-    <div class="enable-card light">
-      <div class="enable-num">03</div>
-      <div class="enable-title">For media funders and creator programs</div>
-      <p class="enable-copy">Which beats are growing on Bluesky? Which creators are building audiences across newsletter + video + podcast? Atlas surfaces the signal before it becomes conventional wisdom — useful for editorial teams, funders, and anyone tracking where independent journalism is heading.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── SECTION 04: CREATOR INDEX ──────────────────────────── -->
+<!-- ── SECTION 02: CREATOR INDEX ──────────────────────────── -->
 <section class="section" id="index">
   <div class="section-header">
-    <span class="section-num">04</span>
+    <span class="section-num">02</span>
     <h2 class="section-title">Creator Index</h2>
     <span class="section-meta" id="index-meta">671 creators · sortable · filterable</span>
   </div>
@@ -403,6 +369,13 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 
   <div class="index-status" id="index-status">Loading…</div>
+  <div class="ci-list-header">
+    <span>Creator</span>
+    <span>Channel</span>
+    <span>Beat</span>
+    <span>Platform</span>
+    <span>Followers</span>
+  </div>
   <div class="creator-list" id="creator-list">
     <!-- rendered by JS -->
   </div>
@@ -491,13 +464,6 @@ const CLUSTERS = {
   'Food':          { color: '#a8dadc', cx: 0.18, cy: 0.54, count: 18,  newsletter: 10, video: 6,  podcast: 1,  website: 3,  anchors: ['Andrew Janjigian', 'Alicia Kennedy'] },
 };
 
-const POLY_FEATURED = [
-  { name: 'Andrew Dessler',  primaryLabel: 'Newsletter', p2Label: 'Video — YouTube',    cluster: 'Climate'   },
-  { name: 'Aaron Parnas',    primaryLabel: 'Video',      p2Label: 'Newsletter',          cluster: 'Politics'  },
-  { name: 'Dan Harris',      primaryLabel: 'Newsletter', p2Label: 'Video — Instagram',   cluster: 'Health'    },
-  { name: 'Craig Calcaterra',primaryLabel: 'Newsletter', p2Label: 'Website',             cluster: 'Sports'    },
-];
-
 const VIZ_ANCHORS = [
   { name: 'Aaron Rupar',      cluster: 'Politics'      },
   { name: 'Casey Newton',     cluster: 'Tech'          },
@@ -552,13 +518,20 @@ function hexAlpha(hex, a) {
    ════════════════════════════════════════════════════════════ */
 function initStats(creators) {
   const total = creators.length;
-  const poly = creators.filter(c => c.platform_2).length;
-  const verified = creators.filter(c => c.confirmed === 'YES').length;
+  const withFollowers = creators.filter(c => c.bsky_followers > 0);
+  const totalFollowers = withFollowers.reduce((sum, c) => sum + c.bsky_followers, 0);
+  const sorted = withFollowers.map(c => c.bsky_followers).sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  const median = sorted.length % 2 !== 0
+    ? sorted[mid]
+    : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
   const top = creators.slice().sort((a,b) => (b.bsky_followers||0) - (a.bsky_followers||0))[0];
 
+  console.log(`Bluesky corpus stats — total followers: ${totalFollowers.toLocaleString()}, median: ${median.toLocaleString()}`);
+
   document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-poly').textContent = poly || '—';
-  document.getElementById('stat-verified').textContent = verified || '—';
+  document.getElementById('stat-total-followers').textContent = fmtFollowers(totalFollowers) || '—';
+  document.getElementById('stat-median-followers').textContent = fmtFollowers(median) || '—';
 
   if (top && top.bsky_followers > 0) {
     document.getElementById('stat-top-followers').textContent = fmtFollowers(top.bsky_followers) || '—';
@@ -570,9 +543,6 @@ function initStats(creators) {
   document.getElementById('viz-label').textContent = `${total} creators · 14 beat clusters`;
   document.getElementById('overlay-title').textContent = `Independent Journalism Atlas · Bluesky Creator Network · ${total} creators · 14 clusters`;
   document.getElementById('footer-count').textContent = total;
-
-  const polyCount = poly;
-  document.getElementById('poly-meta').textContent = `${polyCount} creators · newsletter + video + podcast`;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -640,40 +610,12 @@ function initClusterGrid(creators) {
         document.getElementById('index').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
       renderList(creators);
+      const indexSection = document.getElementById('index');
+      indexSection.classList.add('index-activated');
+      setTimeout(() => indexSection.classList.remove('index-activated'), 600);
     });
 
     grid.appendChild(card);
-  });
-}
-
-/* ════════════════════════════════════════════════════════════
-   INIT: poly-platform creator cards
-   ════════════════════════════════════════════════════════════ */
-function initPolyCards(creators) {
-  const byName = {};
-  creators.forEach(c => { byName[c.name] = c; });
-
-  const container = document.getElementById('creator-cards');
-  container.innerHTML = '';
-
-  POLY_FEATURED.forEach(({ name, primaryLabel, p2Label, cluster }) => {
-    const creator = byName[name];
-    if (!creator) return;
-
-    const clusterColor = CLUSTERS[cluster]?.color || '#888';
-    const card = document.createElement('div');
-    card.className = 'creator-card';
-    card.innerHTML = `
-      <div class="cc-creator-name">${name}</div>
-      <div class="cc-channel">${creator.channel || ''}</div>
-      <span class="cc-bsky-handle">@${creator.bsky_handle}</span>
-      <div class="cc-platforms">
-        <span class="platform-pill primary">${primaryLabel}</span>
-        <span class="platform-pill">${p2Label}</span>
-      </div>
-      <span class="topic-tag" style="border-color:${clusterColor}30;color:${clusterColor};">${cluster}</span>
-    `;
-    container.appendChild(card);
   });
 }
 
@@ -861,18 +803,26 @@ function renderList(creators) {
     const platformLabel = (c.platform_primary || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ');
     const p2Label = c.platform_2 ? (c.platform_2 || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ') : null;
 
-    return `<div class="ci-card">
-      <div class="ci-top">
+    return `<div class="ci-row">
+      <div class="ci-col">
         <div class="ci-name">${c.name}</div>
-        ${followers ? `<div class="ci-followers">${followers}</div>` : ''}
+        ${c.bsky_handle ? `<div class="ci-bsky">@${c.bsky_handle}</div>` : ''}
       </div>
-      ${c.channel ? `<div class="ci-channel">${c.channel}</div>` : ''}
-      <div class="ci-meta">
+      <div class="ci-col">
+        <div class="ci-channel">${c.channel || ''}</div>
+      </div>
+      <div class="ci-col">
         <span class="ci-beat" style="background:${beatColor}18;color:${beatColor};">${beat}</span>
+      </div>
+      <div class="ci-col">
         <span class="ci-platform">${platformLabel}</span>
         ${isCross ? `<span class="ci-platform cross">+ ${p2Label || c.platform_2}</span>` : ''}
       </div>
-      ${c.bsky_handle ? `<div class="ci-bsky">@${c.bsky_handle}</div>` : ''}
+      <div class="ci-col">
+        ${followers
+          ? `<div class="ci-followers">${followers}</div>`
+          : `<div class="ci-followers empty">—</div>`}
+      </div>
     </div>`;
   }).join('');
 }
@@ -1195,7 +1145,6 @@ window.addEventListener('DOMContentLoaded', () => {
       CREATORS = data;
       initStats(CREATORS);
       initClusterGrid(CREATORS);
-      initPolyCards(CREATORS);
       initBeatPills(CREATORS);
       initControls(CREATORS);
       renderList(CREATORS);
