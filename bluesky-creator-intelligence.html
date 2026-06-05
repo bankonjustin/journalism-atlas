@@ -180,31 +180,75 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .no-results { text-align: center; padding: 64px 0; }
 .no-results p { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-muted); }
 
-/* ── VIZ OVERLAY ──────────────────────────────────────────── */
-.viz-expand-hint { position: absolute; bottom: 12px; right: 14px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.12em; pointer-events: none; transition: color 0.2s; animation: hintPulse 3s ease-in-out 1.5s 2; }
-.hero-right:hover .viz-expand-hint { color: rgba(255,255,255,0.6); animation: none; }
+/* ── VIZ HINT ─────────────────────────────────────────────── */
+.viz-expand-hint {
+  position: absolute; bottom: 12px; right: 14px;
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  color: rgba(255,255,255,0.35); text-transform: uppercase;
+  letter-spacing: 0.12em; pointer-events: none;
+  transition: color 0.2s;
+  animation: hintPulse 3s ease-in-out 1.5s 2;
+  display: flex; align-items: center; gap: 6px;
+}
+.viz-expand-hint::after { content: '↓'; font-size: 11px; }
+.hero-right:hover .viz-expand-hint { color: rgba(255,255,255,0.65); animation: none; }
 @keyframes hintPulse {
   0%, 100% { color: rgba(255,255,255,0.35); }
-  50% { color: rgba(255,255,255,0.7); }
+  50%       { color: rgba(255,255,255,0.75); }
 }
-#viz-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(6,6,14,0.97); align-items: center; justify-content: center; padding: 28px 32px; }
-#viz-overlay.open { display: flex; animation: overlayIn 0.22s ease; }
-@keyframes overlayIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-#overlay-inner { width: 100%; max-width: 1280px; height: 100%; display: flex; flex-direction: column; gap: 0; }
-#overlay-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; flex-shrink: 0; }
-#overlay-title { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.14em; }
-#overlay-close { background: none; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.45); width: 32px; height: 32px; border-radius: 3px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, color 0.15s; line-height: 1; }
-#overlay-close:hover { border-color: rgba(255,255,255,0.45); color: #fff; }
-#overlay-canvas-wrap { flex: 1; position: relative; min-height: 0; }
-#overlay-canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
-#overlay-tooltip { display: none; position: absolute; background: rgba(8,8,18,0.94); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 9px 12px; pointer-events: none; z-index: 10; max-width: 200px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
-#overlay-tooltip strong { font-size: 12px; color: #fff; display: block; margin-bottom: 2px; font-weight: 700; }
-#overlay-tooltip .tt-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.45); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 180px; }
-#overlay-tooltip .tt-cluster { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 5px; font-weight: 500; }
-#overlay-legend { height: 44px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 12px; flex-shrink: 0; overflow: hidden; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
-.legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.legend-count { color: rgba(255,255,255,0.18); margin-left: 1px; }
+
+/* ── AMBIENT STRIP ────────────────────────────────────────── */
+#ambient-strip {
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  background: #080810;
+  transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+#ambient-strip.visible {
+  height: 72px;
+  pointer-events: auto;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+#ambient-strip canvas {
+  display: block;
+  width: 100%; height: 72px;
+  position: absolute; top: 0; left: 0;
+}
+#ambient-strip::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, transparent 55%, #efeff2 92%);
+  pointer-events: none;
+  z-index: 2;
+}
+#ambient-strip-label {
+  position: absolute; right: 40px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em;
+  display: flex; align-items: center; gap: 10px;
+}
+#ambient-strip-label button {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 3px 10px; border-radius: 9999px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+#ambient-strip-label button:hover { border-color: var(--lime); color: var(--text-primary); }
+
+/* hero-right dims when ambient strip activates */
+.hero-right { transition: opacity 0.4s ease; }
+.hero-right.dimmed { opacity: 0.28; pointer-events: none; }
+
+/* overlay — retired */
+#viz-overlay { display: none !important; }
 
 /* ── PARTNER CTA ──────────────────────────────────────────── */
 .partner-headline { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; letter-spacing: -0.03em; color: var(--acid); line-height: 1.1; margin-bottom: 14px; }
@@ -257,7 +301,16 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <div class="viz-label" id="viz-label">671 creators · 14 beat clusters</div>
     <canvas id="network-canvas"></canvas>
     <div id="viz-tooltip"></div>
-    <div class="viz-expand-hint">Click to explore fullscreen</div>
+    <div class="viz-expand-hint">Explore the index</div>
+  </div>
+</div>
+
+<!-- ── AMBIENT STRIP ─────────────────────────────────────── -->
+<div id="ambient-strip">
+  <canvas id="ambient-canvas"></canvas>
+  <div id="ambient-strip-label">
+    <span id="ambient-strip-text">Network · 671 creators · 14 clusters</span>
+    <button onclick="collapseAmbient()">↑ Collapse</button>
   </div>
 </div>
 
@@ -541,7 +594,7 @@ function initStats(creators) {
   document.getElementById('hero-count').textContent = total;
   document.getElementById('header-count').textContent = `${total} creators · 14 clusters`;
   document.getElementById('viz-label').textContent = `${total} creators · 14 beat clusters`;
-  document.getElementById('overlay-title').textContent = `Independent Journalism Atlas · Bluesky Creator Network · ${total} creators · 14 clusters`;
+  document.getElementById('ambient-strip-text').textContent = `Network · ${total} creators · 14 clusters`;
 
 }
 
@@ -832,7 +885,7 @@ function renderList(creators) {
    ════════════════════════════════════════════════════════════ */
 let CREATORS = [];
 
-function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasClick = null } = {}) {
+function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasClick = null, ambient = false } = {}) {
   const container = canvas.parentElement;
 
   function resize() {
@@ -995,7 +1048,7 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
       nodes.forEach(n => {
         n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
         n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
-        if (mouse.x !== null) {
+        if (!ambient && mouse.x !== null) {
           const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
           const d = Math.sqrt(dx*dx + dy*dy);
           if (d < 60 && d > 0) { const f = (1 - d/60) * 18; n.cx += dx/d*f; n.cy += dy/d*f; }
@@ -1011,8 +1064,10 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
           }
         });
         let alpha, radius;
-        if      (hoveredCluster === null)          { alpha = 0.72; radius = 2.5; }
-        else if (n.cluster === hoveredCluster)     { alpha = 1.0;  radius = 4.0; }
+        if (ambient) {
+          alpha = 0.35; radius = 1.8;
+        } else if (hoveredCluster === null)        { alpha = 0.72; radius = 2.5; }
+        else if   (n.cluster === hoveredCluster)   { alpha = 1.0;  radius = 4.0; }
         else                                       { alpha = 0.12; radius = 2.0; }
         ctx.beginPath();
         ctx.arc(n.cx, n.cy, radius, 0, Math.PI * 2);
@@ -1020,7 +1075,7 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
         ctx.fill();
       });
 
-      drawLabelsAndNames();
+      if (!ambient) drawLabelsAndNames();
       if (pulses.length) drawPulses(now);
     }
 
@@ -1096,42 +1151,51 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
 }
 
 /* ════════════════════════════════════════════════════════════
-   VIZ: hero + overlay
+   VIZ: hero + ambient strip
    ════════════════════════════════════════════════════════════ */
-let overlayViz = null;
+let ambientViz = null;
+let ambientActivated = false;
 
 function openOverlay() {
-  const overlay = document.getElementById('viz-overlay');
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  if (!overlayViz) {
-    overlayViz = buildViz(
-      document.getElementById('overlay-canvas'),
-      document.getElementById('overlay-tooltip'),
-      CREATORS,
-      { startSettled: true }
-    );
+  if (ambientActivated) {
+    document.getElementById('index').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
   }
+  ambientActivated = true;
+
+  document.querySelector('.hero-right').classList.add('dimmed');
+
+  const strip = document.getElementById('ambient-strip');
+  strip.classList.add('visible');
+
+  setTimeout(() => {
+    const ambCanvas = document.getElementById('ambient-canvas');
+    if (!ambientViz && CREATORS && CREATORS.length) {
+      ambientViz = buildViz(ambCanvas, null, CREATORS, { startSettled: true, ambient: true });
+    }
+  }, 180);
+
+  strip.addEventListener('transitionend', () => {
+    const indexEl = document.getElementById('index');
+    indexEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    indexEl.classList.add('index-activated');
+    setTimeout(() => indexEl.classList.remove('index-activated'), 600);
+  }, { once: true });
 }
 
-function closeOverlay() {
-  document.getElementById('viz-overlay').classList.remove('open');
-  document.body.style.overflow = '';
+function collapseAmbient() {
+  ambientActivated = false;
+  document.getElementById('ambient-strip').classList.remove('visible');
+  document.querySelector('.hero-right').classList.remove('dimmed');
+  if (ambientViz) { ambientViz.stop(); ambientViz = null; }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+function closeOverlay() { /* retired — no-op */ }
 
 function initOverlay() {
-  document.getElementById('viz-overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('viz-overlay')) closeOverlay();
-  });
-  document.getElementById('overlay-close').addEventListener('click', closeOverlay);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
-
-  const legend = document.getElementById('overlay-legend');
-  Object.entries(CLUSTERS).forEach(([name, cfg]) => {
-    const item = document.createElement('span');
-    item.className = 'legend-item';
-    item.innerHTML = `<span class="legend-dot" style="background:${cfg.color}"></span>${name} <span class="legend-count">${cfg.count}</span>`;
-    legend.appendChild(item);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && ambientActivated) collapseAmbient();
   });
 }
 

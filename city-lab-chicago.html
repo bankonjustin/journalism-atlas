@@ -8,13 +8,13 @@
   <link rel="canonical" href="https://journalismatlas.com/city-lab-chicago">
   <meta property="og:url" content="https://journalismatlas.com/city-lab-chicago">
   <meta property="og:title" content="Atlas City Lab — Chicago Media Ecosystem">
-  <meta property="og:description" content="A comprehensive map of who's covering Chicago — 76 independent creators, 245 outlets across all models, and the beats where coverage is thin.">
+  <meta property="og:description" content="A comprehensive map of who's covering Chicago — 76 independent creators, 245 outlets across all models, and the beats they cover.">
   <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <meta property="og:type" content="website">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://journalismatlas.com/city-lab-chicago">
   <meta property="twitter:title" content="Atlas City Lab — Chicago Media Ecosystem">
-  <meta property="twitter:description" content="A comprehensive map of who's covering Chicago — 76 independent creators, 245 outlets across all models, and the beats where coverage is thin.">
+  <meta property="twitter:description" content="A comprehensive map of who's covering Chicago — 76 independent creators, 245 outlets across all models, and the beats they cover.">
   <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="/assets/css/variables.css">
@@ -34,6 +34,9 @@
     .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #ceff00; margin-bottom: 16px; }
     .hero-title { font-size: 48px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; color: #fff; max-width: 760px; margin-bottom: 16px; }
     .hero-body { font-size: 16px; color: #aaa; max-width: 680px; line-height: 1.65; margin-bottom: 40px; }
+    .hero-cta-note { font-size: 13px; color: #666; margin-bottom: 32px; }
+    .hero-cta-link { color: #ceff00; text-decoration: none; font-weight: 600; }
+    .hero-cta-link:hover { text-decoration: underline; }
     .hero-stat-primary { margin-bottom: 16px; }
     .hero-stat-num-large { font-size: 56px; font-weight: 700; color: #ceff00; line-height: 1; display: block; }
     .hero-stat-primary-label { font-size: 13px; color: #666; margin-top: 4px; }
@@ -68,7 +71,8 @@
     .section:last-child { border-bottom: none; }
     .section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #666; margin-bottom: 16px; }
     .eco-split { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 8px; }
-    .eco-panel { border-radius: 6px; padding: 24px 26px; }
+    .eco-panel { border-radius: 6px; padding: 24px 26px; cursor: pointer; transition: opacity 0.15s; }
+    .eco-panel:hover { opacity: 0.88; }
     .eco-panel-j { background: #111; color: #fff; }
     .eco-panel-l { background: #fff5f7; border: 1px solid #ffd6e0; }
     .eco-panel-i { background: #1a2e00; color: #fff; border: 1px solid #3a5a00; }
@@ -235,7 +239,8 @@
   <div class="hero-inner">
     <div class="hero-eyebrow">Atlas City Lab &middot; Chicago, IL</div>
     <h1 class="hero-title">Chicago Media Ecosystem</h1>
-    <p class="hero-body">A comprehensive map of who&rsquo;s covering Chicago &mdash; 76 independent creators, 245 outlets across all models, and the beats where coverage is thin.</p>
+    <p class="hero-body">A comprehensive map of who&rsquo;s covering Chicago &mdash; 76 independent creators, 245 outlets across all models, and the beats they cover.</p>
+    <p class="hero-cta-note">Know a creator we haven&rsquo;t mapped yet? <a href="mailto:hello@journalismatlas.com?subject=Chicago Creator Suggestion" class="hero-cta-link">Tell us &rarr;</a></p>
     <div class="hero-stat-primary">
       <a href="#full-chicago-landscape" class="hero-stat-num-large hero-stat-245-link" onclick="document.getElementById('full-chicago-landscape').scrollIntoView({behavior:'smooth'});return false;">245</a>
       <span class="hero-stat-primary-label">Outlets in the full Chicago media ecosystem <span style="font-size:11px;opacity:0.7">↓ explore</span></span>
@@ -265,10 +270,10 @@
 <div class="tab-pane active" id="tab-ecosystem">
 <div class="main">
   <section class="section">
-    <h2 class="section-title">The Two Layers</h2>
+    <h2 class="section-title">Three Layers of Chicago&rsquo;s Media Ecosystem</h2>
     <div class="eco-split">
-      <div class="eco-panel eco-panel-j">
-        <div class="eco-panel-eyebrow">Journalism Layer &mdash; Accountability</div>
+      <div class="eco-panel eco-panel-j" onclick="switchToCreatorsTab('journalism')" title="Explore journalism creators">
+        <div class="eco-panel-eyebrow">Independent Journalism Layer</div>
         <div class="eco-panel-stats">
           <div class="eco-ps"><span class="eco-ps-num">39</span><span class="eco-ps-label">Creators</span></div>
           <div class="eco-ps"><span class="eco-ps-num">1</span><span class="eco-ps-label">Critical gap</span></div>
@@ -290,8 +295,8 @@
           <span class="eco-pill eco-pill-j-gap">CTA / Transit <span class="eco-pill-count">0</span></span>
         </div>
       </div>
-      <div class="eco-panel eco-panel-l">
-        <div class="eco-panel-eyebrow">Lifestyle Layer &mdash; Culture &amp; Community</div>
+      <div class="eco-panel eco-panel-l" onclick="switchToCreatorsTab('lifestyle')" title="Explore lifestyle creators">
+        <div class="eco-panel-eyebrow">Culture &amp; Lifestyle Layer</div>
         <div class="eco-panel-stats">
           <div class="eco-ps"><span class="eco-ps-num">39</span><span class="eco-ps-label">Creators</span></div>
           <div class="eco-ps"><span class="eco-ps-num">~60%</span><span class="eco-ps-label">TikTok</span></div>
