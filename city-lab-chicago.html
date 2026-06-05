@@ -286,14 +286,14 @@
         <div class="eco-panel-subhead">Beat Coverage</div>
         <div class="eco-pills">
           <span class="eco-pill eco-pill-j-strong">City Hall &amp; Politics <span class="eco-pill-count">10</span></span>
-          <span class="eco-pill eco-pill-j-strong">Black Chicago <span class="eco-pill-count">8</span></span>
-          <span class="eco-pill eco-pill-j-strong">Sports <span class="eco-pill-count">5</span></span>
+          <span class="eco-pill eco-pill-j-strong">Black Chicago <span class="eco-pill-count">6</span></span>
+          <span class="eco-pill eco-pill-j-mid">Sports <span class="eco-pill-count">4</span></span>
           <span class="eco-pill eco-pill-j-mid">Arts &amp; Culture <span class="eco-pill-count">4</span></span>
-          <span class="eco-pill eco-pill-j-mid">Media &amp; Press <span class="eco-pill-count">4</span></span>
-          <span class="eco-pill eco-pill-j-mid">Health &amp; Science <span class="eco-pill-count">3</span></span>
+          <span class="eco-pill eco-pill-j-mid">Media &amp; Press <span class="eco-pill-count">3</span></span>
+          <span class="eco-pill eco-pill-j-gap">Health &amp; Science <span class="eco-pill-count">1</span></span>
           <span class="eco-pill eco-pill-j-mid">Criminal Justice <span class="eco-pill-count">2</span></span>
           <span class="eco-pill eco-pill-j-mid">Education / CPS <span class="eco-pill-count">2</span></span>
-          <span class="eco-pill eco-pill-j-mid">LGBTQ+ <span class="eco-pill-count">2</span></span>
+          <span class="eco-pill eco-pill-j-gap">LGBTQ+ <span class="eco-pill-count">1</span></span>
           <span class="eco-pill eco-pill-j-mid">Immigration <span class="eco-pill-count">2</span></span>
           <span class="eco-pill eco-pill-j-mid">Labor <span class="eco-pill-count">1</span></span>
           <span class="eco-pill eco-pill-j-mid">Housing <span class="eco-pill-count">1</span></span>
@@ -320,8 +320,9 @@
         <div class="eco-panel-eyebrow">Legacy, Nonprofit &amp; Ethnic Press</div>
         <div class="eco-panel-stats">
           <div class="eco-ps"><span class="eco-ps-num">245</span><span class="eco-ps-label">Total outlets tracked</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">20</span><span class="eco-ps-label">Curated anchor orgs</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">76</span><span class="eco-ps-label">Independent creators</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">29</span><span class="eco-ps-label">Tier 1 orgs</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">33</span><span class="eco-ps-label">Ethnic &amp; community</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">76</span><span class="eco-ps-label">Creators (Atlas)</span></div>
         </div>
         <div class="eco-panel-subhead">Categories</div>
         <div class="eco-pills">
@@ -332,7 +333,7 @@
           <span class="eco-pill eco-pill-i">Neighborhood</span>
           <span class="eco-pill eco-pill-i">Diaspora/Ethnic</span>
         </div>
-        <p style="font-size:11px;color:#6a8a3a;margin-top:16px;line-height:1.5">The 245-outlet ecosystem includes legacy broadcast, ethnic and community press, nonprofits, digital-native outlets, and student media tracked in the 2026 Medill Local News Initiative study. The Atlas independently maps the creator and anchor institution layers shown here. The remaining ~149 outlets range from the Chicago Tribune to neighborhood newsletters &mdash; all part of Chicago&rsquo;s information infrastructure.</p>
+        <p style="font-size:11px;color:#6a8a3a;margin-top:16px;line-height:1.5">The 245 includes 76 independent creators (tracked here), 29 Tier 1 legacy and nonprofit anchors, 33 ethnic and community outlets, and 107 additional local outlets ranging from the Tribune to neighborhood newsletters &mdash; all mapped in the 2026 Medill Local News Initiative study.</p>
       </div>
     </div>
   </section>
@@ -1027,7 +1028,20 @@ async function fetchRSS(feed){
     }).filter(i=>i.title);
   }
 
-  // Proxy 1: allorigins (raw XML, no key required)
+  // Proxy 1: rss2json (parsed JSON, works for most public feeds)
+  try{
+    const s=sig();
+    const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.rss)+'&count=3',s?{signal:s}:{});
+    if(r.ok){
+      const d=await r.json();
+      if(d.status==='ok'&&d.items?.length)return d.items.slice(0,3).map(item=>({
+        ...feed,title:item.title||'',link:item.link||feed.url,
+        pubDate:item.pubDate?new Date(item.pubDate):null,
+      }));
+    }
+  }catch(e){}
+
+  // Proxy 2: allorigins fallback (raw XML parse)
   try{
     const s=sig();
     const r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(feed.rss),s?{signal:s}:{});
@@ -1036,19 +1050,7 @@ async function fetchRSS(feed){
       if(d.contents){const items=parseXML(d.contents);if(items.length)return items;}
     }
   }catch(e){}
-
-  // Proxy 2: rss2json fallback (parsed JSON, works for most public feeds without a key)
-  try{
-    const s=sig();
-    const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.rss)+'&count=3',s?{signal:s}:{});
-    if(!r.ok)return[];
-    const d=await r.json();
-    if(d.status!=='ok'||!d.items?.length)return[];
-    return d.items.slice(0,3).map(item=>({
-      ...feed,title:item.title||'',link:item.link||feed.url,
-      pubDate:item.pubDate?new Date(item.pubDate):null,
-    }));
-  }catch(e){return[];}
+  return[];
 }
 
 async function initCoverageFeeds(){
@@ -1067,8 +1069,11 @@ async function initCoverageFeeds(){
   }
   if(lo)lo.style.display='none';
   if(!results.length){
-    if(lo)lo.innerHTML='<span style="font-size:13px;color:#b0b0b8">Feed data unavailable. Try refreshing the tab.</span>';
-    if(lo)lo.style.display='block';
+    const fallback=document.getElementById('coverage-loading');
+    if(fallback){
+      fallback.innerHTML='<div style="text-align:center;padding:48px 24px"><span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:12px;color:#d4d4d8">rss_feed</span><p style="font-size:13px;color:#606068;margin:0 0 8px">Live feed data unavailable right now.</p><p style="font-size:12px;color:#b0b0b8;margin:0">RSS proxies may be rate-limited. <a href="#" onclick="coverageFetched=false;initCoverageFeeds();return false" style="color:#5d7400">Try again</a> or check back later.</p></div>';
+      fallback.style.display='block';
+    }
     return;
   }
   fetchedItems=results;
