@@ -49,6 +49,8 @@
     .hero-stat-child[data-layer]:active { background: rgba(206,255,0,0.14); }
     .two-layer-note { font-size: 13px; color: #606068; line-height: 1.7; padding: 16px 20px; background: #f8f8f6; border-radius: 6px; border-left: 3px solid #97d600; margin: 24px 0 32px; }
     .two-layer-pill { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5d7400; background: #edf7d6; border-radius: 100px; padding: 2px 8px; margin-right: 8px; vertical-align: middle; }
+    .hero-stat-245-link { color: #ceff00; text-decoration: none; cursor: pointer; }
+    .hero-stat-245-link:hover { text-decoration: underline; opacity: 0.85; }
     .hero-partner { padding: 20px 0 0; border-top: 1px solid #1a1a1a; }
     .hero-partner-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-right: 8px; }
     .hero-partner-name { font-size: 12px; font-weight: 700; color: #666; padding: 4px 12px; border: 1px solid #333; border-radius: 100px; margin-right: 8px; }
@@ -56,8 +58,8 @@
     .tab-nav { background: #fff; border-bottom: 2px solid #e0e0e0; padding: 0 48px; display: flex; position: sticky; top: 72px; z-index: 50; overflow-x: auto; scrollbar-width: none; }
     .tab-nav::-webkit-scrollbar { display: none; }
     .tab-btn { padding: 16px 20px; font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; color: #888; transition: color 0.15s; white-space: nowrap; flex-shrink: 0; }
-    .tab-btn:hover { color: #333; }
-    .tab-btn.active { color: #000; border-bottom-color: #97d600; }
+    .tab-btn:hover { color: #111; background: rgba(0,0,0,0.03); }
+    .tab-btn.active { color: #000; border-bottom-color: #97d600; background: rgba(151,214,0,0.08); font-weight: 700; }
     .tab-btn .tab-badge { display: inline-block; font-size: 9px; font-weight: 700; background: #97d600; color: #000; padding: 1px 5px; border-radius: 100px; margin-left: 6px; vertical-align: middle; }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
@@ -128,8 +130,6 @@
     .vacuum-severity { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; margin-left: 8px; vertical-align: middle; }
     .sev-critical { background: #ffcccc; color: #990000; }
     .sev-gap { background: #ffe4b5; color: #7a4f00; }
-    .also-watching-callout { margin-top: 12px; padding: 10px 12px; background: #f8f8f8; border-radius: 6px; font-size: 13px; font-style: italic; color: #606068; }
-    .monitoring-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #b0b0b8; margin-left: 6px; }
     .creators-subheader { display: flex; justify-content: space-between; align-items: center; padding: 16px 0 12px; border-bottom: 1px solid #e8e8e8; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
     .creators-subheader-stats { display: flex; align-items: center; gap: 12px; }
     .layer-stat-btn { background: none; border: none; cursor: pointer; font-family: inherit; display: flex; flex-direction: column; align-items: center; padding: 4px 8px; border-radius: 6px; }
@@ -183,16 +183,6 @@
     .card-link:hover { text-decoration: underline; }
     .empty-state { font-size: 14px; color: #999; font-style: italic; padding: 32px 0; text-align: center; }
     .empty-state a { color: #5d7400; font-weight: 500; cursor: pointer; }
-    .radar-footer { margin-top: 64px; padding-top: 32px; border-top: 1px solid #e8e8e8; }
-    .radar-footer-head { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #b0b0b8; margin-bottom: 6px; }
-    .radar-footer-sub { font-size: 13px; color: #b0b0b8; margin-bottom: 20px; line-height: 1.5; }
-    .radar-footer-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 12px; }
-    .radar-card { background: #fff; border: 0.5px solid #e8e8e8; border-radius: 6px; padding: 14px; }
-    .radar-card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
-    .radar-handle { font-size: 13px; font-weight: 700; color: #313131; text-decoration: none; }
-    .radar-handle:hover { text-decoration: underline; }
-    .radar-monitoring { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #b0b0b8; }
-    .radar-beat { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #b0b0b8; }
     .full-eco-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:8px; }
     .full-eco-filters { display:flex; flex-wrap:wrap; gap:6px; }
     .feco-btn { background:#fff; border:0.5px solid #d4d4d8; border-radius:100px; font-family:inherit; font-size:11px; font-weight:500; padding:4px 12px; cursor:pointer; color:#606068; transition:background 0.12s,color 0.12s,border-color 0.12s; }
@@ -247,14 +237,14 @@
     <h1 class="hero-title">Chicago Media Ecosystem</h1>
     <p class="hero-body">A comprehensive map of who&rsquo;s covering Chicago &mdash; 76 independent creators, 245 outlets across all models, and the beats where coverage is thin.</p>
     <div class="hero-stat-primary">
-      <span class="hero-stat-num-large">245</span>
-      <span class="hero-stat-primary-label">Outlets in the full Chicago media ecosystem</span>
+      <a href="#full-chicago-landscape" class="hero-stat-num-large hero-stat-245-link" onclick="document.getElementById('full-chicago-landscape').scrollIntoView({behavior:'smooth'});return false;">245</a>
+      <span class="hero-stat-primary-label">Outlets in the full Chicago media ecosystem <span style="font-size:11px;opacity:0.7">↓ explore</span></span>
     </div>
     <div class="hero-stat-nudge"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;margin-right:4px">touch_app</span>Tap a layer to explore</div>
     <div class="hero-stat-breakdown">
       <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">39</span><span class="hero-stat-label-child">Journalism creators →</span></div>
       <div class="hero-stat-child" data-layer="lifestyle"><span class="hero-stat-num-child">37</span><span class="hero-stat-label-child">Lifestyle &amp; culture →</span></div>
-      <div class="hero-stat-child" data-layer="institutions"><span class="hero-stat-num-child">20</span><span class="hero-stat-label-child">Institutions →</span></div>
+      <div class="hero-stat-child" data-layer="institutions"><span class="hero-stat-num-child">20</span><span class="hero-stat-label-child">Anchor institutions →</span></div>
     </div>
     <div class="hero-partner">
       <span class="hero-partner-label">Research partners:</span>
@@ -341,7 +331,7 @@
 
   <section class="section">
     <section class="section">
-      <div class="full-eco-header">
+      <div class="full-eco-header" id="full-chicago-landscape">
         <div>
           <h2 class="section-title" style="margin-bottom:4px">The Full Chicago Media Landscape</h2>
           <p style="font-size:13px;color:#606068;margin-bottom:16px">All 245 outlets tracked in the 2026 Medill Local News Initiative study. Filter by category to explore.</p>
@@ -379,6 +369,7 @@
 <div class="main">
   <section class="section">
     <h2 class="section-title">Beat Coverage Map &mdash; Chicago Journalism Layer</h2>
+    <p style="font-size:13px;color:#b0b0b8;margin:-8px 0 16px">Independent creator-journalists only. Does not include institutional newsrooms (Block Club, Chalkbeat, etc.).</p>
     <div class="legend">
       <span class="legend-item"><span class="legend-dot" style="background:#ceff00"></span>Strong (5+)</span>
       <span class="legend-item"><span class="legend-dot" style="background:#ffff00"></span>Emerging (2&ndash;4)</span>
@@ -419,10 +410,10 @@
         <div class="vacuum-card partial"><h3>Labor &amp; Workers <span class="vacuum-severity sev-gap">Emerging</span></h3><p>Chicago is one of the most union-dense cities in America. One creator now covers this beat.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Jerry Mead-Lucero / Labor Express Radio &mdash; Chicago&rsquo;s only English-language labor news program, WLPN 105.5 FM since 2004.</p></div>
         <div class="vacuum-card partial"><h3>LGBTQ+ Community <span class="vacuum-severity sev-gap">Emerging</span></h3><p>One creator now covers this beat. Ecosystem remains thin at the individual creator level.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Anna DeShawn / Queer News (Ambie Award 2023, E3 Radio founder). Windy City Times covers institutionally but has limited digital reach and no creator presence.</p></div>
         <div class="vacuum-card partial"><h3>Immigration <span class="vacuum-severity sev-gap">Emerging</span></h3><p>Two creators now cover immigration and Latino community issues.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Francia Garc&iacute;a Hern&aacute;ndez / &iexcl;Presente! (CAN TV) and Unraveled Press (TikTok documentary, 9.8K followers).</p></div>
-        <div class="vacuum-card partial"><h3>Housing &amp; Neighborhood <span class="vacuum-severity sev-gap">Emerging</span></h3><p>One creator covers the Northwest Side. South and West Side housing coverage remains entirely absent.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Ariel Parrella-Aureli / LoganSquarist.</p><div class="also-watching-callout">Also watching: <strong>@christian.chicago</strong> (Intersectional Urbanist) &mdash; housing, justice, and power. 4.8K followers, 394K likes.<span class="monitoring-badge">Monitoring</span></div></div>
+        <div class="vacuum-card partial"><h3>Housing &amp; Neighborhood <span class="vacuum-severity sev-gap">Emerging</span></h3><p>One creator covers the Northwest Side. South and West Side housing coverage remains entirely absent.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Ariel Parrella-Aureli / LoganSquarist.</p></div>
         <div class="vacuum-card"><h3>Investigative <span class="vacuum-severity sev-critical">Gap</span></h3><p>No independent creator-journalist does original investigative work in Chicago. Injustice Watch, Better Government Association, and ProPublica Illinois fill this role as institutions — but no individual solopreneur operates on the investigative beat.</p></div>
         <div class="vacuum-card"><h3>CTA / Transit <span class="vacuum-severity sev-critical">Critical Gap</span></h3><p>No independent creator tracks CTA accountability. Streetsblog Chicago is the only transit-adjacent outlet across all 245 tracked &mdash; a national franchise, not a Chicago-first outlet. One outlet serving 2.7 million people on a system used by 1.6 million daily riders.</p></div>
-        <div class="vacuum-card partial"><h3>Education / CPS <span class="vacuum-severity sev-gap">Gap</span></h3><p>Board Rule and Daniel B. Rodriguez cover CPS policy. No creator covers the financial accountability and governance beat of the third-largest U.S. school district.</p><div class="also-watching-callout">Also watching: <strong>@crookcountytv</strong> &mdash; government accountability. 2K followers, 43K likes. YouTube active.<span class="monitoring-badge">Monitoring</span></div></div>
+        <div class="vacuum-card partial"><h3>Education / CPS <span class="vacuum-severity sev-gap">Gap</span></h3><p>Board Rule and Daniel B. Rodriguez cover CPS policy. No creator covers the financial accountability and governance beat of the third-largest U.S. school district.</p></div>
         <div class="vacuum-card partial"><h3>Health &amp; Science <span class="vacuum-severity sev-gap">Gap</span></h3><p>One creator covers health — Johnny Cole Dickson via video. The two independent public health podcasters who previously anchored this beat were national in scope, not Chicago-specific. No creator covers Chicago-specific health policy, hospital closures, environmental health, or CPS health programs.</p></div>
         <div class="vacuum-card partial"><h3>Environment &amp; Great Lakes <span class="vacuum-severity sev-gap">Partial</span></h3><p>350 Chicago covers climate advocacy. No creator covers the Chicago River, lakefront policy, or industrial pollution as a reporting beat. No dedicated environmental outlet across all 245 tracked outlets.</p></div>
       </div>
@@ -443,7 +434,10 @@
       <span class="layer-stat-divider">&middot;</span>
       <button class="layer-stat-btn" data-layer="institutions" onclick="setCreatorLayer('institutions')"><span class="layer-stat-num">20</span><span class="layer-stat-label">Institutions</span></button>
     </div>
-    <div class="institutions-note" id="institutions-note" style="display:none"><span style="color:#b0b0b8;font-size:12px">Showing 20 curated anchor institutions from the full Chicago media ecosystem. <a href="#" onclick="document.querySelector('[data-tab=ecosystem]').click();return false;" style="color:#5d7400">See full ecosystem &rarr;</a></span></div>
+    <div class="institutions-note" id="institutions-note" style="display:none"><span style="color:#b0b0b8;font-size:12px">Showing 20 <strong style="color:#606068">anchor institutions</strong> — the newsrooms and civic journalism organizations doing the most to hold Chicago accountable. <a href="#" onclick="document.querySelector('[data-tab=ecosystem]').click();return false;" style="color:#5d7400">See all 245 outlets &rarr;</a></span></div>
+    <div class="missing-cta" id="missing-cta" style="display:none;margin-top:8px">
+      <span style="font-size:12px;color:#b0b0b8">Think we&rsquo;re missing someone? <a href="mailto:hello@journalismatlas.com?subject=Chicago Creator Suggestion" style="color:#5d7400;font-weight:600">Tell us &rarr;</a></span>
+    </div>
     <div class="creators-view-toggle">
       <button class="view-btn active" data-view="list" title="List view" onclick="setView('list')"><span class="material-symbols-outlined" style="font-size:20px">view_list</span></button>
       <button class="view-btn" data-view="grid" title="Grid view" onclick="setView('grid')"><span class="material-symbols-outlined" style="font-size:20px">grid_view</span></button>
@@ -479,11 +473,6 @@
   <p class="creators-count" id="creators-count"></p>
   <div class="creator-list-wrap" id="creators-list"></div>
   <div class="creator-grid-wrap" id="creators-grid"></div>
-  <div class="radar-footer">
-    <div class="radar-footer-head">Also Watching</div>
-    <div class="radar-footer-sub">Accounts identified but not yet fully verified. Know someone we&rsquo;re missing? <a href="mailto:hello@journalismatlas.com" style="color:#5d7400">Tell us.</a></div>
-    <div class="radar-footer-grid" id="radar-footer-grid"></div>
-  </div>
 </div>
 </div>
 
@@ -611,12 +600,6 @@ const LIFESTYLE_CREATORS=[
   {name:"Yulia Denisyuk",channel:"Going Places Media",platform:"Newsletter",url:"https://www.goingplacesmedia.com/",content_type:"travel"},
 ];
 
-const EMERGING_VOICES=[
-  {name:"Intersectional Urbanist",handle:"christian.chicago",url:"https://www.tiktok.com/@christian.chicago",platform:"TikTok",beat:"Housing / Power",signal:"Real talk about housing, justice, and power in Chicago. 4.8K followers, 394K likes."},
-  {name:"ElJardineroDel312",handle:"eljardinerodel312",url:"https://www.tiktok.com/@eljardinerodel312",platform:"TikTok",beat:"Arts & Culture / Chicago History",signal:"Architecture, art, culture, history across South Side neighborhoods. 3.8K followers, 201K likes."},
-  {name:"Crook County TV",handle:"crookcountytv",url:"https://www.tiktok.com/@crookcountytv",platform:"TikTok + YouTube",beat:"Criminal Justice",signal:"Government accountability and transparency. YouTube channel active. Explicit civic journalism mission."},
-  {name:"Nicole The News Lady",handle:"nicolethenewslady",url:"https://www.tiktok.com/@nicolethenewslady",platform:"TikTok",beat:"City Hall & Politics",signal:"Self-identifies as journalist. Covers specific City Council votes and mayoral housing initiatives. Early stage."},
-];
 
 // NOTE: Array has 244 entries as sourced — the Medill PDF lists 245 but one entry is missing from the source data.
 const MEDILL_ALL_OUTLETS=[
@@ -893,7 +876,7 @@ const ECOSYSTEM_ORGS=[
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function platGroup(p){if(!p)return'Website';if(/tiktok|video|instagram/i.test(p))return'TikTok / Video';if(/podcast|radio/i.test(p))return'Podcast';if(/newsletter|substack|beehiiv|ghost/i.test(p))return'Newsletter';return'Website';}
 
-document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+btn.dataset.tab).classList.add('active');if(btn.dataset.tab==='beatmap'&&!scatterInit){scatterInit=true;setTimeout(renderScatter,50);}});});
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+btn.dataset.tab).classList.add('active');if(btn.dataset.tab==='beatmap'&&!scatterInit){scatterInit=true;setTimeout(renderScatter,50);}const mc=document.getElementById('missing-cta');if(mc)mc.style.display=btn.dataset.tab==='creators'?'block':'none';});});
 
 function switchToCreatorsTab(layer){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));document.querySelector('[data-tab="creators"]').classList.add('active');document.getElementById('tab-creators').classList.add('active');setCreatorLayer(layer);document.querySelector('.tab-nav').scrollIntoView({behavior:'smooth',block:'start'});}
 document.querySelectorAll('.hero-stat-child[data-layer]').forEach(el=>{el.addEventListener('click',()=>switchToCreatorsTab(el.dataset.layer));});
@@ -933,8 +916,6 @@ function renderGrid(){const gridEl=document.getElementById('creators-grid');let 
 
 function clearFilters(){currentBeat='';currentPlat='';document.querySelectorAll('.beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.beat));document.querySelectorAll('.plat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.plat));renderCreators();}
 
-function renderRadarFooter(){const el=document.getElementById('radar-footer-grid');if(!el)return;el.innerHTML=EMERGING_VOICES.map(v=>'<div class="radar-card"><div class="radar-card-head"><a class="radar-handle" href="'+esc(v.url)+'" target="_blank" rel="noopener">@'+esc(v.handle)+'</a><span class="radar-monitoring">Monitoring</span></div><div class="radar-beat">'+esc(v.beat)+'</div></div>').join('');}
-
 let fullEcoFilter='all';
 function setFullEcoFilter(cat){
   fullEcoFilter=cat;
@@ -956,7 +937,7 @@ function renderFullEco(){
 }
 document.querySelector('[data-tab="ecosystem"]')?.addEventListener('click',renderFullEco);
 
-renderEcosystemOrgs();renderCreators();renderRadarFooter();renderFullEco();
+renderEcosystemOrgs();renderCreators();renderFullEco();
 console.log('Chicago City Lab — journalism: '+JOURNALISM_CREATORS.length+', lifestyle: '+LIFESTYLE_CREATORS.length+', ecosystem orgs: '+ECOSYSTEM_ORGS.length);
 
 // ── COVERAGE TAB — RSS FEEDS ──────────────────────────────────────────────
