@@ -479,12 +479,12 @@
 <div class="tab-pane" id="tab-coverage">
 <div class="main">
   <div class="coverage-header">
-    <div><h2 class="coverage-title">What Chicago Is Covering</h2><p class="coverage-sub">Live RSS feeds from independent creators and newsrooms, grouped by beat.</p></div>
+    <div><h2 class="coverage-title">What Chicago Is Covering</h2><p class="coverage-sub">Live RSS feeds from across the Chicago media ecosystem — independent creators, nonprofit newsrooms, and legacy outlets — grouped by beat.</p></div>
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <div class="coverage-layer-toggle" id="coverage-layer-toggle">
         <button class="cov-layer-btn active" data-clayer="all" onclick="setCoverageLayer('all')">All</button>
-        <button class="cov-layer-btn" data-clayer="creator" onclick="setCoverageLayer('creator')">Creators</button>
-        <button class="cov-layer-btn" data-clayer="institution" onclick="setCoverageLayer('institution')">Institutions</button>
+        <button class="cov-layer-btn" data-clayer="creator" onclick="setCoverageLayer('creator')">Independent Creators</button>
+        <button class="cov-layer-btn" data-clayer="institution" onclick="setCoverageLayer('institution')">Newsrooms &amp; Institutions</button>
       </div>
       <div class="pulse-badge"><span class="pulse-badge-dot">&#9679;</span><span class="pulse-badge-text">Powered by Atlas Pulse</span></div>
     </div>
@@ -981,6 +981,45 @@ const CHICAGO_FEEDS=[
   {layer:'creator',name:'Anna DeShawn',channel:'Queer News',beat:'LGBTQ+',url:'https://annadeshawn.com',rss:'https://annadeshawn.substack.com/feed',beatColor:'#660066'},
   {layer:'creator',name:'Hermene Hartman',channel:"N'DIGO Studio",beat:'Black Chicago',url:'https://ndigo.com',rss:'https://ndigo.com/feed',beatColor:'#884400'},
   {layer:'creator',name:'Jerry Mead-Lucero',channel:'Labor Express Radio',beat:'Labor',url:'https://laborexpress.net',rss:'https://anchor.fm/s/faa5ac8/podcast/rss',beatColor:'#555500'},
+  // Tier 1 — Soloprenuers / Collective
+  {layer:'creator',name:'Unraveled',channel:'Unraveled',beat:'General News',url:'https://www.unraveledpress.com',rss:'https://www.unraveledpress.com/rss.xml',beatColor:'#555555'},
+  {layer:'creator',name:'350 Chicago',channel:'350 Chicago',beat:'Environment / Climate',url:'https://350chicago.substack.com',rss:'https://350chicago.substack.com/feed',beatColor:'#3a7a00'},
+  {layer:'creator',name:'Sixty Inches From Center',channel:'Sixty Inches From Center',beat:'Arts & Culture',url:'https://sixtyinchesfromcenter.org',rss:'https://sixtyinchesfromcenter.org/feed',beatColor:'#660066'},
+  // Tier 2 — Nonprofits
+  {layer:'institution',name:'Evanston Roundtable',channel:'Evanston Roundtable',beat:'City Hall & Neighborhoods',url:'https://evanstonroundtable.com',rss:'https://evanstonroundtable.com/feed',beatColor:'#0044cc'},
+  {layer:'institution',name:'In These Times',channel:'In These Times',beat:'Labor / Politics',url:'https://inthesetimes.com',rss:'https://inthesetimes.com/rss',beatColor:'#555500'},
+  {layer:'institution',name:'Streetsblog Chicago',channel:'Streetsblog Chicago',beat:'City Hall & Neighborhoods',url:'https://chi.streetsblog.org',rss:'https://chi.streetsblog.org/feed',beatColor:'#0044cc'},
+  {layer:'institution',name:'WBEZ 91.5 FM',channel:'WBEZ 91.5 FM',beat:'General News',url:'https://wbez.org',rss:'https://wbez.org/rss',platform:'Website',beatColor:'#555555',volume:'high'},
+  {layer:'institution',name:'Wednesday Journal',channel:'Wednesday Journal',beat:'City Hall & Neighborhoods',url:'https://wednesdayjournalonline.com',rss:'https://wednesdayjournalonline.com/feed',beatColor:'#0044cc'},
+  {layer:'institution',name:'Capital B Gary',channel:'Capital B Gary',beat:'Black Chicago / Community',url:'https://capitalbnews.org/gary',rss:'https://capitalbnews.org/feed',beatColor:'#884400'},
+  {layer:'institution',name:'PBS Chicago WTTW',channel:'PBS Chicago WTTW',beat:'General News',url:'https://wttw.com',rss:'https://news.wttw.com/rss.xml',beatColor:'#555555'},
+  // Tier 3 — For-Profit Legacy
+  {layer:'institution',name:'ABC 7 News Chicago',channel:'ABC 7 News Chicago',beat:'General News',url:'https://abc7chicago.com',rss:'https://abc7chicago.com/feed',beatColor:'#555555',volume:'high'},
+  {layer:'institution',name:'Chicago Magazine',channel:'Chicago Magazine',beat:'Arts & Culture',url:'https://chicagomag.com',rss:'https://chicagomag.com/feed',beatColor:'#660066'},
+  {layer:'institution',name:'Fox 32 Chicago',channel:'Fox 32 Chicago',beat:'General News',url:'https://fox32chicago.com',rss:'https://fox32chicago.com/rss.xml',beatColor:'#555555',volume:'high'},
+  {layer:'institution',name:'NBC 5 News Chicago',channel:'NBC 5 News Chicago',beat:'General News',url:'https://nbcchicago.com',rss:'https://nbcchicago.com/feed',beatColor:'#555555',volume:'high'},
+  {layer:'institution',name:'Telemundo Chicago',channel:'Telemundo Chicago',beat:'Immigration / Latino',url:'https://telemundochicago.com',rss:'https://telemundochicago.com/feed',beatColor:'#005522'},
+  {layer:'institution',name:'WGN 9 TV',channel:'WGN 9 TV',beat:'General News',url:'https://wgntv.com',rss:'https://wgntv.com/feed',beatColor:'#555555',volume:'high'},
+  {layer:'institution',name:'WGN 720 AM',channel:'WGN 720 AM',beat:'General News',url:'https://wgnradio.com',rss:'https://wgnradio.com/feed',beatColor:'#555555'},
+  {layer:'institution',name:'Chicago Sun-Times',channel:'Chicago Sun-Times',beat:'General News',url:'https://chicago.suntimes.com',rss:'https://chicago.suntimes.com/rss/index.xml',beatColor:'#555555',volume:'high'},
+  // Tier 4 — For-Profit Niche
+  {layer:'institution',name:'Chicago Reader',channel:'Chicago Reader',beat:'Arts & Culture',url:'https://chicagoreader.com',rss:'https://chicagoreader.com/feed',beatColor:'#660066'},
+  {layer:'institution',name:'Third Coast Review',channel:'Third Coast Review',beat:'Arts & Culture',url:'https://thirdcoastreview.com',rss:'https://thirdcoastreview.com/feed',beatColor:'#660066'},
+  {layer:'institution',name:'Windy City Times',channel:'Windy City Times',beat:'LGBTQ+',url:'https://windycitytimes.com',rss:'https://windycitytimes.com/feed',beatColor:'#660066'},
+  {layer:'institution',name:'Chicago Parent',channel:'Chicago Parent',beat:'General News',url:'https://chicagoparent.com',rss:'https://chicagoparent.com/rss.xml',beatColor:'#555555'},
+  {layer:'institution',name:'Chicago Crusader',channel:'Chicago Crusader',beat:'Black Chicago',url:'https://chicagocrusader.com',rss:'https://chicagocrusader.com/feed',beatColor:'#884400'},
+  {layer:'institution',name:'Negocios Now',channel:'Negocios Now',beat:'Business',url:'https://negociosnow.com',rss:'https://negociosnow.com/feed',beatColor:'#0066aa'},
+  {layer:'institution',name:'Urbanize Chicago',channel:'Urbanize Chicago',beat:'City Hall & Neighborhoods',url:'https://chicago.urbanize.city',rss:'https://chicago.urbanize.city/rss.xml',beatColor:'#0044cc'},
+  {layer:'institution',name:'Chicago Classical Review',channel:'Chicago Classical Review',beat:'Arts & Culture',url:'https://chicagoclassicalreview.com',rss:'https://chicagoclassicalreview.com/feed',beatColor:'#660066'},
+  {layer:'institution',name:'La Raza',channel:'La Raza',beat:'Immigration / Latino',url:'https://laraza.com',rss:'https://laraza.com/feed',beatColor:'#005522'},
+  {layer:'institution',name:'The Real Deal Chicago',channel:'The Real Deal Chicago',beat:'Business',url:'https://therealdeal.com/chicago',rss:'https://therealdeal.com/chicago/feed',beatColor:'#0066aa'},
+  {layer:'institution',name:'Crib Chatter',channel:'Crib Chatter',beat:'Business',url:'https://cribchatter.com',rss:'https://cribchatter.com/feed',beatColor:'#0066aa'},
+  {layer:'institution',name:'Eater Chicago',channel:'Eater Chicago',beat:'Arts & Culture',url:'https://chicago.eater.com',rss:'https://chicago.eater.com/rss/index.xml',beatColor:'#660066'},
+  // Tier 5 — Student Media
+  {layer:'institution',name:'The Chicago Maroon',channel:'The Chicago Maroon',beat:'General News',url:'https://chicagomaroon.com',rss:'https://chicagomaroon.com/feed',beatColor:'#555555'},
+  {layer:'institution',name:'The Daily Northwestern',channel:'The Daily Northwestern',beat:'General News',url:'https://dailynorthwestern.com',rss:'https://dailynorthwestern.com/feed',beatColor:'#555555'},
+  {layer:'institution',name:'The DePaulia',channel:'The DePaulia',beat:'General News',url:'https://depauliaonline.com',rss:'https://depauliaonline.com/feed',beatColor:'#555555'},
+  {layer:'institution',name:'The Loyola Phoenix',channel:'The Loyola Phoenix',beat:'General News',url:'https://loyolaphoenix.com',rss:'https://loyolaphoenix.com/feed',beatColor:'#555555'},
 ];
 
 let coverageLayer='all',coverageSort='beat',fetchedItems=[],coverageFetched=false;
