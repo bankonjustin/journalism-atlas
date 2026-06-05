@@ -544,7 +544,7 @@
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#884400"></span>Black Chicago</div><a class="bhc-headline" href="https://hoodoisie.wordpress.com/about/" target="_blank" rel="noopener">From The Hoodoise: South Side arts, culture, and politics</a><div class="bhc-meta"><strong>Ricardo Gamboa</strong> &middot; The Hoodoise</div></div>
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#0044cc"></span>City Hall &amp; Politics</div><a class="bhc-headline" href="https://benjoravsky.substack.com" target="_blank" rel="noopener">From The Ben Joravsky Show: Chicago TIF accountability and City Hall coverage</a><div class="bhc-meta"><strong>Ben Joravsky</strong> &middot; The Ben Joravsky Show</div></div>
   </div>
-  <p style="margin-top:24px;font-size:11px;color:#b0b0b8" id="coverage-timestamp">Activate the Coverage tab to fetch live feeds from across the Chicago media ecosystem.</p>
+  <p style="margin-top:24px;font-size:11px;color:#b0b0b8" id="coverage-timestamp">Coverage data refreshed weekly. Activate tab to load.</p>
 </div>
 </div>
 
@@ -1066,39 +1066,6 @@ let coverageLayer='all',coverageSort='beat',fetchedItems=[],coverageFetched=fals
 function setCoverageLayer(l){coverageLayer=l;document.querySelectorAll('.cov-layer-btn').forEach(b=>b.classList.toggle('active',b.dataset.clayer===l));renderCoverage();}
 function setCoverageSort(s){coverageSort=s;document.querySelectorAll('.cov-sort-btn').forEach(b=>b.classList.toggle('active',b.dataset.sort===s));renderCoverage();}
 
-async function fetchRSS(feed){
-  const sig=()=>typeof AbortSignal.timeout==='function'?AbortSignal.timeout(10000):undefined;
-
-  // Primary: Cloudflare Pages Function (same-origin, no CORS issues)
-  try{
-    const s=sig();
-    const r=await fetch('/rss?url='+encodeURIComponent(feed.rss),s?{signal:s}:{});
-    if(r.ok){
-      const d=await r.json();
-      if(d.status==='ok'&&d.items?.length)return d.items.map(item=>({
-        ...feed,
-        title:item.title||'',
-        link:item.link||feed.url,
-        pubDate:item.pubDate?new Date(item.pubDate):null,
-      }));
-    }
-  }catch(e){}
-
-  // Fallback: rss2json (in case Worker isn't deployed yet)
-  try{
-    const s=sig();
-    const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.rss)+'&count=3',s?{signal:s}:{});
-    if(r.ok){
-      const d=await r.json();
-      if(d.status==='ok'&&d.items?.length)return d.items.slice(0,3).map(item=>({
-        ...feed,title:item.title||'',link:item.link||feed.url,
-        pubDate:item.pubDate?new Date(item.pubDate):null,
-      }));
-    }
-  }catch(e){}
-
-  return[];
-}
 
 async function initCoverageFeeds(){
   if(coverageFetched){renderCoverage();return;}
@@ -1107,29 +1074,33 @@ async function initCoverageFeeds(){
   const lo=document.getElementById('coverage-loading');
   if(ph)ph.style.display='none';
   if(lo)lo.style.display='block';
-  const batchSize=4,results=[];
-  for(let i=0;i<CHICAGO_FEEDS.length;i+=batchSize){
-    const batch=CHICAGO_FEEDS.slice(i,i+batchSize);
-    const br=await Promise.all(batch.map(f=>fetchRSS(f)));
-    br.forEach(items=>results.push(...items));
-    if(i+batchSize<CHICAGO_FEEDS.length)await new Promise(r=>setTimeout(r,800));
-  }
-  if(lo)lo.style.display='none';
-  if(results.length < 5){
-    const fallback=document.getElementById('coverage-loading');
-    if(fallback){
-      fallback.innerHTML='<div style="text-align:center;padding:48px 24px"><span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:12px;color:#d4d4d8">rss_feed</span><p style="font-size:13px;color:#606068;margin:0 0 8px">Live feed data unavailable right now.</p><p style="font-size:12px;color:#b0b0b8;margin:0">RSS proxies may be rate-limited. <a href="#" onclick="coverageFetched=false;initCoverageFeeds();return false" style="color:#5d7400">Try again</a> or check back later.</p></div>';
-      fallback.style.display='block';
+
+  try{
+    const r=await fetch('/data/chicago-pulse.json');
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(!d.items?.length)throw new Error('empty');
+
+    fetchedItems=d.items.map(item=>({
+      ...item,
+      pubDate:item.pubDate?new Date(item.pubDate):null,
+    }));
+
+    if(lo)lo.style.display='none';
+    const ts=document.getElementById('coverage-timestamp');
+    if(ts){
+      const gen=new Date(d.generated);
+      const dateStr=gen.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+      ts.textContent=d.item_count+' stories from '+d.source_count+' sources · Last refreshed '+dateStr;
     }
-    return;
+    renderCoverage();
+
+  }catch(err){
+    if(lo){
+      lo.innerHTML='<div style="text-align:center;padding:48px 24px"><span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:12px;color:#d4d4d8">rss_feed</span><p style="font-size:13px;color:#606068;margin:0 0 8px">Coverage data unavailable.</p><p style="font-size:12px;color:#b0b0b8;margin:0"><a href="#" onclick="coverageFetched=false;initCoverageFeeds();return false" style="color:#5d7400">Try again</a></p></div>';
+      lo.style.display='block';
+    }
   }
-  fetchedItems=results;
-  const ts=document.getElementById('coverage-timestamp');
-  const now=new Date();
-  const dateStr=now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  const timeStr=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-  if(ts)ts.textContent='Fetched '+results.length+' stories from '+new Set(results.map(i=>i.name)).size+' sources · '+dateStr+' at '+timeStr;
-  renderCoverage();
 }
 
 function coverageCard(item){
@@ -1180,7 +1151,7 @@ function renderCoverage(){
 }
 
 // Wire coverage tab activation
-document.querySelector('[data-tab="coverage"]')?.addEventListener('click',()=>setTimeout(initCoverageFeeds,50));
+document.querySelector('[data-tab="coverage"]')?.addEventListener('click',()=>initCoverageFeeds());
 // ── END COVERAGE TAB ─────────────────────────────────────────────────────
 </script>
 </body>
