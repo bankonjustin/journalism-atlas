@@ -240,14 +240,11 @@
     }
     .beat-pills-scroll {
       display: flex;
+      flex-wrap: wrap;
       gap: 6px;
-      overflow-x: auto;
       flex: 1;
       padding-bottom: 2px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
     }
-    .beat-pills-scroll::-webkit-scrollbar { display: none; }
     .beat-pill {
       font-family: 'DM Mono', monospace;
       font-size: 13px;
@@ -259,20 +256,26 @@
       background: #fff;
       color: #666;
       cursor: pointer;
-      white-space: nowrap;
       transition: background 0.1s, color 0.1s;
-      flex-shrink: 0;
     }
     .beat-pill.active {
-      background: #1a1a1a;
-      color: #fff;
-      border-color: #1a1a1a;
+      background: #97d600;
+      color: #000;
+      border-color: #97d600;
     }
 
     /* ── POST LIST ── */
     .post-list-section {
       max-width: none;
       padding: 24px 24px 80px;
+    }
+    .post-list-empty {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 16px;
+      color: #aaa;
+      text-align: center;
+      padding: 48px 0;
+      margin: 0;
     }
     .post-count-label {
       font-family: 'DM Mono', monospace;
@@ -587,6 +590,14 @@
 
     /* ── RESPONSIVE ── */
     /* ── BEAT DISCOVERY ── */
+    .beat-discovery-intro {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: #666;
+      margin: 0 0 4px;
+      line-height: 1.5;
+    }
     .beat-discovery {
       flex: 1;
       display: flex;
@@ -897,6 +908,7 @@
       <div class="controls-inner">
         <div class="recency-toggle" id="recency-toggle"></div>
         <div class="beat-discovery">
+          <p class="beat-discovery-intro">What independent journalists are publishing right now — filter by beat or search by creator.</p>
           <div class="beat-search-wrap">
             <span class="material-symbols-outlined beat-search-icon">search</span>
             <input
@@ -1327,10 +1339,16 @@ function renderPosts() {
   const filtered = getFilteredPosts();
   const slice = filtered.slice(0, visibleCount);
 
+  const beatLabel = (activeBeat && activeBeat !== 'all') ? ' · ' + activeBeat : '';
   document.getElementById('post-count-label').innerHTML =
-    '<span class="pulse-dot-inline"></span> Showing ' + slice.length.toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' posts';
+    '<span class="pulse-dot-inline"></span> Showing ' + slice.length.toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' posts' + beatLabel;
 
-  document.getElementById('post-list').innerHTML = slice.map(p => renderPostItem(p)).join('');
+  if (filtered.length === 0) {
+    document.getElementById('post-list').innerHTML =
+      '<p class="post-list-empty">No recent posts for this beat — check back after the next digest run.</p>';
+  } else {
+    document.getElementById('post-list').innerHTML = slice.map(p => renderPostItem(p)).join('');
+  }
 
   const wrap = document.getElementById('load-more-wrap');
   if (filtered.length > visibleCount) {
@@ -1961,8 +1979,9 @@ document.getElementById('beat-search').addEventListener('input', function() {
   });
 
   const slice = filtered.slice(0, 50);
+  const beatLabel = (activeBeat && activeBeat !== 'all') ? ' · ' + activeBeat : '';
   document.getElementById('post-count-label').innerHTML =
-    `<span class="pulse-dot-inline"></span> ${filtered.length} posts from creators matching "<strong>${esc(query)}</strong>"`;
+    `<span class="pulse-dot-inline"></span> ${filtered.length} posts from creators matching "<strong>${esc(query)}</strong>"` + beatLabel;
   document.getElementById('post-list').innerHTML = slice.map(p => renderPostItem(p)).join('');
 
   renderBeatPills(query);
@@ -1989,8 +2008,9 @@ document.getElementById('beat-search').addEventListener('keydown', function(e) {
     this.value = '';
     renderBeatPills();
     renderPosts();
+    const beatLabel = (activeBeat && activeBeat !== 'all') ? ' · ' + activeBeat : '';
     document.getElementById('post-count-label').innerHTML =
-      `<span class="pulse-dot-inline"></span> Showing ${Math.min(visibleCount, getFilteredPosts().length).toLocaleString()} of ${getFilteredPosts().length.toLocaleString()} posts`;
+      `<span class="pulse-dot-inline"></span> Showing ${Math.min(visibleCount, getFilteredPosts().length).toLocaleString()} of ${getFilteredPosts().length.toLocaleString()} posts` + beatLabel;
   }
 });
 
