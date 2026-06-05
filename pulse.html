@@ -101,21 +101,50 @@
       margin-bottom: 24px;
     }
     .pulse-thesis-band {
-      background: #000;
+      background: #efeff2;
       padding: 20px 40px;
-      border-bottom: 1px solid #1a1a1a;
+      border-bottom: 1px solid #d4d4d8;
     }
     .pulse-thesis-band p {
       font-family: 'DM Mono', monospace;
       font-size: 13px;
-      color: rgba(255,255,255,0.5);
+      color: #606068;
       letter-spacing: 0.04em;
       line-height: 1.7;
       max-width: 1440px;
       margin: 0 auto;
     }
     .pulse-thesis-band strong {
-      color: rgba(255,255,255,0.85);
+      color: #313131;
+    }
+    .audience-bridge {
+      background: #ffffff;
+      border-top: 1px solid #d4d4d8;
+      border-bottom: 1px solid #d4d4d8;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .audience-bridge-text {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #313131;
+    }
+    .audience-bridge-cta {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #5d7400;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .audience-bridge-cta:hover { color: #97d600; }
+    @media (max-width: 600px) {
+      .audience-bridge { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 20px; }
     }
     .stat-strip {
       display: flex;
@@ -571,6 +600,16 @@
       overflow: hidden;
       position: relative;
     }
+    .tab-descriptor {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #b0b0b8;
+      padding: 12px 20px 0;
+      margin: 0;
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
     .analysis-pane {
       display: none;
       position: absolute;
@@ -896,7 +935,13 @@
 
 <!-- THESIS BAND -->
 <div class="pulse-thesis-band">
-  <p id="thesis-band-text"><strong>Beta · Updated weekly.</strong> Pulse monitors <strong id="thesis-feed-count">883 creator feeds</strong> via RSS — newsletters, videos, podcasts, websites. Posts are organized by beat tag. Not every creator has a feed yet; the <strong id="thesis-no-feed-count">570 without one</strong> are tracked in the Atlas database but don't appear here. <a href="about-this-project.html" style="color:rgba(206,255,0,0.6); text-decoration:none;">Learn how the Atlas works →</a></p>
+  <p id="thesis-band-text"><strong>Beta · Updated weekly.</strong> Pulse monitors <strong id="thesis-feed-count">883 creator feeds</strong> via RSS — newsletters, videos, podcasts, websites. Posts are organized by beat tag. Not every creator has a feed yet; the <strong id="thesis-no-feed-count">570 without one</strong> are tracked in the Atlas database but don't appear here. <a href="about-this-project.html" style="color:#5d7400; text-decoration:none;">Learn how the Atlas works →</a></p>
+</div>
+
+<!-- AUDIENCE BRIDGE BAR -->
+<div class="audience-bridge">
+  <span class="audience-bridge-text">Looking for custom beat briefs or brand intelligence reports?</span>
+  <a href="for-brands.html" class="audience-bridge-cta">Learn how Atlas works for teams →</a>
 </div>
 
 <!-- SPLIT LAYOUT WRAPPER -->
@@ -954,19 +999,19 @@
 
       <!-- Tab bar -->
       <div class="analysis-tabs" role="tablist">
-        <button class="analysis-tab" data-tab="activity" role="tab">
+        <button class="analysis-tab" data-tab="activity" data-descriptor="Publishing volume across beats and platforms for this period." role="tab">
           <span class="material-symbols-outlined">bar_chart</span>
           Activity
         </button>
-        <button class="analysis-tab" data-tab="rhythm" role="tab">
+        <button class="analysis-tab" data-tab="rhythm" data-descriptor="When creators publish — patterns by day, time, and cadence." role="tab">
           <span class="material-symbols-outlined">calendar_month</span>
           Rhythm
         </button>
-        <button class="analysis-tab" data-tab="overlap" role="tab">
+        <button class="analysis-tab" data-tab="overlap" data-descriptor="Geographic distribution of creators and stories in this window." role="tab">
           <span class="material-symbols-outlined">hub</span>
           Coverage Map
         </button>
-        <button class="analysis-tab active" data-tab="intel" role="tab">
+        <button class="analysis-tab active" data-tab="intel" data-descriptor="The topics independent journalists are covering most actively right now." role="tab">
           <span class="material-symbols-outlined">insights</span>
           Intel
         </button>
@@ -974,6 +1019,8 @@
 
       <!-- Tab panels -->
       <div class="analysis-panel-body">
+
+        <p id="tab-descriptor" class="tab-descriptor"></p>
 
         <div class="analysis-pane" id="pane-activity">
           <div class="section-eyebrow" style="margin-bottom:16px;">
@@ -1158,6 +1205,7 @@ function populateHeaderPosts() {
         <span class="live-dot" style="width:5px;height:5px;flex-shrink:0;"></span>
         This week's signal
       </div>
+      <p class="header-intel-framing">The three topics independent journalists are covering most actively this week, by post volume.</p>
       <div id="header-intel-topics">${topicsHtml}</div>
       <a class="header-intel-cta" href="#" id="header-intel-cta-link">Full intel brief →</a>
       <div class="header-intel-brands">
@@ -2019,6 +2067,12 @@ document.getElementById('beat-search').addEventListener('keydown', function(e) {
   const tabs = document.querySelectorAll('.analysis-tab');
   const panes = document.querySelectorAll('.analysis-pane');
 
+  const initialTab = document.querySelector('.analysis-tab.active');
+  if (initialTab) {
+    const descriptorEl = document.getElementById('tab-descriptor');
+    if (descriptorEl) descriptorEl.textContent = initialTab.dataset.descriptor || '';
+  }
+
   tabs.forEach(tab => {
     tab.addEventListener('click', function() {
       const target = this.dataset.tab;
@@ -2029,6 +2083,10 @@ document.getElementById('beat-search').addEventListener('keydown', function(e) {
       this.classList.add('active');
       const pane = document.getElementById('pane-' + target);
       if (pane) pane.classList.add('active');
+
+      const descriptorEl = document.getElementById('tab-descriptor');
+      if (descriptorEl) descriptorEl.textContent = this.dataset.descriptor || '';
+
       // Re-animate Intel topics each time the tab is activated
       if (target === 'intel') renderIntel();
     });
