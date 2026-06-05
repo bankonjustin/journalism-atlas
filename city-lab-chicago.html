@@ -8,13 +8,13 @@
   <link rel="canonical" href="https://journalismatlas.com/city-lab-chicago">
   <meta property="og:url" content="https://journalismatlas.com/city-lab-chicago">
   <meta property="og:title" content="Atlas City Lab — Chicago Media Ecosystem">
-  <meta property="og:description" content="An independent map of who's covering Chicago — 87 creators, 245 outlets, and the beats where coverage is thin.">
+  <meta property="og:description" content="A comprehensive map of who's covering Chicago — 76 independent creators, 245 outlets across all models, and the beats where coverage is thin.">
   <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <meta property="og:type" content="website">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://journalismatlas.com/city-lab-chicago">
   <meta property="twitter:title" content="Atlas City Lab — Chicago Media Ecosystem">
-  <meta property="twitter:description" content="An independent map of who's covering Chicago — 87 creators, 245 outlets, and the beats where coverage is thin.">
+  <meta property="twitter:description" content="A comprehensive map of who's covering Chicago — 76 independent creators, 245 outlets across all models, and the beats where coverage is thin.">
   <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="/assets/css/variables.css">
@@ -193,6 +193,18 @@
     .radar-handle:hover { text-decoration: underline; }
     .radar-monitoring { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #b0b0b8; }
     .radar-beat { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #b0b0b8; }
+    .full-eco-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:8px; }
+    .full-eco-filters { display:flex; flex-wrap:wrap; gap:6px; }
+    .feco-btn { background:#fff; border:0.5px solid #d4d4d8; border-radius:100px; font-family:inherit; font-size:11px; font-weight:500; padding:4px 12px; cursor:pointer; color:#606068; transition:background 0.12s,color 0.12s,border-color 0.12s; }
+    .feco-btn.active { background:#313131; color:#fff; border-color:#313131; }
+    .feco-btn:hover:not(.active) { border-color:#b0b0b8; color:#313131; }
+    .full-eco-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:8px; }
+    .feco-item { padding:10px 12px; border:0.5px solid #e8e8e8; border-radius:6px; display:flex; flex-direction:column; gap:4px; }
+    .feco-item:hover { border-color:#b0b0b8; background:#fafafa; }
+    .feco-name { font-size:13px; font-weight:500; color:#000; text-decoration:none; }
+    .feco-name:hover { color:#5d7400; text-decoration:underline; }
+    .feco-name-plain { font-size:13px; font-weight:500; color:#313131; }
+    .feco-sub { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:#b0b0b8; }
     .coverage-layer-toggle { display: flex; gap: 4px; background: #f4f4f6; border-radius: 6px; padding: 3px; }
     .cov-layer-btn { background: none; border: none; font-family: inherit; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 5px 12px; border-radius: 4px; cursor: pointer; color: #b0b0b8; transition: background 0.12s, color 0.12s; }
     .cov-layer-btn.active { background: #fff; color: #313131; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -233,14 +245,14 @@
   <div class="hero-inner">
     <div class="hero-eyebrow">Atlas City Lab &middot; Chicago, IL</div>
     <h1 class="hero-title">Chicago Media Ecosystem</h1>
-    <p class="hero-body">An independent map of who&rsquo;s covering Chicago &mdash; 82 creators, 245 outlets, and the beats where coverage is thin.</p>
+    <p class="hero-body">A comprehensive map of who&rsquo;s covering Chicago &mdash; 76 independent creators, 245 outlets across all models, and the beats where coverage is thin.</p>
     <div class="hero-stat-primary">
       <span class="hero-stat-num-large">245</span>
       <span class="hero-stat-primary-label">Outlets in the full Chicago media ecosystem</span>
     </div>
     <div class="hero-stat-nudge"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;margin-right:4px">touch_app</span>Tap a layer to explore</div>
     <div class="hero-stat-breakdown">
-      <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">45</span><span class="hero-stat-label-child">Journalism creators →</span></div>
+      <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">39</span><span class="hero-stat-label-child">Journalism creators →</span></div>
       <div class="hero-stat-child" data-layer="lifestyle"><span class="hero-stat-num-child">37</span><span class="hero-stat-label-child">Lifestyle &amp; culture →</span></div>
       <div class="hero-stat-child" data-layer="institutions"><span class="hero-stat-num-child">20</span><span class="hero-stat-label-child">Institutions →</span></div>
     </div>
@@ -256,7 +268,7 @@
 <nav class="tab-nav" role="tablist">
   <button class="tab-btn active" data-tab="ecosystem" role="tab" aria-label="Chicago Media Ecosystem">Ecosystem</button>
   <button class="tab-btn" data-tab="beatmap" role="tab" aria-label="Beat Map">Beat Map</button>
-  <button class="tab-btn" data-tab="creators" role="tab" aria-label="Creators">Creators <span class="tab-badge">82</span></button>
+  <button class="tab-btn" data-tab="creators" role="tab" aria-label="Creators">Creators <span class="tab-badge">76</span></button>
   <button class="tab-btn" data-tab="coverage" role="tab" aria-label="What Chicago Is Covering">Coverage</button>
 </nav>
 
@@ -268,8 +280,7 @@
       <div class="eco-panel eco-panel-j">
         <div class="eco-panel-eyebrow">Journalism Layer &mdash; Accountability</div>
         <div class="eco-panel-stats">
-          <div class="eco-ps"><span class="eco-ps-num">48</span><span class="eco-ps-label">Creators</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">5</span><span class="eco-ps-label">In Pulse</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">39</span><span class="eco-ps-label">Creators</span></div>
           <div class="eco-ps"><span class="eco-ps-num">1</span><span class="eco-ps-label">Critical gap</span></div>
         </div>
         <div class="eco-panel-subhead">Beat Coverage</div>
@@ -308,9 +319,9 @@
       <div class="eco-panel eco-panel-i">
         <div class="eco-panel-eyebrow">Legacy, Nonprofit &amp; Ethnic Press</div>
         <div class="eco-panel-stats">
-          <div class="eco-ps"><span class="eco-ps-num">245</span><span class="eco-ps-label">Total outlets</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">29</span><span class="eco-ps-label">Tier 1</span></div>
-          <div class="eco-ps"><span class="eco-ps-num">33</span><span class="eco-ps-label">Ethnic/community</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">245</span><span class="eco-ps-label">Total outlets tracked</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">20</span><span class="eco-ps-label">Curated anchor orgs</span></div>
+          <div class="eco-ps"><span class="eco-ps-num">76</span><span class="eco-ps-label">Independent creators</span></div>
         </div>
         <div class="eco-panel-subhead">Categories</div>
         <div class="eco-pills">
@@ -321,11 +332,31 @@
           <span class="eco-pill eco-pill-i">Neighborhood</span>
           <span class="eco-pill eco-pill-i">Diaspora/Ethnic</span>
         </div>
-        <p style="font-size:11px;color:#6a8a3a;margin-top:16px;line-height:1.5">Tracked by Medill&rsquo;s Local News Initiative 2026. Atlas creator layers independently mapped.</p>
+        <p style="font-size:11px;color:#6a8a3a;margin-top:16px;line-height:1.5">The 245-outlet ecosystem includes legacy broadcast, ethnic and community press, nonprofits, digital-native outlets, and student media tracked in the 2026 Medill Local News Initiative study. The Atlas independently maps the creator and anchor institution layers shown here. The remaining ~149 outlets range from the Chicago Tribune to neighborhood newsletters &mdash; all part of Chicago&rsquo;s information infrastructure.</p>
       </div>
     </div>
   </section>
   <section class="section">
+    <section class="section">
+      <div class="full-eco-header">
+        <div>
+          <h2 class="section-title" style="margin-bottom:4px">The Full Chicago Media Landscape</h2>
+          <p style="font-size:13px;color:#606068;margin-bottom:16px">All 245 outlets tracked in the 2026 Medill Local News Initiative study. Filter by category to explore.</p>
+        </div>
+        <div class="full-eco-filters" id="full-eco-filters">
+          <button class="feco-btn active" data-feco="all" onclick="setFullEcoFilter('all')">All 245</button>
+          <button class="feco-btn" data-feco="For-Profit" onclick="setFullEcoFilter('For-Profit')">For-Profit</button>
+          <button class="feco-btn" data-feco="Nonprofit" onclick="setFullEcoFilter('Nonprofit')">Nonprofit</button>
+          <button class="feco-btn" data-feco="Solopreneur" onclick="setFullEcoFilter('Solopreneur')">Solopreneur</button>
+          <button class="feco-btn" data-feco="Collective" onclick="setFullEcoFilter('Collective')">Collective</button>
+          <button class="feco-btn" data-feco="Other" onclick="setFullEcoFilter('Other')">Other</button>
+        </div>
+      </div>
+      <div id="full-eco-count" style="font-size:11px;color:#b0b0b8;margin-bottom:12px"></div>
+      <div id="full-eco-list" class="full-eco-grid"></div>
+    </section>
+    <hr style="border:none;border-top:1px solid #e8e8e8;margin:8px 0 32px">
+
     <div class="two-layer-note"><span class="two-layer-pill">How this works</span>The <strong>accountability layer</strong> covers beats where institutional journalism has collapsed — politics, criminal justice, education, investigative. The <strong>culture layer</strong> covers food, lifestyle, and local life. Chicago has 11+ food TikTokers and zero dedicated CTA accountability creators.</div>
     <h3 style="font-size:20px;font-weight:700;color:#000;margin-bottom:8px">Anchor Institutions &amp; Infrastructure</h3>
     <p style="font-size:14px;color:#606068;max-width:700px;margin-bottom:20px;line-height:1.6">Outlets, nonprofits, and institutions that anchor the Chicago independent media landscape. These are not individual creators &mdash; they&rsquo;re the infrastructure around them.</p>
@@ -391,7 +422,7 @@
         <div class="vacuum-card partial"><h3>Housing &amp; Neighborhood <span class="vacuum-severity sev-gap">Emerging</span></h3><p>One creator covers the Northwest Side. South and West Side housing coverage remains entirely absent.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Ariel Parrella-Aureli / LoganSquarist.</p><div class="also-watching-callout">Also watching: <strong>@christian.chicago</strong> (Intersectional Urbanist) &mdash; housing, justice, and power. 4.8K followers, 394K likes.<span class="monitoring-badge">Monitoring</span></div></div>
         <div class="vacuum-card"><h3>CTA / Transit <span class="vacuum-severity sev-critical">Critical Gap</span></h3><p>No independent creator tracks CTA accountability. Streetsblog Chicago is the only transit-adjacent outlet across all 245 tracked &mdash; a national franchise, not a Chicago-first outlet. One outlet serving 2.7 million people on a system used by 1.6 million daily riders.</p></div>
         <div class="vacuum-card partial"><h3>Education / CPS <span class="vacuum-severity sev-gap">Gap</span></h3><p>Board Rule and Daniel B. Rodriguez cover CPS policy. No creator covers the financial accountability and governance beat of the third-largest U.S. school district.</p><div class="also-watching-callout">Also watching: <strong>@crookcountytv</strong> &mdash; government accountability. 2K followers, 43K likes. YouTube active.<span class="monitoring-badge">Monitoring</span></div></div>
-        <div class="vacuum-card partial"><h3>Environment &amp; Great Lakes <span class="vacuum-severity sev-gap">Partial</span></h3><p>Josh Horwitz&rsquo;s 350 Chicago covers climate advocacy. No creator covers the Chicago River, lakefront policy, or industrial pollution as a reporting beat. No dedicated environmental outlet across all 245 tracked outlets.</p></div>
+        <div class="vacuum-card partial"><h3>Environment &amp; Great Lakes <span class="vacuum-severity sev-gap">Partial</span></h3><p>350 Chicago covers climate advocacy. No creator covers the Chicago River, lakefront policy, or industrial pollution as a reporting beat. No dedicated environmental outlet across all 245 tracked outlets.</p></div>
       </div>
     </div>
   </section>
@@ -402,11 +433,11 @@
 <div class="main">
   <div class="creators-subheader">
     <div class="creators-subheader-stats">
-      <button class="layer-stat-btn active" data-layer="journalism" onclick="setCreatorLayer('journalism')"><span class="layer-stat-num">45</span><span class="layer-stat-label">Journalism</span></button>
+      <button class="layer-stat-btn active" data-layer="journalism" onclick="setCreatorLayer('journalism')"><span class="layer-stat-num">39</span><span class="layer-stat-label">Journalism</span></button>
       <span class="layer-stat-divider">&middot;</span>
       <button class="layer-stat-btn" data-layer="lifestyle" onclick="setCreatorLayer('lifestyle')"><span class="layer-stat-num">37</span><span class="layer-stat-label">Lifestyle</span></button>
       <span class="layer-stat-divider">&middot;</span>
-      <button class="layer-stat-btn" data-layer="all" onclick="setCreatorLayer('all')"><span class="layer-stat-num">82</span><span class="layer-stat-label">All</span></button>
+      <button class="layer-stat-btn" data-layer="all" onclick="setCreatorLayer('all')"><span class="layer-stat-num">76</span><span class="layer-stat-label">All</span></button>
       <span class="layer-stat-divider">&middot;</span>
       <button class="layer-stat-btn" data-layer="institutions" onclick="setCreatorLayer('institutions')"><span class="layer-stat-num">20</span><span class="layer-stat-label">Institutions</span></button>
     </div>
@@ -487,7 +518,7 @@
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#006600"></span>Sports</div><a class="bhc-headline" href="https://www.blogabull.com/" target="_blank" rel="noopener">From BlogABull: Chicago Bulls analysis and community coverage</a><div class="bhc-meta"><strong>Blog A Bull</strong> &middot; Blogabull.com</div></div>
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#880000"></span>Education / CPS</div><a class="bhc-headline" href="https://board-rule.ghost.io/" target="_blank" rel="noopener">From Board Rule: Chicago Public Schools accountability reporting</a><div class="bhc-meta"><strong>Maureen Kelleher</strong> &middot; Board Rule</div></div>
     <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#884400"></span>Black Chicago</div><a class="bhc-headline" href="https://hoodoisie.wordpress.com/about/" target="_blank" rel="noopener">From The Hoodoise: South Side arts, culture, and politics</a><div class="bhc-meta"><strong>Ricardo Gamboa</strong> &middot; The Hoodoise</div></div>
-    <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#006633"></span>Environment</div><a class="bhc-headline" href="https://350chicago.substack.com/about" target="_blank" rel="noopener">From 350 Chicago: Climate and fossil fuel divestment advocacy</a><div class="bhc-meta"><strong>Josh Horwitz</strong> &middot; 350 Chicago</div></div>
+    <div class="beat-headline-card"><div class="bhc-beat"><span class="bhc-beat-dot" style="background:#0044cc"></span>City Hall &amp; Politics</div><a class="bhc-headline" href="https://benjoravsky.substack.com" target="_blank" rel="noopener">From The Ben Joravsky Show: Chicago TIF accountability and City Hall coverage</a><div class="bhc-meta"><strong>Ben Joravsky</strong> &middot; The Ben Joravsky Show</div></div>
   </div>
   <p style="margin-top:24px;font-size:11px;color:#b0b0b8" id="coverage-timestamp">Atlas Pulse last run: June 2026. Activate tab to fetch live feeds.</p>
 </div>
@@ -512,17 +543,13 @@ const JOURNALISM_CREATORS=[
   {name:"Patrick, Jeremy, Randy Richardson",channel:"Wrigleyville Nation",url:"https://www.wrigleyvillenation.com/about/",platform:"Website",beat:"Sports",geography:"Chicago",pulse:false,descriptor:"Independent Chicago Cubs coverage"},
   {name:"Pat The Designer (P. Kidd)",channel:"Windy City Breeze",url:"https://www.youtube.com/@TheWindyCityBreeze",platform:"Video - YouTube",beat:"Sports",geography:"Chicago",pulse:false,descriptor:"Independent multi-sport Chicago coverage"},
   {name:"Andrew Donlan",channel:"Still Gotta Come Through Chicago",url:"https://sgctc.substack.com/",platform:"Newsletter - Substack",beat:"Sports",geography:"Chicago",pulse:true,descriptor:"Independent Chicago sports coverage"},
-  {name:"Matt Brown",channel:"Extra Points",url:"https://www.extrapointsmb.com/",platform:"Newsletter - Beehiiv",beat:"Sports",geography:"Chicago",pulse:true,descriptor:"Independent college athletics coverage; nationally recognized"},
   {name:"Sixty Inches from Center",channel:"Sixty Inches from Center",url:"https://sixtyinchesfromcenter.org/",platform:"Website",beat:"Arts & Culture",geography:"Chicago",pulse:false,descriptor:"Independent Chicago arts journalism and visual culture"},
   {name:"Caroline Patton",channel:"Chicago Show Calendar",url:"https://chicagoshowcal.substack.com/",platform:"Newsletter - Substack",beat:"Arts & Culture",geography:"Chicago",pulse:true,descriptor:"Independent coverage of Chicago performances and show calendar"},
   {name:"Theresa Goodrich",channel:"Living Landmarks Of Chicago",url:"https://chicagolandmarks.substack.com/",platform:"Newsletter - Substack",beat:"Arts & Culture",geography:"Chicago",pulse:true,descriptor:"Independent coverage of Chicago's architectural and historic landmarks"},
   {name:"Pete Kastanes",channel:"Vanished Chicagoland Stories",url:"https://vanishedchicagoland.blog/home/",platform:"Podcast",beat:"Arts & Culture",geography:"Chicago",pulse:false,descriptor:"Independent Chicago history and vanished places podcast"},
   {name:"Mark Jacob",channel:"Stop the Presses",url:"https://www.stopthepresses.news/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent media criticism; former Chicago Tribune editor"},
   {name:"Igor Studenkov",channel:"Chicago Media Journal",url:"https://chimediajournal.substack.com/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent Chicago media industry and press coverage"},
-  {name:"Parker Molloy",channel:"The Present Age",url:"https://www.readtpa.com/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent media criticism and press freedom newsletter"},
   {name:"Nathan Graber-Lipperman",channel:"Creator Mag",url:"https://www.creatormag.blog/",platform:"Newsletter - Substack",beat:"Media & Press Freedom",geography:"Chicago",pulse:true,descriptor:"Independent Chicago media and creator economy coverage"},
-  {name:"Erin Allmann Updyke",channel:"This Podcast Will Kill You",url:"https://thispodcastwillkillyou.com",platform:"Podcast",beat:"Health & Science",geography:"Chicago",pulse:false,descriptor:"Independent infectious disease and public health podcast"},
-  {name:"Erin Welsh",channel:"This Podcast Will Kill You",url:"https://thispodcastwillkillyou.com",platform:"Podcast",beat:"Health & Science",geography:"Chicago",pulse:false,descriptor:"Independent infectious disease and public health podcast"},
   {name:"Johnny Cole Dickson",channel:"No Lab Coat Required",url:"https://www.youtube.com/@NoLabCoatRequired",platform:"Video - YouTube",beat:"Health & Science",geography:"Chicago",pulse:false,descriptor:"Independent health and science video coverage"},
   {name:"Ricardo Gamboa",channel:"The Hoodoise",url:"https://hoodoisie.wordpress.com/about/",platform:"Podcast",beat:"Black Chicago",geography:"Chicago",pulse:false,descriptor:"Independent Black Chicago arts, politics, and South Side culture podcast"},
   {name:"Shermann \"Dilla\" Thomas",channel:"Chicago Mahogany / You Don't Know Chi",url:"https://chicagomahogany.com",platform:"Video",beat:"Black Chicago",geography:"Chicago",pulse:false,descriptor:"Chicago history and culture creator; South Side native; Emmy-nominated; 122.9K TikTok (@6figga_dilla)"},
@@ -539,8 +566,6 @@ const JOURNALISM_CREATORS=[
   {name:"Ariel Parrella-Aureli",channel:"LoganSquarist",url:"https://logansquarist.com",platform:"Website",beat:"Housing & Neighborhood",geography:"Chicago (Logan Square)",pulse:false,descriptor:"Editor-in-chief of LoganSquarist hyperlocal site; covers housing, gentrification, and low-income tax credit expirations on Chicago's Northwest Side"},
   {name:"Maureen Kelleher",channel:"Board Rule",url:"https://board-rule.ghost.io/",platform:"Newsletter - Ghost",beat:"Education / CPS",geography:"Chicago",pulse:true,descriptor:"Chicago's only independent creator covering CPS and education"},
   {name:"Daniel B. Rodriguez",channel:"Daniel B. Rodriguez",url:"https://danielbrodriguez.substack.com/",platform:"Newsletter - Substack",beat:"Education / CPS",geography:"Chicago",pulse:true,descriptor:"Independent Chicago education policy and CPS coverage"},
-  {name:"Josh Horwitz",channel:"350 Chicago",url:"https://350chicago.substack.com/about",platform:"Newsletter - Substack",beat:"Environment",geography:"Chicago",pulse:true,descriptor:"Independent climate and environment advocacy coverage"},
-  {name:"Julie Roys",channel:"The Roys Report",url:"https://julieroys.com/",platform:"Website",beat:"Investigative",geography:"Chicago",pulse:false,descriptor:"Independent investigative journalism covering faith and institutions"},
   {name:"Bill Cameron",channel:"Take 1 With Bill Cameron",url:"https://podcasts.apple.com/us/podcast/take-1-with-bill-cameron/id1650461689",platform:"Podcast",beat:"General News",geography:"Chicago",pulse:false,descriptor:"Veteran Chicago broadcaster; independent general news podcast"},
   {name:"Chicagoverse",channel:"Chicagoverse",url:"https://podcasts.apple.com/us/podcast/chicagoverse/id1547902079",platform:"Podcast",beat:"General News",geography:"Chicago",pulse:false,descriptor:"Independent Chicago history and culture podcast"},
 ];
@@ -590,6 +615,254 @@ const EMERGING_VOICES=[
   {name:"ElJardineroDel312",handle:"eljardinerodel312",url:"https://www.tiktok.com/@eljardinerodel312",platform:"TikTok",beat:"Arts & Culture / Chicago History",signal:"Architecture, art, culture, history across South Side neighborhoods. 3.8K followers, 201K likes."},
   {name:"Crook County TV",handle:"crookcountytv",url:"https://www.tiktok.com/@crookcountytv",platform:"TikTok + YouTube",beat:"Criminal Justice",signal:"Government accountability and transparency. YouTube channel active. Explicit civic journalism mission."},
   {name:"Nicole The News Lady",handle:"nicolethenewslady",url:"https://www.tiktok.com/@nicolethenewslady",platform:"TikTok",beat:"City Hall & Politics",signal:"Self-identifies as journalist. Covers specific City Council votes and mayoral housing initiatives. Early stage."},
+];
+
+// NOTE: Array has 244 entries as sourced — the Medill PDF lists 245 but one entry is missing from the source data.
+const MEDILL_ALL_OUTLETS=[
+  {name:"ABC 7 News Chicago WLS",cat:"For-Profit",sub:"Legacy",url:"https://abc7chicago.com"},
+  {name:"CBS 2 Chicago WBBM",cat:"For-Profit",sub:"Legacy",url:"https://chicago.cbslocal.com"},
+  {name:"Chicago Magazine",cat:"For-Profit",sub:"Legacy",url:"https://chicagomag.com"},
+  {name:"Chicago Tribune",cat:"For-Profit",sub:"Legacy",url:"https://chicagotribune.com"},
+  {name:"Crain's Chicago Business",cat:"For-Profit",sub:"Legacy",url:"https://chicagobusiness.com"},
+  {name:"Fox 32 Chicago",cat:"For-Profit",sub:"Legacy",url:"https://fox32chicago.com"},
+  {name:"NBC 5 News Chicago WMAQ",cat:"For-Profit",sub:"Legacy",url:"https://nbcchicago.com"},
+  {name:"Telemundo Chicago",cat:"For-Profit",sub:"Legacy",url:"https://telemundochicago.com"},
+  {name:"Univision Chicago",cat:"For-Profit",sub:"Legacy",url:"https://univision.com/chicago"},
+  {name:"WBBM NewsRadio 780 AM",cat:"For-Profit",sub:"Legacy",url:"https://wbbm780.radio.com"},
+  {name:"WGN 720 AM",cat:"For-Profit",sub:"Legacy",url:"https://wgnradio.com"},
+  {name:"WGN 9 TV",cat:"For-Profit",sub:"Legacy",url:"https://wgntv.com"},
+  {name:"Axios Chicago",cat:"For-Profit",sub:"New Media",url:"https://axios.com/local/chicago"},
+  {name:"City Cast Chicago",cat:"For-Profit",sub:"New Media",url:"https://citycast.fm/chicago"},
+  {name:"Patch Chicago",cat:"For-Profit",sub:"New Media",url:"https://patch.com/illinois/chicago"},
+  {name:"Suburban Chicagoland",cat:"For-Profit",sub:"New Media",url:""},
+  {name:"Amor 106.7",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Beverly Review",cat:"For-Profit",sub:"Niche",url:"https://beverlyreview.net"},
+  {name:"Black Information Network",cat:"For-Profit",sub:"Niche",url:"https://binnews.com"},
+  {name:"Braidwood Journal",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Bronzecomm",cat:"For-Profit",sub:"Niche",url:"https://bronzecomm.com"},
+  {name:"Bronzeville Life",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"CHGO",cat:"For-Profit",sub:"Niche",url:"https://chgo.com"},
+  {name:"Chicago Chinese News",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Chicago Classical Review",cat:"For-Profit",sub:"Niche",url:"https://chicagoclassicalreview.com"},
+  {name:"Chicago Crusader",cat:"For-Profit",sub:"Niche",url:"https://chicagocrusader.com"},
+  {name:"Chicago Daily Law Bulletin",cat:"For-Profit",sub:"Niche",url:"https://chicagolawyermagazine.com"},
+  {name:"Chicago Defender",cat:"For-Profit",sub:"Niche",url:"https://chicagodefender.com"},
+  {name:"Chicago History Podcast",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Chicago in Arabic",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Chicago Korea Times",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Chicago Latina Magazine",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Chicago Music Guide",cat:"For-Profit",sub:"Niche",url:"https://chicagomusicguide.com"},
+  {name:"Chicago News Weekly",cat:"For-Profit",sub:"Niche",url:"https://chicagonewsweekly.com"},
+  {name:"Chicago Parent",cat:"For-Profit",sub:"Niche",url:"https://chicagoparent.com"},
+  {name:"Chicago Southsider",cat:"For-Profit",sub:"Niche",url:"https://chicagosouthsider.substack.com"},
+  {name:"Chronicle Media",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Citizen Newspaper Group",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Coal City Courant",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Crib Chatter",cat:"For-Profit",sub:"Niche",url:"https://cribchatter.com"},
+  {name:"CWBChicago",cat:"For-Profit",sub:"Niche",url:"https://cwbchicago.com"},
+  {name:"Daily Chronicle",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Daily Herald",cat:"For-Profit",sub:"Niche",url:"https://dailyherald.com"},
+  {name:"Daily Journal",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Desi Talk Chicago",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Dziennik Zwiazkowy (Polish Daily News)",cat:"For-Profit",sub:"Niche",url:"https://dziennikzwiazkowy.com"},
+  {name:"E3 Radio",cat:"For-Profit",sub:"Niche",url:"https://e3radio.fm"},
+  {name:"Eater Chicago",cat:"For-Profit",sub:"Niche",url:"https://chicago.eater.com"},
+  {name:"El Dia",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Enchufate",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"eNews Park Forest",cat:"For-Profit",sub:"Niche",url:"https://enewspf.com"},
+  {name:"ESPN Chicago 1000 FM",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Evanston Now",cat:"For-Profit",sub:"Niche",url:"https://evanstonroundtable.com"},
+  {name:"Farmers Weekly Review",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Final Call News",cat:"For-Profit",sub:"Niche",url:"https://finalcall.com"},
+  {name:"Herald News-Joliet",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Herscher Pilot",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Homewood-Flossmoor Chronicle",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Inside Online",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Inside Publications",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Irish American News",cat:"For-Profit",sub:"Niche",url:"https://irishamericannews.com"},
+  {name:"Journal & Topics",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Juneteenth Productions",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Kane County Chronicle",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Kankakee Valley Post News",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Kendall County Now",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Kenosha News",cat:"For-Profit",sub:"Niche",url:"https://kenoshanews.com"},
+  {name:"La Ley 107.9 FM Radio",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"La Porte County Herald-Dispatch",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"La Raza",cat:"For-Profit",sub:"Niche",url:"https://laraza.com"},
+  {name:"Lake County Journal",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Latino Mix 93.5/103.1 FM",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Latino News Network",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Lawndale News",cat:"For-Profit",sub:"Niche",url:"https://lawndalenews.com"},
+  {name:"Lombardian",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Loop North News",cat:"For-Profit",sub:"Niche",url:"https://loopnorthnews.com"},
+  {name:"McKinley Park News",cat:"For-Profit",sub:"Niche",url:"https://mckinleyparknews.com"},
+  {name:"MidWeek",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Monitor Chicago",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Morris Herald-News",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Muslim Journal",cat:"For-Profit",sub:"Niche",url:"https://muslimjournal.net"},
+  {name:"My Suburban Life",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Nadig Newspapers",cat:"For-Profit",sub:"Niche",url:"https://nadignewspapers.com"},
+  {name:"Negocios Now",cat:"For-Profit",sub:"Niche",url:"https://negociosnow.com"},
+  {name:"Newcity",cat:"For-Profit",sub:"Niche",url:"https://newcity.com"},
+  {name:"News-Tribune",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Newton County Enterprise",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Northwest Herald",cat:"For-Profit",sub:"Niche",url:"https://nwherald.com"},
+  {name:"Pinoy News Magazine",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Polish Weekly Program",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Polski FM",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Polskie Radio",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Qué Buena 105.1 FM",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Rensselaer Republican",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"South Shore Current Magazine",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Southwest Regional Publishing",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Sports Talk Chicago",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Suburban Life - DuPage and Cook",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Taylor Media",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Arab Daily News",cat:"For-Profit",sub:"Niche",url:"https://thearabdailynews.com"},
+  {name:"The Bear Report",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Bigs",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Daily Line",cat:"For-Profit",sub:"Niche",url:"https://thedailyline.net"},
+  {name:"The Earlville Post",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Free Press Advocate",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Gary Crusader",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Hinsdalean",cat:"For-Profit",sub:"Niche",url:"https://thehinsdalean.com"},
+  {name:"The Mendota Reporter",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Real Deal",cat:"For-Profit",sub:"Niche",url:"https://therealdeal.com/chicago"},
+  {name:"The Times",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Times of NW Indiana",cat:"For-Profit",sub:"Niche",url:"https://nwitimes.com"},
+  {name:"The TRiiBE",cat:"For-Profit",sub:"Niche",url:"https://thetriibe.com"},
+  {name:"The Vedette",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Voice",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"The Woodstock Independent",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Third Coast Review",cat:"For-Profit",sub:"Niche",url:"https://thirdcoastreview.com"},
+  {name:"TimeOut Chicago",cat:"For-Profit",sub:"Niche",url:"https://timeout.com/chicago"},
+  {name:"Ukrainian People Magazine",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Uptown Update",cat:"For-Profit",sub:"Niche",url:"https://uptownupdate.com"},
+  {name:"Urbanize Chicago",cat:"For-Profit",sub:"Niche",url:"https://chicago.urbanize.city"},
+  {name:"VIA Times",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Villa Park News",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"West of the I",cat:"For-Profit",sub:"Niche",url:"https://westoftheitv.com"},
+  {name:"Windy City Times",cat:"For-Profit",sub:"Niche",url:"https://windycitytimes.com"},
+  {name:"WVON Radio 1690 AM",cat:"For-Profit",sub:"Niche",url:"https://wvon.com"},
+  {name:"Austin Weekly News",cat:"For-Profit",sub:"Niche",url:""},
+  {name:"Capitalisn't",cat:"For-Profit",sub:"Niche",url:"https://capitalisnt.com"},
+  {name:"Chicago Reader",cat:"For-Profit",sub:"Niche",url:"https://chicagoreader.com"},
+  {name:"Chicago Reporter",cat:"Nonprofit",sub:"Established",url:"https://chicagoreporter.com"},
+  {name:"Chicago Shimpo",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"Chicago Sun-Times / Chicago Public Media",cat:"Nonprofit",sub:"Established",url:"https://chicago.suntimes.com"},
+  {name:"Chicago Talks",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"Draugas",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"Evanston Roundtable",cat:"Nonprofit",sub:"Established",url:"https://evanstonroundtable.com"},
+  {name:"Forest Park Review",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"Hyde Park Herald",cat:"Nonprofit",sub:"Established",url:"https://hpherald.com"},
+  {name:"In These Times Magazine",cat:"Nonprofit",sub:"Established",url:"https://inthesetimes.com"},
+  {name:"Kartemquin",cat:"Nonprofit",sub:"Established",url:"https://kartemquin.com"},
+  {name:"La Voz del Paseo Boricua",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"Lumpen Magazine",cat:"Nonprofit",sub:"Established",url:"https://lumpen.com"},
+  {name:"Lumpen Radio 105.1 FM",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"Lumpen TV",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"National Public Housing Museum Podcast",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"North Lawndale Community News",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"PBS Chicago WTTW 11",cat:"Nonprofit",sub:"Established",url:"https://wttw.com"},
+  {name:"Public Narrative",cat:"Nonprofit",sub:"Established",url:"https://publicnarrative.org"},
+  {name:"Rebellious Magazine",cat:"Nonprofit",sub:"Established",url:"https://rebelliousmagazine.com"},
+  {name:"Riverside-Brookfield Landmark",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"South Side Weekly",cat:"Nonprofit",sub:"Established",url:"https://southsideweekly.com"},
+  {name:"Streetsblog",cat:"Nonprofit",sub:"Established",url:"https://chi.streetsblog.org"},
+  {name:"StreetWise",cat:"Nonprofit",sub:"Established",url:"https://streetwise.org"},
+  {name:"Substance News",cat:"Nonprofit",sub:"Established",url:"https://substancenews.net"},
+  {name:"True Star Media",cat:"Nonprofit",sub:"Established",url:"https://truestarmedia.com"},
+  {name:"Village Free Press",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"WBEZ 91.5 FM",cat:"Nonprofit",sub:"Established",url:"https://wbez.org"},
+  {name:"Wednesday Journal of Oak Park and River Forest",cat:"Nonprofit",sub:"Established",url:"https://wednesdayjournalonline.com"},
+  {name:"WNIJ",cat:"Nonprofit",sub:"Established",url:""},
+  {name:"AirGo Radio",cat:"Nonprofit",sub:"New Nonprofit",url:""},
+  {name:"Block Club Chicago",cat:"Nonprofit",sub:"New Nonprofit",url:"https://blockclubchicago.org"},
+  {name:"Borderless Magazine",cat:"Nonprofit",sub:"New Nonprofit",url:"https://borderlessmag.org"},
+  {name:"CAN TV",cat:"Nonprofit",sub:"New Nonprofit",url:"https://cantv.org"},
+  {name:"Capital B Gary",cat:"Nonprofit",sub:"New Nonprofit",url:"https://capitalbnews.org/gary"},
+  {name:"Chalkbeat Chicago",cat:"Nonprofit",sub:"New Nonprofit",url:"https://chicago.chalkbeat.org"},
+  {name:"Chinatown Spotlight",cat:"Nonprofit",sub:"New Nonprofit",url:""},
+  {name:"CHIRP Radio 107.1 FM",cat:"Nonprofit",sub:"New Nonprofit",url:"https://chirpradio.org"},
+  {name:"Cicero Independiente",cat:"Nonprofit",sub:"New Nonprofit",url:"https://ciceroindependiente.com"},
+  {name:"City Bureau",cat:"Nonprofit",sub:"New Nonprofit",url:"https://citybureau.org"},
+  {name:"Free Spirit Media",cat:"Nonprofit",sub:"New Nonprofit",url:"https://freespiritmedia.org"},
+  {name:"Harvey World Herald",cat:"Nonprofit",sub:"New Nonprofit",url:""},
+  {name:"IL Latino News",cat:"Nonprofit",sub:"New Nonprofit",url:""},
+  {name:"Illinois Answers Project",cat:"Nonprofit",sub:"New Nonprofit",url:"https://illinoisanswers.org"},
+  {name:"Injustice Watch",cat:"Nonprofit",sub:"New Nonprofit",url:"https://injusticewatch.org"},
+  {name:"Investigative Project on Race and Equity",cat:"Nonprofit",sub:"New Nonprofit",url:"https://raceandequityproject.org"},
+  {name:"Sixty Inches From Center",cat:"Collective",sub:"Worker-Owned",url:"https://sixtyinchesfromcenter.org"},
+  {name:"Belmont Cragin Newsletter",cat:"Other",sub:"Community Utility",url:""},
+  {name:"TCP Weekly",cat:"Other",sub:"Community Utility",url:""},
+  {name:"ChiBus",cat:"Other",sub:"Student Media",url:""},
+  {name:"The Chicago Maroon",cat:"Other",sub:"Student Media",url:"https://chicagomaroon.com"},
+  {name:"The Daily Northwestern",cat:"Other",sub:"Student Media",url:"https://dailynorthwestern.com"},
+  {name:"The DePaulia",cat:"Other",sub:"Student Media",url:"https://depauliaonline.com"},
+  {name:"The Loyola Phoenix",cat:"Other",sub:"Student Media",url:"https://loyolaphoenix.com"},
+  {name:"BlogABull.com",cat:"Solopreneur",sub:"Creator Journalist",url:"https://blogabull.com"},
+  {name:"Board Rule",cat:"Solopreneur",sub:"Creator Journalist",url:"https://board-rule.ghost.io"},
+  {name:"Chicago Public Square",cat:"Solopreneur",sub:"Creator Journalist",url:"https://chicagopublicsquare.com"},
+  {name:"Chicago Show Calendar",cat:"Solopreneur",sub:"Creator Journalist",url:"https://chicagoshowcal.substack.com"},
+  {name:"Chicagoverse",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"Eric Zorn: The Picayune Sentinel",cat:"Solopreneur",sub:"Creator Journalist",url:"https://ericzorn.substack.com"},
+  {name:"Food Is Stupid",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"I'm Fat Podcast",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"Improv Nerd",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"Living Landmarks of Chicago",cat:"Solopreneur",sub:"Creator Journalist",url:"https://chicagolandmarks.substack.com"},
+  {name:"The Chicago 312",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"The Hunger",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"The Last Ward",cat:"Solopreneur",sub:"Creator Journalist",url:"https://www.thelastward.org"},
+  {name:"The Party Cut",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"Unraveled",cat:"Solopreneur",sub:"Creator Journalist",url:"https://www.unraveledpress.com"},
+  {name:"Vanished Chicagoland Stories",cat:"Solopreneur",sub:"Creator Journalist",url:""},
+  {name:"350 Chicago",cat:"Solopreneur",sub:"Creator Journalist",url:"https://350chicago.substack.com"},
+  {name:"77 Flavors of Chicago",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"A Girl About Chicago",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Andrew Kammerer",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Chef Bri",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Chicago By Ren",cat:"Solopreneur",sub:"News Influencer",url:"https://instagram.com/chicago.by.ren"},
+  {name:"Chicago Contrarian",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Chicago Does",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Chicago Food Authority",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Chicago Food Guide",cat:"Solopreneur",sub:"News Influencer",url:"https://instagram.com/chicago.food.guide"},
+  {name:"Chicago Food HQ",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Chris Dolo",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Cori in Chicago",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Dean Lauvina",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Emilia Marie Home",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Erica Eats Everything",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Explore with Chase",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Grace Andrews",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Hunter Haines",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Jen In Chicago",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Jonah Fialkow",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Kat Abughazaleh",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Jonathan Zaragoza",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Kaylee Jo Chicago",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Lavish Food Life",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Mauna Eats Chicago",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Megan Schibelka",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Sassy Confetti",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Shermann Dilla Thomas",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Still Gotta Come Through Chicago",cat:"Solopreneur",sub:"News Influencer",url:"https://sgctc.substack.com"},
+  {name:"Take 1 With Bill Cameron",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"The Haute Seeker",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"The Hoodoise",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Whats the Word",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Windy City Breeze",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Wrigleyville Nation",cat:"Solopreneur",sub:"News Influencer",url:""},
+  {name:"Invisible Institute",cat:"Other",sub:"Various",url:"https://invisible.institute"},
+  {name:"N'Digo",cat:"Other",sub:"Various",url:"https://ndigo.com"},
+  {name:"OTV | Open Television",cat:"Other",sub:"Various",url:"https://otv.live"},
+  {name:"Pigment International",cat:"Other",sub:"Various",url:""},
+  {name:"Radio UA Chicago",cat:"Other",sub:"Various",url:""},
+  {name:"SoapBox Productions and Organizing",cat:"Other",sub:"Various",url:""},
+  {name:"The Culture",cat:"Other",sub:"Various",url:""},
+  {name:"The Lansing Journal",cat:"Other",sub:"Various",url:"https://thelansingjournal.com"},
+  {name:"The Record North Shore",cat:"Other",sub:"Various",url:""},
+  {name:"Ukrainian Independent Radio",cat:"Other",sub:"Various",url:""},
+  {name:"Vocalo",cat:"Other",sub:"Various",url:"https://vocalo.org"},
 ];
 
 const ECOSYSTEM_ORGS=[
@@ -660,7 +933,28 @@ function clearFilters(){currentBeat='';currentPlat='';document.querySelectorAll(
 
 function renderRadarFooter(){const el=document.getElementById('radar-footer-grid');if(!el)return;el.innerHTML=EMERGING_VOICES.map(v=>'<div class="radar-card"><div class="radar-card-head"><a class="radar-handle" href="'+esc(v.url)+'" target="_blank" rel="noopener">@'+esc(v.handle)+'</a><span class="radar-monitoring">Monitoring</span></div><div class="radar-beat">'+esc(v.beat)+'</div></div>').join('');}
 
-renderEcosystemOrgs();renderCreators();renderRadarFooter();
+let fullEcoFilter='all';
+function setFullEcoFilter(cat){
+  fullEcoFilter=cat;
+  document.querySelectorAll('.feco-btn').forEach(b=>b.classList.toggle('active',b.dataset.feco===cat));
+  renderFullEco();
+}
+function renderFullEco(){
+  const data=fullEcoFilter==='all'?MEDILL_ALL_OUTLETS:MEDILL_ALL_OUTLETS.filter(o=>o.cat===fullEcoFilter);
+  const count=document.getElementById('full-eco-count');
+  if(count)count.textContent=data.length+' outlet'+(data.length!==1?'s':'');
+  const list=document.getElementById('full-eco-list');
+  if(!list)return;
+  list.innerHTML=data.map(o=>{
+    const nameEl=o.url
+      ?'<a class="feco-name" href="'+esc(o.url)+'" target="_blank" rel="noopener">'+esc(o.name)+'</a>'
+      :'<span class="feco-name-plain">'+esc(o.name)+'</span>';
+    return'<div class="feco-item">'+nameEl+'<span class="feco-sub">'+esc(o.sub)+'</span></div>';
+  }).join('');
+}
+document.querySelector('[data-tab="ecosystem"]')?.addEventListener('click',renderFullEco);
+
+renderEcosystemOrgs();renderCreators();renderRadarFooter();renderFullEco();
 console.log('Chicago City Lab — journalism: '+JOURNALISM_CREATORS.length+', lifestyle: '+LIFESTYLE_CREATORS.length+', ecosystem orgs: '+ECOSYSTEM_ORGS.length);
 
 // ── COVERAGE TAB — RSS FEEDS ──────────────────────────────────────────────
@@ -675,7 +969,6 @@ const CHICAGO_FEEDS=[
   {layer:'creator',name:'Politically Illinois',channel:'Politically Illinois',beat:'City Hall & Politics',url:'https://politicallyillinois.substack.com',rss:'https://politicallyillinois.substack.com/feed',beatColor:'#0044cc'},
   {layer:'creator',name:'H Kapp-Klote',channel:'The Chicago 312',beat:'City Hall & Politics',url:'https://hs-newsletter-e91163.beehiiv.com',rss:'https://hs-newsletter-e91163.beehiiv.com/feed',beatColor:'#0044cc'},
   // Sports — creators
-  {layer:'creator',name:'Matt Brown',channel:'Extra Points',beat:'Sports',url:'https://www.extrapointsmb.com',rss:'https://www.extrapointsmb.com/feed',beatColor:'#006600'},
   {layer:'creator',name:'Andrew Donlan',channel:'Still Gotta Come Through Chicago',beat:'Sports',url:'https://sgctc.substack.com',rss:'https://sgctc.substack.com/feed',beatColor:'#006600'},
   // Arts & Culture — creators
   {layer:'creator',name:'Caroline Patton',channel:'Chicago Show Calendar',beat:'Arts & Culture',url:'https://chicagoshowcal.substack.com',rss:'https://chicagoshowcal.substack.com/feed',beatColor:'#660066'},
@@ -684,7 +977,6 @@ const CHICAGO_FEEDS=[
   {layer:'creator',name:'Nathan Graber-Lipperman',channel:'Creator Mag',beat:'Media & Press Freedom',url:'https://www.creatormag.blog',rss:'https://www.creatormag.blog/feed',beatColor:'#884400'},
   {layer:'creator',name:'Igor Studenkov',channel:'Chicago Media Journal',beat:'Media & Press Freedom',url:'https://chimediajournal.substack.com',rss:'https://chimediajournal.substack.com/feed',beatColor:'#884400'},
   {layer:'creator',name:'Mark Jacob',channel:'Stop the Presses',beat:'Media & Press Freedom',url:'https://www.stopthepresses.news',rss:'https://www.stopthepresses.news/feed',beatColor:'#884400'},
-  {layer:'creator',name:'Parker Molloy',channel:'The Present Age',beat:'Media & Press Freedom',url:'https://www.readtpa.com',rss:'https://www.readtpa.com/feed',beatColor:'#884400'},
   // Education / CPS — creators
   {layer:'creator',name:'Maureen Kelleher',channel:'Board Rule',beat:'Education / CPS',url:'https://board-rule.ghost.io',rss:'https://board-rule.ghost.io/rss',beatColor:'#880000'},
   {layer:'creator',name:'Daniel B. Rodriguez',channel:'Daniel B. Rodriguez',beat:'Education / CPS',url:'https://danielbrodriguez.substack.com',rss:'https://danielbrodriguez.substack.com/feed',beatColor:'#880000'},
@@ -693,7 +985,6 @@ const CHICAGO_FEEDS=[
   {layer:'creator',name:'The JAAM',channel:'The JAAM',beat:'Black Chicago / City Hall & Politics',url:'https://thejaampod.substack.com',rss:'https://thejaampod.substack.com/feed',beatColor:'#884400'},
   {layer:'creator',name:'Ricardo Gamboa',channel:'The Hoodoise',beat:'Black Chicago',url:'https://hoodoisie.wordpress.com',rss:'https://hoodoisie.wordpress.com/feed',beatColor:'#884400'},
   // Environment — creators
-  {layer:'creator',name:'Josh Horwitz',channel:'350 Chicago',beat:'Environment',url:'https://350chicago.substack.com',rss:'https://350chicago.substack.com/feed',beatColor:'#006633'},
   // Institutions
   {layer:'institution',name:'Block Club Chicago',channel:'Block Club Chicago',beat:'City Hall & Neighborhoods',url:'https://blockclubchicago.org',rss:'https://blockclubchicago.org/feed',beatColor:'#0044cc'},
   {layer:'institution',name:'Injustice Watch',channel:'Injustice Watch',beat:'Criminal Justice',url:'https://injusticewatch.org',rss:'https://injusticewatch.org/feed/',beatColor:'#880000'},
@@ -711,16 +1002,11 @@ function setCoverageLayer(l){coverageLayer=l;document.querySelectorAll('.cov-lay
 function setCoverageSort(s){coverageSort=s;document.querySelectorAll('.cov-sort-btn').forEach(b=>b.classList.toggle('active',b.dataset.sort===s));renderCoverage();}
 
 async function fetchRSS(feed){
-  const proxy='https://api.allorigins.win/get?url='+encodeURIComponent(feed.rss);
-  try{
-    const signal=typeof AbortSignal.timeout==='function'?AbortSignal.timeout(10000):undefined;
-    const r=await fetch(proxy,signal?{signal}:{});
-    if(!r.ok)return[];
-    const d=await r.json();
-    if(!d.contents)return[];
-    const xml=new DOMParser().parseFromString(d.contents,'text/xml');
+  const sig=()=>typeof AbortSignal.timeout==='function'?AbortSignal.timeout(8000):undefined;
+
+  function parseXML(contents){
+    const xml=new DOMParser().parseFromString(contents,'text/xml');
     if(xml.querySelector('parsererror'))return[];
-    // Support RSS 2.0 (<item>) and Atom (<entry>)
     const items=[...xml.querySelectorAll('item')];
     const isAtom=!items.length;
     const entries=isAtom?[...xml.querySelectorAll('entry')]:items;
@@ -734,6 +1020,29 @@ async function fetchRSS(feed){
         :el.querySelector('pubDate')?.textContent;
       return{...feed,title,link:link||feed.url,pubDate:dateStr?new Date(dateStr):null};
     }).filter(i=>i.title);
+  }
+
+  // Proxy 1: allorigins (raw XML, no key required)
+  try{
+    const s=sig();
+    const r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(feed.rss),s?{signal:s}:{});
+    if(r.ok){
+      const d=await r.json();
+      if(d.contents){const items=parseXML(d.contents);if(items.length)return items;}
+    }
+  }catch(e){}
+
+  // Proxy 2: rss2json fallback (parsed JSON, works for most public feeds without a key)
+  try{
+    const s=sig();
+    const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.rss)+'&count=3',s?{signal:s}:{});
+    if(!r.ok)return[];
+    const d=await r.json();
+    if(d.status!=='ok'||!d.items?.length)return[];
+    return d.items.slice(0,3).map(item=>({
+      ...feed,title:item.title||'',link:item.link||feed.url,
+      pubDate:item.pubDate?new Date(item.pubDate):null,
+    }));
   }catch(e){return[];}
 }
 
