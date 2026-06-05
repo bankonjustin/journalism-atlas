@@ -1028,27 +1028,24 @@ function setCoverageLayer(l){coverageLayer=l;document.querySelectorAll('.cov-lay
 function setCoverageSort(s){coverageSort=s;document.querySelectorAll('.cov-sort-btn').forEach(b=>b.classList.toggle('active',b.dataset.sort===s));renderCoverage();}
 
 async function fetchRSS(feed){
-  const sig=()=>typeof AbortSignal.timeout==='function'?AbortSignal.timeout(8000):undefined;
+  const sig=()=>typeof AbortSignal.timeout==='function'?AbortSignal.timeout(10000):undefined;
 
-  function parseXML(contents){
-    const xml=new DOMParser().parseFromString(contents,'text/xml');
-    if(xml.querySelector('parsererror'))return[];
-    const items=[...xml.querySelectorAll('item')];
-    const isAtom=!items.length;
-    const entries=isAtom?[...xml.querySelectorAll('entry')]:items;
-    return entries.slice(0,3).map(el=>{
-      const title=el.querySelector('title')?.textContent?.trim()||'';
-      const link=isAtom
-        ?(el.querySelector('link')?.getAttribute('href')||el.querySelector('link')?.textContent||feed.url)
-        :(el.querySelector('link')?.textContent?.trim()||feed.url);
-      const dateStr=isAtom
-        ?(el.querySelector('published')?.textContent||el.querySelector('updated')?.textContent)
-        :el.querySelector('pubDate')?.textContent;
-      return{...feed,title,link:link||feed.url,pubDate:dateStr?new Date(dateStr):null};
-    }).filter(i=>i.title);
-  }
+  // Primary: Cloudflare Pages Function (same-origin, no CORS issues)
+  try{
+    const s=sig();
+    const r=await fetch('/rss?url='+encodeURIComponent(feed.rss),s?{signal:s}:{});
+    if(r.ok){
+      const d=await r.json();
+      if(d.status==='ok'&&d.items?.length)return d.items.map(item=>({
+        ...feed,
+        title:item.title||'',
+        link:item.link||feed.url,
+        pubDate:item.pubDate?new Date(item.pubDate):null,
+      }));
+    }
+  }catch(e){}
 
-  // Proxy 1: rss2json (parsed JSON, works for most public feeds)
+  // Fallback: rss2json (in case Worker isn't deployed yet)
   try{
     const s=sig();
     const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.rss)+'&count=3',s?{signal:s}:{});
@@ -1061,15 +1058,6 @@ async function fetchRSS(feed){
     }
   }catch(e){}
 
-  // Proxy 2: allorigins fallback (raw XML parse)
-  try{
-    const s=sig();
-    const r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(feed.rss),s?{signal:s}:{});
-    if(r.ok){
-      const d=await r.json();
-      if(d.contents){const items=parseXML(d.contents);if(items.length)return items;}
-    }
-  }catch(e){}
   return[];
 }
 
