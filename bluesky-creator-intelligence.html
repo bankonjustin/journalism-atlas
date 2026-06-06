@@ -113,6 +113,11 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .search-input { width: 100%; padding: 10px 36px 10px 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--card-bg); font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; color: var(--text-primary); outline: none; transition: border-color 0.15s; }
 .search-input::placeholder { color: var(--text-muted); }
 .search-input:focus { border-color: var(--lime); }
+.search-input.arrival {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 3px rgba(151, 214, 0, 0.25);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
 .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; line-height: 1; padding: 2px; display: none; }
 .search-clear.visible { display: block; }
 
@@ -197,55 +202,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   50%       { color: rgba(255,255,255,0.75); }
 }
 
-/* ── AMBIENT STRIP ────────────────────────────────────────── */
-#ambient-strip {
-  height: 0;
-  overflow: hidden;
-  position: relative;
-  background: #080810;
-  transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-}
-#ambient-strip.visible {
-  height: 72px;
-  pointer-events: auto;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-#ambient-strip canvas {
-  display: block;
-  width: 100%; height: 72px;
-  position: absolute; top: 0; left: 0;
-}
-#ambient-strip::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent 0%, transparent 55%, #efeff2 92%);
-  pointer-events: none;
-  z-index: 2;
-}
-#ambient-strip-label {
-  position: absolute; right: 40px; top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em;
-  display: flex; align-items: center; gap: 10px;
-}
-#ambient-strip-label button {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  font-family: 'DM Mono', monospace; font-size: 9px;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  padding: 3px 10px; border-radius: 9999px;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-}
-#ambient-strip-label button:hover { border-color: var(--lime); color: var(--text-primary); }
-
-/* hero-right dims when ambient strip activates */
-.hero-right { transition: opacity 0.4s ease; }
-.hero-right.dimmed { opacity: 0.28; pointer-events: none; }
 
 /* overlay — retired */
 #viz-overlay { display: none !important; }
@@ -301,16 +257,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <div class="viz-label" id="viz-label">671 creators · 14 beat clusters</div>
     <canvas id="network-canvas"></canvas>
     <div id="viz-tooltip"></div>
-    <div class="viz-expand-hint">Explore the index</div>
-  </div>
-</div>
-
-<!-- ── AMBIENT STRIP ─────────────────────────────────────── -->
-<div id="ambient-strip">
-  <canvas id="ambient-canvas"></canvas>
-  <div id="ambient-strip-label">
-    <span id="ambient-strip-text">Network · 671 creators · 14 clusters</span>
-    <button onclick="collapseAmbient()">↑ Collapse</button>
+    <div class="viz-expand-hint">Search the index</div>
   </div>
 </div>
 
@@ -594,7 +541,6 @@ function initStats(creators) {
   document.getElementById('hero-count').textContent = total;
   document.getElementById('header-count').textContent = `${total} creators · 14 clusters`;
   document.getElementById('viz-label').textContent = `${total} creators · 14 beat clusters`;
-  document.getElementById('ambient-strip-text').textContent = `Network · ${total} creators · 14 clusters`;
 
 }
 
@@ -885,7 +831,7 @@ function renderList(creators) {
    ════════════════════════════════════════════════════════════ */
 let CREATORS = [];
 
-function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasClick = null, ambient = false } = {}) {
+function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasClick = null } = {}) {
   const container = canvas.parentElement;
 
   function resize() {
@@ -1048,7 +994,7 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
       nodes.forEach(n => {
         n.cx = n.tx + Math.sin(td * n.driftSpeed + n.driftPhase) * n.driftAmp;
         n.cy = n.ty + Math.cos(td * n.driftSpeed * 0.7 + n.driftPhase) * n.driftAmp;
-        if (!ambient && mouse.x !== null) {
+        if (mouse.x !== null) {
           const dx = n.cx - mouse.x, dy = n.cy - mouse.y;
           const d = Math.sqrt(dx*dx + dy*dy);
           if (d < 60 && d > 0) { const f = (1 - d/60) * 18; n.cx += dx/d*f; n.cy += dy/d*f; }
@@ -1064,18 +1010,16 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
           }
         });
         let alpha, radius;
-        if (ambient) {
-          alpha = 0.35; radius = 1.8;
-        } else if (hoveredCluster === null)        { alpha = 0.72; radius = 2.5; }
-        else if   (n.cluster === hoveredCluster)   { alpha = 1.0;  radius = 4.0; }
-        else                                       { alpha = 0.12; radius = 2.0; }
+        if      (hoveredCluster === null)      { alpha = 0.72; radius = 2.5; }
+        else if (n.cluster === hoveredCluster) { alpha = 1.0;  radius = 4.0; }
+        else                                   { alpha = 0.12; radius = 2.0; }
         ctx.beginPath();
         ctx.arc(n.cx, n.cy, radius, 0, Math.PI * 2);
         ctx.fillStyle = hexAlpha(n.color, alpha);
         ctx.fill();
       });
 
-      if (!ambient) drawLabelsAndNames();
+      drawLabelsAndNames();
       if (pulses.length) drawPulses(now);
     }
 
@@ -1151,51 +1095,47 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
 }
 
 /* ════════════════════════════════════════════════════════════
-   VIZ: hero + ambient strip
+   VIZ: hero → search scroll
    ════════════════════════════════════════════════════════════ */
-let ambientViz = null;
-let ambientActivated = false;
+function easedScrollTo(targetY, duration) {
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  const startTime = performance.now();
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    window.scrollTo(0, startY + distance * ease);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
 
 function openOverlay() {
-  if (ambientActivated) {
-    document.getElementById('index').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
-  }
-  ambientActivated = true;
+  const searchInput = document.getElementById('search-input');
+  const targetY = searchInput.getBoundingClientRect().top + window.scrollY - 80;
 
-  document.querySelector('.hero-right').classList.add('dimmed');
-
-  const strip = document.getElementById('ambient-strip');
-  strip.classList.add('visible');
+  easedScrollTo(targetY, 820);
 
   setTimeout(() => {
-    const ambCanvas = document.getElementById('ambient-canvas');
-    if (!ambientViz && CREATORS && CREATORS.length) {
-      ambientViz = buildViz(ambCanvas, null, CREATORS, { startSettled: true, ambient: true });
-    }
-  }, 180);
-
-  strip.addEventListener('transitionend', () => {
-    const indexEl = document.getElementById('index');
-    indexEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    indexEl.classList.add('index-activated');
-    setTimeout(() => indexEl.classList.remove('index-activated'), 600);
-  }, { once: true });
+    searchInput.focus();
+    searchInput.classList.add('arrival');
+    setTimeout(() => searchInput.classList.remove('arrival'), 700);
+  }, 860);
 }
 
-function collapseAmbient() {
-  ambientActivated = false;
-  document.getElementById('ambient-strip').classList.remove('visible');
-  document.querySelector('.hero-right').classList.remove('dimmed');
-  if (ambientViz) { ambientViz.stop(); ambientViz = null; }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function closeOverlay() { /* retired — no-op */ }
+function closeOverlay() { /* no-op */ }
 
 function initOverlay() {
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && ambientActivated) collapseAmbient();
+    if (e.key === 'Escape') {
+      const s = document.getElementById('search-input');
+      if (document.activeElement === s) s.blur();
+    }
   });
 }
 
