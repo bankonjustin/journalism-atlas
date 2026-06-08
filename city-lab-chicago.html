@@ -227,6 +227,10 @@
     .bhc-headline:hover { text-decoration: underline; }
     .bhc-meta { font-size: 12px; color: #888; }
     .bhc-meta strong { color: #555; font-weight: 500; }
+    .coverage-beat-nav { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 12px 0 4px; flex-wrap: nowrap; }
+    .coverage-beat-nav::-webkit-scrollbar { display: none; }
+    .cov-beat-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; border: 1.5px solid transparent; cursor: pointer; white-space: nowrap; transition: opacity 0.12s; flex-shrink: 0; }
+    .cov-beat-pill:hover { opacity: 0.8; }
     .tab-btn:focus-visible, .beats-toggle-btn:focus-visible, .beat-chip:focus-visible, .plat-chip:focus-visible, .layer-stat-btn:focus-visible, .view-btn:focus-visible { outline: 2px solid #97d600; outline-offset: 2px; }
     @media (max-width: 1023px) { .card-grid { grid-template-columns: repeat(2,1fr); } .eco-split { grid-template-columns: 1fr; } .anchor-grid { grid-template-columns: 1fr; } }
     @media (max-width: 767px) { .hero { padding: 56px 0 0; } .hero-inner { padding: 0 20px 48px; } .hero-title { font-size: 32px; } .hero-stat-num-large { font-size: 40px; } .hero-stat-breakdown { gap: 20px; } .hero-stat-num-child { font-size: 22px; } .tab-nav { padding: 0 16px; } .tab-btn { padding: 14px 12px; font-size: 10px; } .main { padding: 24px 20px 60px; } .card-grid { grid-template-columns: 1fr; } .creators-filter-bar { top: 110px; } }
@@ -312,7 +316,7 @@
           <span class="eco-pill eco-pill-l">Travel <span class="eco-pill-count">3</span></span>
         </div>
       </div>
-      <div class="eco-panel eco-panel-i" onclick="switchToCreatorsTab('institutions')" title="Explore anchor institutions">
+      <div class="eco-panel eco-panel-i" onclick="document.getElementById('full-chicago-landscape').scrollIntoView({behavior:'smooth'})" title="Explore the full 245-outlet landscape">
         <div class="eco-panel-eyebrow">Institutional Media</div>
         <div class="eco-panel-stats">
           <div class="eco-ps"><span class="eco-ps-num">245</span><span class="eco-ps-label">Total outlets tracked</span></div>
@@ -333,7 +337,7 @@
       </div>
     </div>
   </section>
-  <div class="two-layer-note" style="margin:24px 0 8px"><span class="two-layer-pill">How this works</span>This page maps three distinct layers of Chicago&rsquo;s independent media ecosystem. The <strong>journalism layer</strong> tracks creator-journalists covering beats &mdash; politics, criminal justice, education, health, immigration, labor, housing, and more &mdash; where independent voices are building audiences outside legacy newsrooms. The <strong>lifestyle layer</strong> tracks creators covering food, neighborhoods, things to do, and local culture &mdash; a parallel ecosystem that also documents city life, just through a different lens. The <strong>institutions layer</strong> tracks anchor newsrooms and nonprofit journalism organizations that make up Chicago&rsquo;s independent media infrastructure &mdash; not creator-journalists, but essential ecosystem context.</div>
+  <div class="two-layer-note" style="margin:24px 0 8px"><span class="two-layer-pill">How this works</span>This page maps three distinct layers of Chicago&rsquo;s media ecosystem. The <strong>journalism layer</strong> tracks creator-journalists covering beats &mdash; politics, criminal justice, education, health, immigration, labor, housing, and more &mdash; where independent voices are building audiences outside legacy newsrooms. The <strong>lifestyle layer</strong> tracks creators covering food, neighborhoods, things to do, and local culture &mdash; an overlapping ecosystem that also documents city life through a different lens. The <strong>institutions layer</strong> tracks anchor newsrooms and nonprofit journalism organizations that make up Chicago&rsquo;s existing media infrastructure &mdash; not creator-journalists, but essential ecosystem context.</div>
 
   <section class="section">
     <section class="section">
@@ -364,7 +368,7 @@
     <button class="context-toggle" id="context-toggle-btn" onclick="toggleContext()"><span id="context-icon">+</span> Ecosystem context &amp; methodology</button>
     <div class="context-collapse" id="context-collapse">
       <div class="context-card"><h3>Institutional Collapse Context</h3><p>The Chicago Tribune was decimated under Alden Global Capital. The Chicago Sun-Times merged with WBEZ. The Chicago Reader moved to a monthly print schedule. Of the 245 outlets tracked by Medill&rsquo;s Local News Initiative, the majority of total audience reach is concentrated in a handful of legacy broadcast and digital outlets. The independent creator layer has not filled the accountability void.</p></div>
-      <div class="context-card"><h3>The Anchor Institutions</h3><p><strong>Block Club Chicago</strong> (480K social following) and <strong>City Bureau</strong> (27K) are the backbone of independent Chicago journalism. <strong>South Side Weekly</strong> (45K) and <strong>Injustice Watch</strong> (25K) fill adjacent gaps. None operate in the creator-newsletter model tracked by the Atlas &mdash; but all are essential ecosystem context.</p></div>
+      <div class="context-card"><h3>The Anchor Institutions</h3><p><strong>Block Club Chicago</strong> (480K social following) and <strong>City Bureau</strong> (27K) are the backbone of independent Chicago journalism. <strong>South Side Weekly</strong> (45K) and <strong>Injustice Watch</strong> (25K) fill adjacent gaps.</p></div>
       <div class="context-card"><h3>Methodology &amp; Sourcing</h3><p>The 245-outlet count is sourced from Northwestern Medill&rsquo;s Local News Initiative 2026 ecosystem study. Atlas creator and lifestyle layers are independently mapped through desk research and spidering sessions. Data current as of June 2026. <a href="mailto:hello@journalismatlas.com" style="color:#5d7400">Contact us</a> with updates or additions.</p></div>
     </div>
   </section>
@@ -524,7 +528,7 @@
         <button class="cov-layer-btn" data-clayer="creator" onclick="setCoverageLayer('creator')">Independent Creators</button>
         <button class="cov-layer-btn" data-clayer="institution" onclick="setCoverageLayer('institution')">Newsrooms &amp; Institutions</button>
       </div>
-      <div class="pulse-badge"><span class="pulse-badge-dot">&#9679;</span><span class="pulse-badge-text">Powered by Atlas Pulse</span></div>
+      <a href="/pulse" class="pulse-badge" style="text-decoration:none"><span class="pulse-badge-dot">&#9679;</span><span class="pulse-badge-text">Powered by Atlas Pulse</span></a>
     </div>
   </div>
   <div class="coverage-controls" id="coverage-controls">
@@ -533,6 +537,18 @@
     <button class="cov-sort-btn" data-sort="newest" onclick="setCoverageSort('newest')">Newest first</button>
     <button class="cov-sort-btn" data-sort="source" onclick="setCoverageSort('source')">Source A–Z</button>
     <span class="coverage-feed-count" id="coverage-feed-count"></span>
+  </div>
+  <div class="coverage-beat-nav" id="coverage-beat-nav">
+    <span class="cov-beat-pill" style="background:#ddeeff;color:#0044cc;border-color:#aaccff" onclick="jumpToBeat('City Hall & Politics')">City Hall &amp; Politics</span>
+    <span class="cov-beat-pill" style="background:#fff0dd;color:#884400;border-color:#ffcc88" onclick="jumpToBeat('Black Chicago')">Black Chicago</span>
+    <span class="cov-beat-pill" style="background:#eee;color:#444;border-color:#ccc" onclick="jumpToBeat('Sports')">Sports</span>
+    <span class="cov-beat-pill" style="background:#ffe8f0;color:#880044;border-color:#ffaacc" onclick="jumpToBeat('Arts & Culture')">Arts &amp; Culture</span>
+    <span class="cov-beat-pill" style="background:#eefcee;color:#005500;border-color:#88dd88" onclick="jumpToBeat('Education / CPS')">Education / CPS</span>
+    <span class="cov-beat-pill" style="background:#fff8e0;color:#664400;border-color:#ddcc88" onclick="jumpToBeat('Criminal Justice')">Criminal Justice</span>
+    <span class="cov-beat-pill" style="background:#f0e8ff;color:#550088;border-color:#cc88ff" onclick="jumpToBeat('Immigration')">Immigration</span>
+    <span class="cov-beat-pill" style="background:#ffe8e8;color:#880000;border-color:#ffaaaa" onclick="jumpToBeat('Health & Science')">Health &amp; Science</span>
+    <span class="cov-beat-pill" style="background:#e8f4ff;color:#003377;border-color:#99bbff" onclick="jumpToBeat('Media & Press Freedom')">Media &amp; Press Freedom</span>
+    <span class="cov-beat-pill" style="background:#fce4ec;color:#ad1457;border-color:#f48fb1" onclick="jumpToBeat('LGBTQ+')">LGBTQ+</span>
   </div>
   <div id="coverage-loading" style="text-align:center;padding:48px;color:#b0b0b8;font-size:13px;display:none">
     <span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:8px">rss_feed</span>
@@ -930,7 +946,7 @@ function renderScatter(){const svgEl=document.getElementById('scatter-svg');cons
 
 let currentLayer='all',currentBeat='',currentPlat='',currentView='list',currentLType='',currentLPlat='',currentIType='';
 
-function setCreatorLayer(layer){currentLayer=layer;currentBeat='';currentPlat='';currentLType='';currentLPlat='';currentIType='';document.querySelectorAll('.layer-stat-btn').forEach(b=>b.classList.toggle('active',b.dataset.layer===layer));const showJ=layer==='journalism';const showL=layer==='lifestyle';const showI=layer==='institutions';document.getElementById('beat-filter-row').style.display=showJ?'':'none';document.getElementById('plat-filter-row').style.display=showJ?'':'none';document.getElementById('lifestyle-type-filter-row').style.display=showL?'':'none';document.getElementById('lifestyle-plat-filter-row').style.display=showL?'':'none';document.getElementById('institutions-filter-row').style.display=showI?'':'none';const instNote=document.getElementById('institutions-note');if(instNote)instNote.style.display=showI?'block':'none';document.querySelectorAll('#beat-filter-row .beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.beat));document.querySelectorAll('#plat-filter-row .plat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.plat));document.querySelectorAll('#lifestyle-type-filter-row .beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.ltype));document.querySelectorAll('#lifestyle-plat-filter-row .plat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.lplat));document.querySelectorAll('#institutions-filter-row .beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.itype));renderCreators();}
+function setCreatorLayer(layer){currentLayer=layer;currentBeat='';currentPlat='';currentLType='';currentLPlat='';currentIType='';document.querySelectorAll('.layer-stat-btn').forEach(b=>b.classList.toggle('active',b.dataset.layer===layer));const showJ=layer==='journalism';const showL=layer==='lifestyle';const showI=layer==='institutions';document.getElementById('beat-filter-row').style.display=(showJ||layer==='all')?'':'none';document.getElementById('plat-filter-row').style.display=(showJ||layer==='all')?'':'none';document.getElementById('lifestyle-type-filter-row').style.display=showL?'':'none';document.getElementById('lifestyle-plat-filter-row').style.display=showL?'':'none';document.getElementById('institutions-filter-row').style.display=showI?'':'none';const instNote=document.getElementById('institutions-note');if(instNote)instNote.style.display=showI?'block':'none';document.querySelectorAll('#beat-filter-row .beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.beat));document.querySelectorAll('#plat-filter-row .plat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.plat));document.querySelectorAll('#lifestyle-type-filter-row .beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.ltype));document.querySelectorAll('#lifestyle-plat-filter-row .plat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.lplat));document.querySelectorAll('#institutions-filter-row .beat-chip').forEach(c=>c.classList.toggle('active',!c.dataset.itype));renderCreators();}
 
 function setView(view){currentView=view;document.querySelectorAll('.view-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.getElementById('creators-list').classList.toggle('hide',view==='grid');document.getElementById('creators-grid').classList.toggle('show',view==='grid');if(view==='grid')renderGrid();}
 
@@ -946,7 +962,7 @@ function filteredInst(){return ECOSYSTEM_ORGS.filter(c=>!currentIType||c.type===
 
 function instRows(data){const ts={nonprofit:'background:#e8f0e0;color:#3a6000',outlet:'background:#e8e8f0;color:#3a3a7a',legacy:'background:#efeff2;color:#606068',collective:'background:#f5f0e8;color:#6a5a00'};return data.map(o=>'<div class="anchor-row"><div><a class="anchor-name" href="'+esc(o.url)+'" target="_blank" rel="noopener">'+esc(o.name)+'</a><span class="anchor-badge" style="'+(ts[o.type]||ts.legacy)+'">'+esc(o.type)+'</span><span class="anchor-beat" style="margin-left:8px">'+esc(o.beat)+'</span><div class="anchor-note">'+esc(o.note)+'</div></div></div>').join('');}
 
-function renderCreators(){const listEl=document.getElementById('creators-list');const countEl=document.getElementById('creators-count');if(currentLayer==='journalism'){const data=filteredJ();countEl.textContent=data.length+' journalism creator'+(data.length!==1?'s':'');if(!data.length){listEl.innerHTML='<div class="empty-state">No creators match this filter. <a onclick="clearFilters()">Clear filters</a></div>';if(currentView==='grid')document.getElementById('creators-grid').innerHTML='';return;}listEl.innerHTML=jRows(data);}else if(currentLayer==='lifestyle'){const data=filteredL();countEl.textContent=data.length+' lifestyle creator'+(data.length!==1?'s':'');listEl.innerHTML=lRows(data);}else if(currentLayer==='institutions'){const data=filteredInst();countEl.textContent=data.length+' anchor institution'+(data.length!==1?'s':'');listEl.innerHTML=instRows(data);}else{const jData=JOURNALISM_CREATORS;const lData=[...LIFESTYLE_CREATORS].sort((a,b)=>a.name.localeCompare(b.name));countEl.textContent=(jData.length+lData.length+ECOSYSTEM_ORGS.length)+' total';listEl.innerHTML='<div class="layer-divider">Journalism &amp; Accountability &middot; '+jData.length+'</div>'+jRows(jData)+'<div class="layer-divider">Lifestyle &amp; Culture &middot; '+lData.length+'</div>'+lRows(lData)+'<div class="layer-divider" style="margin-top:24px">Anchor Institutions &middot; '+ECOSYSTEM_ORGS.length+'</div>'+instRows(ECOSYSTEM_ORGS);}initAccordion();if(currentView==='grid')renderGrid();}
+function renderCreators(){const listEl=document.getElementById('creators-list');const countEl=document.getElementById('creators-count');if(currentLayer==='journalism'){const data=filteredJ();countEl.textContent=data.length+' journalism creator'+(data.length!==1?'s':'');if(!data.length){listEl.innerHTML='<div class="empty-state">No creators match this filter. <a onclick="clearFilters()">Clear filters</a></div>';if(currentView==='grid')document.getElementById('creators-grid').innerHTML='';return;}listEl.innerHTML=jRows(data);}else if(currentLayer==='lifestyle'){const data=filteredL();countEl.textContent=data.length+' lifestyle creator'+(data.length!==1?'s':'');listEl.innerHTML=lRows(data);}else if(currentLayer==='institutions'){const data=filteredInst();countEl.textContent=data.length+' anchor institution'+(data.length!==1?'s':'');listEl.innerHTML=instRows(data);}else{const jData=filteredJ();const lData=[...LIFESTYLE_CREATORS].sort((a,b)=>a.name.localeCompare(b.name));countEl.textContent=(jData.length+lData.length+ECOSYSTEM_ORGS.length)+' total';listEl.innerHTML='<div class="layer-divider">Journalism &amp; Accountability &middot; '+jData.length+'</div>'+jRows(jData)+'<div class="layer-divider">Lifestyle &amp; Culture &middot; '+lData.length+'</div>'+lRows(lData)+'<div class="layer-divider" style="margin-top:24px">Anchor Institutions &middot; '+ECOSYSTEM_ORGS.length+'</div>'+instRows(ECOSYSTEM_ORGS);}initAccordion();if(currentView==='grid')renderGrid();}
 
 function jRows(data){return data.map(c=>{const ch=c.channel&&c.channel!==c.name?' <span class="creator-row-channel">&middot; '+esc(c.channel)+'</span>':'';const pulse=c.pulse?' <span class="row-pulse">&#9679; In Atlas Pulse</span>':'';return'<div class="creator-row"><div class="creator-row-head"><span class="creator-row-beat">'+esc(c.beat)+'</span><span class="creator-row-name">'+esc(c.name)+ch+'</span><span class="creator-row-plat">'+esc(platGroup(c.platform))+'</span><span class="row-chevron material-symbols-outlined">chevron_right</span></div><div class="creator-row-body"><div class="row-descriptor">'+esc(c.descriptor||'')+'</div><div class="row-meta">'+esc(c.platform)+' &middot; '+esc(c.geography)+pulse+'</div><a class="row-link" href="'+esc(c.url)+'" target="_blank" rel="noopener">Visit &rarr;</a></div></div>';}).join('');}
 
@@ -1138,7 +1154,7 @@ function renderBeatGroups(items){
   let html='';
   allBeats.forEach(beat=>{
     if(!groups[beat]?.length)return;
-    html+='<div class="coverage-beat-group"><div class="coverage-beat-heading"><span class="bhc-beat-dot" style="background:'+esc(groups[beat][0].beatColor)+'"></span>'+esc(beat)+'<span class="coverage-beat-count">'+groups[beat].length+'</span></div><div class="beat-headlines">'+groups[beat].map(coverageCard).join('')+'</div></div>';
+    html+='<div class="coverage-beat-group"><div class="coverage-beat-heading" data-beat-heading="'+esc(beat)+'"><span class="bhc-beat-dot" style="background:'+esc(groups[beat][0].beatColor)+'"></span>'+esc(beat)+'<span class="coverage-beat-count">'+groups[beat].length+'</span></div><div class="beat-headlines">'+groups[beat].map(coverageCard).join('')+'</div></div>';
   });
   el.innerHTML=html||'<div style="padding:48px;text-align:center;color:#b0b0b8;font-size:13px">No feeds found for this filter.</div>';
 }
