@@ -1182,6 +1182,14 @@ function renderCoverage(){
 // Wire coverage tab activation
 document.querySelector('[data-tab="coverage"]')?.addEventListener('click',()=>initCoverageFeeds());
 // ── END COVERAGE TAB ─────────────────────────────────────────────────────
+function jumpToBeat(beat){
+  setCoverageSort('beat');
+  setTimeout(()=>{
+    const headings=[...document.querySelectorAll('#coverage-beat-groups [data-beat-heading]')];
+    const match=headings.find(h=>h.dataset.beatHeading===beat);
+    if(match)match.scrollIntoView({behavior:'smooth',block:'start'});
+  },100);
+}
 </script>
 </body>
 </html>
