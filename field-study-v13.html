@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nodes and Networks: Understanding How American Journalism Is Reorganizing in Real Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --ink: #1a1a18;
+    --ink-light: #4a4a46;
+    --ink-faint: #888880;
+    --rule: #ddddd8;
+    --rule-light: #eeeeea;
+    --bg: #faf9f5;
+    --bg-warm: #f5f4ef;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --red: #A32D2D;
+    --green: #0F6E56;
+    --amber: #BA7517;
+    --purple: #533DB7;
+    --max-w: 740px;
+    --font-body: 'Libre Baskerville', Georgia, serif;
+    --font-ui: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.75; padding: 0; -webkit-font-smoothing: antialiased; }
+
+  .masthead { border-bottom: 2px solid var(--ink); padding: 2.5rem 2rem 1.5rem; max-width: var(--max-w); margin: 0 auto; }
+  .masthead-label { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1rem; }
+  .masthead h1 { font-size: 2.4rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .masthead-sub { font-size: 1.1rem; font-style: italic; color: var(--ink-light); margin-bottom: 1.25rem; }
+  .masthead-meta { font-family: var(--font-ui); font-size: 12px; color: var(--ink-faint); display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .draft-badge { display: inline-block; background: var(--ink); color: var(--bg); font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; }
+
+  .content { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 6rem; }
+
+  .section { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+  .section-label { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; }
+  .section-num { font-family: var(--font-ui); font-size: 0.75rem; color: var(--ink-faint); margin-bottom: 0.25rem; }
+
+  h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+  h3 { font-family: var(--font-ui); font-size: 1rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--ink); }
+
+  p { margin-bottom: 1.1rem; font-size: 0.975rem; }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  .intro { margin-top: 2.5rem; }
+  .intro p:first-of-type { font-size: 1.15rem; line-height: 1.7; color: var(--ink); }
+
+  .exec-summary { background: var(--bg-warm); border: 1px solid var(--rule); border-left: 4px solid var(--ink); padding: 2rem 2rem 1.75rem; margin: 2.5rem 0; }
+  .exec-summary-label { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1rem; }
+  .exec-summary h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+  .exec-summary p { font-size: 0.9rem; color: var(--ink-light); margin-bottom: 0.85rem; }
+
+  .info-box { border: 1px solid var(--rule); background: var(--bg-warm); padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  .info-box.warning { border-color: #f0d5b0; background: #fdf5e8; border-left: 3px solid var(--amber); }
+  .info-box.danger { border-color: #f0c5c5; background: #fdf0f0; border-left: 3px solid var(--red); }
+  .info-box.success { border-color: #b8ddd3; background: #f0faf7; border-left: 3px solid var(--green); }
+  .info-box-label { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--ink-faint); }
+  .info-box p { font-family: var(--font-ui); font-size: 0.875rem; line-height: 1.55; color: var(--ink-light); margin-bottom: 0.6rem; }
+  .info-box p:last-child { margin-bottom: 0; }
+  .info-box strong { color: var(--ink); }
+
+  .pull-quote { border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule); padding: 1.25rem 0; margin: 2.5rem 0; }
+  .pull-quote p { font-size: 1.15rem; line-height: 1.55; font-style: italic; margin-bottom: 0.5rem; }
+  .pull-quote cite { font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-faint); font-style: normal; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+  .stat-cell { background: var(--bg); padding: 1.25rem 1rem; text-align: center; }
+  .stat-number { font-family: var(--font-ui); font-size: 1.75rem; font-weight: 600; color: var(--blue); line-height: 1; margin-bottom: 0.35rem; }
+  .stat-label { font-family: var(--font-ui); font-size: 0.75rem; color: var(--ink-faint); line-height: 1.4; }
+
+  .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-family: var(--font-ui); font-size: 0.825rem; }
+  .data-table th { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 2px solid var(--ink); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.03em; color: var(--ink); }
+  .data-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule-light); color: var(--ink-light); vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table td:first-child { color: var(--ink); font-weight: 500; }
+  .data-table tr.highlight td { background: var(--blue-light); color: var(--ink); }
+
+  .viz-wrap { margin: 2.5rem 0; }
+  .viz-label { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.5rem; }
+  .viz-caption { font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.75rem; line-height: 1.5; }
+  .viz-container { background: #fff; border: 1px solid var(--rule); padding: 1.25rem; overflow-x: auto; }
+
+  .mechanisms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 1.5rem 0; }
+  .mechanism-cell { background: var(--bg); padding: 1.25rem; }
+  .mechanism-num { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.4rem; }
+  .mechanism-name { font-family: var(--font-ui); font-size: 0.925rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; line-height: 1.3; }
+  .mechanism-example { font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-faint); line-height: 1.4; }
+
+  .footer { max-width: var(--max-w); margin: 0 auto; padding: 2rem 2rem 3rem; border-top: 2px solid var(--ink); font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-faint); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+  /* COHORT SECTIONS */
+  .cohort-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--rule); }
+  .cohort-label { font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.35rem; }
+  .cohort-governance { font-family: var(--font-ui); font-size: 0.85rem; color: var(--ink-faint); margin-bottom: 1.25rem; font-style: italic; }
+
+  .org-list { list-style: none; padding: 0; margin: 1rem 0 1.5rem; }
+  .org-list li { font-family: var(--font-ui); font-size: 0.85rem; color: var(--ink-light); padding: 0.4rem 0; border-bottom: 1px solid var(--rule-light); line-height: 1.55; }
+  .org-list li:last-child { border-bottom: none; }
+  .org-list li strong { color: var(--ink); }
+
+  /* COHORT GRID */
+  .cohort-wrap { padding: 0.5rem 0 1rem; }
+  .group-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888880; margin: 1.25rem 0 0.6rem; padding-left: 2px; font-family: 'DM Sans', sans-serif; }
+  .group-label:first-of-type { margin-top: 0; }
+  .cohort-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .c-card { border-radius: 6px; padding: 0.85rem 1rem; border-left: 3px solid var(--c-accent); background: #faf9f5; border-top: 0.5px solid #ddddd8; border-right: 0.5px solid #ddddd8; border-bottom: 0.5px solid #ddddd8; }
+  .c-num { font-size: 10px; font-weight: 600; color: #888880; letter-spacing: 0.05em; margin-bottom: 3px; font-family: 'DM Sans', sans-serif; }
+  .c-name { font-size: 13px; font-weight: 600; color: #1a1a18; margin-bottom: 6px; line-height: 1.3; font-family: 'DM Sans', sans-serif; }
+  .c-def { font-size: 11px; color: #4a4a46; margin-bottom: 8px; line-height: 1.5; font-family: 'DM Sans', sans-serif; }
+  .c-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+  .c-tag { font-size: 10px; padding: 2px 7px; border-radius: 3px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+  .c-tension { font-size: 11px; color: #888880; line-height: 1.4; border-top: 0.5px solid #ddddd8; padding-top: 6px; margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+  .c-tension::before { content: "↳ "; }
+
+  /* REVENUE MATRIX */
+  .rm-wrap { padding: 0.5rem 0; }
+  .rm-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .rm-table th { font-size: 11px; font-weight: 600; color: #4a4a46; text-align: center; padding: 6px 4px; line-height: 1.3; font-family: 'DM Sans', sans-serif; }
+  .rm-table th.stream-head { text-align: left; padding-left: 0; width: 160px; }
+  .rm-table td { text-align: center; padding: 5px 4px; border-top: 0.5px solid #ddddd8; }
+  .rm-table td.stream-label { text-align: left; font-size: 12px; color: #1a1a18; padding-left: 0; font-family: 'DM Sans', sans-serif; }
+  .cell-p { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 26px; border-radius: 4px; font-size: 11px; font-weight: 600; font-family: 'DM Sans', sans-serif; }
+  .cell-P { background: #185FA5; color: #E6F1FB; }
+  .cell-S { background: #B5D4F4; color: #0C447C; }
+  .cell-none { color: #ddddd8; }
+  .cohort-head { font-size: 10px; font-weight: 600; line-height: 1.25; font-family: 'DM Sans', sans-serif; }
+  .cohort-num { display: block; font-size: 9px; color: #888880; margin-bottom: 1px; }
+  .risk-flag { display: inline-block; margin-left: 4px; font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; vertical-align: middle; font-family: 'DM Sans', sans-serif; }
+  .risk-volatile { background: #fdf0f0; color: #A32D2D; }
+  .risk-safe { background: #f0faf7; color: #0F6E56; }
+  .rm-legend { display: flex; gap: 20px; margin: 1rem 0 0; font-size: 12px; color: #4a4a46; font-family: 'DM Sans', sans-serif; flex-wrap: wrap; }
+  .rm-legend-item { display: flex; align-items: center; gap: 6px; }
+  .rm-legend-swatch { width: 28px; height: 18px; border-radius: 4px; }
+
+  @media (max-width: 600px) {
+    .stat-row { grid-template-columns: 1fr; }
+    .mechanisms-grid { grid-template-columns: 1fr; }
+    .cohort-grid { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-label">Knight Center for the Future of News · ASU Cronkite School</div>
+  <h1>Nodes and Networks: Understanding How American Journalism Is Reorganizing in Real Time</h1>
+  <div class="masthead-sub"><em>A Field Study — Paper One</em></div>
+  <div class="masthead-meta">
+    <span>Justin Bank (Independent Journalism Atlas) · Andy Pergam (Knight Center ASU)</span>
+    <span class="draft-badge">Working draft — V13 · May 2026 · Not for distribution</span>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- ABSTRACT -->
+  <div class="exec-summary" style="margin-top:2.5rem;">
+    <div class="exec-summary-label">Abstract</div>
+    <p>The future of news is getting more complex, more dynamic, and harder to read on a single map. The integrated 20th-century newsroom — staff reporters, advertising revenue, broad geographic coverage, one set of owners — is not coming back. What has replaced it is not chaos. It is a field that has reorganized into a set of distinct operating types, each solving a different piece of the coverage problem that no single institution or approach can solve alone.</p>
+    <p>This paper names those types.</p>
+    <p>It maps nine cohorts of journalism operators currently producing in the United States, traces their defining characteristics and governance, and identifies what makes each one durable or fragile. It is the first in a multi-part series of briefing documents. The economic architecture underneath these cohorts and a forward look at where the field is heading will follow.</p>
+  </div>
+
+  <!-- INTRODUCTION -->
+  <div class="section" style="border-top:none; padding-top:2rem;">
+    <div class="section-label">Introduction</div>
+    <h2>The Reorganization No One Announced</h2>
+    <p>No single event marked the moment American journalism stopped operating as a collection of institutions and started operating as a layered field. It happened incrementally. Through layoffs and launches, platform withdrawals and newsletter migrations, through the quiet proliferation of nonprofit wires and civic documentation networks and creator brands built by former institutional journalists who took their audiences with them.</p>
+    <p>By 2026, the reorganization is clearly legible. It's more textured than most accounts of journalism's crisis acknowledge. It's also imperfect and incomplete. (In fact, at least two major organizations (CBS and CNN changed hands since we began writing the draft of this report to publication day.)</p>
+    <p>An evolving type of media conglomerate is emerging: The American Journalism Project has invested in 53 local newsrooms, claiming a three-to-one return on investment. Its combined portfolio revenue reached $128 million in 2024, up 22 percent year-over-year.</p>
+    <p>A new model of civic coverage infrastructure is operating at scale: City Bureau's Documenters Network paid community members $369,000 in stipends to cover 3,253 public meetings in 2025 — at an average cost of $113 per meeting, across more than 20 sites in 14 states.</p>
+    <p>On January 27, 2025, Marisa Kabas, an independent journalist broke the story of the federal grants freeze on Bluesky before any major newsroom confirmed it. The Washington Post confirmed the story approximately three hours later. In the week that followed, Kabas's paid subscribers to her Beehiiv newsletter doubled — from 815 to more than 1,700. By October 2025, she had 4,000 paid subscribers. The story traveled from an independent journalist's social feed to congressional testimony in nine days. Her GoFundMe to cover the reporting raised $8,665.</p>
+    <p>Casey Newton enters his fifth year publishing Platformer on Ghost — his third email service provider. He still licenses content to The Verge. He co-hosts Hard Fork with the New York Times. He and the Times built a federated social experiment, The Forkiverse. One journalist, multiple institutional relationships, no single institutional home.</p>
+    <p>Across all of the examples above, a structural pattern keeps appearing. Organizations governed in radically different ways tend to plateau at similar revenue levels. The ceiling is not a function of who owns the organization or how it is governed. It appears to be a function of the information economics of journalism itself. This paper is the first attempt to name and map that convergence systematically. And we'll state it plainly here: the <strong>majority of journalism operations plateau at an operating revenue band between $3 and $20 million dollars.</strong> Solo journalists, the worker-owned co-op, the philanthropic nonprofit, the legacy institution all hit the same plateau. There are rule-breaking trends. But the finding is incredibly consistent across differently shaped news businesses.</p>
+    <p>The Associated Press, founded in 1846 as a member-owned cooperative, is publishing personality-driven vertical video on social platforms, signing AI licensing agreements with OpenAI and Google, and developing consumer-facing digital products — while continuing to run the commercial newswire that has served newsrooms for 180 years.</p>
+    <p>These are the field's new operating realities. There is no single successor to the integrated newsroom. What has emerged instead are layers: different types of journalism operators, with different ownership structures, different funding models, different production architectures, and different relationships with their audiences. Cumulatively, they do what that newsroom used to do alone – sometimes by design; often by accident. Always most efficiently when collaboration is stated as intent.</p>
+    <p>Making sense of this requires a map. This paper maps those layers with an organizing logic around 'governance.'"</p>
+  </div>
+
+  <!-- WHY THIS TAXONOMY -->
+  <div class="section">
+    <div class="section-label">Why This Taxonomy</div>
+    <h2>Why This Taxonomy — And Why Governance</h2>
+    <p>Before mapping <em>who</em> is doing journalism and <em>how</em>, it is worth explaining <em>why</em> this taxonomy is organized by governance (that is: where power rests and how decisions are made) rather than by beat, geography, platform, or revenue model. The question comes up every time we presented this framework is to people who know the field while we were working on this paper.</p>
+    <p>The short answer: governance determines so much.</p>
+    <p>A solo journalist publishing on Substack and a worker-owned newsroom publishing on Ghost might look identical from the outside — both arrive in your inbox on Tuesday morning, both are supported by reader subscriptions, both cover similar beats. But they are solving fundamentally different organizational problems. The solo journalist's ceiling is their own capacity. The co-op's ceiling is its collective brand-name awareness and group decision-making. One can pivot on a single editorial call; the other requires a vote. One closes when the journalist burns out; the other can outlast any individual member. Governance — who owns it, who controls editorial decisions, where the money comes from — is the variable that predicts how an operation scales, how it survives, and what it is structurally capable of producing.</p>
+    <p>Revenue model was the first organizing taxonomy we considered as we started mapping publishers. But it quickly became clear that the revenue model follows governance, not the other way around. B2B journalism and philanthropic journalism look nothing alike economically — but both tend toward specific governance structures that explain why. Paid newsletter subscriptions are the revenue models for any Substacker and Dow Jones Corporation but governance explains an awful lot more about what they actually are.</p>
+    <p>Platform was rejected because the same platforms hosts radically different types of operations. Production model was rejected for the same reason. Geography fails for obvious reasons — a worker-owned co-op in New York and a worker-owned co-op in Denver face different markets but the same organizational constraints.</p>
+    <p>Governance also produces the most important unexpected finding from our study: When we organized the field by governance and then mapped revenue across all nine cohorts, we found a revenue convergence. <strong>Operations organized by radically different governance structures tend to plateau in the same revenue band.</strong> (There is much more to explore here in future work.)</p>
+    <p>Nine cohorts capture the full range of journalism operators currently producing in the United States. They can be thought of in three groups.</p>
+    <p><strong>Legacy Publishers, Creator Brands, and Barbell Hybrids</strong> — are journalism as most people understand it when they imagine journalism: reporters, outlets, bylines, products.</p>
+    <p><strong>Philanthropic Mesh Networks, Public Media Networks, and Collaboration and Coordination Layers</strong> — are the layered infrastructure through which public-minded funding creates public-interest reporting. These cohorts are most exposed to the funding collapse this paper documents.</p>
+    <p><strong>Worker-Owned Co-ops, Emerging Civic and Community Actors, and B2B and Professional Information Services</strong> — are the most forward-looking evidence that audiences, readers, and the market itself are finding new ways to fund journalism directly.</p>
+  </div>
+
+<!-- CHUNK 1 END -->
+
+  <!-- SECTION I: FUNDING COLLAPSE -->
+  <div class="section">
+    <div class="section-num">I.</div>
+    <div class="section-label">Context</div>
+    <h2>The Funding Collapse</h2>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-number">32%</div>
+        <div class="stat-label">Facebook referral traffic remaining vs. 2020 peak</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">–60%</div>
+        <div class="stat-label">Google Search referral loss for small publishers over two years</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">$271M</div>
+        <div class="stat-label">USAID journalism funding frozen January 20, 2025</div>
+      </div>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 1 — Funding Collapse Timeline, 2019–2026</div>
+      <div class="viz-container" style="height:460px;padding:1rem;">
+        <div id="fc-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem;font-size:12px;font-family:var(--font-ui);color:var(--ink-faint);"></div>
+        <div style="position:relative;width:100%;height:380px;">
+          <canvas id="fcChart" role="img" aria-label="Timeline of journalism funding shocks from 2019 to 2026"></canvas>
+        </div>
+      </div>
+      <div class="viz-caption">Bubble size approximates dollar impact. Hover for details. Events span platform withdrawal, government defunding, private equity retrenchment, and nonprofit failure.</div>
+    </div>
+  </div>
+
+  <!-- SECTION II: NINE COHORTS -->
+  <div class="section">
+    <div class="section-num">II.</div>
+    <div class="section-label">Taxonomy</div>
+    <h2>The Nine Cohorts</h2>
+
+    <p>The taxonomy is governance-based. Governance and ownership structure determine cohort; publishing platform does not. Nine cohorts capture the full range of journalism operators currently producing in the United States.</p>
+
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 2 — Nine Cohorts of Journalism Operators</div>
+      <div class="viz-container">
+        <div class="cohort-wrap">
+          <div class="group-label">Consumer-familiar journalism — reorganizing under pressure</div>
+          <div class="cohort-grid" id="group1"></div>
+          <div class="group-label">Public-minded funding — philanthropy and civic architecture</div>
+          <div class="cohort-grid" id="group2"></div>
+          <div class="group-label">Audience and market funded — the forward-leaning models</div>
+          <div class="cohort-grid" id="group3"></div>
+        </div>
+      </div>
+      <div class="viz-caption">Cohorts are governance-based. Publishing platform does not determine cohort assignment. Cross-cohort ethnic and diaspora media (≈243 Black American newspapers, 224 Latino-Hispanic newspapers, 173 Latino TV stations) are systematically undercounted in all assessments.</div>
+    </div>
+
+    <!-- C1 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C1 — Legacy Publishers and Freelance Networks</div>
+      <div class="cohort-governance">Governance: Privately held, publicly traded, or family-owned institutional news organizations. Includes national newspapers, local print chains, cable and broadcast networks, digital-native outlets that are institutionalized, and the freelance economy that feeds them all.</div>
+
+      <h3>What It Is</h3>
+      <p>Legacy publishers are the oldest layer of the taxonomy and the one most people picture when they hear the word "journalism." They are defined not by their medium — print, broadcast, digital — but by their governance: institutionally owned, editorially staffed, and built around the assumption that journalism is a product delivered by an organization rather than a person.</p>
+      <p>What distinguishes this cohort from every other is scale infrastructure. Legacy publishers maintain foreign bureaus, legal departments, photography staffs, standards editors, and printing contracts. They syndicate content. They negotiate AI licensing agreements. They manage pension obligations and real estate footprints alongside editorial operations. The Wall Street Journal and a three-person nonprofit statehouse bureau are both producing journalism, but they are confronting and solving-for fundamentally different organizational problems.</p>
+      <p>The cohort is bifurcating sharply. The fault line is not quality or ambition. It is whether the organization built a direct reader revenue relationship before the platform advertising era collapsed.</p>
+
+      <h3>How It Works</h3>
+      <p>The New York Times is the clearest proof of what the bifurcation looks like at the top. Its $2.82 billion in 2025 revenue came not from journalism alone but from journalism bundled: The Athletic, Cooking, Games (Wordle, Connections), and Wirecutter sold together to 12.8 million subscribers, 53 percent of them on multi-product bundles. The Times negotiated an AI licensing deal with Amazon reported at $20–25 million per year. It spent $13.3 million on AI-related litigation in 2024 — protecting its content from some of the same companies it was simultaneously licensing to. Its foreign bureaus produce journalism so that its bundle retains subscribers. That is the institutional flywheel working as designed.</p>
+      <p>Ethnic and diaspora media occupy a structurally distinct position within this cohort. About 243 Black American newspapers, 224 Latino-Hispanic newspapers, and 173 Spanish-language television stations operate in the United States — overwhelmingly advertising-dependent and overwhelmingly excluded from the AI licensing deals, subscription bundle strategies, and philanthropic investment concentrated among other outlets. A 2025 survey of 72 California ethnic media leaders found that 44 percent earn between $100,000 and $500,000 annually and 25 percent operate under $100,000. These are not marginal outlets: 50 percent of Hispanic Americans report getting news from Hispanic outlets at least some of the time.</p>
+      <p>The freelance economy is the cohort's invisible infrastructure and its most structurally precarious layer. Freelance journalism rates have stagnated or declined in real terms since 2010. AI-assisted content production is driving rates down further at low-end outlets. No comprehensive public database of U.S. freelance journalism rates exists. No systematic data tracks contractor-versus-staff ratios at major outlets. This is not an oversight — it reflects how invisible this labor is to the organizations that depend on it.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Subscription/reader revenue (for those who built the moat); advertising (for those who didn't)</li>
+        <li><strong>Secondary streams</strong> — AI licensing and content syndication; events; B2B enterprise products; e-commerce</li>
+        <li><strong>Structural advantage</strong> — Scale infrastructure, brand trust, syndication relationships, foreign bureau access, multi-decade audience relationships</li>
+        <li><strong>Structural vulnerability</strong> — Platform advertising dependency; legacy cost structures; pension obligations; AI Overviews eroding search traffic –22% for large publishers, –60% for small</li>
+        <li><strong>Production model</strong> — Beat reporter + assignment desk + copy editing; foreign bureau access; wire service relationships</li>
+        <li><strong>Distribution tendency</strong> — Multi-channel; print + digital + broadcast + social + email; largest outlets own their distribution; smaller outlets increasingly dependent on borrowed reach</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>New York Times</td><td>$2.82B revenue; 12.8M subscribers; journalism bundled with games, cooking, sports</td></tr>
+          <tr><td>The Atlantic</td><td>Profitable at ~$100M; Signalgate scoop drove more new subscribers in Q1 2025 than all of 2024</td></tr>
+          <tr><td>Washington Post</td><td>$177M losses over two years; 300 staff cut; clearest case study in platform dependency risk</td></tr>
+          <tr><td>Reuters Agency</td><td>$853M FY2024; AI licensing cited explicitly as earnings growth driver</td></tr>
+          <tr><td>TelevisaUnivision / ViX</td><td>$5.1B; ViX streaming hit $1B revenue; largest ethnic media success case in cohort</td></tr>
+          <tr><td>Vice Media / BuzzFeed News</td><td>Platform-traffic dependency failure cases. Both collapsed 2023; Vice sold for $350M (was $5.7B); BuzzFeed sold majority share to Byron Allen for $20M in cash and conditional stock</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Edge Case: The Associated Press</em></p>
+      <p>The AP is the named edge case that belongs in every discussion of this cohort and fits cleanly in none of them. Founded in 1846 as a member-organization cooperative — not worker-owned, not philanthropic, not privately held — the AP operates 235 bureaus globally, distributes journalism to thousands of outlets via commercial wire license, has signed AI licensing agreements with both OpenAI and Google, and is simultaneously developing consumer-facing digital products and publishing personality-driven vertical video on social platforms. Approximately 82 percent of its estimated $500–600 million in annual revenue comes from content licensing. It is the oldest and largest successful journalism cooperative in American history. It receives almost no attention in discussions of cooperative or collaborative models. That is a mistake this taxonomy names explicitly.</p>
+      <p><em>Sub-variant: Digital-Native Institutionalization</em></p>
+      <p>Axios, sold to Cox Enterprises for $525 million in 2022 at approximately $100 million in revenue, is the clearest proof that digital-native journalism can reach institutional scale and institutional exit valuations. Semafor reached $40 million in revenue with events constituting more than 50 percent at 75 percent margins and a $330 million valuation. The Dispatch grew from $5 million to a projected $10 million in 2025, acquiring SCOTUSblog and expanding to 60+ staff. These are not creator brands. They are institutions built digitally rather than converted from print — and their governance, staffing, and revenue diversification look more like C1 than C2.</p>
+    </div>
+
+    <!-- C2 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C2 — Poly-Platform Creator Brands</div>
+      <div class="cohort-governance">Governance: Individual journalists or small founding teams who own their editorial operation outright, distribute across multiple platforms, and derive primary revenue from direct reader relationships — typically subscription, platform rev-share, or both.</div>
+
+      <h3>What It Is</h3>
+      <p>The headline numbers are real: Heather Cox Richardson's Letters from an American has more than 2.9 million subscribers and earns an estimated $5 million or more annually. The numbers beneath them are equally real: 40 percent of creator journalists make no money from self-publishing. Only 6 percent call it their full-time income.</p>
+      <p>This is the survivorship-bias cohort. The outlets and individuals most visible in any account of creator journalism are the ones that survived. The ones that didn't are, by definition, not visible. Any honest accounting of this cohort has to hold both facts simultaneously: the model works for a small number of people, and it is brutally difficult for most.</p>
+      <p>A C2 creator owns their subscriber list, controls their editorial direction, and is responsible for their own revenue. They are a business of one or a small founding team.</p>
+
+      <h3>How It Works</h3>
+      <p>Isaac Saul built Tangle from a $850,000 operation to $4.15 million in revenue with a non-partisan editorial model that produces a 16 percent free-to-paid conversion rate (three to eight times the industry average of 2 to 5 percent) and a 99 percent annual subscriber retention rate. Tangle migrated from Substack to Ghost, taking its full subscriber base with it. It runs on approximately 12 staff. Its revenue split is roughly 85 percent subscriptions and 15 percent advertising. It is a complete, self-sustaining journalism business.</p>
+      <p>Tangle sits near the top of a very steep distribution curve. The median independent journalism creator on Substack — the largest platform for independent journalism publishing — earns approximately $4,000 annually. Nearly half earn less than $500. The top 10 percent of creators capture more than 60 percent of all subscription revenue on the platform. For every Tangle, there are hundreds of operations that reach sustainability and stall, and hundreds more that never reach it at all.</p>
+      <p>The defining operational feature of this cohort is the poly-platform dynamic which looks like this in practice: Marisa Kabas publishes The Handbasket on Beehiiv, distributes breaking news first on Bluesky, watches that distribution convert readers to paid subscribers, and uses the paid subscriber base to fund the next investigation. She broke a major federal story before any major newsroom confirmed it, doubled her subscriber base in a week, and funded the work on a newsletter SaaS platform.</p>
+      <p>CJR research has found a significant undercurrent that the headline creator success stories obscure: many journalists who build independent platforms do not intend them as destinations. They are lifeboats, maintained until institutional conditions improve or until a better institutional opportunity appears. Emily Atkin of Heated documented 50 to 60-hour work weeks. Tara Palmeri described the independent publishing pace as "a treadmill." The burnout documented at the mid-tier creator level is systematic and it produces the churn beneath the survivorship-bias headline numbers.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Subscription / reader revenue (direct); platform rev-share (YouTube RPM, Substack Network)</li>
+        <li><strong>Secondary streams</strong> — Newsletter advertising and sponsorship; events; licensing; book advances; speaking fees</li>
+        <li><strong>Structural advantage</strong> — Zero legacy cost structure; flat distribution costs via email; audience portability across platforms; editorial autonomy; speed</li>
+        <li><strong>Structural vulnerability</strong> — Platform dependency for discovery; solo burnout; no institutional backstop for legal exposure; income volatility; scale ceiling below institutional replacement</li>
+        <li><strong>Production model</strong> — Solo or 1–3 person production; newsletter + podcast + video as primary formats; AI tooling absorbing tasks that previously required junior staff</li>
+        <li><strong>Distribution tendency</strong> — Email as primary owned channel; social as discovery layer; platform migration as resilience strategy (Substack → Ghost → Beehiiv)</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>Letters from an American (Heather Cox Richardson)</td><td>2.9M+ subscribers; ~$5M+ est.; mission-conversion model; no paywall lock</td></tr>
+          <tr><td>Tangle (Isaac Saul)</td><td>$4.15M; 70K+ paid; 16% conversion rate (highest documented); 99% annual retention</td></tr>
+          <tr><td>The Dispatch</td><td>$5M → $10M projected 2025; 85% subscriptions; 17% conversion rate; SCOTUSblog acquisition; 60+ staff</td></tr>
+          <tr><td>The Handbasket (Marisa Kabas)</td><td>815 paid → 4,000 in nine months; broke federal story on Bluesky before major newsrooms; Bluesky-to-subscriber funnel proof case</td></tr>
+          <tr><td>Silver Bulletin (Nate Silver)</td><td>~$1.2–2M; 310K+ subs; social = 0.7% of traffic — sharpest available data for email-list primacy argument</td></tr>
+          <tr><td>Extra Points (Matt Brown)</td><td>College sports business; ~$250–500K est.; events as significant third leg; niche B2B-adjacent model</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Edge Case: The Bulwark and The Free Press — Brand-Capital Launches</em></p>
+      <p>The Bulwark and The Free Press launched with something most C2 creators don't have: institutional brand capital. Known names, pre-built audiences, and in the case of The Free Press, a founding team that could hire 50 people within two years of launch. Their scaling speed and revenue trajectory look like creator brands, but their launch conditions look more like institutional spinoffs. The Bulwark reached approximately 90,000 paid subscribers and an estimated $9 million in subscription revenue. The Free Press reached approximately $20 million ARR before its acquisition by Paramount for a reported $150 million in October 2025.</p>
+      <p><em>Sub-variant: Video-First Creator Journalism</em></p>
+      <p>The Newpress Collective — Johnny Harris, Sam Ellis, and collaborators — launched in February 2026 with a combined subscriber base of approximately 10 million YouTube subscribers and no institutional backing. Johnny Harris's individual operation had reached an estimated $3–4 million in annual revenue across YouTube RPM, sponsorships, speaking, and book before the collective launched.</p>
+      <p><em>Sub-variant: The Lifeboat Creator</em></p>
+      <p>CJR's research on what it called "the Substackerati" found a significant and underreported category: journalists who maintain independent platforms not as destinations but as insurance. They continue publishing independently while watching for institutional opportunities that align with their editorial direction. When conditions at their former institution improve, or when a new institution makes a compelling offer, they return. Charlie Warzel built Galaxy Brain on Substack and then joined The Atlantic. The platform was a bridge, not a destination.</p>
+    </div>
+
+    <!-- C3 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C3 — Barbell Hybrids</div>
+      <div class="cohort-governance">Governance: Staff journalists maintaining significant semi-independent platforms alongside or following institutional employment. The defining governance question: does the journalist control their subscriber relationship, or does the institution?</div>
+
+      <h3>What It Is</h3>
+      <p>The barbell hybrid is the cohort that is hardest to categorize because it is often in motion. A journalist with a significant independent platform and an institutional employer sits between two organizational logics. The balance between them shifts over time, sometimes gradually and sometimes abruptly.</p>
+      <p>This cohort includes journalists who have both an institutional relationship and a direct reader relationship, and both are meaningful. Some resolve toward full independence — the institutional relationship atrophies as the direct reader relationship grows. Some resolve back toward institutions — the independent platform becomes a credential that produces better institutional opportunities. Some remain genuinely dual for years.</p>
+
+      <h3>How It Works</h3>
+      <p>Casey Newton has maintained the most examined dual position in contemporary journalism. Platformer is now in its fifth year on Ghost — his third email service provider, having migrated most recently from Substack with his full subscriber base intact. When he struck out on his own, he licensed content to The Verge, his former employer. He now co-hosts Hard Fork for the New York Times. He and the Times built The Forkiverse, a federated social experiment. One journalist, multiple institutional relationships, no single institutional home, approximately $900,000 in subscription revenue, and a six-figure secondary advertising stream. CJR has noted Newton trending "more NYT than independent" over time. The barbell may be resolving toward institutions even as the independent infrastructure remains.</p>
+      <p>What Newton's operation actually produces is worth naming as a product argument: Hard Fork exists because Newton is simultaneously independent enough to bring a distinct editorial voice and institutionally connected enough for the Times to want it in its podcast feed. The Forkiverse exists because he had the credibility of both relationships to build something neither could have built alone. The barbell's product is often something that pure independence or pure institution couldn't make.</p>
+      <p>Mehdi Hasan's trajectory ran in the opposite direction. He departed MSNBC and launched Zeteo, which tracked toward $3.9 million annualized within its first full year with 50,000+ paid subscribers. He resolved toward full independence, taking his broadcast audience into a subscription product. Ben Smith's Semafor resolved further still — it is now a $40 million revenue operation with events constituting more than 50 percent at 75 percent margins and a $330 million valuation. Semafor is no longer a journalist's independent platform. It is an institution.</p>
+      <p>Puck's model names the product tension most directly. Writers hold equity stakes, salary, and subscriber-growth bonuses — a structure designed to align institutional and individual interests. The publication's voice is made up of named individual writers whose audience relationships are portable. That portability is both the product's appeal and its structural risk: when Tara Palmeri left Puck for her own YouTube channel and Substack in March 2025, she took her audience with her. The equity stake was worth less than the audience she owned.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Subscription/reader revenue (independent stream); institutional salary (employer stream) — two separate income sources operating simultaneously</li>
+        <li><strong>Secondary streams</strong> — Newsletter advertising; licensing/syndication to former employer; podcast revenue-sharing with institutional partner</li>
+        <li><strong>Structural advantage</strong> — Institutional salary as floor; direct reader relationship as upside; brand capital from institutional tenure accelerating independent scaling</li>
+        <li><strong>Structural vulnerability</strong> — Institutional employer can change terms or relationship; direct reader base can atrophy without consistent production; burnout from maintaining two full commitments</li>
+        <li><strong>Production model</strong> — Solo or small staff production of independent content; institutional production of employed content; often the same journalist producing both daily</li>
+        <li><strong>Distribution tendency</strong> — Email primary (owned); institutional platform secondary (borrowed); social as discovery for both</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>Platformer (Casey Newton)</td><td>~$900K sub revenue; Year 5 on Ghost; Verge license + NYT podcast + Forkiverse; longest-running documented stable barbell</td></tr>
+          <tr><td>Zeteo (Mehdi Hasan)</td><td>~$3.9M annualized; 50K+ paid; resolved fully independent from MSNBC; anchor diaspora scaling advantage</td></tr>
+          <tr><td>Semafor (Ben Smith)</td><td>$40M; events >50% revenue at 75% margins; $330M valuation; barbell resolved fully to institution</td></tr>
+          <tr><td>The Free Press (Bari Weiss)</td><td>~$20M ARR → ~$150M Paramount acquisition → CBS News exec; first complete creator-to-institution pipeline</td></tr>
+          <tr><td>Noosphere (Jane Ferguson)</td><td>Launched Feb 2025; PBS NewsHour correspondent; $15–$20/month; new structural attempt at stable journalist-controlled subscription under institutional employment</td></tr>
+          <tr><td>Puck</td><td>~$20M; writers hold equity stakes + subscriber bonuses; Air Mail acquisition October 2025; equity model tests whether institutional structure can retain talent with portable audiences</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Edge Case: The Anchor Diaspora</em></p>
+      <p>The wave of broadcast journalists departing legacy cable networks constitutes the largest single migration from institutional to independent in American broadcast journalism history. Joy Reid, Jim Acosta, Jennifer Rubin, Don Lemon, Scott McFarlane and Mehdi Hasan all departed major networks in 2024 and 2025, in most cases within months of each other. Their structural advantage over typical C2 creators is significant: they arrive with institutional brand capital, existing audience relationships, name recognition, and the demonstrated ability to convert broadcast audiences to digital subscriptions. The anchor diaspora is entering the barbell cohort from the top rather than climbing into it from independence — and the scaling speed reflects that starting position. Whether these operations resolve toward genuine independence or become vehicles for the next institutional role is the open question.</p>
+      <p><em>Sub-variant: The Equity-Stake Model</em></p>
+      <p>Puck's writer compensation model — equity ownership plus salary plus subscriber-growth bonuses — is the most structurally interesting attempt to solve the barbell's central retention problem. If the journalist's audience is their primary asset, how do you build an institution that aligns institutional and individual interests rather than pitting them against each other? The Tara Palmeri departure suggests the model has limits when individual audience portability is high enough to make the equity stake less valuable than going independent. This is the fundamental tension the equity model attempts to resolve — and has not yet fully solved.</p>
+      <p><em>Sub-variant: Morning Brew and the Staff-Writer Barbell</em></p>
+      <p>Morning Brew — now fully owned by Axel Springer, projecting $70 million+ in 2025 revenue — built its editorial model around named staff writers whose voices are the product. Its named beat reporters in business and finance are recognizable enough that readers follow writers, not just the publication. This is the barbell dynamic operating inside an institutional structure rather than between one: the writer's individual voice and reader relationship is the product, but the institution owns the subscriber list. The tension between writer portability and institutional ownership is the same tension Puck is navigating, at different scale and with different equity arrangements.</p>
+    </div>
+
+    <!-- INTERSTITIAL 1: After C3 -->
+    <div class="info-box" style="margin-top:2.5rem;">
+      <div class="info-box-label">Interstitial</div>
+      <p><strong>Legacy Publisher as a cohort that excludes philanthropy and public media</strong></p>
+      <p>This report draws a distinction between Legacy Publishers, Philanthropic Mesh Networks, and Public Media. The distinction is a gradient; not a sharp line. Ways in which newsrooms operate are similar across these three of these cohorts. They deliver their news in similar ways, with websites and broadcasts, and newsletters. But they're funded and operate so much differently.</p>
+      <p>States Newsroom, a philanthropic nonprofit, is routinely republished by the Washington Post. ProPublica shared its 2025 Pulitzer for Public Service with the Baltimore Banner (nonprofit) and the New York Times (not one). WBEZ Chicago is simultaneously a public radio station, a newspaper owner — it acquired the Chicago Sun-Times for $61 million in philanthropic funding — and an institutional partner for independent journalism producers. The AP is a cooperative wire service whose content flows to member newsrooms, many of which are themselves C4 nonprofits. ProPublica's Local Reporting Network embeds reporters in local newsrooms across 17 states, blurring the line between philanthropic production and collaborative infrastructure.</p>
+      <p>These overlaps are the field working as a resource-sharing, risk-distributing, filling coverage gaps that no single cohort can fill alone. Frankly, the blurry boundary between these three cohorts is where some of the most interesting journalism infrastructure is being built right now.</p>
+    </div>
+
+    <!-- C4 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C4 — Philanthropic Mesh Networks</div>
+      <div class="cohort-governance">Governance: Foundation-funded nonprofit newsrooms operating as independent 501(c)(3) organizations. Editorial decisions are made by newsroom leadership; revenue comes primarily from foundations, individual donors, and earned income — not advertising or subscriptions.</div>
+
+      <h3>What It Is</h3>
+      <p>Philanthropic mesh networks are the field's public-interest infrastructure — the layer of the ecosystem most explicitly committed to covering what markets won't fund. The Institute for Nonprofit News now counts 500 member organizations. The sector's estimated total revenue reached $650 to $700 million in 2024, a 14 percent increase from the prior year. Press Forward, the journalism philanthropy coalition, has committed more than $500 million from 110+ funders to local news infrastructure.</p>
+      <p>And yet. That $650 to $700 million — the entire philanthropic news sector's annual revenue — equals approximately 1 percent of the combined newspaper advertising and circulation revenue from twenty years prior. The sector has grown substantially while the gap it is trying to fill has grown faster. A 2026 analysis of 559 funding proposals, authored by Elizabeth Hansen Shapiro and published by Media Impact Funders, concluded that philanthropic grants "function as life support rather than capital for transformation."</p>
+
+      <h3>How It Works</h3>
+      <p>ProPublica's model innovation was not journalistic but financial: it demonstrated that impact could drive funding for journalism. An investigation that produces congressional testimony, regulatory action, or a change in law generates the kind of documented impact that major foundations will fund repeatedly. Its investigations into maternal mortality in America changed hospital protocols in multiple states. Its reporting on the Supreme Court's undisclosed gifts to Justice Clarence Thomas produced Senate hearings and new disclosure requirements. The journalism is the product; the impact is the revenue mechanism. The model produced seven Pulitzer Prizes. It also produced the concentration dynamic that defines this cohort — organizations that can demonstrate impact at scale attract funding; organizations that cannot compete for it. ProPublica represents approximately 7 percent of all INN member revenue — from one organization among 500.</p>
+      <p>Texas Tribune's model is the most frequently cited as the replicable alternative. Its revenue in 2024 was approximately $9 million, split roughly equally across foundations, individual donors, corporate sponsorship, and events. No single source exceeds 25 percent. Its annual festival, sometimes called "Woodstock for Wonks", generates approximately $2 million per year with 8,000 attendees. The festival is not simply a revenue line. It is an editorial product: a civic gathering where the journalism's subjects and its readers occupy the same room, debate policy on stages, and renew their relationship with the coverage. The model requires a specific market condition — a state capital, a politically engaged donor class, a topic with national audience interest — and is not easily replicated without those conditions.</p>
+      <p>The American Journalism Project has attempted to solve the replication problem through venture philanthropy, investing in revenue and business capacity rather than editorial content. Its 53 portfolio newsrooms generated $128 million in combined revenue in 2024, a 22 percent increase year-over-year. Spotlight PA, a statehouse nonprofit, grew from $1.7 million and 12 journalists in 2021 to $4 million and 21 staff in under three years after AJP investment. The difference between 12 journalists and 21 is not incremental. It is the difference between covering the statehouse and covering the statehouse, the budget, the courts, and the election simultaneously.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Foundation grants; individual donations (often through NewsMatch or similar matching programs)</li>
+        <li><strong>Secondary streams</strong> — Earned revenue — events, memberships, syndication licensing, corporate sponsorships (growing from 18% of sector to larger share)</li>
+        <li><strong>Structural advantage</strong> — Insulation from advertising market; editorial independence from commercial pressures; ability to cover beats markets won't fund</li>
+        <li><strong>Structural vulnerability</strong> — Grant dependence can "stabilize organizations without enabling resilience" (Hansen Shapiro, 2026); donor concentration risk; winner-take-all dynamics; foundation editorial priorities can subtly reshape coverage</li>
+        <li><strong>Production model</strong> — Beat reporter + editorial team; increasingly collaborative (80% of INN members participated in editorial collaborations in 2024); LRN-style embedded reporting partnerships</li>
+        <li><strong>Distribution tendency</strong> — Creative Commons licensing (States Newsroom, The 19th) as syndication strategy; partnership with legacy outlets for reach; email and membership as conversion</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>ProPublica</td><td>~$45M; 150+ staff; 7 Pulitzers; 7% of all INN member revenue from one organization; 50 State Initiative</td></tr>
+          <tr><td>Texas Tribune</td><td>~$9M; diversified four-way revenue split; festival ~$2M/yr; most cited replicable model</td></tr>
+          <tr><td>States Newsroom</td><td>$27.45M; 39 state-capital newsrooms; Creative Commons distribution; republished by Washington Post and others</td></tr>
+          <tr><td>American Journalism Project</td><td>$128M portfolio revenue (2024); 53 newsrooms; 3:1 ROI claim; venture philanthropy model</td></tr>
+          <tr><td>Center for Public Integrity</td><td>CLOSED March 2025 after 36 years; fell $2.5M short of $6M goal; concentrated donor dependency failure case</td></tr>
+          <tr><td>Spotlight PA</td><td>$1.7M / 12 journalists (2021) → $4M / 21 staff (2024); fastest documented growth arc in post-AJP-investment data</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Edge Case: Journalism Schools as News Producers</em></p>
+      <p>The UC Berkeley Investigative Reporting Program, Cronkite News, and the Medill News Service produce journalism that circulates in the public sphere alongside and often indistinguishable from journalism produced by nonprofit newsrooms. They are university-governed, education-primarily and funded by academia-related sources. Their reporters are graduate students producing professional journalism under faculty supervision. They are systematically undercounted in sector assessments — not because they are small, but because their institutional home is a university rather than a news organization.</p>
+      <p><em>Sub-variant: Venture Philanthropy vs. Grant Philanthropy</em></p>
+      <p>The distinction between how AJP invests and how most journalism foundations grant is an evolution. Traditional journalism philanthropy funds editorial work: reporters, investigations, coverage. Venture philanthropy funds business capacity: revenue infrastructure, membership systems, event operations, earned income development. The AJP model argues that most journalism philanthropy has funded the journalism without funding the organization's ability to sustain the journalism. The compounding returns on Spotlight PA's growth suggest the argument has empirical support.</p>
+    </div>
+
+<!-- CHUNK 2 END -->
+
+    <!-- C5 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C5 — Public Media Networks</div>
+      <div class="cohort-governance">Governance: Federally chartered and historically CPB-funded public broadcasting stations and networks. Editorial decisions are made by station leadership; revenue comes from a mix of federal appropriations (historically), member donations, foundation grants, university support and corporate underwriting.</div>
+
+      <h3>What It Is</h3>
+      <p>Public media built something over fifty years that no other cohort in this taxonomy has: a national infrastructure of local editorial products, produced simultaneously, distributed through owned channels, trusted by audiences who have renewed that trust every year with a credit card or a check. Morning Edition reaches more Americans before 9 a.m. than most digital news operations reach in a week. Fresh Air has produced original cultural journalism continuously since 1975. At the local level, WNYC's politics coverage is the authoritative voice for New York civic affairs in ways that no digital successor has yet matched. KQED is the most-listened-to public radio station in the country and produces original journalism across California in formats — audio documentary, digital investigation, community engagement — that its commercial competitors do not.</p>
+      <p>The regional collaborative newsrooms built inside public media in the last decade are among the most important journalism infrastructure investments of this research window. The Gulf States Newsroom — a collaboration between NPR member stations in Alabama, Mississippi, and Louisiana — produced the definitive coverage of the Jackson, Mississippi water crisis: a story that required simultaneous local knowledge, investigative capacity, and national distribution infrastructure that no single station could have provided alone. The New England News Collaborative covered regional climate across six states. The Texas Newsroom produced statehouse and border coverage at a scale no single member station could sustain. These are not special projects. They are a new production model — regional, collaborative, multi-format — that proved itself precisely as the funding that made it possible was being eliminated.</p>
+      <p>The CPB board voted to fully dissolve on January 5, 2026. Not a funding cut. A dissolution. The impact is asymmetric in ways that most national coverage of the story missed. NPR's digital network revenue grew to more than $30 million in FY2025 — five times its FY2024 level — and its direct federal dependency has always been minimal. NPR will survive.</p>
+      <p>The question is what happens to the 467 member stations that depend on CPB in ways NPR never did. For KUHB in Pendleton, Oregon, and WVLS in Monterey, Virginia — both operating at over 90 percent federal dependency — and for multiple Alaska stations at near-100 percent, the dissolution is a clear existential challenge. Further, public broadcasters reach 46 percent of all 213 news desert counties and 53 percent of the 1,524 counties that have only one remaining local news source according to Medill's 2025 State of Local News report.</p>
+      <p>When those stations go dark, there is nothing underneath them.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Member donations; CPB appropriations (historically — now eliminated); foundation grants; corporate underwriting</li>
+        <li><strong>Secondary streams</strong> — Digital subscriptions and podcast revenue (growing); content licensing; earned media</li>
+        <li><strong>Structural advantage</strong> — Public trust; longstanding audience relationships; broadcast infrastructure; editorial independence from commercial advertisers; owned distribution across radio, digital, and podcast</li>
+        <li><strong>Structural vulnerability</strong> — Federal funding dependency (variable by station — &lt;1% for NPR directly; 80–100% for rural/tribal stations); broadcast audience erosion; digital pivot costs real infrastructure investment</li>
+        <li><strong>Production model</strong> — Traditional broadcast (radio/TV) + emerging digital; regional collaborative newsrooms as proven new model; podcast as primary growth channel; Up First replacing Morning Edition as primary daily product for under-40 audiences</li>
+        <li><strong>Distribution tendency</strong> — Broadcast as legacy reach; podcast as primary growth; digital as underinvested opportunity; regional collaborative as distribution multiplier</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>NPR</td><td>~$318M total budget; digital revenue $30M+ FY2025 (5× prior year); broadcast eroding; direct CPB dependency &lt;1% — can survive dissolution, transformed</td></tr>
+          <tr><td>WBEZ / Chicago Public Media</td><td>~$70M; Sun-Times acquisition ($61M philanthropic); –$12M/yr Sun-Times deficit; most ambitious institutional experiment in cohort</td></tr>
+          <tr><td>WNYC</td><td>$73.9M revenue; –$9.3M FY2024 deficit; 26 staff cut; large-market station under sustained pressure</td></tr>
+          <tr><td>KQED</td><td>Most-listened-to public radio station in U.S.; –$8M FY2024 deficit; 57 positions cut July 2025; listenership –26% since 2021</td></tr>
+          <tr><td>GBH / Boston</td><td>$225M three-year fundraising campaign launched in response to CPB dissolution; coastal flagship navigating loss better than rural peers</td></tr>
+          <tr><td>Rural/tribal stations (KUHB, WVLS, Alaska)</td><td>80–100% CPB-dependent; sole local news sources in their counties; dissolution is existential, not budgetary</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Edge Case: WBEZ / Chicago Public Media</em></p>
+      <p>WBEZ occupies multiple cohort positions simultaneously. It is a public radio station (C5), a newspaper owner (C1, via the Sun-Times acquisition), a philanthropically funded operation (C4), and an institutional partner for independent journalism producers. CEO Melissa Bell — Vox co-founder, for-profit digital veteran — is applying product and revenue thinking from commercial digital media to a public media institution carrying a legacy print deficit. The $12 million annual Sun-Times operating shortfall, covered entirely by philanthropy, raises the central question the experiment is trying to answer: can philanthropic capital sustain legacy print journalism infrastructure indefinitely, or does it need to find a path to earned revenue? The experiment is ongoing. The answer is not yet in.</p>
+      <p><em>Point of Comparison: International Public Media Models</em></p>
+      <p>The per-capita public media funding comparison — $3 (U.S.) vs. $180 (Norway) vs. $75 (BBC) — is frequently cited and rarely contextualized. The BBC's funding model is a license fee levied on television ownership, not a government appropriation. Norway's system operates in a country of 5 million people with one of the world's highest per-capita incomes and longstanding cultural consensus around public information infrastructure. The comparisons are less an argument for any specific U.S. policy than a reminder that the American choice — minimal federal investment, maximum market dependency — is not the only one democratic societies make.</p>
+    </div>
+
+    <!-- C6 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C6 — Collaboration and Coordination Layers</div>
+      <div class="cohort-governance">Governance: Formal and informal multi-organization collaborations producing journalism, plus the infrastructure organizations that coordinate, fund and support journalism production without producing it directly.</div>
+
+      <h3>What It Is</h3>
+      <p>This cohort contains two distinct types of actors: editorial collaboratives that produce journalism jointly, and coordination infrastructure organizations that fund, support, and organize journalism production without producing it themselves.</p>
+      <p>The product this cohort makes is fluid by design. A collaboration's journalism does not belong to any single outlet — it is produced jointly, published simultaneously across multiple mastheads, and travels through the ecosystem without a single institutional fingerprint. That fluidity is both the model's greatest editorial strength and its most significant structural challenge. Journalism that runs under six mastheads at once reaches more people than journalism that runs under one. It is also harder to fund, harder to sustain, and harder to measure than journalism with a single institutional owner.</p>
+      <p>What has become unmistakably clear in the research window is that major accountability journalism is regularly pursued as a collaborative project. It is not unusual for an investigation of national significance to involve three organizations, two research universities, a legal nonprofit, and a public radio station. That is now a familiar architecture for resource-intensive reporting that no single organization can fund alone.</p>
+
+      <h3>How It Works</h3>
+      <p>In 2025, the Missouri Independent, MuckRock, and the AP collaborated on reporting about radioactive contamination in St. Louis — a story that required public records expertise (MuckRock), local statehouse knowledge (Missouri Independent), and national distribution infrastructure (AP) simultaneously. No single organization had all three. States Newsroom and the New York Times Local Investigations Fellowship collaborated on ICE detention reporting in Adams County, Mississippi — a story that required both the local statehouse relationships States Newsroom had built and the legal resources and amplification the Times could provide. ProPublica's Local Reporting Network operated simultaneously in 17 states, with reporters embedded in local newsrooms that would not otherwise have the investigative capacity. In 2025, the network shared a Pulitzer Prize with the Baltimore Banner and the New York Times — three organizations, three cohorts, one investigation.</p>
+      <p>These are not special projects. They are the field's operating conditions. And they raise the most important unresolved empirical question in this research: what is the survival rate of journalism collaboratives past year two? The Center for Cooperative Media has tracked more than 1,000 U.S. journalism collaborations. Its September 2024 systematic study found 41 permanent ones — generally small, majority led by women, 100 percent philanthropy-dependent. The gap between 1,000+ collaborations tracked and 41 permanent ones is the survival-rate question this field needs answered.</p>
+      <p>URL Media and Word In Black are the field's only documented examples of collaboration infrastructure generating meaningful non-philanthropic revenue at scale. URL Media reaches 40+ outlets and 27 million people, sells advertising to Nike, Hulu, and McKinsey, and has been profitable in four of five years. The model — collective advertising sold on the basis of demographic coherence — works because the combination of 40+ Black and Latino outlets produces an audience reach and demographic profile that no single outlet can match. Word In Black became a public benefit corporation in January 2024 and sells newsletter sponsorships across its Black news network on the same logic. The $45.83 billion U.S. multicultural advertising market is the addressable opportunity. The infrastructure to capture it for independent ethnic media is being built, slowly, by these two organizations.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Philanthropy / foundation grants (for almost all collaboration infrastructure); advertising sold collectively (URL Media, Word In Black — only documented exceptions)</li>
+        <li><strong>Secondary streams</strong> — Membership fees from member newsrooms (INN model); earned revenue from joint investigations</li>
+        <li><strong>Structural advantage</strong> — Resource pooling for resource-intensive work; risk distribution; cross-audience reach; fluid publication across multiple outlets multiplies impact</li>
+        <li><strong>Structural vulnerability</strong> — 100% of permanent collaboratives are philanthropy-dependent; no market model for coordination infrastructure; survival past year two is the unresolved empirical question</li>
+        <li><strong>Production model</strong> — Joint editorial teams; embedded reporter placement (LRN); distributed civic contribution (Documenters); wire and syndication (States Newsroom)</li>
+        <li><strong>Distribution tendency</strong> — Creative Commons licensing as collaboration infrastructure; partner newsroom republication as reach multiplier; joint investigation publication across multiple outlets simultaneously</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>INN / NewsMatch</td><td>$400M+ cumulative facilitated; 500 members; $55M in matching gifts 2024; coordination infrastructure model</td></tr>
+          <tr><td>Report for America</td><td>$59.9M facilitated; 759 corps; 55% hired permanently; $20M Knight grant; reporter-placement model</td></tr>
+          <tr><td>States Newsroom</td><td>$27.45M; 39 newsrooms; CC distribution; republished by WaPo; nonprofit wire model</td></tr>
+          <tr><td>URL Media</td><td>40+ outlets; 27M+ people reached; Nike/Hulu/McKinsey sponsors; profitable 4 of 5 years; only non-philanthropic ethnic-media collaboration revenue at scale</td></tr>
+          <tr><td>Center for Cooperative Media</td><td>Tracks 1,000+ collaborations; 41 permanent; $2.5M Knight grant; holds survival-rate data not publicly available</td></tr>
+          <tr><td>ProPublica Local Reporting Network</td><td>100+ projects since 2018; 17 states active; Sustainability Desk building capacity after reporters' terms end; 2025 Pulitzer shared across three cohorts</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Sub-variant: The Wire Model</em></p>
+      <p>States Newsroom operates 39 state-capital newsrooms under a single organizational structure, distributes journalism via Creative Commons licensing, and has been republished by the Washington Post and dozens of other outlets. It is not a collaboration — it is a wire service operating on philanthropic funding rather than commercial wire license fees. The model proves that public-interest wire distribution is viable at scale with philanthropic support. It does not prove it is viable without it.</p>
+    </div>
+
+    <!-- INTERSTITIAL 2: Three Public Interest Cohorts in Relation -->
+    <div class="info-box" style="margin-top:2.5rem;">
+      <div class="info-box-label">Interstitial</div>
+      <p><strong>The Three Public-Interest Cohorts in Relation</strong></p>
+      <p>C4, C5, and C6 are different in governance but deeply interdependent in practice. Philanthropic nonprofits (C4) produce journalism that public media stations (C5) broadcast, which collaboration networks (C6) then amplify into multi-outlet investigations.</p>
+      <p>The NPR regional collaborative newsrooms were funded by a mix of CPB (C5 funding) and Schmidt Foundation grants (C4 funding), and their journalism was produced in collaboration with local member stations (C5), state-capital nonprofits (C4), and in some cases commercial legacy outlets (C1). ProPublica (C4) places reporters in state-capital newsrooms (also C4) through its Local Reporting Network and shares Pulitzers with legacy newspapers (C1) and community nonprofits (C4). The Center for Cooperative Media tracks collaborations that routinely cross all three cohorts simultaneously.</p>
+      <p>The overlap is the field's adaptive response to resource scarcity. No single public-interest cohort can do what all three are doing together. The journalism that results from the collaboration is often the most widely consumed and trusted journalism being produced in America. The economic infrastructure supporting it is the most fragile.</p>
+    </div>
+
+    <!-- INTERSTITIAL 3: From Shared Resources to Owned Products -->
+    <div class="info-box" style="margin-top:1.5rem;">
+      <div class="info-box-label">Interstitial</div>
+      <p><strong>From Shared Resources to Owned Products</strong></p>
+      <p>The collaboration layer is where institutions share resources to produce journalism that none of them could produce alone. The co-op is what happens when journalists decide to stop sharing and start owning.</p>
+      <p>The shift is not simply organizational. It is a decision about the product itself. In a collaboration, the journalism is fluid — it belongs to the investigation, not to any single outlet. In a co-op, the journalism is owned — it belongs to the organization, which belongs to the journalists, whose editorial sensibility is the product. The co-op model works precisely because it carries a specific product — a specific voice, a specific relationship with a specific audience — out of an institution that could no longer sustain it and into a structure where the people who built that product own it outright.</p>
+    </div>
+
+    <!-- C7 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C7 — Worker-Owned Co-ops and Collectives</div>
+      <div class="cohort-governance">Governance: News organizations in which editorial staff hold majority ownership and governance rights. Decisions are made collectively or through elected worker-member governance structures. Revenue comes primarily from subscriptions.</div>
+
+      <h3>What It Is</h3>
+      <p>Worker-owned journalism co-ops are, at their core, a vehicle for porting a product that was built inside an institution that could no longer sustain it. The co-op model carries that product — the editorial voice, the reader relationship, the specific kind of journalism an audience has learned to trust — out of a failed institution and into a structure where the workers own the means of production.</p>
+      <p>Defector's readers were Deadspin's. 404 Media's were Motherboard's. HellGate's were Gothamist's. In each case, the audience did not simply follow journalists they liked. They followed a product they had built a relationship with — a specific cultural sensibility, a specific editorial stance, a specific way of covering a beat that the corporate parent had demonstrated it could not or would not sustain. The co-op is the organizational form that makes it possible to keep making that product.</p>
+      <p>Jasper Wang of Defector put the governance logic plainly: "Worker ownership is an operating and governance model, not a funding or revenue model." The co-op solves governance — who controls editorial decisions, who benefits from success, who bears the risk of failure. It does not solve revenue. Revenue in co-ops comes from subscriptions, and subscriptions come from audiences, same as they did when those journalists worked within their previous institutions.</p>
+
+      <h3>How It Works</h3>
+      <p>Defector is the most completely documented journalism co-op in American history, because it publishes annual financial reports. Year 1: $3.2 million in revenue, 36,000 subscribers, launched to 10,000 on day one — the audience that followed from Deadspin. Year 3: $4.4 million, 42,102 subscribers (all-time high). Year 5: $4.65 million, 27 staff — and for the first time, subscription revenue did not grow. The organization launched limited display advertising in March 2025 as a fourth revenue stream. The five-year revenue trajectory is the clearest available data on what the co-op model produces: rapid scaling off an inherited institutional product and audience, then a plateau. Paper Two will examine what the plateau means structurally. For now, it is the anchor data point in the scale ceilings finding that ends this paper.</p>
+      <p>404 Media launched in August 2023 with $4,000 in startup capital. Four former Motherboard journalists launched it immediately after Vice's bankruptcy filing. They were profitable in six months. The startup capital figure is worth sitting with: $4,000 to launch a profitable journalism operation. The figure is only possible because the product already existed — built at Motherboard, recognizable to an audience that had been reading it for years — and the distribution infrastructure (email) cost almost nothing. The institutional collapse that produced the $4,000 startup was the prerequisite for the $4,000 startup being sufficient.</p>
+      <p>404 Media has not publicly disclosed revenue. The founders have confirmed sustained profitability — and in April 2025 published a candid state-of-the-business piece describing slowed subscriber growth amid broader economic headwinds while affirming the company remained viable. No valuation has been reported. What is known: subscriptions start at $100 per year, the company has added contributors and expanded coverage since launch, and it has declined every opportunity to take outside investment. And in April 2025 they dropped some clues about their revenue operations in saying: "We still have a ton of support thanks almost entirely to thousands of individual subscribers that make up the vast majority of our revenue and a few other streams of revenue like advertising and merchandise."</p>
+      <p>Hell Gate reached profitability in November 2025 with approximately $850,000 in revenue and 9,000+ paid subscribers — a 69 percent year-over-year growth in subscriptions. Hellman Pinto described the editorial scope constraint that the co-op's product inheritance creates: "Hell Gate sort of started as a vessel for the interests of its founding members. So every time we contemplate any kind of editorial expansion, we go 'we're an ice cream stand. We've always sold ice cream. Do our readers even want anything else?'" The inherited product is the co-op's greatest asset and its most significant editorial constraint.</p>
+      <p>A last note: No systematic registry of failed journalism co-ops exists. The co-op dataset, like the creator dataset, reflects survivorship bias.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Subscription / reader revenue (typically 80–95% of total)</li>
+        <li><strong>Secondary streams</strong> — Podcast advertising; limited display advertising (Defector, Year 5); events; merchandise; high-tier membership tiers</li>
+        <li><strong>Structural advantage</strong> — Editorial autonomy; worker ownership aligns incentives; subscription-primary model produces durable, predictable revenue; no investor or foundation extracting value or imposing priorities</li>
+        <li><strong>Structural vulnerability</strong> — Pre-built institutional product and audience required at launch; no co-op incubator comparable to INN or Google News Initiative; editorial scope constrained by founding audience expectations; individual worker departure is existential in small co-ops</li>
+        <li><strong>Production model</strong> — Small-team editorial production; subscription as primary production incentive; collective decision-making on major editorial and business choices</li>
+        <li><strong>Distribution tendency</strong> — Email as primary owned channel; social as discovery; no platform dependency for revenue; subscriber relationships fully portable</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>Defector</td><td>$4.65M; 27 staff; profitable every year; Year 5 subscription stall; only operation in dataset with five years of publicly disclosed audited annual financials</td></tr>
+          <tr><td>404 Media</td><td>Profitable in 6 months on $4,000 startup capital; launched from Vice/Motherboard collapse; product portability demonstrated</td></tr>
+          <tr><td>Hell Gate</td><td>~$850K; 9,000+ paid; profitable November 2025; +69% subs YoY; "ice cream stand" editorial constraint</td></tr>
+          <tr><td>Aftermath</td><td>~$485K; gaming journalism; not all founders full-time after two years; below-sustainability ceiling illustration</td></tr>
+          <tr><td>Flaming Hydra</td><td>60 contributors; "nobody's gonna get rich" (Bustillos); collective model with explicitly acknowledged low ceiling</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Edge Case: The Collective vs. the Co-op</em></p>
+      <p>Flaming Hydra — 60 contributors, no clear path to significant individual income, explicitly collective rather than worker-owned in the formal governance sense — is the edge of the co-op concept rather than its center. Maria Bustillos's framing — "nobody's gonna get rich" — names the ceiling explicitly and accepts it as a feature rather than a bug. The collective model solves a different problem than the co-op: it provides a publishing infrastructure and editorial community for journalists who do not need their journalism to be their primary income. The economics are not the point. The collaborative editorial environment is. That is a legitimate organizational form — and a completely different one from Defector or 404 Media.</p>
+    </div>
+
+    <!-- C8 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C8 — Emerging Civic and Community Actors</div>
+      <div class="cohort-governance">Governance: Community development organizations, civic intermediaries, immigrant-community outlets, and civic documentation networks. Often structured as nonprofits, community organizations, or informal collectives. Revenue comes primarily from philanthropy and civic partnerships.</div>
+
+      <h3>What It Is</h3>
+      <p>This is the cohort where journalism and civic infrastructure overlap most completely — and where the definitions of both are most productively unstable. City Bureau does not think of itself primarily as a news organization. El Tímpano does not look like a newspaper. The NJ Civic Information Consortium is a grantmaking body that funds journalism without producing it. They are all doing something that functions as journalism: gathering information about public affairs, verifying it, and distributing it to communities that need it.</p>
+      <p>No actors identified in this cohort have achieved self-sustainability without ongoing philanthropy or civic partnership funding. This is not a failure of the model. It is an honest reflection of the economics of serving communities — immigrant communities, low-income communities, rural communities, communities defined by language or identity — that are systematically underserved by market-driven journalism and do not have the individual purchasing power to sustain subscription journalism at scale.</p>
+
+      <h3>How It Works</h3>
+      <p>El Tímpano in Oakland organizes its coverage around questions that arrive via SMS and WhatsApp from Latin American immigrant communities. A community member texts a question. The question informs the editorial decision. The story is produced in Spanish and English. The coverage model is built around demonstrated information need rather than editorial judgment about what communities should care about. Since 2022, El Tímpano has generated $600,000 in earned revenue from civic partnerships — government agencies and nonprofits that pay for trusted community access. The model inverts the traditional journalism funding logic: the funder is not a foundation interested in the journalism's existence; it is an institution that needs to reach a specific community and pays El Tímpano because it can.</p>
+      <p>City Bureau's Documenters Network paid community members $369,000 in stipends to cover 3,253 public meetings in 2025 — at an average cost of $113 per meeting, across more than 20 sites in 14 states. The operational model is civic infrastructure: trained community members documenting what happens in public meetings so that the official record of public life is not mediated entirely by professional journalism organizations that cannot afford to be everywhere.</p>
+      <p>The New Jersey Civic Information Consortium has deployed more than $12 million across 65 organizations since 2021 — the first publicly funded grantmaking body for local news in American history, created by bipartisan New Jersey legislation in 2018. One of its grantees, Radio Jornalera NJ, produced coverage of ICE raids in 2025 that reached 1.9 million TikTok views. The NJ model is being replicated: California established a similar model in 2025 with $10 million in public funding plus $10 million from Google. Working groups exist in Massachusetts, Pennsylvania, and Wisconsin.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Philanthropy / foundation grants; civic partnership payments (government agencies, nonprofits paying for community access)</li>
+        <li><strong>Secondary streams</strong> — Stipend models (community contributors paid per assignment rather than staff salary); state-funded grantmaking (NJ, California)</li>
+        <li><strong>Structural advantage</strong> — Deep community trust unavailable to outside journalism organizations; language access; community-rooted editorial judgment; lower overhead than professional newsrooms</li>
+        <li><strong>Structural vulnerability</strong> — No path to self-sustainability without ongoing philanthropy or civic partnership; USAID collapse hit international/exile sub-variant hardest; scale limited by community size and philanthropic geography</li>
+        <li><strong>Production model</strong> — Audience-need beats (El Tímpano); distributed civic contribution (City Bureau); multilingual and multi-format (Documented NYC); SMS/WhatsApp as primary distribution for some operations</li>
+        <li><strong>Distribution tendency</strong> — Community-appropriate channels; SMS, WhatsApp, Spanish-language social; TikTok for younger immigrant audiences; print for communities with lower digital access</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>El Tímpano</td><td>$600K earned since 2022 from civic partnerships; SMS/WhatsApp model; coverage built around community questions; most innovative earned-revenue experiment in cohort</td></tr>
+          <tr><td>City Bureau / Documenters</td><td>$369K paid to community Documenters (2025); 3,253 public meetings covered; 14 states; $113 per meeting</td></tr>
+          <tr><td>Documented NYC</td><td>~$3M; four languages; WhatsApp 6K subscribers; immigrant community focus</td></tr>
+          <tr><td>NJ Civic Information Consortium</td><td>$12M+ deployed across 65 orgs; first state-funded journalism grantmaking body; Radio Jornalera NJ grantee hit 1.9M TikTok views on ICE coverage</td></tr>
+          <tr><td>Outlier Media</td><td>$1.2M; SMS journalism; Detroit; AJP + MacArthur + Knight-funded; audience-need beat model</td></tr>
+          <tr><td>Nowruz Media / Afghanistan Women's News Agency</td><td>Exile journalism; geographically dispersed communities under active threat; hardest-hit by USAID collapse</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Sub-variant: International and Exile Journalism</em></p>
+      <p>Nowruz Media and the Afghanistan Women's News Agency serve geographically dispersed communities under active threat from governments that have made journalism itself illegal. Their USAID dependency — common across international journalism operations — made the January 2025 funding freeze an immediate existential crisis rather than a budget challenge. This sub-variant of C8 faces structural problems that are categorically different from domestic civic journalism: legal risk, physical threat, diaspora audience geographic fragmentation, and dependency on international funding infrastructure that is itself dependent on the political commitments of foreign governments.</p>
+      <p><em>Sub-variant: State-Funded Journalism Policy</em></p>
+      <p>The NJ Civic Information Consortium represents the first systematic state-funded journalism policy pathway in the United States since the CPB was created. It is bipartisan — created under Christie, sustained under Murphy — and has survived significant budget pressure through statewide advocacy. The California Civic Media Fund replication and the active working groups in multiple other states suggest this is becoming a policy template rather than a New Jersey anomaly. Free Press (the advocacy group, not the publication) is actively working to replicate the model nationally.</p>
+    </div>
+
+    <!-- C9 -->
+    <div class="cohort-section">
+      <div class="cohort-label">C9 — B2B and Professional Information Services</div>
+      <div class="cohort-governance">Governance: For-profit or nonprofit organizations delivering specialized professional information to institutional subscribers. Revenue comes primarily from enterprise subscriptions, typically employer-expensed, at price points that reflect professional utility rather than consumer willingness to pay.</div>
+
+      <h3>What It Is</h3>
+      <p>B2B journalism is the structural outlier. It is the cohort that breaks the ceiling, and breaks it consistently enough to suggest the ceiling is not a law of journalism but a function of business model. The scale ceilings finding that ends this paper holds across eight of nine cohorts. B2B is a regular exception — a rule-breaker, as it were.</p>
+      <p>The reason is straightforward: the reader is not personally paying. An enterprise per-seat subscription for Politico Pro at several thousand dollars per year is not a consumer making a choice about how to spend discretionary income. It is a law firm or lobbying shop or government agency making a choice about operational tools, expensed through procurement systems that do not create the same price sensitivity as a consumer subscription.</p>
+      <p>This isn't new. Bloomberg Terminals, WSJ Corporation's Factiva. These kinds of information service products have a long history of creating high-margin lines of revenue for their owners.</p>
+      <p>This does not mean B2B journalism is easy. It means it is operating in a different economic environment — with different price points, different buyer relationships, different churn dynamics, and different editorial constraints. Professional information services are accountable to their subscribers in ways that differ from consumer journalism: if Politico Pro gets a policy story wrong, its subscribers — who are the lobbyists and staffers whose work depends on that information being correct — notice immediately. The accountability mechanism is professional utility.</p>
+
+      <h3>How It Works</h3>
+      <p>Politico Pro operates at approximately $100 million in revenue on per-seat enterprise pricing, serving the policy professional community in Washington and increasingly in Brussels and other policy capitals. Its editorial model is built around what its subscribers need to do their jobs: regulatory tracking, legislative monitoring, agency personnel moves. The journalism is not primarily investigative or narrative. It is informational and operational. Subscribers pay because not having it puts them at a professional disadvantage.</p>
+      <p>Industry Dive built more than $100 million in revenue across 26 verticals before its $525 million acquisition by Informa in 2022. The model — 26 separate B2B trade newsletters, each serving a distinct professional community — demonstrates that the B2B model is replicable across verticals, not limited to policy and politics. Its acquisition at 5× revenue confirms that B2B journalism assets command institutional valuations when they are built properly.</p>
+      <p>The most interesting development in this cohort is the emergence of the solo subject-matter expert (SME) creator operating with B2B economics. Ben Thompson's Stratechery generates an estimated $5 million or more annually from approximately 40,000 paid subscribers at $199 to $399 per year — widely employer-expensed at technology companies and venture firms where understanding technology strategy is a professional requirement. Gergely Orosz's Pragmatic Engineer generates an estimated $1.5 million or more from more than 1.1 million subscribers, built on insider knowledge of software engineering culture with no journalism training. The ceiling-breaking mechanism in both cases is identical to Politico Pro: the reader is not personally paying.</p>
+      <p>The SME creator represents a structural challenge to journalism's professional identity that this taxonomy does not attempt to resolve. Gergely Orosz does not identify as a journalist. He is a former software engineer writing for software engineers. His audience is larger than most technology journalism publications, and his revenue per subscriber is higher than almost any journalism operation in this dataset. Whether what he produces is journalism — in the sense of applying editorial standards, maintaining source relationships, verifying claims independently — is a genuine question. Whether it functions as journalism for his audience is not.</p>
+
+      <h3>How They're Organized / How Money Moves</h3>
+      <ul class="org-list">
+        <li><strong>Primary revenue</strong> — Enterprise subscription / per-seat pricing; employer-expensed; procurement-system purchase</li>
+        <li><strong>Secondary streams</strong> — Advertising and sponsorships (professional-audience CPMs highest in journalism); events (conferences, briefings); data products and API access</li>
+        <li><strong>Structural advantage</strong> — Willingness-to-pay problem largely absent; employer-expensed pricing removes consumer price sensitivity; professional churn lower than consumer churn; audience defined by professional role rather than interest</li>
+        <li><strong>Structural vulnerability</strong> — Addressable market is smaller (professionals in a field vs. general public); content must demonstrate professional utility to justify price; editorial model must serve professional needs rather than general public interest</li>
+        <li><strong>Production model</strong> — Beat coverage of professional domains; data products and trackers; briefings and alerts; regulatory and legislative monitoring</li>
+        <li><strong>Distribution tendency</strong> — Email as primary channel (professional inbox as primary work tool); low social dependency; direct institutional relationships as distribution</li>
+      </ul>
+
+      <h3>Named Examples</h3>
+      <table class="data-table">
+        <thead><tr><th>Organization</th><th>Key figures</th></tr></thead>
+        <tbody>
+          <tr><td>Politico Pro</td><td>~$100M; enterprise per-seat pricing; policy professional audience; employer-expensed; Brussels expansion</td></tr>
+          <tr><td>Industry Dive</td><td>$110M at exit; $525M acquisition by Informa; 26 verticals; proof of B2B scalability and acquisition value</td></tr>
+          <tr><td>Stratechery (Ben Thompson)</td><td>$5M+; 40K paid at $199–$399/yr; widely employer-expensed; ceiling broken via B2B pricing logic</td></tr>
+          <tr><td>Pragmatic Engineer (Gergely Orosz)</td><td>$1.5M+; 1.1M subs; employer-expensed; no journalism training; SME thesis proof</td></tr>
+          <tr><td>The Information</td><td>~$15–20M; 30K–45K paid at $399/yr; 90%+ subscription revenue; tech B2B high-price model</td></tr>
+          <tr><td>Morning Brew</td><td>$70M+ projected 2025; B2B division ~$25M; 100% Axel Springer; advertising + B2B hybrid</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Edge Cases and Sub-Variants</h3>
+      <p><em>Sub-variant: The SME Creator as Journalism</em></p>
+      <p>The subject-matter expert creator — Thompson, Orosz, Scanlon, Katelyn Jetelina (Your Local Epidemiologist, millions of subscribers, larger audience than any health journalism publication) — occupies a position the taxonomy names but does not resolve. These individuals fulfill several jobs that traditional, institutional journalism structurally and culturally has not always felt comfortable: the trusted-translator job (making complex professional knowledge legible to professional audiences), the parasocial peer access job (insider access to professional worlds), and the decision-support job (Emily Oster's ParentData serving parents making health decisions the same way Politico Pro serves lobbyists making policy decisions). Their economics can outperform trained journalists covering the same subject areas. Whether the output is considered capital-J "journalism" is a question that lingers in conference hallways and capital J "Journalism-schools." Whether it functions as journalism for the audiences it serves is a question that seems answered by the market.</p>
+      <p><em>Sub-variant: Consumer Reports and the Ad-Free Proof Case</em></p>
+      <p>Consumer Reports generates approximately $200 million in revenue, is structured as a nonprofit, accepts no advertising, and has sustained this model since 1936. It is the longest-running and largest proof of concept for fully reader-funded journalism at consumer scale in American history. It receives almost no attention in discussions of journalism sustainability precisely because it does not identify as journalism — it identifies as consumer advocacy and product testing. The taxonomy names it explicitly as the category proof case it is.</p>
+    </div>
+
+<!-- CHUNK 3 END -->
+
+  <!-- SECTION III: WHAT THE COHORTS TELL US -->
+  <div class="section">
+    <div class="section-num">III.</div>
+    <div class="section-label">Revenue Architecture</div>
+    <h2>What the Cohorts Tell Us</h2>
+
+    <p>Across these nine cohorts, multiple revenue architectures, and hundreds of named examples, a structural finding emerges that holds across every organizational type:</p>
+    <p>Every governance model in independent journalism converges toward similar revenue ceilings.</p>
+    <p>The most durable operations are not the ones with the best single revenue stream. They are the ones that combine. Tangle: 85 percent subscription, 15 percent advertising. The Dispatch: subscription-primary with two thin secondaries, 17 percent conversion rate. Defector: subscription plus four secondary streams, launched as a co-op with an inherited audience. Texas Tribune: foundations, individuals, sponsorship, and events in roughly equal quarters.</p>
+    <p>Diversification is the only architecture we've found that scaffolds sustainability.</p>
+    <p>The revenue convergence is the finding. Operations organized by radically different governance structures — worker-owned co-ops, philanthropic nonprofits, creator brands, barbell hybrids — tend to plateau in the same band. The ceiling is not a function of who owns the organization. It appears to be a function of the information economics of journalism itself: audience size, willingness to pay, and the degree to which revenue is diversified.</p>
+
+    <!-- Figure 3: Revenue Architecture Matrix -->
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 3 — Revenue Architecture Matrix</div>
+      <div class="viz-container">
+        <div class="rm-wrap">
+          <table class="rm-table">
+            <thead>
+              <tr>
+                <th class="stream-head">Revenue stream</th>
+                <th><span class="cohort-head"><span class="cohort-num">C1</span>Legacy</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C2</span>Creator</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C3</span>Barbell</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C4</span>Philanth.</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C5</span>Public</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C6</span>Collab.</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C7</span>Co-op</span></th>
+                <th><span class="cohort-head"><span class="cohort-num">C8</span>Civic</span></th>
+                <th style="background:#f5f4ef;border-radius:6px 6px 0 0;"><span class="cohort-head"><span class="cohort-num">C9</span>B2B</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="stream-label">Subscription / reader</td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-P">P</span></td></tr>
+              <tr><td class="stream-label">Advertising / sponsorship</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-S">S</span></td></tr>
+              <tr><td class="stream-label">Enterprise / B2B subscription</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-P">P</span></td></tr>
+              <tr><td class="stream-label">Platform rev-share <span class="risk-flag risk-volatile">most volatile</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-none">—</span></td></tr>
+              <tr><td class="stream-label">Philanthropy / grants <span class="risk-flag risk-safe">structurally safer</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-P">P</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-P">P</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-none">—</span></td></tr>
+              <tr><td class="stream-label">AI licensing / syndication</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-S">S</span></td></tr>
+              <tr><td class="stream-label">Events / services / products</td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-S">S</span></td><td><span class="cell-p cell-none">—</span></td><td><span class="cell-p cell-none">—</span></td><td style="background:#f5f4ef;"><span class="cell-p cell-S">S</span></td></tr>
+            </tbody>
+          </table>
+          <div class="rm-legend">
+            <div class="rm-legend-item"><span class="rm-legend-swatch" style="background:#185FA5;"></span><span>P — primary revenue source</span></div>
+            <div class="rm-legend-item"><span class="rm-legend-swatch" style="background:#B5D4F4;"></span><span>S — secondary</span></div>
+            <div class="rm-legend-item" style="font-style:italic;color:#888880;">C9: only cohort with no philanthropy dependency and no platform rev-share exposure</div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-caption">The most durable observed pattern: subscription-primary with one or two diversified secondary streams, no single source above 50% of total revenue. Tangle (85%/15%). Defector (82% + four secondaries). Texas Tribune (25%/24%/19%/18%). In each case, diversification is not an accident of success — it is the strategy.</div>
+    </div>
+
+    <!-- Figure 5: Scale Ceiling Dot Plot -->
+    <div class="viz-wrap">
+      <div class="viz-label">Figure 5 — The Scale Ceiling Across All Cohorts</div>
+      <div class="viz-container">
+        <div style="margin-bottom:0.75rem;">
+          <div id="filters" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+        </div>
+        <div style="position:relative;width:100%;height:480px;">
+          <canvas id="scaleChart" role="img" aria-label="Dot plot of journalism organization revenues showing convergence band"></canvas>
+        </div>
+        <div id="legend" style="display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:1rem;font-size:12px;font-family:'DM Sans',sans-serif;color:#4a4a46;"></div>
+      </div>
+      <div class="viz-caption">76+ US journalism organization observations. Five different organizational models — creator brands, philanthropic nonprofits, worker-owned co-ops, barbell hybrids, collaboration-layer organizations — cluster in the same $3.5M–$10M band. No single model "owns" the ceiling. This is a structural finding about information economics.</div>
+    </div>
+
+    <div class="info-box" style="margin-top:1.5rem;">
+      <div class="info-box-label">See Paper Two</div>
+      <p>Figures 6 (Six Production Models) and 7 (Distribution Stack) appear in Paper Two: The Economics of Independent Journalism.</p>
+    </div>
+
+    <p>Five categories of organizations operate above the ceiling, and they do so through mechanisms that are worth naming explicitly: institutional scale (New York Times, Wall Street Journal), ideological capture with captive audiences (The Daily Wire), B2B pricing logic (Politico Pro, Stratechery), philanthropic prestige at ProPublica scale, and events businesses that happen to also produce journalism (Semafor, Texas Tribune). These are not exceptions to the rule. They are the rule-breakers this taxonomy needs to explain. Paper Two will pursue them.</p>
+  </div>
+
+  <!-- SECTION IV: WHAT'S COMING -->
+  <div class="section">
+    <div class="section-num">IV.</div>
+    <div class="section-label">What's Coming</div>
+    <h2>A Note on What's Coming</h2>
+
+    <p>The convergence this dot plot shows is our most important structural observation.</p>
+    <p>We found it by organizing the field by governance and mapping revenue across all nine cohorts. We are now stress-testing it: looking for the rule-breakers, examining whether the ceiling holds as we expand the dataset, and asking what combination strategies reliably push operations past it. The early evidence on combinations — diversified revenue streams, B2B pricing logic, events margins, audience-owned distribution — will anchor Paper Two.</p>
+    <p>We expect Paper Three will look further. The distribution shifts reshaping how journalism reaches audiences from the para-social relationships of the modern creator economy to the agentic web interfaces that some journalistic organizations are starting to plan for. The federated protocol infrastructure that may change who owns the relationship between journalism and its readers, at the subject-matter expert thesis and what it means for journalism's professional identity, and at the question of what journalism's relationship to the internet looks like when the platform era is fully over.</p>
+    <p>We are learning this in real time. The field reorganized before anyone announced it. The map we've charted here is the beginning of an accounting, not the end of one.</p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <span>Working draft — V13 · May 2026 · Not for distribution</span>
+  <span>Justin Bank (Independent Journalism Atlas) · Andy Pergam (Knight Center for the Future of News, ASU Cronkite School)</span>
+</footer>
+
+<script>
+// ── COHORT GRID ──────────────────────────────────────────────────────────────
+const cohorts = [
+  { num:'C1', name:'Legacy publishers\n& freelance networks', def:'Established publishers with institutional brand capital and legacy revenue models.', revenue_tag:'sub + ads', tag_color:'#185FA5', accent:'#185FA5', examples:'NYT · WaPo · Fox · The Atlantic · AP', tension:'Bifurcating fast. Subscriber moats survive; ad-dependent operations contract.', group:1 },
+  { num:'C2', name:'Poly-platform\ncreator brands', def:'Full-stack independents building across platforms. Platform-promiscuity as strategy.', revenue_tag:'sub + rev-share', tag_color:'#0F6E56', accent:'#0F6E56', examples:'Tangle · Letters from an American · The Dispatch', tension:'Survivorship-bias cohort. Median Substack creator: ~$4K/yr. Top 50: $1M+.', group:1 },
+  { num:'C3', name:'Barbell\nhybrids', def:'Staff journalists with semi-independent platforms alongside institutional employment.', revenue_tag:'sub + events', tag_color:'#BA7517', accent:'#BA7517', examples:'Semafor · Zeteo · Platformer · Puck · The Free Press', tension:'The Weiss trajectory: creator → acquired brand → institutional exec. First documented full pipeline.', group:1 },
+  { num:'C4', name:'Philanthropic\nmesh networks', def:'Foundation-funded nonprofits. ProPublica = ~7% of all INN revenue from one org among 500.', revenue_tag:'philanthropy', tag_color:'#533DB7', accent:'#533DB7', examples:'ProPublica · States Newsroom · Texas Tribune · Capital B', tension:'Winner-take-all. Press Forward ($500M+) is the largest journalism philanthropy infrastructure investment in history.', group:2 },
+  { num:'C5', name:'Public media\nnetworks', def:'Public broadcasters funded by government appropriation, listener support, and underwriting.', revenue_tag:'public funding', tag_color:'#3d6e0f', accent:'#3d6e0f', examples:'NPR · WNYC · KQED · WBEZ', tension:'CPB dissolved Jan 5, 2026. US: $3/capita. Norway: $180. Nine counties now have no local news source.', group:2 },
+  { num:'C6', name:'Collaboration &\ncoordination layers', def:'Cross-outlet networks and shared infrastructure enabling journalism across multiple organizations.', revenue_tag:'philanthropy + network', tag_color:'#993556', accent:'#993556', examples:'ICIJ · MuckRock · URL Media · Word In Black · INN', tension:'Most underdeveloped cohort relative to its importance. Survival rate past year two: the key empirical gap.', group:2 },
+  { num:'C7', name:'Worker-owned\nco-ops & collectives', def:'Journalism organizations with worker ownership, born from institutional collapses.', revenue_tag:'subscription', tag_color:'#993C1D', accent:'#993C1D', examples:'Defector · 404 Media · Hell Gate · Aftermath', tension:'Every successful co-op launched with a pre-built audience. Zero documented launches from scratch.', group:3 },
+  { num:'C8', name:'Civic &\ncommunity actors', def:'Libraries, civic intermediaries, immigrant outlets producing journalism as civic function.', revenue_tag:'philanthropy + earned', tag_color:'#5F5E5A', accent:'#5F5E5A', examples:'El Tímpano · City Bureau · Documented NYC · Outlier Media', tension:'El Tímpano Civic Partnerships: $600K earned since 2022. Most innovative non-philanthropic civic revenue model.', group:3 },
+  { num:'C9', name:'B2B & professional\ninformation services', def:'Journalism priced for professional buyers who expense the subscription. Employer is the economic decider.', revenue_tag:'B2B subscription', tag_color:'#042C53', accent:'#042C53', examples:'Industry Dive · Politico Pro · Morning Brew · The Ankler · Stratechery', tension:'Only cohort with no philanthropy dependency and no platform rev-share exposure.', group:3 },
+];
+
+[1,2,3].forEach(g => {
+  const container = document.getElementById('group'+g);
+  if (!container) return;
+  cohorts.filter(c => c.group === g).forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'c-card';
+    card.style.setProperty('--c-accent', c.accent);
+    card.innerHTML = `
+      <div class="c-num">${c.num}</div>
+      <div class="c-name">${c.name.replace('\n','<br>')}</div>
+      <div class="c-def">${c.def}</div>
+      <div class="c-tags"><span class="c-tag" style="background:${c.tag_color}18;color:${c.tag_color}">${c.revenue_tag}</span></div>
+      <div style="font-size:10px;color:#888880;margin-bottom:6px;font-family:'DM Sans',sans-serif;">${c.examples}</div>
+      <div class="c-tension">${c.tension}</div>`;
+    container.appendChild(card);
+  });
+});
+
+// ── FUNDING COLLAPSE CHART ───────────────────────────────────────────────────
+const categories = {
+  'Platform withdrawal':  { color:'#534AB7' },
+  'Government defunding': { color:'#A32D2D' },
+  'Private equity':       { color:'#BA7517' },
+  'Nonprofit failure':    { color:'#5F5E5A' },
+};
+
+const events = [
+  { year:2019, label:'Facebook news\ndeprioritization', cat:'Platform withdrawal', impact:120, note:'Algorithm shifts; referral traffic begins decline' },
+  { year:2021, label:'Alden Global\nbuys Tribune', cat:'Private equity', impact:200, note:'200+ newsrooms; aggressive cost-cutting begins' },
+  { year:2022, label:'Twitter/X\nalgorithm shift', cat:'Platform withdrawal', impact:90, note:'News referral traffic begins steep decline' },
+  { year:2022, label:'Vice Media\nbankruptcy path', cat:'Private equity', impact:150, note:'Digital-native collapse; 2,500 jobs at peak' },
+  { year:2023, label:'BuzzFeed News\nclosed', cat:'Private equity', impact:100, note:'Pulitzer-winning newsroom shut; 180 jobs' },
+  { year:2024, label:'Meta kills\nFacebook News tab', cat:'Platform withdrawal', impact:300, note:'Ends per-publisher payments; referrals at 32% of 2020 peak' },
+  { year:2024, label:'Google AI Overviews\nlaunched', cat:'Platform withdrawal', impact:600, note:'33% decline in search referrals globally; 60% for small publishers' },
+  { year:2024, label:'LA Times\n70% newsroom cuts', cat:'Private equity', impact:120, note:'Patrick Soon-Shiong cuts 115 of 170 newsroom staff' },
+  { year:2025, label:'USAID journalism\nfunding frozen', cat:'Government defunding', impact:271, note:'$271.5M frozen Jan 20; OCCRP lost 52% of budget in one week' },
+  { year:2025, label:'Center for Public\nIntegrity closed', cat:'Nonprofit failure', impact:40, note:'36 years; fell $2.5M short of fundraising goal' },
+  { year:2025, label:'WaPo loses\n$177M (2yr)', cat:'Private equity', impact:177, note:'300 staff cut Feb 2026; billionaire ownership instability' },
+  { year:2026, label:'CPB dissolved', cat:'Government defunding', impact:535, note:'$535M annual appropriation; 9 counties lose only local news source' },
+  { year:2026, label:'VOA / RFE\nshuttered', cat:'Government defunding', impact:350, note:'Voice of America, Radio Free Europe defunded' },
+];
+
+const legendEl = document.getElementById('fc-legend');
+Object.entries(categories).forEach(([cat, c]) => {
+  legendEl.innerHTML += `<div style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border-radius:3px;background:${c.color};display:inline-block;flex-shrink:0;"></span><span>${cat}</span></div>`;
+});
+
+const fcDatasets = Object.entries(categories).map(([cat, c]) => ({
+  label: cat,
+  data: events.filter(e => e.cat === cat).map(e => ({
+    x: e.year + (Math.random() * 0.3 - 0.15),
+    y: e.impact,
+    _e: e,
+  })),
+  backgroundColor: c.color + 'bb',
+  borderColor: c.color,
+  borderWidth: 1.5,
+  pointRadius: events.filter(e=>e.cat===cat).map(e => Math.max(6, Math.sqrt(e.impact)*1.1)),
+  pointHoverRadius: events.filter(e=>e.cat===cat).map(e => Math.max(8, Math.sqrt(e.impact)*1.2)),
+}));
+
+new Chart(document.getElementById('fcChart'), {
+  type: 'bubble',
+  data: { datasets: fcDatasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: ctx => ctx[0].raw._e.label.replace('\n',' '),
+          label: ctx => { const e=ctx.raw._e; return [`Year: ${e.year}`,`Impact: ~$${e.impact}M`,e.note]; }
+        }
+      }
+    },
+    scales: {
+      x: { min:2018.5, max:2026.7, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{stepSize:1,callback:v=>Number.isInteger(v)?v:'',color:'#888880',font:{size:12,family:'DM Sans'}} },
+      y: { min:0, max:750, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{color:'#888880',font:{size:11,family:'DM Sans'},callback:v=>v===0?'':'$'+v+'M'}, title:{display:true,text:'estimated dollar impact',color:'#888880',font:{size:11,family:'DM Sans'}} }
+    }
+  }
+});
+
+// ── SCALE CEILING DOT PLOT ───────────────────────────────────────────────────
+const cohortColors = {
+  'C1 Legacy':'#533DB7','C2 Creator':'#0F6E56','C3 Barbell':'#BA7517',
+  'C4 Philanth.':'#185FA5','C5 Public':'#3d6e0f','C6 Collab.':'#993556',
+  'C7 Co-op':'#993C1D','C8 Civic':'#73726c','C9 B2B':'#042C53',
+};
+
+const orgs = [
+  {name:'Fox Corp',rev:16300,cohort:'C1 Legacy',mech:'Ideological capture'},
+  {name:'TelevisaUnivision',rev:5100,cohort:'C1 Legacy',mech:'Institutional scale'},
+  {name:'NYT',rev:2820,cohort:'C1 Legacy',mech:'Bundle'},
+  {name:'AP',rev:550,cohort:'C1 Legacy',mech:'Cooperative scale'},
+  {name:'ACBJ',rev:305,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Daily Wire',rev:200,cohort:'C1 Legacy',mech:'Ideological capture'},
+  {name:'Morning Brew',rev:70,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Epoch Times',rev:122,cohort:'C1 Legacy',mech:'Ideological capture'},
+  {name:'NPR',rev:325,cohort:'C5 Public',mech:'Org. scaling'},
+  {name:'WNYC',rev:73.9,cohort:'C5 Public',mech:'Org. scaling'},
+  {name:'KQED',rev:45,cohort:'C5 Public',mech:'Org. scaling'},
+  {name:'Industry Dive',rev:100,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Politico Pro',rev:100,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'ProPublica',rev:45,cohort:'C4 Philanth.',mech:'Org. scaling'},
+  {name:'Semafor',rev:40,cohort:'C3 Barbell',mech:'Org. scaling'},
+  {name:'States Newsroom',rev:27.45,cohort:'C4 Philanth.',mech:'Org. scaling'},
+  {name:'The Free Press',rev:20,cohort:'C3 Barbell',mech:'Org. scaling'},
+  {name:'The Ankler',rev:10,cohort:'C9 B2B',mech:'B2B pricing'},
+  {name:'Marshall Project',rev:15.2,cohort:'C4 Philanth.',mech:'Org. scaling'},
+  {name:'The Bulwark',rev:9.5,cohort:'C3 Barbell',band:true},
+  {name:'Capital B',rev:9.4,cohort:'C4 Philanth.',band:true},
+  {name:'Texas Tribune',rev:9,cohort:'C4 Philanth.',band:true},
+  {name:'ICIJ',rev:6.37,cohort:'C6 Collab.',band:true},
+  {name:'Stratechery',rev:5.5,cohort:'C9 B2B',band:true},
+  {name:'The Dispatch',rev:5.5,cohort:'C2 Creator',band:true},
+  {name:'Letters from an American',rev:5,cohort:'C2 Creator',band:true},
+  {name:'Defector (Yr 5)',rev:4.65,cohort:'C7 Co-op',band:true,anchor:true},
+  {name:'Tangle',rev:4.15,cohort:'C2 Creator',band:true},
+  {name:'MuckRock',rev:3.78,cohort:'C6 Collab.',band:true},
+  {name:'Zeteo',rev:3.9,cohort:'C3 Barbell',band:true},
+  {name:'VTDigger',rev:2.82,cohort:'C4 Philanth.'},
+  {name:'Documented NYC',rev:3,cohort:'C8 Civic'},
+  {name:'MinnPost',rev:1.7,cohort:'C4 Philanth.'},
+  {name:'The Intercept',rev:1.55,cohort:'C4 Philanth.'},
+  {name:'Pragmatic Engineer',rev:1.5,cohort:'C9 B2B'},
+  {name:'El Tímpano',rev:2,cohort:'C8 Civic'},
+  {name:'404 Media',rev:1.8,cohort:'C7 Co-op'},
+  {name:'Hell Gate',rev:0.85,cohort:'C7 Co-op'},
+  {name:'Aftermath',rev:0.485,cohort:'C7 Co-op'},
+  {name:'City Bureau',rev:1.1,cohort:'C8 Civic'},
+];
+
+const filterDiv = document.getElementById('filters');
+let activeF = 'all';
+[['all','All organizations'],['band','In-band only'],['mech','Above band (ceiling breakers)']].forEach(([val,label]) => {
+  const btn = document.createElement('button');
+  btn.textContent = label;
+  btn.style.cssText = `font-size:11px;padding:4px 10px;border-radius:4px;border:1px solid #ddddd8;background:${val==='all'?'#1a1a18':'#faf9f5'};color:${val==='all'?'#faf9f5':'#4a4a46'};cursor:pointer;font-family:'DM Sans',sans-serif;`;
+  btn.onclick = () => {
+    activeF = val;
+    document.querySelectorAll('#filters button').forEach(b => { b.style.background='#faf9f5'; b.style.color='#4a4a46'; });
+    btn.style.background = '#1a1a18'; btn.style.color = '#faf9f5';
+    updateScale();
+  };
+  filterDiv.appendChild(btn);
+});
+
+const scaleCtx = document.getElementById('scaleChart').getContext('2d');
+let scaleChart;
+
+function buildScaleChart() {
+  const cohortNames = Object.keys(cohortColors);
+  const datasets = cohortNames.map(name => ({
+    label: name,
+    data: orgs.filter(o => o.cohort === name).map(o => ({ x: cohortNames.indexOf(name) + (Math.random()*0.5-0.25), y: o.rev, _org: o })),
+    backgroundColor: cohortColors[name] + 'bb',
+    borderColor: cohortColors[name],
+    borderWidth: 1, pointRadius: 7, pointHoverRadius: 9,
+  }));
+
+  scaleChart = new Chart(scaleCtx, {
+    type:'scatter',
+    data:{datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false, animation:{duration:300},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>{const o=ctx.raw._org;let s=`${o.name}: $${o.rev>=100?(o.rev/1000).toFixed(1)+'B':o.rev+'M'}`;if(o.mech)s+=` · ${o.mech}`;return s;}}}
+      },
+      scales:{
+        x:{display:false,min:-0.5,max:8.5},
+        y:{type:'logarithmic',min:0.3,max:25000,grid:{color:'rgba(0,0,0,0.06)'},
+          ticks:{color:'#888880',font:{size:11,family:'DM Sans'},callback:v=>{const l={0.5:'$500K',1:'$1M',3.5:'$3.5M',10:'$10M',100:'$100M',1000:'$1B',10000:'$10B'};return l[v]||'';}}}
+      }
+    },
+    plugins:[{
+      id:'bandShading',
+      beforeDraw(chart) {
+        const {ctx,scales:{y,x}} = chart;
+        const top=y.getPixelForValue(10),bot=y.getPixelForValue(3.5);
+        const left=x.getPixelForValue(-0.5),right=x.getPixelForValue(8.5);
+        ctx.save();
+        ctx.fillStyle='rgba(24,95,165,0.08)';
+        ctx.fillRect(left,top,right-left,bot-top);
+        ctx.strokeStyle='rgba(24,95,165,0.3)';
+        ctx.lineWidth=1; ctx.setLineDash([4,3]);
+        ctx.beginPath();ctx.moveTo(left,top);ctx.lineTo(right,top);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(left,bot);ctx.lineTo(right,bot);ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.font='500 11px "DM Sans",sans-serif';
+        ctx.fillStyle='rgba(24,95,165,0.9)'; ctx.textAlign='left';
+        ctx.fillText('convergence band  $3.5M – $10M', left+8, top-6);
+        ctx.restore();
+      }
+    }]
+  });
+
+  const legendEl = document.getElementById('legend');
+  Object.entries(cohortColors).forEach(([name,color]) => {
+    legendEl.innerHTML += `<div style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:${color};display:inline-block;flex-shrink:0;"></span><span>${name}</span></div>`;
+  });
+}
+
+function updateScale() {
+  const filtered = orgs.filter(o => {
+    if (activeF === 'band') return o.rev >= 3.5 && o.rev <= 10;
+    if (activeF === 'mech') return o.rev > 10;
+    return true;
+  });
+  const cohortNames = Object.keys(cohortColors);
+  scaleChart.data.datasets.forEach(ds => {
+    ds.data = filtered.filter(o => o.cohort === ds.label).map(o => ({
+      x: cohortNames.indexOf(ds.label) + (Math.random()*0.5-0.25),
+      y: o.rev, _org: o
+    }));
+  });
+  scaleChart.update();
+}
+
+buildScaleChart();
+</script>
+</body>
+</html>
