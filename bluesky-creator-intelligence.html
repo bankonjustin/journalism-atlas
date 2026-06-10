@@ -12,6 +12,8 @@
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 :root {
@@ -152,10 +154,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .ci-col:last-child { padding-right: 0; text-align: right; }
 .ci-name { font-size: 13px; font-weight: 700; color: #000; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ci-channel { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
-/* TODO-JAMES: Beat badge uses cluster-specific colors from CLUSTERS map.
-   James flagged for review — confirm whether cluster color coding should be
-   preserved or replaced with neutral token. Current treatment is intentional. */
-.ci-beat { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 2px; white-space: nowrap; display: inline-block; }
+.ci-beat { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 2px; white-space: nowrap; display: inline-block; background-color: #efeff2; color: #313131; border: 1px solid #bdbdbd; }
 .ci-platform { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.06em; display: inline-block; }
 .ci-platform.cross { background: rgba(151,214,0,0.1); border-color: rgba(151,214,0,0.4); color: var(--olive); margin-left: 4px; }
 .ci-bsky { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -290,6 +289,19 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 </div>
 
+<!-- ── SECTION 01: CLUSTER MAP ────────────────────────────── -->
+<section class="section" id="clusters">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Beat Cluster Map</h2>
+    <span class="section-meta" id="cluster-meta">14 communities · 671 creators</span>
+  </div>
+  <p class="section-subtitle">14 editorial communities mapped across Bluesky. Click any cluster to filter the index.</p>
+  <div class="cluster-grid" id="cluster-grid">
+    <!-- rendered by JS -->
+  </div>
+</section>
+
 <!-- ── INTERSTITIAL BRIDGE ─────────────────────────────────── -->
 <div class="index-bridge">
   <div class="bridge-intro">Built for three audiences — each use case is live and queryable today</div>
@@ -311,19 +323,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     </div>
   </div>
 </div>
-
-<!-- ── SECTION 01: CLUSTER MAP ────────────────────────────── -->
-<section class="section" id="clusters">
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Beat Cluster Map</h2>
-    <span class="section-meta" id="cluster-meta">14 communities · 671 creators</span>
-  </div>
-  <p class="section-subtitle">14 editorial communities mapped across Bluesky. Click any cluster to filter the index.</p>
-  <div class="cluster-grid" id="cluster-grid">
-    <!-- rendered by JS -->
-  </div>
-</section>
 
 <!-- ── SECTION 02: CREATOR INDEX ──────────────────────────── -->
 <section class="section" id="index">
@@ -811,7 +810,7 @@ function renderList(creators) {
         <div class="ci-channel">${c.channel || ''}</div>
       </div>
       <div class="ci-col">
-        <span class="ci-beat" style="background:${beatColor}18;color:${beatColor};">${beat}</span>
+        <span class="ci-beat">${beat}</span>
       </div>
       <div class="ci-col">
         <span class="ci-platform">${platformLabel}</span>
