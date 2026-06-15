@@ -2123,7 +2123,7 @@ function renderIntel() {
 
   if (notable.length) {
     html += `<div class="intel-section-eyebrow">Notable Activity</div>`;
-    notable.forEach(n => { html += `<div class="intel-bullet">${esc(n)}</div>`; });
+    notable.forEach(n => { const txt = typeof n === "string" ? n : (n.description || ""); html += `<div class="intel-bullet">${esc(txt)}</div>`; });
   }
 
   const el = document.getElementById('intel-content');
