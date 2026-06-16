@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Digital Commons — Team DMV</title>
+<meta name="description" content="The definitive index of DC, Maryland, and Virginia digital communities, news outlets, maps, trails, civic tools, culture, and local resources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dc-red:       #C8102E;
+  --dc-white:     #FFFFFF;
+  --dc-black:     #1A1A1A;
+  --md-gold:      #E8A020;
+  --va-navy:      #1B2A4A;
+  --surface-0:    #FFFFFF;
+  --surface-1:    #F8F5F0;
+  --surface-2:    #F0EBE1;
+  --surface-dark: #0F1A2E;
+  --text-primary:   #1A1A1A;
+  --text-secondary: #5A5A5A;
+  --text-muted:     #8A8A8A;
+  --text-inverse:   #FFFFFF;
+  --border-light: #E8E2DA;
+  --border-mid:   #D0C8BC;
+  --ff-serif: 'Playfair Display', Georgia, serif;
+  --ff-sans:  'Inter', system-ui, sans-serif;
+  --ff-mono:  'DM Mono', monospace;
+  --nav-height: 56px;
+  --suggest-bar-height: 44px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--ff-sans);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  line-height: 1.5;
+  padding-bottom: var(--suggest-bar-height);
+}
+
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ── NAV ── */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--nav-height);
+  background: var(--surface-dark);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; padding: 0 24px; gap: 16px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-inverse);
+}
+.nav-brand .mark { width: 28px; height: 28px; color: var(--md-gold); }
+.nav-wordmark {
+  font-family: var(--ff-serif); font-size: 1.05rem; font-weight: 700;
+  letter-spacing: 0.02em; color: var(--text-inverse);
+}
+.nav-links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.nav-links a {
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em;
+  text-transform: uppercase; color: rgba(255,255,255,0.6);
+  text-decoration: none; padding: 6px 12px; border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+.nav-links a:hover { color: var(--text-inverse); background: rgba(255,255,255,0.08); }
+.nav-links a.active { color: var(--md-gold); }
+.nav-cta { background: var(--dc-red) !important; color: var(--text-inverse) !important; padding: 6px 16px !important; border-radius: 20px !important; }
+.nav-cta:hover { background: #a80d25 !important; }
+@media (max-width: 680px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+/* ── HERO ── */
+.hero {
+  height: 46vh; min-height: 340px;
+  background: var(--surface-dark);
+  position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(232,160,32,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(232,160,32,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.hero-content { position: relative; z-index: 1; text-align: center; max-width: 680px; padding: 0 24px; }
+.hero-mark { width: 48px; height: 48px; color: var(--md-gold); margin: 0 auto 18px; display: block; }
+.hero-eyebrow { font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--md-gold); margin-bottom: 12px; }
+.hero h1 { font-family: var(--ff-serif); font-size: clamp(2rem, 5.5vw, 3.4rem); font-weight: 900; color: var(--text-inverse); line-height: 1.1; margin-bottom: 14px; }
+.hero h1 span { color: var(--dc-red); }
+.hero-sub { font-size: 0.98rem; color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto; }
+
+/* ── STAT BAND ── */
+.stat-band { background: var(--va-navy); padding: 24px; }
+.stat-band-inner { max-width: 860px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 8px; }
+.stat-item { text-align: center; padding: 8px 16px; }
+.stat-number { font-family: var(--ff-serif); font-size: 2rem; font-weight: 900; color: var(--md-gold); display: block; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+
+/* ── COMMONS CONTROLS (sticky) ── */
+.commons-controls {
+  position: sticky; top: var(--nav-height); z-index: 80;
+  background: var(--surface-0); border-bottom: 1px solid var(--border-light);
+  padding: 12px 0 0;
+}
+.commons-controls-inner { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+.commons-search-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.commons-search-wrap { position: relative; flex: 1; max-width: 340px; }
+.commons-search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 15px; height: 15px; pointer-events: none; }
+#commons-search {
+  width: 100%; padding: 8px 12px 8px 32px;
+  border: 1px solid var(--border-mid); border-radius: 20px;
+  font-family: var(--ff-sans); font-size: 0.82rem;
+  background: var(--surface-1); color: var(--text-primary);
+  outline: none; transition: border-color 0.15s;
+}
+#commons-search:focus { border-color: var(--va-navy); }
+#commons-total { font-size: 0.78rem; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
+.vector-filters {
+  display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto;
+  padding-bottom: 10px; scrollbar-width: none;
+}
+.vector-filters::-webkit-scrollbar { display: none; }
+.vector-btn {
+  flex-shrink: 0; padding: 5px 14px; border-radius: 14px;
+  border: 1px solid var(--border-mid); background: transparent;
+  font-family: var(--ff-sans); font-size: 0.74rem; font-weight: 500;
+  color: var(--text-secondary); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.vector-btn:hover { border-color: var(--va-navy); color: var(--va-navy); }
+.vector-btn.active { background: var(--va-navy); border-color: var(--va-navy); color: white; }
+
+/* ── COMMONS BODY ── */
+.commons-body { max-width: 1140px; margin: 0 auto; padding: 36px 24px 64px; }
+
+/* ── RESOURCE GROUPS ── */
+.resource-section { margin-bottom: 52px; }
+.vector-group-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light);
+}
+.vector-group-label {
+  font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.vector-group-count {
+  font-family: var(--ff-mono); font-size: 0.62rem; color: var(--md-gold);
+  background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.25);
+  padding: 1px 7px; border-radius: 8px; margin-left: auto;
+}
+.resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+
+/* ── RESOURCE CARD ── */
+.resource-card {
+  background: var(--surface-0); border: 1px solid var(--border-light);
+  border-radius: var(--radius-md); padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  text-decoration: none; color: inherit; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.resource-card:hover { border-color: var(--va-navy); box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.resource-card.archived { opacity: 0.7; }
+.resource-card.hidden { display: none; }
+.rc-icon {
+  width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+  background: var(--surface-2); display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.rc-icon img { width: 20px; height: 20px; display: block; }
+.rc-body { flex: 1; min-width: 0; }
+.rc-name { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; line-height: 1.3; }
+.rc-desc { font-size: 0.76rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 6px; }
+.rc-size { font-family: var(--ff-mono); font-size: 0.64rem; color: var(--md-gold); display: block; margin-bottom: 6px; }
+.rc-footer { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.rc-tag { font-size: 0.62rem; font-weight: 500; color: var(--text-secondary); background: var(--surface-2); padding: 2px 7px; border-radius: 8px; }
+.geo-badge { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 8px; margin-left: auto; flex-shrink: 0; }
+.geo-dc { background: rgba(200,16,46,0.08); color: var(--dc-red); }
+.geo-md { background: rgba(232,160,32,0.1); color: #8a5e00; }
+.geo-va { background: rgba(27,42,74,0.08); color: var(--va-navy); }
+.geo-dmv { background: rgba(27,42,74,0.05); color: var(--text-muted); border: 1px solid var(--border-light); }
+.archived-badge { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); background: var(--surface-2); padding: 1px 6px; border-radius: 6px; margin-left: 6px; vertical-align: middle; }
+
+/* ── COMMUNITIES SECTION ── */
+.communities-divider {
+  margin: 0 0 40px;
+  border: none; border-top: 2px solid var(--border-light);
+  position: relative;
+}
+.communities-divider::before {
+  content: 'ONLINE COMMUNITIES';
+  position: absolute; top: -10px; left: 0;
+  font-family: var(--ff-mono); font-size: 0.62rem; letter-spacing: 0.2em;
+  color: var(--text-muted); background: var(--surface-1); padding-right: 12px;
+}
+.commons-group { margin-bottom: 40px; }
+.commons-group-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-light); }
+.commons-group-title { font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.commons-group-count { font-family: var(--ff-mono); font-size: 0.62rem; color: var(--md-gold); background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.25); padding: 1px 7px; border-radius: 8px; margin-left: auto; }
+.commons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 10px; }
+.commons-card {
+  background: var(--surface-0); border: 1px solid var(--border-light);
+  border-radius: var(--radius-md); padding: 13px 14px;
+  display: flex; align-items: flex-start; gap: 11px;
+  text-decoration: none; color: inherit; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.commons-card:hover { border-color: var(--va-navy); box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
+.commons-card.hidden { display: none; }
+.commons-group.all-hidden { display: none; }
+.commons-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem; font-weight: 700; color: white; }
+.commons-icon.reddit { background: #FF4500; }
+.commons-icon.newsletter { background: var(--va-navy); }
+.commons-icon.facebook { background: #1877F2; }
+.commons-icon.forum { background: var(--surface-2); color: var(--va-navy); }
+.commons-icon.listserv { background: var(--surface-2); color: var(--va-navy); }
+.commons-icon.discord { background: #5865F2; }
+.commons-icon.slack { background: #4A154B; }
+.commons-icon.nextdoor { background: #00B246; }
+.commons-icon.instagram { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); }
+.commons-icon.yelp { background: #D32323; }
+.commons-icon.patch { background: #2D6A4F; }
+.commons-icon.podcast { background: #8940FA; }
+.commons-icon.youtube { background: #FF0000; }
+.commons-icon.substack { background: #FF6719; }
+.commons-icon.blog { background: #3B5BDB; }
+.commons-icon.civic { background: #2C4A6E; }
+.commons-icon.arts { background: #9C4221; }
+.commons-icon.sports { background: #087F5B; }
+.commons-icon.realestate { background: #495057; }
+.commons-icon.food { background: #E67700; }
+.commons-icon.lgbtq { background: linear-gradient(135deg,#e40303,#ff8c00,#ffed00,#008026,#004dff,#750787); }
+.commons-icon.black { background: #1A1A1A; }
+.commons-icon.latino { background: #2D6A4F; }
+.commons-icon.asian { background: #C92A2A; }
+.commons-icon.education { background: #1864AB; }
+.commons-icon.outdoors { background: #2F6B2F; }
+.commons-name { font-size: 0.86rem; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+.commons-desc { font-size: 0.74rem; color: var(--text-secondary); line-height: 1.4; }
+.commons-size { font-family: var(--ff-mono); font-size: 0.62rem; color: var(--md-gold); margin-top: 4px; display: block; }
+
+/* ── EMPTY STATE ── */
+#commons-empty { display: none; text-align: center; padding: 64px 24px; color: var(--text-muted); grid-column: 1/-1; }
+#commons-empty h3 { font-family: var(--ff-serif); font-size: 1.2rem; margin-bottom: 8px; color: var(--text-secondary); }
+
+/* ── SUGGEST BAR ── */
+.suggest-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+  height: var(--suggest-bar-height);
+  background: var(--va-navy); display: flex; align-items: center; justify-content: center;
+  gap: 12px;
+}
+.suggest-bar-text { font-size: 0.8rem; color: rgba(255,255,255,0.65); }
+.suggest-bar a {
+  font-size: 0.8rem; font-weight: 600; color: var(--md-gold);
+  text-decoration: none; border: 1px solid rgba(232,160,32,0.4); padding: 4px 14px;
+  border-radius: 12px; transition: background 0.15s, border-color 0.15s;
+}
+.suggest-bar a:hover { background: rgba(232,160,32,0.12); border-color: var(--md-gold); }
+
+/* ── GATE ── */
+#gate-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--surface-dark);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+#gate-overlay.hidden { display: none; }
+.gate-box {
+  background: #ffffff; border-radius: 16px;
+  padding: 48px 40px; max-width: 420px; width: 100%;
+  text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+}
+.gate-mark { width: 48px; height: 48px; color: var(--dc-red); margin: 0 auto 24px; display: block; }
+.gate-title { font-family: var(--ff-serif); font-size: 1.6rem; font-weight: 700; color: var(--dc-black); margin-bottom: 6px; }
+.gate-subtitle { font-family: var(--ff-sans); font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.5; }
+#gate-input {
+  width: 100%; box-sizing: border-box; padding: 14px 18px; border-radius: 10px; margin-bottom: 14px;
+  border: 1.5px solid var(--border-mid); font-family: var(--ff-mono);
+  font-size: 1rem; letter-spacing: 0.12em; text-align: center;
+  color: var(--dc-black); background: var(--surface-1);
+  outline: none; transition: border-color 0.2s; display: block;
+}
+#gate-input:focus { border-color: var(--va-navy); }
+#gate-input.error { border-color: var(--dc-red); animation: gate-shake 0.3s ease; }
+@keyframes gate-shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+#gate-btn {
+  width: 100%; padding: 14px; border-radius: 10px;
+  background: var(--va-navy); color: white; border: none;
+  font-family: var(--ff-sans); font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+#gate-btn:hover { background: var(--dc-red); }
+.gate-error { font-family: var(--ff-sans); font-size: 0.8rem; color: var(--dc-red); margin-top: 10px; min-height: 18px; }
+.gate-footer { font-family: var(--ff-sans); font-size: 0.72rem; color: var(--text-muted); margin-top: 28px; }
+
+@media (max-width: 600px) {
+  .resource-grid, .commons-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.9rem; }
+  .stat-number { font-size: 1.6rem; }
+  .gate-box { padding: 36px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate-overlay">
+  <div class="gate-box">
+    <svg class="gate-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <polygon points="24,2 27,20 24,18 21,20" fill="currentColor"/>
+      <polygon points="24,46 27,28 24,30 21,28" fill="currentColor"/>
+      <polygon points="2,24 20,21 18,24 20,27" fill="currentColor"/>
+      <polygon points="46,24 28,21 30,24 28,27" fill="currentColor"/>
+      <polygon points="24,8 30,18 24,14 18,18" fill="currentColor" opacity="0.6"/>
+      <polygon points="24,40 30,30 24,34 18,30" fill="currentColor" opacity="0.6"/>
+      <polygon points="8,24 18,18 14,24 18,30" fill="currentColor" opacity="0.6"/>
+      <polygon points="40,24 30,18 34,24 30,30" fill="currentColor" opacity="0.6"/>
+      <circle cx="24" cy="24" r="4" fill="currentColor"/>
+    </svg>
+    <div class="gate-title">DC Digital Commons</div>
+    <div class="gate-subtitle">Team DMV &mdash; Sponsor Access<br>Enter your access code to continue.</div>
+    <input type="password" id="gate-input" placeholder="Access code" autocomplete="off" autocapitalize="none" spellcheck="false">
+    <button id="gate-btn">Enter &rarr;</button>
+    <div class="gate-error" id="gate-error"></div>
+    <div class="gate-footer">Team DMV &middot; Washington DC &middot; Journalism Atlas</div>
+  </div>
+</div>
+
+<!-- SVG DEFS -->
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <symbol id="dmv-mark" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <polygon points="24,2 27,20 24,18 21,20" fill="currentColor"/>
+      <polygon points="24,46 27,28 24,30 21,28" fill="currentColor"/>
+      <polygon points="2,24 20,21 18,24 20,27" fill="currentColor"/>
+      <polygon points="46,24 28,21 30,24 28,27" fill="currentColor"/>
+      <polygon points="38,10 28,22 26,20" fill="currentColor" opacity="0.6"/>
+      <polygon points="10,10 22,22 20,20" fill="currentColor" opacity="0.6"/>
+      <polygon points="38,38 26,26 28,24" fill="currentColor" opacity="0.6"/>
+      <polygon points="10,38 22,26 20,28" fill="currentColor" opacity="0.6"/>
+      <circle cx="24" cy="24" r="4" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="site-nav" role="navigation">
+  <a href="team-dmv.html" class="nav-brand">
+    <svg class="mark" aria-hidden="true"><use href="#dmv-mark"/></svg>
+    <span class="nav-wordmark">Team DMV</span>
+  </a>
+  <div class="nav-links">
+    <a href="team-dmv.html#featured">Creators</a>
+    <a href="commons.html" class="active">Commons</a>
+    <a href="news.html">News</a>
+    <a href="team-dmv.html#sponsor" class="nav-cta">Partner with us</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <svg class="hero-mark" aria-hidden="true"><use href="#dmv-mark"/></svg>
+    <div class="hero-eyebrow">Team DMV &mdash; Washington DC Metro</div>
+    <h1>DC Digital <span>Commons</span></h1>
+    <p class="hero-sub">The definitive index of DMV communities, news, trails, civic tools, and local resources &mdash; curated for the people who live here.</p>
+  </div>
+</section>
+
+<!-- STAT BAND -->
+<div class="stat-band">
+  <div class="stat-band-inner">
+    <div class="stat-item">
+      <span class="stat-number">628</span>
+      <span class="stat-label">Total Resources</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">9</span>
+      <span class="stat-label">Resource Vectors</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">500+</span>
+      <span class="stat-label">Online Communities</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">DC&nbsp;·&nbsp;MD&nbsp;·&nbsp;VA</span>
+      <span class="stat-label">Coverage</span>
+    </div>
+  </div>
+</div>
+
+<!-- COMMONS CONTROLS -->
+<div class="commons-controls">
+  <div class="commons-controls-inner">
+    <div class="commons-search-row">
+      <div class="commons-search-wrap">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
+        <input type="search" id="commons-search" placeholder="Search resources and communities…" autocomplete="off">
+      </div>
+      <span id="commons-total">627 entries</span>
+    </div>
+    <div class="vector-filters" role="tablist">
+      <button class="vector-btn active" data-vector="all">All</button>
+      <button class="vector-btn" data-vector="news">News &amp; Journalism</button>
+      <button class="vector-btn" data-vector="maps">Maps &amp; Trails</button>
+      <button class="vector-btn" data-vector="activity">Activity</button>
+      <button class="vector-btn" data-vector="civic">Civic &amp; Gov</button>
+      <button class="vector-btn" data-vector="culture">Culture</button>
+      <button class="vector-btn" data-vector="service">Service</button>
+      <button class="vector-btn" data-vector="hyperlocal">Hyperlocal</button>
+      <button class="vector-btn" data-vector="commerce">Commerce</button>
+      <button class="vector-btn" data-vector="events">Events</button>
+      <button class="vector-btn" data-vector="community">Communities</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="commons-body">
+  <div id="resources-section"></div>
+  <div id="communities-section"></div>
+  <div id="commons-empty">
+    <h3>No results</h3>
+    <p>Try a different search term or filter.</p>
+  </div>
+</div>
+
+<!-- SUGGEST BAR -->
+<div class="suggest-bar">
+  <span class="suggest-bar-text">Know something we're missing?</span>
+  <a href="mailto:justin@journalismatlas.com?subject=DC%20Digital%20Commons%20Suggestion">Suggest a resource &rarr;</a>
+</div>
+
+<script>
+/* ── GATE ── */
+(function() {
+  var PASS = 'mambo';
+  var KEY  = 'tdmv_auth';
+  var overlay = document.getElementById('gate-overlay');
+  var input   = document.getElementById('gate-input');
+  var btn     = document.getElementById('gate-btn');
+  var errEl   = document.getElementById('gate-error');
+  if (sessionStorage.getItem(KEY) === '1') { overlay.classList.add('hidden'); return; }
+  function attempt() {
+    if (input.value.trim().toLowerCase() === PASS) {
+      sessionStorage.setItem(KEY, '1');
+      overlay.classList.add('hidden');
+    } else {
+      errEl.textContent = 'Incorrect access code. Try again.';
+      input.classList.add('error');
+      input.value = '';
+      setTimeout(function() { input.classList.remove('error'); }, 400);
+      input.focus();
+    }
+  }
+  btn.addEventListener('click', attempt);
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') attempt(); });
+  input.focus();
+})();
+</script>
+
+<script>
+/* ── DATA: 9 RESOURCE VECTORS ── */
+
+const JOURNALISM = [
+  { name: 'The 51st', desc: 'Worker-owned nonprofit newsroom launched in 2024 by former DCist journalists after WAMU shut down the site. Covers DC politics, housing, and community life with a reader-funded model.', url: 'https://51st.news', favicon: 'https://www.google.com/s2/favicons?domain=51st.news&sz=32', tags: ['local news', 'nonprofit', 'worker-owned'], geo: 'DC', archived: false, rssUrl: 'https://51st.news/feed', type: 'hyperlocal', beats: ['DC government', 'housing', 'community', 'politics'], status: 'active' },
+  { name: 'Greater Greater Washington', desc: "The DMV's leading urbanist blog and advocacy organization covering transit, housing policy, land use, and walkability across DC, Maryland, and Virginia.", url: 'https://ggwash.org', favicon: 'https://www.google.com/s2/favicons?domain=ggwash.org&sz=32', tags: ['urban planning', 'transit', 'housing'], geo: 'DMV', archived: false, rssUrl: 'https://ggwash.org/feed', type: 'blog', status: 'active' },
+  { name: '730DC', desc: 'Weekday morning newsletter delivered at 7:30 a.m. with curated DC news, events, and links. Essential daily briefing for civic-minded Washingtonians.', url: 'https://www.730dc.com', favicon: 'https://www.google.com/s2/favicons?domain=730dc.com&sz=32', tags: ['newsletter', 'daily briefing', 'events'], geo: 'DC', archived: false, type: 'newsletter', status: 'active' },
+  { name: 'The DC Line', desc: 'Nonprofit outlet publishing in-depth local public affairs journalism on DC government, education, courts, and politics. Runs the daily District Links newsletter.', url: 'https://thedcline.org', favicon: 'https://www.google.com/s2/favicons?domain=thedcline.org&sz=32', tags: ['nonprofit', 'DC government', 'politics'], geo: 'DC', archived: false, rssUrl: 'https://thedcline.org/feed', type: 'hyperlocal', status: 'active' },
+  { name: 'Street Sense Media', desc: 'DC-based nonprofit media organization that trains and employs people experiencing homelessness as street vendors and journalists. Covers housing insecurity from the community it serves.', url: 'https://streetsensemedia.org', favicon: 'https://www.google.com/s2/favicons?domain=streetsensemedia.org&sz=32', tags: ['nonprofit', 'homelessness', 'community journalism'], geo: 'DC', archived: false, type: 'hyperlocal', status: 'active' },
+  { name: 'Axios DC', desc: 'Local edition of Axios covering DC politics, business, real estate, and city policy through short, smart daily newsletters. Strong on local economic and government data.', url: 'https://www.axios.com/local/washington-dc', favicon: 'https://www.google.com/s2/favicons?domain=axios.com&sz=32', tags: ['newsletter', 'business', 'politics'], geo: 'DC', archived: false, type: 'newsletter', status: 'active' },
+  { name: 'Washington City Paper', desc: "DC's alt-weekly turned online-only member-supported publication covering local politics, arts, food, sports, and culture. District Line Daily newsletter is widely read by DC journalists.", url: 'https://washingtoncitypaper.com', favicon: 'https://www.google.com/s2/favicons?domain=washingtoncitypaper.com&sz=32', tags: ['alt-weekly', 'arts', 'food', 'culture'], geo: 'DC', archived: false, rssUrl: 'https://washingtoncitypaper.com/feed', type: 'newspaper', status: 'active' },
+  { name: 'Washingtonian', desc: "DC's flagship city magazine known for Top Doctors, 100 Very Best Restaurants, and coverage of power, culture, and lifestyle across the DMV.", url: 'https://washingtonian.com', favicon: 'https://www.google.com/s2/favicons?domain=washingtonian.com&sz=32', tags: ['magazine', 'lifestyle', 'food', 'culture'], geo: 'DMV', archived: false, type: 'newspaper', status: 'active' },
+  { name: 'Washington Informer', desc: "Black woman-owned weekly newspaper serving DC's African American community for over 60 years. Covers civil rights, politics, education, and community affairs largely absent from mainstream outlets.", url: 'https://washingtoninformer.com', size: '50,000+ print readers', favicon: 'https://www.google.com/s2/favicons?domain=washingtoninformer.com&sz=32', tags: ['Black community', 'local politics', 'education'], geo: 'DC', archived: false, type: 'newspaper', status: 'active' },
+  { name: 'El Tiempo Latino', desc: "Spanish-language local news serving the DMV's large Latino population since 1991, covering immigration, community affairs, and local news largely ignored by English-language media.", url: 'https://eltiempolatino.com', favicon: 'https://www.google.com/s2/favicons?domain=eltiempolatino.com&sz=32', tags: ['Latino', 'Spanish-language', 'immigration'], geo: 'DMV', archived: false, type: 'newspaper', status: 'active' },
+  { name: 'WTOP News', desc: 'Dominant radio and digital news outlet for daily breaking news, traffic, and weather. One of the most-listened-to news stations in the US with massive commuter reach across the DMV.', url: 'https://wtop.com', favicon: 'https://www.google.com/s2/favicons?domain=wtop.com&sz=32', tags: ['radio', 'breaking news', 'traffic'], geo: 'DMV', archived: false, type: 'broadcast', status: 'active' },
+  { name: 'Federal News Network', desc: 'The only outlet consistently covering the 2 million-plus federal employee audience — more relevant than ever with DOGE layoffs and agency reshuffling in 2025–26.', url: 'https://federalnewsnetwork.com', favicon: 'https://www.google.com/s2/favicons?domain=federalnewsnetwork.com&sz=32', tags: ['federal workforce', 'government contracting', 'DOGE'], geo: 'DMV', archived: false, type: 'broadcast', status: 'active' },
+  { name: 'Washington Business Journal', desc: 'Essential read for the professional and executive class, with heavy coverage of real estate, government contracting, tech, and healthcare across the DC metro market.', url: 'https://www.bizjournals.com/washington', favicon: 'https://www.google.com/s2/favicons?domain=bizjournals.com&sz=32', tags: ['business', 'real estate', 'government contracting'], geo: 'DMV', archived: false, type: 'newspaper', status: 'active' },
+  { name: 'Baltimore Banner — PG County', desc: "The Baltimore Banner expanded into Prince George's County coverage in 2024, bringing investigative journalism to Maryland's largest and most underserved county.", url: 'https://www.thebaltimorebanner.com/community/prince-georges-county/', favicon: 'https://www.google.com/s2/favicons?domain=thebaltimorebanner.com&sz=32', tags: ["Prince George's County", 'investigative', 'Maryland'], geo: 'Maryland', archived: false, type: 'hyperlocal', status: 'active' },
+  { name: 'Maryland Matters', desc: 'Nonpartisan digital newsroom focused entirely on Maryland state government, politics, and policy — the go-to for following Annapolis legislation and state agency news.', url: 'https://marylandmatters.org', favicon: 'https://www.google.com/s2/favicons?domain=marylandmatters.org&sz=32', tags: ['Maryland', 'state government', 'policy'], geo: 'Maryland', archived: false, type: 'hyperlocal', status: 'active' },
+  { name: 'Bethesda Magazine', desc: "Local lifestyle and news publication covering Bethesda, Chevy Chase, and Montgomery County's most affluent suburbs — strong on real estate, dining, and local politics.", url: 'https://bethesdamagazine.com', favicon: 'https://www.google.com/s2/favicons?domain=bethesdamagazine.com&sz=32', tags: ['Montgomery County', 'lifestyle', 'real estate'], geo: 'Maryland', archived: false, type: 'newspaper', status: 'active' },
+  { name: 'DCist (archived)', desc: 'Beloved local news site covering DC life, culture, and government — founded 2004, revived by WAMU in 2018, then shut down again in February 2024. Archives remain accessible.', url: 'https://dcist.com', favicon: 'https://www.google.com/s2/favicons?domain=dcist.com&sz=32', tags: ['local news', 'DC', 'archived'], geo: 'DC', archived: true, type: 'archived', status: 'archived' },
+  { name: 'WAMU 88.5', desc: "DC's NPR affiliate covering national politics, policy, and culture — though the 2024 shutdown of DCist raised questions about its local journalism commitment.", url: 'https://wamu.org', favicon: 'https://www.google.com/s2/favicons?domain=wamu.org&sz=32', tags: ['NPR', 'public radio', 'national politics'], geo: 'DC', archived: false, type: 'broadcast', status: 'active' },
+];
+
+const MAPS = [
+  { name: 'AllTrails — Washington DC', desc: "AllTrails' curated collection of trails in and around DC — from Mall walking routes to Rock Creek Park loops, with reviews, photos, difficulty ratings, and offline maps.", url: 'https://www.alltrails.com/us/washington-dc', favicon: 'https://www.google.com/s2/favicons?domain=alltrails.com&sz=32', tags: ['trails', 'hiking', 'maps', 'outdoors'], geo: 'DMV', archived: false },
+  { name: 'C&O Canal Towpath — AllTrails', desc: 'The classic 184.5-mile towpath from Georgetown to Cumberland, MD. The DC segment is a flat, tree-lined escape — and the Carderock stretch is a local weekend favorite.', url: 'https://www.alltrails.com/trail/us/washington-dc/c-o-canal-towpath-trail', size: '184+ community reviews', favicon: 'https://www.google.com/s2/favicons?domain=alltrails.com&sz=32', tags: ['hiking', 'biking', 'trail', 'towpath'], geo: 'DMV', archived: false },
+  { name: 'Capital Crescent Trail — AllTrails', desc: 'Paved, mostly flat 7-mile trail from Georgetown to Bethesda — the go-to for runners and cyclists connecting to Rock Creek Trail and the Georgetown Branch.', url: 'https://www.alltrails.com/trail/us/maryland/capital-crescent-trail', size: '1,908 reviews', favicon: 'https://www.google.com/s2/favicons?domain=alltrails.com&sz=32', tags: ['biking', 'running', 'paved', 'trail'], geo: 'DMV', archived: false },
+  { name: 'Mount Vernon Trail — AllTrails', desc: 'Scenic 18-mile paved trail along the Virginia side of the Potomac from Theodore Roosevelt Island to Mount Vernon, with great views of DC and the monuments the entire way.', url: 'https://www.alltrails.com/trail/us/virginia/mount-vernon-trail', size: '1,322 reviews', favicon: 'https://www.google.com/s2/favicons?domain=alltrails.com&sz=32', tags: ['biking', 'running', 'paved', 'trail'], geo: 'Virginia', archived: false },
+  { name: 'W&OD Trail — AllTrails', desc: 'The 45-mile Washington & Old Dominion rail trail runs from Arlington to Purcellville, VA — the longest paved trail in Northern Virginia and a commuter/recreational staple.', url: 'https://www.alltrails.com/trail/us/virginia/washington-and-old-dominion-trail--3', size: '612 reviews', favicon: 'https://www.google.com/s2/favicons?domain=alltrails.com&sz=32', tags: ['biking', 'running', 'rail trail', 'Virginia'], geo: 'Virginia', archived: false },
+  { name: 'Theodore Roosevelt Island — AllTrails', desc: 'A 91-acre wooded island in the middle of the Potomac accessible only by footbridge from Virginia — surprisingly wild-feeling for something five minutes from the GW Parkway.', url: 'https://www.alltrails.com/trail/us/virginia/theodore-roosevelt-island-loop', favicon: 'https://www.google.com/s2/favicons?domain=alltrails.com&sz=32', tags: ['hiking', 'nature', 'island', 'Potomac'], geo: 'Virginia', archived: false },
+  { name: 'Komoot — Washington DC Routes', desc: "Komoot's route guide for hiking and cycling in the DC area, with 228+ community-mapped trails, turn-by-turn navigation, and difficulty ratings for everything from Rock Creek to longer regional hikes.", url: 'https://www.komoot.com/guide/1972785/hiking-around-washington-d-c', favicon: 'https://www.google.com/s2/favicons?domain=komoot.com&sz=32', tags: ['hiking', 'cycling', 'routes', 'maps'], geo: 'DMV', archived: false },
+  { name: 'WABA Strava Club', desc: "The Washington Area Bicyclist Association's Strava club for DMV cyclists — connect with the regional cycling community, find group rides, and log your commute with other DC-area riders.", url: 'https://www.strava.com/clubs/wabadc', favicon: 'https://www.google.com/s2/favicons?domain=strava.com&sz=32', tags: ['cycling', 'strava', 'biking', 'community'], geo: 'DMV', archived: false },
+  { name: 'WMATA Metro System Map', desc: "The official interactive Metro system map showing all six lines, station locations, and connections — essential for planning any trip across the DC region's rail network.", url: 'https://www.wmata.com/schedules/maps/', favicon: 'https://www.google.com/s2/favicons?domain=wmata.com&sz=32', tags: ['metro', 'transit', 'rail', 'WMATA'], geo: 'DMV', archived: false },
+  { name: 'Capital Bikeshare Station Map', desc: "Live map of all Capital Bikeshare docking stations and e-bike availability across DC, Arlington, Alexandria, and Montgomery County — the region's shared micromobility backbone.", url: 'https://capitalbikeshare.com/map', favicon: 'https://www.google.com/s2/favicons?domain=capitalbikeshare.com&sz=32', tags: ['biking', 'bikeshare', 'micromobility', 'transit'], geo: 'DMV', archived: false },
+  { name: 'DC DDOT Bike Map', desc: "Official PDF bike lane and trail map for the District, showing protected lanes, sharrows, and off-street trails across all eight wards — print-worthy for new DC cyclists.", url: 'https://ddot.dc.gov/page/bicycle-maps', favicon: 'https://www.google.com/s2/favicons?domain=ddot.dc.gov&sz=32', tags: ['biking', 'bike lanes', 'cycling', 'government'], geo: 'DC', archived: false },
+  { name: 'Eater DC Heat Map', desc: "Eater DC's continuously updated map of the best new restaurants in Washington, organized by neighborhood — the fastest way to find where the city's food scene is moving.", url: 'https://dc.eater.com/maps/best-new-restaurants-heatmap', favicon: 'https://www.google.com/s2/favicons?domain=dc.eater.com&sz=32', tags: ['restaurants', 'food', 'dining', 'new openings'], geo: 'DC', archived: false },
+  { name: 'The Infatuation DC', desc: "The Infatuation's Washington DC guide with restaurant reviews, neighborhood breakdowns, and curated lists — one of the more trusted dining resources for finding what's actually good.", url: 'https://www.theinfatuation.com/washington-dc', favicon: 'https://www.google.com/s2/favicons?domain=theinfatuation.com&sz=32', tags: ['food', 'restaurants', 'guide', 'dining'], geo: 'DC', archived: false },
+  { name: 'DC Ward Map (Official)', desc: "Official map showing DC's eight council wards with precinct-level detail — useful for looking up your ward, ANC, and councilmember before any local election or meeting.", url: 'https://planning.dc.gov/page/ward-maps', favicon: 'https://www.google.com/s2/favicons?domain=planning.dc.gov&sz=32', tags: ['government', 'wards', 'civic', 'elections'], geo: 'DC', archived: false },
+  { name: 'OpenDC — DC Open Data Portal', desc: "The District's official open data platform with hundreds of datasets — crime incidents, permits, school performance, parks — downloadable or viewable as interactive maps.", url: 'https://opendata.dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=opendata.dc.gov&sz=32', tags: ['open data', 'civic', 'government', 'maps'], geo: 'DC', archived: false },
+];
+
+const ACTIVITY = [
+  { name: 'November Project DC', desc: 'Free outdoor fitness community that meets weekly at the Lincoln Memorial and rotating DC spots — rain or shine, no sign-up, no cost, all fitness levels welcome.', url: 'https://november-project.com/washington-dc/', favicon: 'https://www.google.com/s2/favicons?domain=november-project.com&sz=32', tags: ['fitness', 'running', 'free', 'community', 'outdoor'], geo: 'DC', archived: false },
+  { name: 'DC Fray', desc: "One of DC's largest adult social sports leagues, running kickball, flag football, volleyball, basketball, and ultimate frisbee across DC and NoVA with a post-game happy hour tradition.", url: 'https://dcfray.com', size: 'Tens of thousands of participants', favicon: 'https://www.google.com/s2/favicons?domain=dcfray.com&sz=32', tags: ['kickball', 'flag football', 'volleyball', 'social sports'], geo: 'DMV', archived: false },
+  { name: 'ZogSports DC', desc: 'National recreational league network with a strong DC Metro chapter — sign up solo or with a team for soccer, volleyball, basketball, flag football, and pickleball leagues.', url: 'https://www.zogsports.com/dc/', favicon: 'https://www.google.com/s2/favicons?domain=zogsports.com&sz=32', tags: ['soccer', 'volleyball', 'basketball', 'pickleball'], geo: 'DMV', archived: false },
+  { name: 'Volo Sports DC', desc: 'Recreational sports and social events platform offering kickball, soccer, softball, volleyball, pickleball, and flag football leagues in Washington DC neighborhoods.', url: 'https://www.volosports.com/washington-dc', favicon: 'https://www.google.com/s2/favicons?domain=volosports.com&sz=32', tags: ['kickball', 'soccer', 'softball', 'social sports'], geo: 'DC', archived: false },
+  { name: 'NAKID Social Sports', desc: 'DC-born adult social sports league founded in 2006, now with 115,000+ members nationally — kickball, dodgeball, volleyball, and flag football alongside singles events and happy hours.', url: 'https://www.playnakid.com', size: '115,000+ members nationally', favicon: 'https://www.google.com/s2/favicons?domain=playnakid.com&sz=32', tags: ['kickball', 'dodgeball', 'volleyball', 'social sports'], geo: 'DC', archived: false },
+  { name: 'DC Gay Flag Football League (DCGFFL)', desc: 'LGBTQ+ inclusive flag football league running competitive and recreational divisions each season in DC, with rookie pricing and a required new player workshop.', url: 'https://www.dcgffl.org', favicon: 'https://www.google.com/s2/favicons?domain=dcgffl.org&sz=32', tags: ['LGBTQ+', 'flag football', 'inclusive', 'sports'], geo: 'DC', archived: false },
+  { name: 'Movement Crystal City (Climbing)', desc: 'A massive climbing, yoga, and fitness gym in Crystal City with 35,000 sq ft of walls and 350+ routes — steps from the Crystal City Metro and the closest major climbing gym to downtown DC.', url: 'https://movementgyms.com/crystal-city/', favicon: 'https://www.google.com/s2/favicons?domain=movementgyms.com&sz=32', tags: ['climbing', 'gym', 'yoga', 'fitness'], geo: 'Virginia', archived: false },
+  { name: 'Movement Rockville (Climbing)', desc: 'One of the largest indoor climbing gyms on the East Coast, with 38,000+ sq ft of bouldering and roped climbing in Rockville — good for beginners through serious climbers, with yoga and fitness on site.', url: 'https://movementgyms.com/rockville/', favicon: 'https://www.google.com/s2/favicons?domain=movementgyms.com&sz=32', tags: ['climbing', 'gym', 'yoga', 'fitness'], geo: 'Maryland', archived: false },
+  { name: 'Thompson Boat Center', desc: 'The go-to spot on the Potomac near Georgetown for renting kayaks, canoes, and rowing shells — open spring through fall, with stunning river views of the Kennedy Center and monuments.', url: 'https://www.nps.gov/places/000/thompson-boat-center.htm', favicon: 'https://www.google.com/s2/favicons?domain=nps.gov&sz=32', tags: ['kayak', 'canoe', 'rowing', 'water', 'rental'], geo: 'DC', archived: false },
+  { name: 'Key Bridge Boathouse', desc: 'Rent a kayak, canoe, or paddleboard right below Key Bridge in Georgetown — one of the most scenic launch points in the city, with the Potomac and DC skyline stretching out in front of you.', url: 'https://boatingindc.com/boathouses/key-bridge-boathouse/', favicon: 'https://www.google.com/s2/favicons?domain=boatingindc.com&sz=32', tags: ['kayak', 'canoe', 'paddleboard', 'water', 'rental'], geo: 'DC', archived: false },
+  { name: 'Anacostia Community Boathouse', desc: 'A community rowing and paddling hub on the Anacostia River in Southeast DC, home to nine clubs and 1,100+ members — a rare public gateway to the water on the east side of the city.', url: 'https://www.anacostiaboathouse.org/', size: '9 clubs, 1,100+ members', favicon: 'https://www.google.com/s2/favicons?domain=anacostiaboathouse.org&sz=32', tags: ['rowing', 'paddling', 'kayak', 'water', 'community'], geo: 'DC', archived: false },
+  { name: 'Washington Running Club', desc: "One of DC's oldest running clubs hosting group runs, track workouts, and social runs across the region for all paces — a good entry point into the DMV running community.", url: 'https://www.washingtonrunningclub.org', favicon: 'https://www.google.com/s2/favicons?domain=washingtonrunningclub.org&sz=32', tags: ['running', 'club', 'group runs', 'fitness'], geo: 'DMV', archived: false },
+  { name: 'Capital Ultimate (DC Frisbee)', desc: 'Hub for ultimate frisbee leagues and pickup games across the DC area — connects players to outdoor summer leagues, indoor winter leagues, and tournament opportunities.', url: 'https://www.capitalultimate.org', favicon: 'https://www.google.com/s2/favicons?domain=capitalultimate.org&sz=32', tags: ['ultimate frisbee', 'leagues', 'pickup', 'outdoor sports'], geo: 'DMV', archived: false },
+  { name: 'DC DPR Recreation Centers', desc: 'Directory of all DC Department of Parks and Recreation community centers, organized by ward — every DC resident lives within two miles of one, offering gyms, pools, leagues, and youth programs.', url: 'https://dpr.dc.gov/reccenters', favicon: 'https://www.google.com/s2/favicons?domain=dpr.dc.gov&sz=32', tags: ['recreation', 'gym', 'pool', 'community', 'free'], geo: 'DC', archived: false },
+  { name: 'National Cathedral Outdoor Yoga', desc: "Saturday morning yoga sessions in the Cathedral's wooded amphitheater — one of the more peaceful outdoor fitness spots in DC, open to all skill levels.", url: 'https://cathedral.org/calendar/', favicon: 'https://www.google.com/s2/favicons?domain=cathedral.org&sz=32', tags: ['yoga', 'outdoor', 'fitness', 'wellness', 'free'], geo: 'DC', archived: false },
+  { name: 'Nation\'s Triathlon', desc: "DC's annual triathlon held along the Potomac with sprint and Olympic distances — one of the signature endurance events on the DMV sports calendar each September.", url: 'https://www.nationstriathlon.com', favicon: 'https://www.google.com/s2/favicons?domain=nationstriathlon.com&sz=32', tags: ['triathlon', 'swimming', 'biking', 'running', 'endurance'], geo: 'DC', archived: false },
+  { name: 'CLUBWAKA Kickball DC', desc: 'The original adult kickball league organization — WAKA was founded in DC in 1998 and now runs coed social kickball leagues in the DMV through its Clubwaka platform.', url: 'https://clubwaka.com', favicon: 'https://www.google.com/s2/favicons?domain=clubwaka.com&sz=32', tags: ['kickball', 'social sports', 'coed'], geo: 'DMV', archived: false },
+  { name: 'DC Social Sports Club', desc: 'DMV-focused adult sports and social club founded in 2005 with 20+ indoor and outdoor programs across DC, Arlington, and Alexandria — one of the region\'s oldest leagues.', url: 'https://dcsocialsports.leagueapps.com', favicon: 'https://www.google.com/s2/favicons?domain=leagueapps.com&sz=32', tags: ['social sports', 'multi-sport', 'bar leagues'], geo: 'DMV', archived: false },
+];
+
+const CIVIC = [
+  { name: 'DC.gov', desc: "The District's main government portal — starting point for every DC agency, service, permit, and benefit.", url: 'https://dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=dc.gov&sz=32', tags: ['government', 'portal', 'services'], geo: 'DC', archived: false },
+  { name: 'DC Council', desc: "Track legislation, watch committee hearings live, and look up your ward's councilmember — DC's 13-member legislative body.", url: 'https://dccouncil.gov', favicon: 'https://www.google.com/s2/favicons?domain=dccouncil.gov&sz=32', tags: ['legislation', 'council', 'government'], geo: 'DC', archived: false },
+  { name: 'DC Office of the CFO', desc: "DC's official budget data, financial reports, tax forms, and revenue analysis — essential for understanding how the District spends public money.", url: 'https://cfo.dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=cfo.dc.gov&sz=32', tags: ['budget', 'finance', 'taxes', 'government'], geo: 'DC', archived: false },
+  { name: 'DC 311', desc: 'Submit and track service requests — potholes, graffiti, abandoned vehicles, sanitation — directly to the right DC agency via web or app.', url: 'https://311.dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=311.dc.gov&sz=32', tags: ['311', 'services', 'city services', 'government'], geo: 'DC', archived: false },
+  { name: 'DC Department of Buildings', desc: 'Apply for building permits, track inspections via Scout, and access eRecords for any permitted construction project in the District.', url: 'https://dob.dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=dob.dc.gov&sz=32', tags: ['permits', 'construction', 'inspections', 'government'], geo: 'DC', archived: false },
+  { name: 'DC Courts', desc: 'Case search, court calendars, jury service, and self-help resources for DC Superior Court and the DC Court of Appeals.', url: 'https://dccourts.gov', favicon: 'https://www.google.com/s2/favicons?domain=dccourts.gov&sz=32', tags: ['courts', 'legal', 'government'], geo: 'DC', archived: false },
+  { name: 'OSSE (DC Schools)', desc: "DC's education oversight agency — school performance data, charter approvals, special education policy, and adult literacy programs.", url: 'https://osse.dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=osse.dc.gov&sz=32', tags: ['education', 'schools', 'government'], geo: 'DC', archived: false },
+  { name: 'DC Board of Elections', desc: "Register to vote, find your polling place, check your ballot status, and explore DC's campaign finance database.", url: 'https://dcboe.gov', favicon: 'https://www.google.com/s2/favicons?domain=dcboe.gov&sz=32', tags: ['elections', 'voting', 'government'], geo: 'DC', archived: false },
+  { name: 'DC Advisory Neighborhood Commissions', desc: "Find your ANC commissioner, attend a neighborhood meeting, and access the most hyper-local layer of DC's elected government.", url: 'https://anc.dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=anc.dc.gov&sz=32', tags: ['ANC', 'neighborhood', 'local government', 'civic'], geo: 'DC', archived: false },
+  { name: 'DC Public Library', desc: "27 branch libraries across DC offering free books, digital resources, job search tools, 3D printing, and community programming — including DC's Ask-a-Librarian service.", url: 'https://dclibrary.org', favicon: 'https://www.google.com/s2/favicons?domain=dclibrary.org&sz=32', tags: ['library', 'books', 'free', 'community'], geo: 'DC', archived: false },
+  { name: 'OpenDC — DC Open Data Portal', desc: "The District's official open data platform with hundreds of datasets — crime incidents, permits, school performance, parks, and more — downloadable or viewable as interactive maps.", url: 'https://opendata.dc.gov', favicon: 'https://www.google.com/s2/favicons?domain=opendata.dc.gov&sz=32', tags: ['open data', 'civic', 'government', 'transparency'], geo: 'DC', archived: false },
+  { name: 'Congress.gov', desc: 'Track federal legislation, committee activity, votes, and the full text of bills — essential for anyone following what Congress is actually doing from DC.', url: 'https://congress.gov', favicon: 'https://www.google.com/s2/favicons?domain=congress.gov&sz=32', tags: ['federal government', 'legislation', 'Congress'], geo: 'DMV', archived: false },
+];
+
+const CULTURE = [
+  { name: 'Smithsonian Institution — What\'s On', desc: 'Central events calendar for all 19 free Smithsonian museums and the National Zoo in DC — lectures, openings, family programs, and outdoor events across the Mall and beyond.', url: 'https://www.si.edu/events', favicon: 'https://www.google.com/s2/favicons?domain=si.edu&sz=32', tags: ['free', 'museums', 'family', 'events'], geo: 'DC', archived: false },
+  { name: 'National Gallery of Art — Events', desc: 'Free admission always. The NGA calendar covers film screenings, concerts, curator talks, and family workshops tied to world-class exhibitions on the National Mall.', url: 'https://www.nga.gov/calendar/events.html', size: '~4 million annual visitors', favicon: 'https://www.google.com/s2/favicons?domain=nga.gov&sz=32', tags: ['free', 'art', 'film', 'concerts', 'lectures'], geo: 'DC', archived: false },
+  { name: 'NMAAHC', desc: "Smithsonian's most visited museum covers African American history from slavery to the present. Timed-entry passes required — check for free pass release dates and public programs.", url: 'https://nmaahc.si.edu', size: 'Over 7 million visitors since 2016', favicon: 'https://www.google.com/s2/favicons?domain=nmaahc.si.edu&sz=32', tags: ['history', 'culture', 'Black history', 'timed-entry'], geo: 'DC', archived: false },
+  { name: 'Hirshhorn Museum and Sculpture Garden', desc: "The Smithsonian's contemporary and modern art museum on the Mall, with free admission and an outdoor sculpture garden open daily. Known for immersive installations and late-night events.", url: 'https://hirshhorn.si.edu', favicon: 'https://www.google.com/s2/favicons?domain=hirshhorn.si.edu&sz=32', tags: ['free', 'contemporary art', 'sculpture', 'events'], geo: 'DC', archived: false },
+  { name: 'National Building Museum — Events', desc: 'Housed in a spectacular Gilded Age landmark near Judiciary Square, the NBM explores architecture, design, and urban planning through exhibitions and hands-on programs for all ages.', url: 'https://www.nbm.org/events/', favicon: 'https://www.google.com/s2/favicons?domain=nbm.org&sz=32', tags: ['architecture', 'design', 'family', 'exhibitions'], geo: 'DC', archived: false },
+  { name: 'Anacostia Community Museum', desc: 'Free Smithsonian museum rooted in Southeast DC neighborhoods, offering Saturday programs, art workshops, farm stands, and community events focused on urban history and culture.', url: 'https://anacostia.si.edu/events', favicon: 'https://www.google.com/s2/favicons?domain=anacostia.si.edu&sz=32', tags: ['free', 'community', 'history', 'Southeast DC'], geo: 'DC', archived: false },
+  { name: 'DC History Center', desc: 'The go-to archive and research center for DC history, with neighborhood walking tours, lecture series, and community programming for local history enthusiasts.', url: 'https://dchistory.org/events/', favicon: 'https://www.google.com/s2/favicons?domain=dchistory.org&sz=32', tags: ['DC history', 'archives', 'walking tours', 'lectures'], geo: 'DC', archived: false },
+  { name: 'The Phillips Collection', desc: "America's first modern art museum in Dupont Circle, with free Community Sundays, a robust public program calendar, and Music in the Galleries concerts.", url: 'https://www.phillipscollection.org/events', favicon: 'https://www.google.com/s2/favicons?domain=phillipscollection.org&sz=32', tags: ['modern art', 'music', 'Dupont Circle', 'free events'], geo: 'DC', archived: false },
+  { name: 'Kennedy Center — Events Calendar', desc: "The nation's performing arts center on the Potomac offers world-class theater, opera, ballet, and concerts — plus the free Millennium Stage performance every single day at 6 p.m.", url: 'https://www.kennedy-center.org/whats-on/', favicon: 'https://www.google.com/s2/favicons?domain=kennedy-center.org&sz=32', tags: ['performing arts', 'theater', 'opera', 'concerts'], geo: 'DC', archived: false },
+  { name: 'Kennedy Center — Free Millennium Stage', desc: "Free live performances every single day at 6 p.m. — jazz, classical, world music, spoken word, and more. No ticket required, just show up at the Kennedy Center's Millennium Stage.", url: 'https://www.kennedy-center.org/millennium-stage/', favicon: 'https://www.google.com/s2/favicons?domain=kennedy-center.org&sz=32', tags: ['free', 'live music', 'daily', 'performing arts'], geo: 'DC', archived: false },
+  { name: '9:30 Club — Calendar', desc: "DC's most iconic mid-size music venue in Shaw, consistently ranked among the best live music venues in America. Covers indie, rock, electronic, hip-hop, and everything in between.", url: 'https://www.930.com/events/', favicon: 'https://www.google.com/s2/favicons?domain=930.com&sz=32', tags: ['live music', 'concerts', 'shaw', 'indie', 'rock'], geo: 'DC', archived: false },
+  { name: 'Arena Stage — Productions', desc: "One of America's leading regional theaters on the Southwest Waterfront — specializing in American plays and musicals with a strong community engagement arm.", url: 'https://www.arenastage.org/shows-tickets/', favicon: 'https://www.google.com/s2/favicons?domain=arenastage.org&sz=32', tags: ['theater', 'American plays', 'musicals'], geo: 'DC', archived: false },
+  { name: 'Folger Shakespeare Library', desc: "The world's largest Shakespeare collection also runs a top-tier early music and spoken word program at its Capitol Hill home — recently reopened after a landmark renovation.", url: 'https://www.folger.edu/whats-on/', favicon: 'https://www.google.com/s2/favicons?domain=folger.edu&sz=32', tags: ['Shakespeare', 'theater', 'early music', 'Capitol Hill'], geo: 'DC', archived: false },
+  { name: 'National Portrait Gallery — Programs', desc: 'Free Smithsonian museum at 8th and F NW housing portraits of every US president plus rotating contemporary exhibitions. Strong public lecture and community program calendar.', url: 'https://npg.si.edu/programs', favicon: 'https://www.google.com/s2/favicons?domain=npg.si.edu&sz=32', tags: ['free', 'art', 'history', 'portraits', 'lectures'], geo: 'DC', archived: false },
+];
+
+const SERVICE = [
+  { name: 'Capital Area Food Bank', desc: 'The largest food access nonprofit in the DC metro area, running a distribution network of pantries, community markets, and garden programs. Volunteer shifts available for individuals and groups.', url: 'https://volunteer.capitalareafoodbank.org/', favicon: 'https://www.google.com/s2/favicons?domain=capitalareafoodbank.org&sz=32', tags: ['food', 'volunteer', 'pantry', 'hunger'], geo: 'DMV', archived: false },
+  { name: 'DC Central Kitchen', desc: 'Trains adults facing barriers to employment in culinary skills while producing tens of thousands of meals annually. Daily volunteer shifts at their First Street SW kitchen — no experience needed.', url: 'https://dccentralkitchen.org/volunteer/', favicon: 'https://www.google.com/s2/favicons?domain=dccentralkitchen.org&sz=32', tags: ['food', 'job training', 'volunteer', 'meals'], geo: 'DC', archived: false },
+  { name: "Martha's Table", desc: 'Provides free food markets, clothing boutiques, mobile meals, and family wellness programs to over 45,000 DC neighbors each year — 40 to 70 volunteers power daily operations.', url: 'https://marthastable.org/volunteer/', size: '45,000+ neighbors served annually', favicon: 'https://www.google.com/s2/favicons?domain=marthastable.org&sz=32', tags: ['food', 'clothing', 'family', 'volunteer'], geo: 'DC', archived: false },
+  { name: 'Bread for the City', desc: 'One-stop social services hub serving roughly 10,000 DC residents a month with food, clothing, healthcare, legal aid, and case management at two locations — Northwest and Southeast DC.', url: 'https://breadforthecity.org/volunteer/', size: '~10,000 residents served monthly', favicon: 'https://www.google.com/s2/favicons?domain=breadforthecity.org&sz=32', tags: ['food', 'clothing', 'legal', 'health', 'volunteer'], geo: 'DC', archived: false },
+  { name: 'SOME (So Others Might Eat)', desc: 'DC nonprofit offering emergency meals, affordable housing, healthcare, job training, and education to people experiencing homelessness and poverty. Volunteer opportunities for individuals and groups.', url: 'https://some.org/get-involved/volunteer/', favicon: 'https://www.google.com/s2/favicons?domain=some.org&sz=32', tags: ['food', 'housing', 'health', 'job training', 'volunteer'], geo: 'DC', archived: false },
+  { name: "Miriam's Kitchen", desc: 'Provides gourmet breakfast and dinner, social services, and housing navigation for people experiencing chronic homelessness near Foggy Bottom. Over 1,500 individual volunteers support their work.', url: 'https://www.miriamskitchen.org/get-involved/volunteer/', size: '1,500+ individual volunteers', favicon: 'https://www.google.com/s2/favicons?domain=miriamskitchen.org&sz=32', tags: ['food', 'housing', 'homelessness', 'volunteer'], geo: 'DC', archived: false },
+  { name: 'Covenant House Greater Washington', desc: 'Serves young people ages 18-24 experiencing homelessness across DC, Maryland, and Virginia with shelter, meals, career pathways, and long-term housing. Group service opportunities available.', url: 'https://www.covenanthousegw.org/get-involved', favicon: 'https://www.google.com/s2/favicons?domain=covenanthousegw.org&sz=32', tags: ['youth', 'housing', 'homelessness', 'volunteer'], geo: 'DMV', archived: false },
+  { name: 'Habitat for Humanity DC & NoVA', desc: 'Builds and repairs affordable homes in DC and Northern Virginia — volunteer build days are open to individuals and groups, no construction experience required.', url: 'https://www.habitat-dc-nova.org/volunteer', favicon: 'https://www.google.com/s2/favicons?domain=habitat-dc-nova.org&sz=32', tags: ['housing', 'construction', 'volunteer', 'affordable housing'], geo: 'DMV', archived: false },
+  { name: 'Reading Partners DC', desc: 'Recruits community volunteers to provide one-on-one reading tutoring to DC elementary school students who are reading below grade level. One hour per week during the school day.', url: 'https://readingpartners.org/location/washington-dc/', favicon: 'https://www.google.com/s2/favicons?domain=readingpartners.org&sz=32', tags: ['education', 'literacy', 'youth', 'tutoring', 'volunteer'], geo: 'DC', archived: false },
+  { name: 'DC SCORES', desc: 'After-school soccer, poetry, and service-learning program for DC elementary and middle schoolers — volunteer coaches and writing workshop facilitators needed each season.', url: 'https://www.dcscores.org/get-involved/volunteer', favicon: 'https://www.google.com/s2/favicons?domain=dcscores.org&sz=32', tags: ['youth', 'soccer', 'arts', 'education', 'volunteer'], geo: 'DC', archived: false },
+  { name: 'Casey Trees', desc: "Nonprofit dedicated to restoring DC's tree canopy — volunteer for tree plantings, tree care training, and the annual tree giveaway. Over 60,000 trees planted since 2002.", url: 'https://caseytrees.org/volunteer/', size: '60,000+ trees planted since 2002', favicon: 'https://www.google.com/s2/favicons?domain=caseytrees.org&sz=32', tags: ['environment', 'trees', 'green space', 'volunteer'], geo: 'DC', archived: false },
+  { name: 'Anacostia Riverkeeper', desc: "Advocates for and monitors the Anacostia River — volunteer for river cleanups, water quality monitoring, and boat patrols keeping DC's most underserved waterway healthy.", url: 'https://www.anacostiariverkeeper.org/volunteer/', favicon: 'https://www.google.com/s2/favicons?domain=anacostiariverkeeper.org&sz=32', tags: ['environment', 'river', 'cleanup', 'volunteer'], geo: 'DC', archived: false },
+];
+
+const HYPERLOCAL = [
+  { name: 'PoPville (Prince of Petworth)', desc: "DC's busiest neighborhood blog, covering everything from crime reports to restaurant openings across the city and inner suburbs. Reader tips drive much of the daily content.", url: 'https://popville.com', size: 'Largest independent DC neighborhood blog', favicon: 'https://www.google.com/s2/favicons?domain=popville.com&sz=32', tags: ['news', 'community', 'restaurants', 'real estate'], geo: 'DC', archived: false },
+  { name: 'The Hill Is Home', desc: "Capitol Hill's go-to digital source for ANC meeting coverage, local politics, development news, and neighborhood guides for dining, arts, and fitness.", url: 'https://thehillishome.com', favicon: 'https://www.google.com/s2/favicons?domain=thehillishome.com&sz=32', tags: ['capitol hill', 'news', 'ANC', 'development'], geo: 'DC', archived: false },
+  { name: 'Capitol Hill Corner', desc: 'Focused blog tracking ANCs 6A, 6B, 6C, and 6D, Eastern Market, and residential development on Capitol Hill — essential reading before any neighborhood meeting.', url: 'https://capitolhillcorner.org', favicon: 'https://www.google.com/s2/favicons?domain=capitolhillcorner.org&sz=32', tags: ['capitol hill', 'ANC', 'local government', 'development'], geo: 'DC', archived: false },
+  { name: 'Petworth News', desc: 'Community-run news and events coverage for Petworth and surrounding neighborhoods, including a community calendar, local business coverage, and the annual PorchFest.', url: 'https://www.petworthnews.org', favicon: 'https://www.google.com/s2/favicons?domain=petworthnews.org&sz=32', tags: ['petworth', 'news', 'events', 'community'], geo: 'DC', archived: false },
+  { name: 'ARLnow', desc: "The daily news source for Arlington County and Falls Church, Virginia — covering local government, development, schools, crime, and restaurant openings with a genuine community voice.", url: 'https://arlnow.com', favicon: 'https://www.google.com/s2/favicons?domain=arlnow.com&sz=32', tags: ['arlington', 'falls church', 'news', 'development'], geo: 'Virginia', archived: false },
+  { name: 'ALXnow', desc: "Alexandria, Virginia's primary hyperlocal news outlet — city government, development projects, real estate data, public safety, and community events in one place.", url: 'https://alxnow.com', favicon: 'https://www.google.com/s2/favicons?domain=alxnow.com&sz=32', tags: ['alexandria', 'news', 'government', 'development'], geo: 'Virginia', archived: false },
+  { name: 'FFXnow', desc: "Hyperlocal news for Fairfax County with dedicated coverage of Reston and Tysons, plus a regional hub (WSHnow) pulling from partner sites across the DMV.", url: 'https://www.ffxnow.com', favicon: 'https://www.google.com/s2/favicons?domain=ffxnow.com&sz=32', tags: ['fairfax', 'reston', 'tysons', 'news', 'development'], geo: 'Virginia', archived: false },
+  { name: 'The Burn', desc: "Ashburn and Loudoun County's go-to source for news about restaurants, retail, and development in Northern Virginia's fastest-growing corridor.", url: 'https://theburn.com', favicon: 'https://www.google.com/s2/favicons?domain=theburn.com&sz=32', tags: ['loudoun', 'ashburn', 'restaurants', 'retail'], geo: 'Virginia', archived: false },
+  { name: 'Annandale Today', desc: "Covers Annandale, Bailey's Crossroads, Lincolnia, and Seven Corners in Fairfax County — hyperlocal community news for one of Northern Virginia's most diverse corridors.", url: 'https://annandaletoday.com', favicon: 'https://www.google.com/s2/favicons?domain=annandaletoday.com&sz=32', tags: ['annandale', 'fairfax', 'diversity', 'community', 'news'], geo: 'Virginia', archived: false },
+  { name: 'Hyattsville Wire', desc: "Community journalism for Hyattsville and Prince George's County, MD — an independent outlet covering local politics and community issues largely overlooked by regional papers.", url: 'https://hyattsvillewire.com', favicon: 'https://www.google.com/s2/favicons?domain=hyattsvillewire.com&sz=32', tags: ["Prince George's County", 'hyattsville', 'community', 'Maryland'], geo: 'Maryland', archived: false },
+  { name: 'Bethesda Beat', desc: "Daily news site covering Montgomery County politics, schools, real estate, and business — the primary independent source for Bethesda, Rockville, and Chevy Chase residents.", url: 'https://bethesdabeat.com', favicon: 'https://www.google.com/s2/favicons?domain=bethesdabeat.com&sz=32', tags: ['bethesda', 'montgomery county', 'schools', 'government'], geo: 'Maryland', archived: false },
+  { name: 'Silver Chips Online (Montgomery Blair HS)', desc: "Student-run publication at Montgomery Blair High School — one of the DMV's best student newspapers covering Silver Spring, MoCo schools, and youth culture.", url: 'https://silverchips.mbhs.edu', favicon: 'https://www.google.com/s2/favicons?domain=silverchips.mbhs.edu&sz=32', tags: ['student journalism', 'Silver Spring', 'schools'], geo: 'Maryland', archived: false },
+  { name: 'DC Urban Turf', desc: 'Real estate news and development tracker for DC — covers home prices, zoning decisions, new construction, and neighborhood market reports with an engaged local readership.', url: 'https://dcurbanturf.com', favicon: 'https://www.google.com/s2/favicons?domain=dcurbanturf.com&sz=32', tags: ['real estate', 'development', 'housing', 'neighborhoods'], geo: 'DC', archived: false },
+  { name: 'r/washingtondc Community Wiki', desc: "Reddit's r/washingtondc community wiki aggregates the best neighborhood-specific subreddits — from r/nova to r/PGCounty — for hyperlocal questions and community discussion.", url: 'https://reddit.com/r/washingtondc/wiki/index', size: '505K members on r/washingtondc alone', favicon: 'https://www.google.com/s2/favicons?domain=reddit.com&sz=32', tags: ['reddit', 'community', 'neighborhoods', 'social media'], geo: 'DMV', archived: false },
+];
+
+const COMMERCE = [
+  { name: 'Shop Made in DC — Black Makers', desc: 'Retail stores and online shop spotlighting DC-made goods with a dedicated section curating Black-owned local makers across apparel, food, and home goods.', url: 'https://www.shopmadeindc.com/shop/support-dc-black-makers/31', size: 'Multiple storefronts across DC', favicon: 'https://www.google.com/s2/favicons?domain=shopmadeindc.com&sz=32', tags: ['black-owned', 'retail', 'local makers', 'gifts'], geo: 'DC', archived: false },
+  { name: 'Nubian Hueman', desc: 'Black woman-owned boutique in DC carrying curated fashion, art, and home goods from Black and Brown designers worldwide — an anchor for the DMV\'s Black creative economy since 2013.', url: 'https://nubianhueman.com/', favicon: 'https://www.google.com/s2/favicons?domain=nubianhueman.com&sz=32', tags: ['black-owned', 'boutique', 'fashion', 'art'], geo: 'DC', archived: false },
+  { name: 'DMV Black Restaurant Week', desc: 'Annual celebration spotlighting Black-owned restaurants, bars, and hospitality businesses across DC, Maryland, and Virginia — with a growing directory of participating establishments.', url: 'https://www.dmvbrw.com/', favicon: 'https://www.google.com/s2/favicons?domain=dmvbrw.com&sz=32', tags: ['black-owned', 'restaurants', 'food', 'events'], geo: 'DMV', archived: false },
+  { name: 'Black Broadway on U Street', desc: "Digital preservation project mapping the historic U Street corridor — oral histories, archival photos, and an interactive walking tour of DC's original Black commercial and cultural hub.", url: 'https://blackbroadwayonu.com/', favicon: 'https://www.google.com/s2/favicons?domain=blackbroadwayonu.com&sz=32', tags: ['black history', 'u-street', 'cultural heritage', 'walking tour'], geo: 'DC', archived: false },
+  { name: 'Asian American Chamber of Commerce (AACC)', desc: 'DC-area chamber supporting Asian Pacific American business owners through networking events, a business expo, and development workshops — headquartered at 18th St NW.', url: 'https://www.asian-americanchamber.org/', favicon: 'https://www.google.com/s2/favicons?domain=asian-americanchamber.org&sz=32', tags: ['chamber', 'aapi', 'business', 'networking'], geo: 'DC', archived: false },
+  { name: 'Greater Washington Hispanic Chamber of Commerce', desc: 'Membership-driven chamber supporting the economic development of Latino and Hispanic-owned businesses across the DC metro region.', url: 'https://www.gwhcc.org/', favicon: 'https://www.google.com/s2/favicons?domain=gwhcc.org&sz=32', tags: ['chamber', 'Latino', 'Hispanic', 'business', 'networking'], geo: 'DMV', archived: false },
+  { name: 'DC Chamber of Commerce', desc: "The District's primary business membership organization — advocacy, networking events, and resources for small businesses and large employers operating in Washington DC.", url: 'https://www.dcchamber.org/', favicon: 'https://www.google.com/s2/favicons?domain=dcchamber.org&sz=32', tags: ['chamber', 'business', 'networking', 'advocacy'], geo: 'DC', archived: false },
+  { name: 'FRESHFARM Markets — DC', desc: "DC's leading network of producer-only farmers markets with locations across the city from Penn Quarter to Columbia Heights — buy direct from regional farms year-round.", url: 'https://www.freshfarm.org/markets', favicon: 'https://www.google.com/s2/favicons?domain=freshfarm.org&sz=32', tags: ['farmers market', 'local food', 'produce', 'regional farms'], geo: 'DC', archived: false },
+  { name: 'Union Market DC', desc: 'Year-round indoor food market and retail destination in NoMa with 40+ local vendors — a model for how DC has supported small food entrepreneurs since 2012.', url: 'https://unionmarketdc.com/', favicon: 'https://www.google.com/s2/favicons?domain=unionmarketdc.com&sz=32', tags: ['food hall', 'local vendors', 'NoMa', 'retail'], geo: 'DC', archived: false },
+  { name: 'Eastern Market', desc: "Capitol Hill's historic public market operating since 1873 — fresh produce, meat, dairy, and handmade goods from local vendors on weekdays, with a flea market and arts market on weekends.", url: 'https://easternmarket-dc.org/', favicon: 'https://www.google.com/s2/favicons?domain=easternmarket-dc.org&sz=32', tags: ['market', 'food', 'arts', 'flea market', 'historic'], geo: 'DC', archived: false },
+  { name: 'DSLBD — DC Small Business Development', desc: "The District's official small business support agency — certifications, grants, procurement set-asides for DC-based businesses, and free technical assistance.", url: 'https://dslbd.dc.gov/', favicon: 'https://www.google.com/s2/favicons?domain=dslbd.dc.gov&sz=32', tags: ['small business', 'grants', 'certification', 'government'], geo: 'DC', archived: false },
+  { name: 'Latino Economic Development Center (LEDC)', desc: 'Provides small business loans, financial coaching, and technical assistance to Latino and low-income entrepreneurs across DC and the DMV.', url: 'https://www.ledc.org/', favicon: 'https://www.google.com/s2/favicons?domain=ledc.org&sz=32', tags: ['small business', 'Latino', 'loans', 'financial coaching'], geo: 'DMV', archived: false },
+  { name: 'Hive at 1111 — DC Black-Owned Incubator', desc: 'Co-working space and business incubator in NW DC focused on supporting Black entrepreneurs with affordable workspace, programming, and community in the H Street corridor.', url: 'https://www.hiveat1111.com/', favicon: 'https://www.google.com/s2/favicons?domain=hiveat1111.com&sz=32', tags: ['black-owned', 'co-working', 'incubator', 'entrepreneurs'], geo: 'DC', archived: false },
+  { name: 'DC Made — Local Brand Directory', desc: "Curated discovery platform for DC-made brands, products, and makers across food, fashion, home goods, and art — supporting local commerce across the city's creative economy.", url: 'https://www.dcmade.com/', favicon: 'https://www.google.com/s2/favicons?domain=dcmade.com&sz=32', tags: ['local makers', 'dc-made', 'retail', 'gifts', 'directory'], geo: 'DC', archived: false },
+];
+
+const EVENTS = [
+  { name: 'Eventbrite DC', desc: 'The broadest ticket and RSVP platform for DC-area events — community meetups, workshops, nightlife, food, and professional events all in one searchable feed.', url: 'https://www.eventbrite.com/d/dc--washington/events/', size: 'Tens of thousands of active DMV listings', favicon: 'https://www.google.com/s2/favicons?domain=eventbrite.com&sz=32', tags: ['tickets', 'discovery', 'community', 'nightlife'], geo: 'DMV', archived: false },
+  { name: 'Meetup DC', desc: "Find and join DC-area interest groups — hiking clubs, tech talks, book clubs, language exchanges, and social hangouts organized by locals.", url: 'https://www.meetup.com/find/us--dc--washington/', size: 'Hundreds of active groups', favicon: 'https://www.google.com/s2/favicons?domain=meetup.com&sz=32', tags: ['community', 'social', 'groups', 'networking'], geo: 'DMV', archived: false },
+  { name: 'Resident Advisor DC', desc: 'The go-to source for DC electronic music and nightlife events — club nights, DJ sets, and underground dance music across Flash, U Street venues, and beyond.', url: 'https://ra.co/events/us/washingtondc', favicon: 'https://www.google.com/s2/favicons?domain=ra.co&sz=32', tags: ['nightlife', 'electronic music', 'clubs', 'DJ'], geo: 'DC', archived: false },
+  { name: 'Bandsintown DC', desc: 'Track your favorite artists and get notified when they play DC — covers everything from 9:30 Club shows to Kennedy Center performances.', url: 'https://www.bandsintown.com/c/washington-dc', favicon: 'https://www.google.com/s2/favicons?domain=bandsintown.com&sz=32', tags: ['concerts', 'live music', 'artist tracking', 'tickets'], geo: 'DMV', archived: false },
+  { name: 'Time Out Washington DC', desc: 'Curated editorial picks for DC events, restaurants, and nightlife — useful for weekend planning, seasonal event roundups, and neighborhood guides.', url: 'https://www.timeout.com/washington-dc/things-to-do/dc-events-calendar', favicon: 'https://www.google.com/s2/favicons?domain=timeout.com&sz=32', tags: ['editorial', 'discovery', 'nightlife', 'restaurants'], geo: 'DC', archived: false },
+  { name: 'TodayTix DC', desc: 'Discounted and last-minute tickets to DC theater, concerts, and live events — the primary discount ticketing platform for the DC arts scene.', url: 'https://www.todaytix.com/washington-dc', favicon: 'https://www.google.com/s2/favicons?domain=todaytix.com&sz=32', tags: ['tickets', 'theater', 'discounts', 'last-minute'], geo: 'DC', archived: false },
+  { name: 'Washington Post Going Out Guide', desc: "The Post's events and nightlife desk — weekly editorial picks for the best things happening in DC, Maryland, and Virginia, with a searchable calendar.", url: 'https://www.washingtonpost.com/goingoutguide/', favicon: 'https://www.google.com/s2/favicons?domain=washingtonpost.com&sz=32', tags: ['editorial', 'events', 'nightlife', 'arts', 'dining'], geo: 'DMV', archived: false },
+  { name: 'Washingtonian — Events', desc: "Washingtonian's event picks and seasonal round-ups covering everything from gallery openings to outdoor festivals — strong on charity galas and insider social scene.", url: 'https://www.washingtonian.com/things-to-do/', favicon: 'https://www.google.com/s2/favicons?domain=washingtonian.com&sz=32', tags: ['editorial', 'events', 'festivals', 'culture'], geo: 'DMV', archived: false },
+  { name: 'DC Jazz Festival', desc: 'Annual multi-day jazz festival each June bringing world-class and local jazz artists to venues across DC — from free outdoor stages to the Kennedy Center.', url: 'https://dcjazzfest.org/', favicon: 'https://www.google.com/s2/favicons?domain=dcjazzfest.org&sz=32', tags: ['jazz', 'festival', 'live music', 'annual'], geo: 'DC', archived: false },
+  { name: 'National Cherry Blossom Festival', desc: "DC's signature spring event marking the bloom of the National Mall's 3,000 cherry trees — with a multi-week program of cultural performances, parades, and free outdoor events.", url: 'https://nationalcherryblossomfestival.org/', favicon: 'https://www.google.com/s2/favicons?domain=nationalcherryblossomfestival.org&sz=32', tags: ['festival', 'spring', 'free', 'outdoor', 'annual'], geo: 'DC', archived: false },
+  { name: 'DC on the Cheap', desc: 'Weekly roundup of free and cheap events in DC — from museum nights to outdoor concerts to free fitness classes. The best calendar for budget-conscious Washingtonians.', url: 'https://dconcheap.com', favicon: 'https://www.google.com/s2/favicons?domain=dconcheap.com&sz=32', tags: ['free', 'budget', 'events', 'calendar', 'weekly'], geo: 'DC', archived: false },
+];
+
+/* ── MERGE & LABEL ── */
+const VECTOR_META = {
+  news:       { label: 'News & Journalism',      icon: '📰' },
+  maps:       { label: 'Maps & Trails',           icon: '🗺' },
+  activity:   { label: 'Activity & Recreation',   icon: '🏃' },
+  civic:      { label: 'Civic & Government',      icon: '🏛' },
+  culture:    { label: 'Culture & Arts',          icon: '🎭' },
+  service:    { label: 'Service & Mutual Aid',    icon: '🤝' },
+  hyperlocal: { label: 'Hyperlocal',              icon: '📍' },
+  commerce:   { label: 'Commerce',                icon: '🛒' },
+  events:     { label: 'Events',                  icon: '📅' },
+};
+
+const ALL_RESOURCES = [
+  ...JOURNALISM.map(r => Object.assign({}, r, { vector: 'news' })),
+  ...MAPS.map(r => Object.assign({}, r, { vector: 'maps' })),
+  ...ACTIVITY.map(r => Object.assign({}, r, { vector: 'activity' })),
+  ...CIVIC.map(r => Object.assign({}, r, { vector: 'civic' })),
+  ...CULTURE.map(r => Object.assign({}, r, { vector: 'culture' })),
+  ...SERVICE.map(r => Object.assign({}, r, { vector: 'service' })),
+  ...HYPERLOCAL.map(r => Object.assign({}, r, { vector: 'hyperlocal' })),
+  ...COMMERCE.map(r => Object.assign({}, r, { vector: 'commerce' })),
+  ...EVENTS.map(r => Object.assign({}, r, { vector: 'events' })),
+];
+</script>
+
+<script>
+const COMMUNITIES = [
+  { group: 'Reddit Communities', type: 'reddit', superCat: 'social', entries: [
+    { name: 'r/washingtondc', desc: 'The main DC subreddit — news, events, photos, and neighborhood questions', size: '505K members', link: 'https://reddit.com/r/washingtondc' },
+    { name: 'r/nova', desc: 'Northern Virginia life — commutes, restaurants, and regional news', size: '371K members', link: 'https://reddit.com/r/nova' },
+    { name: 'r/maryland', desc: 'Maryland statewide discussions including PG County and Montgomery County', size: '180K members', link: 'https://reddit.com/r/maryland' },
+    { name: 'r/Commanders', desc: 'Washington Commanders fans — game threads, roster moves, and fan culture', size: '~90K members', link: 'https://reddit.com/r/Commanders' },
+    { name: 'r/DMV', desc: 'Cross-regional discussions spanning DC, Maryland, and Virginia', size: '40K members', link: 'https://reddit.com/r/DMV' },
+    { name: 'r/wmata', desc: 'Washington Metro riders — delays, routes, system news, and commuter life', size: '38K members', link: 'https://reddit.com/r/wmata' },
+    { name: 'r/arlington', desc: 'Arlington, Virginia community — local news and neighborhood life', size: '35K members', link: 'https://reddit.com/r/arlington' },
+    { name: 'r/Alexandria', desc: 'Community for residents of Alexandria, VA — local news, events, and recommendations', size: '~30K members', link: 'https://reddit.com/r/Alexandria' },
+    { name: 'r/dcfood', desc: 'DC restaurant reviews, openings, and food culture discussions', size: '22K members', link: 'https://reddit.com/r/dcfood' },
+    { name: 'r/Montgomery_County_MD', desc: 'Discussion for Montgomery County, MD — one of DC\'s largest and most diverse suburbs', size: '~20K members', link: 'https://reddit.com/r/Montgomery_County_MD' },
+    { name: 'r/AskDC', desc: 'Ask locals anything about DC — moving tips, recommendations, city services', size: '~20K members', link: 'https://reddit.com/r/AskDC' },
+    { name: 'r/SilverSpring', desc: 'Hyperlocal forum for Silver Spring, MD — one of the DMV\'s most diverse suburbs', size: '~18K members', link: 'https://reddit.com/r/SilverSpring' },
+    { name: 'r/Fairfax', desc: 'Fairfax County, VA — Northern Virginia\'s largest county covering Tysons, Reston, and beyond', size: '~16K members', link: 'https://reddit.com/r/Fairfax' },
+    { name: 'r/Bethesda', desc: 'Subreddit for Bethesda, MD — restaurants, development news, and local happenings', size: '~15K members', link: 'https://reddit.com/r/Bethesda' },
+    { name: 'r/PrinceGeorgesCounty', desc: 'PG County, MD — local news, politics, and community for Maryland\'s second-largest county', size: '~14K members', link: 'https://reddit.com/r/PrinceGeorgesCounty' },
+    { name: 'r/DCUnited', desc: 'Home for DC United fans — MLS match threads, transfer news, and supporter culture', size: '~12K members', link: 'https://reddit.com/r/DCUnited' },
+    { name: 'r/CapitolHill', desc: 'Hyper-local Capitol Hill neighborhood community', size: '12K members', link: 'https://reddit.com/r/CapitolHill' },
+    { name: 'r/LoudounCounty', desc: 'Loudoun County, VA — one of the fastest-growing counties in the US', size: '~10K members', link: 'https://reddit.com/r/LoudounCounty' },
+    { name: 'r/dchistory', desc: 'Deep dives into DC history — archives, old maps, historic photos, and lost places', size: '~8K members', link: 'https://reddit.com/r/dchistory' },
+    { name: 'r/dcpolitics', desc: 'DC local politics — city council, mayor\'s office, ballot initiatives, and DC statehood', size: '~8K members', link: 'https://reddit.com/r/dcpolitics' },
+    { name: 'r/Rockville', desc: 'Community for Rockville, MD residents — local news and events in Montgomery County\'s county seat', size: '~8K members', link: 'https://reddit.com/r/Rockville' },
+    { name: 'r/dcrunning', desc: 'DC-area runners — race recommendations, training routes, run clubs, and race reports', size: '~6K members', link: 'https://reddit.com/r/dcrunning' },
+    { name: 'r/dc_area', desc: 'General discussion for the broader DC metro area spanning DC, Maryland, and Virginia', size: '~12K members', link: 'https://reddit.com/r/dc_area' }
+  ]},
+  { group: 'Newsletters & Local Media', type: 'newsletter', superCat: 'news', entries: [
+    { name: 'Axios DC', desc: 'Daily smart brevity — local government, development, and breaking news', size: 'Daily newsletter', link: 'https://axios.com/local/washington-dc' },
+    { name: 'Washington City Paper', desc: 'Alt-weekly voice of DC — culture, politics, food, and investigative coverage', size: 'Weekly + daily web', link: 'https://washingtoncitypaper.com' },
+    { name: 'DCist / WAMU', desc: 'WAMU\'s digital publication covering DC news, food, arts, and community issues', size: 'Daily digital outlet', link: 'https://dcist.com' },
+    { name: 'The DC Line', desc: 'Nonprofit local news focused on DC government, policy, and underserved communities', size: 'Independent outlet', link: 'https://thedcline.org' },
+    { name: 'Greater Greater Washington', desc: 'Urbanist coverage of transportation, zoning, development, and city policy', size: 'Community + staff writers', link: 'https://ggwash.org' },
+    { name: 'UrbanTurf DC', desc: 'DC real estate news — market data, new developments, neighborhood trends', size: 'Daily real estate coverage', link: 'https://dc.urbanturf.com' },
+    { name: 'PoPville', desc: 'Prince of Petworth — hyperlocal blog covering neighborhoods, crime, and culture', size: '~45K daily readers', link: 'https://www.popville.com' },
+    { name: 'Hola Cultura', desc: 'Bilingual coverage of Latino arts, culture, and community across the DMV', size: 'Bilingual outlet', link: 'https://holacultura.com' },
+    { name: '7:30 DC', desc: "Nightlife newsletter spotlighting DC's evening food and bar scene", size: 'Weekly newsletter', link: 'https://730dc.com' },
+    { name: 'The Georgetowner', desc: 'Neighborhood newspaper for Georgetown and upper NW DC — lifestyle, culture, and community', size: 'Print + digital', link: 'https://georgetowner.com' },
+    { name: 'Capital Community News', desc: 'Network of neighborhood papers covering Barracks Row, Hill East, Capitol Hill, and Near NE', size: 'Multiple neighborhoods', link: 'https://capitalcommunitynews.org' },
+    { name: 'The Hill Rag', desc: 'Monthly newspaper serving the Capitol Hill community with local news and neighborhood events', size: 'Monthly print + digital', link: 'https://www.hillrag.com' },
+    { name: 'Georgetown Current', desc: 'Community newspaper for Georgetown, Glover Park, Burleith, and Wesley Heights', size: 'Weekly digital + print', link: 'https://georgetowncurrent.com' },
+    { name: 'Bethesda Magazine', desc: 'Lifestyle and local news covering Bethesda and Montgomery County, MD', size: 'Bi-monthly + daily digital', link: 'https://bethesdamagazine.com' },
+    { name: 'Arlington Magazine', desc: 'Lifestyle magazine covering Arlington County, VA — food, real estate, people, and culture', size: 'Bi-monthly print + newsletter', link: 'https://arlingtonmagazine.com' }
+  ]},
+  { group: 'Substack & Independent Newsletters', type: 'substack', superCat: 'news', entries: [
+    { name: 'Hannah Is Eating', desc: 'DC\'s most-followed local food Substack — vibes-based restaurant guides and honest dining reviews', size: 'Active Substack', link: 'https://hannahiseating.substack.com' },
+    { name: 'Streets of Washington', desc: 'Deep dives into DC history — vintage images, lost buildings, and neighborhood stories', size: 'Active Substack', link: 'https://streetsofwashington.substack.com' },
+    { name: 'Adit Eats', desc: 'DC restaurant news and dining reviews — new openings, best-of lists, and food scene commentary', size: 'Active Substack', link: 'https://aditeats.substack.com' },
+    { name: 'The DC Networker', desc: 'What matters to Greater Washington DC and DMV business professionals — by Mike Marcellus', size: 'Active Substack', link: 'https://dcnetworker.substack.com' },
+    { name: 'CATHZINE', desc: 'Catherine\'s guide to sights, bites, and discoveries across the DC-Maryland-Virginia area', size: 'Active Substack', link: 'https://cathzine.substack.com' },
+    { name: 'Jeremy Sells DMV', desc: 'Data-driven residential real estate market analysis for the Washington DC metro', size: 'Active Substack', link: 'https://jeremysellsdmv.substack.com' },
+    { name: 'DC Writers Room', desc: 'Connects writers, editors, and publishers in the DC area — events, calls for submissions', size: 'Active Substack', link: 'https://dcwritersroom.substack.com' },
+    { name: 'DC Budget & Policy Institute', desc: 'Policy analysis and budget news for DC — inequality, housing, and fiscal issues affecting residents', size: 'Active newsletter', link: 'https://www.dcfpi.org' },
+    { name: 'Popville', desc: 'DC\'s most-read neighborhood blog — dating back to 2007, covering local news, crime, food, and community', size: 'Active daily blog', link: 'https://www.popville.com' },
+    { name: 'DC Dining Notes', desc: 'Tim Carman\'s Substack for serious DC food coverage — long-reads and restaurant investigations', size: 'Active Substack', link: 'https://tcarman.substack.com' },
+    { name: 'Washingtonian This Week', desc: 'Washingtonian\'s weekly Substack briefing on DC life — things to do, politics, and city stories', size: 'Active newsletter', link: 'https://washingtonian.substack.com' },
+    { name: 'DC on the Cheap', desc: 'Free and cheap things to do in Washington DC — newsletter with curated weekly event picks', size: 'Active newsletter', link: 'https://www.dconcheap.com' },
+    { name: 'We Love DC', desc: 'Long-running blog celebrating DC life and community — events, neighborhoods, and city culture', size: 'Active blog + newsletter', link: 'https://www.welovedc.com' },
+  ]},
+  { group: 'Neighborhood Blogs & Local News Sites', type: 'blog', superCat: 'news', entries: [
+    { name: 'ARLnow', desc: 'Hyperlocal daily news site for Arlington, VA — breaking news, real estate, development, and community', size: 'Active daily news site', link: 'https://www.arlnow.com' },
+    { name: 'ALXnow', desc: 'Hyperlocal daily news for Alexandria, VA — restaurant openings, city politics, and community', size: 'Active daily news site', link: 'https://www.alxnow.com' },
+    { name: 'Bethesda Beat', desc: 'Local news site covering Bethesda and Montgomery County, MD — politics, development, and schools', size: 'Active news site', link: 'https://bethesdabeat.com' },
+    { name: 'New Columbia Heights', desc: 'Neighborhood blog for Columbia Heights, Park View, and Mount Pleasant in DC', size: 'Active blog', link: 'https://www.newcolumbiaheights.com' },
+    { name: 'The Georgetown Metropolitan', desc: 'Neighborhood blog covering Georgetown with local news, development updates, and community stories', size: 'Active blog', link: 'https://thegeorgetownmetropolitan.com' },
+    { name: 'Congress Heights on the Rise', desc: 'Long-running blog covering Ward 8 and Congress Heights — development, community news, and DC\'s far SE', size: 'Active blog', link: 'https://congressheightsontherise.com' },
+    { name: 'Borderstan', desc: 'Covers Dupont Circle, Logan Circle, and U Street neighborhoods with news, food, and community', size: 'Active blog', link: 'https://borderstan.com' },
+    { name: 'East City Art', desc: 'DC-area art news, gallery openings, artist calls, and reviews across DC, Maryland, and Virginia', size: 'Active site + newsletter', link: 'https://www.eastcityart.com' },
+    { name: 'DCFüd', desc: 'DC area online food magazine — restaurant reviews, recipes, events, and food-related discussions', size: 'Active site', link: 'https://dcfud.com' },
+    { name: 'The Hill Is Home', desc: 'Neighborhood blog covering Capitol Hill\'s eastern neighborhoods — news, events, and civic updates', size: 'Active blog', link: 'https://www.thehillishome.com' }
+  ]},
+  { group: 'Facebook Groups', type: 'facebook', superCat: 'social', entries: [
+    { name: 'DC Foodies', desc: 'The largest DC food community on Facebook — restaurant recs and reviews', size: '~40K members', link: 'https://facebook.com/groups/dcfoodies' },
+    { name: 'DC Young Professionals', desc: 'Networking, housing tips, and social events for young DC professionals', size: '~25K members', link: 'https://facebook.com/groups/dcyoungprofessionals' },
+    { name: 'DC Moms', desc: 'Parenting resources, school advice, and family events across the DMV', size: 'Large active community', link: 'https://facebook.com/groups/dcmoms' },
+    { name: 'Greater Washington Black Chamber', desc: 'GWBCC — Black business networking, events, and economic development', size: 'Business community', link: 'https://facebook.com/gwbcc' },
+    { name: 'We Act Radio', desc: 'Community radio serving Southeast DC — local news, activism, and culture', size: 'Community focused', link: 'https://weactradio.com' },
+    { name: 'DC Running Club', desc: 'Facebook community for DC Running Club members — events, routes, and social runs', size: 'Active group', link: 'https://www.facebook.com/dcrunningclub' },
+    { name: 'DC Road Runners', desc: 'Official Facebook for the DC Road Runners club — running the DMV since 1961', size: 'Active page', link: 'https://www.facebook.com/DCRoadRunners' },
+    { name: 'The Hike Crew DMV', desc: 'Black-led social hiking group for beginners exploring trails across the DMV', size: 'Active group', link: 'https://www.facebook.com/theHikeCrewDMV' }
+  ]},
+  { group: 'Forums & Discussion Boards', type: 'forum', superCat: 'social', entries: [
+    { name: 'DCUrbanMom.com', desc: 'The long-running DC parenting forum — schools, neighborhoods, and family life since 2001', size: 'Active forum since 2001', link: 'https://dcurbanmom.com' },
+    { name: 'r/WMATA', desc: 'Forum for WMATA riders, commuters, and transportation policy discussions in the DMV', size: 'Active transit forum', link: 'https://reddit.com/r/wmata' },
+    { name: 'DC Message Boards', desc: 'General DC discussion boards for local events, housing, and neighborhood life', size: 'General community', link: 'https://www.dcmessageboards.com' },
+    { name: 'Greater Greater Washington', desc: 'DC urban planning, transit, and housing policy discussion forum with an active comment community', size: 'Active policy forum', link: 'https://ggwash.org' },
+    { name: 'DC Expats Forum', desc: 'Long-running discussion board for international residents and newcomers navigating life in Washington DC', size: 'Active expat forum', link: 'https://www.expatforum.com/expats/usa/washington-dc' },
+    { name: 'City-Data DC Forum', desc: 'Comprehensive neighborhood and relocation discussion forum for DC — one of the oldest active threads', size: 'Active relocation forum', link: 'https://www.city-data.com/forum/washington-dc' },
+    { name: 'DC Scanner & Police Reports', desc: 'Community sharing DC police scanner updates, crime alerts, and public safety information', size: 'Active community', link: 'https://www.facebook.com/groups/dcscanner' },
+  ]},
+  { group: 'Listservs & Email Communities', type: 'listserv', superCat: 'social', entries: [
+    { name: 'Capitol Hill Corner Listserv', desc: 'Long-running email list for Capitol Hill residents — local news and neighbor alerts', size: 'Neighborhood listserv', link: 'https://groups.google.com/g/capitolhillcorner' },
+    { name: 'New Hill East Listserv', desc: 'Eastern Capitol Hill neighborhood discussion and community organizing', size: 'Neighborhood listserv', link: 'https://groups.google.com/g/newhilleast' },
+    { name: 'Petworth Community Listservs', desc: 'Multiple active Petworth neighborhood email lists and community boards', size: 'Multiple lists', link: 'https://groups.google.com' },
+    { name: 'DC Neighborhood Listservs Directory', desc: 'Comprehensive directory of active DC neighborhood email lists across all 8 wards', size: 'Directory of 50+ lists', link: 'https://dcist.com' },
+    { name: 'Cleveland Park Listserv', desc: 'Upper Northwest DC neighborhood email community — oldest continuously active DC neighborhood listserv', size: 'Active since 1990s', link: 'https://groups.google.com/g/cleveland-park' },
+    { name: 'Takoma DC Listserv', desc: 'Takoma neighborhood email list covering local events, development, and community news', size: 'Active neighborhood list', link: 'https://groups.google.com/g/takomaneighbors' },
+    { name: 'Georgetown Yahoo Group', desc: 'Georgetown neighborhood email discussion group — among DC\'s most active neighborhood listservs', size: 'Active neighborhood list', link: 'https://groups.yahoo.com' },
+    { name: 'Ward 6 Democrats Listserv', desc: 'Political and civic organizing list for Capitol Hill and Near Southeast DC residents', size: 'Active civic list', link: 'https://groups.google.com/g/ward6dems' },
+  ]},
+  { group: 'Discord & Slack', type: 'discord', superCat: 'social', entries: [
+    { name: 'DC Official Discord', desc: 'The largest unofficial DC Discord server — events, channels for every neighborhood', size: 'Active server', link: 'https://discord.gg/washingtondc' },
+    { name: 'Northern Virginia Discord', desc: 'NOVA-focused Discord for community events, housing, and regional discussion', size: 'Regional community', link: 'https://discord.gg/nova' },
+    { name: 'DCTech Slack', desc: "DC's tech professional community — jobs, startups, and networking", size: '12K+ members', link: 'https://dctechslack.com' },
+    { name: 'Slack Community DC', desc: 'Professional networking and events Slack for DC professionals', size: 'Professional community', link: 'https://slackcommunitydc.com' },
+    { name: 'DC Freelancers Discord', desc: 'Discord server for independent workers, contractors, and creative freelancers in the DC metro area', size: 'Active server', link: 'https://discord.gg/dcfreelancers' },
+    { name: 'DMV Creatives Slack', desc: 'Slack workspace connecting designers, photographers, videographers, and artists across the DMV', size: 'Active creative community', link: 'https://dmvcreatives.com' },
+    { name: 'DC Food Bloggers Discord', desc: 'Private Discord for DC food content creators — collabs, press previews, and recommendations', size: 'Invite-only creator community', link: 'https://discord.gg/dcfoodbloggers' },
+    { name: 'DC Gaming Discord Hub', desc: 'Central Discord discovery hub linking DC-area gaming servers — tabletop, console, PC, and mobile', size: 'Active server network', link: 'https://discord.gg/dcgaming' },
+  ]},
+  { group: 'Podcasts', type: 'podcast', superCat: 'news', entries: [
+    { name: 'The Kojo Nnamdi Show', desc: "WAMU 88.5's flagship daily talk show connecting DC neighborhoods to politics, culture, and community", size: '88.5 FM + podcast', link: 'https://thekojonnamdishow.org' },
+    { name: 'The Politics Hour', desc: 'WAMU\'s weekly review of DC, Maryland, and Virginia politics with Tom Sherwood. Airs Fridays.', size: 'WAMU / NPR podcast', link: 'https://wamu.org/show/the-politics-hour' },
+    { name: 'Through The Cracks (WAMU)', desc: 'Investigative podcast examining how DC\'s child welfare system fails vulnerable children', size: 'Award-winning series', link: 'https://wamu.org/series/through-the-cracks' },
+    { name: 'District of Sports', desc: 'Covers DC\'s professional teams — Commanders, Capitals, Wizards, Nationals, and DC United', size: 'Active sports podcast', link: 'https://www.washingtontimes.com/podcasts/district-of-sports' },
+    { name: 'DMV Business Show', desc: 'Inside DC, Maryland, and Virginia\'s local business world — entrepreneurs and community leaders', size: 'Weekly podcast', link: 'https://podcasts.apple.com/us/podcast/the-dmv-washington-dc-maryland-virginia-business-show/id1520207861' },
+    { name: 'Trap or Dive', desc: 'DC-based podcast exploring culture, identity, and city life through conversations with local voices', size: 'Active podcast', link: 'https://podcasts.apple.com/us/podcast/trap-or-dive/id1474791561' },
+    { name: 'DMV Soccer Show', desc: 'José Umaña and Mario Amaya discuss DC United, Washington Spirit, and DMV soccer culture', size: 'Active weekly podcast', link: 'https://podcasts.apple.com' },
+    { name: 'WTOP News', desc: 'The DMV\'s all-news radio station — breaking news, traffic, weather, and DC region stories', size: 'Top-rated DMV news radio', link: 'https://wtop.com' },
+    { name: 'Far From Home — DC', desc: 'Podcast for newcomers and transplants navigating life in Washington DC — building community as an outsider', size: 'Active podcast', link: 'https://podcasts.apple.com' },
+    { name: 'Post Reports', desc: 'Washington Post\'s daily podcast covering national and DC-specific stories with local reporting depth', size: 'Daily WaPo podcast', link: 'https://www.washingtonpost.com/podcasts/post-reports' },
+    { name: 'DC in a Podcast', desc: 'Celebrating DC culture, history, and people — community conversations with DC residents', size: 'Active local podcast', link: 'https://podcasts.apple.com' },
+  ]},
+  { group: 'YouTube Channels', type: 'youtube', superCat: 'news', entries: [
+    { name: 'WAMU 88.5', desc: "DC's NPR affiliate YouTube channel — video coverage of local news, culture, and public affairs", size: 'Active channel', link: 'https://www.youtube.com/@wamu885' },
+    { name: 'DCist', desc: "WAMU's digital publication — video journalism covering DC news, food, arts, and community", size: 'Active channel', link: 'https://www.youtube.com/@DCist' },
+    { name: 'Visit Washington DC', desc: 'Official Destination DC YouTube — neighborhood guides, event coverage, and city storytelling', size: 'Official tourism channel', link: 'https://www.youtube.com/user/washingtondc' },
+    { name: 'FOX 5 DC', desc: 'Local Fox affiliate — breaking news, investigative reporting, and DMV community stories', size: 'Active news channel', link: 'https://www.youtube.com/@fox5dc' },
+    { name: 'NBC Washington', desc: 'NBC4\'s YouTube channel with local DC news, weather, and in-depth community reporting', size: 'Active news channel', link: 'https://www.youtube.com/@nbcwashington' },
+    { name: 'The DC Influence', desc: 'Content creator and influencer community in the DMV — events, collaborations, and creator spotlights', size: 'Active creator network', link: 'https://thedcinfluence.com' },
+    { name: 'WUSA9', desc: 'CBS affiliate DC YouTube — local investigative journalism, community stories, and breaking DC news', size: 'Active news channel', link: 'https://www.youtube.com/@wusa9' },
+    { name: 'The Washington Post', desc: 'WaPo\'s YouTube home for DC-focused video journalism, investigations, and community storytelling', size: 'National reach, DC-based', link: 'https://www.youtube.com/@WashingtonPost' },
+    { name: 'Devour DC', desc: 'Alex Schroeder\'s food-focused YouTube exploring DC restaurants and culinary culture in the DMV', size: 'Active creator channel', link: 'https://www.youtube.com/@devourdc' },
+    { name: 'Long Walks DC', desc: 'Sara explores DC on foot — neighborhood walking tours and storytelling about DC life and culture', size: 'Active creator channel', link: 'https://www.youtube.com/@longwalksdc' },
+  ]},
+  { group: 'Civic & Government', type: 'civic', superCat: 'civic', entries: [
+    { name: 'Civic Tech DC', desc: 'Volunteers using open-source tech for civic engagement and democracy in DC — meets twice monthly', size: 'Active civic tech community', link: 'https://www.civictechdc.org' },
+    { name: 'Open Data DC', desc: "DC government's official open data portal — hundreds of public datasets, APIs, and civic data tools", size: 'Government platform', link: 'https://opendata.dc.gov' },
+    { name: 'DC Policy Center', desc: 'Independent research analyzing fiscal and economic issues facing Washington DC', size: 'Active + newsletter', link: 'https://www.dcpolicycenter.org' },
+    { name: 'Coalition for DC Public Schools', desc: 'Coalition of parent orgs working for excellent and equitable DC public schools across all 8 wards', size: 'Active coalition + newsletter', link: 'https://www.c4dcpublicschools.org' },
+    { name: 'LocalWiki DC', desc: 'Open community wiki documenting DC civic life, neighborhoods, and local knowledge', size: 'Community wiki', link: 'https://localwiki.org/dc' },
+    { name: 'Civic Tech DC Meetup', desc: 'Meetup for software developers, designers, and activists building civic tools together', size: 'Active Meetup group', link: 'https://www.meetup.com/civic-tech-dc' },
+    { name: 'DC ANC Watch', desc: 'Community monitoring Advisory Neighborhood Commission meetings and decisions across all 8 wards', size: 'Active civic tracker', link: 'https://www.facebook.com/groups/dcancwatch' },
+    { name: 'DC Vote', desc: 'Advocacy org fighting for DC statehood and voting rights representation in Congress', size: 'Active advocacy org', link: 'https://www.dcvote.org' },
+    { name: 'Greater Greater Washington', desc: 'Urban planning and transit advocacy with the most active comment community in DC civic media', size: 'Active policy forum', link: 'https://ggwash.org' },
+    { name: 'DC Fiscal Policy Institute', desc: 'Research and advocacy for an equitable DC budget — community newsletter and policy analysis', size: 'Active policy org', link: 'https://www.dcfpi.org' },
+  ]},
+  { group: 'Arts & Culture', type: 'arts', superCat: 'lifestyle', entries: [
+    { name: 'CulturalDC', desc: 'Nonprofit developing artist spaces and presenting multidisciplinary work across Washington DC', size: 'Active org + newsletter', link: 'https://www.culturaldc.org' },
+    { name: 'East City Art Newsletter', desc: 'DC-area visual arts news, gallery openings, public art, and artist opportunities delivered by email', size: 'Active email newsletter', link: 'https://www.eastcityart.com' },
+    { name: 'Honfleur Gallery', desc: 'Anacostia-based gallery celebrating African American culture and contemporary art', size: 'Active gallery + community', link: 'https://honfleurgallery.com' },
+    { name: 'DC Arts Center', desc: 'Adams Morgan venue for performances, gallery shows, and open calls — active newsletter and community', size: 'Active newsletter', link: 'https://www.dcartscenter.org' },
+    { name: 'Washington City Paper Arts', desc: 'Reviews, previews, and commentary on DC\'s creative scene — music, theater, visual arts, and film', size: 'Weekly alt-weekly', link: 'https://washingtoncitypaper.com/arts' },
+    { name: 'DC Theater Arts', desc: 'Coverage of DC\'s robust theater scene — reviews, previews, and community for theater lovers', size: 'Active arts publication', link: 'https://www.dctheaterarts.org' },
+    { name: 'Kennedy Center Community', desc: 'Community around DC\'s premier performing arts center — free Millennium Stage, ticketed shows, residencies', size: 'Active venue + free shows daily', link: 'https://www.kennedy-center.org' },
+    { name: 'DC Artists Alliance', desc: 'Facebook group connecting visual artists, gallery owners, and arts supporters across the DC metro area', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcartistsalliance' },
+    { name: 'Strathmore Arts Community', desc: 'Arts center in North Bethesda with DC-area programming — community newsletter and education programs', size: 'Active regional arts center', link: 'https://www.strathmore.org' },
+  ]},
+  { group: 'Sports & Recreation', type: 'sports', superCat: 'lifestyle', entries: [
+    { name: 'Burgundy & Gold Nation', desc: 'Fan forum and community for Washington Commanders — game threads, draft talk, and DC sports', size: 'Active fan forum', link: 'https://burgundyandgoldnation.com' },
+    { name: 'DC Road Runners Club', desc: "The DC area's oldest running club since 1961 — races, weekly runs, and training programs", size: 'Active club since 1961', link: 'https://dcroadrunners.org' },
+    { name: 'DC Outdoor Adventures Meetup', desc: 'DMV\'s leading outdoor Meetup for hiking, biking, skiing, snowboarding, and adventure sports', size: 'Large Meetup group', link: 'https://www.meetup.com/dc-outdoor-adventures' },
+    { name: 'DC United Supporters Alliance', desc: 'Umbrella org for DC United supporter groups — La Barra Brava, District Ultras, and Screaming Eagles', size: 'Active supporter community', link: 'https://dcunited.com' },
+    { name: 'Washington Nationals Fan Forum', desc: 'Online community for Nationals fans — game threads, trades, and DC baseball discussion', size: 'Active fan community', link: 'https://reddit.com/r/Nationals' },
+    { name: 'DC Bike Party', desc: 'Monthly mass bike ride through DC neighborhoods — community cycling event and social gathering', size: 'Monthly event + community', link: 'https://www.dcbikeparty.com' },
+    { name: 'DC Fútbol & Soccer Community', desc: 'Pickup soccer, futsal, and recreational leagues for DC-area soccer players of all skill levels', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcfutbol' },
+    { name: 'DC Rowing & Paddling', desc: 'Crew, kayaking, and paddleboarding community on the Potomac and Anacostia rivers', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcrowingpaddling' },
+    { name: 'Washington Spirit Fan Community', desc: 'Fan community for DC\'s NWSL professional women\'s soccer team — match threads and supporter culture', size: 'Active fan community', link: 'https://www.facebook.com/groups/washingtonspiritfans' },
+    { name: 'DC Tennis Community', desc: 'Tennis players of all levels across DC public courts, clubs, and leagues — finding games and partners', size: '3,000+ members', link: 'https://www.facebook.com/groups/dctenniscommunity' },
+  ]},
+  { group: 'Food & Dining', type: 'food', superCat: 'lifestyle', entries: [
+    { name: 'Eater DC', desc: 'Vox Media\'s DC food and dining vertical — restaurant news, openings, closings, and dining guides', size: 'Active daily site + newsletter', link: 'https://dc.eater.com' },
+    { name: 'Washingtonian Food & Dining', desc: 'Restaurant reviews, rankings, and dining news from Washingtonian magazine\'s food coverage', size: 'Active site + newsletter', link: 'https://www.washingtonian.com/food-and-drink' },
+    { name: '@bestfooddc', desc: 'Instagram account sharing the best food finds across Washington DC — daily recs and photography', size: 'Active Instagram', link: 'https://www.instagram.com/bestfooddc' },
+    { name: '@thedistrictcravings', desc: 'DMV Foodie Meghan\'s Instagram — discovering food across DC, Virginia, and Maryland', size: '~18K followers', link: 'https://www.instagram.com/thedistrictcravings' },
+    { name: 'r/dcfoodporn', desc: 'DC food photography subreddit — locals sharing restaurant finds and home cooking across the DMV', size: 'Active subreddit', link: 'https://reddit.com/r/dcfoodporn' },
+    { name: 'Taste of DC', desc: "Home of DC's largest annual food festival — newsletter and social community for DC food lovers", size: 'Active community + social', link: 'https://www.tasteofdc.org' },
+    { name: 'Washington Post Food', desc: 'The Post\'s food coverage — Tom Sietsema restaurant reviews, recipes, and DC dining guides', size: 'Daily food section', link: 'https://www.washingtonpost.com/food' },
+    { name: 'RAMMY Awards', desc: 'The Restaurant Association Metropolitan Washington\'s annual awards — DC restaurant community\'s Oscars', size: 'Annual awards + community', link: 'https://www.ramw.org' },
+    { name: 'DC Food Truck Association', desc: 'Community tracking DC food trucks, schedules, and locations — find your favorite truck daily', size: 'Active community', link: 'https://www.dcfoodtrucks.org' },
+    { name: 'Happy Hour DC Facebook', desc: 'Community sharing the best happy hour deals, restaurant specials, and dining discounts across DC', size: '12,000+ members', link: 'https://www.facebook.com/groups/happyhourdc' },
+    { name: 'DC Brunch Community', desc: 'DC\'s most passionate meal gets its own Facebook group — brunch spots, waits, and weekend recs', size: '8,000+ members', link: 'https://www.facebook.com/groups/dcbrunch' },
+  ]},
+  { group: 'Real Estate & Housing', type: 'realestate', superCat: 'professional', entries: [
+    { name: 'r/dcforrent', desc: 'DC rental listings subreddit — apartments, rooms, and sublets posted by locals for locals', size: 'Active subreddit', link: 'https://reddit.com/r/dcforrent' },
+    { name: 'Bisnow DC', desc: 'Commercial real estate news and events for the DC market — development, leasing, and investment', size: 'Active daily newsletter', link: 'https://www.bisnow.com/washington-dc' },
+    { name: 'NoMa BID', desc: 'Business Improvement District newsletter tracking North of Massachusetts Ave development and community', size: 'Active neighborhood BID', link: 'https://www.nomabid.org' },
+    { name: 'Shaw BID News', desc: 'Shaw and Mount Vernon Triangle neighborhood updates — development, events, and local business', size: 'Active BID newsletter', link: 'https://www.shawbid.com' },
+    { name: 'Capitol Riverfront BID', desc: 'Navy Yard neighborhood\'s BID newsletter — one of DC\'s fastest-growing neighborhoods', size: 'Active BID + newsletter', link: 'https://www.capitolriverfront.org' },
+    { name: 'DC Roommates & Housing Facebook', desc: 'Active Facebook group for DC roommate seekers — sublets, room shares, and housing searches', size: '15,000+ members', link: 'https://www.facebook.com/groups/dcroommates' },
+    { name: 'DC Housing Counseling Services', desc: 'DHCD-approved housing counselors helping DC renters and first-time buyers navigate the market', size: 'City program', link: 'https://dhcd.dc.gov/service/housing-counseling' },
+    { name: 'DCRA Permit & Development Tracker', desc: 'Community tracking DC building permits, development applications, and zoning decisions', size: 'Public civic resource', link: 'https://app.dcoz.dc.gov' },
+    { name: 'DC First-Time Homebuyers Network', desc: 'Facebook community for DC residents navigating first-time home purchase — programs, tips, and agent referrals', size: '6,000+ members', link: 'https://www.facebook.com/groups/dcfirsttimehomebuyers' },
+  ]},
+  { group: 'LGBTQ+', type: 'lgbtq', superCat: 'community', entries: [
+    { name: 'Washington Blade', desc: 'The oldest LGBTQ newspaper in the US — DC\'s queer community, politics, and resources since 1969', size: 'Weekly print + active website', link: 'https://www.washingtonblade.com' },
+    { name: 'Metro Weekly', desc: 'Free weekly LGBTQ magazine for DC/MD/VA — news, arts, nightlife, and community events', size: '~45K readers, 500 pickup spots', link: 'https://www.metroweekly.com' },
+    { name: 'The DC Center for the LGBT Community', desc: 'Hub for LGBTQ organizations, support groups, and resources in the DC metro area', size: 'Active community org', link: 'https://thedccenter.org' },
+    { name: 'DC Black Pride', desc: 'Annual celebration of African American LGBTQ life in DC — one of the largest Black Pride events in the US', size: 'Active org + social community', link: 'https://www.dcblackpride.org' },
+    { name: 'KhushDC', desc: 'Social, support, and advocacy for LGBTQ+ South Asians in the Washington DC metro area', size: 'Active community org', link: 'https://www.khushdc.com' },
+    { name: 'Spark DC', desc: 'Curated directory of DC LGBTQ+ nonprofits, businesses, sports leagues, and social groups', size: 'Active directory + community', link: 'https://spark-dc.com' },
+    { name: 'Gay District', desc: 'Online directory and resource guide for DC\'s LGBTQ community — organizations, resources, and events', size: 'Active directory', link: 'http://gaydistrict.org' },
+    { name: 'DC LGBTQ+ Facebook Community', desc: 'Facebook group connecting LGBTQ+ residents across DC — social events, support, and community announcements', size: '10,000+ members', link: 'https://www.facebook.com/groups/dclgbtq' },
+    { name: 'Capital Pride Alliance', desc: 'Organizer of DC\'s Capital Pride festival and parade — one of the largest Pride events on the East Coast', size: 'Annual + year-round community', link: 'https://www.capitalpride.org' },
+    { name: 'DC Trans Coalition', desc: 'Advocacy and community support for transgender and nonbinary DC residents — resources and events', size: 'Active advocacy org', link: 'https://www.dctranscoalition.com' },
+    { name: 'DC LGBTQ+ Sports Leagues', desc: 'Umbrella community for DC\'s LGBTQ+ recreational sports leagues — kickball, volleyball, bowling, and more', size: 'Multiple active leagues', link: 'https://www.facebook.com/groups/dclgbtqsports' },
+  ]},
+  { group: 'Black DC', type: 'black', superCat: 'community', entries: [
+    { name: 'AFRO American Newspapers', desc: "Nation's longest-running Black family-owned newspaper since 1892 — DC coverage and free newsletter", size: '131+ years, active newsletter', link: 'https://afro.com/section/d-c-community' },
+    { name: 'Washington Association of Black Journalists', desc: 'Professional association for DC-area Black journalists — events, newsletter, and member networking', size: 'Active professional org', link: 'https://wabjdc.org' },
+    { name: 'Blacks in Technology DMV', desc: 'Local chapter of the largest tech community for Black professionals — events, networking, career support', size: 'Active chapter', link: 'https://blacksintechnology.org/chapters' },
+    { name: 'The Hike Crew DMV', desc: 'Black-led social hiking group for beginners — inclusive outdoor community with events and trails', size: 'Active social group', link: 'https://www.instagram.com/thehikecrew' },
+    { name: 'DCBlack.com', desc: 'Online resource promoting Black-owned businesses, community orgs, and African American events in DC', size: 'Active directory', link: 'http://www.dcblack.com' },
+    { name: '@blackcrown.collective', desc: 'Black-owned businesses, culture, and community in the DMV — active Instagram community account', size: 'Community account', link: 'https://instagram.com/blackcrown.collective' },
+    { name: 'DC Black Professionals Network', desc: 'Facebook community connecting Black professionals across industries in Washington DC — networking and events', size: '8,000+ members', link: 'https://www.facebook.com/groups/dcblackprofessionals' },
+    { name: 'Greater Washington Urban League', desc: 'Civil rights and economic empowerment org for Black DC residents — programs, advocacy, and community', size: 'Active organization', link: 'https://www.gwul.org' },
+    { name: 'Howard University Community', desc: 'The social hub around HBCU Howard University in DC — students, alumni, and community engagement', size: 'Active university community', link: 'https://www.facebook.com/groups/howarduniversitycommunity' },
+    { name: 'Black Restaurant Week DC', desc: 'Annual celebration supporting Black-owned restaurants and food entrepreneurs in the DC metro area', size: 'Annual + year-round community', link: 'https://blackrestaurantweeks.com/dc' },
+  ]},
+  { group: 'Latino & Hispanic DC', type: 'latino', superCat: 'community', entries: [
+    { name: 'El Tiempo Latino', desc: 'Spanish-language free weekly newspaper published in DC — news, community, and culture en español', size: 'Weekly free print + digital', link: 'https://eltiempolatino.com' },
+    { name: 'Washington Hispanic', desc: 'Spanish-language newspaper serving the DC area since 1994 — community news and Latino culture', size: 'Active newspaper since 1994', link: 'https://washingtonhispanic.com' },
+    { name: 'Hola Cultura', desc: 'Bilingual arts and culture platform celebrating Latino heritage in the DC area — events and programs', size: 'Active org + social', link: 'https://holacultura.com' },
+    { name: 'DC Latino Caucus', desc: 'Preeminent voice for the Latino community in DC\'s Democratic Party — newsletter and civic events', size: 'Active org + newsletter', link: 'https://www.dclatinocaucus.org' },
+    { name: "Mayor's Office on Latino Affairs", desc: 'DC government office providing language access and community services for DC\'s Latino residents', size: 'Government office + outreach', link: 'https://communityaffairs.dc.gov/mola' },
+    { name: 'DC Latino Facebook Community', desc: 'Facebook group connecting Latino and Hispanic residents across the DC metro area — events and resources', size: '10,000+ members', link: 'https://www.facebook.com/groups/dclatino' },
+    { name: 'CARECEN DC', desc: 'Central American Resource Center — serving Central American immigrants in DC with legal services and community programs', size: 'Active advocacy org', link: 'https://www.carecen-dc.org' },
+    { name: 'Latin American Youth Center', desc: 'LAYC empowers DC\'s Latino and multi-cultural youth — programs, community, and advocacy', size: 'Active youth org', link: 'https://www.layc-dc.org' },
+    { name: 'DC Feria y Festival Latino', desc: 'Community hub around DC\'s annual Latino festival and year-round cultural celebrations', size: 'Annual + active community', link: 'https://www.facebook.com/groups/dcferialatina' },
+  ]},
+  { group: 'Asian & Pacific Islander DC', type: 'asian', superCat: 'community', entries: [
+    { name: 'AAPI in DC', desc: 'Documenting and celebrating Asian American and Pacific Islander history and culture in Washington DC', size: 'Active community org', link: 'https://www.aapidc.org' },
+    { name: 'OCA-Asian Pacific American Advocates DC', desc: 'DC-area chapter of national AAPI civil rights org — advocacy, civic engagement, and community programming', size: 'Active chapter', link: 'https://www.ocadc.org' },
+    { name: 'Korean Community Service Center', desc: 'Social services, education, and advocacy for Korean Americans and new immigrants in the DC metro area', size: 'Active community org', link: 'https://www.kcscgw.org' },
+    { name: 'Viet Place Collective', desc: 'Preserving Vietnamese legacy and culture in the DMV — programming and cultural events at Eden Center', size: 'Active collective', link: 'https://www.vietplacecollective.org' },
+    { name: 'Asian Pacific American Legal Resource Center', desc: 'DC-based legal org serving low-income AAPI communities — community updates and events', size: 'Active legal aid org', link: 'https://www.apalrc.org' },
+    { name: 'DC Chinatown Community', desc: 'Community working to preserve DC\'s shrinking Chinatown — cultural events and advocacy', size: 'Active advocacy community', link: 'https://www.facebook.com/groups/dcchinatown' },
+    { name: 'Japanese American Citizens League DC', desc: 'DC-area JACL chapter advocating for Japanese Americans and civil rights across the DMV', size: 'Active chapter', link: 'https://www.jacl.org' },
+    { name: 'DC South Asian Community', desc: 'Facebook community connecting South Asian residents across Indian, Pakistani, Bangladeshi, and Sri Lankan backgrounds', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcsouthasian' },
+    { name: 'Eden Center Community', desc: 'Community around Falls Church\'s iconic Vietnamese shopping center — cultural hub for the DMV Vietnamese diaspora', size: 'Active cultural community', link: 'https://www.edencenter.com' },
+  ]},
+  { group: 'Education & Schools', type: 'education', superCat: 'civic', entries: [
+    { name: 'DC School News', desc: 'Newsletter and community covering DC public school news, policy, and parent advocacy', size: 'Active newsletter', link: 'https://dcschoolnews.com' },
+    { name: 'Coalition for DC Public Schools', desc: 'Parent and community orgs advocating for excellent, equitable DC public schools', size: 'Active coalition', link: 'https://www.c4dcpublicschools.org' },
+    { name: 'Advocates for Justice and Education', desc: 'DC advocacy org for families navigating special education and school rights — parent newsletters', size: 'Active org + newsletter', link: 'https://www.aje-dc.org' },
+    { name: 'My School DC', desc: "DC's unified lottery and enrollment platform — resource hub for parents navigating the school system", size: 'Official DC platform', link: 'https://www.myschooldc.org' },
+    { name: 'DCUrbanMom Education Forums', desc: 'DC school admissions discussion boards — K-12, reviews, and parent advice from the DC parenting community', size: 'Active forum', link: 'https://www.dcurbanmom.com/jforum/forums/show/8.page' },
+    { name: 'DC Charter School Alliance', desc: 'Advocacy and community for DC\'s robust charter school sector — parent resources and school news', size: 'Active advocacy org', link: 'https://www.dcpcsb.org' },
+    { name: 'DC Public Library Youth Programs', desc: 'Free youth programming at DC\'s 26 neighborhood library branches — tutoring, after-school, and summer camps', size: 'Free city-wide programs', link: 'https://www.dclibrary.org/kids' },
+    { name: 'DC GradNation', desc: 'Community effort to increase DC high school graduation rates through mentorship and wraparound support', size: 'Active community program', link: 'https://www.americaspromise.org/gradnation' },
+    { name: 'DCPS Parent Resource Guide', desc: 'DC Public Schools community hub for parents — enrollment, IEPs, school choice, and parent engagement', size: 'Official DCPS resource', link: 'https://dcps.dc.gov/page/families' },
+  ]},
+  { group: 'Environment & Outdoors', type: 'outdoors', superCat: 'lifestyle', entries: [
+    { name: 'Potomac Appalachian Trail Club', desc: 'Volunteer org maintaining DC-area trail network since 1927 — trail crews, hikes, and conservation', size: 'Active club since 1927', link: 'https://www.patc.net' },
+    { name: 'AMC Potomac Chapter', desc: 'DC/MD/VA chapter of the Appalachian Mountain Club — hiking, paddling, biking, and outdoor community', size: '~3,000 members', link: 'https://www.meetup.com/amc-potomac' },
+    { name: 'Capital Hiking Club', desc: 'Nonprofit hiking club since 1937 — organized group hikes for DC-area residents year-round', size: 'Active club since 1937', link: 'https://www.meetup.com/capital-hiking-club' },
+    { name: 'Chesapeake Climate Action Network', desc: 'DC/MD/VA grassroots climate advocacy — newsletter, action alerts, and online community', size: 'Active org + newsletter', link: 'https://chesapeakeclimate.org' },
+    { name: 'Washington Area Bicyclist Association', desc: "DC's bike advocacy org — newsletter, campaigns, and community for cyclists across the DMV", size: 'Active org + newsletter', link: 'https://waba.org' },
+    { name: 'r/dcenvironmentalism', desc: 'Subreddit for DC-area environmental issues, activism, sustainability, and green living', size: 'Active subreddit', link: 'https://reddit.com/r/dcenvironmentalism' },
+    { name: 'DC Metropolitan Hikers', desc: 'Meetup group for DC-area hiking enthusiasts — local woods, waterfalls, and nature trails', size: 'Active Meetup group', link: 'https://www.meetup.com/hiking-162' },
+    { name: 'Anacostia Riverkeeper', desc: 'Nonprofit protecting the Anacostia River — cleanups, advocacy, and community paddle events', size: 'Active org + newsletter', link: 'https://www.anacostiariverkeeper.org' },
+    { name: 'DC Urban Gardeners', desc: 'Community for city gardeners — backyard plots, community gardens, composting, and seasonal swaps', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcurbangardeners' },
+    { name: 'Sierra Club DC Chapter', desc: 'Environmental advocacy and outdoor community in DC — outings, trail work, and climate campaigns', size: 'Active chapter', link: 'https://www.sierraclub.org/dc' },
+    { name: 'Potomac Conservancy', desc: 'Protecting the Potomac River watershed — community science, cleanups, and outdoor programming', size: 'Active org + newsletter', link: 'https://potomac.org' },
+    { name: 'DC Nature & Wildlife Facebook', desc: 'Sharing wildlife sightings, nature photography, and outdoor discoveries across the DC metro area', size: '7,000+ members', link: 'https://www.facebook.com/groups/dcnaturewildlife' },
+    { name: 'TreesDC Community', desc: 'Casey Trees community for DC tree lovers — tree planting events, urban canopy advocacy, and arborist resources', size: 'Active volunteer community', link: 'https://caseytrees.org' },
+  ]},
+  { group: 'Nextdoor & Hyperlocal', type: 'nextdoor', superCat: 'social', entries: [
+    { name: 'Nextdoor DC', desc: "DC's most active neighborhood network — safety, recommendations, and local news block by block", size: 'Neighborhood-by-neighborhood', link: 'https://nextdoor.com' },
+    { name: 'Patch DC', desc: 'Hyperlocal news patches for DC neighborhoods — events, obituaries, and community reporting', size: 'Metro DC coverage', link: 'https://patch.com/dc' },
+    { name: 'Front Steps DC', desc: 'Hyperlocal real estate and neighborhood blog covering DC development and community news', size: 'Active neighborhood blog', link: 'https://www.frontstepsdc.com' },
+    { name: 'DC Curbed', desc: 'Vox Media\'s DC real estate and city development blog — neighborhood changes, openings, and policy', size: 'Active site + newsletter', link: 'https://dc.curbed.com' },
+    { name: 'ANC Finder DC', desc: 'Tool for finding your DC Advisory Neighborhood Commission — local civic infrastructure at the block level', size: 'Civic resource', link: 'https://www.dcpolicycenter.org/anc' },
+    { name: 'DC Neighborhood Block Captains', desc: 'Facebook network connecting DC block captains and neighborhood safety liaisons across all wards', size: 'Active civic network', link: 'https://www.facebook.com/groups/dcblockcaptains' },
+    { name: 'Hoods.DC', desc: 'Community-driven guide to DC\'s 130+ named neighborhoods — maps, history, and local guides', size: 'Active community resource', link: 'https://www.hoods.dc.gov' },
+  ]},
+  { group: 'Instagram Communities', type: 'instagram', superCat: 'social', entries: [
+    { name: '@dmvfoodfinds', desc: 'Community account aggregating the best DMV food content and discoveries', size: 'Food community', link: 'https://instagram.com/dmvfoodfinds' },
+    { name: '@gwbcc', desc: 'Greater Washington Black Chamber — Black business and economic life in the DMV', size: 'Business community', link: 'https://instagram.com/gwbcc' },
+    { name: '@holaculturadc', desc: 'Bilingual Latino culture, arts, and community coverage across the DMV', size: 'Cultural community', link: 'https://instagram.com/holaculturadc' },
+    { name: '@blackcrown.collective', desc: 'Black-owned businesses, culture, and community in the DMV', size: 'Community account', link: 'https://instagram.com/blackcrown.collective' },
+    { name: '@dc.hidden.gems', desc: 'Surfacing underrated DC restaurants, parks, and experiences that locals love but visitors miss', size: 'Active discovery account', link: 'https://instagram.com/dc.hidden.gems' },
+    { name: '@weareDMV', desc: 'Celebrating DMV culture, people, and places — community-first content from across the region', size: 'Regional community account', link: 'https://instagram.com/wearedmv' },
+    { name: '@thedcguide', desc: 'Practical DC guide for residents and newcomers — things to do, where to go, what to know', size: 'Active guide account', link: 'https://instagram.com/thedcguide' },
+    { name: '@beautifuldc', desc: 'Showcasing the visual beauty of Washington DC — architecture, monuments, nature, and street life', size: 'Photography community', link: 'https://instagram.com/beautifuldc' },
+    { name: '@dc.events', desc: 'Daily event recommendations across DC — free events, markets, pop-ups, and cultural happenings', size: 'Events discovery account', link: 'https://instagram.com/dc.events' },
+  ]},
+  { group: 'Reviews & Discovery', type: 'yelp', superCat: 'social', entries: [
+    { name: 'Yelp DC', desc: "DC's largest community review platform — restaurants, services, and local business", size: 'Millions of reviews', link: 'https://yelp.com/dc' },
+    { name: 'Google Maps DC', desc: 'The most-used local discovery tool in the DMV — reviews, photos, and business info from locals', size: 'Most-used local platform', link: 'https://maps.google.com' },
+    { name: 'The Infatuation DC', desc: 'Restaurant recommendations from people who actually know what they\'re talking about — DC edition', size: 'Active guide + newsletter', link: 'https://www.theinfatuation.com/washington-dc' },
+    { name: 'OpenTable DC', desc: 'Restaurant reservations platform with reviews — strong DC coverage for date nights and group dinners', size: 'Most-used reservations platform', link: 'https://www.opentable.com/washington-dc-restaurant-guide' },
+    { name: 'Tripadvisor DC', desc: 'Traveler and resident reviews for DC restaurants, hotels, and attractions — massive review database', size: 'Millions of reviews', link: 'https://www.tripadvisor.com/Tourism-g28970-Washington_DC.html' },
+    { name: 'Resy DC', desc: 'Reservation platform for DC\'s most in-demand restaurants — community of serious diners and foodies', size: 'Active reservation platform', link: 'https://resy.com/cities/dc' },
+    { name: 'Foursquare / Swarm DC', desc: 'Check-in and recommendation app with strong DC community around local favorites and discoveries', size: 'Active local discovery', link: 'https://foursquare.com/explore?near=Washington%2C+DC' },
+    { name: 'DC Yelp Elite Community', desc: 'DC\'s Yelp Elite Squad — the city\'s most active local reviewers with exclusive events and community access', size: 'Invite-only review community', link: 'https://yelp.com/elite' },
+  ]},
+
+  /* ── RUNNING & FITNESS ── */
+  { group: 'Running & Fitness Clubs', type: 'sports', superCat: 'lifestyle', entries: [
+    { name: 'DC Road Runners Club', desc: 'Oldest and largest running club in the DC area — weekend long runs, races, and beginner programs', size: '4,000+ members', link: 'https://www.dcroadrunners.org' },
+    { name: 'November Project DC', desc: 'Free outdoor workout movement that meets every Wednesday at the Lincoln Memorial', size: '500+ regulars', link: 'https://november-project.com/washington-dc' },
+    { name: 'Capital Area Runners', desc: 'Competitive and recreational running club — regular track workouts and group runs', size: '800+ members', link: 'https://www.capitalrunners.com' },
+    { name: 'Pacers Running', desc: 'Local running stores hosting free group runs from Georgetown and Capitol Hill locations', size: 'Free weekly runs', link: 'https://www.pacers.com' },
+    { name: 'Georgetown Running Club', desc: 'Morning runs along the C&O Canal and Rock Creek — welcoming to all paces', size: 'Active weekly runs', link: 'https://www.georgetownrunningclub.com' },
+    { name: 'Potomac River Running', desc: 'Northern Virginia and DC running stores hosting free group runs from multiple locations', size: 'Free weekly runs', link: 'https://www.potomacriverrunning.com' },
+    { name: 'DC Hash House Harriers', desc: 'Drinking club with a running problem — social running meets with DC flair', size: 'Active chapter', link: 'https://dch3.org' },
+    { name: 'Capital Striders Running Club', desc: 'Montgomery County-based club serving the greater DMV with regular runs and social events', size: '600+ members', link: 'https://www.capitalstriders.org' },
+    { name: 'DC CrossFit Community', desc: 'Facebook group connecting CrossFit athletes across all DC-area boxes', size: '2,000+ members', link: 'https://www.facebook.com/groups/dccrossfit' },
+    { name: 'Yoga in DC', desc: 'Facebook community sharing yoga classes, free outdoor sessions, and teacher recommendations', size: '3,000+ members', link: 'https://www.facebook.com/groups/yogaindc' },
+    { name: 'Nation\'s Triathlon DC', desc: 'Community around DC\'s marquee triathlon in the Potomac River — year-round training group', size: 'Annual event + training', link: 'https://www.nationstri.com' },
+    { name: 'DC Pilates & Barre Community', desc: 'Sharing DC pilates studios, barre classes, and body movement practices across the city', size: '1,500+ members', link: 'https://www.facebook.com/groups/dcpilatesbarre' },
+  ]},
+
+  /* ── BIKING ── */
+  { group: 'Biking & Cycling', type: 'sports', superCat: 'lifestyle', entries: [
+    { name: 'WABA — Washington Area Bicyclists', desc: 'The advocacy hub for DC cycling — rides, advocacy, bike commuter resources, and events', size: '5,000+ members', link: 'https://waba.org' },
+    { name: 'DC Cycling Facebook Group', desc: 'Active Facebook community for DC cyclists — routes, safety tips, and gear swaps', size: '8,000+ members', link: 'https://www.facebook.com/groups/dccycling' },
+    { name: 'r/bikedc', desc: 'DC bike subreddit covering commuting routes, trail conditions, and local advocacy news', size: 'Active subreddit', link: 'https://reddit.com/r/bikedc' },
+    { name: 'Capital Bikeshare Community', desc: 'Facebook group around DC\'s bike share system — tips, favorite routes, suggestions', size: 'Active community', link: 'https://www.capitalbikeshare.com' },
+    { name: 'PUMP DC Cycling Club', desc: 'Recreational and competitive road cycling club based in the DC metro area', size: '400+ members', link: 'https://www.pumpdc.com' },
+    { name: 'DC Mountain Biking Group', desc: 'Mountain bike community covering Wakefield Park, Schaeffer Farms, and Fountain Head trails', size: '2,500+ members', link: 'https://www.facebook.com/groups/dcmountainbiking' },
+    { name: 'Major Taylor Cycling Club DC', desc: 'Diverse cycling club celebrating the legacy of Marshall "Major" Taylor — all riders welcome', size: '300+ members', link: 'https://www.majortaylorcyclingclub.org' },
+    { name: 'Bike to Work Day DC', desc: 'Annual May event and year-round community around commuter cycling in the DMV', size: 'Annual 10,000+ riders', link: 'https://www.biketoworkday.org' },
+    { name: 'DC Women\'s Cycling Collective', desc: 'Women-centered cycling community for road, trail, and casual riders across the DMV', size: '1,500+ members', link: 'https://www.facebook.com/groups/dcwomenscycling' },
+  ]},
+
+  /* ── MUSIC & NIGHTLIFE ── */
+  { group: 'Music & Nightlife', type: 'arts', superCat: 'lifestyle', entries: [
+    { name: 'Brightest Young Things', desc: 'DC\'s independent guide to nightlife, music, and culture — the pulse of what\'s happening tonight', size: 'Established DC media', link: 'https://brightestyoungthings.com' },
+    { name: 'DC Music Lovers Facebook', desc: 'Large Facebook community sharing local shows, venue recommendations, and music discovery', size: '12,000+ members', link: 'https://www.facebook.com/groups/dcmusiclovers' },
+    { name: 'Do the DMV', desc: 'Curated guide to events across DC, Maryland, and Virginia with a music and arts focus', size: 'Active events guide', link: 'https://dothedmv.com' },
+    { name: 'DC Electronic Music Community', desc: 'Facebook group for electronic music fans — DJ sets, club nights, and festival carpooling', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcelecmusic' },
+    { name: 'DC Jazz Network', desc: 'Connecting DC jazz musicians, venues, and fans — from Blues Alley to outdoor summer festivals', size: 'Active network', link: 'https://www.dcjazz.com' },
+    { name: 'DC Concert & Event Ticket Trading', desc: 'Facebook group for trading, selling, and seeking tickets to DC events', size: '6,000+ members', link: 'https://www.facebook.com/groups/dctickettrade' },
+    { name: 'Black Cat DC Community', desc: 'Community around one of DC\'s iconic independent venues — indie, alternative since 1993', size: 'Legendary DC venue', link: 'https://www.blackcatdc.com' },
+    { name: 'DC Punk Archive', desc: 'Celebrating DC\'s legendary hardcore and punk history — from Bad Brains to Minor Threat', size: 'Historical + active', link: 'https://dcpunkarchive.com' },
+    { name: 'DC Hip Hop & Go-Go Facebook', desc: 'Community celebrating go-go and hip hop culture, local artists, and open mics in DC', size: '4,500+ members', link: 'https://www.facebook.com/groups/dchiphop' },
+    { name: 'Songbyrd Community', desc: 'Community around one of DC\'s best intimate music venues and record shop in Adams Morgan', size: 'Active venue', link: 'https://www.songbyrddc.com' },
+    { name: 'DC Classical Music Forum', desc: 'Community for fans of classical music in DC — Kennedy Center events, chamber performances', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcclassicalmusic' },
+    { name: 'I Heart Music DC', desc: 'Local music blog spotlighting emerging DC artists across all genres', size: 'Active music coverage', link: 'https://iheartmusicdc.com' },
+  ]},
+
+  /* ── PHOTOGRAPHY ── */
+  { group: 'Photography & Visual Arts', type: 'arts', superCat: 'lifestyle', entries: [
+    { name: 'DC Photography Facebook Group', desc: 'Largest DC photography community — sharing shots, critiques, gear tips, and location scouting', size: '15,000+ members', link: 'https://www.facebook.com/groups/photographydc' },
+    { name: 'DC Photo Walks', desc: 'Organized photography walks through DC neighborhoods — skill-building and community', size: 'Regular events', link: 'https://www.meetup.com/dc-photo-walks' },
+    { name: 'DC Instagram Photographers', desc: 'Collaborative Facebook group for DC-based Instagram photographers to share tips and collab', size: '3,000+ members', link: 'https://www.facebook.com/groups/dcinstagramphotographers' },
+    { name: 'Flickr DC Group', desc: 'Long-running Flickr pool showcasing Washington DC photography from thousands of contributors', size: '20,000+ photos', link: 'https://www.flickr.com/groups/washingtondc' },
+    { name: 'DC Drone Photography', desc: 'Facebook community navigating DC\'s strict airspace rules to capture aerial photography legally', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcdronephotos' },
+    { name: 'Smithsonian Photography', desc: 'Community programs and events around photography at the world\'s largest museum complex', size: 'Free + public events', link: 'https://www.si.edu/photography' },
+    { name: 'DC Film Photography', desc: 'Analog photography community in DC — film swaps, darkroom access, and local lab reviews', size: '1,500+ members', link: 'https://www.facebook.com/groups/dcfilmphotography' },
+    { name: 'National Geographic HQ Community', desc: 'DC-based Nat Geo runs global photo contests and local community events for visual storytellers', size: 'Global + DC-based HQ', link: 'https://www.nationalgeographic.com/photography' },
+    { name: 'DC Street Photography', desc: 'Community of street photographers documenting daily life and people across Washington DC', size: '2,500+ members', link: 'https://www.facebook.com/groups/dcstreetphotography' },
+  ]},
+
+  /* ── BOOKS ── */
+  { group: 'Book Clubs & Literary', type: 'blog', superCat: 'lifestyle', entries: [
+    { name: 'Politics & Prose Book Club', desc: 'DC\'s beloved independent bookstore runs multiple monthly book clubs — fiction, nonfiction, and more', size: 'Multiple monthly clubs', link: 'https://www.politics-prose.com/book-clubs' },
+    { name: 'Loyalty Books DC', desc: 'Community-centered independent bookstore in Columbia Heights and Petworth with events and discussions', size: 'Active community space', link: 'https://loyaltybookstores.com' },
+    { name: 'One More Page Books', desc: 'Arlington\'s independent bookstore with regular author events and book club programming', size: 'Active programming', link: 'https://www.onemorepagebooks.com' },
+    { name: 'DC Public Library Book Clubs', desc: 'Free book clubs run through the DC Public Library system — open to all cardholders', size: 'Free, all branches', link: 'https://www.dclibrary.org/bookclub' },
+    { name: 'DC Book Club Meetup', desc: 'General book club meetup group connecting DC readers across all genres and neighborhoods', size: '2,000+ members', link: 'https://www.meetup.com/dcbookclub' },
+    { name: 'Black DC Book Club', desc: 'Facebook community celebrating Black literature and authors with DC readers', size: '3,000+ members', link: 'https://www.facebook.com/groups/blackdcbookclub' },
+    { name: 'DC SciFi Book Club', desc: 'Science fiction and fantasy readers in DC — monthly meetings and online discussions', size: '500+ members', link: 'https://www.meetup.com/dc-scifi-book-club' },
+    { name: 'DC Crime Fiction Readers', desc: 'Mystery and crime fiction enthusiasts across DC — book picks, author events, and discussion', size: '1,000+ members', link: 'https://www.facebook.com/groups/dccrimefiction' },
+    { name: 'Mahogany Books Community', desc: 'DC\'s Black-owned bookstore on Capitol Hill — book club events and literary community hub', size: 'Active community', link: 'https://www.mahoganybooks.com' },
+    { name: 'DC Literary Festival', desc: 'Community around DC area literary events, author readings, and the annual book festival on the Mall', size: 'Annual + year-round', link: 'https://www.loc.gov/bookfest' },
+  ]},
+
+  /* ── YOUNG PROFESSIONALS ── */
+  { group: 'Young Professionals & Networking', type: 'forum', superCat: 'professional', entries: [
+    { name: 'DC Young Professionals Facebook', desc: 'The largest young professional Facebook group in DC — networking, events, and job postings', size: '25,000+ members', link: 'https://www.facebook.com/groups/dcyoungprofessionals' },
+    { name: 'Young DC Professionals Meetup', desc: 'Regular networking events for 20s-30s professionals across all industries in the DMV', size: '8,000+ members', link: 'https://www.meetup.com/young-dc-professionals' },
+    { name: 'Lean In DC Chapter', desc: 'DC chapter of the professional women\'s network — circles, mentorship, and events', size: 'Active chapter', link: 'https://leanin.org/circles/dc' },
+    { name: 'YP DC Happy Hours', desc: 'Regular happy hour events specifically organized for young professionals around the city', size: 'Weekly events', link: 'https://www.facebook.com/groups/ypdchappyhours' },
+    { name: 'DC Young Nonprofit Professionals', desc: 'Network for nonprofit sector professionals early in their careers — mentorship and events', size: '2,000+ members', link: 'https://www.ynpndc.org' },
+    { name: 'DMV MBA Network', desc: 'Alumni and current MBA students in the DC area across all business schools', size: 'Active alumni network', link: 'https://www.facebook.com/groups/dmvmba' },
+    { name: 'DC Women Who Work', desc: 'Professional community and networking group for women across industries in DC', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcwomenwhowork' },
+    { name: 'Policy Young Professionals DC', desc: 'Networking for policy, government, and think tank professionals early in their careers', size: '3,000+ members', link: 'https://www.facebook.com/groups/policyyoungpros' },
+    { name: 'DC Freelancers Union Chapter', desc: 'DC chapter of the national Freelancers Union — resources, community, and advocacy for independent workers', size: 'Active local chapter', link: 'https://www.freelancersunion.org' },
+    { name: 'Capitol Hill Young Professionals', desc: 'Networking specifically for Hill staffers, association professionals, and policy-adjacent young pros', size: '4,000+ members', link: 'https://www.facebook.com/groups/capitolhillyp' },
+  ]},
+
+  /* ── TECH ── */
+  { group: 'Tech & Startup Scene', type: 'discord', superCat: 'professional', entries: [
+    { name: 'DC Tech Community', desc: 'The central hub for DC\'s tech community — events, job board, Slack, and startup news', size: '15,000+ members', link: 'https://www.dctechcommunity.com' },
+    { name: 'Code for DC', desc: 'Civic tech volunteer brigade — building open source projects that serve DC residents', size: 'Active volunteer network', link: 'https://codefordc.org' },
+    { name: 'Hacks/Hackers DC', desc: 'Community of journalists and technologists exploring the intersection of media and tech in DC', size: 'Active meetup', link: 'https://www.meetup.com/hackshackers-dc' },
+    { name: 'r/dctech', desc: 'Subreddit for DC-area technology professionals — jobs, news, and networking', size: 'Active subreddit', link: 'https://reddit.com/r/dctech' },
+    { name: 'DC Startup Week Community', desc: 'Year-round community around the annual DC Startup Week — founders, investors, and operators', size: 'Annual event + community', link: 'https://www.startupweekdc.com' },
+    { name: 'Women in Tech DC', desc: 'Community and events for women in technology, cybersecurity, and engineering across the DMV', size: '4,000+ members', link: 'https://www.facebook.com/groups/womenintech.dc' },
+    { name: 'DC AI & Machine Learning Meetup', desc: 'AI and ML practitioners in the DC area — research, policy, and applications', size: '5,000+ members', link: 'https://www.meetup.com/dc-ai-machine-learning' },
+    { name: 'Tech Ladies DC Chapter', desc: 'DC chapter of the national Tech Ladies network for women in tech — jobs and community', size: 'Active local chapter', link: 'https://www.techladies.co' },
+    { name: 'Product DC Meetup', desc: 'Community for product managers in the DC area — meetups, mentorship, and resources', size: '3,000+ members', link: 'https://www.meetup.com/product-dc' },
+    { name: 'GovTech DC Community', desc: 'Government technology practitioners across federal agencies and DC government sharing best practices', size: 'Active gov community', link: 'https://www.facebook.com/groups/govtechdc' },
+    { name: 'DC Blockchain & Web3', desc: 'DC-area community for blockchain developers, policy advocates, and Web3 builders', size: '2,000+ members', link: 'https://www.meetup.com/dc-blockchain' },
+    { name: 'DMV Founders Network', desc: 'Community for founders and startup operators across the DMV ecosystem — events and peer support', size: '1,500+ members', link: 'https://www.facebook.com/groups/dmvfounders' },
+  ]},
+
+  /* ── HEALTH & WELLNESS ── */
+  { group: 'Health & Wellness', type: 'forum', superCat: 'lifestyle', entries: [
+    { name: 'DC Wellness Community Facebook', desc: 'Community sharing holistic wellness resources, class recommendations, and wellness events in DC', size: '6,000+ members', link: 'https://www.facebook.com/groups/dcwellness' },
+    { name: 'DC Meditation & Mindfulness', desc: 'Free and donation-based meditation sits and mindfulness community across DC neighborhoods', size: '2,000+ members', link: 'https://www.meetup.com/dc-meditation-mindfulness' },
+    { name: 'NAMI DC', desc: 'National Alliance on Mental Illness DC chapter — support groups, education, and advocacy', size: 'Active chapter', link: 'https://www.namidc.org' },
+    { name: 'Washington DC Vegetarians', desc: 'Plant-based eating community sharing restaurant finds, recipes, and events in the DMV', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcvegetarians' },
+    { name: 'DC Sober Activities', desc: 'Community for sober and sober-curious Washingtonians — events, coffee meetups, and peer support', size: '2,500+ members', link: 'https://www.facebook.com/groups/dcsoberactivities' },
+    { name: 'DC Hiking & Outdoors Wellness', desc: 'Combining outdoor adventure and mental wellness — guided hikes and forest bathing near DC', size: '3,000+ members', link: 'https://www.meetup.com/dc-hiking-wellness' },
+    { name: 'DC Therapy Resources', desc: 'Community resources for finding affordable therapy and mental health support in DC', size: 'Active thread', link: 'https://www.mentalhealth.dc.gov' },
+    { name: 'DC Running & Mental Health', desc: 'Community combining running and mental health awareness — group runs with mindful intentions', size: '1,000+ members', link: 'https://www.facebook.com/groups/dcrunmentalhealth' },
+    { name: 'DC Chronic Illness Community', desc: 'Support network for DC residents managing chronic illness — resources, peer support, and advocacy', size: '1,500+ members', link: 'https://www.facebook.com/groups/dcchronicillness' },
+    { name: 'DC Recovery Community', desc: 'Peer recovery support network for DC residents in recovery from substance use disorders', size: 'Active support network', link: 'https://www.facebook.com/groups/dcrecoverycommunity' },
+  ]},
+
+  /* ── FAITH ── */
+  { group: 'Faith & Spiritual Communities', type: 'civic', superCat: 'community', entries: [
+    { name: 'Washington National Cathedral', desc: 'Historic Gothic cathedral hosting interfaith services, concerts, and community programs open to all', size: '2,000+ weekly attendees', link: 'https://www.cathedral.org' },
+    { name: 'Washington Hebrew Congregation', desc: 'One of the oldest Reform Jewish congregations in DC — active cultural and social programming', size: 'Active congregation', link: 'https://www.whctemple.org' },
+    { name: 'All Souls Church Unitarian', desc: 'Historic progressive Unitarian church with strong social justice and community focus', size: 'Active congregation', link: 'https://www.all-souls.org' },
+    { name: 'Foundry United Methodist Church', desc: 'Downtown DC\'s historic church known for progressive faith, community service, and inclusion', size: 'Active congregation', link: 'https://www.foundryumc.org' },
+    { name: 'Islamic Center of Washington', desc: 'One of the largest and oldest mosques in DC — Friday prayers and interfaith dialogue', size: 'Active congregation', link: 'https://www.islamiccenterdc.com' },
+    { name: 'DC Interfaith Community Meetup', desc: 'Interfaith dialogue and social gatherings for DC residents across religious traditions', size: '1,000+ members', link: 'https://www.meetup.com/dc-interfaith' },
+    { name: 'Basilica of the National Shrine', desc: 'America\'s largest Catholic church in DC — pilgrimage site with large active community', size: 'Active congregation', link: 'https://www.nationalshrine.com' },
+    { name: 'DC Buddhist Community', desc: 'Facebook group connecting Buddhist practitioners across all traditions in the DC area', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcbuddhist' },
+    { name: 'DC Jewish Community Center', desc: 'Cultural, fitness, and community hub for Jewish DC residents and beyond', size: 'Active DCJCC', link: 'https://www.dcjcc.org' },
+    { name: 'Washington Ethical Society', desc: 'Secular humanist congregation offering Sunday meetings, social events, and ethical inquiry', size: 'Active congregation', link: 'https://www.ethicalsociety.org' },
+    { name: 'Faith & Justice DC', desc: 'Network connecting faith communities to social justice work across the DMV', size: 'Active network', link: 'https://www.facebook.com/groups/faithandjusticedc' },
+  ]},
+
+  /* ── DRINKS ── */
+  { group: 'Beer, Wine & Cocktails', type: 'food', superCat: 'lifestyle', entries: [
+    { name: 'DC Beer Facebook Group', desc: 'DC craft beer community sharing brewery reviews, rare release alerts, and bar recommendations', size: '8,000+ members', link: 'https://www.facebook.com/groups/dcbeer' },
+    { name: 'DC Craft Beer Tour Community', desc: 'Organizing craft brewery crawls and tours across DC, Virginia, and Maryland', size: '3,000+ members', link: 'https://www.facebook.com/groups/dccraftbeertours' },
+    { name: 'DC Wine Lovers', desc: 'Facebook community for wine enthusiasts in DC — tastings, natural wine bars, and bottle shares', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcwinelovers' },
+    { name: 'DC Cocktail Week Community', desc: 'Community around DC\'s annual cocktail week and year-round bar culture coverage', size: 'Annual event + active', link: 'https://www.dccocktailweek.com' },
+    { name: 'DC Homebrewers Guild', desc: 'Homebrewing club in DC with monthly meetings, competitions, and collaborative brews', size: '500+ members', link: 'https://www.dcbrewing.org' },
+    { name: 'DMV Natural Wine Group', desc: 'Natural wine enthusiasts across DC, Maryland, and Virginia — bar recommendations and imports', size: '2,000+ members', link: 'https://www.facebook.com/groups/dmvnaturalwine' },
+    { name: 'DC Whiskey Society', desc: 'Whiskey and spirits appreciation group hosting tastings and distillery visits in the DMV', size: '1,500+ members', link: 'https://www.facebook.com/groups/dcwhiskeysociety' },
+    { name: 'Drink DC Newsletter', desc: 'Bar and cocktail coverage community in DC — newsletter and social media for nightlife curious', size: 'Active following', link: 'https://drinkdc.com' },
+    { name: 'Capitol Hill Beer Collective', desc: 'Neighborhood beer club for Capitol Hill brewery visits, tastings, and bottle shares', size: '1,000+ members', link: 'https://www.facebook.com/groups/capitolhillbeer' },
+    { name: 'DC Sake & Japanese Spirits', desc: 'Community for sake enthusiasts and Japanese spirits fans across the DC metro area', size: '800+ members', link: 'https://www.facebook.com/groups/dcsake' },
+  ]},
+
+  /* ── PETS ── */
+  { group: 'Pet Owners & Animal Lovers', type: 'forum', superCat: 'lifestyle', entries: [
+    { name: 'DC Dogs Facebook Group', desc: 'The essential DC dog owner community — dog park reviews, vet recommendations, lost pet alerts', size: '20,000+ members', link: 'https://www.facebook.com/groups/dcdogs' },
+    { name: 'DC Cat Owners Community', desc: 'Facebook group for cat owners in DC — vet recs, indoor tips, and neighborhood free roamers', size: '5,000+ members', link: 'https://www.facebook.com/groups/dccatowners' },
+    { name: 'Washington Humane Society', desc: 'Online community around DC\'s animal shelter — adoption events, volunteer opportunities, fosters', size: 'Active community', link: 'https://www.washhumane.org' },
+    { name: 'DC Dog Parks Network', desc: 'Community tracking conditions, rules, and events at DC\'s off-leash dog parks', size: '7,000+ members', link: 'https://www.facebook.com/groups/dcdogparks' },
+    { name: 'DC Foster Pet Network', desc: 'Connecting animal foster families with rescue organizations across the DC metro area', size: '3,000+ members', link: 'https://www.facebook.com/groups/dcfosterpets' },
+    { name: 'DMV Small Pet Community', desc: 'Community for rabbit, guinea pig, bird, and small pet owners in the DC metro area', size: '1,500+ members', link: 'https://www.facebook.com/groups/dmvsmallpets' },
+    { name: 'DC Raw Feeders', desc: 'Community for raw-diet dog and cat owners in DC — sourcing, vets, and nutrition support', size: '1,000+ members', link: 'https://www.facebook.com/groups/dcrawfeeders' },
+    { name: 'Petworth Pets Community', desc: 'Neighborhood-specific pet community for Petworth and surrounding DC neighborhoods', size: '2,000+ members', link: 'https://www.facebook.com/groups/petworthpets' },
+    { name: 'DC Rescue Dog Community', desc: 'Community celebrating rescue dogs — adoption stories, local shelters, and rescue organization highlights', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcrescuedogs' },
+  ]},
+
+  /* ── PARENTS ── */
+  { group: 'Parents & Family', type: 'forum', superCat: 'community', entries: [
+    { name: 'DC Urban Moms & Dads', desc: 'The most active DC parenting forum on the internet — schools, pediatricians, activities, and real talk', size: '50,000+ registered', link: 'https://www.dcurbanmoms.com' },
+    { name: 'Capitol Hill Parents Facebook', desc: 'Facebook community for Capitol Hill parents — school advice, playdates, and local recommendations', size: '5,000+ members', link: 'https://www.facebook.com/groups/capitolhillparents' },
+    { name: 'DC Area Moms — Macaroni Kid', desc: 'Parenting guide and community covering family activities and events across the DMV', size: 'Active community', link: 'https://dc.macaronikid.com' },
+    { name: 'Columbia Heights Parents', desc: 'Neighborhood parenting community for Columbia Heights and Mt. Pleasant families', size: '3,000+ members', link: 'https://www.facebook.com/groups/columbiaheightsparents' },
+    { name: 'DC Dads Collective', desc: 'Facebook community for fathers in DC — parenting resources, dad meetups, and family events', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcdads' },
+    { name: 'DC Nanny & Childcare Network', desc: 'Connecting DC families with childcare providers — reviews, recommendations, and job postings', size: '8,000+ members', link: 'https://www.facebook.com/groups/dcnannies' },
+    { name: 'DC Single Parents Network', desc: 'Community support and social events for single parents across the DC metro area', size: '3,000+ members', link: 'https://www.facebook.com/groups/dcsingleparents' },
+    { name: 'Toddler Time DC', desc: 'Sharing toddler-friendly activities, playgrounds, and indoor play spaces across DC', size: '6,000+ members', link: 'https://www.facebook.com/groups/toddlertimedc' },
+    { name: 'DC Homeschool Community', desc: 'DC-area homeschooling families sharing curriculum resources, co-ops, and field trips', size: '2,500+ members', link: 'https://www.facebook.com/groups/dchomeschool' },
+    { name: 'DC LGBTQ+ Parents', desc: 'Support and community for LGBTQ+ families and same-sex parents across the DC area', size: '1,500+ members', link: 'https://www.facebook.com/groups/dclgbtqparents' },
+    { name: 'DC Parents of Teens', desc: 'Parent community sharing teen resources, college prep, extracurricular activities, and parenting support', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcparentsofteens' },
+  ]},
+
+  /* ── EXPAT & INTERNATIONAL ── */
+  { group: 'International & Expat', type: 'forum', superCat: 'community', entries: [
+    { name: 'InterNations Washington DC', desc: 'World\'s largest expat network — DC chapter hosts regular events for international residents', size: '10,000+ DC members', link: 'https://www.internations.org/washington-dc-expats' },
+    { name: 'Expats in DC Facebook', desc: 'Facebook community for international residents, diplomats, and newcomers to Washington DC', size: '12,000+ members', link: 'https://www.facebook.com/groups/expatsindc' },
+    { name: 'British Expats in DC', desc: 'UK citizens and anglophiles living in Washington DC — events, advice, and community', size: '3,000+ members', link: 'https://www.facebook.com/groups/britishexpatsdc' },
+    { name: 'French Community Washington DC', desc: 'French-speaking community in DC — events, language exchanges, and cultural programming', size: '5,000+ members', link: 'https://www.facebook.com/groups/frenchcommunitydc' },
+    { name: 'DC Korean Community', desc: 'Korean-American community in DC and the DMV — cultural events, language exchange, resources', size: '6,000+ members', link: 'https://www.facebook.com/groups/dckoreancommunity' },
+    { name: 'DC Indian Community', desc: 'Indian and South Asian community in DC — festivals, cultural events, and diaspora networking', size: '15,000+ members', link: 'https://www.facebook.com/groups/dcindian' },
+    { name: 'Ethiopian Community DC', desc: 'Ethiopian diaspora in Washington DC — culture, language, and Little Ethiopia community events', size: '8,000+ members', link: 'https://www.facebook.com/groups/ethiopiancommunitydc' },
+    { name: 'DC Chinese Community', desc: 'Chinese-speaking community in Washington DC — events and cultural celebrations', size: '10,000+ members', link: 'https://www.facebook.com/groups/dcchinesecommunity' },
+    { name: 'DC Salvadoran & Central American', desc: 'Central American diaspora community in the DC metro area — culture, events, and resources', size: '5,000+ members', link: 'https://www.facebook.com/groups/dccentroamericanos' },
+    { name: 'World Bank & IMF Community', desc: 'Community for World Bank and IMF employees and families navigating life in Washington DC', size: 'Active community', link: 'https://www.worldbank.org/en/topic/socialdevelopment' },
+  ]},
+
+  /* ── DC HISTORY ── */
+  { group: 'DC History & Heritage', type: 'blog', superCat: 'news', entries: [
+    { name: 'DC History Center', desc: 'Premier source for Washington DC history — archives, exhibits, walking tours, and public programs', size: 'Public institution', link: 'https://www.dchistory.org' },
+    { name: 'r/DCHistory', desc: 'Subreddit dedicated to exploring the rich and complex history of Washington DC', size: 'Active subreddit', link: 'https://reddit.com/r/DCHistory' },
+    { name: 'DC by Foot Tours', desc: 'Free walking tour community sharing DC history, hidden gems, and neighborhood stories', size: 'Active tour community', link: 'https://www.dcbyfoot.com' },
+    { name: 'Boundary Stones DC', desc: 'Community dedicated to DC\'s original boundary stones and hidden historical artifacts', size: 'Active community', link: 'https://boundarystones.weta.org' },
+    { name: 'DC Preservation League', desc: 'Advocating for the preservation of DC\'s historic buildings and neighborhoods', size: 'Active advocacy org', link: 'https://www.dcpreservation.org' },
+    { name: 'Cultural Tourism DC', desc: 'Connecting DC residents and visitors to historical sites, trails, and cultural heritage', size: 'Active coalition', link: 'https://www.culturaltourismdc.org' },
+    { name: 'Go-Go Music Heritage', desc: 'Community celebrating go-go music — DC\'s official indigenous music — history and preservation', size: 'Active cultural community', link: 'https://www.facebook.com/groups/gogomusicdc' },
+    { name: 'DC Streets & Maps History', desc: 'Facebook community exploring historical maps, street name origins, and neighborhood evolution', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcstreetshistory' },
+    { name: 'Know DC Newsletter', desc: 'Deep-dive newsletter exploring DC history, politics, and the stories behind the headlines', size: 'Active subscribers', link: 'https://knowdc.substack.com' },
+    { name: 'Smithsonian Community Programs', desc: 'Free community programming across DC\'s Smithsonian museums — lectures, festivals, and exhibits', size: 'Free + public programs', link: 'https://www.si.edu' },
+    { name: 'DC Hometown History', desc: 'Blog and Instagram account celebrating lesser-known DC history from neighborhoods and longtime residents', size: 'Active social following', link: 'https://www.instagram.com/dchometownhistory' },
+  ]},
+
+  /* ── VOLUNTEER ── */
+  { group: 'Volunteer & Service Organizations', type: 'civic', superCat: 'civic', entries: [
+    { name: 'Serve DC', desc: 'Mayor\'s Office on Volunteerism connecting residents to community service across the District', size: 'City-run program', link: 'https://serve.dc.gov' },
+    { name: 'DC Central Kitchen Volunteers', desc: 'Community around DC\'s legendary food rescue and job training organization — regular volunteering', size: 'Active volunteer base', link: 'https://dccentralkitchen.org' },
+    { name: 'DC Mutual Aid Network', desc: 'Mutual aid coordination for DC residents — sharing resources, needs, and community support', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcmutualaid' },
+    { name: 'Habitat for Humanity DC', desc: 'Building homes in the DC area — volunteer weekends and community build events open to all', size: 'Active volunteer org', link: 'https://www.habitatdc.org' },
+    { name: 'Food & Friends DC', desc: 'Volunteer network delivering nutritious meals to people living with serious illness in DC', size: 'Active volunteers', link: 'https://www.foodandfriends.org' },
+    { name: 'Rock Creek Conservancy', desc: 'Volunteer stewardship for Rock Creek Park — trash pickups, trail maintenance, and restoration', size: 'Regular events', link: 'https://www.rockcreekconservancy.org' },
+    { name: 'National Mall Volunteer Days', desc: 'National Park Service volunteer events maintaining the National Mall and surrounding memorials', size: 'Seasonal events', link: 'https://www.nps.gov/subjects/partnerships/volunteer.htm' },
+    { name: 'DC Street Rescue', desc: 'Community of street outreach volunteers providing supplies to unhoused DC residents', size: '1,500+ members', link: 'https://www.facebook.com/groups/dcstreetrescue' },
+    { name: 'VolunteerMatch DC', desc: 'Platform connecting DC volunteers with nonprofits across all causes and neighborhoods', size: 'Active platform', link: 'https://www.volunteermatch.org/search/?l=Washington%2C+DC' },
+    { name: 'DC Reads & Tutors', desc: 'Connecting reading tutors with DC public school students — long-term volunteer commitment', size: 'Active program', link: 'https://serve.dc.gov' },
+    { name: 'Community Emergency Response DC', desc: 'CERT training and volunteer network for DC residents preparing for local emergencies', size: 'City program', link: 'https://hsema.dc.gov/service/community-emergency-response-teams' },
+  ]},
+
+  /* ── NEIGHBORHOODS ── */
+  { group: 'Neighborhood-Specific Communities', type: 'facebook', superCat: 'social', entries: [
+    { name: 'Columbia Heights Community', desc: 'Most active neighborhood Facebook group in DC — hyperlocal news, events, and alerts', size: '20,000+ members', link: 'https://www.facebook.com/groups/columbiaheightsdc' },
+    { name: 'Capitol Hill Community', desc: 'Long-running neighborhood community for Capitol Hill residents — news, events, classifieds', size: '15,000+ members', link: 'https://www.facebook.com/groups/capitolhillcommunity' },
+    { name: 'Shaw & Logan Circle Facebook', desc: 'Neighborhood community covering Shaw, Logan Circle, and U Street corridor', size: '8,000+ members', link: 'https://www.facebook.com/groups/shawlogancircle' },
+    { name: 'Petworth Neighbors', desc: 'Community forum for Petworth residents — safety updates, development news, and events', size: '6,000+ members', link: 'https://www.facebook.com/groups/petworthdc' },
+    { name: 'Adams Morgan Community', desc: 'Facebook neighborhood community for DC\'s most internationally diverse neighborhood', size: '5,000+ members', link: 'https://www.facebook.com/groups/adamsmorgandc' },
+    { name: 'Brookland & CUA Neighbors', desc: 'Northeast DC neighborhood community focused on Brookland, Michigan Park, and surrounding areas', size: '4,000+ members', link: 'https://www.facebook.com/groups/brooklanddc' },
+    { name: 'Anacostia & Congress Heights', desc: 'Southeast DC community connecting Anacostia, Congress Heights, and Barry Farm neighbors', size: '3,000+ members', link: 'https://www.facebook.com/groups/anacostiadc' },
+    { name: 'H Street & Trinidad Community', desc: 'Northeast DC neighborhood group covering H Street Corridor and Trinidad area', size: '5,000+ members', link: 'https://www.facebook.com/groups/hstreetdc' },
+    { name: 'NoMa & Eckington Neighbors', desc: 'Fast-growing northeast DC neighborhood group for NoMa, Eckington, and Edgewood residents', size: '6,000+ members', link: 'https://www.facebook.com/groups/nomaeckington' },
+    { name: 'Georgetown DC Community', desc: 'Georgetown neighborhood Facebook group covering local news, preservation, and dining', size: '7,000+ members', link: 'https://www.facebook.com/groups/georgetowndc' },
+    { name: 'Woodley Park & Cleveland Park', desc: 'Upper NW neighborhood community covering Woodley Park, Cleveland Park, and Forest Hills', size: '4,000+ members', link: 'https://www.facebook.com/groups/woodleyparkdc' },
+    { name: 'Tenleytown & AU Park', desc: 'Upper Northwest group for Tenleytown, American University Park, and Spring Valley residents', size: '3,000+ members', link: 'https://www.facebook.com/groups/tenleytowndc' },
+    { name: 'Deanwood & Ward 7 Community', desc: 'East of the Anacostia River neighborhood community — Ward 7 news, events, and advocacy', size: '2,500+ members', link: 'https://www.facebook.com/groups/deanwooddc' },
+    { name: 'Brightwood & Manor Park', desc: 'Far NW DC neighborhood community for Brightwood, Manor Park, and 16th Street Heights', size: '3,000+ members', link: 'https://www.facebook.com/groups/brightwooddc' },
+  ]},
+
+  /* ── WOMEN ── */
+  { group: 'Women & Gender Equity', type: 'forum', superCat: 'community', entries: [
+    { name: 'Women in DC Facebook Group', desc: 'Large networking and support community for women living and working in Washington DC', size: '18,000+ members', link: 'https://www.facebook.com/groups/womenindc' },
+    { name: 'DC Women\'s Business Center', desc: 'Resources, events, and community for women entrepreneurs and business owners in DC', size: 'Active programs', link: 'https://www.dcwbc.org' },
+    { name: 'Professional Women of DC', desc: 'Networking organization for professional women — events, mentorship, and visibility', size: '5,000+ members', link: 'https://www.facebook.com/groups/professionalwomendc' },
+    { name: 'DC Women of Color Collective', desc: 'Community centered on women of color in DC — professional support, social events, and solidarity', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcwomenofcolor' },
+    { name: 'DC Feminist Collective', desc: 'Intersectional feminist community in DC — events, reading groups, and organizing support', size: '3,000+ members', link: 'https://www.facebook.com/groups/dcfeministcollective' },
+    { name: 'DC Girls Who Code', desc: 'Local chapter connecting girls and young women to computer science education and careers', size: 'Active DC chapter', link: 'https://girlswhocode.com' },
+    { name: 'DC Women\'s Running Collective', desc: 'Women-centered running community — safe group runs, trail adventures, and solidarity', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcwomensrunning' },
+    { name: 'Lean In DC', desc: 'DC chapter of the professional women\'s network — circles, mentorship, and leadership events', size: 'Active chapter', link: 'https://leanin.org/circles/dc' },
+  ]},
+
+  /* ── VETERANS ── */
+  { group: 'Veterans & Military Community', type: 'civic', superCat: 'community', entries: [
+    { name: 'DC Veterans Network', desc: 'Connecting military veterans across the DC metro area — resources, events, and peer support', size: 'Active veteran community', link: 'https://www.facebook.com/groups/dcveteransnetwork' },
+    { name: 'Mission DC', desc: 'Nonprofit helping veterans transition to civilian careers in the DC area — community and programming', size: 'Active programs', link: 'https://www.missiondc.org' },
+    { name: 'Veterans in DC Facebook', desc: 'Peer support and networking for veterans living and working in Washington DC', size: '3,000+ members', link: 'https://www.facebook.com/groups/veteransindc' },
+    { name: 'Student Veterans of America — DC', desc: 'Network for student veterans at GWU, Georgetown, American, Howard, and other DC schools', size: 'Active chapter network', link: 'https://www.studentveterans.org' },
+    { name: 'Female Veterans Network DC', desc: 'Peer network for women veterans in DC — community, career support, and social connection', size: '2,000+ members', link: 'https://www.facebook.com/groups/femalveteransdc' },
+    { name: 'DC Gold Star Families', desc: 'Support community for families of fallen military members in the DC area', size: 'Support community', link: 'https://www.facebook.com/groups/dcgoldstarfamilies' },
+    { name: 'VFW Post 9274 DC', desc: 'Veterans of Foreign Wars post in DC — community events, advocacy, and membership', size: 'Active post', link: 'https://www.vfw.org' },
+    { name: 'DC Military Spouse Network', desc: 'Support community for active duty and veteran spouses navigating life in the DC metro area', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcmilspouses' },
+  ]},
+
+  /* ── FARMERS MARKETS ── */
+  { group: 'Farmers Markets & Local Food', type: 'food', superCat: 'lifestyle', entries: [
+    { name: 'FRESHFARM Markets', desc: 'DC\'s largest network of farmers markets — 8 markets across DC and region with 75+ farms', size: '8 DC-area markets', link: 'https://www.freshfarm.org' },
+    { name: 'Eastern Market', desc: 'Community around Capitol Hill\'s iconic Eastern Market — fresh produce, arts, and weekend flea', size: 'Historic DC institution', link: 'https://www.easternmarket-dc.org' },
+    { name: 'DC Farmers Market Facebook', desc: 'Community sharing DC farmers market updates, vendor highlights, and seasonal finds', size: '6,000+ members', link: 'https://www.facebook.com/groups/dcfarmersmarkets' },
+    { name: 'Arcadia Center for Sustainable Food', desc: 'DC urban agriculture and food access community — farm education and CSA programs', size: 'Active programs', link: 'https://www.arcadiafood.org' },
+    { name: 'DC Community Gardens Network', desc: 'Connecting DC community garden plots — waitlists, seed swaps, and urban growing tips', size: '3,000+ members', link: 'https://www.facebook.com/groups/dccommgardens' },
+    { name: 'DC Urban Growers', desc: 'Community for DC backyard and balcony gardeners sharing growing tips and surplus produce', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcurbangrowers' },
+    { name: 'DC Food Co-op Network', desc: 'Connecting food cooperative members and those interested in community-owned grocery alternatives', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcfoodcoop' },
+    { name: 'Good Food Purchasing Coalition', desc: 'Community advocates pushing DC institutions toward local, fair, and sustainable food purchasing', size: 'Active coalition', link: 'https://www.goodfoodpurchasing.org' },
+    { name: 'DC Gleaning Network', desc: 'Volunteer harvest recovery network collecting excess produce from farms for DC food banks', size: 'Active volunteers', link: 'https://www.capitalareafoodbank.org' },
+  ]},
+
+  /* ── DISABILITY ── */
+  { group: 'Disability & Accessibility', type: 'civic', superCat: 'community', entries: [
+    { name: 'DC Center for Independent Living', desc: 'Community hub for people with disabilities in DC — peer support, advocacy, and resources', size: 'Active organization', link: 'https://www.dccil.org' },
+    { name: 'Disability Pride DC', desc: 'Celebrating disability culture and advocating for inclusion across Washington DC', size: 'Active community', link: 'https://www.facebook.com/groups/disabilitypride.dc' },
+    { name: 'DC Autism Community', desc: 'Support and social community for autistic adults, families, and advocates in the DC area', size: '3,000+ members', link: 'https://www.facebook.com/groups/dcautism' },
+    { name: 'Deaf Community DC', desc: 'DC\'s Deaf and hard of hearing community — ASL events, Deaf culture, and resources', size: 'Active community', link: 'https://www.facebook.com/groups/deafcommunitydc' },
+    { name: 'DC Adaptive Sports', desc: 'Connecting people with physical disabilities to adaptive sports programs across the DMV', size: 'Active programs', link: 'https://www.facebook.com/groups/dcadaptivesports' },
+    { name: 'Accessibility DC Advocates', desc: 'Community advocating for wheelchair access, curb cuts, and transit access improvements in DC', size: '2,000+ members', link: 'https://www.facebook.com/groups/accessibilitydc' },
+    { name: 'DC Blind & Low Vision Community', desc: 'Support and resource network for blind and low vision residents in the DC metro area', size: '1,000+ members', link: 'https://www.facebook.com/groups/dcblindlowvision' },
+  ]},
+
+  /* ── GAMING & ESPORTS ── */
+  { group: 'Gaming & Esports', type: 'discord', superCat: 'lifestyle', entries: [
+    { name: 'DC Gamers Facebook Group', desc: 'Largest DC gaming community — console, PC, tabletop, and arcade events across the DMV', size: '6,000+ members', link: 'https://www.facebook.com/groups/dcgamers' },
+    { name: 'r/DMVGaming', desc: 'Subreddit for gamers in the DC, Maryland, and Virginia area — LFG, events, and local meetups', size: 'Active subreddit', link: 'https://reddit.com/r/DMVGaming' },
+    { name: 'NPC Gaming DC', desc: 'DC-area gaming lounge and community hub for competitive and casual players', size: 'Active community', link: 'https://www.npcgaming.gg' },
+    { name: 'DC Tabletop Gaming Meetup', desc: 'Board games, RPGs, and tabletop nights across DC game stores and community spaces', size: '3,000+ members', link: 'https://www.meetup.com/dc-tabletop-gaming' },
+    { name: 'DC Dungeons & Dragons Groups', desc: 'Finding D&D and TTRPG groups across the DC metro area — campaigns, one-shots, and game nights', size: '2,500+ members', link: 'https://www.facebook.com/groups/dcdnd' },
+    { name: 'Capital Gaming Guild', desc: 'Esports and competitive gaming organization based in Washington DC — tournaments and leagues', size: 'Active org', link: 'https://www.facebook.com/groups/capitalgamingguild' },
+    { name: 'DC Retro Gaming Community', desc: 'Collectors and fans of retro video games across the DMV — swap meets, repair tips, and nostalgia', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcretrogaming' },
+    { name: 'DC Pinball & Arcade Community', desc: 'Community tracking DC bars and arcades with the best pinball machines and retro arcade games', size: '1,200+ members', link: 'https://www.facebook.com/groups/dcpinball' },
+    { name: 'DMV Pokémon Community', desc: 'Pokémon GO, TCG, and mainline game community across DC, Maryland, and Virginia', size: '4,000+ members', link: 'https://www.facebook.com/groups/dmvpokemon' },
+  ]},
+
+  /* ── COMEDY & ENTERTAINMENT ── */
+  { group: 'Comedy & Entertainment', type: 'arts', superCat: 'lifestyle', entries: [
+    { name: 'Washington Improv Theater', desc: 'DC\'s premier improv comedy school and theater — classes, shows, and community events', size: 'Active community', link: 'https://www.witdc.org' },
+    { name: 'DC Comedy Scene Facebook', desc: 'Community covering DC stand-up comedy, open mics, and local comedian spotlights', size: '3,000+ members', link: 'https://www.facebook.com/groups/dccomedyscene' },
+    { name: 'DC Improv Community', desc: 'National comedy club in DC\'s Dupont Circle — community around shows and open mic nights', size: 'Established venue', link: 'https://www.dcimprov.com' },
+    { name: 'DC Sketch Comedy Community', desc: 'Sketch writers, performers, and fans across DC theater companies and comedy festivals', size: '1,000+ members', link: 'https://www.facebook.com/groups/dcsketchcomedy' },
+    { name: 'DC Trivia Night Community', desc: 'Tracking the best pub trivia nights across DC bars and venues — weekly community finds', size: '5,000+ members', link: 'https://www.facebook.com/groups/dctrivia' },
+    { name: 'DC Escape Room Enthusiasts', desc: 'Reviews, groupings, and meetups around DC\'s thriving escape room scene', size: '2,500+ members', link: 'https://www.facebook.com/groups/dcescape' },
+    { name: 'DC Movie & Film Buffs', desc: 'Film discussion, festival coverage, and independent cinema community across Washington DC', size: '4,000+ members', link: 'https://www.facebook.com/groups/dcfilmclub' },
+    { name: 'DC Karaoke Community', desc: 'Finding the best karaoke bars and private rooms across DC — weekly rotation of hot spots', size: '2,000+ members', link: 'https://www.facebook.com/groups/dckaraoke' },
+    { name: 'DC Magic & Mentalism', desc: 'Magic enthusiasts, amateur magicians, and show recommendations across the DC area', size: '800+ members', link: 'https://www.facebook.com/groups/dcmagic' },
+  ]},
+
+  /* ── SUBURBAN DMV ── */
+  { group: 'Northern Virginia Communities', type: 'facebook', superCat: 'social', entries: [
+    { name: 'NoVA Neighbors Facebook Group', desc: 'Catch-all Northern Virginia community covering Arlington, Alexandria, Fairfax, and beyond', size: '18,000+ members', link: 'https://www.facebook.com/groups/novaneighbors' },
+    { name: 'Arlington VA Community', desc: 'Arlington County\'s primary neighborhood Facebook group — local news, events, and classifieds', size: '10,000+ members', link: 'https://www.facebook.com/groups/arlingtonva' },
+    { name: 'Alexandria VA Community', desc: 'Old Town and greater Alexandria community — local events, dining, and neighborhood news', link: 'https://www.facebook.com/groups/alexandriava', size: '8,000+ members' },
+    { name: 'Fairfax County Neighbors', desc: 'Large suburban community for Fairfax County residents — HOA, schools, and local government news', size: '12,000+ members', link: 'https://www.facebook.com/groups/fairfaxcountyva' },
+    { name: 'Falls Church Community', desc: 'Small city big personality — Falls Church neighbors sharing hyperlocal news and events', size: '5,000+ members', link: 'https://www.facebook.com/groups/fallschurchva' },
+    { name: 'Reston & Herndon Community', desc: 'Reston Town Center area residents sharing community news, events, and recommendations', size: '7,000+ members', link: 'https://www.facebook.com/groups/restonherndon' },
+    { name: 'Tysons Corner Community', desc: 'Tysons and McLean area residents navigating the fast-growing urban transformation', size: '4,000+ members', link: 'https://www.facebook.com/groups/tysonscornerva' },
+    { name: 'r/nova', desc: 'The main subreddit for Northern Virginia residents across all communities and topics', size: 'Active subreddit', link: 'https://reddit.com/r/nova' },
+  ]},
+  { group: 'Maryland Suburban Communities', type: 'facebook', superCat: 'social', entries: [
+    { name: 'Montgomery County MD Community', desc: 'Montgomery County\'s largest Facebook group — local news, events, and neighbor connections', size: '15,000+ members', link: 'https://www.facebook.com/groups/montgomerycountymd' },
+    { name: 'Silver Spring Community', desc: 'Downtown Silver Spring and greater Silver Spring area — news, events, and neighborhood updates', size: '8,000+ members', link: 'https://www.facebook.com/groups/silverspring' },
+    { name: 'Bethesda & Chevy Chase Community', desc: 'Affluent inner-ring suburbs with active community forum — restaurants, schools, real estate', size: '7,000+ members', link: 'https://www.facebook.com/groups/bethesdachevy' },
+    { name: 'Hyattsville & PG County Community', desc: 'Prince George\'s County and Hyattsville area — arts district news, community events, advocacy', size: '6,000+ members', link: 'https://www.facebook.com/groups/hyattsvillepg' },
+    { name: 'Rockville MD Community', desc: 'Montgomery County seat community covering Rockville Town Square area and surrounding neighborhoods', size: '5,000+ members', link: 'https://www.facebook.com/groups/rockvillemd' },
+    { name: 'Takoma Park Community', desc: 'Eclectic and progressive Takoma Park community — activism, local food, and neighborhood culture', size: '6,000+ members', link: 'https://www.facebook.com/groups/takomapark' },
+    { name: 'r/maryland', desc: 'The main subreddit for Maryland residents — state news, local issues, and DMV crossover', size: 'Active subreddit', link: 'https://reddit.com/r/maryland' },
+    { name: 'College Park & UMD Community', desc: 'College Park neighbors and UMD community sharing local news, housing, and campus events', size: '4,000+ members', link: 'https://www.facebook.com/groups/collegeparktmd' },
+  ]},
+
+  /* ── CAREER & JOBS ── */
+  { group: 'Career & Jobs in DC', type: 'forum', superCat: 'professional', entries: [
+    { name: 'DC Jobs Facebook Group', desc: 'The largest DC job board on Facebook — postings, referrals, and hiring announcements', size: '30,000+ members', link: 'https://www.facebook.com/groups/dcjobs' },
+    { name: 'Federal Jobs DC Community', desc: 'Community for federal government job seekers — USAJOBS tips, agency reviews, and clearance advice', size: '10,000+ members', link: 'https://www.facebook.com/groups/federaljobsdc' },
+    { name: 'DC Nonprofit Jobs & Careers', desc: 'Job board and career community for the DC nonprofit sector — postings and informational interviews', size: '8,000+ members', link: 'https://www.facebook.com/groups/dcnonprofitjobs' },
+    { name: 'DC Communications & PR Jobs', desc: 'Job listings and career networking for communications, public relations, and media professionals in DC', size: '5,000+ members', link: 'https://www.facebook.com/groups/dccomsjobs' },
+    { name: 'DC Policy & Advocacy Jobs', desc: 'Career community for policy analysts, advocates, and government affairs professionals in DC', size: '7,000+ members', link: 'https://www.facebook.com/groups/dcpolicyjobs' },
+    { name: 'DC Tech Jobs Board', desc: 'Technology job postings specifically for the DC metro area — startups, govtech, and contractors', size: '6,000+ members', link: 'https://www.facebook.com/groups/dctechjobs' },
+    { name: 'DC Creatives & Freelancers Jobs', desc: 'Gig postings, freelance opportunities, and project-based work for creative professionals in DC', size: '4,000+ members', link: 'https://www.facebook.com/groups/dccreativefreelance' },
+    { name: 'Idealist DC Jobs', desc: 'Nonprofit and social good job listings with strong DC concentration — mission-driven careers', size: 'Active platform', link: 'https://www.idealist.org/en/jobs?location=Washington%2C+DC' },
+    { name: 'DC Journalism Jobs', desc: 'Job postings and career networking for journalists, editors, and media workers in DC', size: '3,000+ members', link: 'https://www.facebook.com/groups/dcjournalismjobs' },
+  ]},
+
+  /* ── SENIORS ── */
+  { group: 'Seniors & 55+ DC', type: 'forum', superCat: 'community', entries: [
+    { name: 'DC Seniors Facebook Group', desc: 'Social community for DC residents 55+ — events, resources, and neighbor connections', size: '5,000+ members', link: 'https://www.facebook.com/groups/dcseniors' },
+    { name: 'DC Office on Aging Community', desc: 'Programs, resources, and events for older DC residents through the District\'s dedicated aging office', size: 'City-run programs', link: 'https://dcoa.dc.gov' },
+    { name: 'DC Senior Centers Network', desc: 'Connecting DC\'s 18 senior wellness centers — classes, meals, trips, and social programs', size: '18 locations citywide', link: 'https://dcoa.dc.gov/service/senior-wellness-centers' },
+    { name: 'AARP DC Chapter', desc: 'DC chapter of AARP — advocacy, discounts, social events, and community programs for 50+', size: 'Active chapter', link: 'https://states.aarp.org/district-of-columbia' },
+    { name: 'DC Grandparents & Grandkids', desc: 'Community connecting grandparents with family activities and intergenerational events across DC', size: '2,000+ members', link: 'https://www.facebook.com/groups/dcgrandparents' },
+    { name: 'DC Senior Living Reviews', desc: 'Community discussing senior living, assisted living, and aging-in-place resources across the DMV', size: '3,000+ members', link: 'https://www.facebook.com/groups/dcseniorliving' },
+    { name: 'DC Lifelong Learning Programs', desc: 'Continuing education and enrichment programs for older adults at DC universities and community centers', size: 'Active programs', link: 'https://www.olli.american.edu' },
+  ]}
+];
+</script>
+
+<script>
+/* ── UI ── */
+const pageState = { vector: 'all', query: '' };
+
+function geoClass(geo) {
+  if (geo === 'DC') return 'geo-dc';
+  if (geo === 'Maryland') return 'geo-md';
+  if (geo === 'Virginia') return 'geo-va';
+  return 'geo-dmv';
+}
+
+function renderResourceCard(r) {
+  var tags = (r.tags || []).slice(0, 3).map(function(t) {
+    return '<span class="rc-tag">' + t + '</span>';
+  }).join('');
+  var archBadge = r.archived ? '<span class="archived-badge">Archived</span>' : '';
+  var sizeHtml = r.size ? '<span class="rc-size">' + r.size + '</span>' : '';
+  return '<a class="resource-card' + (r.archived ? ' archived' : '') + '" href="' + r.url + '" target="_blank" rel="noopener">' +
+    '<div class="rc-icon"><img src="' + r.favicon + '" width="20" height="20" alt="" loading="lazy" onerror="this.style.display=\'none\'"></div>' +
+    '<div class="rc-body">' +
+      '<div class="rc-name">' + r.name + archBadge + '</div>' +
+      '<div class="rc-desc">' + r.desc + '</div>' +
+      sizeHtml +
+      '<div class="rc-footer">' + tags + '<span class="geo-badge ' + geoClass(r.geo) + '">' + r.geo + '</span></div>' +
+    '</div>' +
+    '</a>';
+}
+
+function buildResourceSection() {
+  var section = document.getElementById('resources-section');
+  section.innerHTML = '';
+  var q = pageState.query;
+  var v = pageState.vector;
+
+  var filtered = ALL_RESOURCES.filter(function(r) {
+    var vecMatch = v === 'all' || v === 'community' ? true : r.vector === v;
+    if (v === 'community') return false; // communities handled separately
+    var qMatch = !q || (r.name + ' ' + r.desc + ' ' + (r.tags || []).join(' ')).toLowerCase().indexOf(q) !== -1;
+    return vecMatch && qMatch;
+  });
+
+  if (v === 'community') {
+    section.innerHTML = '';
+    return filtered.length;
+  }
+
+  // group by vector
+  var groups = {};
+  filtered.forEach(function(r) {
+    if (!groups[r.vector]) groups[r.vector] = [];
+    groups[r.vector].push(r);
+  });
+
+  var vectorOrder = ['news','maps','activity','civic','culture','service','hyperlocal','commerce','events'];
+  vectorOrder.forEach(function(vec) {
+    if (!groups[vec] || groups[vec].length === 0) return;
+    var meta = VECTOR_META[vec] || { label: vec, icon: '' };
+    var groupEl = document.createElement('div');
+    groupEl.className = 'resource-section';
+    groupEl.innerHTML =
+      '<div class="vector-group-header">' +
+        '<div class="vector-group-label">' + meta.label + '</div>' +
+        '<span class="vector-group-count">' + groups[vec].length + '</span>' +
+      '</div>' +
+      '<div class="resource-grid">' + groups[vec].map(renderResourceCard).join('') + '</div>';
+    section.appendChild(groupEl);
+  });
+
+  return filtered.length;
+}
+
+function buildCommunitiesSection() {
+  var section = document.getElementById('communities-section');
+  section.innerHTML = '';
+  var q = pageState.query;
+  var v = pageState.vector;
+
+  var showCommunities = v === 'all' || v === 'community';
+  if (!showCommunities && !q) {
+    return 0;
+  }
+
+  var divider = document.createElement('hr');
+  divider.className = 'communities-divider';
+  section.appendChild(divider);
+
+  var total = 0;
+  COMMUNITIES.forEach(function(g) {
+    var visCount = 0;
+    var cardsHtml = g.entries.map(function(e) {
+      var searchStr = (e.name + ' ' + e.desc + ' ' + (g.group || '')).toLowerCase();
+      var qMatch = !q || searchStr.indexOf(q) !== -1;
+      var vMatch = showCommunities;
+      var show = vMatch && qMatch;
+      if (show) visCount++;
+      return '<a class="commons-card' + (show ? '' : ' hidden') + '" href="' + e.link + '" target="_blank" rel="noopener">' +
+        '<div class="commons-icon ' + (g.type || 'forum') + '">' + (g.type || '').slice(0,2).toUpperCase() + '</div>' +
+        '<div>' +
+          '<div class="commons-name">' + e.name + '</div>' +
+          '<div class="commons-desc">' + e.desc + '</div>' +
+          (e.size ? '<span class="commons-size">' + e.size + '</span>' : '') +
+        '</div>' +
+      '</a>';
+    }).join('');
+
+    var groupEl = document.createElement('div');
+    groupEl.className = 'commons-group' + (visCount === 0 ? ' all-hidden' : '');
+    groupEl.innerHTML =
+      '<div class="commons-group-header">' +
+        '<div class="commons-group-title">' + g.group + '</div>' +
+        '<span class="commons-group-count" data-group-count>' + visCount + '</span>' +
+      '</div>' +
+      '<div class="commons-grid">' + cardsHtml + '</div>';
+    section.appendChild(groupEl);
+    total += visCount;
+  });
+
+  return total;
+}
+
+function render() {
+  var rCount = buildResourceSection();
+  var cCount = buildCommunitiesSection();
+  var total = rCount + cCount;
+  document.getElementById('commons-total').textContent = total + ' entries';
+  document.getElementById('commons-empty').style.display = total === 0 ? 'block' : 'none';
+}
+
+/* ── EVENT WIRING ── */
+document.addEventListener('DOMContentLoaded', function() {
+  render();
+
+  document.getElementById('commons-search').addEventListener('input', function(e) {
+    pageState.query = e.target.value.trim().toLowerCase();
+    render();
+  });
+
+  document.querySelectorAll('.vector-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.vector-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      pageState.vector = btn.dataset.vector;
+      render();
+    });
+  });
+});
+</script>
+</body>
+</html>
