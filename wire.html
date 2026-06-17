@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Wire — Independent Journalism, Surfaced Daily</title>
+  <meta name="description" content="Atlas Wire surfaces the daily output of independent journalists tracked by the Atlas. Curated every morning. Always free.">
+
+  <link rel="canonical" href="https://journalismatlas.com/wire">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://journalismatlas.com/wire">
+  <meta property="og:title" content="Atlas Wire — Independent Journalism, Surfaced Daily">
+  <meta property="og:description" content="Atlas Wire surfaces the daily output of independent journalists tracked by the Atlas. Curated every morning. Always free.">
+  <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+  <meta property="og:site_name" content="Independent Journalism Atlas">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://journalismatlas.com/wire">
+  <meta property="twitter:title" content="Atlas Wire — Independent Journalism, Surfaced Daily">
+  <meta property="twitter:description" content="Atlas Wire surfaces the daily output of independent journalists tracked by the Atlas. Curated every morning. Always free.">
+  <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+
+  <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/variables.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-primary, 'Hanken Grotesk', sans-serif);
+      background: var(--color-bg, #efeff2);
+      color: var(--color-text, #313131);
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Hero — dark surface ── */
+    .wire-hero {
+      background: #000;
+      padding: 72px 48px 64px;
+    }
+    .wire-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .wire-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--color-acid-green, #ceff00);
+      border: 1px solid rgba(206,255,0,0.3);
+      padding: 4px 12px; border-radius: 9999px;
+      margin-bottom: 28px;
+    }
+    .wire-eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--color-acid-green, #ceff00);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+    .wire-hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700; line-height: 1.0; letter-spacing: -0.03em;
+      color: #fff; margin-bottom: 20px;
+    }
+    .wire-hero h1 em { font-style: normal; color: var(--color-acid-green, #ceff00); }
+    .wire-hero-sub {
+      font-size: 18px; color: #bdbdbd; line-height: 1.7; max-width: 520px;
+      margin-bottom: 32px;
+    }
+    .wire-bsky-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--color-acid-green, #ceff00);
+      font-size: 14px; font-weight: 500;
+      border: 1px solid rgba(206,255,0,0.4);
+      padding: 8px 16px; border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .wire-bsky-link:hover { background: rgba(206,255,0,0.08); }
+    .wire-bsky-link .material-symbols-outlined { font-size: 16px; }
+
+    /* ── Feed section — light surface ── */
+    .wire-feed-section {
+      background: var(--color-bg, #efeff2);
+      padding: 48px 48px 80px;
+    }
+    .wire-feed-inner { max-width: 860px; margin: 0 auto; }
+
+    /* ── Beat filter tabs ── */
+    .beat-filters {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .beat-tab {
+      padding: 7px 16px; border-radius: 9999px;
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      cursor: pointer; border: 1.5px solid var(--color-border, #bdbdbd);
+      background: transparent; color: var(--color-text-secondary, #6b6b6b);
+      transition: all 0.15s;
+    }
+    .beat-tab:hover { border-color: #000; color: #000; }
+    .beat-tab.active {
+      background: #000; color: #fff; border-color: #000;
+    }
+
+    /* ── Feed stack ── */
+    .feed-stack {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    /* ── Cluster header ── */
+    .cluster-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 20px;
+      background: #e8e8f0;
+      border: 1px solid #d0d0e0;
+      border-radius: 6px 6px 0 0;
+      border-bottom: none;
+      font-size: 13px; font-weight: 700; color: #444480;
+      margin-top: 24px;
+    }
+    .cluster-header .material-symbols-outlined { font-size: 16px; }
+    .cluster-header .cluster-count {
+      margin-left: auto;
+      font-size: 11px; font-weight: 500; color: #8888bb;
+    }
+
+    /* ── Wire card ── */
+    .wire-card {
+      background: var(--color-bg-card, #fff);
+      border: 1px solid var(--color-border, #bdbdbd);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 8px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .wire-card:hover {
+      border-color: #999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .wire-card.in-cluster {
+      border-radius: 0;
+      border-top: none;
+      margin-bottom: 0;
+    }
+    .wire-card.in-cluster:last-child {
+      border-radius: 0 0 6px 6px;
+      margin-bottom: 8px;
+    }
+    .wire-card.in-cluster + .wire-card.in-cluster {
+      border-top: 1px solid var(--color-border, #bdbdbd);
+    }
+
+    .card-top {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .beat-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .card-creator {
+      font-size: 13px; font-weight: 700; color: #000;
+    }
+    .card-creator a:hover { color: var(--color-accent, #97d600); }
+    .card-beat {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--color-text-secondary, #6b6b6b);
+      background: var(--color-bg, #efeff2);
+      padding: 3px 8px; border-radius: 9999px;
+    }
+    .card-timestamp {
+      margin-left: auto;
+      font-size: 11px; color: var(--color-muted, #9e9e9e);
+    }
+
+    .wire-text {
+      font-size: 16px; line-height: 1.6; color: var(--color-text, #313131);
+      white-space: pre-wrap; word-break: break-word;
+      margin-bottom: 14px;
+    }
+    .wire-text a { color: var(--color-accent-hover, #5d7400); }
+    .wire-text a:hover { text-decoration: underline; }
+
+    /* hashtag muting */
+    .wire-text .hashtag { color: var(--color-muted, #9e9e9e); font-size: 14px; }
+
+    .card-actions {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .btn-source {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: 6px;
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      background: #000; color: #fff;
+      transition: background 0.15s;
+    }
+    .btn-source:hover { background: #222; }
+    .btn-source .material-symbols-outlined { font-size: 14px; }
+    .btn-bsky {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: 6px;
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      border: 1.5px solid var(--color-border, #bdbdbd);
+      color: var(--color-text-secondary, #6b6b6b);
+      background: transparent; transition: all 0.15s;
+    }
+    .btn-bsky:hover { border-color: #0085ff; color: #0085ff; }
+    .btn-bsky .material-symbols-outlined { font-size: 14px; }
+
+    /* ── Load more ── */
+    .load-more-wrap {
+      text-align: center; padding: 32px 0 0;
+    }
+    .btn-load-more {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 6px;
+      font-family: inherit; font-size: 14px; font-weight: 600;
+      border: 1.5px solid var(--color-border, #bdbdbd);
+      background: transparent; color: var(--color-text, #313131);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-load-more:hover { border-color: #000; color: #000; }
+    .btn-load-more .material-symbols-outlined { font-size: 16px; }
+
+    /* ── Empty / loading ── */
+    .feed-empty {
+      text-align: center; padding: 64px 24px; color: var(--color-muted, #9e9e9e);
+    }
+    .feed-empty h3 { font-size: 18px; color: var(--color-text, #313131); margin-bottom: 8px; }
+    .feed-loading {
+      text-align: center; padding: 48px 24px; color: var(--color-muted, #9e9e9e);
+      font-size: 14px;
+    }
+
+    /* ── Footer band ── */
+    .wire-footer-band {
+      background: var(--color-bg, #efeff2);
+      border-top: 1px solid var(--color-border, #bdbdbd);
+      padding: 24px 48px;
+      text-align: center;
+      font-size: 13px; color: var(--color-muted, #9e9e9e);
+    }
+    .wire-footer-band a { color: var(--color-accent-hover, #5d7400); }
+    .wire-footer-band a:hover { text-decoration: underline; }
+
+    /* ── Material Symbols ── */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal; font-style: normal;
+      font-size: 20px; line-height: 1;
+      letter-spacing: normal; text-transform: none;
+      display: inline-block; white-space: nowrap; word-wrap: normal;
+      direction: ltr; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .wire-hero { padding: 48px 24px 40px; }
+      .wire-feed-section { padding: 32px 16px 64px; }
+      .wire-card { padding: 16px 18px; }
+      .wire-footer-band { padding: 20px 24px; }
+      .wire-hero h1 { font-size: 36px; }
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+
+<script src="/assets/js/header.js"></script>
+
+<!-- ── Hero ── -->
+<section class="wire-hero">
+  <div class="wire-hero-inner">
+    <div class="wire-eyebrow">
+      <span class="dot"></span>
+      Live on Bluesky
+    </div>
+    <h1>Atlas <em>Wire</em></h1>
+    <p class="wire-hero-sub">Independent journalism, surfaced daily. Every morning the Atlas scans its database of 1,500+ creator-journalists and curates the work that matters.</p>
+    <a class="wire-bsky-link" href="https://bsky.app/profile/journalismatlas.com" target="_blank" rel="noopener">
+      <span class="material-symbols-outlined">open_in_new</span>
+      Follow @journalismatlas.com on Bluesky
+    </a>
+  </div>
+</section>
+
+<!-- ── Feed ── -->
+<section class="wire-feed-section">
+  <div class="wire-feed-inner">
+
+    <!-- Beat filter tabs, populated by JS -->
+    <div class="beat-filters" id="beat-filters">
+      <button class="beat-tab active" data-beat="">All</button>
+    </div>
+
+    <!-- Feed -->
+    <div class="feed-stack" id="feed-stack">
+      <div class="feed-loading">Loading wire...</div>
+    </div>
+
+    <div class="load-more-wrap" id="load-more-wrap" style="display:none">
+      <button class="btn-load-more" id="load-more-btn" onclick="loadMore()">
+        <span class="material-symbols-outlined">expand_more</span>
+        Load more
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Footer band ── -->
+<footer class="wire-footer-band" id="wire-footer">
+  Curated daily by the <a href="/">Atlas</a>. <span id="footer-count">—</span> independent journalists tracked. Always free.
+</footer>
+
+<script>
+const PAGE_SIZE = 20;
+const WIRE_JSON_URL = '/wire.json';
+const BSKY_HANDLE = 'journalismatlas.com';
+
+let allItems = [];
+let filteredItems = [];
+let visibleCount = 0;
+let activeBeat = '';
+
+// Beat color palette (cycles for unknown beats)
+const BEAT_COLORS = {
+  'Politics': '#e63946',
+  'Climate': '#2a9d8f',
+  'Tech': '#457b9d',
+  'Health': '#e76f51',
+  'Local': '#f4a261',
+  'Economy': '#6a994e',
+  'Education': '#9c6644',
+  'Criminal Justice': '#7b2d8b',
+  'Media': '#264653',
+  'Food Policy': '#a8a34a',
+  'International': '#5c4033',
+  'Science': '#1d6fa4',
+  'default': '#888888',
+};
+const COLOR_CYCLE = ['#e63946','#457b9d','#2a9d8f','#e76f51','#f4a261','#6a994e','#9c6644','#7b2d8b'];
+const beatColorMap = {};
+
+function beatColor(beat) {
+  if (!beat) return BEAT_COLORS.default;
+  if (BEAT_COLORS[beat]) return BEAT_COLORS[beat];
+  if (beatColorMap[beat]) return beatColorMap[beat];
+  const color = COLOR_CYCLE[Object.keys(beatColorMap).length % COLOR_CYCLE.length];
+  beatColorMap[beat] = color;
+  return color;
+}
+
+// ── Load data ───────────────────────────────────────────────────────────────
+
+async function init() {
+  try {
+    const res = await fetch(WIRE_JSON_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    allItems = data.items || [];
+    buildBeatTabs();
+    applyFilter('');
+    updateFooter();
+  } catch (e) {
+    document.getElementById('feed-stack').innerHTML = `
+      <div class="feed-empty">
+        <h3>Wire launching soon</h3>
+        <p>The first edition of Atlas Wire is on its way.<br>
+           Follow <a href="https://bsky.app/profile/${BSKY_HANDLE}" target="_blank">@${BSKY_HANDLE}</a> on Bluesky to get it first.</p>
+      </div>`;
+  }
+}
+
+// ── Beat tabs ────────────────────────────────────────────────────────────────
+
+function buildBeatTabs() {
+  const beats = [...new Set(allItems.map(x => x.beat).filter(Boolean))].sort();
+  const container = document.getElementById('beat-filters');
+  beats.forEach(beat => {
+    const btn = document.createElement('button');
+    btn.className = 'beat-tab';
+    btn.dataset.beat = beat;
+    btn.textContent = beat;
+    btn.onclick = () => applyFilter(beat);
+    container.appendChild(btn);
+  });
+  // wire up "All" tab
+  container.querySelector('[data-beat=""]').onclick = () => applyFilter('');
+}
+
+function applyFilter(beat) {
+  activeBeat = beat;
+  document.querySelectorAll('.beat-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.beat === beat);
+  });
+  filteredItems = beat ? allItems.filter(x => x.beat === beat) : [...allItems];
+  visibleCount = 0;
+  document.getElementById('feed-stack').innerHTML = '';
+  loadMore();
+}
+
+// ── Render ───────────────────────────────────────────────────────────────────
+
+function loadMore() {
+  const slice = filteredItems.slice(visibleCount, visibleCount + PAGE_SIZE);
+  if (!slice.length) return;
+  visibleCount += slice.length;
+
+  const stack = document.getElementById('feed-stack');
+  let lastCluster = null;
+
+  slice.forEach(item => {
+    const cluster = item.cluster_id ? item : null;
+    const cid = item.cluster_id;
+
+    if (cid && cid !== lastCluster) {
+      lastCluster = cid;
+      const banner = document.createElement('div');
+      banner.className = 'cluster-header';
+      const count = filteredItems.filter(x => x.cluster_id === cid).length;
+      banner.innerHTML = `
+        <span class="material-symbols-outlined">hub</span>
+        ${esc(item.cluster_label || 'Cluster')}
+        <span class="cluster-count">${count} journalists</span>`;
+      stack.appendChild(banner);
+    } else if (!cid) {
+      lastCluster = null;
+    }
+
+    stack.appendChild(renderCard(item, !!cid));
+  });
+
+  const hasMore = visibleCount < filteredItems.length;
+  const wrap = document.getElementById('load-more-wrap');
+  wrap.style.display = hasMore ? 'block' : 'none';
+
+  if (!filteredItems.length) {
+    stack.innerHTML = `<div class="feed-empty"><h3>No items</h3><p>Try a different beat filter.</p></div>`;
+  }
+}
+
+function renderCard(item, inCluster) {
+  const el = document.createElement('div');
+  el.className = 'wire-card' + (inCluster ? ' in-cluster' : '');
+
+  const color = beatColor(item.beat);
+  const ts = formatDate(item.published_at || item.date);
+
+  // Parse wire_text: linkify URLs, mute hashtags
+  const wireHtml = formatWireText(item.wire_text || '');
+
+  const sourceBtn = item.source_link
+    ? `<a class="btn-source" href="${esc(item.source_link)}" target="_blank" rel="noopener">
+        <span class="material-symbols-outlined">open_in_new</span>Read
+       </a>` : '';
+
+  const bskyBtn = item.bsky_post_url
+    ? `<a class="btn-bsky" href="${esc(item.bsky_post_url)}" target="_blank" rel="noopener">
+        <span class="material-symbols-outlined">open_in_new</span>Bluesky
+       </a>` : '';
+
+  const creatorLink = item.creator_url
+    ? `<a href="${esc(item.creator_url)}" target="_blank" rel="noopener">${esc(item.creator_name)}</a>`
+    : esc(item.creator_name);
+
+  el.innerHTML = `
+    <div class="card-top">
+      <span class="beat-dot" style="background:${color}"></span>
+      <span class="card-creator">${creatorLink}</span>
+      ${item.beat ? `<span class="card-beat">${esc(item.beat)}</span>` : ''}
+      <span class="card-timestamp">${ts}</span>
+    </div>
+    <div class="wire-text">${wireHtml}</div>
+    <div class="card-actions">
+      ${sourceBtn}
+      ${bskyBtn}
+    </div>`;
+
+  return el;
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+function formatWireText(text) {
+  // Escape HTML first
+  let s = esc(text);
+  // Linkify URLs (→ lines)
+  s = s.replace(/https?:\/\/[^\s\n]+/g, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
+  // Mute hashtags
+  s = s.replace(/#\w+/g, tag => `<span class="hashtag">${tag}</span>`);
+  return s;
+}
+
+function formatDate(str) {
+  if (!str) return '';
+  try {
+    const d = new Date(str);
+    const now = new Date();
+    const diffH = (now - d) / 3600000;
+    if (diffH < 0) return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    if (diffH < 1) return `${Math.max(1, Math.round(diffH * 60))}m ago`;
+    if (diffH < 24) return `${Math.round(diffH)}h ago`;
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  } catch { return ''; }
+}
+
+function updateFooter() {
+  // Show total atlas count from wire items (distinct creators)
+  const creators = new Set(allItems.map(x => x.creator_name)).size;
+  document.getElementById('footer-count').textContent = '1,500+';
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+init();
+</script>
+
+</body>
+</html>

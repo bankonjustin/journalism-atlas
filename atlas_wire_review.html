@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Wire — Review Queue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #111111;
+    --surface: #1a1a1a;
+    --surface-raised: #222222;
+    --border: #2e2e2e;
+    --text: #efeff2;
+    --text-muted: #888888;
+    --acid: #ceff00;
+    --red: #ff4422;
+    --amber: #ffbb00;
+    --radius: 6px;
+    --unit: 8px;
+  }
+
+  body {
+    font-family: 'Hanken Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: #000;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--acid);
+  }
+  .header-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 16px;
+  }
+  .header-meta span { display: flex; align-items: center; gap: 4px; }
+  .header-meta .count-green { color: var(--acid); font-weight: 700; }
+  .header-meta .count-red { color: var(--red); font-weight: 700; }
+  .header-actions { margin-left: auto; display: flex; gap: 8px; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px;
+    border-radius: var(--radius);
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: none; transition: opacity .15s;
+  }
+  .btn:hover { opacity: .85; }
+  .btn-export {
+    background: var(--acid); color: #000;
+  }
+  .btn-load {
+    background: var(--surface-raised); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-approve { background: var(--acid); color: #000; padding: 5px 10px; font-size: 12px; }
+  .btn-kill    { background: transparent; color: var(--red); border: 1px solid var(--red); padding: 5px 10px; font-size: 12px; }
+  .btn-edit    { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 5px 10px; font-size: 12px; }
+  .btn-undo    { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 5px 10px; font-size: 12px; }
+
+  .material-symbols-outlined { font-size: 16px; }
+
+  /* ── Controls ── */
+  .controls {
+    padding: 12px 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .control-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+  select, input[type=range] {
+    background: var(--surface-raised); color: var(--text);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    font-family: inherit; font-size: 13px; padding: 5px 8px; cursor: pointer;
+  }
+  select:focus, input:focus { outline: 1px solid var(--acid); }
+  .sort-tabs { display: flex; gap: 4px; }
+  .sort-tab {
+    padding: 5px 12px; border-radius: var(--radius); font-size: 12px; font-weight: 500;
+    cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-muted);
+    font-family: inherit;
+  }
+  .sort-tab.active { background: var(--surface-raised); color: var(--text); border-color: #555; }
+  .threshold-wrap { display: flex; align-items: center; gap: 8px; }
+  #threshold-val { font-size: 13px; font-weight: 700; color: var(--acid); min-width: 16px; }
+
+  /* ── Feed ── */
+  .feed {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 24px 64px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  /* ── Cluster banner ── */
+  .cluster-banner {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
+    background: #1c1c2e;
+    border: 1px solid #2e2e50;
+    border-radius: var(--radius);
+    font-size: 12px; font-weight: 700; color: #8888ff;
+    letter-spacing: 0.05em;
+    margin-top: 8px;
+  }
+  .cluster-banner .material-symbols-outlined { font-size: 15px; }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    transition: border-color .15s;
+  }
+  .card:hover { border-color: #444; }
+  .card.approved { border-left: 3px solid var(--acid); }
+  .card.killed   { border-left: 3px solid var(--red); opacity: .45; }
+  .card.editing  { border: 1px solid var(--acid); }
+
+  .card-top {
+    display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;
+  }
+
+  .score-badge {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700;
+    background: var(--surface-raised); color: var(--text-muted);
+  }
+  .score-badge.high { background: var(--acid); color: #000; }
+  .score-badge.mid  { background: #333300; color: var(--acid); }
+  .score-badge.null-score { font-size: 11px; }
+
+  .card-meta { flex: 1; min-width: 0; }
+  .card-creator {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .card-creator a { color: inherit; text-decoration: none; }
+  .card-creator a:hover { color: var(--acid); }
+  .beat-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-muted);
+    background: var(--surface-raised);
+    padding: 2px 7px; border-radius: 9999px;
+  }
+  .bsky-tag {
+    font-size: 11px; color: #6699ff;
+    display: flex; align-items: center; gap: 2px;
+  }
+  .card-title {
+    font-size: 13px; color: var(--text-muted); margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* ── Wire frame ── */
+  .wire-frame-wrap { margin: 10px 0; }
+  .wire-frame-display {
+    font-size: 14px; line-height: 1.55;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .wire-frame-edit {
+    width: 100%; font-family: inherit; font-size: 14px; line-height: 1.55;
+    background: var(--surface-raised); color: var(--text);
+    border: 1px solid var(--acid); border-radius: var(--radius);
+    padding: 10px 12px; resize: vertical; min-height: 90px;
+  }
+  .wire-frame-edit:focus { outline: none; }
+  .char-count {
+    font-size: 11px; color: var(--text-muted); margin-top: 4px; text-align: right;
+  }
+  .char-count.over { color: var(--red); font-weight: 700; }
+
+  /* ── Card actions ── */
+  .card-actions {
+    display: flex; align-items: center; gap: 8px; margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .card-actions .spacer { flex: 1; }
+  .source-link {
+    font-size: 12px; color: var(--text-muted); text-decoration: none;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .source-link:hover { color: var(--text); }
+  .sub-scores {
+    display: flex; gap: 10px; margin-left: auto;
+    font-size: 11px; color: var(--text-muted);
+  }
+  .sub-score span { color: var(--text); font-weight: 500; }
+
+  /* ── Empty / loading states ── */
+  .empty-state {
+    text-align: center; padding: 64px 24px; color: var(--text-muted);
+  }
+  .empty-state h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
+  .empty-state p { font-size: 14px; line-height: 1.6; }
+  .empty-state code {
+    background: var(--surface-raised); padding: 2px 6px;
+    border-radius: 4px; font-size: 13px; color: var(--acid);
+  }
+
+  /* ── Export modal ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.7); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; max-width: 480px; width: 90%;
+  }
+  .modal h3 { font-size: 16px; margin-bottom: 12px; }
+  .modal p  { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+  .btn-modal-cancel { background: var(--surface-raised); color: var(--text); border: 1px solid var(--border); }
+
+  /* ── Cluster thread card ── */
+  .cluster-thread-card {
+    background: #12121e;
+    border: 1px solid #2e2e50;
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 4px;
+  }
+  .cluster-thread-card .thread-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #8888ff; margin-bottom: 6px;
+  }
+  .cluster-thread-card .thread-text {
+    font-size: 13px; white-space: pre-wrap; color: var(--text-muted);
+  }
+
+  .hidden { display: none !important; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">📡 Atlas Wire — Review</div>
+  <div class="header-meta" id="header-meta">
+    <span>No file loaded</span>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-load" onclick="loadFile()">
+      <span class="material-symbols-outlined">upload_file</span>
+      Load Queue
+    </button>
+    <button class="btn btn-export" onclick="exportApproved()" id="export-btn" disabled>
+      <span class="material-symbols-outlined">download</span>
+      Export Approved
+    </button>
+  </div>
+</div>
+
+<div class="controls">
+  <span class="control-label">Sort</span>
+  <div class="sort-tabs">
+    <button class="sort-tab active" onclick="setSort('score', this)">Score</button>
+    <button class="sort-tab" onclick="setSort('beat', this)">Beat</button>
+    <button class="sort-tab" onclick="setSort('cluster', this)">Cluster</button>
+    <button class="sort-tab" onclick="setSort('time', this)">Time</button>
+  </div>
+
+  <span class="control-label" style="margin-left:8px">Beat</span>
+  <select id="beat-filter" onchange="render()">
+    <option value="">All beats</option>
+  </select>
+
+  <span class="control-label" style="margin-left:8px">Source</span>
+  <select id="source-filter" onchange="render()">
+    <option value="">RSS + Bluesky</option>
+    <option value="rss">RSS only</option>
+    <option value="bluesky">Bluesky only</option>
+  </select>
+
+  <span class="control-label" style="margin-left:8px">Min score</span>
+  <div class="threshold-wrap">
+    <input type="range" id="threshold" min="0" max="10" step="0.5" value="0" oninput="updateThreshold(this)">
+    <span id="threshold-val">0</span>
+  </div>
+
+  <span style="margin-left:auto; font-size:12px; color:var(--text-muted)" id="visible-count"></span>
+</div>
+
+<div class="feed" id="feed">
+  <div class="empty-state">
+    <h2>No queue loaded</h2>
+    <p>
+      Click <strong>Load Queue</strong> to open a <code>wire_queue_scored_*.json</code> file.<br><br>
+      If you haven't run the pipeline yet:<br>
+      <code>python3 atlas_wire_fetch.py</code><br>
+      <code>python3 atlas_wire_rank.py</code>
+    </p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="export-modal">
+  <div class="modal">
+    <h3>Export approved items</h3>
+    <p id="export-summary">—</p>
+    <div class="modal-actions">
+      <button class="btn btn-modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-export" onclick="doExport()">
+        <span class="material-symbols-outlined">download</span>
+        Download JSON
+      </button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="file-input" accept=".json" style="display:none" onchange="handleFileLoad(event)">
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+
+let items = [];
+let sortMode = 'score';
+let dateStr = '';
+
+// ── File loading ────────────────────────────────────────────────────────────
+
+function loadFile() {
+  document.getElementById('file-input').click();
+}
+
+function handleFileLoad(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  dateStr = file.name.replace('wire_queue_scored_', '').replace('.json', '');
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      items = JSON.parse(ev.target.result);
+      initBeats();
+      render();
+      updateHeader();
+      document.getElementById('export-btn').disabled = false;
+    } catch (err) {
+      alert('Could not parse JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+// ── Filters / sort ──────────────────────────────────────────────────────────
+
+function initBeats() {
+  const beats = [...new Set(items.map(x => x.beat).filter(Boolean))].sort();
+  const sel = document.getElementById('beat-filter');
+  sel.innerHTML = '<option value="">All beats</option>';
+  beats.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b; opt.textContent = b;
+    sel.appendChild(opt);
+  });
+}
+
+function setSort(mode, el) {
+  sortMode = mode;
+  document.querySelectorAll('.sort-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function updateThreshold(el) {
+  document.getElementById('threshold-val').textContent = el.value;
+  render();
+}
+
+function getFiltered() {
+  const beat = document.getElementById('beat-filter').value;
+  const source = document.getElementById('source-filter').value;
+  const threshold = parseFloat(document.getElementById('threshold').value);
+
+  return items.filter(item => {
+    if (beat && item.beat !== beat) return false;
+    if (source && item.source !== source) return false;
+    if (threshold > 0 && (item.score === null || item.score < threshold)) return false;
+    return true;
+  });
+}
+
+function getSorted(filtered) {
+  const copy = [...filtered];
+  if (sortMode === 'score') {
+    return copy.sort((a, b) => (b.score || 0) - (a.score || 0));
+  }
+  if (sortMode === 'beat') {
+    return copy.sort((a, b) => (a.beat || '').localeCompare(b.beat || ''));
+  }
+  if (sortMode === 'cluster') {
+    return copy.sort((a, b) => {
+      const ca = a.cluster?.cluster_id || 'zzz';
+      const cb = b.cluster?.cluster_id || 'zzz';
+      if (ca !== cb) return ca.localeCompare(cb);
+      return (b.score || 0) - (a.score || 0);
+    });
+  }
+  if (sortMode === 'time') {
+    return copy.sort((a, b) => (b.pub_date || '').localeCompare(a.pub_date || ''));
+  }
+  return copy;
+}
+
+// ── Render ──────────────────────────────────────────────────────────────────
+
+function render() {
+  const feed = document.getElementById('feed');
+  const filtered = getSorted(getFiltered());
+
+  document.getElementById('visible-count').textContent =
+    `${filtered.length} of ${items.length} items`;
+
+  if (!filtered.length) {
+    feed.innerHTML = `<div class="empty-state">
+      <h2>No items match filters</h2>
+      <p>Try adjusting the beat, source, or score threshold.</p>
+    </div>`;
+    return;
+  }
+
+  // Group by cluster when sort=cluster
+  const rows = [];
+  let lastClusterId = null;
+  const seenClusterOpeners = new Set();
+
+  for (const item of filtered) {
+    const cid = item.cluster?.cluster_id;
+
+    if (sortMode === 'cluster' && cid && cid !== lastClusterId) {
+      lastClusterId = cid;
+      rows.push({ type: 'cluster-banner', cluster: item.cluster, opener: item.cluster_thread_opener, cid });
+      seenClusterOpeners.add(cid);
+    }
+
+    rows.push({ type: 'item', item });
+  }
+
+  feed.innerHTML = rows.map(row => {
+    if (row.type === 'cluster-banner') {
+      const openerHtml = row.opener ? `
+        <div class="cluster-thread-card">
+          <div class="thread-label"><span class="material-symbols-outlined" style="font-size:13px;vertical-align:middle">hub</span> Thread opener</div>
+          <div class="thread-text">${esc(row.opener)}</div>
+        </div>` : '';
+      return `<div class="cluster-banner" style="margin-top:16px">
+        <span class="material-symbols-outlined">hub</span>
+        ${esc(row.cluster.cluster_label)} — ${esc(row.cluster.cluster_summary)}
+      </div>${openerHtml}`;
+    }
+    return renderCard(row.item);
+  }).join('');
+
+  updateHeader();
+}
+
+function renderCard(item) {
+  const score = item.score;
+  const scoreClass = score === null ? 'null-score' : score >= 8 ? 'high' : score >= 5 ? 'mid' : '';
+  const scoreLabel = score === null ? '—' : score.toFixed(1);
+
+  const statusClass = item.status === 'approved' ? 'approved'
+    : item.status === 'killed' ? 'killed'
+    : item.status === 'editing' ? 'editing' : '';
+
+  const bskyTag = item.bluesky_handle
+    ? `<span class="bsky-tag"><span class="material-symbols-outlined" style="font-size:13px">person</span>@${esc(item.bluesky_handle)}</span>`
+    : '';
+
+  const wireHtml = item._editing
+    ? `<div class="wire-frame-wrap">
+        <textarea class="wire-frame-edit" id="edit-${item.id}" oninput="onEditInput('${item.id}', this)">${esc(item.wire_frame || '')}</textarea>
+        <div class="char-count" id="cc-${item.id}"></div>
+       </div>`
+    : `<div class="wire-frame-wrap">
+        <div class="wire-frame-display">${esc(item.wire_frame || '(no wire copy drafted)')}</div>
+       </div>`;
+
+  const approveBtn = item.status !== 'approved'
+    ? `<button class="btn btn-approve" onclick="setStatus('${item.id}', 'approved')">
+        <span class="material-symbols-outlined">check_circle</span> Approve
+       </button>`
+    : `<button class="btn btn-undo" onclick="setStatus('${item.id}', 'pending')">
+        <span class="material-symbols-outlined">undo</span> Undo
+       </button>`;
+
+  const killBtn = item.status !== 'killed'
+    ? `<button class="btn btn-kill" onclick="setStatus('${item.id}', 'killed')">
+        <span class="material-symbols-outlined">cancel</span> Kill
+       </button>`
+    : `<button class="btn btn-undo" onclick="setStatus('${item.id}', 'pending')">
+        <span class="material-symbols-outlined">undo</span> Restore
+       </button>`;
+
+  const editBtn = item._editing
+    ? `<button class="btn btn-edit" onclick="saveEdit('${item.id}')">
+        <span class="material-symbols-outlined">check</span> Save
+       </button>`
+    : `<button class="btn btn-edit" onclick="startEdit('${item.id}')">
+        <span class="material-symbols-outlined">edit</span> Edit
+       </button>`;
+
+  const subScores = (item.score_newsworthiness || item.score_distinctiveness || item.score_atlas_fit || item.score_timeliness)
+    ? `<div class="sub-scores">
+        <span>N <span>${(item.score_newsworthiness||0).toFixed(1)}</span></span>
+        <span>D <span>${(item.score_distinctiveness||0).toFixed(1)}</span></span>
+        <span>A <span>${(item.score_atlas_fit||0).toFixed(1)}</span></span>
+        <span>T <span>${(item.score_timeliness||0).toFixed(1)}</span></span>
+       </div>`
+    : '';
+
+  return `<div class="card ${statusClass}" id="card-${item.id}">
+    <div class="card-top">
+      <div class="score-badge ${scoreClass}">${scoreLabel}</div>
+      <div class="card-meta">
+        <div class="card-creator">
+          <a href="${esc(item.creator_url || '#')}" target="_blank">${esc(item.creator_name)}</a>
+          ${item.beat ? `<span class="beat-tag">${esc(item.beat)}</span>` : ''}
+          ${bskyTag}
+        </div>
+        <div class="card-title">${esc(item.title || item.text_snippet || '')}</div>
+      </div>
+    </div>
+
+    ${wireHtml}
+
+    <div class="card-actions">
+      ${approveBtn}
+      ${killBtn}
+      ${editBtn}
+      <span class="spacer"></span>
+      ${item.link ? `<a class="source-link" href="${esc(item.link)}" target="_blank">
+        <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span>Source
+      </a>` : ''}
+      ${subScores}
+    </div>
+  </div>`;
+}
+
+// ── Actions ─────────────────────────────────────────────────────────────────
+
+function setStatus(id, status) {
+  const item = items.find(x => x.id === id);
+  if (!item) return;
+  item.status = status;
+  item._editing = false;
+  reRenderCard(item);
+  updateHeader();
+}
+
+function startEdit(id) {
+  const item = items.find(x => x.id === id);
+  if (!item) return;
+  item._editing = true;
+  reRenderCard(item);
+  // Focus and count
+  const ta = document.getElementById('edit-' + id);
+  if (ta) {
+    ta.focus();
+    onEditInput(id, ta);
+  }
+}
+
+function saveEdit(id) {
+  const item = items.find(x => x.id === id);
+  if (!item) return;
+  const ta = document.getElementById('edit-' + id);
+  if (ta) item.wire_frame = ta.value;
+  item._editing = false;
+  reRenderCard(item);
+}
+
+function onEditInput(id, ta) {
+  const cc = document.getElementById('cc-' + id);
+  if (!cc) return;
+  const len = ta.value.length;
+  cc.textContent = `${len} chars`;
+  cc.className = 'char-count' + (len > 300 ? ' over' : '');
+}
+
+function reRenderCard(item) {
+  const el = document.getElementById('card-' + item.id);
+  if (el) {
+    el.outerHTML = renderCard(item);
+  }
+}
+
+// ── Header ──────────────────────────────────────────────────────────────────
+
+function updateHeader() {
+  const approved = items.filter(x => x.status === 'approved').length;
+  const killed   = items.filter(x => x.status === 'killed').length;
+  const pending  = items.filter(x => x.status === 'pending').length;
+  const clusters = [...new Set(items.filter(x => x.cluster).map(x => x.cluster.cluster_id))].length;
+  const highScore = items.filter(x => x.score >= 7).length;
+
+  document.getElementById('header-meta').innerHTML = `
+    <span>${dateStr || 'today'}</span>
+    <span><span class="count-green">${approved}</span> approved</span>
+    <span><span class="count-red">${killed}</span> killed</span>
+    <span>${pending} pending</span>
+    <span>≥7: ${highScore}</span>
+    <span>clusters: ${clusters}</span>
+  `;
+}
+
+// ── Export ───────────────────────────────────────────────────────────────────
+
+function exportApproved() {
+  const approved = items.filter(x => x.status === 'approved');
+  document.getElementById('export-summary').textContent =
+    `${approved.length} approved item${approved.length !== 1 ? 's' : ''} will be saved as wire_approved_${dateStr || 'today'}.json.`;
+  document.getElementById('export-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('export-modal').classList.remove('open');
+}
+
+function doExport() {
+  closeModal();
+  const approved = items.filter(x => x.status === 'approved').map(item => {
+    const out = { ...item };
+    delete out._editing;
+    return out;
+  });
+
+  const blob = new Blob([JSON.stringify(approved, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `wire_approved_${dateStr || new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Keyboard shortcuts ───────────────────────────────────────────────────────
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'TEXTAREA') return;
+  // no shortcuts that interfere with native browser shortcuts
+});
+
+// ── Escape closes modal ───────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ── Utility ──────────────────────────────────────────────────────────────────
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+</script>
+</body>
+</html>

@@ -30,8 +30,10 @@ import anthropic
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 MODEL = "claude-sonnet-4-6"
-BATCH_SIZE = 20
-BATCH_DELAY = 1.0  # seconds between scoring batches
+BATCH_SIZE = 10    # smaller batches to stay under 10k token/min rate limit
+BATCH_DELAY = 8.0  # seconds between batches — conservative for free-tier rate limits
+CLUSTER_ITEM_LIMIT = 0   # set >0 to enable cluster detection (needs higher rate limits)
+MAX_ITEMS_TO_SCORE = 20  # cap for first run — increase once rate limits are confirmed
 
 WIRE_FRAME_FORMAT = """📰 {creator_name} on {beat}: {one_sentence}
 → {link}
@@ -261,18 +263,27 @@ Rules for wire frame:
 Items to score and frame:
 {item_list}"""
 
-    response = client.messages.create(
-        model=MODEL,
-        max_tokens=4000,
-        tools=[SCORE_SCHEMA],
-        tool_choice={"type": "tool", "name": "scored_items"},
-        messages=[{"role": "user", "content": prompt}],
-    )
-
-    for block in response.content:
-        if block.type == "tool_use" and block.name == "scored_items":
-            return block.input.get("items", [])
-
+    for attempt in range(4):
+        try:
+            response = client.messages.create(
+                model=MODEL,
+                max_tokens=4000,
+                tools=[SCORE_SCHEMA],
+                tool_choice={"type": "tool", "name": "scored_items"},
+                messages=[{"role": "user", "content": prompt}],
+            )
+            for block in response.content:
+                if block.type == "tool_use" and block.name == "scored_items":
+                    return block.input.get("items", [])
+            return []
+        except Exception as e:
+            if "rate_limit" in str(e).lower() or "429" in str(e):
+                wait = 60 * (attempt + 1)
+                print(f"    Rate limited — waiting {wait}s before retry {attempt+1}/3...")
+                time.sleep(wait)
+            else:
+                raise
+    print("    Giving up on batch after 4 attempts.")
     return []
 
 
@@ -331,16 +342,30 @@ def main():
         sys.exit(0)
 
     print(f"  Items to rank: {len(items)}")
+
+    # Prioritize RSS items, then fill with Bluesky up to cap
+    rss_items  = [x for x in items if x.get("source") == "rss"]
+    bsky_items = [x for x in items if x.get("source") == "bluesky"]
+    if len(items) > MAX_ITEMS_TO_SCORE:
+        bsky_slots = max(0, MAX_ITEMS_TO_SCORE - len(rss_items))
+        items = rss_items + bsky_items[:bsky_slots]
+        print(f"  Capped to {len(items)} items for scoring ({len(rss_items)} RSS + {len(bsky_items[:bsky_slots])} Bluesky)")
+
     out_file = os.path.join(REPO_ROOT, f"wire_queue_scored_{date_str}.json")
 
     client = anthropic.Anthropic(api_key=api_key)
 
-    # Pass 1: Cluster detection
-    print(f"\n[1/3] Detecting clusters across {len(items)} items...")
-    cluster_map, clusters_data = detect_clusters(client, items)
-    print(f"  Found {len(clusters_data)} clusters covering {len(cluster_map)} items")
-    for cl in clusters_data:
-        print(f"  · {cl['cluster_label']} ({len(cl['item_ids'])} items)")
+    # Pass 1: Cluster detection (skip if too many items — prompt would exceed rate limit)
+    if len(items) > CLUSTER_ITEM_LIMIT:
+        print(f"\n[1/3] Skipping cluster detection ({len(items)} items > {CLUSTER_ITEM_LIMIT} limit)")
+        cluster_map, clusters_data = {}, []
+    else:
+        print(f"\n[1/3] Detecting clusters across {len(items)} items...")
+    cluster_map, clusters_data = detect_clusters(client, items) if len(items) <= CLUSTER_ITEM_LIMIT else ({}, [])
+    if clusters_data:
+        print(f"  Found {len(clusters_data)} clusters covering {len(cluster_map)} items")
+        for cl in clusters_data:
+            print(f"  · {cl['cluster_label']} ({len(cl['item_ids'])} items)")
 
     # Pass 2: Score + frame (batched)
     print(f"\n[2/3] Scoring and framing items (batches of {BATCH_SIZE})...")
