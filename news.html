@@ -1,300 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Who Covers Washington — DMV Journalism Index — Team DMV</title>
-<meta name="description" content="The DMV journalism ecosystem mapped: institutional outlets, independent journalist-creators, beat coverage gaps, and emerging opportunities.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --dc-red:       #C8102E;
-  --md-gold:      #E8A020;
-  --va-navy:      #1B2A4A;
-  --surface-0:    #FFFFFF;
-  --surface-1:    #F8F5F0;
-  --surface-2:    #F0EBE1;
-  --surface-dark: #0F1A2E;
-  --text-primary:   #1A1A1A;
-  --text-secondary: #5A5A5A;
-  --text-muted:     #8A8A8A;
-  --text-inverse:   #FFFFFF;
-  --border-light: #E8E2DA;
-  --border-mid:   #D0C8BC;
-  --ff-serif: 'Playfair Display', Georgia, serif;
-  --ff-sans:  'Inter', system-ui, sans-serif;
-  --ff-mono:  'DM Mono', monospace;
-  --nav-height: 56px;
-  --suggest-bar-height: 44px;
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --strong:   #1a7a4a;
-  --emerging: #8a5e00;
-  --gap:      #a8001e;
-  --strong-bg:   rgba(26,122,74,0.08);
-  --emerging-bg: rgba(232,160,32,0.1);
-  --gap-bg:      rgba(168,0,30,0.07);
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMV Journalism Index — Team DMV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dc-red:      #C8102E;
+      --va-navy:     #1B2A4A;
+      --md-gold:     #E8A020;
+      --surface-dark:#0F1A2E;
+      --surface-0:   #ffffff;
+      --surface-1:   #f5f6f8;
+      --surface-2:   #eaecf0;
+      --text-primary:#0d0d0d;
+      --text-secondary:#4a4a4a;
+      --text-muted:  #7a7a7a;
+      --border-light:#e0e2e8;
+      --border-mid:  #c8cad2;
+      --ff-serif:    'Playfair Display', Georgia, serif;
+      --ff-sans:     'Inter', system-ui, sans-serif;
+      --ff-mono:     'DM Mono', monospace;
+      --nav-height:  56px;
+      --r:           6px;
+      --pill:        9999px;
+      --cov-strong:     #166534;
+      --cov-strong-bg:  #dcfce7;
+      --cov-emerging:   #92400e;
+      --cov-emerging-bg:#fef3c7;
+      --cov-gap:        #991b1b;
+      --cov-gap-bg:     #fee2e2;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--ff-sans); color: var(--text-primary); background: var(--surface-0); }
+    a { color: inherit; text-decoration: none; }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* GATE */
+    #gate-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--surface-dark);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #gate-overlay.hidden { display: none; }
+    .gate-box {
+      width: 360px; padding: 40px 36px 36px;
+      background: #162035; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; text-align: center;
+    }
+    .gate-mark { width: 48px; height: 48px; margin: 0 auto 20px; display: block; }
+    .gate-title { font-family: var(--ff-serif); font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .gate-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; margin-bottom: 28px; }
+    #gate-input {
+      width: 100%; padding: 12px 14px; font-size: 15px; font-family: var(--ff-mono);
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      color: #fff; border-radius: var(--r); outline: none; letter-spacing: 0.1em;
+      text-align: center; margin-bottom: 12px;
+    }
+    #gate-input.error { border-color: var(--dc-red); animation: shake .3s; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+    #gate-btn {
+      width: 100%; padding: 12px; font-size: 15px; font-weight: 600; font-family: var(--ff-sans);
+      background: var(--dc-red); color: #fff; border: none; border-radius: var(--r); cursor: pointer;
+    }
+    #gate-btn:hover { background: #a50d25; }
+    .gate-error { min-height: 20px; margin-top: 10px; font-size: 13px; color: #f87171; }
+    .gate-footer { margin-top: 24px; font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.08em; text-transform: uppercase; }
 
-body {
-  font-family: var(--ff-sans);
-  background: var(--surface-1);
-  color: var(--text-primary);
-  line-height: 1.5;
-  padding-bottom: var(--suggest-bar-height);
-}
+    /* NAV */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      height: var(--nav-height);
+      background: var(--surface-dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-brand .mark { width: 28px; height: 28px; }
+    .nav-wordmark { font-family: var(--ff-serif); font-size: 17px; font-weight: 700; color: #fff; }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a {
+      padding: 6px 12px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.6);
+      border-radius: var(--r); transition: color .15s, background .15s;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-links a.active { color: #fff; }
+    .nav-links a.nav-cta { background: var(--dc-red); color: #fff; margin-left: 8px; }
+    .nav-links a.nav-cta:hover { background: #a50d25; }
 
-.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+    /* HERO */
+    .hero {
+      background: var(--surface-dark);
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+    .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+    .hero-title { font-family: var(--ff-serif); font-size: clamp(36px,6vw,60px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 16px; }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.55); max-width: 540px; margin: 0 auto 36px; line-height: 1.6; }
+    .legend {
+      display: inline-flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r); padding: 12px 20px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: rgba(255,255,255,0.7); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dot.strong   { background: #4ade80; }
+    .legend-dot.emerging { background: #fbbf24; }
+    .legend-dot.gap      { background: #f87171; }
 
-/* ── NAV ── */
-.site-nav {
-  position: sticky; top: 0; z-index: 100;
-  height: var(--nav-height);
-  background: var(--surface-dark);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  display: flex; align-items: center; padding: 0 24px; gap: 16px;
-}
-.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-inverse); }
-.nav-brand .mark { width: 28px; height: 28px; color: var(--md-gold); }
-.nav-wordmark { font-family: var(--ff-serif); font-size: 1.05rem; font-weight: 700; letter-spacing: 0.02em; color: var(--text-inverse); }
-.nav-links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
-.nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; padding: 6px 12px; border-radius: var(--radius-sm); transition: color 0.15s, background 0.15s; }
-.nav-links a:hover { color: var(--text-inverse); background: rgba(255,255,255,0.08); }
-.nav-links a.active { color: var(--md-gold); }
-.nav-cta { background: var(--dc-red) !important; color: var(--text-inverse) !important; padding: 6px 16px !important; border-radius: 20px !important; }
-.nav-cta:hover { background: #a80d25 !important; }
-@media (max-width: 680px) { .nav-links a:not(.nav-cta) { display: none; } }
+    /* STAT BAND */
+    .stat-band {
+      background: #1a2740; border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 24px; display: flex; align-items: center; justify-content: center;
+      gap: 0; flex-wrap: wrap;
+    }
+    .stat-item { padding: 4px 28px; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--ff-serif); font-size: 26px; font-weight: 700; color: #fff; line-height: 1; }
+    .stat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-top: 4px; }
 
-/* ── HERO ── */
-.hero {
-  min-height: 52vh; background: var(--surface-dark);
-  position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
-  padding: 64px 24px;
-}
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(232,160,32,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(232,160,32,0.06) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-.hero-content { position: relative; z-index: 1; text-align: center; max-width: 720px; }
-.hero-mark { width: 48px; height: 48px; color: var(--md-gold); margin: 0 auto 18px; display: block; }
-.hero-eyebrow { font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--md-gold); margin-bottom: 12px; }
-.hero h1 { font-family: var(--ff-serif); font-size: clamp(2rem, 5.5vw, 3.6rem); font-weight: 900; color: var(--text-inverse); line-height: 1.1; margin-bottom: 18px; }
-.hero h1 em { color: var(--dc-red); font-style: normal; }
-.hero-sub { font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 560px; margin: 0 auto 28px; line-height: 1.65; }
-.hero-legend { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.legend-item { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: rgba(255,255,255,0.6); }
-.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.legend-dot.strong   { background: #2ecc71; }
-.legend-dot.emerging { background: var(--md-gold); }
-.legend-dot.gap      { background: #e74c3c; }
+    /* SECTIONS */
+    .section { padding: 56px 24px; max-width: 1080px; margin: 0 auto; }
+    .section-header { margin-bottom: 32px; }
+    .section-eyebrow { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 8px; }
+    .section-title { font-family: var(--ff-serif); font-size: clamp(26px,4vw,36px); font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+    .section-desc { font-size: 16px; color: var(--text-secondary); margin-top: 10px; line-height: 1.6; max-width: 640px; }
 
-/* ── STAT BAND ── */
-.stat-band { background: var(--va-navy); padding: 22px 24px; }
-.stat-band-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 8px; }
-.stat-item { text-align: center; padding: 8px 16px; }
-.stat-number { font-family: var(--ff-serif); font-size: 1.9rem; font-weight: 900; color: var(--md-gold); display: block; line-height: 1; margin-bottom: 4px; }
-.stat-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    /* BEAT MAP */
+    .beat-section { background: var(--surface-1); }
+    .beat-header-row { display: grid; grid-template-columns: 1fr 130px 130px; gap: 2px; margin-bottom: 4px; }
+    .beat-col-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); padding: 0 12px 8px; text-align: center; }
+    .beat-col-label:first-child { text-align: left; padding-left: 16px; }
+    .beat-grid { display: grid; gap: 2px; }
+    .beat-row { display: grid; grid-template-columns: 1fr 130px 130px; gap: 2px; align-items: stretch; }
+    .beat-name {
+      background: var(--surface-0); border: 1px solid var(--border-light);
+      padding: 12px 16px; font-size: 14px; font-weight: 600; color: var(--text-primary);
+      border-radius: var(--r) 0 0 var(--r);
+    }
+    .beat-name .beat-note { font-size: 12px; font-weight: 400; color: var(--text-muted); margin-top: 3px; line-height: 1.4; }
+    .beat-cell {
+      display: flex; align-items: center; justify-content: center;
+      padding: 12px 8px; font-size: 12px; font-weight: 600;
+      border: 1px solid transparent; text-align: center;
+    }
+    .beat-cell:last-child { border-radius: 0 var(--r) var(--r) 0; }
+    .beat-cell.strong   { background: var(--cov-strong-bg);   color: var(--cov-strong);   border-color: #bbf7d0; }
+    .beat-cell.emerging { background: var(--cov-emerging-bg); color: var(--cov-emerging); border-color: #fde68a; }
+    .beat-cell.gap      { background: var(--cov-gap-bg);      color: var(--cov-gap);      border-color: #fecaca; }
 
-/* ── SECTION COMMON ── */
-.section { padding: 56px 24px; }
-.section-inner { max-width: 1100px; margin: 0 auto; }
-.section-alt { background: var(--surface-0); }
-.section-dark { background: var(--surface-dark); }
-.section-header { margin-bottom: 32px; }
-.section-eyebrow { font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--md-gold); margin-bottom: 8px; }
-.section-title { font-family: var(--ff-serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-.section-dark .section-title { color: var(--text-inverse); }
-.section-sub { font-size: 0.92rem; color: var(--text-secondary); max-width: 560px; line-height: 1.6; }
-.section-dark .section-sub { color: rgba(255,255,255,0.6); }
+    /* OUTLETS */
+    .outlet-tabs { display: flex; gap: 4px; margin-bottom: 24px; }
+    .outlet-tab {
+      padding: 8px 18px; font-size: 14px; font-weight: 500;
+      border: 1px solid var(--border-light); border-radius: var(--pill);
+      background: var(--surface-0); color: var(--text-secondary); cursor: pointer;
+    }
+    .outlet-tab.active { background: var(--va-navy); color: #fff; border-color: var(--va-navy); }
+    .outlet-filter { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+    .status-btn {
+      padding: 5px 14px; font-size: 12px; font-weight: 500;
+      border: 1px solid var(--border-light); border-radius: var(--pill);
+      background: var(--surface-0); color: var(--text-secondary); cursor: pointer;
+    }
+    .status-btn.active { background: var(--text-primary); color: #fff; border-color: var(--text-primary); }
+    .outlet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+    .outlet-card {
+      background: var(--surface-0); border: 1px solid var(--border-light);
+      border-radius: var(--r); padding: 16px; cursor: pointer;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .outlet-card:hover { border-color: var(--border-mid); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .outlet-card.expanded { border-color: var(--va-navy); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+    .card-name { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+    .badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: var(--pill); white-space: nowrap; flex-shrink: 0; }
+    .badge-stable      { background: #fef9c3; color: #713f12; }
+    .badge-contracting { background: #fee2e2; color: #991b1b; }
+    .badge-expanding   { background: #dcfce7; color: #166534; }
+    .card-owner { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+    .card-beats { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+    .beat-tag { font-size: 11px; padding: 2px 8px; border-radius: var(--pill); background: var(--surface-1); color: var(--text-secondary); border: 1px solid var(--border-light); }
+    .card-reach { font-size: 12px; color: var(--md-gold); margin-bottom: 6px; font-family: var(--ff-mono); }
+    .card-expand-btn { font-size: 12px; color: var(--va-navy); font-weight: 500; margin-top: 4px; }
+    .card-detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+    .outlet-card.expanded .card-detail { display: block; }
+    .card-detail p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 8px; }
+    .card-link { font-size: 12px; color: var(--va-navy); font-family: var(--ff-mono); }
+    .hyper-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .hyper-card { background: var(--surface-0); border: 1px solid var(--border-light); border-radius: var(--r); padding: 14px 16px; }
+    .hyper-geo { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 6px; }
+    .hyper-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .hyper-beats { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .hyper-note { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 8px; }
+    .hyper-link { font-size: 11px; color: var(--va-navy); font-family: var(--ff-mono); }
 
-/* ── BEAT MAP ── */
-.beat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; }
-.beat-card {
-  background: var(--surface-0); border: 1px solid var(--border-light);
-  border-radius: var(--radius-md); padding: 16px 18px;
-  border-left: 3px solid transparent;
-}
-.beat-card.strong   { border-left-color: #2ecc71; }
-.beat-card.emerging { border-left-color: var(--md-gold); }
-.beat-card.gap      { border-left-color: #e74c3c; }
-.beat-name { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
-.beat-badges { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-.beat-badge {
-  font-family: var(--ff-mono); font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.06em; padding: 2px 8px; border-radius: 8px; text-transform: uppercase;
-}
-.beat-badge-label { font-size: 0.62rem; color: var(--text-muted); margin-right: 2px; }
-.strong-badge   { background: var(--strong-bg);   color: var(--strong); }
-.emerging-badge { background: var(--emerging-bg); color: var(--emerging); }
-.gap-badge      { background: var(--gap-bg);      color: var(--gap); }
-.beat-note { font-size: 0.76rem; color: var(--text-secondary); line-height: 1.45; }
+    /* OPPORTUNITIES */
+    .opps-section { background: var(--surface-dark); }
+    .opps-section .section-eyebrow { color: rgba(255,255,255,0.4); }
+    .opps-section .section-title { color: #fff; }
+    .opps-section .section-desc { color: rgba(255,255,255,0.55); }
+    .opps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); gap: 16px; }
+    .opp-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r); padding: 28px; border-left: 4px solid var(--dc-red);
+    }
+    .opp-title { font-family: var(--ff-serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .opp-body { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
 
-/* ── OUTLETS ── */
-.outlets-tabs { display: flex; gap: 6px; margin-bottom: 24px; }
-.outlet-tab { padding: 6px 16px; border-radius: 14px; border: 1px solid var(--border-mid); background: transparent; font-family: var(--ff-sans); font-size: 0.78rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all 0.15s; }
-.outlet-tab.active { background: var(--va-navy); border-color: var(--va-navy); color: white; }
-.outlet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
-.outlet-card {
-  background: var(--surface-1); border: 1px solid var(--border-light);
-  border-radius: var(--radius-md); padding: 18px 20px;
-  border-left: 3px solid var(--border-mid);
-  transition: border-color 0.15s, box-shadow 0.15s;
-  text-decoration: none; color: inherit; display: block;
-}
-.outlet-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
-.outlet-card.stable      { border-left-color: #2ecc71; }
-.outlet-card.contracting { border-left-color: var(--md-gold); }
-.outlet-card.expanding   { border-left-color: #3498db; }
-.outlet-card.hidden { display: none; }
-.outlet-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
-.outlet-name { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); }
-.outlet-status { font-family: var(--ff-mono); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 8px; flex-shrink: 0; margin-top: 2px; }
-.status-stable      { background: rgba(46,204,113,0.1); color: #1a7a4a; }
-.status-contracting { background: rgba(232,160,32,0.12); color: #8a5e00; }
-.status-expanding   { background: rgba(52,152,219,0.1); color: #1a5276; }
-.outlet-meta { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 8px; font-family: var(--ff-mono); }
-.outlet-beats { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
-.outlet-beat-tag { font-size: 0.64rem; background: var(--surface-2); color: var(--text-secondary); padding: 2px 8px; border-radius: 8px; }
-.outlet-note { font-size: 0.76rem; color: var(--text-secondary); line-height: 1.45; }
-.reach-stars { color: var(--md-gold); font-size: 0.72rem; margin-top: 6px; display: block; }
+    /* CREATOR INDEX */
+    .group-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .group-btn {
+      padding: 6px 14px; font-size: 13px; font-weight: 500;
+      border: 1px solid var(--border-light); border-radius: var(--pill);
+      background: var(--surface-0); color: var(--text-secondary); cursor: pointer;
+      transition: background .12s, color .12s, border-color .12s;
+    }
+    .group-btn.active { background: var(--va-navy); color: #fff; border-color: var(--va-navy); }
+    .creator-search {
+      width: 100%; max-width: 360px; padding: 9px 14px; font-size: 14px;
+      font-family: var(--ff-sans); border: 1px solid var(--border-light);
+      border-radius: var(--r); outline: none; color: var(--text-primary);
+    }
+    .creator-search:focus { border-color: var(--va-navy); }
+    .creator-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .creator-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .creator-card {
+      background: var(--surface-0); border: 1px solid var(--border-light);
+      border-radius: var(--r); padding: 14px 16px; transition: border-color .12s;
+    }
+    .creator-card:hover { border-color: var(--va-navy); }
+    .creator-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .creator-channel { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .creator-platform {
+      display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: var(--pill);
+      background: var(--surface-1); color: var(--text-secondary);
+      border: 1px solid var(--border-light); margin-bottom: 6px; font-family: var(--ff-mono);
+    }
+    .creator-topic { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.4; }
+    .creator-link { font-size: 11px; color: var(--va-navy); font-family: var(--ff-mono); }
+    .show-more-btn {
+      display: none; margin: 24px auto 0; padding: 10px 28px;
+      font-size: 14px; font-weight: 600; font-family: var(--ff-sans);
+      background: var(--surface-0); color: var(--va-navy);
+      border: 2px solid var(--va-navy); border-radius: var(--r); cursor: pointer;
+    }
+    .show-more-btn:hover { background: var(--va-navy); color: #fff; }
 
-/* ── OPPORTUNITIES ── */
-.opps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-.opp-card {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-md); padding: 24px 22px;
-  border-top: 3px solid var(--dc-red);
-}
-.opp-number { font-family: var(--ff-mono); font-size: 0.62rem; letter-spacing: 0.12em; color: var(--dc-red); text-transform: uppercase; margin-bottom: 10px; }
-.opp-title { font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 700; color: var(--text-inverse); margin-bottom: 10px; line-height: 1.3; }
-.opp-body { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    /* SUGGEST BAR */
+    .suggest-bar {
+      background: var(--surface-1); border-top: 1px solid var(--border-light);
+      padding: 20px 24px; display: flex; align-items: center; justify-content: center;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .suggest-bar-text { font-size: 14px; color: var(--text-secondary); }
+    .suggest-bar a { font-size: 14px; font-weight: 600; color: var(--va-navy); border-bottom: 1px solid currentColor; }
+    .suggest-bar a:hover { color: var(--dc-red); }
+    .full-divider { border: none; border-top: 1px solid var(--border-light); margin: 0; }
 
-/* ── CREATOR DIRECTORY ── */
-.creator-controls {
-  position: sticky; top: var(--nav-height); z-index: 80;
-  background: var(--surface-0); border-bottom: 1px solid var(--border-light);
-  padding: 12px 24px; margin: 0 -24px;
-}
-.creator-controls-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.creator-search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 300px; }
-.creator-search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 14px; height: 14px; pointer-events: none; }
-#creator-search {
-  width: 100%; padding: 7px 12px 7px 30px;
-  border: 1px solid var(--border-mid); border-radius: 18px;
-  font-family: var(--ff-sans); font-size: 0.82rem;
-  background: var(--surface-1); color: var(--text-primary);
-  outline: none; transition: border-color 0.15s;
-}
-#creator-search:focus { border-color: var(--va-navy); }
-.group-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-.group-btn { padding: 5px 12px; border-radius: 13px; border: 1px solid var(--border-mid); background: transparent; font-family: var(--ff-sans); font-size: 0.72rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-.group-btn:hover { border-color: var(--va-navy); color: var(--va-navy); }
-.group-btn.active { background: var(--va-navy); border-color: var(--va-navy); color: white; }
-#creator-count { font-size: 0.78rem; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
-
-.creator-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-top: 24px; }
-.creator-card {
-  background: var(--surface-1); border: 1px solid var(--border-light);
-  border-radius: var(--radius-md); padding: 14px 16px;
-  text-decoration: none; color: inherit; display: block;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.creator-card:hover { border-color: var(--va-navy); box-shadow: 0 3px 12px rgba(0,0,0,0.07); }
-.creator-card.hidden { display: none; }
-.cc-platform { font-family: var(--ff-mono); font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--md-gold); margin-bottom: 4px; }
-.cc-name { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1px; }
-.cc-channel { font-size: 0.76rem; color: var(--text-secondary); margin-bottom: 6px; }
-.cc-topic { font-size: 0.7rem; color: var(--text-muted); line-height: 1.4; }
-.cc-secondary { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
-.cc-sec-tag { font-size: 0.62rem; background: var(--surface-2); color: var(--text-secondary); padding: 2px 7px; border-radius: 7px; }
-#creator-empty { display: none; text-align: center; padding: 48px 24px; color: var(--text-muted); grid-column: 1/-1; }
-
-/* ── SUGGEST BAR ── */
-.suggest-bar {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
-  height: var(--suggest-bar-height);
-  background: var(--va-navy); display: flex; align-items: center; justify-content: center; gap: 12px;
-}
-.suggest-bar-text { font-size: 0.8rem; color: rgba(255,255,255,0.65); }
-.suggest-bar a { font-size: 0.8rem; font-weight: 600; color: var(--md-gold); text-decoration: none; border: 1px solid rgba(232,160,32,0.4); padding: 4px 14px; border-radius: 12px; transition: background 0.15s, border-color 0.15s; }
-.suggest-bar a:hover { background: rgba(232,160,32,0.12); border-color: var(--md-gold); }
-
-/* ── GATE ── */
-#gate-overlay { position: fixed; inset: 0; z-index: 9999; background: var(--surface-dark); display: flex; align-items: center; justify-content: center; padding: 24px; }
-#gate-overlay.hidden { display: none; }
-.gate-box { background: #ffffff; border-radius: 16px; padding: 48px 40px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.4); }
-.gate-mark { width: 48px; height: 48px; color: var(--dc-red); margin: 0 auto 24px; display: block; }
-.gate-title { font-family: var(--ff-serif); font-size: 1.6rem; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; }
-.gate-subtitle { font-family: var(--ff-sans); font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.5; }
-#gate-input { width: 100%; padding: 14px 18px; border-radius: 10px; margin-bottom: 14px; border: 1.5px solid var(--border-mid); font-family: var(--ff-mono); font-size: 1rem; letter-spacing: 0.12em; text-align: center; color: #1A1A1A; background: var(--surface-1); outline: none; transition: border-color 0.2s; display: block; }
-#gate-input:focus { border-color: var(--va-navy); }
-#gate-input.error { border-color: var(--dc-red); animation: gate-shake 0.3s ease; }
-@keyframes gate-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
-#gate-btn { width: 100%; padding: 14px; border-radius: 10px; background: var(--va-navy); color: white; border: none; font-family: var(--ff-sans); font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-#gate-btn:hover { background: var(--dc-red); }
-.gate-error { font-size: 0.8rem; color: var(--dc-red); margin-top: 10px; min-height: 18px; }
-.gate-footer { font-size: 0.72rem; color: var(--text-muted); margin-top: 28px; }
-
-@media (max-width: 600px) {
-  .beat-grid, .outlet-grid, .opps-grid, .creator-grid { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 1.9rem; }
-}
-</style>
+    @media (max-width: 640px) {
+      .stat-item { padding: 4px 16px; }
+      .beat-row, .beat-header-row { grid-template-columns: 1fr 80px 80px; }
+      .beat-cell { font-size: 11px; }
+      .opps-grid { grid-template-columns: 1fr; }
+      .nav-links a { padding: 6px 8px; font-size: 12px; }
+    }
+  </style>
 </head>
 <body>
 
 <!-- GATE -->
 <div id="gate-overlay">
   <div class="gate-box">
-    <svg class="gate-mark" viewBox="0 0 48 48" fill="none">
-      <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
-      <polygon points="24,2 27,20 24,18 21,20" fill="currentColor"/>
-      <polygon points="24,46 27,28 24,30 21,28" fill="currentColor"/>
-      <polygon points="2,24 20,21 18,24 20,27" fill="currentColor"/>
-      <polygon points="46,24 28,21 30,24 28,27" fill="currentColor"/>
-      <polygon points="24,8 30,18 24,14 18,18" fill="currentColor" opacity="0.6"/>
-      <polygon points="24,40 30,30 24,34 18,30" fill="currentColor" opacity="0.6"/>
-      <polygon points="8,24 18,18 14,24 18,30" fill="currentColor" opacity="0.6"/>
-      <polygon points="40,24 30,18 34,24 30,30" fill="currentColor" opacity="0.6"/>
-      <circle cx="24" cy="24" r="4" fill="currentColor"/>
+    <svg class="gate-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="23" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <polygon points="24,4 26,22 44,24 26,26 24,44 22,26 4,24 22,22" fill="#C8102E" opacity="0.9"/>
+      <circle cx="24" cy="24" r="3" fill="white"/>
     </svg>
     <div class="gate-title">DMV Journalism Index</div>
     <div class="gate-subtitle">Team DMV &mdash; Sponsor Access<br>Enter your access code to continue.</div>
-    <input type="password" id="gate-input" placeholder="Access code" autocomplete="off" autocapitalize="none" spellcheck="false">
+    <input type="password" id="gate-input" placeholder="access code" autocomplete="off">
     <button id="gate-btn">Enter &rarr;</button>
     <div class="gate-error" id="gate-error"></div>
     <div class="gate-footer">Team DMV &middot; Washington DC &middot; Journalism Atlas</div>
   </div>
 </div>
+<script>
+(function() {
+  var PASS = 'mambo', KEY = 'tdmv_auth';
+  var overlay = document.getElementById('gate-overlay');
+  var input   = document.getElementById('gate-input');
+  var btn     = document.getElementById('gate-btn');
+  var errEl   = document.getElementById('gate-error');
+  if (sessionStorage.getItem(KEY) === '1') { overlay.classList.add('hidden'); return; }
+  function attempt() {
+    if (input.value.trim().toLowerCase() === PASS) {
+      sessionStorage.setItem(KEY, '1');
+      overlay.classList.add('hidden');
+    } else {
+      errEl.textContent = 'Incorrect access code. Try again.';
+      input.classList.add('error');
+      input.value = '';
+      setTimeout(function() { input.classList.remove('error'); }, 400);
+      input.focus();
+    }
+  }
+  btn.addEventListener('click', attempt);
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') attempt(); });
+  input.focus();
+})();
+</script>
 
-<!-- SVG DEFS -->
-<svg class="svg-defs" aria-hidden="true">
-  <defs>
-    <symbol id="dmv-mark" viewBox="0 0 48 48" fill="none">
-      <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
-      <polygon points="24,2 27,20 24,18 21,20" fill="currentColor"/>
-      <polygon points="24,46 27,28 24,30 21,28" fill="currentColor"/>
-      <polygon points="2,24 20,21 18,24 20,27" fill="currentColor"/>
-      <polygon points="46,24 28,21 30,24 28,27" fill="currentColor"/>
-      <polygon points="38,10 28,22 26,20" fill="currentColor" opacity="0.6"/>
-      <polygon points="10,10 22,22 20,20" fill="currentColor" opacity="0.6"/>
-      <polygon points="38,38 26,26 28,24" fill="currentColor" opacity="0.6"/>
-      <polygon points="10,38 22,26 20,28" fill="currentColor" opacity="0.6"/>
-      <circle cx="24" cy="24" r="4" fill="currentColor"/>
-    </symbol>
-  </defs>
+<!-- SVG SYMBOL -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="dmv-mark" viewBox="0 0 48 48" fill="none">
+    <circle cx="24" cy="24" r="23" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+    <polygon points="24,4 26,22 44,24 26,26 24,44 22,26 4,24 22,22" fill="#C8102E" opacity="0.9"/>
+    <circle cx="24" cy="24" r="3" fill="white"/>
+  </symbol>
 </svg>
 
 <!-- NAV -->
 <nav class="site-nav">
   <a href="team-dmv.html" class="nav-brand">
-    <svg class="mark" aria-hidden="true"><use href="#dmv-mark"/></svg>
+    <svg class="mark" viewBox="0 0 48 48" fill="none"><use href="#dmv-mark"/></svg>
     <span class="nav-wordmark">Team DMV</span>
   </a>
   <div class="nav-links">
@@ -307,369 +338,414 @@ body {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <svg class="hero-mark" aria-hidden="true"><use href="#dmv-mark"/></svg>
-    <div class="hero-eyebrow">Team DMV &mdash; Washington DC Metro</div>
-    <h1>Who Covers <em>Washington</em></h1>
-    <p class="hero-sub">The DMV journalism ecosystem mapped — institutional outlets, independent journalist-creators, and the coverage gaps that represent tomorrow's biggest opportunities for sponsors and founders alike.</p>
-    <div class="hero-legend">
-      <span class="legend-item"><span class="legend-dot strong"></span> Well covered</span>
-      <span class="legend-item"><span class="legend-dot emerging"></span> Emerging coverage</span>
-      <span class="legend-item"><span class="legend-dot gap"></span> Coverage gap</span>
-    </div>
+  <div class="hero-eyebrow">Team DMV &middot; Journalism Index</div>
+  <h1 class="hero-title">Who Covers Washington</h1>
+  <p class="hero-sub">The DMV journalism ecosystem — institutions, independents, gaps, and the creators filling them.</p>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot strong"></span> Strong</div>
+    <div class="legend-item"><span class="legend-dot emerging"></span> Emerging</div>
+    <div class="legend-item"><span class="legend-dot gap"></span> Gap</div>
   </div>
 </section>
 
 <!-- STAT BAND -->
 <div class="stat-band">
-  <div class="stat-band-inner">
-    <div class="stat-item"><span class="stat-number">13</span><span class="stat-label">Major Outlets</span></div>
-    <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">Hyperlocal Sites</span></div>
-    <div class="stat-item"><span class="stat-number">16</span><span class="stat-label">Beats Mapped</span></div>
-    <div class="stat-item"><span class="stat-number">80+</span><span class="stat-label">Journalist-Creators</span></div>
-  </div>
+  <div class="stat-item"><div class="stat-num">13</div><div class="stat-label">Major Outlets</div></div>
+  <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Hyperlocal Sites</div></div>
+  <div class="stat-item"><div class="stat-num">16</div><div class="stat-label">Beats Mapped</div></div>
+  <div class="stat-item"><div class="stat-num">80+</div><div class="stat-label">Journalist-Creators</div></div>
 </div>
 
-<!-- BEAT COVERAGE MAP -->
-<section class="section">
-  <div class="section-inner">
+<!-- BEAT MAP -->
+<div class="beat-section">
+  <div class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Beat Coverage Map</div>
-      <div class="section-title">What's Covered. What Isn't.</div>
-      <p class="section-sub">Every beat in the DMV ecosystem assessed for institutional depth and independent creator coverage. Color = overall coverage health. Each card shows both layers.</p>
+      <div class="section-eyebrow">Beat Analysis</div>
+      <h2 class="section-title">Beat Coverage Map</h2>
+      <p class="section-desc">Where institutional outlets and independent creators are strong, emerging, or absent across 16 key DMV beats.</p>
+    </div>
+    <div class="beat-header-row">
+      <div class="beat-col-label">Beat</div>
+      <div class="beat-col-label">Institutional</div>
+      <div class="beat-col-label">Independent</div>
     </div>
     <div class="beat-grid" id="beat-grid"></div>
   </div>
-</section>
+</div>
 
-<!-- INSTITUTIONAL OUTLETS -->
-<section class="section section-alt">
-  <div class="section-inner">
+<hr class="full-divider">
+
+<!-- OUTLETS -->
+<div>
+  <div class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Institutional Outlets</div>
-      <div class="section-title">Who's Publishing in the DMV</div>
-      <p class="section-sub">Major outlets and hyperlocal operations assessed for reach, ownership, and coverage trajectory as of mid-2026.</p>
+      <div class="section-eyebrow">Media Landscape</div>
+      <h2 class="section-title">Institutional Outlets</h2>
+      <p class="section-desc">The established news organizations covering the DC region — from dominant broadcast and print to essential hyperlocal operations.</p>
     </div>
-    <div class="outlets-tabs">
+    <div class="outlet-tabs">
       <button class="outlet-tab active" data-tab="major">Major Outlets (13)</button>
       <button class="outlet-tab" data-tab="hyperlocal">Hyperlocal (12)</button>
     </div>
-    <div class="outlet-grid" id="outlet-grid"></div>
+    <div id="major-panel">
+      <div class="outlet-filter">
+        <button class="status-btn active" data-status="all">All</button>
+        <button class="status-btn" data-status="stable">Stable</button>
+        <button class="status-btn" data-status="contracting">Contracting</button>
+      </div>
+      <div class="outlet-grid" id="legacy-grid"></div>
+    </div>
+    <div id="hyperlocal-panel" style="display:none">
+      <div class="hyper-grid" id="hyper-grid"></div>
+    </div>
   </div>
-</section>
+</div>
+
+<hr class="full-divider">
 
 <!-- COVERAGE OPPORTUNITIES -->
-<section class="section section-dark">
-  <div class="section-inner">
+<div class="opps-section">
+  <div class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Coverage Gaps → Opportunities</div>
-      <div class="section-title">The Four Biggest Openings</div>
-      <p class="section-sub">Where the DMV's journalism ecosystem has structural gaps — and where a founder, newsletter writer, or sponsor could make a real dent.</p>
+      <div class="section-eyebrow">Market Intelligence</div>
+      <h2 class="section-title">Coverage Opportunities</h2>
+      <p class="section-desc">Four beats with large audiences, structural gaps, and strong first-mover conditions for independent journalism.</p>
     </div>
     <div class="opps-grid" id="opps-grid"></div>
   </div>
-</section>
+</div>
 
-<!-- JOURNALIST-CREATOR DIRECTORY -->
-<section class="section" style="padding-bottom: 72px;">
-  <div class="section-inner" style="position: relative;">
+<!-- JOURNALIST-CREATOR INDEX -->
+<div>
+  <div class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Journalist-Creator Index</div>
-      <div class="section-title">DMV-Based Independent Voices</div>
-      <p class="section-sub">80+ journalist-creators based in Washington DC — newsletter writers, podcasters, video journalists, and independent reporters operating outside traditional newsrooms.</p>
+      <div class="section-eyebrow">Creator Intelligence</div>
+      <h2 class="section-title">Journalist-Creator Index</h2>
+      <p class="section-desc">DC-based journalist-creators across newsletters, video, podcasts, and social — organized by coverage focus.</p>
     </div>
     <div class="creator-controls">
-      <div class="creator-controls-inner">
-        <div class="creator-search-wrap">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
-          <input type="search" id="creator-search" placeholder="Search by name, channel, or topic…">
-        </div>
-        <div class="group-filters" id="group-filters"></div>
-        <span id="creator-count">80 creators</span>
-      </div>
+      <div class="group-filters" id="group-filters"></div>
+      <input type="search" class="creator-search" id="creator-search" placeholder="Search by name, channel, or topic&hellip;">
     </div>
+    <div class="creator-meta" id="creator-meta"></div>
     <div class="creator-grid" id="creator-grid"></div>
+    <div style="text-align:center"><button class="show-more-btn" id="show-more-btn"></button></div>
   </div>
-</section>
+</div>
 
 <!-- SUGGEST BAR -->
 <div class="suggest-bar">
-  <span class="suggest-bar-text">Missing an outlet or creator?</span>
-  <a href="mailto:justin@journalismatlas.com?subject=DMV%20Journalism%20Index%20Suggestion">Suggest an addition &rarr;</a>
+  <span class="suggest-bar-text">Know an outlet or creator we're missing?</span>
+  <a href="mailto:justin&#64;journalismatlas.com?subject=DMV%20Journalism%20Index%20Suggestion">Suggest an addition &rarr;</a>
 </div>
 
 <script>
-/* ── GATE ── */
+/* DATA */
+var BEAT_MAP = [
+  { beat:"Federal politics / Congress",    institutional:"strong",   independent:"strong",   note:"Most covered beat. Overcrowded." },
+  { beat:"DC government / City Council",   institutional:"emerging", independent:"emerging", note:"The 51st + City Cast expanding. WaPo metro gutted." },
+  { beat:"DC sports",                      institutional:"emerging", independent:"gap",      note:"WaPo eliminated sports desk. Baltimore Banner + The Athletic filling. No independent creator layer." },
+  { beat:"Education (DCPS)",               institutional:"gap",      independent:"gap",      note:"WaPo coverage essentially gone. Zero dedicated DCPS independent reporter." },
+  { beat:"Housing / gentrification",       institutional:"gap",      independent:"gap",      note:"Critical issue. Almost no dedicated coverage after WaPo metro cuts." },
+  { beat:"Criminal justice / MPD",         institutional:"emerging", independent:"emerging", note:"The 51st covers this. Still thin for a city with DC's crime discourse." },
+  { beat:"Federal workforce / DOGE",       institutional:"emerging", independent:"gap",      note:"Federal News Network owns this. Zero independent creators covering 2026 federal workforce crisis." },
+  { beat:"Real estate / development",      institutional:"strong",   independent:"gap",      note:"WBJ + ARLnow strong. No independent newsletter focused here." },
+  { beat:"Arts / culture / nightlife",     institutional:"strong",   independent:"emerging", note:"WCP still owns this. Strong Instagram/TikTok creator layer." },
+  { beat:"Food / restaurants",             institutional:"strong",   independent:"strong",   note:"One of the strongest creator layers in DC. Multiple high-reach food creators." },
+  { beat:"Latino / immigrant communities", institutional:"emerging", independent:"gap",      note:"El Tiempo Latino institutional. Zero independent Spanish-language creators in Atlas database." },
+  { beat:"Black DC / displacement",        institutional:"emerging", independent:"gap",      note:"Washington Informer exists. Major gap given DC's demographic shifts and displacement story." },
+  { beat:"Transit / transportation",       institutional:"gap",      independent:"emerging", note:"Transport Politic is excellent but national/wonky. No dedicated WMATA reporter." },
+  { beat:"Environment / climate (local)",  institutional:"gap",      independent:"emerging", note:"Multiple national climate newsletters in DC — none covering local environmental issues." },
+  { beat:"Prince George's County",         institutional:"gap",      independent:"gap",      note:"Nearly 1M residents. Massively underserved. Baltimore Banner just arriving." },
+  { beat:"Northern Virginia / suburbs",    institutional:"emerging", independent:"gap",      note:"ARLnow + ALXnow strong for Arlington/Alexandria. Rest of NoVA largely uncovered." }
+];
+
+var LEGACY = [
+  { name:"Washington Post",         status:"contracting", owner:"Jeff Bezos",                               beats:["National politics","Federal government","Metro (diminished)","Business"],        reach:3, note:"Metro desk at ~12 reporters. Sports eliminated. Exec editor declared 'we're not a paper of record.' $100M+ losses in 2025.", url:"https://washingtonpost.com" },
+  { name:"WTOP",                    status:"stable",      owner:"Hubbard Broadcasting",                     beats:["Breaking news","Traffic","Weather","Local government"],                           reach:3, note:"Dominant radio + digital for daily breaking news. Massive commuter reach. One of the most-listened-to news stations in the US.", url:"https://wtop.com" },
+  { name:"NBC4 Washington",         status:"stable",      owner:"NBCUniversal",                             beats:["Breaking news","Local government","Weather","Sports"],                            reach:3, note:"Dominant local TV news. Strong investigative unit. Broad DMV reach across DC, Maryland, Virginia.", url:"https://www.nbcwashington.com" },
+  { name:"WUSA9 (CBS)",             status:"stable",      owner:"Tegna",                                    beats:["Breaking news","Investigative","Local government"],                               reach:3, note:"Investigative reputation. Owned by TEGNA — Atlas partnership in development.", url:"https://www.wusa9.com" },
+  { name:"WJLA / ABC7",             status:"stable",      owner:"Sinclair Broadcast Group",                 beats:["Breaking news","Local government","Weather"],                                     reach:3, note:"ABC affiliate. Sinclair-owned since 2014.", url:"https://wjla.com" },
+  { name:"WAMU 88.5",               status:"contracting", owner:"American University",                      beats:["National politics","Policy","Culture"],                                           reach:2, note:"Shut down DCist in Feb 2024, laying off 16 journalists. Promised new local products that have not materialized.", url:"https://wamu.org" },
+  { name:"Washington City Paper",   status:"stable",      owner:"Locally owned",                            beats:["Arts","Culture","Nightlife","Local politics","Sports"],                           reach:2, note:"Alt-weekly. District Line Daily newsletter widely read by DC journalists. Strong arts/culture coverage.", url:"https://washingtoncitypaper.com" },
+  { name:"Washington Business Journal", status:"stable",  owner:"American City Business Journals",          beats:["Business","Real estate","Tech","Government contracting","Healthcare"],            reach:2, note:"Essential for professional/executive class. Heavy real estate and federal contracting coverage.", url:"https://www.bizjournals.com/washington" },
+  { name:"Washingtonian Magazine",  status:"stable",      owner:"Locally owned",                            beats:["Power/politics","Dining","Real estate","Lifestyle"],                              reach:2, note:"Long-form, insider-class lifestyle journalism. High-income readership.", url:"https://washingtonian.com" },
+  { name:"Federal News Network",    status:"stable",      owner:"Hubbard Broadcasting",                     beats:["Federal workforce","Government contracting","Agency news","DOGE/federal layoffs"], reach:2, note:"The only outlet consistently covering the 2M+ federal employee audience. More relevant than ever in 2026.", url:"https://federalnewsnetwork.com" },
+  { name:"Roll Call / CQ",          status:"stable",      owner:"FiscalNote",                               beats:["Congress","Legislative process","Lobbying","Hill news"],                          reach:2, note:"Essential insider read for Hill staff and lobbyists. Subscription-heavy model.", url:"https://rollcall.com" },
+  { name:"Washington Informer",     status:"stable",      owner:"Informer Holdings",                        beats:["Black DC community","Local politics","Education","Culture"],                       reach:1, note:"60+ year institution. Essential coverage of Black Washington largely absent from mainstream outlets.", url:"https://washingtoninformer.com" },
+  { name:"El Tiempo Latino",        status:"stable",      owner:"Independent",                              beats:["Latino/Hispanic community","Immigration","Local news en español"],                 reach:1, note:"Spanish-language local news since 1991. Covers the DMV's large Latino population.", url:"https://eltiempolatino.com" }
+];
+
+var HYPERLOCAL = [
+  { name:"730DC",                       geo:"DC",                     beats:["Daily newsletter","Local politics","What's happening"], note:"Daily newsletter widely cited by DC journalists as essential. Aggregator + original.", url:"https://730dc.com" },
+  { name:"Street Sense",                geo:"DC",                     beats:["Homelessness","Poverty","Social services"],             note:"Print + digital. Run by and for people experiencing homelessness.", url:"https://streetsensemedia.org" },
+  { name:"DCLine",                      geo:"DC",                     beats:["Policy","Government","Education"],                      note:"Policy-focused newsletter for DC policy wonks and advocates.", url:"https://thedcline.org" },
+  { name:"The Hill Is Home",            geo:"Capitol Hill",           beats:["Capitol Hill neighborhood","Local news"],               note:"Hyperlocal neighborhood blog/Instagram. In Atlas database.", url:"https://www.thehillishome.com" },
+  { name:"Ethiopique",                  geo:"DC",                     beats:["Ethiopian community","Local news"],                     note:"Community journalism for DC's large Ethiopian diaspora.", url:"https://ethiopique.com" },
+  { name:"Washingtonian Problems",      geo:"DC",                     beats:["Local life","Gossip","Community"],                      note:"Large Instagram following. Aggregator + local commentary.", url:"https://www.instagram.com/washingtonianprobs" },
+  { name:"ARLnow",                      geo:"Arlington, VA",          beats:["Arlington local news","Real estate","Development"],     note:"Model hyperlocal operation. Maintains public DC-area outlet directory.", url:"https://arlnow.com" },
+  { name:"ALXnow",                      geo:"Alexandria, VA",         beats:["Alexandria local news","Development","Crime"],          note:"Sister site to ARLnow. Strong hyperlocal coverage of Alexandria.", url:"https://alxnow.com" },
+  { name:"Bethesda Magazine",           geo:"Montgomery County, MD",  beats:["Bethesda/Chevy Chase","Real estate","Dining"],          note:"Heavy real estate and lifestyle coverage for DC's wealthiest bedroom communities.", url:"https://bethesdamagazine.com" },
+  { name:"Hyattsville Wire",            geo:"Prince George's County", beats:["Hyattsville","PG County community"],                    note:"Community journalism. Hyattsville is ground zero for Baltimore Banner's PG expansion.", url:"https://hyattsvillewire.com" },
+  { name:"Prince George's Suite",       geo:"Prince George's County", beats:["PG County politics","Business","Community"],            note:"One of very few PG County-specific outlets. Nearly 1M residents, massively underserved.", url:"https://pgsuitemag.com" },
+  { name:"Patch (NoVA)",                geo:"Northern Virginia",      beats:["Suburban breaking news","Local government"],            note:"Thin but present across Northern Virginia suburbs. Variable quality.", url:"https://patch.com/virginia" }
+];
+
+var OPPORTUNITIES = [
+  { title:"Prince George's County",  body:"Nearly 1 million people. One of the most diverse counties in America. Essentially uncovered. The Baltimore Banner is just arriving. Zero independent creator layer. First mover in a market of 1M people with zero established independent voice." },
+  { title:"Federal Workforce",       body:"2 million federal employees in the DMV, more affected by the news cycle than any other workforce in America in 2026. Federal News Network exists but doesn't reach general audiences. No independent creator has built this beat. 2M readers with disposable income, institutional subscriptions, and no dedicated independent publication." },
+  { title:"Education (DCPS)",        body:"Washington DC has one of the most watched urban school systems in the country. WaPo covered it deeply. That coverage is essentially gone. No replacement in sight. A founder with education beat experience steps into a vacuum with a built-in national audience watching DC as a bellwether." },
+  { title:"Spanish-Language DC",     body:"El Tiempo Latino exists but is a single institution. The DMV has a large, growing Latino population with almost no independent media serving it. The audience is large, loyal, and structurally underserved — a classic conditions-for-launch scenario." }
+];
+
+var DC_JOURNALISM = [
+  {name:"Aaron Parnas",        channel:"Aaron Parnas",           platform:"Video - TikTok",        topic:"Politics",                          group:"Power & Politics",           link:"https://www.tiktok.com/@aaronparnas1"},
+  {name:"Aaron Rupar",         channel:"Public Notice",          platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://www.publicnotice.co"},
+  {name:"Alec Karakatsanis",   channel:"Copaganda Newsletter",   platform:"Newsletter - Substack",  topic:"Law/Legal Issues",                  group:"Power & Politics",           link:"https://equalityalec.substack.com"},
+  {name:"Alisa Tang",          channel:"Alisa Daily Dose",       platform:"Newsletter - Beehiiv",   topic:"Local News",                        group:"Civic Life",                 link:"https://alisadailydose.beehiiv.com"},
+  {name:"Alyssa Rosenberg",    channel:"Across the Movie Aisle", platform:"Newsletter - Substack",  topic:"Film/Movies",                       group:"Culture & Media",            link:"https://movieaisle.substack.com"},
+  {name:"Amber Ferguson",      channel:"Girl with Drive",        platform:"Video - TikTok",         topic:"Internet Culture",                  group:"Culture & Media",            link:"https://www.tiktok.com/@girlwithdrive"},
+  {name:"Ari Shapiro",         channel:"Ari Shapiro",            platform:"Newsletter - Substack",  topic:"Media/Power",                       group:"Culture & Media",            link:"https://arishapiro.substack.com"},
+  {name:"Azi Paybarah",        channel:"Azi Paybarah",           platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://azipaybarah.substack.com"},
+  {name:"Briahna Joy Gray",    channel:"Bad Faith",              platform:"Video - YouTube",        topic:"Politics, Culture",                 group:"Power & Politics",           link:"https://www.youtube.com/@BadFaithPodcast"},
+  {name:"Brian Krebs",         channel:"Krebs on Security",      platform:"Website",                topic:"Tech",                              group:"Money & Work",               link:"https://krebsonsecurity.com"},
+  {name:"Catherine Herridge",  channel:"Catherine Herridge Reports", platform:"Newsletter - Beehiiv", topic:"Investigative, National Security", group:"Power & Politics",          link:"https://catherineherridgereports.com"},
+  {name:"Charlotte Clymer",    channel:"Charlotte's Web Thoughts", platform:"Newsletter - Substack", topic:"LGBTQIA, Politics",               group:"Social Issues",              link:"https://charlotteclymer.substack.com"},
+  {name:"Charlotte Salley",    channel:"Hot Bones",              platform:"Newsletter - Beehiiv",   topic:"Local News, Health/Wellness",       group:"Civic Life",                 link:"https://hotbones.beehiiv.com"},
+  {name:"Chris Cillizza",      channel:"So What",                platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://chriscillizza.substack.com"},
+  {name:"Claudia Sahm",        channel:"Stay-At-Home Macro",     platform:"Newsletter - Substack",  topic:"Finance/Economics",                 group:"Money & Work",               link:"https://stayathomemacro.substack.com"},
+  {name:"David Cay Johnston",  channel:"DCReport",               platform:"Website",                topic:"Investigative, Government Accountability", group:"Power & Politics",    link:"https://www.dcreport.org"},
+  {name:"Derek Thompson",      channel:"Derek Thompson",         platform:"Newsletter - Substack",  topic:"Explanatory, General News",         group:"General News",               link:"https://www.derekthompson.org"},
+  {name:"Devin Stone",         channel:"LegalEagle",             platform:"Video - YouTube",        topic:"Law/Legal Issues",                  group:"Power & Politics",           link:"https://www.youtube.com/@LegalEagle"},
+  {name:"Dina Temple-Raston",  channel:"Click Here",             platform:"Podcast",                topic:"Tech, Cybersecurity",               group:"Money & Work",               link:"https://podcasts.apple.com/us/podcast/click-here/id1225077306"},
+  {name:"Elizabeth Booker Houston", channel:"Booker Squared",    platform:"Video - Instagram",      topic:"Comedy, Law/Legal Issues",          group:"Power & Politics",           link:"https://www.instagram.com/bookersquared"},
+  {name:"Emily Sanders",       channel:"Exxon Knews",            platform:"Newsletter - Substack",  topic:"Climate/Environment",               group:"Science, Health & Environment", link:"https://www.exxonknews.org"},
+  {name:"Gabe Fleisher",       channel:"Wake Up To Politics",    platform:"Video - Instagram",      topic:"Politics",                          group:"Power & Politics",           link:"https://www.instagram.com/wakeupolitics"},
+  {name:"Gene Weingarten",     channel:"The Gene Pool",          platform:"Newsletter - Substack",  topic:"Comedy, General News",              group:"General News",               link:"https://geneweingarten.substack.com"},
+  {name:"Geoffrey Fowler",     channel:"Geoffrey A. Fowler",     platform:"Newsletter - Substack",  topic:"Tech",                              group:"Money & Work",               link:"https://geoffreyafowler.substack.com"},
+  {name:"Glenn Kessler",       channel:"By Glenn Kessler",       platform:"Newsletter - Substack",  topic:"Politics, Fact-checking",           group:"Power & Politics",           link:"https://glennkessler.substack.com"},
+  {name:"Hannah Gaber",        channel:"Jew-ish",                platform:"Podcast",                topic:"Identity/Belonging",                group:"Social Issues",              link:"https://jew-ish.buzzsprout.com"},
+  {name:"Henok Mengistu",      channel:"Ethiopique",             platform:"Website",                topic:"Local News",                        group:"Civic Life",                 link:"https://ethiopique.com"},
+  {name:"History In High Heels", channel:"History In High Heels", platform:"Video - Instagram",    topic:"History",                           group:"Culture & Media",            link:"https://www.instagram.com/historyinhighheels"},
+  {name:"Jack Surfleet",       channel:"Jack Surfleet",          platform:"Video - TikTok",         topic:"Politics, Media/Power",             group:"Power & Politics",           link:"https://www.tiktok.com/@jacksurfleet"},
+  {name:"James Fallows",       channel:"James Fallows",          platform:"Newsletter - Substack",  topic:"Politics, General News",            group:"Power & Politics",           link:"https://fallows.substack.com"},
+  {name:"Jeff Stein",          channel:"SpyTalk",                platform:"Newsletter - Substack",  topic:"Foreign Policy, National Security", group:"Power & Politics",           link:"https://www.spytalk.co"},
+  {name:"Jennifer Rubin",      channel:"Contrarian",             platform:"Newsletter - Substack",  topic:"Politics, Law/Legal Issues",        group:"Power & Politics",           link:"https://contrarian.substack.com"},
+  {name:"Jeremy Scahill",      channel:"Drop Site News",         platform:"Newsletter - Substack",  topic:"Investigative, World",              group:"General News",               link:"https://www.dropsitenews.com"},
+  {name:"Jerusalem Demsas",    channel:"The Argument",           platform:"Newsletter - Substack",  topic:"Politics, Policy",                  group:"Power & Politics",           link:"https://www.theargumentmag.com"},
+  {name:"Jim Acosta",          channel:"Jim Acosta",             platform:"Social - Twitter / X",   topic:"Politics, General News",            group:"Power & Politics",           link:"https://x.com/Acosta"},
+  {name:"Joe Himali",          channel:"Best Address",           platform:"Video - Instagram",      topic:"History, Architecture",             group:"Culture & Media",            link:"https://www.instagram.com/bestaddress"},
+  {name:"John Dickerson",      channel:"John Dickerson",         platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://johnfdickerson.substack.com"},
+  {name:"Jonathan Schwabish",  channel:"Policy Viz",             platform:"Newsletter - Substack",  topic:"Data Visualization, Policy",        group:"General News",               link:"https://policyviz.substack.com"},
+  {name:"Jordan Schneider",    channel:"ChinaTalk",              platform:"Newsletter - Substack",  topic:"Policy, Politics",                  group:"Power & Politics",           link:"https://www.chinatalk.media"},
+  {name:"Joseph Politano",     channel:"Apricitas",              platform:"Newsletter - Substack",  topic:"Labor, Finance/Economics",          group:"Money & Work",               link:"https://www.apricitas.io"},
+  {name:"Joy Reid",            channel:"The Joy Reid Show",      platform:"Video - YouTube",        topic:"Politics, Media/Power",             group:"Power & Politics",           link:"https://www.youtube.com/@TheJoyReidShow"},
+  {name:"K Kaufmann",          channel:"E/lectrify",             platform:"Newsletter - Beehiiv",   topic:"Climate/Environment",               group:"Science, Health & Environment", link:"https://electrifynews.beehiiv.com"},
+  {name:"Karen Attiah",        channel:"The Golden Hour",        platform:"Newsletter - Substack",  topic:"Politics, Media/Power",             group:"Power & Politics",           link:"https://karenattiah.substack.com"},
+  {name:"Kate Woodsome",       channel:"Invisible Threads",      platform:"Newsletter - Substack",  topic:"Health/Wellness",                   group:"Science, Health & Environment", link:"https://katewoodsome.substack.com"},
+  {name:"Katelyn Burns",       channel:"Burns Notice",           platform:"Newsletter - Ghost",     topic:"LGBTQIA, Politics",                 group:"Social Issues",              link:"https://www.burnsnotice.com"},
+  {name:"Keith Bryant",        channel:"Keeping Up With Keith",  platform:"Video - TikTok",         topic:"Local News",                        group:"Civic Life",                 link:"https://www.tiktok.com/@keepingupwithkeith"},
+  {name:"Keith Edwards",       channel:"Keith's Debate Club",    platform:"Video - YouTube",        topic:"Politics",                          group:"Power & Politics",           link:"https://www.youtube.com/@keithedwards"},
+  {name:"Kevin Cirilli",       channel:"Meet the Future",        platform:"Newsletter - Substack",  topic:"Tech",                              group:"Money & Work",               link:"https://mtf.tv"},
+  {name:"Kyle Chan",           channel:"High Capacity",          platform:"Newsletter - Substack",  topic:"Tech, World",                       group:"Money & Work",               link:"https://www.highcapacity.org"},
+  {name:"Laurie Collins",      channel:"DC City Girl",           platform:"Video - Instagram",      topic:"Photography",                       group:"Culture & Media",            link:"https://www.instagram.com/dccitygirl"},
+  {name:"Marc Elias",          channel:"Democracy Docket",       platform:"Video - YouTube",        topic:"Politics, Government Accountability", group:"Power & Politics",          link:"https://www.youtube.com/democracydocket"},
+  {name:"Matt Laslo",          channel:"Ask a Pol",              platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://www.askapolpolitics.com"},
+  {name:"Matt Stoller",        channel:"BIG",                    platform:"Newsletter - Substack",  topic:"Finance/Economics, Antitrust",      group:"Money & Work",               link:"https://www.thebignewsletter.com"},
+  {name:"Matt Yglesias",       channel:"Slow Boring",            platform:"Newsletter - Substack",  topic:"Finance/Economics, Politics",       group:"Power & Politics",           link:"https://www.slowboring.com"},
+  {name:"Natalie Wexler",      channel:"Minding the Gap",        platform:"Newsletter - Substack",  topic:"Education",                         group:"Civic Life",                 link:"https://nataliewexler.substack.com"},
+  {name:"Nayyera Haq",         channel:"Nayyera Haq",            platform:"Video - Instagram",      topic:"Politics, Media/Power",             group:"Power & Politics",           link:"https://www.instagram.com/nayyeroar"},
+  {name:"Niala Boodhoo",       channel:"Niala Boodhoo",          platform:"Newsletter - Substack",  topic:"Faith/Religion",                    group:"Social Issues",              link:"https://substack.com/@nialaboodhoo"},
+  {name:"Norm Eisen",          channel:"Contrarian",             platform:"Newsletter - Substack",  topic:"Politics, Law/Legal Issues",        group:"Power & Politics",           link:"https://contrarian.substack.com"},
+  {name:"Not Bored In DC",     channel:"Not Bored In DC",        platform:"Video - Instagram",      topic:"History",                           group:"Culture & Media",            link:"https://www.instagram.com/notboredindc"},
+  {name:"Paul Rivera",         channel:"paulriveranews",          platform:"Social - Facebook",      topic:"Climate/Environment, Local News",    group:"Civic Life",                 link:"https://www.facebook.com/paulriveranews"},
+  {name:"Petula Dvorak",       channel:"Persisters",             platform:"Newsletter - Substack",  topic:"Local News",                        group:"Civic Life",                 link:"https://petuladvorak.substack.com"},
+  {name:"Raelyn Roberson",     channel:"Raelyn.info",            platform:"Website",                topic:"Tech, Policy",                      group:"Money & Work",               link:"https://raelyn.info"},
+  {name:"Rich Leiby",          channel:"Rich Leiby",             platform:"Newsletter - Substack",  topic:"General News",                      group:"General News",               link:"https://rleiby.substack.com"},
+  {name:"Rohini Manixkam",     channel:"rohinimm",               platform:"Video - Instagram",      topic:"Science",                           group:"Science, Health & Environment", link:"https://www.instagram.com/rohinimm"},
+  {name:"Ron Charles",         channel:"Ron Charles",            platform:"Newsletter - Substack",  topic:"Books/Writing, Art",                group:"Culture & Media",            link:"https://substack.com/@roncharles"},
+  {name:"Ryan Grim",           channel:"Drop Site News",         platform:"Newsletter - Substack",  topic:"Investigative, World",              group:"General News",               link:"https://www.dropsitenews.com"},
+  {name:"Ryan Lizza",          channel:"Telos News",             platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://substack.com/@ryanlizza"},
+  {name:"Ryan McBeth",         channel:"Ryan McBeth Programming", platform:"Video - YouTube",       topic:"Tech",                              group:"Money & Work",               link:"https://www.youtube.com/@RyanMcBethProgramming"},
+  {name:"Saagar Enjeti",       channel:"Breaking Points",        platform:"Video - YouTube",        topic:"Politics",                          group:"Power & Politics",           link:"https://www.youtube.com/c/breakingpoints"},
+  {name:"Sadie Dingfelder",    channel:"Sadie Dingfelder",       platform:"Video - TikTok",         topic:"Science",                           group:"Science, Health & Environment", link:"https://www.tiktok.com/@sadiedingfelder"},
+  {name:"Sarah",               channel:"History on Holiday",     platform:"Video - Instagram",      topic:"Museums",                           group:"Culture & Media",            link:"https://www.instagram.com/historyonholiday"},
+  {name:"Seamus Hughes",       channel:"Court Watch",            platform:"Newsletter - Beehiiv",   topic:"Law/Legal Issues, Government Accountability", group:"Power & Politics", link:"https://x.com/SeamusHughes"},
+  {name:"Simon Owens",         channel:"Simon Owens's Media Newsletter", platform:"Newsletter - Substack", topic:"Media/Power",              group:"Culture & Media",            link:"https://simonowens.substack.com"},
+  {name:"Suzanne Lambert",     channel:"Suzanne Lambert",        platform:"Video - Instagram",      topic:"Politics, Comedy",                  group:"Power & Politics",           link:"https://www.instagram.com/itssuzannelambert"},
+  {name:"Tamara Sacharczyk",   channel:"Tamara Sacharczyk",      platform:"Video - TikTok",         topic:"Day in a Life",                     group:"General News",               link:"https://www.tiktok.com/@tamaranews"},
+  {name:"Tara Palmeri",        channel:"The Red Letter",         platform:"Newsletter - Substack",  topic:"Politics, Media/Power",             group:"Power & Politics",           link:"https://www.tarapalmeri.com"},
+  {name:"Tatum Hunter",        channel:"Tatum Hunter",           platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://bytatumhunter.substack.com"},
+  {name:"The Hill Is Home",    channel:"The Hill Is Home",       platform:"Video - Instagram",      topic:"Local News",                        group:"Civic Life",                 link:"https://www.instagram.com/thehillishome"},
+  {name:"Tom Lobianco",        channel:"24 Sight News",          platform:"Newsletter - Substack",  topic:"Politics",                          group:"Power & Politics",           link:"https://www.linkedin.com/in/tomlobianco"},
+  {name:"Wajahat Ali",         channel:"Wajahat Ali",            platform:"Social - Twitter / X",   topic:"Politics, Faith/Religion",          group:"Social Issues",              link:"https://x.com/WajahatAli"},
+  {name:"Washingtonian Problems", channel:"Washingtonian Problems", platform:"Video - Instagram",   topic:"Local News, Gossip",                group:"Civic Life",                 link:"https://www.instagram.com/washingtonianprobs"},
+  {name:"Yonah Freemark",      channel:"The Transport Politic",  platform:"Website",                topic:"Urban planning, Transit",           group:"Civic Life",                 link:"https://www.thetransportpolitic.com"},
+  {name:"Your Digital Docent", channel:"Your Digital Docent",    platform:"Video - Instagram",      topic:"Museums",                           group:"Culture & Media",            link:"https://www.instagram.com/digitaldocent_"}
+];
+
+/* HELPERS */
+function reachStars(n) {
+  return ['','★ Under 10K daily','★★ 10K–100K daily','★★★ 100K+ daily'][n] || '';
+}
+function statusBadge(s) {
+  var cls   = {stable:'badge-stable', contracting:'badge-contracting', expanding:'badge-expanding'};
+  var label = {stable:'Stable', contracting:'Contracting', expanding:'Expanding'};
+  return '<span class="badge ' + (cls[s]||'badge-stable') + '">' + (label[s]||s) + '</span>';
+}
+function platformShort(p) {
+  return p.replace('Newsletter - ','').replace('Video - ','').replace('Social - ','').trim();
+}
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+/* BEAT MAP */
 (function() {
-  var PASS = 'mambo', KEY = 'tdmv_auth';
-  var overlay = document.getElementById('gate-overlay');
-  var input = document.getElementById('gate-input');
-  var btn = document.getElementById('gate-btn');
-  var errEl = document.getElementById('gate-error');
-  if (sessionStorage.getItem(KEY) === '1') { overlay.classList.add('hidden'); return; }
-  function attempt() {
-    if (input.value.trim().toLowerCase() === PASS) {
-      sessionStorage.setItem(KEY, '1'); overlay.classList.add('hidden');
-    } else {
-      errEl.textContent = 'Incorrect access code. Try again.';
-      input.classList.add('error'); input.value = '';
-      setTimeout(function() { input.classList.remove('error'); }, 400);
-      input.focus();
-    }
-  }
-  btn.addEventListener('click', attempt);
-  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') attempt(); });
-  input.focus();
+  var g = document.getElementById('beat-grid');
+  g.innerHTML = BEAT_MAP.map(function(b) {
+    return '<div class="beat-row">' +
+      '<div class="beat-name">' + b.beat + '<div class="beat-note">' + b.note + '</div></div>' +
+      '<div class="beat-cell ' + b.institutional + '">' + cap(b.institutional) + '</div>' +
+      '<div class="beat-cell ' + b.independent   + '">' + cap(b.independent)   + '</div>' +
+    '</div>';
+  }).join('');
 })();
-</script>
 
-<script>
-/* ── DATA ── */
+/* OUTLETS — LEGACY */
+var currentStatus = 'all';
+function renderLegacy() {
+  var items = currentStatus === 'all' ? LEGACY : LEGACY.filter(function(r){ return r.status === currentStatus; });
+  var g = document.getElementById('legacy-grid');
+  g.innerHTML = items.map(function(r) {
+    return '<div class="outlet-card">' +
+      '<div class="card-top"><div class="card-name">' + r.name + '</div>' + statusBadge(r.status) + '</div>' +
+      '<div class="card-owner">' + r.owner + '</div>' +
+      '<div class="card-beats">' + r.beats.map(function(b){ return '<span class="beat-tag">' + b + '</span>'; }).join('') + '</div>' +
+      '<div class="card-reach">' + reachStars(r.reach) + '</div>' +
+      '<div class="card-expand-btn">+ Details</div>' +
+      '<div class="card-detail"><p>' + r.note + '</p><a class="card-link" href="' + r.url + '" target="_blank" rel="noopener">' + r.url + ' ↗</a></div>' +
+    '</div>';
+  }).join('');
+  g.querySelectorAll('.outlet-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('expanded');
+      card.querySelector('.card-expand-btn').textContent = card.classList.contains('expanded') ? '− Details' : '+ Details';
+    });
+  });
+}
+renderLegacy();
 
-const LEGACY = [
-  { name:"Washington Post", type:"For-profit", status:"contracting", owner:"Jeff Bezos", beats:["National politics","Federal government","Business"], reach:3, note:"Metro desk at ~12 reporters. Sports eliminated. $100M+ losses in 2025. CEO resigned Feb 2026. A paper in managed decline.", url:"https://washingtonpost.com" },
-  { name:"WTOP", type:"For-profit", status:"stable", owner:"Hubbard Broadcasting", beats:["Breaking news","Traffic","Weather","Local government"], reach:3, note:"Dominant radio + digital for daily breaking news. Massive commuter reach. One of the most-listened-to news stations in the US.", url:"https://wtop.com" },
-  { name:"NBC4 Washington", type:"For-profit", status:"stable", owner:"NBCUniversal", beats:["Breaking news","Local government","Weather","Sports"], reach:3, note:"Dominant local TV news. Strong investigative unit. Broad DMV reach across DC, Maryland, Virginia.", url:"https://www.nbcwashington.com" },
-  { name:"WUSA9 (CBS)", type:"For-profit", status:"stable", owner:"Tegna", beats:["Breaking news","Investigative","Local government"], reach:3, note:"Investigative reputation. Owned by TEGNA. Strong regional reach across the DMV.", url:"https://www.wusa9.com" },
-  { name:"WJLA / ABC7", type:"For-profit", status:"stable", owner:"Sinclair Broadcast Group", beats:["Breaking news","Local government","Weather"], reach:3, note:"ABC affiliate. Sinclair-owned since 2014 — originally Allbritton Communications property.", url:"https://wjla.com" },
-  { name:"WAMU 88.5", type:"Nonprofit / Public", status:"contracting", owner:"American University", beats:["National politics","Policy","Culture"], reach:2, note:"Shut down DCist in Feb 2024, laying off 16 journalists. Promised new local products that have not materialized.", url:"https://wamu.org" },
-  { name:"Washington City Paper", type:"For-profit", status:"stable", owner:"Locally owned", beats:["Arts","Culture","Nightlife","Local politics","Sports"], reach:2, note:"Alt-weekly. District Line Daily newsletter widely read by DC journalists. The strongest arts and culture coverage in the market.", url:"https://washingtoncitypaper.com" },
-  { name:"Washington Business Journal", type:"For-profit", status:"stable", owner:"American City Business Journals", beats:["Business","Real estate","Tech","Government contracting"], reach:2, note:"Essential for professional/executive class. Heavy real estate and federal contracting coverage.", url:"https://www.bizjournals.com/washington" },
-  { name:"Washingtonian Magazine", type:"For-profit", status:"stable", owner:"Locally owned", beats:["Power/politics","Dining","Real estate","Lifestyle"], reach:2, note:"Long-form, insider-class lifestyle journalism. High-income readership. Authoritative lists (Top Doctors, Best Restaurants).", url:"https://washingtonian.com" },
-  { name:"Federal News Network", type:"For-profit", status:"stable", owner:"Hubbard Broadcasting", beats:["Federal workforce","Government contracting","DOGE/layoffs"], reach:2, note:"The only outlet consistently covering the 2M+ federal employee audience. More relevant than ever in 2026.", url:"https://federalnewsnetwork.com" },
-  { name:"Roll Call / CQ", type:"For-profit", status:"stable", owner:"FiscalNote", beats:["Congress","Legislative process","Lobbying","Hill news"], reach:2, note:"Essential insider read for Hill staff and lobbyists. Subscription-heavy model.", url:"https://rollcall.com" },
-  { name:"Washington Informer", type:"For-profit", status:"stable", owner:"Informer Holdings", beats:["Black DC community","Local politics","Education","Culture"], reach:1, note:"60+ year institution. Essential coverage of Black Washington largely absent from mainstream outlets.", url:"https://washingtoninformer.com" },
-  { name:"El Tiempo Latino", type:"For-profit", status:"stable", owner:"Independent", beats:["Latino/Hispanic community","Immigration","Local news en español"], reach:1, note:"Spanish-language local news since 1991. Covers the DMV's large Latino population largely ignored by English-language media.", url:"https://eltiempolatino.com" },
-];
-
-const HYPERLOCAL = [
-  { name:"730DC", geo:"DC", beats:["Daily newsletter","Local politics","What's on"], note:"Daily newsletter widely cited by DC journalists as essential. Aggregator + original.", url:"https://730dc.com" },
-  { name:"The 51st", geo:"DC", beats:["DC government","Housing","Community","Politics"], note:"Worker-owned newsroom launched 2024 by former DCist journalists. Already essential reading for the DC policy class.", url:"https://51st.news" },
-  { name:"Street Sense", geo:"DC", beats:["Homelessness","Poverty","Social services"], note:"Print + digital. Run by and for people experiencing homelessness. Cited as must-read by other local outlets.", url:"https://streetsensemedia.org" },
-  { name:"The DC Line", geo:"DC", beats:["Policy","DC government","Education"], note:"Policy-focused newsletter for DC policy wonks and advocates. Runs the daily District Links briefing.", url:"https://thedcline.org" },
-  { name:"The Hill Is Home", geo:"Capitol Hill, DC", beats:["Capitol Hill","ANC","Local news","Development"], note:"Hyperlocal neighborhood blog + Instagram. Essential for Capitol Hill residents and ANCs.", url:"https://www.thehillishome.com" },
-  { name:"PoPville", geo:"DC", beats:["Neighborhood news","Crime","Restaurant openings","Real estate"], note:"DC's busiest neighborhood blog. Reader tips drive much of the content. Wide citywide reach.", url:"https://popville.com" },
-  { name:"ARLnow", geo:"Arlington, VA", beats:["Arlington local news","Real estate","Development","Schools"], note:"Model hyperlocal operation. Maintains a public DC-area outlet directory. One of the best-run local news sites in America.", url:"https://arlnow.com" },
-  { name:"ALXnow", geo:"Alexandria, VA", beats:["Alexandria local news","Development","Crime","Politics"], note:"Sister site to ARLnow. Strong hyperlocal coverage of Alexandria.", url:"https://alxnow.com" },
-  { name:"Bethesda Magazine", geo:"Montgomery County, MD", beats:["Bethesda/Chevy Chase","Real estate","Dining","Lifestyle"], note:"Affluent suburb. Heavy real estate and lifestyle coverage for DC's wealthiest bedroom communities.", url:"https://bethesdamagazine.com" },
-  { name:"Hyattsville Wire", geo:"Prince George's County, MD", beats:["Hyattsville","PG County community"], note:"Community journalism. Independent, scrappy, and filling a massive void in PG County coverage.", url:"https://hyattsvillewire.com" },
-  { name:"Prince George's Suite", geo:"Prince George's County, MD", beats:["PG County politics","Business","Community"], note:"One of very few PG County-specific outlets. Nearly 1M residents, massively underserved.", url:"https://pgsuitemag.com" },
-  { name:"Patch (NoVA)", geo:"Northern Virginia", beats:["Suburban breaking news","Local government"], note:"Thin but present across Northern Virginia suburbs. Variable quality, syndication model.", url:"https://patch.com/virginia" },
-];
-
-const BEAT_MAP = [
-  { beat:"Federal politics / Congress", institutional:"strong", independent:"strong", note:"Most covered beat in DC by far. Overcrowded with outlets and creators." },
-  { beat:"DC government / City Council", institutional:"emerging", independent:"emerging", note:"The 51st + City Cast expanding. WaPo metro gutted. Real gap opening in council coverage." },
-  { beat:"DC sports", institutional:"emerging", independent:"gap", note:"WaPo eliminated sports desk entirely. Baltimore Banner + The Athletic filling. No meaningful independent creator layer." },
-  { beat:"Education (DCPS)", institutional:"gap", independent:"gap", note:"WaPo covered this heavily. Now mostly gone. Zero dedicated DCPS independent reporter." },
-  { beat:"Housing / gentrification", institutional:"gap", independent:"gap", note:"Critical issue for DC. Almost no dedicated coverage after WaPo metro cuts." },
-  { beat:"Criminal justice / MPD", institutional:"emerging", independent:"emerging", note:"The 51st covers this. Alec Karakatsanis (Copaganda) covers nationally. Still thin for a city with DC's crime discourse." },
-  { beat:"Federal workforce / DOGE", institutional:"emerging", independent:"gap", note:"Federal News Network owns this institutionally. Zero independent creator covering the 2026 federal workforce crisis." },
-  { beat:"Real estate / development", institutional:"strong", independent:"gap", note:"WBJ + ARLnow strong institutionally. No independent newsletter focused here despite massive audience interest." },
-  { beat:"Arts / culture / nightlife", institutional:"strong", independent:"emerging", note:"WCP still owns this. Growing Instagram/TikTok creator layer for nightlife and restaurants." },
-  { beat:"Food / restaurants", institutional:"strong", independent:"strong", note:"One of the strongest creator layers in DC. Multiple high-reach Instagram/TikTok food creators." },
-  { beat:"Latino / immigrant communities", institutional:"emerging", independent:"gap", note:"El Tiempo Latino institutional. Zero independent Spanish-language creators in Atlas database." },
-  { beat:"Black DC / displacement", institutional:"emerging", independent:"gap", note:"Washington Informer + some coverage. Major gap given DC's demographic shifts and displacement story." },
-  { beat:"Transit / transportation", institutional:"gap", independent:"emerging", note:"Yonah Freemark (Transport Politic) is excellent but national/wonky. No dedicated local transit reporter." },
-  { beat:"Environment / climate (local)", institutional:"gap", independent:"emerging", note:"Multiple national climate newsletters based in DC, but none covering DC's local environmental issues." },
-  { beat:"Prince George's County", institutional:"gap", independent:"gap", note:"Nearly 1M residents. Massively underserved. Baltimore Banner now entering. Otherwise almost nothing." },
-  { beat:"Northern Virginia / suburbs", institutional:"emerging", independent:"gap", note:"ARLnow + ALXnow strong for Arlington/Alexandria. Rest of NoVA largely uncovered independently." },
-];
-
-const OPPORTUNITIES = [
-  { title:"Prince George's County", body:"Nearly 1 million people. One of the most diverse counties in America. Essentially uncovered. The Baltimore Banner is just arriving. Zero independent creator layer. First mover in a market of 1M people with zero established independent voice." },
-  { title:"Federal Workforce", body:"2 million federal employees in the DMV, more affected by the news cycle than any other workforce in America in 2026. Federal News Network exists but doesn't reach general audiences. No independent creator has built this beat." },
-  { title:"Education (DCPS)", body:"Washington DC has one of the most-watched urban school systems in the country. WaPo covered it deeply. That coverage is essentially gone. No replacement in sight. A founder with education beat experience steps into a vacuum with a built-in national audience." },
-  { title:"Spanish-Language DC", body:"El Tiempo Latino exists but is a single institution. The DMV has a large, growing Latino population with almost no independent media serving it. The audience is large, loyal, and structurally underserved — classic conditions for launch." },
-];
-
-const DC_JOURNALISM = [{"name":"Chris Cillizza","slug":"chris-cillizza","channel":"So What","link":"https://chriscillizza.substack.com","platform":"Newsletter - Substack","topic":"Politics","group":"Power & Politics"},{"name":"Aaron Parnas","slug":"aaron-parnas","channel":"Aaron Parnas","link":"https://www.tiktok.com/@aaronparnas1","platform":"Video - TikTok","topic":"Politics","group":"Power & Politics"},{"name":"Aaron Rupar","slug":"aaron-rupar","channel":"Public Notice","link":"https://www.publicnotice.co","platform":"Newsletter - Substack","topic":"Politics","group":"Power & Politics"},{"name":"Alec Karakatsanis","slug":"alec-karakatsanis","channel":"Copaganda Newsletter","link":"https://equalityalec.substack.com","platform":"Newsletter - Substack","topic":"Law / Criminal Justice","group":"Power & Politics"},{"name":"Alisa Tang","slug":"alisa-tang","channel":"Alisa Daily Dose","link":"https://alisadailydose.beehiiv.com","platform":"Newsletter - Beehiiv","topic":"Local News","group":"Civic Life"},{"name":"Alyssa Rosenberg","slug":"alyssa-rosenberg","channel":"Across the Movie Aisle","link":"https://movieaisle.substack.com","platform":"Newsletter - Substack","topic":"Film","group":"Culture & Media"},{"name":"Ari Shapiro","slug":"ari-shapiro","channel":"Ari Shapiro","link":"https://arishapiro.substack.com","platform":"Newsletter - Substack","topic":"Media / Power","group":"Culture & Media"},{"name":"Azi Paybarah","slug":"azi-paybarah","channel":"Azi Paybarah","link":"https://azipaybarah.substack.com","platform":"Newsletter - Substack","topic":"Politics","group":"Power & Politics"},{"name":"Briahna Joy Gray","slug":"briahna-joy-gray","channel":"Bad Faith","link":"https://www.youtube.com/@BadFaithPodcast","platform":"Video - YouTube","topic":"Politics, Culture","group":"Power & Politics"},{"name":"Brian Krebs","slug":"brian-krebs","channel":"Krebs on Security","link":"https://krebsonsecurity.com","platform":"Website","topic":"Cybersecurity","group":"Money & Work"},{"name":"Catherine Herridge","slug":"catherine-herridge","channel":"Catherine Herridge Reports","link":"https://catherineherridgereports.com","platform":"Newsletter - Beehiiv","topic":"Investigative, National Security","group":"Power & Politics"},{"name":"Charlotte Clymer","slug":"charlotte-clymer","channel":"Charlotte's Web Thoughts","link":"https://charlotteclymer.substack.com","platform":"Newsletter - Substack","topic":"LGBTQ+, Politics","group":"Social Issues"},{"name":"Charlotte Salley","slug":"charlotte-salley","channel":"Hot Bones","link":"https://hotbones.beehiiv.com","platform":"Newsletter - Beehiiv","topic":"Local News, Health","group":"Civic Life"},{"name":"Claudia Sahm","slug":"claudia-sahm","channel":"Stay-At-Home Macro","link":"https://stayathomemacro.substack.com","platform":"Newsletter - Substack","topic":"Economics","group":"Money & Work"},{"name":"David Cay Johnston","slug":"david-cay-johnston","channel":"DCReport","link":"https://www.dcreport.org","platform":"Website","topic":"Investigative, Government Accountability","group":"Power & Politics"},{"name":"Derek Thompson","slug":"derek-thompson","channel":"Derek Thompson","link":"https://www.derekthompson.org","platform":"Newsletter - Substack","topic":"Explanatory, General News","group":"General News"},{"name":"Devin Stone","slug":"devin-stone","channel":"LegalEagle","link":"https://www.youtube.com/@LegalEagle","platform":"Video - YouTube","topic":"Law / Legal Issues","group":"Power & Politics"},{"name":"Dina Temple-Raston","slug":"dina-temple-raston","channel":"Click Here","link":"https://podcasts.apple.com/us/podcast/click-here/id1225077306","platform":"Podcast","topic":"Tech / Cybersecurity","group":"Money & Work"},{"name":"Emily Sanders","slug":"emily-sanders","channel":"Exxon Knews","link":"https://www.exxonknews.org","platform":"Newsletter - Substack","topic":"Climate / Environment","group":"Science & Environment"},{"name":"Gabe Fleisher","slug":"gabe-fleisher","channel":"Wake Up To Politics","link":"https://www.instagram.com/wakeupolitics","platform":"Video - Instagram","topic":"Politics","group":"Power & Politics"},{"name":"Gene Weingarten","slug":"gene-weingarten","channel":"The Gene Pool","link":"https://geneweingarten.substack.com","platform":"Newsletter - Substack","topic":"Comedy, General News","group":"Culture & Media"},{"name":"Geoffrey Fowler","slug":"geoffrey-fowler","channel":"Geoffrey A. Fowler","link":"https://geoffreyafowler.substack.com","platform":"Newsletter - Substack","topic":"Tech","group":"Money & Work"},{"name":"Glenn Kessler","slug":"glenn-kessler","channel":"By Glenn Kessler","link":"https://glennkessler.substack.com","platform":"Newsletter - Substack","topic":"Media, Politics","group":"Power & Politics"},{"name":"Henok Mengistu","slug":"henok-mengistu","channel":"Ethiopique","link":"https://ethiopique.com","platform":"Website","topic":"Local News — Ethiopian DC community","group":"Civic Life"},{"name":"Jack Surfleet","slug":"jack-surfleet","channel":"Jack Surfleet","link":"https://www.tiktok.com/@jacksurfleet","platform":"Video - TikTok","topic":"Politics, Media","group":"Power & Politics"},{"name":"James Fallows","slug":"james-fallows","channel":"James Fallows","link":"https://fallows.substack.com","platform":"Newsletter - Substack","topic":"Politics, General News","group":"Power & Politics"},{"name":"Jennifer Rubin","slug":"jennifer-rubin","channel":"Contrarian","link":"https://contrarian.substack.com","platform":"Newsletter - Substack","topic":"Politics, Law","group":"Power & Politics"},{"name":"Jeremy Scahill","slug":"jeremy-scahill","channel":"Drop Site News","link":"https://www.dropsitenews.com","platform":"Newsletter - Substack","topic":"Investigative","group":"General News"},{"name":"Jerusalem Demsas","slug":"jerusalem-demsas","channel":"The Argument","link":"https://www.theargumentmag.com","platform":"Newsletter - Substack","topic":"Policy, Culture","group":"Power & Politics"},{"name":"Jim Acosta","slug":"jim-acosta","channel":"Jim Acosta","link":"https://x.com/Acosta","platform":"Social - X","topic":"Politics, General News","group":"Power & Politics"},{"name":"Joe Himali","slug":"joe-himali","channel":"Best Address","link":"https://www.instagram.com/bestaddress","platform":"Video - Instagram","topic":"DC History, Architecture","group":"Culture & Media"},{"name":"John Dickerson","slug":"john-dickerson","channel":"John Dickerson","link":"https://johnfdickerson.substack.com","platform":"Newsletter - Substack","topic":"Politics","group":"Power & Politics"},{"name":"Jonathan Schwabish","slug":"jonathan-schwabish","channel":"Policy Viz","link":"https://policyviz.substack.com","platform":"Newsletter - Substack","topic":"Data / Government Accountability","group":"Power & Politics"},{"name":"Jordan Schneider","slug":"jordan-schneider","channel":"ChinaTalk","link":"https://www.chinatalk.media","platform":"Newsletter - Substack","topic":"Policy, China","group":"Power & Politics"},{"name":"Joseph Politano","slug":"joseph-politano","channel":"Apricitas","link":"https://www.apricitas.io","platform":"Newsletter - Substack","topic":"Labor, Economics","group":"Money & Work"},{"name":"Joy Reid","slug":"joy-reid","channel":"The Joy Reid Show","link":"https://www.youtube.com/@TheJoyReidShow","platform":"Video - YouTube","topic":"Politics, Media","group":"Power & Politics"},{"name":"K Kaufmann","slug":"k-kaufmann","channel":"E/lectrify","link":"https://electrifynews.beehiiv.com","platform":"Newsletter - Beehiiv","topic":"Climate / Energy","group":"Science & Environment"},{"name":"Karen Attiah","slug":"karen-attiah","channel":"The Golden Hour","link":"https://karenattiah.substack.com","platform":"Newsletter - Substack","topic":"Politics, Media","group":"Power & Politics"},{"name":"Katelyn Burns","slug":"katelyn-burns","channel":"Burns Notice","link":"https://www.burnsnotice.com","platform":"Newsletter - Ghost","topic":"LGBTQ+, Politics","group":"Social Issues"},{"name":"Keith Bryant","slug":"keith-bryant","channel":"Keeping Up With Keith","link":"https://www.tiktok.com/@keepingupwithkeith","platform":"Video - TikTok","topic":"Local News","group":"Civic Life"},{"name":"Marc Elias","slug":"marc-elias","channel":"Democracy Docket","link":"https://www.youtube.com/democracydocket","platform":"Video - YouTube","topic":"Elections, Law","group":"Power & Politics"},{"name":"Matt Laslo","slug":"matt-laslo","channel":"Ask a Pol","link":"https://www.askapolpolitics.com","platform":"Newsletter - Substack","topic":"Politics","group":"Power & Politics"},{"name":"Matt Stoller","slug":"matt-stoller","channel":"BIG","link":"https://www.thebignewsletter.com","platform":"Newsletter - Substack","topic":"Economics, Antitrust","group":"Money & Work"},{"name":"Matt Yglesias","slug":"matt-yglesias","channel":"Slow Boring","link":"https://www.slowboring.com","platform":"Newsletter - Substack","topic":"Economics, Politics","group":"Power & Politics"},{"name":"Natalie Wexler","slug":"natalie-wexler","channel":"Minding the Gap","link":"https://nataliewexler.substack.com","platform":"Newsletter - Substack","topic":"Education","group":"Civic Life"},{"name":"Norm Eisen","slug":"norm-eisen","channel":"Contrarian","link":"https://contrarian.substack.com","platform":"Newsletter - Substack","topic":"Politics, Law","group":"Power & Politics"},{"name":"Not Bored In DC","slug":"not-bored-in-dc","channel":"Not Bored In DC","link":"https://www.instagram.com/notboredindc","platform":"Video - Instagram","topic":"DC History","group":"Culture & Media"},{"name":"Petula Dvorak","slug":"petula-dvorak","channel":"Persisters","link":"https://petuladvorak.substack.com","platform":"Newsletter - Substack","topic":"Local News, DC community","group":"Civic Life"},{"name":"Ron Charles","slug":"ron-charles","channel":"Ron Charles","link":"https://substack.com/@roncharles","platform":"Newsletter - Substack","topic":"Books, Culture","group":"Culture & Media"},{"name":"Ryan Grim","slug":"ryan-grim","channel":"Drop Site News","link":"https://www.dropsitenews.com","platform":"Newsletter - Substack","topic":"Investigative","group":"General News"},{"name":"Ryan Lizza","slug":"ryan-lizza","channel":"Telos News","link":"https://substack.com/@ryanlizza","platform":"Newsletter - Substack","topic":"Politics","group":"Power & Politics"},{"name":"Saagar Enjeti","slug":"saagar-enjeti","channel":"Breaking Points","link":"https://www.youtube.com/c/breakingpoints","platform":"Video - YouTube","topic":"Politics","group":"Power & Politics"},{"name":"Seamus Hughes","slug":"seamus-hughes","channel":"Court Watch","link":"https://x.com/SeamusHughes","platform":"Newsletter - Beehiiv","topic":"Law, Government Accountability","group":"Power & Politics"},{"name":"Simon Owens","slug":"simon-owens","channel":"Simon Owens's Media Newsletter","link":"https://simonowens.substack.com","platform":"Newsletter - Substack","topic":"Media industry","group":"Culture & Media"},{"name":"Suzanne Lambert","slug":"suzanne-lambert","channel":"Suzanne Lambert","link":"https://www.instagram.com/itssuzannelambert","platform":"Video - Instagram","topic":"Politics, Comedy","group":"Power & Politics"},{"name":"Tara Palmeri","slug":"tara-palmeri","channel":"The Red Letter","link":"https://www.tarapalmeri.com","platform":"Newsletter - Substack","topic":"Politics, Media","group":"Power & Politics"},{"name":"The Hill Is Home","slug":"the-hill-is-home","channel":"The Hill Is Home","link":"https://www.instagram.com/thehillishome","platform":"Video - Instagram","topic":"Capitol Hill local news","group":"Civic Life"},{"name":"Tom LoBianco","slug":"tom-lobianco","channel":"24 Sight News","link":"https://www.linkedin.com/in/tomlobianco","platform":"Newsletter - Substack","topic":"Politics","group":"Power & Politics"},{"name":"Wajahat Ali","slug":"wajahat-ali","channel":"Wajahat Ali","link":"https://x.com/WajahatAli","platform":"Social - X","topic":"Politics, Faith","group":"Social Issues"},{"name":"Washingtonian Problems","slug":"washingtonian-problems","channel":"Washingtonian Problems","link":"https://www.instagram.com/washingtonianprobs","platform":"Video - Instagram","topic":"Local News, DC culture","group":"Civic Life"},{"name":"Yonah Freemark","slug":"yonah-freemark","channel":"The Transport Politic","link":"https://www.thetransportpolitic.com","platform":"Website","topic":"Transit, Urban Planning","group":"Civic Life"},{"name":"History In High Heels","slug":"history-in-high-heels","channel":"History In High Heels","link":"https://www.instagram.com/historyinhighheels","platform":"Video - Instagram","topic":"DC History","group":"Culture & Media"},{"name":"Joe Himali (Best Address)","slug":"joe-himali-2","channel":"Best Address","link":"https://www.instagram.com/bestaddress","platform":"Video - Instagram","topic":"DC Architecture, History","group":"Culture & Media"},{"name":"David Crook","slug":"david-crook","channel":"DCReport","link":"https://www.dcreport.org","platform":"Website","topic":"Investigative, Politics","group":"Power & Politics"},{"name":"Claudia Sahm","slug":"claudia-sahm-2","channel":"Stay-At-Home Macro","link":"https://stayathomemacro.substack.com","platform":"Newsletter - Substack","topic":"Macroeconomics","group":"Money & Work"},{"name":"Nayyera Haq","slug":"nayyera-haq","channel":"Nayyera Haq","link":"https://www.instagram.com/nayyeroar","platform":"Video - Instagram","topic":"Politics, Media","group":"Power & Politics"},{"name":"Sadie Dingfelder","slug":"sadie-dingfelder","channel":"Sadie Dingfelder","link":"https://www.tiktok.com/@sadiedingfelder","platform":"Video - TikTok","topic":"Science","group":"Science & Environment"},{"name":"Keith Edwards","slug":"keith-edwards","channel":"Keith's Debate Club","link":"https://www.youtube.com/@keithedwards","platform":"Video - YouTube","topic":"Politics","group":"Power & Politics"},{"name":"Rohini Manixkam","slug":"rohini-manixkam","channel":"rohinimm","link":"https://www.instagram.com/rohinimm","platform":"Video - Instagram","topic":"Science","group":"Science & Environment"},{"name":"Your Digital Docent","slug":"your-digital-docent","channel":"Your Digital Docent","link":"https://www.instagram.com/digitaldocent_","platform":"Video - Instagram","topic":"Museums, DC culture","group":"Culture & Media"}];
-
-/* dedupe by slug */
-const seen = new Set();
-const CREATORS = DC_JOURNALISM.filter(function(c) {
-  if (seen.has(c.slug)) return false;
-  seen.add(c.slug);
-  return true;
+document.querySelectorAll('.status-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.status-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentStatus = btn.dataset.status;
+    renderLegacy();
+  });
 });
 
-/* ── RENDER BEAT MAP ── */
-function overallCoverage(card) {
-  var scores = { strong: 2, emerging: 1, gap: 0 };
-  var avg = (scores[card.institutional] + scores[card.independent]) / 2;
-  if (avg >= 1.5) return 'strong';
-  if (avg >= 0.5) return 'emerging';
-  return 'gap';
-}
-
-function badgeHtml(label, val) {
-  var cls = val + '-badge';
-  return '<span class="beat-badge-label">' + label + ':</span><span class="beat-badge ' + cls + '">' + val + '</span>';
-}
-
-(function buildBeatGrid() {
-  var grid = document.getElementById('beat-grid');
-  BEAT_MAP.forEach(function(b) {
-    var overall = overallCoverage(b);
-    var el = document.createElement('div');
-    el.className = 'beat-card ' + overall;
-    el.innerHTML =
-      '<div class="beat-name">' + b.beat + '</div>' +
-      '<div class="beat-badges">' +
-        badgeHtml('Institutional', b.institutional) +
-        badgeHtml('Independent', b.independent) +
-      '</div>' +
-      '<div class="beat-note">' + b.note + '</div>';
-    grid.appendChild(el);
-  });
+/* OUTLETS — HYPERLOCAL */
+(function() {
+  var g = document.getElementById('hyper-grid');
+  g.innerHTML = HYPERLOCAL.map(function(h) {
+    var domain = h.url.replace(/https?:\/\//,'').split('/')[0];
+    return '<div class="hyper-card">' +
+      '<div class="hyper-geo">' + h.geo + '</div>' +
+      '<div class="hyper-name">' + h.name + '</div>' +
+      '<div class="hyper-beats">' + h.beats.join(' · ') + '</div>' +
+      '<div class="hyper-note">' + h.note + '</div>' +
+      '<a class="hyper-link" href="' + h.url + '" target="_blank" rel="noopener">' + domain + ' ↗</a>' +
+    '</div>';
+  }).join('');
 })();
-
-/* ── RENDER OUTLETS ── */
-var currentTab = 'major';
-
-function reachLabel(n) {
-  if (n === 3) return '★★★ 100K+ daily reach';
-  if (n === 2) return '★★ 10K–100K daily reach';
-  return '★ Under 10K daily reach';
-}
-
-function renderOutlets() {
-  var grid = document.getElementById('outlet-grid');
-  grid.innerHTML = '';
-  var data = currentTab === 'major' ? LEGACY : HYPERLOCAL;
-  data.forEach(function(o) {
-    var el = document.createElement('a');
-    el.className = 'outlet-card ' + (o.status || 'stable');
-    el.href = o.url;
-    el.target = '_blank';
-    el.rel = 'noopener';
-    var statusCls = 'status-' + (o.status || 'stable');
-    var statusLabel = o.status || 'stable';
-    var beatsHtml = (o.beats || []).map(function(b) {
-      return '<span class="outlet-beat-tag">' + b + '</span>';
-    }).join('');
-    var metaLine = currentTab === 'major'
-      ? (o.owner ? o.owner + ' &middot; ' : '') + (o.type || '')
-      : (o.geo || '');
-    el.innerHTML =
-      '<div class="outlet-header">' +
-        '<div class="outlet-name">' + o.name + '</div>' +
-        '<span class="outlet-status ' + statusCls + '">' + statusLabel + '</span>' +
-      '</div>' +
-      '<div class="outlet-meta">' + metaLine + '</div>' +
-      '<div class="outlet-beats">' + beatsHtml + '</div>' +
-      '<div class="outlet-note">' + o.note + '</div>' +
-      (o.reach ? '<span class="reach-stars">' + reachLabel(o.reach) + '</span>' : '');
-    grid.appendChild(el);
-  });
-}
-
-renderOutlets();
 
 document.querySelectorAll('.outlet-tab').forEach(function(tab) {
   tab.addEventListener('click', function() {
-    document.querySelectorAll('.outlet-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.outlet-tab').forEach(function(t){ t.classList.remove('active'); });
     tab.classList.add('active');
-    currentTab = tab.dataset.tab;
-    renderOutlets();
+    var hyper = tab.dataset.tab === 'hyperlocal';
+    document.getElementById('major-panel').style.display      = hyper ? 'none' : 'block';
+    document.getElementById('hyperlocal-panel').style.display = hyper ? 'block' : 'none';
   });
 });
 
-/* ── RENDER OPPORTUNITIES ── */
-(function buildOpps() {
-  var grid = document.getElementById('opps-grid');
-  OPPORTUNITIES.forEach(function(o, i) {
-    var el = document.createElement('div');
-    el.className = 'opp-card';
-    el.innerHTML =
-      '<div class="opp-number">Opportunity ' + (i + 1) + '</div>' +
-      '<div class="opp-title">' + o.title + '</div>' +
-      '<div class="opp-body">' + o.body + '</div>';
-    grid.appendChild(el);
-  });
+/* OPPORTUNITIES */
+(function() {
+  document.getElementById('opps-grid').innerHTML = OPPORTUNITIES.map(function(o) {
+    return '<div class="opp-card"><div class="opp-title">' + o.title + '</div><div class="opp-body">' + o.body + '</div></div>';
+  }).join('');
 })();
 
-/* ── CREATOR DIRECTORY ── */
-var creatorState = { group: 'all', query: '' };
+/* CREATOR INDEX */
+var PAGE_SIZE = 24;
+var cState = { group:'all', query:'', showAll:false };
+var GROUPS = ['Power & Politics','Civic Life','Culture & Media','Money & Work','General News','Social Issues','Science, Health & Environment'];
 
-var allGroups = ['all'];
-CREATORS.forEach(function(c) {
-  var g = c.group || 'Other';
-  if (!allGroups.includes(g)) allGroups.push(g);
-});
-
-(function buildGroupFilters() {
-  var container = document.getElementById('group-filters');
-  var groupLabels = {
-    'all': 'All',
-    'Power & Politics': 'Politics',
-    'Civic Life': 'Civic',
-    'Culture & Media': 'Culture',
-    'Money & Work': 'Business',
-    'General News': 'News',
-    'Social Issues': 'Social',
-    'Science & Environment': 'Science',
-  };
-  allGroups.forEach(function(g) {
-    var btn = document.createElement('button');
-    btn.className = 'group-btn' + (g === 'all' ? ' active' : '');
-    btn.dataset.group = g;
-    btn.textContent = groupLabels[g] || g;
+(function() {
+  var bar = document.getElementById('group-filters');
+  var html = '<button class="group-btn active" data-group="all">All Groups</button>';
+  GROUPS.forEach(function(g) { html += '<button class="group-btn" data-group="' + g + '">' + g + '</button>'; });
+  bar.innerHTML = html;
+  bar.querySelectorAll('.group-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.group-btn').forEach(function(b) { b.classList.remove('active'); });
+      bar.querySelectorAll('.group-btn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
-      creatorState.group = g;
-      filterCreators();
+      cState.group = btn.dataset.group;
+      cState.showAll = false;
+      renderCreators();
     });
-    container.appendChild(btn);
   });
 })();
-
-function platformShort(p) {
-  if (!p) return '';
-  return p.replace('Newsletter - ', '').replace('Video - ', '').replace('Social - ', '');
-}
-
-(function buildCreatorGrid() {
-  var grid = document.getElementById('creator-grid');
-  CREATORS.forEach(function(c) {
-    var el = document.createElement('a');
-    el.className = 'creator-card';
-    el.href = c.link || '#';
-    el.target = '_blank';
-    el.rel = 'noopener';
-    el.dataset.group = c.group || 'Other';
-    el.dataset.search = (c.name + ' ' + c.channel + ' ' + c.topic + ' ' + c.group).toLowerCase();
-    el.innerHTML =
-      '<div class="cc-platform">' + platformShort(c.platform) + '</div>' +
-      '<div class="cc-name">' + c.name + '</div>' +
-      '<div class="cc-channel">' + c.channel + '</div>' +
-      '<div class="cc-topic">' + (c.topic || '') + '</div>';
-    grid.appendChild(el);
-  });
-})();
-
-function filterCreators() {
-  var q = creatorState.query;
-  var g = creatorState.group;
-  var cards = document.querySelectorAll('.creator-card');
-  var count = 0;
-  cards.forEach(function(card) {
-    var groupMatch = g === 'all' || card.dataset.group === g;
-    var queryMatch = !q || card.dataset.search.indexOf(q) !== -1;
-    var show = groupMatch && queryMatch;
-    card.classList.toggle('hidden', !show);
-    if (show) count++;
-  });
-  document.getElementById('creator-count').textContent = count + ' creators';
-  document.getElementById('creator-empty').style.display = count === 0 ? 'block' : 'none';
-}
 
 document.getElementById('creator-search').addEventListener('input', function(e) {
-  creatorState.query = e.target.value.trim().toLowerCase();
-  filterCreators();
+  cState.query = e.target.value.toLowerCase().trim();
+  cState.showAll = false;
+  renderCreators();
 });
+
+function getFiltered() {
+  return DC_JOURNALISM.filter(function(c) {
+    if (cState.group !== 'all' && c.group !== cState.group) return false;
+    if (cState.query) {
+      var q = cState.query;
+      return c.name.toLowerCase().includes(q) || c.channel.toLowerCase().includes(q) || c.topic.toLowerCase().includes(q);
+    }
+    return true;
+  });
+}
+
+function renderCreators() {
+  var filtered = getFiltered();
+  var display  = cState.showAll ? filtered : filtered.slice(0, PAGE_SIZE);
+  var grid = document.getElementById('creator-grid');
+  var meta = document.getElementById('creator-meta');
+  var btn  = document.getElementById('show-more-btn');
+
+  grid.innerHTML = display.map(function(c) {
+    var domain = c.link ? c.link.replace(/https?:\/\//,'').split('/')[0] : '';
+    return '<div class="creator-card">' +
+      '<div class="creator-name">' + c.name + '</div>' +
+      (c.channel && c.channel !== c.name ? '<div class="creator-channel">' + c.channel + '</div>' : '') +
+      '<span class="creator-platform">' + platformShort(c.platform) + '</span>' +
+      '<div class="creator-topic">' + c.topic + '</div>' +
+      (c.link ? '<a class="creator-link" href="' + c.link + '" target="_blank" rel="noopener">' + domain + ' ↗</a>' : '') +
+    '</div>';
+  }).join('');
+
+  meta.textContent = 'Showing ' + display.length + ' of ' + filtered.length + ' creators';
+  if (!cState.showAll && filtered.length > PAGE_SIZE) {
+    btn.style.display = 'inline-block';
+    btn.textContent = 'Show All ' + filtered.length + ' Creators';
+  } else {
+    btn.style.display = 'none';
+  }
+}
+
+document.getElementById('show-more-btn').addEventListener('click', function() {
+  cState.showAll = true;
+  renderCreators();
+});
+
+renderCreators();
 </script>
 </body>
 </html>
