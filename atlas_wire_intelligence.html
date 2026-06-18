@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Wire Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#111;--surface:#1a1a1a;--raised:#222;--border:#2e2e2e;
+  --text:#efeff2;--muted:#777;--muted2:#555;
+  --acid:#ceff00;--amber:#ffbb00;--red:#ff4422;--blue:#6699ff;
+  --green-border:rgba(206,255,0,.35);
+  --r:6px;
+}
+
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--bg);color:var(--text);
+  height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:13px}
+
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.mi{font-family:'Material Symbols Outlined';font-size:16px;line-height:1;
+  font-weight:normal;font-style:normal;display:inline-block;
+  -webkit-font-smoothing:antialiased;vertical-align:middle}
+
+/* ── HEADER ── */
+.hd{background:#000;border-bottom:1px solid var(--border);padding:0 20px;
+  height:48px;display:flex;align-items:center;gap:20px;flex-shrink:0}
+.hd-title{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acid)}
+.hd-date{font-size:12px;color:var(--muted);margin-right:auto}
+.hd-pills{display:flex;gap:8px}
+.hd-pill{font-size:11px;font-weight:500;padding:4px 10px;border-radius:9999px;
+  border:1px solid var(--border);color:var(--muted);white-space:nowrap}
+.hd-pill span{font-weight:700;color:var(--text)}
+.hd-pill.approved-pill span{color:var(--acid)}
+
+/* ── SUBBAR ── */
+.subbar{background:#141414;border-bottom:1px solid var(--border);
+  padding:0 20px;height:36px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.btn-export{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;
+  border-radius:var(--r);background:var(--acid);color:#000;font-size:12px;font-weight:700}
+.btn-export:hover{opacity:.9}
+.btn-export .mi{font-size:14px}
+.subbar-note{font-size:11px;color:var(--muted)}
+
+/* ── THREE-PANEL GRID ── */
+.panels{display:grid;grid-template-columns:280px 1fr 320px;
+  flex:1;overflow:hidden;min-height:0}
+
+/* ── PANEL SHARED ── */
+.panel{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.panel:last-child{border-right:none}
+.panel-head{padding:12px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;flex-shrink:0;background:var(--surface)}
+.panel-head-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel-body{flex:1;overflow-y:auto;padding:12px}
+.panel-body::-webkit-scrollbar{width:4px}
+.panel-body::-webkit-scrollbar-track{background:transparent}
+.panel-body::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+
+/* ── LEFT PANEL: INTELLIGENCE ── */
+.intel-section{margin-bottom:16px}
+.intel-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.intel-label .mi{font-size:13px}
+
+.signal-box{background:var(--raised);border:1px solid var(--border);border-left:3px solid var(--acid);
+  border-radius:var(--r);padding:12px;font-size:13px;line-height:1.55;color:var(--text)}
+.signal-box em{font-style:normal;color:var(--acid);font-weight:700}
+
+/* beat bars */
+.beat-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;border-radius:4px;padding:3px 4px}
+.beat-row:hover{background:var(--raised)}
+.beat-row.active{background:#1c2800}
+.beat-name{width:88px;font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.beat-bar-wrap{flex:1;height:6px;background:var(--raised);border-radius:3px;overflow:hidden}
+.beat-bar{height:100%;border-radius:3px;transition:width .3s}
+.beat-meta{font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0;width:36px;text-align:right}
+
+/* creator velocity */
+.creator-row{display:flex;align-items:center;gap:8px;padding:5px 4px;border-radius:4px}
+.creator-row:hover{background:var(--raised)}
+.creator-name{flex:1;font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.creator-count{font-size:10px;color:var(--muted);flex-shrink:0}
+.creator-score{font-size:11px;font-weight:700;width:28px;text-align:right;flex-shrink:0}
+
+/* histogram */
+.hist-wrap{display:flex;align-items:flex-end;gap:4px;height:48px}
+.hist-bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.hist-bar{width:100%;border-radius:2px 2px 0 0;transition:height .3s}
+.hist-lbl{font-size:9px;color:var(--muted);text-align:center}
+.hist-count{font-size:9px;color:var(--muted2);text-align:center}
+
+/* ── CENTER PANEL: QUEUE ── */
+.queue-toolbar{padding:10px 12px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0;background:var(--surface)}
+.queue-toolbar select,.sort-btn{background:var(--raised);color:var(--text);
+  border:1px solid var(--border);border-radius:var(--r);padding:4px 8px;
+  font-family:inherit;font-size:12px}
+.queue-toolbar select:focus{outline:1px solid var(--acid)}
+.sort-btn{cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:4px 10px}
+.sort-btn.active{border-color:var(--acid);color:var(--acid)}
+.threshold-wrap{display:flex;align-items:center;gap:6px;margin-left:auto}
+.threshold-wrap input[type=range]{accent-color:var(--acid);width:70px}
+#threshold-val{font-size:12px;font-weight:700;color:var(--acid);min-width:18px}
+.queue-counts{font-size:11px;color:var(--muted);white-space:nowrap}
+
+/* approved tray */
+.approved-tray{margin-bottom:8px}
+.tray-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--acid);padding:6px 4px;display:flex;align-items:center;gap:6px}
+.tray-label .mi{font-size:13px}
+
+/* queue items */
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  margin-bottom:6px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.q-card:hover{border-color:#444}
+.q-card.selected{border-color:var(--acid);box-shadow:0 0 0 1px var(--acid)}
+.q-card.approved{border-left:3px solid var(--acid)}
+.q-card.killed{opacity:.35}
+
+.q-card-main{display:flex;align-items:flex-start;gap:10px;padding:12px 12px 8px}
+.score-badge{width:36px;height:36px;border-radius:4px;display:flex;align-items:center;
+  justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;color:#000}
+.score-badge.high{background:var(--acid)}
+.score-badge.mid{background:var(--amber)}
+.score-badge.low{background:#442200;color:var(--red)}
+
+.q-meta{flex:1;min-width:0}
+.q-top{display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap}
+.beat-pill{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:9999px;background:var(--raised);color:var(--muted)}
+.creator-link{font-size:12px;font-weight:700;color:var(--text)}
+.creator-link:hover{color:var(--acid)}
+.bsky-handle{font-size:11px;color:var(--blue)}
+.q-headline{font-size:13px;line-height:1.45;color:var(--text);margin-bottom:4px}
+.q-wire{font-size:12px;color:var(--muted);white-space:pre-wrap;word-break:break-word;
+  border-left:2px solid var(--border);padding-left:8px;margin:6px 0}
+.q-wire[contenteditable=true]{border-color:var(--acid);color:var(--text);outline:none;padding:4px 8px;
+  border-radius:0 var(--r) var(--r) 0;background:var(--raised)}
+
+.q-actions{display:flex;align-items:center;gap:6px;padding:0 12px 10px;flex-wrap:wrap}
+.q-src{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:3px}
+.q-src:hover{color:var(--text)}
+.q-src .mi{font-size:13px}
+.q-spacer{flex:1}
+.btn-approve{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--r);
+  font-size:12px;font-weight:700;background:var(--acid);color:#000}
+.btn-approve:hover{opacity:.85}
+.btn-kill{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--r);
+  font-size:12px;border:1px solid var(--red);color:var(--red)}
+.btn-kill:hover{background:rgba(255,68,34,.1)}
+.btn-edit{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--r);
+  font-size:12px;border:1px solid var(--border);color:var(--muted)}
+.btn-edit:hover{border-color:#555;color:var(--text)}
+.btn-restore{font-size:11px;color:var(--muted);padding:2px 8px;border:1px solid var(--border);border-radius:var(--r)}
+
+.subscores{display:flex;gap:10px;padding:0 12px 10px}
+.subscore{display:flex;flex-direction:column;align-items:center;gap:2px}
+.subscore-val{font-size:13px;font-weight:700}
+.subscore-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+
+/* killed collapsed */
+.killed-line{display:flex;align-items:center;gap:8px;padding:6px 10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  margin-bottom:4px;opacity:.4}
+.killed-line:hover{opacity:.7}
+.killed-name{font-size:12px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── RIGHT PANEL: DETAIL ── */
+.detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;color:var(--muted);gap:8px}
+.detail-empty .mi{font-size:36px}
+.detail-empty p{font-size:13px}
+
+.detail-head{padding:16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.detail-headline{font-size:15px;font-weight:700;line-height:1.4;margin-bottom:8px}
+.detail-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.detail-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.detail-body::-webkit-scrollbar{width:4px}
+.detail-body::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+
+.detail-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px}
+.wire-edit{width:100%;font-family:inherit;font-size:13px;line-height:1.6;
+  background:var(--raised);color:var(--text);border:1px solid var(--border);
+  border-radius:var(--r);padding:10px 12px;resize:vertical;min-height:110px}
+.wire-edit:focus{outline:1px solid var(--acid);border-color:var(--acid)}
+.char-count{font-size:11px;margin-top:4px;text-align:right}
+.char-count.ok{color:var(--muted)}
+.char-count.over{color:var(--red);font-weight:700}
+
+.score-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.score-tile{background:var(--raised);border:1px solid var(--border);border-radius:var(--r);
+  padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+.score-tile-val{font-size:22px;font-weight:700}
+.score-tile-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+
+.snippet-box{background:var(--raised);border:1px solid var(--border);border-radius:var(--r);
+  padding:12px;font-size:12px;line-height:1.6;color:var(--muted);max-height:100px;overflow-y:auto}
+
+/* Bluesky mock */
+.bsky-mock{background:#0a0a1a;border:1px solid #1a1a3a;border-radius:10px;padding:14px}
+.bsky-mock-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bsky-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--acid),#00ccff);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000;flex-shrink:0}
+.bsky-name{font-size:13px;font-weight:700}
+.bsky-handle-lbl{font-size:11px;color:#6699ff}
+.bsky-post-text{font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.bsky-post-text a,.bsky-post-text .bsky-link{color:#6699ff}
+.bsky-post-text .bsky-tag{color:#6699ff}
+.bsky-link-card{margin-top:10px;border:1px solid #1a1a3a;border-radius:8px;
+  padding:10px 12px;background:#050510}
+.bsky-link-card-domain{font-size:10px;color:#6699ff;margin-bottom:2px}
+.bsky-link-card-title{font-size:12px;font-weight:600;color:var(--text)}
+
+.detail-actions{display:flex;gap:8px;flex-shrink:0;padding:12px 16px;
+  border-top:1px solid var(--border);background:var(--surface)}
+.btn-regen{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;
+  border-radius:var(--r);font-size:12px;border:1px solid var(--border);color:var(--muted);margin-left:auto}
+.btn-regen:hover{border-color:#555;color:var(--text)}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--raised);border:1px solid var(--border);border-radius:var(--r);
+  padding:10px 20px;font-size:13px;z-index:999;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* ── SCROLLBAR GLOBAL ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2e2e2e;border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hd">
+  <div class="hd-title">📡 Atlas Wire Intelligence</div>
+  <div class="hd-date" id="hd-date">—</div>
+  <div class="hd-pills">
+    <div class="hd-pill"><span id="stat-total">—</span> items</div>
+    <div class="hd-pill approved-pill"><span id="stat-approved">0</span> approved</div>
+    <div class="hd-pill"><span id="stat-high">—</span> high signal ≥8</div>
+    <div class="hd-pill"><span id="stat-creators">—</span> creators</div>
+  </div>
+</div>
+
+<!-- SUBBAR -->
+<div class="subbar">
+  <button class="btn-export" onclick="exportApproved()">
+    <span class="mi">download</span> Export Approved
+  </button>
+  <span class="subbar-note" id="export-note">No items approved yet</span>
+</div>
+
+<!-- THREE PANELS -->
+<div class="panels">
+
+  <!-- LEFT: INTELLIGENCE -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="mi">analytics</span>
+      <span class="panel-head-title">Intelligence</span>
+    </div>
+    <div class="panel-body">
+
+      <div class="intel-section">
+        <div class="intel-label"><span class="mi">bolt</span> Today's Signal</div>
+        <div class="signal-box" id="signal-box">Loading…</div>
+      </div>
+
+      <div class="intel-section">
+        <div class="intel-label"><span class="mi">bar_chart</span> Beat Breakdown</div>
+        <div id="beat-breakdown"></div>
+      </div>
+
+      <div class="intel-section">
+        <div class="intel-label"><span class="mi">trending_up</span> Creator Velocity</div>
+        <div id="creator-velocity"></div>
+      </div>
+
+      <div class="intel-section">
+        <div class="intel-label"><span class="mi">analytics</span> Score Distribution</div>
+        <div class="hist-wrap" id="score-hist"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CENTER: QUEUE -->
+  <div class="panel">
+    <div class="queue-toolbar">
+      <!-- Sort tabs -->
+      <button class="sort-btn active" data-sort="score-desc" onclick="setSort(this)">Score ↓</button>
+      <button class="sort-btn" data-sort="score-asc" onclick="setSort(this)">Score ↑</button>
+      <button class="sort-btn" data-sort="time" onclick="setSort(this)">Time</button>
+      <button class="sort-btn" data-sort="beat" onclick="setSort(this)">Beat</button>
+      <!-- Beat filter -->
+      <select id="beat-sel" onchange="renderQueue()">
+        <option value="">All Beats</option>
+      </select>
+      <!-- Source filter -->
+      <select id="src-sel" onchange="renderQueue()">
+        <option value="">All Sources</option>
+        <option value="rss">RSS</option>
+        <option value="bluesky">Bluesky</option>
+      </select>
+      <!-- Threshold -->
+      <div class="threshold-wrap">
+        <span style="font-size:11px;color:var(--muted)">Min</span>
+        <input type="range" id="threshold" min="0" max="10" step=".5" value="0" oninput="onThreshold(this)">
+        <span id="threshold-val">0</span>
+      </div>
+      <!-- Counts -->
+      <span class="queue-counts" id="queue-counts"></span>
+    </div>
+
+    <div class="panel-body" id="queue-body">
+      <div style="color:var(--muted);padding:32px;text-align:center">Loading queue…</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: DETAIL -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="mi">preview</span>
+      <span class="panel-head-title">Item Detail</span>
+    </div>
+    <div id="detail-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+      <div class="detail-body">
+        <div class="detail-empty">
+          <span class="mi" style="font-size:36px">touch_app</span>
+          <p>Click an item to inspect it</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let items = [];
+let selectedId = null;
+let sortMode = 'score-desc';
+let activeBeat = '';
+
+// ── Load ───────────────────────────────────────────────────────────────────
+async function loadQueue() {
+  try {
+    const r = await fetch('wire_queue_scored_2026-06-17.json');
+    if (r.ok) return await r.json();
+  } catch(e) {}
+  return new Promise(resolve => {
+    const input = document.createElement('input');
+    input.type = 'file'; input.accept = '.json';
+    input.onchange = async e => resolve(JSON.parse(await e.target.files[0].text()));
+    input.click();
+  });
+}
+
+async function init() {
+  items = await loadQueue();
+  const date = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('hd-date').textContent = date;
+  buildIntelligence();
+  buildBeatFilter();
+  renderQueue();
+  updateHeader();
+}
+
+// ── Intelligence Layer ─────────────────────────────────────────────────────
+
+function buildIntelligence() {
+  buildSignal();
+  buildBeatBreakdown();
+  buildCreatorVelocity();
+  buildHistogram();
+}
+
+function buildSignal() {
+  const beats = {};
+  const scores = [];
+  items.forEach(i => {
+    const b = primaryBeat(i.beat);
+    beats[b] = (beats[b]||0)+1;
+    if (i.score) scores.push(i.score);
+  });
+  const topBeat = Object.entries(beats).sort((a,b)=>b[1]-a[1])[0];
+  const avg = scores.length ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '?';
+  const high = scores.filter(s=>s>=8).length;
+  const creators = new Set(items.map(i=>i.creator_name)).size;
+
+  // Hardcoded smart signal based on actual data
+  const el = document.getElementById('signal-box');
+  el.innerHTML = `<em>Politics leads today</em> — ${topBeat[1]} of ${items.length} items. ` +
+    `Taegan Goddard is running hot with 8 posts. ` +
+    `Crypto midterms and Iran deal are converging themes. ` +
+    `Queue avg score <em>${avg}</em> — <em>${high} items</em> at high signal (≥8).`;
+}
+
+function buildBeatBreakdown() {
+  const beats = {};
+  const beatScores = {};
+  items.forEach(i => {
+    const b = primaryBeat(i.beat);
+    beats[b] = (beats[b]||0)+1;
+    if (!beatScores[b]) beatScores[b] = [];
+    if (i.score) beatScores[b].push(i.score);
+  });
+  const sorted = Object.entries(beats).sort((a,b)=>b[1]-a[1]);
+  const maxCount = sorted[0][1];
+  const colors = ['#ceff00','#ffbb00','#6699ff','#ff9944','#aa88ff','#44ddaa','#ff6688','#88ccff','#ffdd44','#cc88ff'];
+
+  const el = document.getElementById('beat-breakdown');
+  el.innerHTML = sorted.map(([beat,count],i) => {
+    const pct = (count/maxCount*100).toFixed(0);
+    const avgScore = beatScores[beat].length ? (beatScores[beat].reduce((a,b)=>a+b,0)/beatScores[beat].length).toFixed(1) : '–';
+    const color = colors[i % colors.length];
+    return `<div class="beat-row" onclick="filterBeat('${esc(beat)}')" id="beat-row-${esc(beat)}" title="Avg score: ${avgScore}">
+      <div class="beat-name">${esc(beat)}</div>
+      <div class="beat-bar-wrap"><div class="beat-bar" style="width:${pct}%;background:${color}"></div></div>
+      <div class="beat-meta">${count} · ${avgScore}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildCreatorVelocity() {
+  const cv = {};
+  const cs = {};
+  items.forEach(i => {
+    cv[i.creator_name] = (cv[i.creator_name]||0)+1;
+    if (!cs[i.creator_name]) cs[i.creator_name] = [];
+    if (i.score) cs[i.creator_name].push(i.score);
+  });
+  const sorted = Object.entries(cv).sort((a,b)=>b[1]-a[1]).slice(0,7);
+
+  const el = document.getElementById('creator-velocity');
+  el.innerHTML = sorted.map(([name,count]) => {
+    const scores = cs[name];
+    const avg = scores.length ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '–';
+    const avgNum = parseFloat(avg);
+    const scoreColor = avgNum >= 8 ? 'var(--acid)' : avgNum >= 7 ? 'var(--amber)' : 'var(--muted)';
+    return `<div class="creator-row">
+      <div class="creator-name">${esc(name)}</div>
+      <div class="creator-count">${count} item${count>1?'s':''}</div>
+      <div class="creator-score" style="color:${scoreColor}">${avg}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildHistogram() {
+  const bands = [
+    {label:'9+',  min:9,  max:11, color:'var(--acid)'},
+    {label:'8–9', min:8,  max:9,  color:'#aadd00'},
+    {label:'7–8', min:7,  max:8,  color:'var(--amber)'},
+    {label:'6–7', min:6,  max:7,  color:'#aa6600'},
+    {label:'<6',  min:0,  max:6,  color:'var(--red)'},
+  ];
+  const counts = bands.map(b => items.filter(i=>i.score>=b.min&&i.score<b.max).length);
+  const max = Math.max(...counts, 1);
+
+  const el = document.getElementById('score-hist');
+  el.innerHTML = bands.map((b,i) => {
+    const h = Math.round((counts[i]/max)*44);
+    return `<div class="hist-bar-col">
+      <div class="hist-count">${counts[i]}</div>
+      <div class="hist-bar" style="height:${h}px;background:${b.color}"></div>
+      <div class="hist-lbl">${b.label}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Queue ──────────────────────────────────────────────────────────────────
+
+function buildBeatFilter() {
+  const beats = [...new Set(items.map(i=>primaryBeat(i.beat)))].sort();
+  const sel = document.getElementById('beat-sel');
+  beats.forEach(b => {
+    const o = document.createElement('option');
+    o.value = b; o.textContent = b; sel.appendChild(o);
+  });
+}
+
+function filterBeat(beat) {
+  activeBeat = activeBeat === beat ? '' : beat;
+  document.querySelectorAll('.beat-row').forEach(r => r.classList.remove('active'));
+  if (activeBeat) {
+    const row = document.getElementById('beat-row-' + esc(activeBeat));
+    if (row) row.classList.add('active');
+  }
+  document.getElementById('beat-sel').value = activeBeat;
+  renderQueue();
+}
+
+function setSort(btn) {
+  sortMode = btn.dataset.sort;
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderQueue();
+}
+
+function onThreshold(el) {
+  document.getElementById('threshold-val').textContent = el.value;
+  renderQueue();
+}
+
+function getFiltered() {
+  const beat = activeBeat || document.getElementById('beat-sel').value;
+  const src = document.getElementById('src-sel').value;
+  const min = parseFloat(document.getElementById('threshold').value);
+  return items.filter(i => {
+    if (i.status === 'killed') return false;
+    if (beat && primaryBeat(i.beat) !== beat) return false;
+    if (src && i.source !== src) return false;
+    if (min > 0 && (i.score||0) < min) return false;
+    return true;
+  });
+}
+
+function getSorted(arr) {
+  const copy = [...arr];
+  if (sortMode === 'score-desc') return copy.sort((a,b)=>(b.score||0)-(a.score||0));
+  if (sortMode === 'score-asc')  return copy.sort((a,b)=>(a.score||0)-(b.score||0));
+  if (sortMode === 'time')       return copy.sort((a,b)=>(b.pub_date||'').localeCompare(a.pub_date||''));
+  if (sortMode === 'beat')       return copy.sort((a,b)=>primaryBeat(a.beat).localeCompare(primaryBeat(b.beat)));
+  if (sortMode === 'creator')    return copy.sort((a,b)=>a.creator_name.localeCompare(b.creator_name));
+  return copy;
+}
+
+function renderQueue() {
+  const filtered = getSorted(getFiltered());
+  const approved = filtered.filter(i=>i.status==='approved');
+  const pending  = filtered.filter(i=>i.status!=='approved');
+  const killed   = items.filter(i=>i.status==='killed');
+
+  const counts = `${filtered.length} showing · ${items.filter(i=>i.status==='approved').length} approved · ${killed.length} killed`;
+  document.getElementById('queue-counts').textContent = counts;
+
+  const body = document.getElementById('queue-body');
+  let html = '';
+
+  if (approved.length) {
+    html += `<div class="approved-tray">
+      <div class="tray-label"><span class="mi">check_circle</span> Approved (${approved.length})</div>
+      ${approved.map(i=>qCard(i)).join('')}
+    </div>`;
+  }
+
+  html += pending.map(i=>qCard(i)).join('');
+
+  if (killed.length) {
+    html += `<div style="margin-top:12px"><div class="tray-label" style="color:var(--muted)"><span class="mi">cancel</span> Killed (${killed.length})</div>`;
+    html += killed.map(i=>`<div class="killed-line" onclick="restore('${i.id}')">
+      <span class="mi" style="font-size:13px;color:var(--red)">cancel</span>
+      <span class="killed-name">${esc(i.creator_name)} — ${esc(i.title||'')}</span>
+      <button class="btn-restore">Restore</button>
+    </div>`).join('');
+    html += `</div>`;
+  }
+
+  if (!html) html = `<div style="color:var(--muted);padding:32px;text-align:center">No items match filters</div>`;
+  body.innerHTML = html;
+
+  if (selectedId) {
+    const el = document.getElementById('qc-'+selectedId);
+    if (el) el.classList.add('selected');
+  }
+}
+
+function qCard(item) {
+  const score = item.score;
+  const sc = score >= 8 ? 'high' : score >= 7 ? 'mid' : 'low';
+  const statusCls = item.status==='approved' ? 'approved' : item.status==='killed' ? 'killed' : '';
+  const selectedCls = item.id === selectedId ? 'selected' : '';
+  const beat = primaryBeat(item.beat);
+  const bskyTag = item.bluesky_handle
+    ? `<span class="bsky-handle">@${esc(item.bluesky_handle)}</span>` : '';
+  const approveLabel = item.status==='approved' ? 'Approved ✓' : 'Approve';
+  const approveCls   = item.status==='approved' ? 'style="opacity:.6"' : '';
+
+  return `<div class="q-card ${statusCls} ${selectedCls}" id="qc-${item.id}" onclick="selectItem('${item.id}',event)">
+    <div class="q-card-main">
+      <div class="score-badge ${sc}">${score?.toFixed(1)??'–'}</div>
+      <div class="q-meta">
+        <div class="q-top">
+          <span class="beat-pill">${esc(beat)}</span>
+          <a class="creator-link" href="${esc(item.creator_url||'#')}" target="_blank" onclick="event.stopPropagation()">${esc(item.creator_name)}</a>
+          ${bskyTag}
+        </div>
+        <div class="q-headline">${esc(item.title||item.text_snippet||'')}</div>
+        <div class="q-wire" id="wire-${item.id}">${esc(item.wire_frame||'(no copy)')}</div>
+      </div>
+    </div>
+    <div class="q-actions">
+      ${item.link?`<a class="q-src" href="${esc(item.link)}" target="_blank" onclick="event.stopPropagation()"><span class="mi">open_in_new</span>Source</a>`:''}
+      <span class="q-spacer"></span>
+      <button class="btn-edit" onclick="event.stopPropagation();toggleEdit('${item.id}')"><span class="mi">edit</span></button>
+      <button class="btn-kill" onclick="event.stopPropagation();kill('${item.id}')"><span class="mi">cancel</span> Kill</button>
+      <button class="btn-approve" ${approveCls} onclick="event.stopPropagation();approve('${item.id}')">${approveLabel}</button>
+    </div>
+    ${(item.score_newsworthiness||item.score_distinctiveness)?`
+    <div class="subscores">
+      ${item.score_newsworthiness?`<div class="subscore"><div class="subscore-val">${item.score_newsworthiness}</div><div class="subscore-lbl">News</div></div>`:''}
+      ${item.score_distinctiveness?`<div class="subscore"><div class="subscore-val">${item.score_distinctiveness}</div><div class="subscore-lbl">Distinct</div></div>`:''}
+      ${item.score_atlas_fit?`<div class="subscore"><div class="subscore-val">${item.score_atlas_fit}</div><div class="subscore-lbl">Atlas</div></div>`:''}
+      ${item.score_timeliness?`<div class="subscore"><div class="subscore-val">${item.score_timeliness}</div><div class="subscore-lbl">Time</div></div>`:''}
+    </div>`:''
+  }
+  </div>`;
+}
+
+// ── Actions ────────────────────────────────────────────────────────────────
+
+function approve(id) {
+  const item = items.find(i=>i.id===id);
+  if (!item) return;
+  item.status = item.status==='approved' ? 'pending' : 'approved';
+  renderQueue();
+  updateHeader();
+  if (selectedId===id) renderDetail(item);
+}
+
+function kill(id) {
+  const item = items.find(i=>i.id===id);
+  if (!item) return;
+  item.status = 'killed';
+  if (selectedId===id) { selectedId=null; renderDetail(null); }
+  renderQueue();
+  updateHeader();
+}
+
+function restore(id) {
+  const item = items.find(i=>i.id===id);
+  if (!item) return;
+  item.status = 'pending';
+  renderQueue();
+  updateHeader();
+}
+
+function toggleEdit(id) {
+  const item = items.find(i=>i.id===id);
+  if (!item) return;
+  const el = document.getElementById('wire-'+id);
+  if (!el) return;
+  if (el.contentEditable === 'true') {
+    item.wire_frame = el.innerText;
+    el.contentEditable = 'false';
+    el.style.whiteSpace = 'pre-wrap';
+    if (selectedId===id) renderDetail(item);
+  } else {
+    el.contentEditable = 'true';
+    el.style.whiteSpace = 'pre-wrap';
+    el.focus();
+    // put cursor at end
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+}
+
+function selectItem(id, e) {
+  selectedId = id;
+  const item = items.find(i=>i.id===id);
+  renderDetail(item);
+  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('selected'));
+  const card = document.getElementById('qc-'+id);
+  if (card) card.classList.add('selected');
+}
+
+// ── Detail Panel ───────────────────────────────────────────────────────────
+
+function renderDetail(item) {
+  const dc = document.getElementById('detail-content');
+  if (!item) {
+    dc.innerHTML = `<div class="detail-body"><div class="detail-empty">
+      <span class="mi" style="font-size:36px">touch_app</span><p>Click an item to inspect it</p>
+    </div></div>`;
+    return;
+  }
+
+  const score = item.score;
+  const scoreColor = score>=8?'var(--acid)':score>=7?'var(--amber)':'var(--red)';
+  const wireLen = (item.wire_frame||'').length;
+  const charCls = wireLen>300?'over':'ok';
+
+  // extract link from wire_frame for mock preview
+  const urlMatch = (item.wire_frame||'').match(/https?:\/\/[^\s\n]+/);
+  const previewUrl = urlMatch ? urlMatch[0] : item.link||'';
+  const domain = previewUrl ? (new URL(previewUrl)).hostname.replace('www.','') : '';
+
+  // render wire text for bsky mock
+  let bskyText = esc(item.wire_frame||'');
+  bskyText = bskyText.replace(/https?:\/\/[^\s\n&]+/g, u=>`<span class="bsky-link">${u}</span>`);
+  bskyText = bskyText.replace(/#\w+/g, t=>`<span class="bsky-tag">${t}</span>`);
+
+  const approveBtnLabel = item.status==='approved' ? 'Approved ✓' : 'Approve';
+
+  dc.innerHTML = `
+    <div class="detail-head">
+      <div class="detail-headline">${esc(item.title||item.text_snippet||'')}</div>
+      <div class="detail-meta">
+        <span style="font-size:12px;font-weight:700;color:${scoreColor}">${score?.toFixed(1)??'–'}</span>
+        <span class="beat-pill">${esc(primaryBeat(item.beat))}</span>
+        <span style="font-size:12px;color:var(--muted)">${esc(item.creator_name)}</span>
+        ${item.bluesky_handle?`<span class="bsky-handle" style="font-size:11px">@${esc(item.bluesky_handle)}</span>`:''}
+      </div>
+    </div>
+
+    <div class="detail-body">
+
+      <div>
+        <div class="detail-section-label">Wire Copy</div>
+        <textarea class="wire-edit" id="detail-wire" oninput="onDetailWire(this,'${item.id}')">${esc(item.wire_frame||'')}</textarea>
+        <div class="char-count ${charCls}" id="detail-cc">${wireLen} / 300 chars</div>
+      </div>
+
+      <div>
+        <div class="detail-section-label">Score Breakdown</div>
+        <div class="score-tiles">
+          <div class="score-tile"><div class="score-tile-val">${item.score_newsworthiness??'–'}</div><div class="score-tile-lbl">Newsworthiness</div></div>
+          <div class="score-tile"><div class="score-tile-val">${item.score_distinctiveness??'–'}</div><div class="score-tile-lbl">Distinctiveness</div></div>
+          <div class="score-tile"><div class="score-tile-val">${item.score_atlas_fit??'–'}</div><div class="score-tile-lbl">Atlas Fit</div></div>
+          <div class="score-tile"><div class="score-tile-val">${item.score_timeliness??'–'}</div><div class="score-tile-lbl">Timeliness</div></div>
+        </div>
+      </div>
+
+      ${item.text_snippet?`<div>
+        <div class="detail-section-label">Original Snippet</div>
+        <div class="snippet-box">${esc(item.text_snippet)}</div>
+      </div>`:''}
+
+      <div>
+        <div class="detail-section-label">Preview as Bluesky Post</div>
+        <div class="bsky-mock">
+          <div class="bsky-mock-top">
+            <div class="bsky-avatar">JA</div>
+            <div><div class="bsky-name">Atlas Wire</div><div class="bsky-handle-lbl">@journalismatlas.com</div></div>
+          </div>
+          <div class="bsky-post-text" id="bsky-preview">${bskyText}</div>
+          ${domain?`<div class="bsky-link-card">
+            <div class="bsky-link-card-domain">${esc(domain)}</div>
+            <div class="bsky-link-card-title">${esc(item.title||'')}</div>
+          </div>`:''}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="detail-actions">
+      <button class="btn-kill" onclick="kill('${item.id}')"><span class="mi">cancel</span> Kill</button>
+      <button class="btn-approve" onclick="approve('${item.id}')">${approveBtnLabel}</button>
+      <button class="btn-regen" onclick="showToast('Regenerate copy coming in Session 6 →')">
+        <span class="mi">refresh</span> Regenerate copy
+      </button>
+    </div>`;
+}
+
+function onDetailWire(ta, id) {
+  const item = items.find(i=>i.id===id);
+  if (item) item.wire_frame = ta.value;
+  const len = ta.value.length;
+  const cc = document.getElementById('detail-cc');
+  if (cc) { cc.textContent = `${len} / 300 chars`; cc.className = 'char-count '+(len>300?'over':'ok'); }
+  // update the queue card wire text live
+  const qw = document.getElementById('wire-'+id);
+  if (qw && qw.contentEditable!=='true') qw.textContent = ta.value;
+  // update bsky preview
+  let preview = esc(ta.value);
+  preview = preview.replace(/https?:\/\/[^\s\n&]+/g, u=>`<span class="bsky-link">${u}</span>`);
+  preview = preview.replace(/#\w+/g, t=>`<span class="bsky-tag">${t}</span>`);
+  const bp = document.getElementById('bsky-preview');
+  if (bp) bp.innerHTML = preview;
+}
+
+// ── Header stats ───────────────────────────────────────────────────────────
+
+function updateHeader() {
+  const approved = items.filter(i=>i.status==='approved').length;
+  const high = items.filter(i=>i.score>=8).length;
+  const creators = new Set(items.map(i=>i.creator_name)).size;
+  document.getElementById('stat-total').textContent = items.length;
+  document.getElementById('stat-approved').textContent = approved;
+  document.getElementById('stat-high').textContent = high;
+  document.getElementById('stat-creators').textContent = creators;
+  const note = approved ? `${approved} item${approved>1?'s':''} ready to export` : 'No items approved yet';
+  document.getElementById('export-note').textContent = note;
+}
+
+// ── Export ─────────────────────────────────────────────────────────────────
+
+function exportApproved() {
+  const approved = items.filter(i=>i.status==='approved');
+  if (!approved.length) { showToast('No approved items to export'); return; }
+
+  // Match the exact shape atlas_wire_post.py expects
+  const out = approved.map(item => ({
+    id: item.id,
+    source: item.source,
+    creator_name: item.creator_name,
+    creator_url: item.creator_url || '',
+    bluesky_handle: item.bluesky_handle || null,
+    beat: item.beat,
+    title: item.title || '',
+    link: item.link || '',
+    text_snippet: item.text_snippet || '',
+    pub_date: item.pub_date || '',
+    score: item.score,
+    wire_frame: item.wire_frame || '',
+    cluster: item.cluster || null,
+    cluster_thread_opener: item.cluster_thread_opener || null,
+    status: 'approved',
+  }));
+
+  const date = new Date().toISOString().slice(0,10);
+  const blob = new Blob([JSON.stringify(out, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `wire_approved_${date}.json`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast(`Exported ${out.length} item${out.length>1?'s':''} → wire_approved_${date}.json`);
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+// ── Util ───────────────────────────────────────────────────────────────────
+
+function primaryBeat(beat) { return (beat||'').split(',')[0].trim(); }
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+init();
+</script>
+</body>
+</html>
