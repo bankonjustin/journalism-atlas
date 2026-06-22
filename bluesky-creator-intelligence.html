@@ -222,7 +222,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <span class="badge badge-bsky">Bluesky Intelligence</span>
   </div>
   <div class="header-right">
-    <span id="header-count">177 creators · 14 clusters</span>
+    <span id="header-count">384 creators · 14 clusters</span>
     <a href="/for-brands" class="header-cta">Request a brief →</a>
   </div>
 </header>
@@ -241,14 +241,14 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
         When journalism moved off Twitter, it didn't scatter — it clustered.
         Beat communities formed around shared networks: climate journalists following climate journalists,
         tech reporters orbiting the same outlets, investigators surfacing in each other's feeds.
-        <strong>Atlas has mapped <span id="hero-count">177</span> verified independent journalists on Bluesky,</strong>
+        <strong>Atlas has mapped <span id="hero-count">384</span> verified independent journalists on Bluesky,</strong>
         organized by beat, cross-referenced against their full platform presence across newsletters,
         video, and podcast. This is the most complete map of independent journalism on Bluesky — and it grows with every session.
       </p>
     </div>
   </div>
   <div class="hero-right">
-    <div class="viz-label" id="viz-label">177 creators · 14 beat clusters</div>
+    <div class="viz-label" id="viz-label">384 creators · 14 beat clusters</div>
     <canvas id="network-canvas"></canvas>
     <div id="viz-tooltip"></div>
     <div class="viz-expand-hint">Search the index</div>
@@ -258,7 +258,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 <!-- ── STAT STRIP ──────────────────────────────────────────── -->
 <div class="stat-strip">
   <div class="stat-cell">
-    <div class="stat-num" id="stat-total">177</div>
+    <div class="stat-num" id="stat-total">384</div>
     <div class="stat-label">Independent creators<br>on Bluesky</div>
     <div class="stat-so-what">The most complete map of journalism on the platform</div>
   </div>
@@ -303,7 +303,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   <div class="section-header">
     <span class="section-num">01</span>
     <h2 class="section-title">Beat Cluster Map</h2>
-    <span class="section-meta" id="cluster-meta">14 communities · 177 creators</span>
+    <span class="section-meta" id="cluster-meta">14 communities · 384 creators</span>
   </div>
   <p class="section-subtitle">14 editorial communities mapped across Bluesky. Click any cluster to filter the index.</p>
   <div class="cluster-grid" id="cluster-grid">
@@ -317,7 +317,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   <div class="section-header">
     <span class="section-num">02</span>
     <h2 class="section-title">Creator Index</h2>
-    <span class="section-meta" id="index-meta">177 creators · sortable · filterable</span>
+    <span class="section-meta" id="index-meta">384 creators · sortable · filterable</span>
   </div>
 
   <div class="index-toolbar">
@@ -397,7 +397,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 <div id="viz-overlay">
   <div id="overlay-inner">
     <div id="overlay-header">
-      <span id="overlay-title">Independent Journalism Atlas · Bluesky Creator Network · 177 creators · 14 clusters</span>
+      <span id="overlay-title">Independent Journalism Atlas · Bluesky Creator Network · 384 creators · 14 clusters</span>
       <button id="overlay-close">×</button>
     </div>
     <div id="overlay-canvas-wrap">
@@ -443,20 +443,20 @@ const TOPIC_CLUSTER = {
 };
 
 const CLUSTERS = {
-  'Politics':      { color: '#e63946', cx: 0.22, cy: 0.18, count: 22,  newsletter: 6,  video: 5,  podcast: 5,  website: 4,  anchors: ['Aaron Rupar', 'Chris Cillizza', 'Aaron Parnas', 'Charlotte Clymer'] },
-  'Tech':          { color: '#457b9d', cx: 0.55, cy: 0.11, count: 6,   newsletter: 4,  video: 0,  podcast: 0,  website: 1,  anchors: ['Casey Newton', 'Alex Kantrowitz', 'Marques Brownlee'] },
-  'Climate':       { color: '#2d6a4f', cx: 0.82, cy: 0.22, count: 8,   newsletter: 5,  video: 0,  podcast: 1,  website: 2,  anchors: ['Alex Steffen', 'Andrew Dessler', 'Amy Westervelt'] },
-  'Media/Power':   { color: '#6d4c41', cx: 0.90, cy: 0.52, count: 0,   newsletter: 0,  video: 0,  podcast: 0,  website: 0,  anchors: ['Hamilton Nolan', 'Oliver Darcy', 'Adam Johnson'] },
-  'Health':        { color: '#e76f51', cx: 0.78, cy: 0.82, count: 6,   newsletter: 2,  video: 0,  podcast: 3,  website: 1,  anchors: ['Katelyn Jetelina', 'Caitlin Rivers', 'Dan Harris'] },
-  'Investigations':{ color: '#f4a261', cx: 0.50, cy: 0.90, count: 3,   newsletter: 1,  video: 0,  podcast: 0,  website: 1,  anchors: ['Judd Legum', 'Jessica Valenti', 'Chris Geidner'] },
-  'Law':           { color: '#8338ec', cx: 0.22, cy: 0.82, count: 4,   newsletter: 1,  video: 2,  podcast: 1,  website: 0,  anchors: ['Alec Karakatsanis', 'Adam Klasfeld'] },
-  'Sports':        { color: '#fb8500', cx: 0.08, cy: 0.52, count: 1,   newsletter: 0,  video: 0,  podcast: 0,  website: 0,  anchors: ['Charlotte Wilder', 'Brett Kollmann', 'Craig Calcaterra'] },
-  'Culture':       { color: '#c77dff', cx: 0.12, cy: 0.22, count: 110, newsletter: 35, video: 13, podcast: 11, website: 13, anchors: ['Alicia Kennedy', 'Hunter Harris', 'Adrienne Keene'] },
-  'Finance':       { color: '#4cc9f0', cx: 0.38, cy: 0.26, count: 5,   newsletter: 2,  video: 0,  podcast: 1,  website: 1,  anchors: ['Adam Tooze', 'Kyla Scanlon', 'Brad DeLong'] },
-  'Science':       { color: '#06d6a0', cx: 0.68, cy: 0.38, count: 5,   newsletter: 2,  video: 0,  podcast: 0,  website: 2,  anchors: ['Grant Sanderson', 'Adam Mastroianni'] },
+  'Politics':      { color: '#e63946', cx: 0.22, cy: 0.18, count: 36,  newsletter: 21, video: 9,  podcast: 2,  website: 4,  anchors: ['Aaron Rupar', 'Chris Cillizza', 'Aaron Parnas', 'Charlotte Clymer'] },
+  'Tech':          { color: '#457b9d', cx: 0.55, cy: 0.11, count: 35,  newsletter: 18, video: 5,  podcast: 2,  website: 7,  anchors: ['Casey Newton', 'Alex Kantrowitz', 'Marques Brownlee'] },
+  'Climate':       { color: '#2d6a4f', cx: 0.82, cy: 0.22, count: 10,  newsletter: 10, video: 0,  podcast: 0,  website: 0,  anchors: ['Alex Steffen', 'Andrew Dessler', 'Amy Westervelt'] },
+  'Media/Power':   { color: '#6d4c41', cx: 0.90, cy: 0.52, count: 18,  newsletter: 12, video: 1,  podcast: 3,  website: 2,  anchors: ['Hamilton Nolan', 'Oliver Darcy', 'Adam Johnson'] },
+  'Health':        { color: '#e76f51', cx: 0.78, cy: 0.82, count: 7,   newsletter: 7,  video: 0,  podcast: 0,  website: 0,  anchors: ['Katelyn Jetelina', 'Caitlin Rivers', 'Dan Harris'] },
+  'Investigations':{ color: '#f4a261', cx: 0.50, cy: 0.90, count: 5,   newsletter: 2,  video: 1,  podcast: 0,  website: 2,  anchors: ['Judd Legum', 'Jessica Valenti', 'Chris Geidner'] },
+  'Law':           { color: '#8338ec', cx: 0.22, cy: 0.82, count: 6,   newsletter: 4,  video: 0,  podcast: 0,  website: 2,  anchors: ['Alec Karakatsanis', 'Adam Klasfeld'] },
+  'Sports':        { color: '#fb8500', cx: 0.08, cy: 0.52, count: 10,  newsletter: 5,  video: 3,  podcast: 0,  website: 1,  anchors: ['Charlotte Wilder', 'Brett Kollmann', 'Craig Calcaterra'] },
+  'Culture':       { color: '#c77dff', cx: 0.12, cy: 0.22, count: 236, newsletter: 162,video: 31, podcast: 9,  website: 28, anchors: ['Alicia Kennedy', 'Hunter Harris', 'Adrienne Keene'] },
+  'Finance':       { color: '#4cc9f0', cx: 0.38, cy: 0.26, count: 7,   newsletter: 4,  video: 3,  podcast: 0,  website: 0,  anchors: ['Adam Tooze', 'Kyla Scanlon', 'Brad DeLong'] },
+  'Science':       { color: '#06d6a0', cx: 0.68, cy: 0.38, count: 5,   newsletter: 0,  video: 4,  podcast: 0,  website: 1,  anchors: ['Grant Sanderson', 'Adam Mastroianni'] },
   'Local News':    { color: '#ffd166', cx: 0.65, cy: 0.72, count: 0,   newsletter: 0,  video: 0,  podcast: 0,  website: 0,  anchors: ['Alissa Walker', 'Charlie Meyerson', 'Chas Hundley'] },
-  'World':         { color: '#ef476f', cx: 0.35, cy: 0.70, count: 7,   newsletter: 4,  video: 0,  podcast: 1,  website: 2,  anchors: ['Bill Bishop', 'Anders Puck Nielsen', 'Tim Mak'] },
-  'Food':          { color: '#a8dadc', cx: 0.18, cy: 0.54, count: 0,   newsletter: 0,  video: 0,  podcast: 0,  website: 0,  anchors: ['Andrew Janjigian', 'Alicia Kennedy'] },
+  'World':         { color: '#ef476f', cx: 0.35, cy: 0.70, count: 7,   newsletter: 4,  video: 1,  podcast: 0,  website: 2,  anchors: ['Bill Bishop', 'Anders Puck Nielsen', 'Tim Mak'] },
+  'Food':          { color: '#a8dadc', cx: 0.18, cy: 0.54, count: 2,   newsletter: 1,  video: 0,  podcast: 0,  website: 1,  anchors: ['Andrew Janjigian', 'Alicia Kennedy'] },
 };
 
 const VIZ_ANCHORS = [
