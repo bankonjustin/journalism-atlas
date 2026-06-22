@@ -3,7 +3,7 @@ atlas_wire_fetch.py
 Session 1 of Atlas Wire pipeline.
 
 Pulls last 24h of content from:
-  1. atlas-pulse/pulse_output.json  (RSS-sourced creator posts)
+  1. ~/Documents/Atlas Spidering/core/rss_pulse_v2_*.json  (most recent Pulse fetch)
   2. Bluesky public API             (for creators with bsky_handle in bluesky-creators.json)
 
 Writes: wire_queue_raw_YYYY-MM-DD.json
@@ -23,7 +23,7 @@ import requests
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-PULSE_FILE = os.path.join(REPO_ROOT, "atlas-pulse", "pulse_output.json")
+PULSE_SPIDERING_DIR = os.path.expanduser("~/Documents/Atlas Spidering/core")
 BSKY_CREATORS_FILE = os.path.join(REPO_ROOT, "assets", "data", "bluesky-creators.json")
 
 BSKY_API_BASE = "https://public.api.bsky.app/xrpc"
@@ -102,44 +102,54 @@ def build_bsky_lookup():
 # ── Step 2: Ingest Pulse RSS items ────────────────────────────────────────────
 
 def fetch_pulse_items(cutoff, bsky_lookup):
-    with open(PULSE_FILE) as f:
+    pulse_files = sorted(glob.glob(os.path.join(PULSE_SPIDERING_DIR, "rss_pulse_v2_*.json")))
+    if not pulse_files:
+        print(f"ERROR: No rss_pulse_v2_*.json found in {PULSE_SPIDERING_DIR}")
+        sys.exit(1)
+
+    pulse_path = pulse_files[-1]
+    print(f"  Loading: {pulse_path}")
+
+    with open(pulse_path, encoding="utf-8") as f:
         data = json.load(f)
 
-    creators = data.get("creators", [])
+    if isinstance(data, list):
+        posts = data
+    else:
+        posts = data.get("posts", data.get("items", []))
+
+    print(f"  {len(posts)} posts in Pulse file")
     items = []
     skipped_old = 0
 
-    for creator in creators:
-        name = creator.get("name", "")
-        channel = creator.get("channel", "")
-        beat = creator.get("topic", "")
-        creator_url = creator.get("rss_url", "")
+    for post in posts:
+        creator = post.get("creator", "")
+        channel = post.get("channel", "")
+        beat = post.get("topic", "")
 
-        name_key = name.lower().strip()
+        name_key = creator.lower().strip()
         channel_key = channel.lower().strip()
         bsky_info = bsky_lookup.get(name_key) or bsky_lookup.get(channel_key)
         bsky_handle = bsky_info[0] if bsky_info else None
-        if bsky_info and not creator_url:
-            creator_url = bsky_info[1]
+        creator_url = bsky_info[1] if bsky_info else ""
 
-        for post in creator.get("posts", []):
-            pub_str = post.get("published", "")
-            dt = parse_dt(pub_str)
-            if not within_window(dt, cutoff):
-                skipped_old += 1
-                continue
+        pub_str = post.get("published", "")
+        dt = parse_dt(pub_str)
+        if not within_window(dt, cutoff):
+            skipped_old += 1
+            continue
 
-            items.append(make_item(
-                source="rss",
-                creator_name=name,
-                creator_url=creator_url,
-                bluesky_handle=bsky_handle,
-                beat=beat,
-                title=post.get("title", ""),
-                link=post.get("url", ""),
-                text_snippet=post.get("summary", "") or post.get("title", ""),
-                pub_date_str=pub_str,
-            ))
+        items.append(make_item(
+            source="rss",
+            creator_name=creator,
+            creator_url=creator_url,
+            bluesky_handle=bsky_handle,
+            beat=beat,
+            title=post.get("title", ""),
+            link=post.get("url", ""),
+            text_snippet=post.get("summary", "") or post.get("title", ""),
+            pub_date_str=pub_str,
+        ))
 
     print(f"  Pulse: {len(items)} items in window, {skipped_old} outside 24h")
     return items
@@ -253,10 +263,9 @@ def main():
     print(f"Window: {cutoff.strftime('%Y-%m-%d %H:%M')} UTC → now")
 
     # Check inputs exist
-    for path in [PULSE_FILE, BSKY_CREATORS_FILE]:
-        if not os.path.exists(path):
-            print(f"ERROR: Missing required file: {path}")
-            sys.exit(1)
+    if not os.path.exists(BSKY_CREATORS_FILE):
+        print(f"ERROR: Missing required file: {BSKY_CREATORS_FILE}")
+        sys.exit(1)
 
     print("\n[1/4] Building Bluesky handle lookup...")
     bsky_lookup = build_bsky_lookup()

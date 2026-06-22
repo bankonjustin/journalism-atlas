@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<!--
+  ════════════════════════════════════════════════════
+  ATLAS PULSE INTELLIGENCE — Internal corpus viewer
+  ════════════════════════════════════════════════════
+  An internal tool. Does not deploy to the live site.
+
+  USAGE — file pickers work on file:// directly:
+    Open this file in Chrome (no server needed)
+    1. Load Pulse  → rss_pulse_v2_YYYYMMDD.json   (Atlas Spidering/core/)
+    2. Load Digest → pulse_digest_YYYYMMDD.json    (Atlas Spidering/core/) [optional]
+    3. Load Wire   → wire_queue_scored_*.json       (journalism-atlas/)     [optional]
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Pulse Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#111;--surface:#1a1a1a;--raised:#222;--border:#2e2e2e;
+  --text:#efeff2;--muted:#777;--muted2:#444;
+  --acid:#ceff00;--amber:#ffbb00;--red:#ff4422;--blue:#6699ff;
+  --r:6px;
+}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--bg);color:var(--text);
+  height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:13px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+select,input{font-family:inherit}
+.mi{font-family:'Material Symbols Outlined';font-size:16px;line-height:1;font-weight:normal;
+  font-style:normal;display:inline-block;-webkit-font-smoothing:antialiased;vertical-align:middle}
+
+/* ── HEADER ── */
+.hd{background:#000;border-bottom:1px solid var(--border);padding:0 16px;
+  height:44px;display:flex;align-items:center;gap:10px;flex-shrink:0;overflow:hidden}
+.hd-title{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--acid);white-space:nowrap}
+.hd-sep{color:var(--muted2)}
+.hd-pills{display:flex;gap:5px;overflow:hidden;flex-wrap:nowrap}
+.stat-pill{font-size:11px;padding:3px 8px;border-radius:9999px;
+  border:1px solid var(--border);color:var(--muted);white-space:nowrap;flex-shrink:0}
+.stat-pill b{font-weight:700;color:var(--text)}
+.stat-pill.wire-pill b{color:var(--acid)}
+
+/* ── TOOLBAR ── */
+.toolbar{background:#141414;border-bottom:1px solid var(--border);
+  padding:0 16px;height:40px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-load{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;
+  border-radius:var(--r);border:1px solid var(--border);color:var(--muted);font-size:12px;
+  transition:all .15s;white-space:nowrap}
+.btn-load:hover{border-color:#555;color:var(--text)}
+.btn-load.loaded{border-color:rgba(206,255,0,.5);color:var(--acid)}
+.btn-load .mi{font-size:13px}
+.tb-sep{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.tb-status{font-size:11px;color:var(--muted);margin-left:auto;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.tb-status b{color:var(--text)}
+
+/* ── THREE-PANEL GRID ── */
+.panels{display:grid;grid-template-columns:260px 1fr 300px;flex:1;overflow:hidden;min-height:0}
+.panel{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.panel:last-child{border-right:none}
+.panel-head{padding:9px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:6px;flex-shrink:0;background:var(--surface)}
+.panel-head-title{font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted)}
+.panel-count{font-size:11px;color:var(--muted2);margin-left:4px}
+.panel-body{flex:1;overflow-y:auto;padding:12px}
+.panel-body::-webkit-scrollbar{width:4px}
+.panel-body::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+
+/* ── LEFT: SIGNAL ── */
+.sig-section{margin-bottom:18px}
+.sig-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.sig-label .mi{font-size:12px}
+
+.signal-box{background:var(--raised);border:1px solid var(--border);
+  border-left:3px solid var(--acid);border-radius:var(--r);
+  padding:10px 12px;font-size:12px;line-height:1.65;color:var(--text)}
+.signal-box em{font-style:normal;color:var(--acid);font-weight:700}
+
+.beat-row{display:flex;align-items:center;gap:7px;margin-bottom:4px;cursor:pointer;
+  border-radius:4px;padding:3px 4px;transition:background .12s}
+.beat-row:hover{background:var(--raised)}
+.beat-row.active{background:#1c2800;outline:1px solid rgba(206,255,0,.2);outline-offset:-1px}
+.beat-name{width:110px;font-size:11px;font-weight:500;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.beat-bar-wrap{flex:1;height:5px;background:var(--raised);border-radius:3px;overflow:hidden}
+.beat-bar{height:100%;border-radius:3px;transition:width .35s}
+.beat-meta{font-size:10px;color:var(--muted);white-space:nowrap;
+  flex-shrink:0;min-width:32px;text-align:right}
+
+.theme-card{background:var(--raised);border:1px solid var(--border);border-radius:var(--r);
+  padding:9px 11px;margin-bottom:7px;cursor:pointer;transition:border-color .15s}
+.theme-card:hover{border-color:#3a3a3a}
+.theme-name{font-size:12px;font-weight:700;color:var(--acid);margin-bottom:2px}
+.theme-meta{font-size:10px;color:var(--muted)}
+.theme-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:6px;display:none}
+.theme-card.open .theme-desc{display:block}
+
+.creator-row{display:flex;align-items:center;gap:6px;padding:4px;
+  border-radius:4px;cursor:pointer;transition:background .12s}
+.creator-row:hover{background:var(--raised)}
+.creator-row.active{background:#1c2800}
+.cv-name{flex:1;font-size:11px;font-weight:500;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cv-count{font-size:10px;color:var(--muted);flex-shrink:0}
+
+.health-grid{display:flex;flex-direction:column;gap:5px}
+.health-row{display:flex;align-items:center;justify-content:space-between;
+  padding:6px 10px;background:var(--raised);border:1px solid var(--border);
+  border-radius:var(--r)}
+.health-lbl{font-size:11px;color:var(--muted)}
+.health-val{font-size:12px;font-weight:700}
+
+.empty-sig{font-size:12px;color:var(--muted2);padding:4px}
+
+/* ── CENTER: TABLE ── */
+.tbl-controls{padding:8px 12px;border-bottom:1px solid var(--border);
+  display:flex;flex-direction:column;gap:6px;flex-shrink:0;background:var(--surface)}
+.ctrl-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ctrl-search{flex:1;min-width:120px;background:var(--raised);color:var(--text);
+  border:1px solid var(--border);border-radius:var(--r);padding:5px 10px;font-size:12px}
+.ctrl-search::placeholder{color:var(--muted2)}
+.ctrl-search:focus{outline:1px solid var(--acid);border-color:var(--acid)}
+.ctrl-sel{background:var(--raised);color:var(--text);border:1px solid var(--border);
+  border-radius:var(--r);padding:4px 7px;font-size:12px}
+.day-toggle{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.day-btn{padding:4px 9px;font-size:11px;font-weight:500;background:var(--raised);
+  color:var(--muted);border-right:1px solid var(--border);cursor:pointer;transition:all .12s}
+.day-btn:last-child{border-right:none}
+.day-btn.active{background:#1c2800;color:var(--acid)}
+.wire-toggle{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;
+  border-radius:var(--r);border:1px solid var(--border);color:var(--muted);
+  font-size:11px;cursor:pointer;transition:all .12s}
+.wire-toggle:hover{border-color:#555}
+.wire-toggle.on{border-color:var(--acid);color:var(--acid);background:#1c2800}
+.wire-toggle .mi{font-size:13px}
+.ctrl-counts{font-size:11px;color:var(--muted)}
+
+/* table */
+.tbl-wrap{flex:1;overflow:auto;min-height:0}
+.tbl-wrap::-webkit-scrollbar{width:4px;height:4px}
+.tbl-wrap::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+table.ptbl{width:100%;min-width:620px;border-collapse:collapse;font-size:12px}
+table.ptbl thead th{position:sticky;top:0;background:#141414;
+  border-bottom:2px solid var(--border);padding:7px 8px;text-align:left;
+  font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;cursor:pointer;user-select:none;
+  overflow:hidden;text-overflow:ellipsis}
+table.ptbl thead th:hover{color:var(--text)}
+table.ptbl thead th.sort-on{color:var(--acid)}
+.sort-arr{font-size:9px;margin-left:2px}
+table.ptbl tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .08s}
+table.ptbl tbody tr:hover{background:var(--surface)}
+table.ptbl tbody tr.sel{background:#1a2200;border-left:2px solid var(--acid)}
+table.ptbl td{padding:5px 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
+.col-date{width:76px}
+.col-creator{width:130px;font-weight:500}
+.col-beat{width:86px}
+.col-plat{width:78px;color:var(--muted)}
+.col-geo{width:88px;color:var(--muted)}
+.col-title{}
+.col-wire{width:44px;text-align:center}
+.beat-dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:4px;vertical-align:middle;flex-shrink:0}
+.beat-label{font-size:11px}
+.score-badge-sm{display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:20px;border-radius:4px;font-size:11px;font-weight:700;color:#000}
+.sb-hi{background:var(--acid)}
+.sb-md{background:var(--amber)}
+.sb-lo{background:#221500;color:var(--red);border:1px solid var(--red)}
+
+.load-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;gap:18px;padding:40px;text-align:center}
+.load-screen .mi{font-size:48px;color:var(--muted2)}
+.ls-title{font-size:15px;font-weight:700}
+.ls-sub{font-size:12px;color:var(--muted);line-height:1.8;max-width:300px}
+.ls-sub code{background:var(--raised);padding:2px 6px;border-radius:4px;
+  font-size:11px;color:var(--acid)}
+
+/* pagination */
+.pagination{padding:7px 12px;border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;flex-shrink:0;background:var(--surface)}
+.pg-btn{padding:4px 11px;border-radius:var(--r);border:1px solid var(--border);
+  color:var(--muted);font-size:12px;background:var(--raised);cursor:pointer;transition:all .12s}
+.pg-btn:hover:not(:disabled){border-color:#555;color:var(--text)}
+.pg-btn:disabled{opacity:.3;cursor:not-allowed}
+.pg-info{font-size:11px;color:var(--muted);flex:1;text-align:center}
+
+/* ── RIGHT: DETAIL ── */
+.detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;color:var(--muted);gap:10px;padding:20px;text-align:center}
+.detail-empty .mi{font-size:40px}
+.det-head{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.det-title{font-size:14px;font-weight:700;line-height:1.4;margin-bottom:9px}
+.det-tags{display:flex;gap:5px;flex-wrap:wrap}
+.det-tag{font-size:10px;padding:2px 8px;border-radius:9999px;
+  background:var(--raised);border:1px solid var(--border);color:var(--muted);
+  font-weight:500;white-space:nowrap}
+.det-body{flex:1;overflow-y:auto;padding:14px 16px;
+  display:flex;flex-direction:column;gap:14px}
+.det-body::-webkit-scrollbar{width:4px}
+.det-body::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+.det-sec{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:5px}
+.det-creator{font-size:13px;font-weight:700}
+.det-channel{font-size:11px;color:var(--muted)}
+.det-date{font-size:12px;color:var(--muted)}
+.det-link{color:var(--acid);font-size:12px;display:inline-flex;
+  align-items:center;gap:4px;word-break:break-all}
+.det-link:hover{text-decoration:underline}
+.det-link .mi{flex-shrink:0;font-size:14px}
+.summary-box{background:var(--raised);border:1px solid var(--border);border-radius:var(--r);
+  padding:11px 12px;font-size:12px;line-height:1.65;color:var(--muted);
+  max-height:200px;overflow-y:auto;word-break:break-word}
+.summary-box::-webkit-scrollbar{width:4px}
+.summary-box::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+
+/* Wire detail */
+.wire-box{background:#0d1400;border:1px solid rgba(206,255,0,.18);
+  border-radius:var(--r);padding:12px}
+.wire-score-lg{font-size:26px;font-weight:700;color:var(--acid);line-height:1}
+.wire-score-sub{font-size:11px;color:var(--muted);margin-top:2px;margin-bottom:10px}
+.wire-subscores{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.ws-tile{background:var(--raised);border:1px solid var(--border);
+  border-radius:4px;padding:6px 8px;text-align:center}
+.ws-tile-val{font-size:13px;font-weight:700}
+.ws-tile-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.wire-copy{background:var(--raised);border-left:2px solid var(--acid);
+  border-radius:0 4px 4px 0;padding:9px 11px;font-size:12px;line-height:1.6;
+  color:var(--muted);white-space:pre-wrap;word-break:break-word}
+.no-wire{font-size:11px;color:var(--muted2);background:var(--raised);
+  border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;
+  display:flex;align-items:center;gap:6px}
+.no-wire .mi{font-size:14px}
+
+/* toast */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:var(--raised);border:1px solid var(--border);border-radius:var(--r);
+  padding:9px 18px;font-size:12px;z-index:999;
+  opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hd">
+  <div class="hd-title">Atlas Pulse Intelligence</div>
+  <div class="hd-sep">·</div>
+  <div class="hd-pills" id="hd-pills">
+    <div class="stat-pill"><b>—</b> creators</div>
+  </div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button class="btn-load" id="btn-pulse" onclick="pickFile('pulse')">
+    <span class="mi">upload_file</span> Load Pulse
+  </button>
+  <button class="btn-load" id="btn-digest" onclick="pickFile('digest')">
+    <span class="mi">insights</span> Digest
+  </button>
+  <button class="btn-load" id="btn-wire" onclick="pickFile('wire')">
+    <span class="mi">bolt</span> Wire Queue
+  </button>
+  <div class="tb-sep"></div>
+  <span class="tb-status" id="tb-status">
+    Load <b>rss_pulse_v2_YYYYMMDD.json</b> to begin
+  </span>
+</div>
+
+<!-- PANELS -->
+<div class="panels">
+
+  <!-- LEFT: SIGNAL INTELLIGENCE -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="mi">analytics</span>
+      <span class="panel-head-title">Signal Intelligence</span>
+    </div>
+    <div class="panel-body" id="left-body">
+      <div class="empty-sig">Load data to see signal.</div>
+    </div>
+  </div>
+
+  <!-- CENTER: PULSE CORPUS -->
+  <div class="panel" style="min-width:0">
+    <div class="panel-head">
+      <span class="mi">table_rows</span>
+      <span class="panel-head-title">Pulse Corpus</span>
+      <span class="panel-count" id="center-count"></span>
+    </div>
+
+    <div class="tbl-controls" id="tbl-controls" style="display:none">
+      <div class="ctrl-row">
+        <input class="ctrl-search" id="search-box" type="text"
+          placeholder="Search title or creator…" oninput="onSearch(this.value)">
+        <select class="ctrl-sel" id="beat-sel" onchange="applyFilters()">
+          <option value="">All Beats</option>
+        </select>
+        <select class="ctrl-sel" id="plat-sel" onchange="applyFilters()">
+          <option value="">All Platforms</option>
+        </select>
+        <select class="ctrl-sel" id="geo-sel" onchange="applyFilters()">
+          <option value="">All Regions</option>
+        </select>
+      </div>
+      <div class="ctrl-row">
+        <div class="day-toggle">
+          <button class="day-btn" data-d="7" onclick="setDays(this)">7d</button>
+          <button class="day-btn" data-d="14" onclick="setDays(this)">14d</button>
+          <button class="day-btn active" data-d="30" onclick="setDays(this)">30d</button>
+        </div>
+        <button class="wire-toggle" id="wire-toggle" onclick="toggleWireOnly()">
+          <span class="mi">queue</span> Wire only
+        </button>
+        <span class="ctrl-counts" id="ctrl-counts"></span>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" id="tbl-wrap">
+      <div class="load-screen" id="load-screen">
+        <span class="mi">dataset</span>
+        <div class="ls-title">Load the Pulse corpus</div>
+        <div class="ls-sub">
+          Click <strong>Load Pulse</strong> above and select<br>
+          <code>rss_pulse_v2_YYYYMMDD.json</code><br>
+          from your <code>Atlas Spidering/core/</code> directory.<br><br>
+          Optionally also load <strong>Digest</strong> for AI signal themes<br>
+          and <strong>Wire Queue</strong> for score badges.
+        </div>
+      </div>
+      <table class="ptbl" id="ptbl" style="display:none">
+        <colgroup>
+          <col class="col-date"><col class="col-creator"><col class="col-beat">
+          <col class="col-plat"><col class="col-geo"><col class="col-title"><col class="col-wire">
+        </colgroup>
+        <thead>
+          <tr>
+            <th onclick="setSort('published')">Date <span class="sort-arr" id="sa-published">↓</span></th>
+            <th onclick="setSort('creator')">Creator <span class="sort-arr" id="sa-creator"></span></th>
+            <th onclick="setSort('topic')">Beat <span class="sort-arr" id="sa-topic"></span></th>
+            <th onclick="setSort('platform')">Platform <span class="sort-arr" id="sa-platform"></span></th>
+            <th onclick="setSort('geography')">Region <span class="sort-arr" id="sa-geography"></span></th>
+            <th onclick="setSort('title')">Title <span class="sort-arr" id="sa-title"></span></th>
+            <th title="Wire queue score">Wire</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination" style="display:none">
+      <button class="pg-btn" id="pg-prev" onclick="changePage(-1)" disabled>← Prev</button>
+      <span class="pg-info" id="pg-info"></span>
+      <button class="pg-btn" id="pg-next" onclick="changePage(1)">Next →</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: ITEM DETAIL -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="mi">preview</span>
+      <span class="panel-head-title">Item Detail</span>
+    </div>
+    <div id="detail-wrap" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0">
+      <div class="detail-empty">
+        <span class="mi">touch_app</span>
+        <p style="font-size:12px;color:var(--muted)">Click any row to inspect it</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════════
+// ATLAS PULSE INTELLIGENCE
+// ════════════════════════════════════════════════════
+
+// ── Beat colors ────────────────────────────────────
+const BEAT_PALETTE = [
+  '#ceff00','#ffbb00','#6699ff','#ff9944','#aa88ff',
+  '#44ddaa','#ff6688','#88ccff','#ffdd44','#cc88ff',
+  '#44ccff','#ffaa66','#ff88aa','#aaff66',
+];
+const _bci = {}, _bcn = {n:0};
+function beatColor(beat) {
+  const b = primaryBeat(beat);
+  if (!_bci[b]) _bci[b] = BEAT_PALETTE[_bcn.n++ % BEAT_PALETTE.length];
+  return _bci[b];
+}
+
+// ── State ──────────────────────────────────────────
+let allPosts  = [];   // normalized Pulse posts
+let pulseMeta = {};   // top-level Pulse JSON metadata
+let digestData = null;
+let wireByUrl  = {};  // url → wire item (for badge + detail)
+
+// Filters
+let fBeat = '', fPlatform = '', fGeo = '', fCreator = '';
+let fDays = 30, fWireOnly = false, fSearch = '';
+let sortCol = 'published', sortDir = 'desc';
+
+let filtered = [];  // after all filters + sort
+let page = 0;
+const PAGE_SIZE = 100;
+let selectedUrl = null;
+let searchTimer = null;
+
+// ── Schema normalization ───────────────────────────
+// Canonical schema = Pulse field names.
+// Wire items (if ever loaded as posts) are translated here.
+function normalizePost(raw) {
+  return {
+    creator:   raw.creator   || raw.creator_name || '',
+    channel:   raw.channel   || '',
+    title:     raw.title     || '',
+    url:       raw.url       || raw.link         || '',
+    published: (raw.published || raw.pub_date    || '').slice(0, 10),
+    summary:   raw.summary   || raw.text_snippet || '',
+    topic:     raw.topic     || raw.beat         || '',
+    geography: raw.geography || '',
+    platform:  raw.platform  || (raw.source === 'bsky' ? 'Bluesky' : ''),
+    _raw: raw,
+  };
+}
+
+// ── File loading ───────────────────────────────────
+function pickFile(type) {
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = '.json';
+  inp.onchange = async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      if      (type === 'pulse')  loadPulse(data, file.name);
+      else if (type === 'digest') loadDigest(data, file.name);
+      else if (type === 'wire')   loadWire(data, file.name);
+    } catch (err) {
+      showToast('Parse error: ' + err.message);
+    }
+  };
+  inp.click();
+}
+
+function loadPulse(data, fname) {
+  const posts = Array.isArray(data) ? data : (data.posts || []);
+  if (!posts.length) { showToast('No posts found in file'); return; }
+
+  // Reset all state
+  fBeat = ''; fPlatform = ''; fGeo = ''; fCreator = '';
+  fDays = 30; fWireOnly = false; fSearch = '';
+  sortCol = 'published'; sortDir = 'desc';
+  selectedUrl = null; page = 0;
+  document.getElementById('search-box').value = '';
+  document.querySelectorAll('.day-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.d === '30'));
+  document.getElementById('wire-toggle').classList.remove('on');
+
+  allPosts = posts.map(normalizePost);
+  pulseMeta = {
+    generated_at:       data.generated_at       || '',
+    window_days:        data.window_days         || 30,
+    total_creators:     data.total_creators      || 0,
+    total_rss_resolved: data.total_rss_resolved  || 0,
+    total_posts:        data.total_posts         || allPosts.length,
+    active_7d:          data.active_7d           || 0,
+    active_30d:         data.active_30d          || 0,
+    dark_count:         data.dark_count          || 0,
+  };
+
+  markLoaded('btn-pulse', 'Pulse');
+  buildDropdowns();
+  buildHeader();
+  applyFilters();
+
+  document.getElementById('tbl-controls').style.display = '';
+  document.getElementById('load-screen').style.display  = 'none';
+  document.getElementById('ptbl').style.display         = '';
+  document.getElementById('pagination').style.display   = '';
+
+  buildLeftPanel();
+  setStatus(`<b>${allPosts.length.toLocaleString()}</b> posts · ${fname}`);
+  showToast(`${allPosts.length.toLocaleString()} posts loaded`);
+}
+
+function loadDigest(data, fname) {
+  digestData = data;
+  markLoaded('btn-digest', 'Digest');
+  buildLeftPanel();
+  setStatus(`Digest loaded · ${fname}`);
+  showToast('Digest loaded — themes updated');
+}
+
+function loadWire(data, fname) {
+  const items = Array.isArray(data) ? data : [];
+  wireByUrl = {};
+  items.forEach(it => { const u = it.link || it.url || ''; if (u) wireByUrl[u] = it; });
+  markLoaded('btn-wire', 'Wire');
+  buildHeader();
+  if (allPosts.length) { applyFilters(); buildLeftPanel(); }
+  setStatus(`Wire queue: ${items.length} items`);
+  showToast(`Wire queue loaded — ${items.length} items`);
+}
+
+function markLoaded(btnId, label) {
+  const btn = document.getElementById(btnId);
+  btn.classList.add('loaded');
+  btn.innerHTML = `<span class="mi">check_circle</span> ${label} ✓`;
+}
+
+// ── Header stats ───────────────────────────────────
+function buildHeader() {
+  const wc = Object.keys(wireByUrl).length;
+  const p  = pulseMeta;
+  const pills = [
+    pill(fmt(p.total_creators),     'creators'),
+    pill(fmt(p.total_rss_resolved), 'feeds'),
+    pill(fmt(p.total_posts || allPosts.length), `posts (${p.window_days||30}d)`),
+    pill(fmt(p.active_7d),  'active 7d'),
+    pill(fmt(p.dark_count), 'silent'),
+  ];
+  if (wc) pills.push(`<div class="stat-pill wire-pill"><b>${wc}</b> in Wire</div>`);
+  document.getElementById('hd-pills').innerHTML = pills.join('');
+}
+function pill(val, label) {
+  return `<div class="stat-pill"><b>${val}</b> ${label}</div>`;
+}
+function fmt(n) { return n ? Number(n).toLocaleString() : '—'; }
+
+// ── Dropdowns ──────────────────────────────────────
+function buildDropdowns() {
+  const beats = {}, plats = {}, geos = {};
+  allPosts.forEach(p => {
+    const b = primaryBeat(p.topic); if (b) beats[b] = (beats[b]||0)+1;
+    if (p.platform)  plats[p.platform]  = (plats[p.platform] ||0)+1;
+    if (p.geography) geos[p.geography]  = (geos[p.geography] ||0)+1;
+  });
+  fillSel('beat-sel', Object.entries(beats).sort((a,b)=>b[1]-a[1]).map(e=>e[0]));
+  fillSel('plat-sel', Object.entries(plats).sort((a,b)=>b[1]-a[1]).map(e=>e[0]));
+  fillSel('geo-sel',  Object.entries(geos).sort((a,b)=>b[1]-a[1]).slice(0,40).map(e=>e[0]));
+}
+
+function fillSel(id, values) {
+  const el = document.getElementById(id);
+  const first = el.options[0];
+  el.innerHTML = '';
+  el.appendChild(first);
+  values.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v; o.textContent = v; el.appendChild(o);
+  });
+}
+
+// ── Filtering + sorting ────────────────────────────
+function applyFilters() {
+  fBeat     = document.getElementById('beat-sel').value;
+  fPlatform = document.getElementById('plat-sel').value;
+  fGeo      = document.getElementById('geo-sel').value;
+  const cutoff = fDays < 30 ? dateCutoff(fDays) : null;
+
+  filtered = allPosts.filter(p => {
+    if (fBeat     && primaryBeat(p.topic) !== fBeat)  return false;
+    if (fPlatform && p.platform  !== fPlatform)        return false;
+    if (fGeo      && p.geography !== fGeo)             return false;
+    if (fCreator  && p.creator   !== fCreator)         return false;
+    if (fWireOnly && !wireByUrl[p.url])                return false;
+    if (cutoff    && p.published && p.published < cutoff) return false;
+    if (fSearch) {
+      const q = fSearch.toLowerCase();
+      if (!p.title.toLowerCase().includes(q) &&
+          !p.creator.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
+  sortFiltered();
+  page = 0;
+  renderTable();
+  renderPaging();
+  document.getElementById('ctrl-counts').textContent =
+    `${filtered.length.toLocaleString()} of ${allPosts.length.toLocaleString()}`;
+}
+
+function sortFiltered() {
+  filtered.sort((a, b) => {
+    const va = String(a[sortCol] || '');
+    const vb = String(b[sortCol] || '');
+    const cmp = va < vb ? -1 : va > vb ? 1 : 0;
+    return sortDir === 'desc' ? -cmp : cmp;
+  });
+}
+
+function setSort(col) {
+  sortDir = (sortCol === col && sortDir === 'desc') ? 'asc' : (col === 'published' ? 'desc' : 'asc');
+  sortCol = col;
+  document.querySelectorAll('.sort-arr').forEach(el => el.textContent = '');
+  const arr = document.getElementById('sa-' + col);
+  if (arr) arr.textContent = sortDir === 'desc' ? '↓' : '↑';
+  if (!allPosts.length) return;
+  sortFiltered(); page = 0; renderTable(); renderPaging();
+}
+
+function setDays(btn) {
+  fDays = parseInt(btn.dataset.d);
+  document.querySelectorAll('.day-btn').forEach(b =>
+    b.classList.toggle('active', b === btn));
+  applyFilters();
+}
+
+function toggleWireOnly() {
+  fWireOnly = !fWireOnly;
+  document.getElementById('wire-toggle').classList.toggle('on', fWireOnly);
+  applyFilters();
+}
+
+function onSearch(val) {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => { fSearch = val.trim(); applyFilters(); }, 200);
+}
+
+function dateCutoff(days) {
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
+// Called from left panel clicks
+function filterByBeat(beat) {
+  fBeat = (fBeat === beat) ? '' : beat;
+  document.getElementById('beat-sel').value = fBeat;
+  document.querySelectorAll('.beat-row').forEach(r =>
+    r.classList.toggle('active', r.dataset.beat === fBeat));
+  applyFilters();
+}
+
+function filterByCreator(creator) {
+  fCreator = (fCreator === creator) ? '' : creator;
+  document.querySelectorAll('.creator-row').forEach(r =>
+    r.classList.toggle('active', r.dataset.creator === fCreator));
+  applyFilters();
+}
+
+// ── Table rendering ────────────────────────────────
+function renderTable() {
+  if (!allPosts.length) return;
+  const start = page * PAGE_SIZE;
+  const rows  = filtered.slice(start, start + PAGE_SIZE);
+  const tbody = document.getElementById('tbody');
+
+  tbody.innerHTML = rows.map(p => {
+    const beat  = primaryBeat(p.topic);
+    const color = beatColor(beat);
+    const wire  = wireByUrl[p.url];
+    const badge = wire ? scoreBadge(wire.score) : '';
+    const sel   = p.url === selectedUrl ? ' sel' : '';
+
+    return `<tr class="${sel}" data-url="${esc(p.url)}" onclick="selectRow(this.dataset.url)">
+      <td class="col-date">${esc(p.published)}</td>
+      <td class="col-creator" title="${esc(p.creator)}">${esc(p.creator)}</td>
+      <td class="col-beat">
+        <span class="beat-dot" style="background:${color}"></span>
+        <span class="beat-label">${esc(beat)}</span>
+      </td>
+      <td class="col-plat" title="${esc(p.platform)}">${esc(shortPlat(p.platform))}</td>
+      <td class="col-geo"  title="${esc(p.geography)}">${esc(shortGeo(p.geography))}</td>
+      <td class="col-title" title="${esc(p.title)}">
+        <a href="${esc(p.url)}" target="_blank" onclick="event.stopPropagation()">${esc(p.title)}</a>
+      </td>
+      <td class="col-wire">${badge}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('center-count').textContent =
+    `· ${filtered.length.toLocaleString()} posts`;
+}
+
+function scoreBadge(score) {
+  if (score == null) return '';
+  const cls = score >= 8 ? 'sb-hi' : score >= 7 ? 'sb-md' : 'sb-lo';
+  return `<span class="score-badge-sm ${cls}">${score.toFixed(1)}</span>`;
+}
+
+function shortPlat(p) {
+  if (!p) return '';
+  if (p.includes('Substack'))   return 'Substack';
+  if (p.includes('Newsletter')) return 'Newsletter';
+  if (p.includes('YouTube'))    return 'YouTube';
+  return p.slice(0, 11);
+}
+
+function shortGeo(g) {
+  if (!g) return '';
+  return g.split(' - ')[0].slice(0, 14);
+}
+
+function renderPaging() {
+  const total = filtered.length;
+  const pages = Math.ceil(total / PAGE_SIZE);
+  const start = total ? page * PAGE_SIZE + 1 : 0;
+  const end   = Math.min(page * PAGE_SIZE + PAGE_SIZE, total);
+  document.getElementById('pg-info').textContent =
+    total ? `${start.toLocaleString()}–${end.toLocaleString()} of ${total.toLocaleString()}` : '0 results';
+  document.getElementById('pg-prev').disabled = page === 0;
+  document.getElementById('pg-next').disabled = page >= pages - 1;
+}
+
+function changePage(delta) {
+  const pages = Math.ceil(filtered.length / PAGE_SIZE);
+  page = Math.max(0, Math.min(page + delta, pages - 1));
+  renderTable(); renderPaging();
+  document.getElementById('tbl-wrap').scrollTop = 0;
+}
+
+// ── Row selection ──────────────────────────────────
+function selectRow(url) {
+  selectedUrl = url;
+  renderTable();
+  const post = allPosts.find(p => p.url === url);
+  renderDetail(post || null);
+}
+
+function renderDetail(post) {
+  const wrap = document.getElementById('detail-wrap');
+  if (!post) {
+    wrap.innerHTML = `<div class="detail-empty">
+      <span class="mi">touch_app</span>
+      <p style="font-size:12px;color:var(--muted)">Click any row to inspect it</p>
+    </div>`;
+    return;
+  }
+
+  const beat  = primaryBeat(post.topic);
+  const color = beatColor(beat);
+  const wire  = wireByUrl[post.url] || null;
+
+  const tags = [
+    beat      ? `<span class="det-tag" style="border-color:${color};color:${color}">${esc(beat)}</span>` : '',
+    post.platform  ? `<span class="det-tag">${esc(post.platform)}</span>`  : '',
+    post.geography ? `<span class="det-tag">${esc(post.geography)}</span>` : '',
+  ].filter(Boolean).join('');
+
+  const summaryHtml = post.summary
+    ? sanitize(post.summary)
+    : '<em style="color:var(--muted2)">No summary available.</em>';
+
+  let wireHtml = '';
+  if (wire) {
+    const sub = ['newsworthiness','distinctiveness','atlas_fit','timeliness'].map(k => {
+      const v = wire['score_' + k];
+      return `<div class="ws-tile">
+        <div class="ws-tile-val">${v != null ? v : '—'}</div>
+        <div class="ws-tile-lbl">${k.replace('_',' ')}</div>
+      </div>`;
+    }).join('');
+    wireHtml = `<div>
+      <div class="det-sec">Wire Queue</div>
+      <div class="wire-box">
+        <div class="wire-score-lg">${wire.score != null ? wire.score.toFixed(1) : '—'}</div>
+        <div class="wire-score-sub">Overall score</div>
+        <div class="wire-subscores">${sub}</div>
+        ${wire.wire_frame
+          ? `<div class="wire-copy">${esc(wire.wire_frame)}</div>`
+          : '<div style="font-size:11px;color:var(--muted2)">No wire copy generated.</div>'}
+      </div>
+    </div>`;
+  } else {
+    wireHtml = `<div class="no-wire">
+      <span class="mi">info</span>
+      Not in Wire queue — score not available.
+    </div>`;
+  }
+
+  const channelLine = (post.channel && post.channel !== post.creator)
+    ? `<div class="det-channel">${esc(post.channel)}</div>` : '';
+
+  wrap.innerHTML = `
+    <div class="det-head">
+      <div class="det-title">${esc(post.title)}</div>
+      <div class="det-tags">${tags}</div>
+    </div>
+    <div class="det-body">
+      <div>
+        <div class="det-sec">Creator</div>
+        <div class="det-creator">${esc(post.creator)}</div>
+        ${channelLine}
+      </div>
+      <div>
+        <div class="det-sec">Published</div>
+        <div class="det-date">${esc(post.published || '—')}</div>
+      </div>
+      <div>
+        <div class="det-sec">Link</div>
+        <a class="det-link" href="${esc(post.url)}" target="_blank">
+          <span class="mi">open_in_new</span>${esc(post.url)}
+        </a>
+      </div>
+      <div>
+        <div class="det-sec">Summary</div>
+        <div class="summary-box">${summaryHtml}</div>
+      </div>
+      ${wireHtml}
+    </div>`;
+}
+
+// ── Left panel ─────────────────────────────────────
+function buildLeftPanel() {
+  if (!allPosts.length) return;
+
+  // Aggregate from allPosts (not filtered — left panel shows corpus-wide view)
+  const beatMap = {}, creatorMap = {};
+  allPosts.forEach(p => {
+    const b = primaryBeat(p.topic);
+    if (b) beatMap[b] = (beatMap[b]||0) + 1;
+    if (p.creator) creatorMap[p.creator] = (creatorMap[p.creator]||0) + 1;
+  });
+
+  const topBeats    = Object.entries(beatMap).sort((a,b) => b[1]-a[1]);
+  const topCreators = Object.entries(creatorMap).sort((a,b) => b[1]-a[1]).slice(0, 10);
+  const maxBeat     = topBeats[0]?.[1] || 1;
+  const uniqueCreators = Object.keys(creatorMap).length;
+  const avgPosts    = (allPosts.length / Math.max(uniqueCreators, 1)).toFixed(1);
+
+  // Signal summary sentence
+  const t1 = topBeats[0], t2 = topBeats[1];
+  let signal = t1
+    ? `<em>${t1[0]}</em> leads with <em>${t1[1].toLocaleString()}</em> posts this window`
+    : '—';
+  if (t2) signal += `, followed by <em>${t2[0]}</em> (${t2[1].toLocaleString()})`;
+  if (topCreators[0]) {
+    signal += `. <em>${topCreators[0][0]}</em> is the most active creator (${topCreators[0][1]} posts)`;
+  }
+  signal += '.';
+
+  // Themes from digest
+  let themesHtml = `<div class="empty-sig">Load Digest for AI-identified themes.</div>`;
+  const topics = digestData?.analysis?.universal?.trending_topics;
+  if (topics?.length) {
+    themesHtml = topics.slice(0, 5).map(t => `
+      <div class="theme-card" onclick="this.classList.toggle('open')">
+        <div class="theme-name">${esc(t.topic)}</div>
+        <div class="theme-meta">${t.post_count} posts · ${t.creator_count} creators</div>
+        <div class="theme-desc">${esc((t.description||'').slice(0,200))}${(t.description||'').length>200?'…':''}</div>
+      </div>`).join('');
+  }
+
+  // Beat bars
+  const beatBars = topBeats.slice(0, 14).map(([beat, count]) => {
+    const pct   = ((count / maxBeat) * 100).toFixed(1);
+    const color = beatColor(beat);
+    const isOn  = fBeat === beat;
+    return `<div class="beat-row${isOn?' active':''}" data-beat="${esc(beat)}" onclick="filterByBeat(this.dataset.beat)">
+      <div class="beat-name" title="${esc(beat)}">${esc(beat)}</div>
+      <div class="beat-bar-wrap"><div class="beat-bar" style="width:${pct}%;background:${color}"></div></div>
+      <div class="beat-meta">${count.toLocaleString()}</div>
+    </div>`;
+  }).join('');
+
+  // Creator velocity
+  const velRows = topCreators.map(([creator, count]) => {
+    const isOn = fCreator === creator;
+    return `<div class="creator-row${isOn?' active':''}" data-creator="${esc(creator)}" onclick="filterByCreator(this.dataset.creator)">
+      <div class="cv-name" title="${esc(creator)}">${esc(creator)}</div>
+      <div class="cv-count">${count} posts</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('left-body').innerHTML = `
+    <div class="sig-section">
+      <div class="sig-label"><span class="mi">bolt</span> Signal</div>
+      <div class="signal-box">${signal}</div>
+    </div>
+
+    <div class="sig-section">
+      <div class="sig-label"><span class="mi">bar_chart</span> Beat Volume</div>
+      ${beatBars}
+    </div>
+
+    <div class="sig-section">
+      <div class="sig-label"><span class="mi">auto_awesome</span> Trending Themes</div>
+      ${themesHtml}
+    </div>
+
+    <div class="sig-section">
+      <div class="sig-label"><span class="mi">trending_up</span> Creator Velocity</div>
+      ${velRows}
+    </div>
+
+    <div class="sig-section">
+      <div class="sig-label"><span class="mi">health_metrics</span> Corpus Health</div>
+      <div class="health-grid">
+        ${healthRow('Active creators (7d)', fmt(pulseMeta.active_7d))}
+        ${healthRow('Silent creators (30d)', fmt(pulseMeta.dark_count))}
+        ${healthRow('Avg posts / creator', avgPosts)}
+        ${healthRow('RSS-resolved feeds', fmt(pulseMeta.total_rss_resolved))}
+        ${healthRow('Window', (pulseMeta.window_days||30) + ' days')}
+      </div>
+    </div>`;
+}
+
+function healthRow(label, val) {
+  return `<div class="health-row">
+    <span class="health-lbl">${label}</span>
+    <span class="health-val">${val}</span>
+  </div>`;
+}
+
+// ── Utilities ──────────────────────────────────────
+function primaryBeat(topic) { return (topic || '').split(',')[0].trim(); }
+
+function esc(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// Allow Pulse HTML summaries but strip script/iframe/handlers
+function sanitize(html) {
+  return (html || '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<iframe[\s\S]*?<\/iframe>/gi, '')
+    .replace(/\son\w+="[^"]*"/gi, '')
+    .replace(/\son\w+='[^']*'/gi, '');
+}
+
+function setStatus(html) {
+  document.getElementById('tb-status').innerHTML = html;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>

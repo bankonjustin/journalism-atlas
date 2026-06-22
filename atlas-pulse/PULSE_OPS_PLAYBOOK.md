@@ -2,7 +2,7 @@
 ## How to Run a Pulse Round (Claude Chat + Claude Code)
 
 *Canonical reference. Update after each session with learnings.*
-*Last updated: 2026-06-14*
+*Last updated: 2026-06-22*
 
 ---
 
@@ -39,7 +39,8 @@ atlas_rss_universe.csv
 | 2026-04-22 | — | 464 | 807 | 120 (26%) | — | HIGH tier only |
 | 2026-05-28 | 1,453 | 883 | 2,299 | — | 45 | v2.0 pipeline |
 | 2026-06-05 | 1,589 | 890 | 2,367 | — | 0 | Local posts broke |
-| 2026-06-14 | — | — | — | — | — | Next run |
+| 2026-06-14 | — | — | — | — | — | Run completed, stats not logged |
+| 2026-06-21 | 1,589 | 902 | 5,680 | — | — | Token fix (4096→8192); `\|\| true` patch on steps 3+4; 545 active 7d; 226 silent 30d |
 
 **Healthy run targets:**
 - Failure rate: <20% (120/464 = 26% in April — elevated, needs monitoring)
@@ -238,6 +239,45 @@ After a successful digest run, enrichment tasks that can be done in the same Cod
 - **Standard:** Weekly (every 7 days, aligned with 7-day fetch window)
 - **Chicago static JSON for `/pulse` page:** Same cadence — run script, commit JSON, push
 - **Emergency run:** After a major breaking story (e.g., Minnesota ICE raids) — use `--days 3` to narrow window and `--tiers HIGH` for speed
+
+---
+
+## Cadence & Run Modes
+
+| Mode | Frequency | Command | What it produces | Time |
+|------|-----------|---------|-----------------|------|
+| Full | Sunday 9am (scheduled) | `./refresh_pulse.sh` | Pulse digest, site update (pulse.html, index.html, for-brands.html), spidering brief | ~30 min |
+| Wire | Tue + Thu 9am (scheduled) | `./refresh_pulse.sh --wire` | Wire queue scored JSON only — does NOT update site | ~15 min |
+| Manual full | As needed | `./refresh_pulse.sh` | Same as Full | ~30 min |
+| Manual wire | As needed | `./refresh_pulse.sh --wire` | Same as Wire | ~15 min |
+
+### Scheduled task instructions (for Tue/Thu Wire runs)
+
+Copy this text exactly into each new scheduled task:
+
+**Description:** Atlas Wire queue refresh — build Wire queue from 1-day RSS window
+
+**Instructions:**
+Run the Wire queue pipeline:
+```
+cd "/Users/justinbank/Documents/Atlas Spidering/core"
+./refresh_pulse.sh --wire
+```
+
+This runs three steps:
+- `pulse_v2.py --days 1` — fetches last 24h of RSS posts (~10 min)
+- `atlas_wire_fetch.py` — builds raw Wire queue from Pulse output (RSS + Bluesky)
+- `atlas_wire_rank.py` — AI-scores and clusters queue items (~$0.15, ~3 min)
+
+Does NOT update the live site. Does NOT run digest or spidering brief.
+
+Report back:
+- Items fetched from RSS
+- Items added to Wire queue
+- Score range (min / max / avg)
+- Any errors
+
+Open `atlas_wire_intelligence.html` to review the queue.
 
 ---
 
