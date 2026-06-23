@@ -234,16 +234,11 @@
       transition: opacity 0.15s;
     }
     .gallery-card-link:hover { opacity: 0.7; }
-    .gallery-grid-asymmetric { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-    .gallery-card--featured { border: 1px solid rgba(206,255,0,0.2); background: rgba(206,255,0,0.04); }
-    .gallery-card--featured .gallery-card-eyebrow { color: #ceff00; }
-    .gallery-card--featured .gallery-card-name { font-size: 22px; }
-    @media (max-width: 768px) { .gallery-grid-asymmetric { grid-template-columns: 1fr; } }
     /* ── Gallery mini previews (CSS-drawn ornamental) ── */
     .gallery-mini-pulse { display: flex; align-items: flex-end; gap: 6px; height: 48px; margin-bottom: 16px; }
     .gmp-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
     .gmp-bar { width: 100%; background: #ceff00; border-radius: 2px 2px 0 0; opacity: 0.6; min-height: 4px; }
-    .gallery-card--featured .gmp-bar { opacity: 0.85; }
+
     .gmp-label { font-family: 'DM Mono', monospace; font-size: 7px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
     .gallery-mini-search { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
     .gms-filter { display: flex; gap: 6px; }
@@ -415,18 +410,13 @@
 
     /* ── Trust Bar ── */
     .trust-bar-section { background: #efeff2; padding: 40px 40px; border-bottom: 1px solid #d4d4d8; }
-    .trust-bar-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 32px; }
-    .trust-bar-left { flex: 1; min-width: 280px; }
-    .trust-bar-right { flex-shrink: 0; }
-    .trust-bar-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(17,17,17,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
-    .trust-bar-team { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin-bottom: 20px; }
-    .trust-person { display: flex; align-items: center; gap: 10px; padding-right: 20px; }
-    .trust-person-divider { width: 1px; height: 32px; background: #d4d4d8; margin-right: 20px; flex-shrink: 0; }
+    .trust-bar-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 32px; }
+    .trust-bar-founders { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .trust-divider { width: 1px; height: 32px; background: #d4d4d8; flex-shrink: 0; }
     .trust-avatar { width: 36px; height: 36px; border-radius: 100px; background: #313131; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .trust-person-name { font-size: 14px; font-weight: 700; color: #111; line-height: 1.2; }
-    .trust-person-role { font-size: 12px; color: rgba(17,17,17,0.5); line-height: 1.4; margin-top: 2px; }
-    .trust-bar-lineage { font-size: 13px; color: rgba(17,17,17,0.55); line-height: 1.65; margin: 0; max-width: 560px; padding-top: 16px; border-top: 1px solid #d4d4d8; }
-    .trust-cites { display: flex; flex-wrap: wrap; gap: 8px; }
+    .trust-founder-name { font-size: 14px; font-weight: 700; color: #111; line-height: 1.2; }
+    .trust-cites { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .trust-cites-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(17,17,17,0.35); letter-spacing: 0.14em; text-transform: uppercase; }
     .trust-cite-pill { font-size: 12px; color: #313131; background: #fff; border: 1px solid #d4d4d8; border-radius: 100px; padding: 5px 14px; }
 
     /* ── Beat Explorer ── */
@@ -451,18 +441,13 @@
     .bx-search-cta:hover { opacity: 0.75; }
     .bx-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
 
-    /* ── Pricing Clarity Section ── */
-    .pricing-clarity-section { background: #efeff2; padding: 80px 40px; }
-    .pricing-clarity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
-    .pricing-col { background: #fff; border-radius: 6px; padding: 36px 32px; border: 1px solid #d4d4d8; }
-    .pricing-col--paid { border-color: #97d600; }
-    .pricing-col-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 24px; }
-    .pricing-col--free .pricing-col-badge { background: #efeff2; color: #313131; }
-    .pricing-col--paid .pricing-col-badge { background: #97d600; color: #111; }
+    /* ── Gallery Offer Grid (Free + Paid two-column) ── */
+    .gallery-offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .gallery-offer-col--paid { padding: 36px 32px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; }
+    @media (max-width: 768px) { .gallery-offer-grid { grid-template-columns: 1fr; gap: 32px; } }
     .pricing-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
-    .pricing-col-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: #313131; line-height: 1.6; }
-    .pricing-col-list .material-symbols-outlined { font-size: 20px; color: #5d7400; flex-shrink: 0; margin-top: 2px; }
-    @media (max-width: 680px) { .pricing-clarity-grid { grid-template-columns: 1fr; } }
+    .pricing-col-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.6; }
+    .pricing-col-list .material-symbols-outlined { font-size: 20px; color: #ceff00; flex-shrink: 0; margin-top: 2px; }
 
     /* ── Live Window Editorial (Pulse section) ── */
     .live-window-editorial { font-size: 18px; color: #e0e0e0; line-height: 1.8; max-width: 680px; margin: 0 0 40px; border-left: 3px solid rgba(206,255,0,0.4); padding-left: 20px; }
@@ -473,7 +458,7 @@
     @media (max-width: 768px) {
       .hero-section, .problem-section, .compare-section, .three-ways-section,
       .good-news-section, .atlas-does-section, .gallery-section, .pulse-intel-section,
-      .brief-section, .form-section, .trust-bar-section, .pricing-clarity-section { padding-left: 20px; padding-right: 20px; }
+      .brief-section, .form-section, .trust-bar-section { padding-left: 20px; padding-right: 20px; }
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
       .hero-ctas { flex-direction: column; }
@@ -566,46 +551,40 @@
 <!-- ── TRUST BAR ── -->
 <section class="trust-bar-section">
   <div class="trust-bar-inner">
-    <div class="trust-bar-left">
-      <div class="trust-bar-label">Built by</div>
-      <div class="trust-bar-team">
-        <div class="trust-person">
-          <div class="trust-avatar">JB</div>
-          <div>
-            <div class="trust-person-name">Justin Bank</div>
-            <div class="trust-person-role">Washington Post · Nieman Fellow, Harvard</div>
-          </div>
-        </div>
-        <div class="trust-person-divider"></div>
-        <div class="trust-person">
-          <div class="trust-avatar">LN</div>
-          <div>
-            <div class="trust-person-name">Liz Kelly Nelson</div>
-            <div class="trust-person-role">Washington Post · Sulzberger Fellow, Columbia</div>
-          </div>
-        </div>
-        <div class="trust-person-divider"></div>
-        <div class="trust-person">
-          <div class="trust-avatar">RK</div>
-          <div>
-            <div class="trust-person-name">Ryan Kellett</div>
-            <div class="trust-person-role">Washington Post · NPR · Axios</div>
-          </div>
+    <div class="trust-bar-founders">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="trust-avatar">JB</div>
+        <div>
+          <div class="trust-founder-name">Justin Bank</div>
+          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Washington Post · NYT · NPR</div>
         </div>
       </div>
-      <p class="trust-bar-lineage">Methodology developed through Nieman and Sulzberger fellowships at Harvard and Columbia. Operational experience across the Washington Post, New York Times, Vox, Axios, NPR, and Gannett.</p>
+      <div class="trust-divider"></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="trust-avatar">LN</div>
+        <div>
+          <div class="trust-founder-name">Liz Kelly Nelson</div>
+          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Washington Post · Strategy &amp; editorial</div>
+        </div>
+      </div>
+      <div class="trust-divider"></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="trust-avatar">RK</div>
+        <div>
+          <div class="trust-founder-name">Ryan Kellett</div>
+          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Nieman Fellow, Harvard · Washington Post · Axios</div>
+        </div>
+      </div>
     </div>
-    <div class="trust-bar-right">
-      <div class="trust-bar-label">Cited by</div>
+    <div class="trust-cites">
+      <span class="trust-cites-label">Cited by</span>
       <!-- TODO Justin/Liz: Replace with verified press citations.
            Candidates: Reuters Institute Digital News Report 2026,
            Nieman Lab, Press Gazette, Columbia Journalism Review.
            Pull exact URLs + quote fragments when confirmed. -->
-      <div class="trust-cites">
-        <span class="trust-cite-pill">Reuters Institute 2026</span>
-        <span class="trust-cite-pill">Nieman Lab</span>
-        <span class="trust-cite-pill">Press Gazette</span>
-      </div>
+      <span class="trust-cite-pill">Reuters Institute 2026</span>
+      <span class="trust-cite-pill">Nieman Lab</span>
+      <span class="trust-cite-pill">Press Gazette</span>
     </div>
   </div>
 </section>
@@ -786,71 +765,56 @@
   </div>
 </section>
 
-<!-- ── PRICING CLARITY ── -->
-<section class="pricing-clarity-section">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--light">What's Free. What's Paid.</div>
-    <h2 class="h2-light">We built this to be useful before it's paid for.</h2>
-    <div class="pricing-clarity-grid">
-      <div class="pricing-col pricing-col--free">
-        <div class="pricing-col-badge">Always free</div>
-        <ul class="pricing-col-list">
-          <li><span class="material-symbols-outlined">rss_feed</span><div><strong>Atlas Pulse</strong> — weekly digest of what 882 creator feeds are publishing, by beat. No account needed.</div></li>
-          <li><span class="material-symbols-outlined">search</span><div><strong>Atlas search</strong> — browse and filter 1,453 verified creator journalists by topic, platform, and geography.</div></li>
-          <li><span class="material-symbols-outlined">open_in_new</span><div><strong>Creator profiles</strong> — every verified entry is public. Click through to see what they cover and where.</div></li>
-        </ul>
-      </div>
-      <div class="pricing-col pricing-col--paid">
-        <div class="pricing-col-badge">Paid engagement</div>
-        <ul class="pricing-col-list">
-          <li><span class="material-symbols-outlined">summarize</span><div><strong>Custom intelligence briefs</strong> — filtered creator lists, coverage briefings, and audience intelligence packages built by hand for your team.</div></li>
-          <li><span class="material-symbols-outlined">monitor</span><div><strong>Ongoing monitoring</strong> — weekly or monthly coverage alerts tuned to your issues, markets, and timeline.</div></li>
-          <li><span class="material-symbols-outlined">group</span><div><strong>Discovery consulting</strong> — we work directly with comms teams to map the creator landscape for a campaign, a beat, or a market.</div></li>
-        </ul>
-        <a href="#build-brief" class="btn-primary" style="margin-top:24px;display:inline-block;">Tell us what you're tracking</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 9 — PROTOTYPE GALLERY
-═══════════════════════════════════════════════════════════ -->
+<!-- ═══ WHAT WE OFFER + TWO WAYS IN ═══ -->
 <section class="gallery-section">
   <div class="section-inner">
-    <div class="eyebrow eyebrow--dark">Two Ways In</div>
-    <h2 class="h2-dark">Two ways in. Both free.</h2>
-    <p class="gallery-intro">Atlas Pulse shows you what the ecosystem is covering right now. Atlas Search lets you find the specific journalists covering your beat.</p>
-    <div class="gallery-grid-asymmetric">
 
-      <!-- Atlas Pulse -->
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer"
-         class="gallery-card gallery-card--featured">
-        <div class="gallery-mini-pulse">
-          <div class="gmp-col"><div class="gmp-bar" style="height:80%"></div><div class="gmp-label">Politics</div></div>
-          <div class="gmp-col"><div class="gmp-bar" style="height:45%"></div><div class="gmp-label">Tech</div></div>
-          <div class="gmp-col"><div class="gmp-bar" style="height:30%"></div><div class="gmp-label">Finance</div></div>
-          <div class="gmp-col"><div class="gmp-bar" style="height:35%"></div><div class="gmp-label">Culture</div></div>
-          <div class="gmp-col"><div class="gmp-bar" style="height:26%"></div><div class="gmp-label">Media</div></div>
-        </div>
-        <div class="gallery-card-eyebrow">Atlas Pulse · Always Free</div>
-        <div class="gallery-card-name">882 creator feeds, monitored weekly.</div>
-        <p class="gallery-card-desc">Beat-filtered coverage digest. See what independent journalists across every beat are publishing this week — before your morning briefing.</p>
-        <span class="gallery-card-link">View the digest →</span>
-      </a>
+    <div class="gallery-offer-grid">
 
-      <!-- Atlas Search -->
-      <a href="index.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
-        <div class="gallery-mini-search">
-          <div class="gms-filter"><span></span><span></span><span></span></div>
-          <div class="gms-result"><div class="gms-avatar">KS</div><div class="gms-lines"><span></span><span></span></div></div>
-          <div class="gms-result"><div class="gms-avatar">CN</div><div class="gms-lines"><span></span><span></span></div></div>
-        </div>
-        <div class="gallery-card-eyebrow">Atlas Search · Always Free</div>
-        <div class="gallery-card-name">1,453 verified creator journalists.</div>
-        <p class="gallery-card-desc">Filter by beat, platform, geography, and audience size. Every entry is human-verified. Find the journalists covering your issues.</p>
-        <span class="gallery-card-link">Search the Atlas →</span>
-      </a>
+      <!-- Left column: free tools -->
+      <div class="gallery-offer-col">
+        <div class="eyebrow eyebrow--dark">Always free</div>
+        <h2 class="h2-dark" style="font-size:clamp(22px,2.5vw,32px);margin-bottom:20px;">Two live products. No account needed.</h2>
+
+        <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="gallery-card" style="margin-bottom:12px;">
+          <div class="gallery-mini-pulse">
+            <div class="gmp-col"><div class="gmp-bar" style="height:80%"></div><div class="gmp-label">Politics</div></div>
+            <div class="gmp-col"><div class="gmp-bar" style="height:45%"></div><div class="gmp-label">Tech</div></div>
+            <div class="gmp-col"><div class="gmp-bar" style="height:30%"></div><div class="gmp-label">Finance</div></div>
+            <div class="gmp-col"><div class="gmp-bar" style="height:25%"></div><div class="gmp-label">Culture</div></div>
+            <div class="gmp-col"><div class="gmp-bar" style="height:22%"></div><div class="gmp-label">Media</div></div>
+          </div>
+          <div class="gallery-card-eyebrow">Atlas Pulse · Always Free</div>
+          <div class="gallery-card-name">What the ecosystem is covering this week.</div>
+          <p class="gallery-card-desc">882 creator feeds, monitored weekly. Beat-filtered. See what independent journalists are publishing across your issues — before your morning briefing.</p>
+          <span class="gallery-card-link">View the live digest →</span>
+        </a>
+
+        <a href="index.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
+          <div class="gallery-mini-search">
+            <div class="gms-filter"><span></span><span></span><span></span></div>
+            <div class="gms-result"><div class="gms-avatar">KS</div><div class="gms-lines"><span></span><span></span></div></div>
+            <div class="gms-result"><div class="gms-avatar">CN</div><div class="gms-lines"><span></span><span></span></div></div>
+          </div>
+          <div class="gallery-card-eyebrow">Atlas Search · Always Free</div>
+          <div class="gallery-card-name">Find the journalists covering your beat.</div>
+          <p class="gallery-card-desc">1,453 verified creator-journalists, filterable by topic, platform, and geography. Every entry human-verified. No algorithmic noise.</p>
+          <span class="gallery-card-link">Search the Atlas →</span>
+        </a>
+      </div>
+
+      <!-- Right column: paid -->
+      <div class="gallery-offer-col gallery-offer-col--paid">
+        <div class="eyebrow eyebrow--dark" style="color:rgba(206,255,0,0.5);">Paid engagement</div>
+        <h2 class="h2-dark" style="font-size:clamp(22px,2.5vw,32px);margin-bottom:20px;">We build intelligence for your team.</h2>
+        <p style="font-size:16px;color:#bdbdbd;line-height:1.7;margin:0 0 28px;">The free tools show you the ecosystem. The paid work is us inside it — filtering, analyzing, and briefing your team on what matters for your specific issues, markets, and timeline.</p>
+        <ul class="pricing-col-list" style="margin-bottom:32px;">
+          <li><span class="material-symbols-outlined">summarize</span><div><strong style="color:#fff;">Custom intelligence briefs</strong><span style="color:#bdbdbd;"> — filtered creator lists, coverage briefings, and audience packages built by hand.</span></div></li>
+          <li><span class="material-symbols-outlined">monitor</span><div><strong style="color:#fff;">Ongoing monitoring</strong><span style="color:#bdbdbd;"> — weekly or monthly coverage alerts tuned to your issues and timeline.</span></div></li>
+          <li><span class="material-symbols-outlined">group</span><div><strong style="color:#fff;">Discovery consulting</strong><span style="color:#bdbdbd;"> — we map the creator landscape for a campaign, a beat, or a market.</span></div></li>
+        </ul>
+        <a href="#build-brief" class="btn-primary">Tell us what you're tracking</a>
+      </div>
 
     </div>
   </div>
