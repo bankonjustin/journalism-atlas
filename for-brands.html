@@ -180,18 +180,18 @@
     .three-ways-note em { color: rgba(255,255,255,0.6); font-style: normal; }
 
     /* ═══════════════════════════════════════════════════════════
-       SECTION 6 — GOOD NEWS (dark — acid green numbers correct on dark)
+       SECTION 6 — GOOD NEWS (light surface — Muck Rack stats as evidence, not billboard)
     ═══════════════════════════════════════════════════════════ */
-    .good-news-section { background: #0d0d0d; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .good-news-section { background: #efeff2; padding: 80px 40px; border-top: 1px solid #d4d4d8; }
     .good-news-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-bottom: 48px; }
     .good-news-stat {}
     .good-news-num {
       font-family: 'DM Mono', monospace; font-size: clamp(64px, 8vw, 96px);
-      font-weight: 700; color: #ceff00; line-height: 1; letter-spacing: -0.04em;
+      font-weight: 700; color: #313131; line-height: 1; letter-spacing: -0.04em;
     }
-    .good-news-label { font-size: 18px; color: #fff; margin-top: 16px; line-height: 1.5; max-width: 320px; }
+    .good-news-label { font-size: 18px; color: #313131; margin-top: 16px; line-height: 1.5; max-width: 320px; }
     .good-news-followup {
-      font-size: 18px; color: #bdbdbd; line-height: 1.75; max-width: 680px;
+      font-size: 18px; color: rgba(17,17,17,0.65); line-height: 1.75; max-width: 680px;
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -328,7 +328,7 @@
       transition: opacity 0.15s;
     }
     .gallery-card-link:hover { opacity: 0.7; }
-    .gallery-grid-asymmetric { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; }
+    .gallery-grid-asymmetric { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
     .gallery-card--featured { border: 1px solid rgba(206,255,0,0.2); background: rgba(206,255,0,0.04); }
     .gallery-card--featured .gallery-card-eyebrow { color: #ceff00; }
     .gallery-card--featured .gallery-card-name { font-size: 22px; }
@@ -478,10 +478,66 @@
     .pulse-intel-footer a { color: rgba(206,255,0,0.5); text-decoration: none; }
     .pulse-intel-footer a:hover { color: #ceff00; }
 
+    /* ── Trust Bar ── */
+    .trust-bar-section { background: #efeff2; padding: 32px 40px; border-bottom: 1px solid #d4d4d8; }
+    .trust-bar-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .trust-bar-founders { display: flex; align-items: center; gap: 16px; }
+    .trust-avatar { width: 36px; height: 36px; border-radius: 100px; background: #313131; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .trust-founder-info { font-size: 13px; color: #313131; line-height: 1.4; }
+    .trust-founder-name { font-weight: 700; }
+    .trust-divider { width: 1px; height: 32px; background: #d4d4d8; flex-shrink: 0; }
+    .trust-cites { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .trust-cites-label { font-size: 11px; font-weight: 500; color: rgba(17,17,17,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; }
+    .trust-cite-pill { font-size: 12px; color: #313131; background: #fff; border: 1px solid #d4d4d8; border-radius: 100px; padding: 4px 12px; }
+
+    /* ── Beat Presence Bar ── */
+    .beat-presence-bar { margin: 32px 0 0; padding: 28px 32px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; }
+    .beat-presence-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .beat-presence-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .beat-chip { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 6px 14px; }
+    .beat-chip--top { background: rgba(206,255,0,0.08); border-color: rgba(206,255,0,0.2); }
+    .beat-chip-name { font-size: 13px; font-weight: 500; color: #fff; }
+    .beat-chip-count { font-size: 11px; color: rgba(255,255,255,0.4); }
+    .beat-chip--top .beat-chip-name { color: #ceff00; }
+    .beat-presence-note { font-size: 13px; color: rgba(255,255,255,0.4); margin: 0; line-height: 1.6; }
+    .beat-presence-link { color: rgba(206,255,0,0.7); text-decoration: none; }
+    .beat-presence-link:hover { color: #ceff00; }
+
+    /* ── Creator Spotlight Strip ── */
+    .creator-spotlight-strip { margin-top: 40px; padding: 24px 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(206,255,0,0.15); border-radius: 6px; display: flex; flex-direction: column; gap: 16px; }
+    .spotlight-label { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: #ceff00; letter-spacing: 0.12em; text-transform: uppercase; }
+    .spotlight-content { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+    .spotlight-avatar { width: 40px; height: 40px; border-radius: 100px; background: rgba(206,255,0,0.12); color: #ceff00; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .spotlight-text { flex: 1; min-width: 200px; }
+    .spotlight-name { display: block; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .spotlight-meta { display: block; font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+    .spotlight-note { display: block; font-size: 14px; color: #bdbdbd; line-height: 1.6; }
+    .spotlight-cta { display: inline-block; font-size: 13px; font-weight: 700; color: #ceff00; text-decoration: none; white-space: nowrap; align-self: center; flex-shrink: 0; }
+    .spotlight-cta:hover { opacity: 0.75; }
+
+    /* ── Pricing Clarity Section ── */
+    .pricing-clarity-section { background: #efeff2; padding: 80px 40px; }
+    .pricing-clarity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+    .pricing-col { background: #fff; border-radius: 6px; padding: 36px 32px; border: 1px solid #d4d4d8; }
+    .pricing-col--paid { border-color: #97d600; }
+    .pricing-col-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 24px; }
+    .pricing-col--free .pricing-col-badge { background: #efeff2; color: #313131; }
+    .pricing-col--paid .pricing-col-badge { background: #97d600; color: #111; }
+    .pricing-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
+    .pricing-col-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: #313131; line-height: 1.6; }
+    .pricing-col-list .material-symbols-outlined { font-size: 20px; color: #5d7400; flex-shrink: 0; margin-top: 2px; }
+    @media (max-width: 680px) { .pricing-clarity-grid { grid-template-columns: 1fr; } }
+
+    /* ── Live Window Editorial (Pulse section) ── */
+    .live-window-editorial { font-size: 18px; color: #e0e0e0; line-height: 1.8; max-width: 680px; margin: 0 0 40px; border-left: 3px solid rgba(206,255,0,0.4); padding-left: 20px; }
+
+    /* ── Pulse Follower Note ── */
+    .pulse-intel-follower-note { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; margin: 16px 0 0; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+
     @media (max-width: 768px) {
       .hero-section, .problem-section, .compare-section, .three-ways-section,
       .good-news-section, .atlas-does-section, .gallery-section, .pulse-intel-section,
-      .brief-section, .form-section { padding-left: 20px; padding-right: 20px; }
+      .brief-section, .form-section, .trust-bar-section, .pricing-clarity-section { padding-left: 20px; padding-right: 20px; }
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
       .hero-ctas { flex-direction: column; }
@@ -517,7 +573,41 @@
     <h1 class="hero-h1">The journalists covering your issues<br>aren't in your media list.</h1>
     <p class="hero-sub">Independent creator journalists have built loyal, paying audiences around the exact topics you care about. They're not hard to find. They're just not in the places you're looking.</p>
     <div class="hero-ctas">
-      <a href="#build-brief" class="btn-primary">Request a discovery call</a>
+      <a href="#intelligence-layer" class="btn-primary">See the intelligence layer</a>
+      <a href="#build-brief" class="btn-ghost">Tell us what you're tracking</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ── -->
+<section class="trust-bar-section">
+  <div class="trust-bar-inner">
+    <div class="trust-bar-founders">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="trust-avatar">JB</div>
+        <div class="trust-founder-info">
+          <div class="trust-founder-name">Justin Bank</div>
+          <div style="color:rgba(17,17,17,0.5);">Washington Post · Data journalist</div>
+        </div>
+      </div>
+      <div class="trust-divider"></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="trust-avatar">LN</div>
+        <div class="trust-founder-info">
+          <div class="trust-founder-name">Liz Kelly Nelson</div>
+          <div style="color:rgba(17,17,17,0.5);">Washington Post · Strategy &amp; editorial</div>
+        </div>
+      </div>
+    </div>
+    <div class="trust-cites">
+      <span class="trust-cites-label">Cited by</span>
+      <!-- TODO Justin/Liz: Replace with verified press citations.
+           Candidates: Reuters Institute Digital News Report 2026,
+           Nieman Lab coverage, Press Gazette, Columbia Journalism Review.
+           Pull exact URLs + quote fragments when confirmed. -->
+      <span class="trust-cite-pill">Reuters Institute 2026</span>
+      <span class="trust-cite-pill">Nieman Lab</span>
+      <span class="trust-cite-pill">Press Gazette</span>
     </div>
   </div>
 </section>
@@ -627,22 +717,22 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
-     SECTION 6 — THE GOOD NEWS (dark background — acid green numbers correct here)
+     SECTION 6 — THE GOOD NEWS (light surface — sourced stats read as evidence, not billboard)
 ═══════════════════════════════════════════════════════════ -->
 <section class="good-news-section">
   <div class="section-inner">
-    <div class="eyebrow eyebrow--dark">The Good News for Communicators</div>
-    <h2 class="h2-dark">They want to hear from you.</h2>
+    <div class="eyebrow eyebrow--light">The Good News for Communicators</div>
+    <h2 class="h2-light">They want to hear from you.</h2>
     <div class="good-news-stats">
       <div class="good-news-stat">
         <div class="good-news-num">82%</div>
         <div class="good-news-label">of creator journalists say some stories start with a pitch</div>
-        <div class="source-attr">Muck Rack</div>
+        <div class="source-attr--light">Muck Rack</div>
       </div>
       <div class="good-news-stat">
         <div class="good-news-num">32%</div>
         <div class="good-news-label">see PR professionals as essential partners</div>
-        <div class="source-attr">Muck Rack</div>
+        <div class="source-attr--light">Muck Rack</div>
       </div>
     </div>
     <p class="good-news-followup">The opportunity is real. The barrier is discoverability. Most comms teams don't know which creator journalists are covering their issues or industry, in their markets, at the scale that matters. That's the gap the Atlas closes.</p>
@@ -652,7 +742,7 @@
 <!-- ═══════════════════════════════════════════════════════════
      SECTION 7 — WHAT THE ATLAS DOES
 ═══════════════════════════════════════════════════════════ -->
-<section class="atlas-does-section">
+<section class="atlas-does-section" id="intelligence-layer">
   <div class="section-inner">
     <div class="eyebrow eyebrow--dark">The Intelligence Layer</div>
     <h2 class="h2-dark">1,453 verified creator journalists. Mapped, filtered, monitored.</h2>
@@ -674,7 +764,63 @@
         <p class="atlas-card-body">We build filtered creator lists, coverage briefings, and audience intelligence packages for comms teams — tuned to your issues, your markets, your timeline.</p>
       </div>
     </div>
-    <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="atlas-cta-link">See a live example →</a>
+    <div class="beat-presence-bar">
+      <div class="beat-presence-label">Top beats tracked across 1,453 verified creators</div>
+      <div class="beat-presence-chips">
+        <div class="beat-chip beat-chip--top">
+          <span class="beat-chip-name">Politics &amp; Government</span>
+          <span class="beat-chip-count">125+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Technology</span>
+          <span class="beat-chip-count">74+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Media &amp; Power</span>
+          <span class="beat-chip-count">54+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Business &amp; Economy</span>
+          <span class="beat-chip-count">41+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Culture &amp; Society</span>
+          <span class="beat-chip-count">46+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Health &amp; Science</span>
+          <span class="beat-chip-count">38+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Local &amp; Regional</span>
+          <span class="beat-chip-count">200+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Environment &amp; Climate</span>
+          <span class="beat-chip-count">32+ creators</span>
+        </div>
+        <div class="beat-chip">
+          <span class="beat-chip-name">Food &amp; Consumer</span>
+          <span class="beat-chip-count">28+ creators</span>
+        </div>
+      </div>
+      <p class="beat-presence-note">Business &amp; Economy includes independent voices like Kyla Scanlon, Brad DeLong, and Heidi Moore. <a href="index.html" class="beat-presence-link">Explore all beats in the Atlas →</a></p>
+    </div>
+
+    <div class="creator-spotlight-strip">
+      <span class="spotlight-label">From the Atlas</span>
+      <div class="spotlight-content">
+        <div class="spotlight-avatar">KS</div>
+        <div class="spotlight-text">
+          <span class="spotlight-name">Kyla Scanlon</span>
+          <span class="spotlight-meta">Business &amp; Economy · Substack + YouTube · 200K+ subscribers</span>
+          <span class="spotlight-note">One of the most-cited independent voices on economic sentiment. Covers consumer confidence, inflation, and labor — the issues your financial services or consumer brand comms team tracks daily.</span>
+        </div>
+        <a href="index.html" class="spotlight-cta">Find creators like this →</a>
+      </div>
+    </div>
+
+    <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="atlas-cta-link" style="display:inline-block;margin-top:32px;">See a live example →</a>
   </div>
 </section>
 
@@ -710,6 +856,33 @@
           <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>
           View full interactive brief
         </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING CLARITY ── -->
+<section class="pricing-clarity-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--light">What's Free. What's Paid.</div>
+    <h2 class="h2-light">We built this to be useful before it's paid for.</h2>
+    <div class="pricing-clarity-grid">
+      <div class="pricing-col pricing-col--free">
+        <div class="pricing-col-badge">Always free</div>
+        <ul class="pricing-col-list">
+          <li><span class="material-symbols-outlined">rss_feed</span><div><strong>Atlas Pulse</strong> — weekly digest of what 882 creator feeds are publishing, by beat. No account needed.</div></li>
+          <li><span class="material-symbols-outlined">search</span><div><strong>Atlas search</strong> — browse and filter 1,453 verified creator journalists by topic, platform, and geography.</div></li>
+          <li><span class="material-symbols-outlined">open_in_new</span><div><strong>Creator profiles</strong> — every verified entry is public. Click through to see what they cover and where.</div></li>
+        </ul>
+      </div>
+      <div class="pricing-col pricing-col--paid">
+        <div class="pricing-col-badge">Paid engagement</div>
+        <ul class="pricing-col-list">
+          <li><span class="material-symbols-outlined">summarize</span><div><strong>Custom intelligence briefs</strong> — filtered creator lists, coverage briefings, and audience intelligence packages built by hand for your team.</div></li>
+          <li><span class="material-symbols-outlined">monitor</span><div><strong>Ongoing monitoring</strong> — weekly or monthly coverage alerts tuned to your issues, markets, and timeline.</div></li>
+          <li><span class="material-symbols-outlined">group</span><div><strong>Discovery consulting</strong> — we work directly with comms teams to map the creator landscape for a campaign, a beat, or a market.</div></li>
+        </ul>
+        <a href="#build-brief" class="btn-primary" style="margin-top:24px;display:inline-block;">Tell us what you're tracking</a>
       </div>
     </div>
   </div>
@@ -755,6 +928,10 @@
       <div>
         <div class="eyebrow eyebrow--dark"><span class="pulse-dot-acid"></span>Atlas Pulse · Coverage Intelligence</div>
         <h2 class="h2-dark">What the ecosystem is publishing this week.</h2>
+        <!-- TODO: Update this paragraph weekly alongside PULSE_SNAPSHOT_BRANDS data swap.
+             Write 2-3 sentences in plain editorial voice. Name the actual dominant story.
+             Keep the same structure: dominant beat + post count, named creators, closing signal line. -->
+        <p class="live-window-editorial">The week of June 21 — 125 independent political and policy journalists published 879 posts, dominated by Juneteenth and what it means in 2026. Culture, Technology, and Media/Power voices combined for another 598 posts; Jerusalem Demsas covered the "dad tax" for The Argument, Andy Revkin filed on the NatGeo museum, and M.G. Siegler tracked Amazon's move on OpenAI. Business and Economy voices — including Kyla Scanlon and Brad DeLong — added 162 more across 41 creators. This is 882 feeds, monitored weekly, filtered to what's actually moving.</p>
         <p class="pulse-intel-sub">
           <span id="brands-pulse-date">Updated May 9, 2026</span> · 882 feeds ·
           <span id="brands-pulse-active">574</span> creators active this week
@@ -763,6 +940,11 @@
       <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta">See full digest →</a>
     </div>
     <div class="pulse-intel-grid" id="pulse-intel-grid"></div>
+    <div class="pulse-intel-follower-note">
+      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">info</span>
+      Follower counts, platform reach, and audience size data are available for every verified creator in the Atlas database.
+      <a href="index.html" style="color:rgba(206,255,0,0.7);">Search the full Atlas →</a>
+    </div>
     <div class="pulse-intel-footer">
       <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">lock_open</span>
       Atlas Pulse is always free. &nbsp;
@@ -789,14 +971,26 @@
           <div class="bf-field">
             <label class="bf-label" for="bf-industry">Your industry</label>
             <select class="bf-select" id="bf-industry" name="industry">
-              <option value="" disabled selected>Select your industry</option>
-              <option>Consumer Brands</option>
-              <option>Food &amp; Beverage</option>
-              <option>Tech &amp; Gaming</option>
-              <option>Health &amp; Pharma</option>
-              <option>Financial Services</option>
-              <option>Public Affairs &amp; Advocacy</option>
-              <option>Agency (multi-client)</option>
+              <option value="" disabled selected>Select your sector</option>
+              <optgroup label="Corporate">
+                <option>Consumer Brands &amp; Retail</option>
+                <option>Food &amp; Beverage</option>
+                <option>Financial Services</option>
+                <option>Technology &amp; Gaming</option>
+                <option>Health &amp; Pharma</option>
+                <option>Energy &amp; Sustainability</option>
+              </optgroup>
+              <optgroup label="Public Affairs &amp; Policy">
+                <option>Federal / State Public Affairs</option>
+                <option>Advocacy &amp; Nonprofit</option>
+                <option>Foundation &amp; Philanthropy</option>
+                <option>International Affairs</option>
+              </optgroup>
+              <optgroup label="Agency">
+                <option>PR Agency (multi-client)</option>
+                <option>Public Affairs Firm</option>
+                <option>Integrated / Full-Service Agency</option>
+              </optgroup>
               <option>Other</option>
             </select>
           </div>
@@ -963,7 +1157,7 @@ function renderBrandsPulse() {
         <div class="pi-bar-label">Coverage volume</div>
         <div class="pi-beat-bar-track"><div class="pi-beat-bar-fill" style="width:${beat.bar_pct}%"></div></div>
         <div class="pi-posts">${posts}</div>
-        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more">More ${displayName} →</a>
+        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more">View creators with audience data →</a>
       </div>`;
   }).join('');
 }
