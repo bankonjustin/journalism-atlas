@@ -203,107 +203,13 @@
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
       border-radius: 6px; padding: 28px 24px;
     }
-    .atlas-card-icon { color: rgba(255,255,255,0.5); font-size: 28px; margin-bottom: 14px; }
+    .atlas-card-icon { color: #ceff00; font-size: 28px; margin-bottom: 14px; }
     .atlas-card-title { font-size: 17px; font-weight: 700; color: #fff; margin: 0 0 10px; }
     .atlas-card-body { font-size: 16px; color: #bdbdbd; line-height: 1.7; margin: 0; }
-    .atlas-cta-link {
-      font-size: 15px; font-weight: 500; color: #ceff00;
-      transition: opacity 0.15s; display: inline-block; margin-top: 8px;
-    }
-    .atlas-cta-link:hover { opacity: 0.75; }
 
     /* ═══════════════════════════════════════════════════════════
-       SECTION 8 — PROTOTYPE GALLERY
+       GALLERY + GALLERY MINI PREVIEWS
     ═══════════════════════════════════════════════════════════ */
-    /* ── Brief Preview Section ── */
-    .brief-preview-section { background: #111; padding: 72px 0; overflow: hidden; }
-    .brief-preview-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-      margin-bottom: 40px;
-    }
-    .brief-preview-sub {
-      font-size: 14px;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.7;
-      margin-top: 12px;
-      max-width: 480px;
-    }
-    .brief-preview-cta {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px;
-      color: #ceff00;
-      border: 1px solid rgba(206,255,0,0.3);
-      padding: 8px 16px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-      flex-shrink: 0;
-      align-self: flex-start;
-      text-decoration: none;
-      transition: background 0.15s;
-    }
-    .brief-preview-cta:hover { background: rgba(206,255,0,0.06); }
-    .brief-preview-frame {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .brief-preview-mask {
-      height: 420px;
-      overflow: hidden;
-      position: relative;
-    }
-    .brief-preview-mask::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 160px;
-      background: linear-gradient(to bottom, transparent, #111);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .brief-preview-iframe {
-      width: 100%;
-      height: 800px;
-      border: none;
-      transform-origin: top left;
-      transform: scale(0.85);
-      width: calc(100% / 0.85);
-      pointer-events: none;
-    }
-    .brief-preview-overlay {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-    }
-    .brief-preview-overlay-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #fff;
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 10px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .brief-preview-overlay-btn:hover { border-color: rgba(206,255,0,0.4); background: #222; }
-
     .gallery-section { background: #0d0d0d; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
     .gallery-intro { font-size: 17px; color: #bdbdbd; margin: 0 0 48px; max-width: 560px; line-height: 1.7; }
     .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -333,6 +239,24 @@
     .gallery-card--featured .gallery-card-eyebrow { color: #ceff00; }
     .gallery-card--featured .gallery-card-name { font-size: 22px; }
     @media (max-width: 768px) { .gallery-grid-asymmetric { grid-template-columns: 1fr; } }
+    /* ── Gallery mini previews (CSS-drawn ornamental) ── */
+    .gallery-mini-pulse { display: flex; align-items: flex-end; gap: 6px; height: 48px; margin-bottom: 16px; }
+    .gmp-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .gmp-bar { width: 100%; background: #ceff00; border-radius: 2px 2px 0 0; opacity: 0.6; min-height: 4px; }
+    .gallery-card--featured .gmp-bar { opacity: 0.85; }
+    .gmp-label { font-family: 'DM Mono', monospace; font-size: 7px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+    .gallery-mini-search { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .gms-filter { display: flex; gap: 6px; }
+    .gms-filter span { height: 12px; border-radius: 100px; background: rgba(255,255,255,0.1); }
+    .gms-filter span:nth-child(1) { width: 48px; }
+    .gms-filter span:nth-child(2) { width: 36px; }
+    .gms-filter span:nth-child(3) { width: 28px; }
+    .gms-result { display: flex; align-items: center; gap: 8px; }
+    .gms-avatar { width: 20px; height: 20px; border-radius: 100px; background: rgba(206,255,0,0.15); font-size: 7px; font-weight: 700; color: #ceff00; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .gms-lines { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+    .gms-lines span { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .gms-lines span:first-child { width: 70%; }
+    .gms-lines span:last-child { width: 50%; }
 
     /* ═══════════════════════════════════════════════════════════
        SECTION 9 — CAPTURE FORM
@@ -478,42 +402,54 @@
     .pulse-intel-footer a { color: rgba(206,255,0,0.5); text-decoration: none; }
     .pulse-intel-footer a:hover { color: #ceff00; }
 
+    /* ── Hero Ticker ── */
+    .hero-ticker-wrap { margin-top: 64px; overflow: hidden; width: 100vw; position: relative; left: 50%; transform: translateX(-50%); mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); }
+    .hero-ticker-row { display: flex; gap: 0; width: max-content; margin-bottom: 8px; }
+    .hero-ticker-row--forward { animation: ticker-scroll-f 75s linear infinite; }
+    .hero-ticker-row--reverse { animation: ticker-scroll-r 60s linear infinite; }
+    @keyframes ticker-scroll-f { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes ticker-scroll-r { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    .hero-ticker-item { display: inline-flex; align-items: center; gap: 12px; padding: 0 24px; white-space: nowrap; font-size: 13px; color: rgba(255,255,255,0.28); font-weight: 500; }
+    .hero-ticker-item-beat { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(206,255,0,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-ticker-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+
     /* ── Trust Bar ── */
-    .trust-bar-section { background: #efeff2; padding: 32px 40px; border-bottom: 1px solid #d4d4d8; }
-    .trust-bar-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
-    .trust-bar-founders { display: flex; align-items: center; gap: 16px; }
-    .trust-avatar { width: 36px; height: 36px; border-radius: 100px; background: #313131; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .trust-founder-info { font-size: 13px; color: #313131; line-height: 1.4; }
-    .trust-founder-name { font-weight: 700; }
-    .trust-divider { width: 1px; height: 32px; background: #d4d4d8; flex-shrink: 0; }
-    .trust-cites { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .trust-cites-label { font-size: 11px; font-weight: 500; color: rgba(17,17,17,0.4); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; }
-    .trust-cite-pill { font-size: 12px; color: #313131; background: #fff; border: 1px solid #d4d4d8; border-radius: 100px; padding: 4px 12px; }
+    .trust-bar-section { background: #efeff2; padding: 40px 40px; border-bottom: 1px solid #d4d4d8; }
+    .trust-bar-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 32px; }
+    .trust-bar-left { flex: 1; min-width: 280px; }
+    .trust-bar-right { flex-shrink: 0; }
+    .trust-bar-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(17,17,17,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
+    .trust-bar-team { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin-bottom: 20px; }
+    .trust-person { display: flex; align-items: center; gap: 10px; padding-right: 20px; }
+    .trust-person-divider { width: 1px; height: 32px; background: #d4d4d8; margin-right: 20px; flex-shrink: 0; }
+    .trust-avatar { width: 36px; height: 36px; border-radius: 100px; background: #313131; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .trust-person-name { font-size: 14px; font-weight: 700; color: #111; line-height: 1.2; }
+    .trust-person-role { font-size: 12px; color: rgba(17,17,17,0.5); line-height: 1.4; margin-top: 2px; }
+    .trust-bar-lineage { font-size: 13px; color: rgba(17,17,17,0.55); line-height: 1.65; margin: 0; max-width: 560px; padding-top: 16px; border-top: 1px solid #d4d4d8; }
+    .trust-cites { display: flex; flex-wrap: wrap; gap: 8px; }
+    .trust-cite-pill { font-size: 12px; color: #313131; background: #fff; border: 1px solid #d4d4d8; border-radius: 100px; padding: 5px 14px; }
 
-    /* ── Beat Presence Bar ── */
-    .beat-presence-bar { margin: 32px 0 0; padding: 28px 32px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; }
-    .beat-presence-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
-    .beat-presence-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-    .beat-chip { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 6px 14px; }
-    .beat-chip--top { background: rgba(206,255,0,0.08); border-color: rgba(206,255,0,0.2); }
-    .beat-chip-name { font-size: 13px; font-weight: 500; color: #fff; }
-    .beat-chip-count { font-size: 11px; color: rgba(255,255,255,0.4); }
-    .beat-chip--top .beat-chip-name { color: #ceff00; }
-    .beat-presence-note { font-size: 13px; color: rgba(255,255,255,0.4); margin: 0; line-height: 1.6; }
-    .beat-presence-link { color: rgba(206,255,0,0.7); text-decoration: none; }
-    .beat-presence-link:hover { color: #ceff00; }
-
-    /* ── Creator Spotlight Strip ── */
-    .creator-spotlight-strip { margin-top: 40px; padding: 24px 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(206,255,0,0.15); border-radius: 6px; display: flex; flex-direction: column; gap: 16px; }
-    .spotlight-label { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: #ceff00; letter-spacing: 0.12em; text-transform: uppercase; }
-    .spotlight-content { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
-    .spotlight-avatar { width: 40px; height: 40px; border-radius: 100px; background: rgba(206,255,0,0.12); color: #ceff00; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .spotlight-text { flex: 1; min-width: 200px; }
-    .spotlight-name { display: block; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .spotlight-meta { display: block; font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
-    .spotlight-note { display: block; font-size: 14px; color: #bdbdbd; line-height: 1.6; }
-    .spotlight-cta { display: inline-block; font-size: 13px; font-weight: 700; color: #ceff00; text-decoration: none; white-space: nowrap; align-self: center; flex-shrink: 0; }
-    .spotlight-cta:hover { opacity: 0.75; }
+    /* ── Beat Explorer ── */
+    .beat-explorer { margin-top: 40px; }
+    .beat-explorer-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+    .beat-explorer-intro { font-size: 14px; color: rgba(255,255,255,0.45); margin: 0 0 16px; line-height: 1.5; }
+    .beat-explorer-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .bx-chip { font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 7px 16px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .bx-chip:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
+    .bx-chip--active { color: #111; background: #ceff00; border-color: #ceff00; font-weight: 700; }
+    .bx-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; min-height: 120px; }
+    @media (max-width: 768px) { .bx-panel { grid-template-columns: 1fr; } }
+    .bx-creator-card { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 16px 18px; transition: border-color 0.15s; }
+    .bx-creator-card:hover { border-color: rgba(206,255,0,0.2); }
+    .bx-creator-avatar { width: 36px; height: 36px; border-radius: 100px; flex-shrink: 0; background: rgba(206,255,0,0.12); color: #ceff00; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .bx-creator-body { flex: 1; min-width: 0; }
+    .bx-creator-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .bx-creator-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; line-height: 1.5; }
+    .bx-creator-note { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .bx-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 8px; }
+    .bx-search-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #ceff00; text-decoration: none; transition: opacity 0.15s; }
+    .bx-search-cta:hover { opacity: 0.75; }
+    .bx-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
 
     /* ── Pricing Clarity Section ── */
     .pricing-clarity-section { background: #efeff2; padding: 80px 40px; }
@@ -552,10 +488,6 @@
 
       .form-submit, .bf-submit { width: 100%; align-self: stretch; }
 
-      .brief-preview-mask { height: 280px; }
-      .brief-preview-iframe { transform: scale(0.55); width: calc(100% / 0.55); height: 600px; }
-      .brief-preview-header { flex-direction: column; }
-      .brief-preview-cta { align-self: flex-start; }
     }
   </style>
   <link rel="stylesheet" href="/assets/css/header.css">
@@ -576,38 +508,104 @@
       <a href="#intelligence-layer" class="btn-primary">See the intelligence layer</a>
       <a href="#build-brief" class="btn-ghost">Tell us what you're tracking</a>
     </div>
+
+    <div class="hero-ticker-wrap" aria-hidden="true">
+      <div class="hero-ticker-row hero-ticker-row--forward" id="ticker-row-1"></div>
+      <div class="hero-ticker-row hero-ticker-row--reverse" id="ticker-row-2"></div>
+    </div>
   </div>
 </section>
+<script>
+(function() {
+  const row1Names = [
+    { name: "Kyla Scanlon", beat: "Business & Economy" },
+    { name: "Casey Newton", beat: "Technology" },
+    { name: "Judd Legum", beat: "Politics" },
+    { name: "Jerusalem Demsas", beat: "Policy & Culture" },
+    { name: "Andy Revkin", beat: "Environment" },
+    { name: "M.G. Siegler", beat: "Technology" },
+    { name: "Heidi Moore", beat: "Finance" },
+    { name: "Marisa Kabas", beat: "Politics" },
+    { name: "Dave Jorgenson", beat: "Media" },
+    { name: "Brad DeLong", beat: "Economics" },
+    { name: "Ed Yong", beat: "Science & Health" },
+    { name: "Roland S. Martin", beat: "Politics & Culture" },
+    { name: "Dwarkesh Patel", beat: "Technology" },
+    { name: "Virginia Heffernan", beat: "Media & Culture" },
+    { name: "Michael Hobbes", beat: "Health & Media" },
+  ];
+  const row2Names = [
+    { name: "Michael Socolow", beat: "Media History" },
+    { name: "Jay Rosen", beat: "Journalism" },
+    { name: "Josie Duffy Rice", beat: "Criminal Justice" },
+    { name: "Bridget Todd", beat: "Technology" },
+    { name: "Ken Klippenstein", beat: "National Security" },
+    { name: "Gideon Meyerowitz-Katz", beat: "Health & Science" },
+    { name: "Jordan Chariton", beat: "Politics" },
+    { name: "Raquel Willis", beat: "Culture & Equity" },
+    { name: "Patrick Wyman", beat: "History" },
+    { name: "Karen Hao", beat: "Artificial Intelligence" },
+    { name: "Andrew Callaghan", beat: "Culture" },
+    { name: "Nat Herz", beat: "Alaska & Politics" },
+    { name: "Patty Calhoun", beat: "Local News" },
+    { name: "Wendy Siegelman", beat: "Investigations" },
+    { name: "David Wildstein", beat: "New Jersey Politics" },
+  ];
+  function buildRow(names, id) {
+    const doubled = [...names, ...names];
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = doubled.map(n =>
+      `<span class="hero-ticker-item">${n.name}<span class="hero-ticker-item-beat">${n.beat}</span><span class="hero-ticker-dot"></span></span>`
+    ).join('');
+  }
+  buildRow(row1Names, 'ticker-row-1');
+  buildRow(row2Names, 'ticker-row-2');
+})();
+</script>
 
 <!-- ── TRUST BAR ── -->
 <section class="trust-bar-section">
   <div class="trust-bar-inner">
-    <div class="trust-bar-founders">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="trust-avatar">JB</div>
-        <div class="trust-founder-info">
-          <div class="trust-founder-name">Justin Bank</div>
-          <div style="color:rgba(17,17,17,0.5);">Washington Post · Data journalist</div>
+    <div class="trust-bar-left">
+      <div class="trust-bar-label">Built by</div>
+      <div class="trust-bar-team">
+        <div class="trust-person">
+          <div class="trust-avatar">JB</div>
+          <div>
+            <div class="trust-person-name">Justin Bank</div>
+            <div class="trust-person-role">Washington Post · Nieman Fellow, Harvard</div>
+          </div>
+        </div>
+        <div class="trust-person-divider"></div>
+        <div class="trust-person">
+          <div class="trust-avatar">LN</div>
+          <div>
+            <div class="trust-person-name">Liz Kelly Nelson</div>
+            <div class="trust-person-role">Washington Post · Sulzberger Fellow, Columbia</div>
+          </div>
+        </div>
+        <div class="trust-person-divider"></div>
+        <div class="trust-person">
+          <div class="trust-avatar">RK</div>
+          <div>
+            <div class="trust-person-name">Ryan Kellett</div>
+            <div class="trust-person-role">Washington Post · NPR · Axios</div>
+          </div>
         </div>
       </div>
-      <div class="trust-divider"></div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="trust-avatar">LN</div>
-        <div class="trust-founder-info">
-          <div class="trust-founder-name">Liz Kelly Nelson</div>
-          <div style="color:rgba(17,17,17,0.5);">Washington Post · Strategy &amp; editorial</div>
-        </div>
-      </div>
+      <p class="trust-bar-lineage">Methodology developed through Nieman and Sulzberger fellowships at Harvard and Columbia. Operational experience across the Washington Post, New York Times, Vox, Axios, NPR, and Gannett.</p>
     </div>
-    <div class="trust-cites">
-      <span class="trust-cites-label">Cited by</span>
+    <div class="trust-bar-right">
+      <div class="trust-bar-label">Cited by</div>
       <!-- TODO Justin/Liz: Replace with verified press citations.
            Candidates: Reuters Institute Digital News Report 2026,
-           Nieman Lab coverage, Press Gazette, Columbia Journalism Review.
+           Nieman Lab, Press Gazette, Columbia Journalism Review.
            Pull exact URLs + quote fragments when confirmed. -->
-      <span class="trust-cite-pill">Reuters Institute 2026</span>
-      <span class="trust-cite-pill">Nieman Lab</span>
-      <span class="trust-cite-pill">Press Gazette</span>
+      <div class="trust-cites">
+        <span class="trust-cite-pill">Reuters Institute 2026</span>
+        <span class="trust-cite-pill">Nieman Lab</span>
+        <span class="trust-cite-pill">Press Gazette</span>
+      </div>
     </div>
   </div>
 </section>
@@ -764,98 +762,25 @@
         <p class="atlas-card-body">We build filtered creator lists, coverage briefings, and audience intelligence packages for comms teams — tuned to your issues, your markets, your timeline.</p>
       </div>
     </div>
-    <div class="beat-presence-bar">
-      <div class="beat-presence-label">Top beats tracked across 1,453 verified creators</div>
-      <div class="beat-presence-chips">
-        <div class="beat-chip beat-chip--top">
-          <span class="beat-chip-name">Politics &amp; Government</span>
-          <span class="beat-chip-count">125+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Technology</span>
-          <span class="beat-chip-count">74+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Media &amp; Power</span>
-          <span class="beat-chip-count">54+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Business &amp; Economy</span>
-          <span class="beat-chip-count">41+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Culture &amp; Society</span>
-          <span class="beat-chip-count">46+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Health &amp; Science</span>
-          <span class="beat-chip-count">38+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Local &amp; Regional</span>
-          <span class="beat-chip-count">200+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Environment &amp; Climate</span>
-          <span class="beat-chip-count">32+ creators</span>
-        </div>
-        <div class="beat-chip">
-          <span class="beat-chip-name">Food &amp; Consumer</span>
-          <span class="beat-chip-count">28+ creators</span>
-        </div>
+    <div class="beat-explorer">
+      <div class="beat-explorer-label">Explore by beat</div>
+      <p class="beat-explorer-intro">Click any beat to see who's covering it.</p>
+      <div class="beat-explorer-chips" role="tablist">
+        <button class="bx-chip bx-chip--active" data-beat="business" role="tab" aria-selected="true">Business &amp; Economy</button>
+        <button class="bx-chip" data-beat="politics" role="tab" aria-selected="false">Politics &amp; Government</button>
+        <button class="bx-chip" data-beat="tech" role="tab" aria-selected="false">Technology</button>
+        <button class="bx-chip" data-beat="health" role="tab" aria-selected="false">Health &amp; Science</button>
+        <button class="bx-chip" data-beat="environment" role="tab" aria-selected="false">Environment &amp; Climate</button>
+        <button class="bx-chip" data-beat="local" role="tab" aria-selected="false">Local &amp; Regional</button>
+        <button class="bx-chip" data-beat="culture" role="tab" aria-selected="false">Culture &amp; Society</button>
       </div>
-      <p class="beat-presence-note">Business &amp; Economy includes independent voices like Kyla Scanlon, Brad DeLong, and Heidi Moore. <a href="index.html" class="beat-presence-link">Explore all beats in the Atlas →</a></p>
-    </div>
-
-    <div class="creator-spotlight-strip">
-      <span class="spotlight-label">From the Atlas</span>
-      <div class="spotlight-content">
-        <div class="spotlight-avatar">KS</div>
-        <div class="spotlight-text">
-          <span class="spotlight-name">Kyla Scanlon</span>
-          <span class="spotlight-meta">Business &amp; Economy · Substack + YouTube · 200K+ subscribers</span>
-          <span class="spotlight-note">One of the most-cited independent voices on economic sentiment. Covers consumer confidence, inflation, and labor — the issues your financial services or consumer brand comms team tracks daily.</span>
-        </div>
-        <a href="index.html" class="spotlight-cta">Find creators like this →</a>
-      </div>
-    </div>
-
-    <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="atlas-cta-link" style="display:inline-block;margin-top:32px;">See a live example →</a>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 8 — BRIEF PREVIEW
-═══════════════════════════════════════════════════════════ -->
-<section class="brief-preview-section">
-  <div class="section-inner">
-    <div class="brief-preview-header">
-      <div>
-        <div class="eyebrow eyebrow--dark">What You Get</div>
-        <h2 class="h2-dark">This is what a creator intelligence brief looks like.</h2>
-        <p class="brief-preview-sub">Built on the Atlas data layer. Filtered to your beat, platform, and market. Every creator is human-verified.</p>
-      </div>
-      <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="brief-preview-cta">
-        Explore live example →
-      </a>
-    </div>
-    <div class="brief-preview-frame">
-      <div class="brief-preview-mask">
-        <iframe
-          src="bluesky-intelligence.html"
-          class="brief-preview-iframe"
-          loading="lazy"
-          scrolling="no"
-          tabindex="-1"
-          aria-hidden="true"
-          title="Sample creator intelligence brief preview"
-        ></iframe>
-      </div>
-      <div class="brief-preview-overlay">
-        <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer" class="brief-preview-overlay-btn">
-          <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>
-          View full interactive brief
+      <div class="bx-panel" id="bx-panel"></div>
+      <div class="bx-footer">
+        <a href="index.html" class="bx-search-cta" id="bx-search-link">
+          <span class="material-symbols-outlined" style="font-size:18px;">search</span>
+          Search all creators in this beat →
         </a>
+        <span class="bx-count" id="bx-count"></span>
       </div>
     </div>
   </div>
@@ -893,26 +818,38 @@
 ═══════════════════════════════════════════════════════════ -->
 <section class="gallery-section">
   <div class="section-inner">
-    <div class="eyebrow eyebrow--dark">What We've Built</div>
-    <h2 class="h2-dark">Live prototypes. Built for partners. Available for your team.</h2>
-    <p class="gallery-intro">These aren't mockups. They're working intelligence products built on the Atlas data layer.</p>
+    <div class="eyebrow eyebrow--dark">Two Ways In</div>
+    <h2 class="h2-dark">Two ways in. Both free.</h2>
+    <p class="gallery-intro">Atlas Pulse shows you what the ecosystem is covering right now. Atlas Search lets you find the specific journalists covering your beat.</p>
     <div class="gallery-grid-asymmetric">
 
-      <!-- Featured: Bluesky Intelligence Brief -->
-      <a href="bluesky-intelligence.html" target="_blank" rel="noopener noreferrer"
+      <!-- Atlas Pulse -->
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer"
          class="gallery-card gallery-card--featured">
-        <div class="gallery-card-eyebrow">Creator Intelligence Brief · Live</div>
-        <div class="gallery-card-name">Bluesky Creator Intelligence</div>
-        <p class="gallery-card-desc">Platform-specific audience intelligence built on the Atlas data layer. Beat-filtered creator clusters with follower data, cross-platform reach, and coverage signals. This is what a custom brief looks like — built for a partner, available to explore.</p>
-        <span class="gallery-card-link">View live brief →</span>
+        <div class="gallery-mini-pulse">
+          <div class="gmp-col"><div class="gmp-bar" style="height:80%"></div><div class="gmp-label">Politics</div></div>
+          <div class="gmp-col"><div class="gmp-bar" style="height:45%"></div><div class="gmp-label">Tech</div></div>
+          <div class="gmp-col"><div class="gmp-bar" style="height:30%"></div><div class="gmp-label">Finance</div></div>
+          <div class="gmp-col"><div class="gmp-bar" style="height:35%"></div><div class="gmp-label">Culture</div></div>
+          <div class="gmp-col"><div class="gmp-bar" style="height:26%"></div><div class="gmp-label">Media</div></div>
+        </div>
+        <div class="gallery-card-eyebrow">Atlas Pulse · Always Free</div>
+        <div class="gallery-card-name">882 creator feeds, monitored weekly.</div>
+        <p class="gallery-card-desc">Beat-filtered coverage digest. See what independent journalists across every beat are publishing this week — before your morning briefing.</p>
+        <span class="gallery-card-link">View the digest →</span>
       </a>
 
-      <!-- Companion: Atlas Pulse -->
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
-        <div class="gallery-card-eyebrow">Atlas Pulse · Always Free</div>
-        <div class="gallery-card-name">What the ecosystem is covering right now.</div>
-        <p class="gallery-card-desc">Weekly digest from 882 creator feeds. Beat-filtered, platform-broken down. Updated regularly.</p>
-        <span class="gallery-card-link">View the digest →</span>
+      <!-- Atlas Search -->
+      <a href="index.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
+        <div class="gallery-mini-search">
+          <div class="gms-filter"><span></span><span></span><span></span></div>
+          <div class="gms-result"><div class="gms-avatar">KS</div><div class="gms-lines"><span></span><span></span></div></div>
+          <div class="gms-result"><div class="gms-avatar">CN</div><div class="gms-lines"><span></span><span></span></div></div>
+        </div>
+        <div class="gallery-card-eyebrow">Atlas Search · Always Free</div>
+        <div class="gallery-card-name">1,453 verified creator journalists.</div>
+        <p class="gallery-card-desc">Filter by beat, platform, geography, and audience size. Every entry is human-verified. Find the journalists covering your issues.</p>
+        <span class="gallery-card-link">Search the Atlas →</span>
       </a>
 
     </div>
@@ -926,7 +863,7 @@
   <div class="section-inner">
     <div class="pulse-intel-header">
       <div>
-        <div class="eyebrow eyebrow--dark"><span class="pulse-dot-acid"></span>Atlas Pulse · Coverage Intelligence</div>
+        <div class="eyebrow eyebrow--dark"><span class="pulse-dot-acid"></span>↓ Live now · Atlas Pulse</div>
         <h2 class="h2-dark">What the ecosystem is publishing this week.</h2>
         <!-- TODO: Update this paragraph weekly alongside PULSE_SNAPSHOT_BRANDS data swap.
              Write 2-3 sentences in plain editorial voice. Name the actual dominant story.
@@ -1081,6 +1018,106 @@
 
 
 <script>
+// ── Beat Explorer data ────────────────────────────────────────────────────────
+const BEAT_EXPLORER_DATA = {
+  business: {
+    label: "Business & Economy", count: "41+ creators",
+    creators: [
+      { initials: "KS", name: "Kyla Scanlon", beat: "Economic Sentiment", platform: "Substack + YouTube", audience: "200K+ subscribers", note: "Coined 'vibecession.' Covers consumer confidence, inflation, and labor. Most-cited independent voice on economic mood." },
+      { initials: "BD", name: "Brad DeLong", beat: "Economics & Policy", platform: "Substack", audience: "50K+ subscribers", note: "Former Clinton Treasury. Berkeley economics professor. Covers macro policy with the institutional depth of a think tank." },
+      { initials: "HM", name: "Heidi Moore", beat: "Finance & Media", platform: "Newsletter + Podcast", audience: "40K+ subscribers", note: "Former Guardian US finance editor. Covers the intersection of financial power and media." },
+      { initials: "FS", name: "Felix Salmon", beat: "Finance & Economics", platform: "Axios + Podcast", audience: "80K+ subscribers", note: "Covers Wall Street, fintech, and economic policy for a professional finance audience." },
+    ]
+  },
+  politics: {
+    label: "Politics & Government", count: "125+ creators",
+    creators: [
+      { initials: "JL", name: "Judd Legum", beat: "Political Accountability", platform: "Substack", audience: "130K+ subscribers", note: "Popular Information. Covers corporate accountability and political money. One of Substack's largest political newsletters." },
+      { initials: "MK", name: "Marisa Kabas", beat: "Politics & Power", platform: "Substack", audience: "60K+ subscribers", note: "The Handbasket. Covers authoritarian drift and democratic accountability. Has broken stories ahead of major outlets." },
+      { initials: "RM", name: "Roland S. Martin", beat: "Politics & Black America", platform: "YouTube + Newsletter", audience: "300K+ subscribers", note: "Roland Martin Unfiltered. Political commentary centered on Black civic power. Large and highly engaged YouTube audience." },
+      { initials: "AM", name: "Adam Mockler", beat: "Politics & Investigations", platform: "YouTube", audience: "80K+ subscribers", note: "Deep-dive political reporting in YouTube format. Covers power structures and accountability." },
+    ]
+  },
+  tech: {
+    label: "Technology", count: "74+ creators",
+    creators: [
+      { initials: "CN", name: "Casey Newton", beat: "Social Media & Tech Policy", platform: "Substack", audience: "150K+ subscribers", note: "Platformer. The definitive independent voice on social platform decisions and their consequences." },
+      { initials: "MS", name: "M.G. Siegler", beat: "Tech & Venture", platform: "Substack", audience: "40K+ subscribers", note: "Former GV partner. Covers tech industry dynamics, venture, and product decisions from an insider's lens." },
+      { initials: "DP", name: "Dwarkesh Patel", beat: "AI & Ideas", platform: "YouTube + Podcast", audience: "250K+ subscribers", note: "Long-form interviews with AI researchers, historians, and scientists. Unusually high-caliber audience." },
+      { initials: "KH", name: "Karen Hao", beat: "Artificial Intelligence", platform: "Newsletter", audience: "30K+ subscribers", note: "Empire of AI. Covers AI policy, ethics, and industry dynamics. Former MIT Technology Review AI reporter." },
+    ]
+  },
+  health: {
+    label: "Health & Science", count: "38+ creators",
+    creators: [
+      { initials: "EY", name: "Ed Yong", beat: "Public Health & Science", platform: "Newsletter", audience: "100K+ subscribers", note: "Pulitzer Prize winner. Former Atlantic. Now independent. Covers science and public health with unmatched depth." },
+      { initials: "GM", name: "Gideon Meyerowitz-Katz", beat: "Epidemiology & Data", platform: "Substack", audience: "50K+ subscribers", note: "Data-first epidemiology and health policy coverage. Known for meticulous methodology breakdowns." },
+      { initials: "MH", name: "Michael Hobbes", beat: "Health & Media Criticism", platform: "Substack + Podcast", audience: "100K+ subscribers", note: "Maintenance Phase. Covers the intersection of health journalism, diet culture, and evidence quality." },
+      { initials: "VH", name: "Virginia Heffernan", beat: "Media & Health Culture", platform: "Substack + Podcast", audience: "40K+ subscribers", note: "Magic + Loss. Cultural criticism at the intersection of technology, medicine, and meaning." },
+    ]
+  },
+  environment: {
+    label: "Environment & Climate", count: "32+ creators",
+    creators: [
+      { initials: "AR", name: "Andy Revkin", beat: "Climate & Conservation", platform: "Substack", audience: "35K+ subscribers", note: "Decades of NYT environmental reporting, now independent. Covers climate solutions and conservation with depth." },
+      { initials: "JB2", name: "Jake Bittle", beat: "Climate & Infrastructure", platform: "Newsletter", audience: "20K+ subscribers", note: "Covers climate adaptation — floods, fire, heat — and the infrastructure decisions that shape risk." },
+      { initials: "DC", name: "Dermot Cole", beat: "Alaska & Environment", platform: "Newsletter", audience: "15K+ subscribers", note: "Alaska's most read independent journalist. Covers energy, resource extraction, and Arctic policy." },
+      { initials: "NH", name: "Nat Herz", beat: "Arctic & Politics", platform: "Substack", audience: "12K+ subscribers", note: "Independent Alaska coverage with strong sourcing in Indigenous communities and state government." },
+    ]
+  },
+  local: {
+    label: "Local & Regional", count: "200+ creators",
+    creators: [
+      { initials: "DW", name: "David Wildstein", beat: "New Jersey Politics", platform: "Newsletter", audience: "30K+ subscribers", note: "The definitive source for New Jersey political intelligence. Heavily sourced, daily frequency." },
+      { initials: "PC", name: "Patty Calhoun", beat: "Denver & Colorado", platform: "Newsletter", audience: "25K+ subscribers", note: "Long-form local journalism in Denver. Covers arts, politics, and culture with deep community roots." },
+      { initials: "WS", name: "Wendy Siegelman", beat: "Investigations & Local", platform: "Substack", audience: "20K+ subscribers", note: "Investigative journalism with a focus on political accountability and local power structures." },
+      { initials: "DC2", name: "Dermot Cole", beat: "Alaska Politics", platform: "Newsletter", audience: "15K+ subscribers", note: "Independent Alaska political coverage. Long career at Fairbanks Daily News-Miner before going independent." },
+    ]
+  },
+  culture: {
+    label: "Culture & Society", count: "46+ creators",
+    creators: [
+      { initials: "JD", name: "Jerusalem Demsas", beat: "Policy & Culture", platform: "Substack", audience: "80K+ subscribers", note: "Covers housing, urban policy, and cultural politics. Sharp analytical voice on contested social questions." },
+      { initials: "PW", name: "Patrick Wyman", beat: "History & Culture", platform: "Substack + Podcast", audience: "40K+ subscribers", note: "Tides of History. Deep historical context for contemporary events. Unusually loyal listener base." },
+      { initials: "RW", name: "Raquel Willis", beat: "Culture & Equity", platform: "Newsletter + Podcast", audience: "30K+ subscribers", note: "Covers race, gender, and cultural politics. Strong community ties in LGBTQ+ and Black media spaces." },
+      { initials: "AC", name: "Andrew Callaghan", beat: "Political Culture", platform: "YouTube", audience: "2M+ subscribers", note: "Channel 5 News. Documentary-style street journalism. Enormous YouTube audience, highly engaged." },
+    ]
+  }
+};
+
+(function() {
+  const panel = document.getElementById('bx-panel');
+  const countEl = document.getElementById('bx-count');
+  const chips = document.querySelectorAll('.bx-chip');
+
+  function renderBeat(beatKey) {
+    const beat = BEAT_EXPLORER_DATA[beatKey];
+    if (!beat || !panel) return;
+    if (countEl) countEl.textContent = beat.count + ' in the Atlas';
+    panel.innerHTML = beat.creators.map(c => `
+      <div class="bx-creator-card">
+        <div class="bx-creator-avatar">${c.initials}</div>
+        <div class="bx-creator-body">
+          <div class="bx-creator-name">${c.name}</div>
+          <div class="bx-creator-meta">${c.beat} · ${c.platform} · ${c.audience}</div>
+          <div class="bx-creator-note">${c.note}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => { c.classList.remove('bx-chip--active'); c.setAttribute('aria-selected', 'false'); });
+      chip.classList.add('bx-chip--active');
+      chip.setAttribute('aria-selected', 'true');
+      renderBeat(chip.dataset.beat);
+    });
+  });
+
+  renderBeat('business');
+})();
+
 // ── Atlas Pulse snapshot — update generated_at + posts weekly ─────────────────
 const PULSE_SNAPSHOT_BRANDS = {
   generated_at: "2026-06-21",
