@@ -115,6 +115,54 @@
     }
     .sbc-chip--clear:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
 
+    /* ── SECONDARY FILTER CHIPS (Platform + City) ── */
+    .search-secondary-filters {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .search-secondary-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .search-secondary-label {
+      font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .search-secondary-divider {
+      width: 1px; height: 16px;
+      background: rgba(255,255,255,0.1);
+      flex-shrink: 0;
+      align-self: center;
+    }
+    .sfc-chip {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 100px; padding: 5px 12px;
+      cursor: pointer; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .sfc-chip:hover {
+      color: #fff; border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+    }
+    .sfc-chip--active {
+      color: #111; background: #ceff00;
+      border-color: #ceff00; font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      .search-secondary-divider { display: none; }
+    }
+
     /* ── VIZ ENTRY NOTES ── */
     .viz-entry-note {
       font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
@@ -169,6 +217,32 @@
             <button class="sbc-chip" data-group="Civic Life">Civic Life</button>
             <button class="sbc-chip" data-group="Social Issues">Social Issues</button>
             <button class="sbc-chip sbc-chip--clear" id="sbc-clear" style="display:none;">Clear ×</button>
+          </div>
+        </div>
+
+        <!-- Secondary filter chips: Platform (OR) and City (single-select) -->
+        <div class="search-secondary-filters" id="search-secondary-filters">
+          <div class="search-secondary-group">
+            <span class="search-secondary-label">Platform</span>
+            <div class="search-secondary-chips">
+              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Newsletter">Newsletter</button>
+              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Video">Video</button>
+              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Social">Social</button>
+              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Podcast">Podcast</button>
+              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Website">Website</button>
+            </div>
+          </div>
+          <div class="search-secondary-divider"></div>
+          <div class="search-secondary-group">
+            <span class="search-secondary-label">City</span>
+            <div class="search-secondary-chips">
+              <button class="sfc-chip" data-filter-type="geography" data-geo="Washington, DC">DC</button>
+              <button class="sfc-chip" data-filter-type="geography" data-geo="New York, NY">New York</button>
+              <button class="sfc-chip" data-filter-type="geography" data-geo="Chicago, IL">Chicago</button>
+              <button class="sfc-chip" data-filter-type="geography" data-geo="Los Angeles, CA">LA</button>
+              <button class="sfc-chip" data-filter-type="geography" data-geo="San Francisco, CA">SF</button>
+              <button class="sfc-chip" data-filter-type="geography" data-geo="Boston, MA">Boston</button>
+            </div>
           </div>
         </div>
       </div>
@@ -447,51 +521,39 @@
     </script>
 
     <script>
-    // Beat entry chips — wire to existing Group filter checkboxes (S1, S3, S4)
+    // Chip filter system — beat (group), platform, city (geography)
+    // Uses filterState from main.js directly to batch updates into a single applyFilters() call.
+    // filterState is a top-level const in a non-module script — accessible across all page scripts.
     (function() {
-      const chips = document.querySelectorAll('.sbc-chip:not(.sbc-chip--clear)');
-      const clearBtn = document.getElementById('sbc-clear');
-      const briefCta = document.getElementById('build-brief-cta');
+      const beatChips     = document.querySelectorAll('.sbc-chip:not(.sbc-chip--clear)');
+      const platformChips = document.querySelectorAll('.sfc-chip[data-filter-type="platform"]');
+      const geoChips      = document.querySelectorAll('.sfc-chip[data-filter-type="geography"]');
+      const clearBtn  = document.getElementById('sbc-clear');
+      const briefCta  = document.getElementById('build-brief-cta');
 
-      function getGroupCheckbox(groupValue) {
-        // Checkboxes are populated by main.js after data loads — safe to query at click time
-        const checkboxes = document.querySelectorAll('#groupFilters input[type="checkbox"]');
-        for (const cb of checkboxes) {
-          if (cb.value === groupValue) return cb;
-        }
-        return null;
-      }
-
-      // S3: update share button label when a beat chip is active
-      function updateShareBtn(beatLabel) {
-        const shareBtn = document.getElementById('shareViewBtn');
-        if (!shareBtn) return;
-        if (beatLabel) {
-          shareBtn.innerHTML = '✦ Share ' + beatLabel + ' creators';
-          shareBtn.style.background = 'rgba(206,255,0,0.12)';
-          shareBtn.style.borderColor = 'rgba(206,255,0,0.4)';
-          shareBtn.style.color = '#ceff00';
+      // S3: update share button when a beat is active
+      function updateShareBtn(label) {
+        const btn = document.getElementById('shareViewBtn');
+        if (!btn) return;
+        if (label) {
+          btn.innerHTML = '✦ Share ' + label + ' creators';
+          btn.style.background   = 'rgba(206,255,0,0.12)';
+          btn.style.borderColor  = 'rgba(206,255,0,0.4)';
+          btn.style.color        = '#ceff00';
         } else {
-          shareBtn.innerHTML = '✦ Share this view';
-          shareBtn.style.background = '';
-          shareBtn.style.borderColor = '';
-          shareBtn.style.color = '';
+          btn.innerHTML = '✦ Share this view';
+          btn.style.background = btn.style.borderColor = btn.style.color = '';
         }
       }
 
-      function clearBeatChips() {
-        chips.forEach(c => c.classList.remove('sbc-chip--active'));
-        if (clearBtn) clearBtn.style.display = 'none';
-        if (briefCta) briefCta.style.display = 'none';
-        updateShareBtn(null);
-        if (typeof clearAllFilters === 'function') clearAllFilters();
-      }
-
-      chips.forEach(chip => {
+      // ── Beat chips — single-select, group filter ──
+      beatChips.forEach(chip => {
         chip.addEventListener('click', () => {
           const isActive = chip.classList.contains('sbc-chip--active');
-          // Clear all chip state first
-          chips.forEach(c => c.classList.remove('sbc-chip--active'));
+          beatChips.forEach(c => c.classList.remove('sbc-chip--active'));
+
+          // Clear group filter and sync sidebar checkboxes
+          filterState.filters.group.clear();
           document.querySelectorAll('#groupFilters input[type="checkbox"]').forEach(cb => cb.checked = false);
 
           if (!isActive) {
@@ -500,36 +562,102 @@
             if (briefCta) briefCta.style.display = 'inline-flex';
             updateShareBtn(chip.textContent.trim());
 
-            const groupValue = chip.dataset.group;
-            const cb = getGroupCheckbox(groupValue);
-            if (cb) {
-              cb.checked = true;
-              // Ensure group accordion is open
-              const groupAccordion = document.getElementById('groupAccordion');
-              if (groupAccordion && !groupAccordion.classList.contains('open')) {
-                groupAccordion.classList.add('open');
-              }
-            }
+            filterState.filters.group.add(chip.dataset.group);
+            const cb = document.querySelector(`#groupFilters input[value="${chip.dataset.group}"]`);
+            if (cb) cb.checked = true;
+
+            const accordion = document.getElementById('groupAccordion');
+            if (accordion && !accordion.classList.contains('open')) accordion.classList.add('open');
           } else {
             if (clearBtn) clearBtn.style.display = 'none';
             if (briefCta) briefCta.style.display = 'none';
             updateShareBtn(null);
           }
-          if (typeof applyFilters === 'function') applyFilters();
+          filterState.applyFilters();
         });
       });
 
-      if (clearBtn) clearBtn.addEventListener('click', clearBeatChips);
+      // ── Platform chips — multi-select OR, prefix-based ──
+      // startsWith(prefix) is safe: platform values are "Category - Subcategory" or exact "Category".
+      // No two chip prefixes overlap in the current dataset.
+      function platformValuesForPrefix(prefix) {
+        const vals = [];
+        document.querySelectorAll('#platformFilters input[type="checkbox"]').forEach(cb => {
+          if (cb.value.startsWith(prefix)) vals.push(cb.value);
+        });
+        return vals;
+      }
 
-      // Sync chip visual state if URL params pre-loaded a group filter.
-      // NOTE: 300ms is a best-effort heuristic — checkboxes are rendered after
-      // the JSON fetch resolves. On slow connections this may not be enough.
+      platformChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const prefix   = chip.dataset.platformPrefix;
+          const isActive = chip.classList.contains('sfc-chip--active');
+          const vals     = platformValuesForPrefix(prefix);
+          if (!vals.length) return; // data not yet loaded
+
+          if (isActive) {
+            chip.classList.remove('sfc-chip--active');
+            vals.forEach(v => {
+              filterState.filters.platform.delete(v);
+              const cb = document.querySelector(`#platformFilters input[value="${v}"]`);
+              if (cb) cb.checked = false;
+            });
+          } else {
+            chip.classList.add('sfc-chip--active');
+            vals.forEach(v => {
+              filterState.filters.platform.add(v);
+              const cb = document.querySelector(`#platformFilters input[value="${v}"]`);
+              if (cb) cb.checked = true;
+            });
+          }
+          filterState.applyFilters();
+        });
+      });
+
+      // ── Geo chips — single-select, exact geography field match ──
+      // geography values in the data are "City, State" (e.g. "Washington, DC") —
+      // already in the sidebar geography filter system, no post-processing needed.
+      geoChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const geoVal   = chip.dataset.geo;
+          const isActive = chip.classList.contains('sfc-chip--active');
+
+          // Always clear all geo state first (single-select)
+          geoChips.forEach(c => c.classList.remove('sfc-chip--active'));
+          filterState.filters.geography.clear();
+          document.querySelectorAll('#geographyFilters input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+          if (!isActive) {
+            chip.classList.add('sfc-chip--active');
+            filterState.filters.geography.add(geoVal);
+            const cb = document.querySelector(`#geographyFilters input[value="${geoVal}"]`);
+            if (cb) cb.checked = true;
+          }
+          filterState.applyFilters();
+        });
+      });
+
+      // ── Clear all — beat row × button resets every filter ──
+      function clearAllChips() {
+        beatChips.forEach(c => c.classList.remove('sbc-chip--active'));
+        platformChips.forEach(c => c.classList.remove('sfc-chip--active'));
+        geoChips.forEach(c => c.classList.remove('sfc-chip--active'));
+        if (clearBtn) clearBtn.style.display = 'none';
+        if (briefCta) briefCta.style.display = 'none';
+        updateShareBtn(null);
+        if (typeof clearAllFilters === 'function') clearAllFilters();
+      }
+      if (clearBtn) clearBtn.addEventListener('click', clearAllChips);
+
+      // ── URL-param sync: reflect pre-loaded filter state in chip visual state ──
+      // DOMContentLoaded has already fired (script is at bottom of body).
+      // 300ms waits for the JSON fetch + populateFilters() to complete.
       // Robust fix requires hooking into populateFilters() in main.js (out of scope).
-      // DOMContentLoaded has already fired by the time this script runs (bottom of body).
       setTimeout(() => {
+        // Beat chips
         const checkedGroup = document.querySelector('#groupFilters input[type="checkbox"]:checked');
         if (checkedGroup) {
-          chips.forEach(chip => {
+          beatChips.forEach(chip => {
             if (chip.dataset.group === checkedGroup.value) {
               chip.classList.add('sbc-chip--active');
               if (clearBtn) clearBtn.style.display = 'inline-flex';
@@ -538,6 +666,20 @@
             }
           });
         }
+
+        // Platform chips
+        platformChips.forEach(chip => {
+          const anyChecked = platformValuesForPrefix(chip.dataset.platformPrefix)
+            .some(v => document.querySelector(`#platformFilters input[value="${v}"]:checked`));
+          if (anyChecked) chip.classList.add('sfc-chip--active');
+        });
+
+        // Geo chips
+        geoChips.forEach(chip => {
+          if (document.querySelector(`#geographyFilters input[value="${chip.dataset.geo}"]:checked`)) {
+            chip.classList.add('sfc-chip--active');
+          }
+        });
       }, 300);
     })();
     </script>
