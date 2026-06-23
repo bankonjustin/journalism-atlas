@@ -36,11 +36,143 @@
     <script src="https://d3js.org/d3.v7.min.js" defer></script>
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+    /* ── SEARCH ORIENTATION HEADER ── */
+    .search-orientation {
+      background: #111111;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .search-orientation-inner {
+      padding: 32px 32px 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .search-orientation-eyebrow {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      display: block; margin-bottom: 8px;
+    }
+    .search-orientation-headline {
+      font-size: 24px; font-weight: 700; color: #fff;
+      letter-spacing: -0.025em; margin: 0 0 8px; line-height: 1.1;
+    }
+    .search-orientation-sub {
+      font-size: 15px; color: rgba(255,255,255,0.5);
+      line-height: 1.6; margin: 0; max-width: 480px;
+    }
+    .search-orientation-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: #ceff00;
+      text-decoration: none; white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+    .search-orientation-link:hover { opacity: 0.75; }
+
+    /* ── BEAT ENTRY CHIPS ── */
+    .search-beat-entry {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 32px 20px;
+      background: #111111;
+    }
+    .search-beat-entry-label {
+      font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      display: block; margin-bottom: 12px;
+    }
+    .search-beat-chips {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .sbc-chip {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px; padding: 6px 14px;
+      cursor: pointer; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .sbc-chip:hover {
+      color: #fff; border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+    }
+    .sbc-chip--active {
+      color: #111; background: #ceff00;
+      border-color: #ceff00; font-weight: 700;
+    }
+    .sbc-chip--clear {
+      color: rgba(255,255,255,0.4);
+      background: transparent;
+      border-color: rgba(255,255,255,0.15);
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .sbc-chip--clear:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    /* ── VIZ ENTRY NOTES ── */
+    .viz-entry-note {
+      font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
+      margin: 0 0 16px; max-width: 560px;
+    }
+
+    /* ── BUILD BRIEF CTA ── */
+    .build-brief-cta {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      text-decoration: none; white-space: nowrap;
+      transition: color 0.15s; padding: 6px 0;
+    }
+    .build-brief-cta:hover { color: #ceff00; }
+
+    @media (max-width: 768px) {
+      .search-orientation-inner { padding: 24px 20px 16px; }
+      .search-beat-entry { padding: 12px 20px 16px; }
+      .search-orientation-headline { font-size: 20px; }
+    }
+    </style>
+
     <link rel="stylesheet" href="/assets/css/header.css">
 </head>
 <body>
     <script src="/assets/js/header.js"></script>
 
+
+    <!-- Orientation header: beat entry layer (Tier 1) above the filter/grid layout -->
+    <div class="search-orientation">
+      <div class="search-orientation-inner">
+        <div class="search-orientation-left">
+          <span class="search-orientation-eyebrow">The Atlas Database</span>
+          <h1 class="search-orientation-headline">1,453 verified creator-journalists.</h1>
+          <p class="search-orientation-sub">Start with a beat below — or use filters to search by platform, geography, or topic.</p>
+        </div>
+        <div class="search-orientation-right">
+          <a href="pulse.html" class="search-orientation-link">
+            <span class="material-symbols-outlined" style="font-size:16px;">rss_feed</span>
+            What they're covering this week →
+          </a>
+        </div>
+      </div>
+
+      <div class="search-beat-entry" id="search-beat-entry">
+        <div class="search-beat-entry-inner">
+          <span class="search-beat-entry-label">Start with a beat</span>
+          <div class="search-beat-chips">
+            <button class="sbc-chip" data-group="Power &amp; Politics">Politics &amp; Power</button>
+            <button class="sbc-chip" data-group="Money &amp; Work">Money &amp; Work</button>
+            <button class="sbc-chip" data-group="Science, Health &amp; Environment">Science &amp; Health</button>
+            <button class="sbc-chip" data-group="Culture &amp; Media">Culture &amp; Media</button>
+            <button class="sbc-chip" data-group="Civic Life">Civic Life</button>
+            <button class="sbc-chip" data-group="Social Issues">Social Issues</button>
+            <button class="sbc-chip sbc-chip--clear" id="sbc-clear" style="display:none;">Clear ×</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Main Container -->
     <div class="container">
@@ -153,15 +285,28 @@
                     Showing <strong>0</strong> of <strong>—</strong> creators
                 </div>
                 <div class="view-toggle">
-                    <button class="view-btn active" onclick="toggleView('grid')">Grid</button>
-                    <button class="view-btn" onclick="toggleView('list')">List</button>
-                    <button class="view-btn" onclick="toggleView('bubbles')">Bubbles</button>
-                    <button class="view-btn" onclick="toggleView('wheel')">Wheel</button>
-                    <button class="view-btn" onclick="toggleView('treemap')">Treemap</button>
+                    <button class="view-btn active" onclick="toggleView('grid')" title="Browse creator cards">
+                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">grid_view</span>Cards
+                    </button>
+                    <button class="view-btn" onclick="toggleView('list')" title="Compact list view">
+                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">list</span>List
+                    </button>
+                    <button class="view-btn" onclick="toggleView('bubbles')" title="Explore by platform cluster">
+                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">bubble_chart</span>By Platform
+                    </button>
+                    <button class="view-btn" onclick="toggleView('wheel')" title="Explore by beat cluster">
+                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">donut_large</span>By Beat
+                    </button>
+                    <button class="view-btn" onclick="toggleView('treemap')" title="Explore topics by group">
+                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">grid_on</span>By Topic
+                    </button>
                 </div>
                 <button class="share-view-btn" id="shareViewBtn" onclick="shareCurrentView()">
                     ✦ Share this view
                 </button>
+                <a href="for-brands.html#build-brief" class="build-brief-cta" id="build-brief-cta" style="display:none;">
+                  Build a brief for your team →
+                </a>
             </div>
 
             <!-- Loading State -->
@@ -195,6 +340,7 @@
 
             <!-- Sunburst/Wheel View -->
             <div class="sunburst-view" id="sunburstView">
+                <p class="viz-entry-note">Platforms on the inside ring, beat groups on the outside. Click any segment to filter and explore.</p>
                 <h2 class="sunburst-title">Discovery Wheel</h2>
                 <p class="sunburst-subtitle">Platforms (inner) → Groups (outer) &bull; Click to explore</p>
                 
@@ -214,6 +360,7 @@
 
             <!-- Treemap View -->
             <div class="treemap-view" id="treemapView">
+                <p class="viz-entry-note">Each cell is a topic. Cell size = number of creators. Click to drill down into a group.</p>
                 <div class="treemap-header">
                     <h2>Topics by Group</h2>
                     <p class="treemap-subtitle">Size represents number of creators &bull; Click to explore</p>
@@ -297,6 +444,102 @@
           if (e.target === this) closePackModal();
         });
       });
+    </script>
+
+    <script>
+    // Beat entry chips — wire to existing Group filter checkboxes (S1, S3, S4)
+    (function() {
+      const chips = document.querySelectorAll('.sbc-chip:not(.sbc-chip--clear)');
+      const clearBtn = document.getElementById('sbc-clear');
+      const briefCta = document.getElementById('build-brief-cta');
+
+      function getGroupCheckbox(groupValue) {
+        // Checkboxes are populated by main.js after data loads — safe to query at click time
+        const checkboxes = document.querySelectorAll('#groupFilters input[type="checkbox"]');
+        for (const cb of checkboxes) {
+          if (cb.value === groupValue) return cb;
+        }
+        return null;
+      }
+
+      // S3: update share button label when a beat chip is active
+      function updateShareBtn(beatLabel) {
+        const shareBtn = document.getElementById('shareViewBtn');
+        if (!shareBtn) return;
+        if (beatLabel) {
+          shareBtn.innerHTML = '✦ Share ' + beatLabel + ' creators';
+          shareBtn.style.background = 'rgba(206,255,0,0.12)';
+          shareBtn.style.borderColor = 'rgba(206,255,0,0.4)';
+          shareBtn.style.color = '#ceff00';
+        } else {
+          shareBtn.innerHTML = '✦ Share this view';
+          shareBtn.style.background = '';
+          shareBtn.style.borderColor = '';
+          shareBtn.style.color = '';
+        }
+      }
+
+      function clearBeatChips() {
+        chips.forEach(c => c.classList.remove('sbc-chip--active'));
+        if (clearBtn) clearBtn.style.display = 'none';
+        if (briefCta) briefCta.style.display = 'none';
+        updateShareBtn(null);
+        if (typeof clearAllFilters === 'function') clearAllFilters();
+      }
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const isActive = chip.classList.contains('sbc-chip--active');
+          // Clear all chip state first
+          chips.forEach(c => c.classList.remove('sbc-chip--active'));
+          document.querySelectorAll('#groupFilters input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+          if (!isActive) {
+            chip.classList.add('sbc-chip--active');
+            if (clearBtn) clearBtn.style.display = 'inline-flex';
+            if (briefCta) briefCta.style.display = 'inline-flex';
+            updateShareBtn(chip.textContent.trim());
+
+            const groupValue = chip.dataset.group;
+            const cb = getGroupCheckbox(groupValue);
+            if (cb) {
+              cb.checked = true;
+              // Ensure group accordion is open
+              const groupAccordion = document.getElementById('groupAccordion');
+              if (groupAccordion && !groupAccordion.classList.contains('open')) {
+                groupAccordion.classList.add('open');
+              }
+            }
+          } else {
+            if (clearBtn) clearBtn.style.display = 'none';
+            if (briefCta) briefCta.style.display = 'none';
+            updateShareBtn(null);
+          }
+          if (typeof applyFilters === 'function') applyFilters();
+        });
+      });
+
+      if (clearBtn) clearBtn.addEventListener('click', clearBeatChips);
+
+      // Sync chip visual state if URL params pre-loaded a group filter.
+      // NOTE: 300ms is a best-effort heuristic — checkboxes are rendered after
+      // the JSON fetch resolves. On slow connections this may not be enough.
+      // Robust fix requires hooking into populateFilters() in main.js (out of scope).
+      // DOMContentLoaded has already fired by the time this script runs (bottom of body).
+      setTimeout(() => {
+        const checkedGroup = document.querySelector('#groupFilters input[type="checkbox"]:checked');
+        if (checkedGroup) {
+          chips.forEach(chip => {
+            if (chip.dataset.group === checkedGroup.value) {
+              chip.classList.add('sbc-chip--active');
+              if (clearBtn) clearBtn.style.display = 'inline-flex';
+              if (briefCta) briefCta.style.display = 'inline-flex';
+              updateShareBtn(chip.textContent.trim());
+            }
+          });
+        }
+      }, 300);
+    })();
     </script>
 
     <script src="/assets/js/footer.js"></script>
