@@ -54,10 +54,9 @@ window.atlasTrack = function(eventName, params) {
         '      </div>',
         '    </div>',
         '    <div class="nav-links">',
-        '      <a href="/about-this-project.html" class="nav-link">About This Project</a>',
-        '      <a href="/research.html" class="nav-link">Research &amp; Writing</a>',
+        '      <a href="/search" class="nav-link">Search</a>',
         '      <a href="/pulse.html" class="nav-link nav-link--pulse"><span class="nav-pulse-dot"></span>Pulse</a>',
-        '      <a href="/contact.html" class="nav-link">Contact Us</a>',
+        '      <a href="/for-brands.html" class="nav-link">For Teams</a>',
         '    </div>',
         '    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Open menu">',
         '      <span class="material-symbols-outlined">menu</span>',
@@ -73,10 +72,11 @@ window.atlasTrack = function(eventName, params) {
         '    </button>',
         '  </div>',
         '  <nav class="mobile-menu-links">',
-        '    <a href="/about-this-project.html" class="mobile-menu-link">About This Project</a>',
-        '    <a href="/research.html" class="mobile-menu-link">Research &amp; Writing</a>',
+        '    <a href="/search" class="mobile-menu-link">Search</a>',
         '    <a href="/pulse.html" class="mobile-menu-link">Pulse</a>',
-        '    <a href="/contact.html" class="mobile-menu-link">Contact Us</a>',
+        '    <a href="/for-brands.html" class="mobile-menu-link">For Teams</a>',
+        '    <a href="/about-this-project.html" class="mobile-menu-link">About</a>',
+        '    <a href="/contact.html" class="mobile-menu-link">Contact</a>',
         '  </nav>',
         '</div>'
     ].join('\n');
@@ -130,7 +130,7 @@ window.atlasTrack = function(eventName, params) {
 
         function doSearch() {
             var q = input.value.trim();
-            if (q) window.location.href = '/search?search=' + encodeURIComponent(q);
+            window.location.href = q ? '/search?search=' + encodeURIComponent(q) : '/search';
         }
 
         input.addEventListener('keypress', function (e) {

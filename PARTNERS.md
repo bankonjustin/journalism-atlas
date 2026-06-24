@@ -1,46 +1,45 @@
 # Atlas Partner Pages — Directory
 *Source of truth for all partner page files, status, and metadata*
-*Last updated: June 23, 2026 — atlasTotal updated to `1,700+`*
+*Last updated: June 24, 2026*
 
 ---
 
 ## Convention
 
-- All partner HTML files live in the **repo root** alongside `index.html`
-- Naming: `partner-[slug].html` for institutional partners, `partner-list-[slug].html` for curator lists
-- Shell template: `partner-page-shell-V1.html` — clone this for every new partner page
+- All partner HTML files live in the **`partners/` subdirectory**
+- Naming: `partners/[slug].html` → `/partners/[slug]` (clean URL via Cloudflare Pages)
+- Shell template: `partners/_shell.html` — clone this for every new partner page
 - V2+ suffix = staging version, not yet live. Remove suffix when promoted to live.
+- Old root-level partner URLs redirect to new paths via `_redirects` at repo root
 - Claude Code reads this file before touching any partner file
 
 ---
 
-## Live Pages
+## Live Pages (12 total)
 
-| File | Partner | Type | Cards | Creators | Slug | Status |
-|------|---------|------|-------|----------|------|--------|
-| `partner-list-cillizza.html` | Chris Cillizza | Curator list | Minimal | 17 | `/partner-list-cillizza` | Live — V1 |
-| `partner-list-grist.html` | Jess Stahl / Grist | Curator list | Minimal | ~20 | `/partner-list-grist` | Live — V1 |
-| `partner-icfj.html` | ICFJ | Institutional | Blurb | 21 | `/partner-icfj` | Live — V1 |
+| File | Partner | URL | Status |
+|------|---------|-----|--------|
+| `partners/cillizza.html` | Chris Cillizza | `/partners/cillizza` | Live |
+| `partners/icfj.html` | ICFJ | `/partners/icfj` | Live |
+| `partners/ahp.html` | Anne Helen Petersen | `/partners/ahp` | Live |
+| `partners/jessica-stahl.html` | Jessica Stahl | `/partners/jessica-stahl` | Live |
+| `partners/news-creator-corps.html` | News Creator Corps | `/partners/news-creator-corps` | Live |
+| `partners/joon-lee.html` | Joon Lee | `/partners/joon-lee` | Live |
+| `partners/knowledge-creators.html` | Knowledge Creators | `/partners/knowledge-creators` | Live |
+| `partners/emily-atkin.html` | Emily Atkin | `/partners/emily-atkin` | Live |
+| `partners/natgeo.html` | NatGeo | `/partners/natgeo` | Live |
+| `partners/karen-attiah.html` | Karen Attiah | `/partners/karen-attiah` | Live |
+| `partners/rahim-jessani.html` | Rahim Jessani | `/partners/rahim-jessani` | Live |
+| `partners/noah-smith.html` | Noah Smith | `/partners/noah-smith` | Live |
 
-## Staging (V2 — not yet live)
+---
 
-| File | Partner | Type | Cards | Creators | Notes |
-|------|---------|------|-------|----------|-------|
-| `partner-list-cillizza-V2.html` | Chris Cillizza | Curator list | Minimal | 17 | Shell rebuild. Needs browser review before replacing V1. |
-| `partner-icfj-V2.html` | ICFJ | Institutional | Blurb | 21 | Shell rebuild. Logo wired to curators/ dir. Needs browser review. |
-| `partner-page-shell-V1.html` | — | Shell/template | Both | — | Canonical template. Do not modify without updating this doc. |
+## Staging (V2 — not yet promoted)
 
-## Pipeline (confirmed, not yet built)
-
-| Partner | Type | Cards | Est. Creators | Notes |
-|---------|------|-------|---------------|-------|
-| Anne Helen Petersen | Curator list | Blurb | 23 | Largest single anchor. Data sourced, blurbs needed. |
-| SembraMedia | Institutional | Blurb | TBD | MOU signed. Liz primary contact. |
-| Grist (rebuild) | Curator list | Minimal→Blurb | ~20 | V1 predates shell. Rebuild when Cillizza/ICFJ V2 confirmed. |
-| Project C | Institutional | Minimal | ~145 | Large count — may need pagination or filtered view. |
-| ONA Creator Cohort | Institutional | Blurb | TBD | |
-| CJF NextGen | Institutional | Blurb | TBD | |
-| Going Solo | Institutional | TBD | TBD | |
+| File | Partner | Notes |
+|------|---------|-------|
+| `partner-list-cillizza-V2.html` | Chris Cillizza | Shell rebuild. Needs browser review before replacing V1. |
+| `partner-icfj-V2.html` | ICFJ | Shell rebuild. Needs browser review. |
 
 ---
 
@@ -65,7 +64,7 @@
 | Partner logos (color) | `assets/images/curators/` |
 | Partner logos (white, for hero) | `assets/images/curators/` |
 | Atlas logos | `assets/images/logos/` |
-| Shell template | `partner-page-shell-V1.html` (repo root) |
+| Shell template | `partners/_shell.html` |
 
 **Known assets in `assets/images/curators/`:**
 - `ICFJ+ Logo_White.png` — hero panel (dark background)
