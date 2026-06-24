@@ -6,7 +6,7 @@
   <title>Creator Intelligence for PR &amp; Comms | The Independent Journalism Atlas</title>
   <link rel="canonical" href="https://journalismatlas.com/for-brands">
   <meta property="og:title" content="Creator Intelligence for PR &amp; Comms | The Independent Journalism Atlas">
-  <meta property="og:description" content="The journalists covering your issues aren't in your media list. The Atlas maps 1,453 verified independent creator-journalists — filterable by beat, platform, and geography.">
+  <meta property="og:description" content="The journalists covering your issues aren't in your media list. The Atlas maps 1,700+ verified independent creator-journalists — filterable by beat, platform, and geography.">
   <meta property="og:url" content="https://journalismatlas.com/for-brands">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
@@ -16,7 +16,7 @@
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://journalismatlas.com/for-brands">
   <meta property="twitter:title" content="Creator Intelligence for PR &amp; Comms | The Independent Journalism Atlas">
-  <meta property="twitter:description" content="The journalists covering your issues aren't in your media list. The Atlas maps 1,453 verified independent creator-journalists — filterable by beat, platform, and geography.">
+  <meta property="twitter:description" content="The journalists covering your issues aren't in your media list. The Atlas maps 1,700+ verified independent creator-journalists — filterable by beat, platform, and geography.">
   <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -722,7 +722,7 @@
 <section class="atlas-does-section" id="intelligence-layer">
   <div class="section-inner">
     <div class="eyebrow eyebrow--dark">The Intelligence Layer</div>
-    <h2 class="h2-dark">1,453 verified creator journalists. Mapped, filtered, monitored.</h2>
+    <h2 class="h2-dark"><span class="js-creator-count">1,718</span> verified creator journalists. Mapped, filtered, monitored.</h2>
     <div class="atlas-does-grid">
       <div class="atlas-card">
         <div class="atlas-card-icon"><span class="material-symbols-outlined">search</span></div>
@@ -798,7 +798,7 @@
           </div>
           <div class="gallery-card-eyebrow">Atlas Search · Always Free</div>
           <div class="gallery-card-name">Find the journalists covering your beat.</div>
-          <p class="gallery-card-desc">1,453 verified creator-journalists, filterable by topic, platform, and geography. Every entry human-verified. No algorithmic noise.</p>
+          <p class="gallery-card-desc"><span class="js-creator-count">1,718</span> verified creator-journalists, filterable by topic, platform, and geography. Every entry human-verified. No algorithmic noise.</p>
           <span class="gallery-card-link">Search the Atlas →</span>
         </a>
       </div>
@@ -1185,6 +1185,11 @@ function showBriefConfirm() {
   document.getElementById('brief-form').style.display = 'none';
   document.getElementById('brief-confirm').style.display = 'block';
 }
+
+fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
+  const n = data.length.toLocaleString();
+  document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = n; });
+}).catch(() => {});
 </script>
 </body>
 </html>

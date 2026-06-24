@@ -131,6 +131,18 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 
 ---
 
+## Creator Count Convention
+
+**Never hardcode a creator count as a bare number.** The canonical count is always derived from `creators-data.json` at runtime.
+
+- **Visible UI text:** Wrap in `<span class="js-creator-count">1,718</span>`. Pages that fetch `creators-data.json` update all `.js-creator-count` spans automatically with the live count.
+- **Pages without a JSON fetch:** Add a lightweight fetch snippet (see `about-this-project.html` or `for-brands.html` for the pattern).
+- **Meta/OG/Twitter description tags:** Cannot be dynamic (crawlers read before JS runs). Update manually when the count milestone changes. Use rounded `1,700+` form, not the exact number.
+- **Partner page attribution strings** ("Curated from X creator-journalists"): Use `1,700+` rounded form. Update when the count crosses the next hundred.
+- **Cluster card counts on index.html:** Computed dynamically from `allCreators` by `_updateClusterCards()` after data loads — do not hardcode.
+
+---
+
 ## Key Constraints
 
 - **Single deployable HTML file** — no build step, no external dependencies beyond CDNs

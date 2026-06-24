@@ -164,7 +164,7 @@
             // Apply filters and update counts/URL but skip view re-render
             applyFiltersSilent() {
                 filteredCreators = allCreators.filter(creator => {
-                    if (this.filters.group.size > 0 && !this.filters.group.has(creator.group)) return false;
+                    if (this.filters.group.size > 0 && !parseCreatorGroups(creator.group).some(g => this.filters.group.has(g))) return false;
                     if (this.filters.platform.size > 0 && !this.filters.platform.has(creator.platform)) return false;
                     if (this.filters.geography.size > 0 && !this.filters.geography.has(creator.geography)) return false;
                     if (this.filters.topic.size > 0 && !this.filters.topic.has(creator.topic)) return false;

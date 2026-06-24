@@ -522,7 +522,7 @@
 
     <div class="section-intro">
         <h2>Browse by Collection</h2>
-        <p>The full Atlas database has 1,718 verified creators. These collections cut across it — by what creators cover, how they publish, and where they operate. Click any collection to explore its members.</p>
+        <p>The full Atlas database has <span class="js-creator-count">1,718</span> verified creators. These collections cut across it — by what creators cover, how they publish, and where they operate. Click any collection to explore its members.</p>
     </div>
 
     <div class="collections-grid" id="collectionsGrid">
@@ -629,6 +629,7 @@ async function init() {
     try {
         const res = await fetch('assets/data/creators-data.json');
         allCreators = await res.json();
+        document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = allCreators.length.toLocaleString(); });
         renderCards();
         updateTotalCount();
     } catch (e) {

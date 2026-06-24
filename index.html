@@ -981,7 +981,7 @@
   </div>
   <div class="intel-grid">
 
-    <a href="search.html?search=tech" class="cluster-card">
+    <a href="/search?search=tech" class="cluster-card">
       <div class="cluster-accent" style="background:#457b9d;"></div>
       <div class="cluster-name">Technology</div>
       <div class="cluster-count"><span class="cluster-count-n">183</span><span class="cluster-count-lbl">creators</span></div>
@@ -1003,7 +1003,7 @@
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
 
-    <a href="search.html?search=politics" class="cluster-card">
+    <a href="/search?group=Power+%26+Politics" class="cluster-card">
       <div class="cluster-accent" style="background:#e63946;"></div>
       <div class="cluster-name">Politics &amp; Government</div>
       <div class="cluster-count"><span class="cluster-count-n">241</span><span class="cluster-count-lbl">creators</span></div>
@@ -1025,7 +1025,7 @@
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
 
-    <a href="search.html?search=climate" class="cluster-card">
+    <a href="/search?group=Science%2C+Health+%26+Environment" class="cluster-card">
       <div class="cluster-accent" style="background:#2d6a4f;"></div>
       <div class="cluster-name">Climate &amp; Environment</div>
       <div class="cluster-count"><span class="cluster-count-n">97</span><span class="cluster-count-lbl">creators</span></div>
@@ -1047,7 +1047,7 @@
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
 
-    <a href="search.html?search=local+news" class="cluster-card">
+    <a href="/search?search=local" class="cluster-card">
       <div class="cluster-accent" style="background:#ffd166;"></div>
       <div class="cluster-name">Local News</div>
       <div class="cluster-count"><span class="cluster-count-n">156</span><span class="cluster-count-lbl">creators</span></div>
@@ -1069,7 +1069,7 @@
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
 
-    <a href="search.html?search=finance" class="cluster-card">
+    <a href="/search?group=Money+%26+Work" class="cluster-card">
       <div class="cluster-accent" style="background:#f4a261;"></div>
       <div class="cluster-name">Business &amp; Finance</div>
       <div class="cluster-count"><span class="cluster-count-n">118</span><span class="cluster-count-lbl">creators</span></div>
@@ -1090,7 +1090,7 @@
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
 
-    <a href="search.html?search=health" class="cluster-card">
+    <a href="/search?group=Science%2C+Health+%26+Environment" class="cluster-card">
       <div class="cluster-accent" style="background:#06d6a0;"></div>
       <div class="cluster-name">Health &amp; Science</div>
       <div class="cluster-count"><span class="cluster-count-n">84</span><span class="cluster-count-lbl">creators</span></div>
@@ -1112,7 +1112,7 @@
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
 
-    <a href="search.html?search=culture" class="cluster-card">
+    <a href="/search?group=Culture+%26+Media" class="cluster-card">
       <div class="cluster-accent" style="background:#c77dff;"></div>
       <div class="cluster-name">Culture &amp; Media</div>
       <div class="cluster-count"><span class="cluster-count-n">109</span><span class="cluster-count-lbl">creators</span></div>
@@ -1134,7 +1134,7 @@
       <span class="cluster-explore-link">Explore cluster →</span>
     </a>
 
-    <a href="search.html?search=international" class="cluster-card">
+    <a href="/search?search=international" class="cluster-card">
       <div class="cluster-accent" style="background:#118ab2;"></div>
       <div class="cluster-name">International</div>
       <div class="cluster-count"><span class="cluster-count-n">72</span><span class="cluster-count-lbl">creators</span></div>
@@ -2146,6 +2146,77 @@ function closeDrawer() {
 }
 
 /* ════════════════════════════════════════════════════════════
+   CLUSTER CARDS — dynamic population from allCreators
+   ════════════════════════════════════════════════════════════ */
+
+// Known groups (mirrors ORDERED_GROUPS in main.js / search.html)
+const _GROUPS = ['Power & Politics','Money & Work','Civic Life','Social Issues',
+                 'Science, Health & Environment','Culture & Media',
+                 'Lifestyle & Personal Life','Journalism Formats','General News'];
+
+function _splitGroups(groupStr) {
+  if (!groupStr) return [];
+  if (_GROUPS.includes(groupStr)) return [groupStr];
+  return _GROUPS.filter(g => {
+    const esc = g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp('(?:^|,\\s*)' + esc + '(?:,|$)').test(groupStr);
+  });
+}
+
+function _abbrevPlatform(p) {
+  return (p || '').replace(/^Newsletter\s*-\s*/, '').replace(/^Video\s*-\s*/, '') || 'Newsletter';
+}
+
+function _updateClusterCards() {
+  document.querySelectorAll('.cluster-card[href]').forEach(card => {
+    const href = card.getAttribute('href');
+    let group = null, search = null;
+    try {
+      const u = new URL(href, window.location.href);
+      group  = u.searchParams.get('group');
+      search = u.searchParams.get('search');
+    } catch (e) { return; }
+
+    let matches;
+    if (group) {
+      matches = allCreators.filter(c => _splitGroups(c.group).includes(group));
+    } else if (search) {
+      const s = search.toLowerCase();
+      matches = allCreators.filter(c => c.topic.includes(s) || c.geography.toLowerCase().includes(s));
+    } else {
+      // Sports card links to lists.html with no params
+      matches = allCreators.filter(c => c.topic.includes('sport'));
+    }
+    if (!matches.length) return;
+
+    // Update total count
+    const countEl = card.querySelector('.cluster-count-n');
+    if (countEl) countEl.textContent = matches.length;
+
+    // Compute top-3 platform distribution
+    const tally = {};
+    matches.forEach(c => {
+      const p = _abbrevPlatform(c.rawPlatform);
+      tally[p] = (tally[p] || 0) + 1;
+    });
+    const top3 = Object.entries(tally).sort((a, b) => b[1] - a[1]).slice(0, 3);
+    const total = matches.length;
+
+    const segs = card.querySelectorAll('.fp-seg');
+    const lbls = card.querySelectorAll('.fp-label');
+    top3.forEach(([name, count], i) => {
+      const pct = Math.round(count / total * 100);
+      if (segs[i]) segs[i].style.width = pct + '%';
+      if (lbls[i]) {
+        const swatch = lbls[i].querySelector('.fp-swatch');
+        lbls[i].textContent = name + ' ' + count;
+        if (swatch) lbls[i].prepend(swatch);
+      }
+    });
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', async () => {
@@ -2153,11 +2224,14 @@ window.addEventListener('DOMContentLoaded', async () => {
     const resp = await fetch('assets/data/creators-data.json');
     const raw  = await resp.json();
     allCreators = raw.map(c => ({
-      name:      c.name,
-      channel:   c.channel,
-      cluster:   topicToCluster(c.topic),
-      platform:  (c.platform || '').split(' - ')[0] || 'Newsletter',
-      geography: c.geography || '',
+      name:        c.name,
+      channel:     c.channel,
+      cluster:     topicToCluster(c.topic),
+      platform:    (c.platform || '').split(' - ')[0] || 'Newsletter',
+      rawPlatform: c.platform || '',
+      topic:       (c.topic || '').toLowerCase(),
+      group:       c.group || '',
+      geography:   c.geography || '',
     }));
   } catch (err) {
     console.warn('Atlas viz: data fetch failed, viz will not render', err);
@@ -2166,6 +2240,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const countStr = allCreators.length.toLocaleString();
   document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = countStr; });
+  _updateClusterCards();
 
   viz = buildViz(
     document.getElementById('hero-canvas'),
