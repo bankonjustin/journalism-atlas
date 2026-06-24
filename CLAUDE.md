@@ -2,6 +2,7 @@
 
 *Project: Independent Journalism Atlas (journalismatlas.com)*
 *Owner: Justin | Design system: James (james@happicamp.com)*
+*Last updated: June 23, 2026*
 
 **Read at session start:** This file + `WORKFLOW.md` (decision authority, "done" definition, Chat→Code handoff protocol, deploy process).
 
@@ -9,9 +10,9 @@
 
 ## Project Overview
 
-A vanilla JS + D3 static HTML site. No build step, no npm, no React. All pages are single HTML files deployed to Cloudflare Pages via GitHub auto-deploy. Data lives in `assets/data/` as JSON.
+A vanilla JS static HTML site. No build step, no npm, no React. All pages are single HTML files deployed to Cloudflare Pages via GitHub auto-deploy. Data lives in `assets/data/` as JSON.
 
-**Stack:** HTML + CSS + Vanilla JS + D3 v7. CSS custom properties for design tokens. No preprocessors.
+**Stack:** HTML + CSS + Vanilla JS. CSS custom properties for design tokens. No preprocessors. D3 v7 is present for specific visualizations but is not the general rendering approach — most page UI is vanilla JS.
 
 **Deploy:** Push to GitHub → Cloudflare auto-deploys. Justin pushes via GitHub Desktop (not CLI).
 
@@ -146,7 +147,7 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 | File | Description | Creator count | CSS approach |
 |------|-------------|--------------|--------------|
 | `index.html` | Homepage — hero, guided paths, stat strip, cluster grid | — | `variables.css` + inline `<style>` + `header.css` |
-| `search.html` | Full creator database — filters, search, card grid | ~1,453 (live JSON) | External: `main.css` |
+| `search.html` | Full creator database — filters, search, card grid | ~1,718 (live JSON) | External: `main.css` |
 | `postcard.html` | Starter Pack builder | — | Inline `<style>` |
 | `partners/_shell.html` | Partner page shell (template) | — | Inline `<style>` |
 | `partners/cillizza.html` | Chris Cillizza curated list | 17 | Inline `<style>` |

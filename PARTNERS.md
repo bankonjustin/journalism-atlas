@@ -1,6 +1,6 @@
 # Atlas Partner Pages — Directory
 *Source of truth for all partner page files, status, and metadata*
-*Last updated: April 2026*
+*Last updated: June 23, 2026 — atlasTotal updated to `1,700+`*
 
 ---
 
@@ -95,7 +95,7 @@ When cloning the shell, update `const PARTNER = {}` with these fields:
 | `platformCount` | Yes | Count of distinct primary platforms |
 | `geoCount` | Yes | Count of distinct states, regions, or countries |
 | `geoLabel` | No | Stat strip cell 4 label. Default: `"States / regions covered"`. Override for global pages: `"Countries represented"` |
-| `atlasTotal` | Yes | Current Atlas total. Keep as `"1,200+"` until next milestone |
+| `atlasTotal` | Yes | Current Atlas total. Keep as `"1,700+"` until next milestone |
 | `year` | Yes | Current year |
 
 ---

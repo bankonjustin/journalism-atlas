@@ -100,6 +100,8 @@
       line-height: 1.7;
       margin-bottom: 24px;
     }
+    .page-subhead-method { font-family: 'DM Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.6; margin-top: 8px; margin-bottom: 24px; letter-spacing: 0.02em; }
+    .page-subhead-method strong { color: rgba(255,255,255,0.65); font-weight: 700; }
     .pulse-thesis-band {
       background: #efeff2;
       padding: 20px 40px;
@@ -117,34 +119,49 @@
     .pulse-thesis-band strong {
       color: #313131;
     }
-    .audience-bridge {
-      background: #ffffff;
-      border-top: 1px solid #d4d4d8;
-      border-bottom: 1px solid #d4d4d8;
-      padding: 16px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+    .signal-band { background: #111111; padding: 32px 40px; }
+    .signal-band-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #ceff00; margin-bottom: 8px; }
+    .signal-band-explain { font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 24px; line-height: 1.5; }
+    .signal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .signal-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 16px; }
+    .signal-card:hover { border-color: rgba(206,255,0,0.3); background: rgba(255,255,255,0.07); }
+    .signal-card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .signal-beat-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #ceff00; background: rgba(206,255,0,0.08); border: 1px solid rgba(206,255,0,0.2); border-radius: 9999px; padding: 2px 8px; }
+    .signal-reason-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 9999px; padding: 2px 8px; }
+    .signal-card-title a { font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; text-decoration: none; line-height: 1.35; display: block; margin-bottom: 10px; }
+    .signal-card-title a:hover { color: #ceff00; }
+    .signal-card-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
+    .field-summary-band { background: #ffffff; border-top: 1px solid #d4d4d8; border-bottom: 1px solid #d4d4d8; padding: 24px 40px; }
+    .field-summary-inner { max-width: 760px; }
+    .field-summary-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #97d600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .field-summary-draft { font-family: 'DM Mono', monospace; font-size: 9px; color: #aaa; }
+    .field-summary-text { font-family: 'Hanken Grotesk', sans-serif; font-size: 16px; font-weight: 400; color: #313131; line-height: 1.7; margin-bottom: 10px; }
+    .field-summary-byline { font-family: 'DM Mono', monospace; font-size: 11px; color: #aaa; letter-spacing: 0.04em; }
+    .audience-bridge-v2 { background: #fff; border-top: 1px solid #d4d4d8; border-bottom: 1px solid #d4d4d8; padding: 16px 40px; display: flex; align-items: stretch; }
+    .audience-bridge-item { flex: 1; display: flex; flex-direction: column; gap: 3px; padding: 4px 24px 4px 0; }
+    .audience-bridge-item:first-child { padding-left: 0; }
+    .audience-bridge-divider { width: 1px; background: #d4d4d8; margin: 0 24px; flex-shrink: 0; }
+    .audience-bridge-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
+    .audience-bridge-sub { font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; color: #313131; line-height: 1.4; }
+    .audience-bridge-link { font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #5d7400; text-decoration: none; margin-top: 2px; }
+    .audience-bridge-link:hover { color: #97d600; }
+    .beat-trend-grid { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+    .beat-trend-row { display: flex; align-items: center; gap: 8px; }
+    .beat-trend-name { font-family: 'DM Mono', monospace; font-size: 10px; color: #555; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .beat-trend-arrow { font-size: 12px; width: 14px; flex-shrink: 0; }
+    .beat-trend-pct { font-family: 'DM Mono', monospace; font-size: 10px; width: 44px; text-align: right; flex-shrink: 0; }
+    .trend-up { color: #5d7400; }
+    .trend-down { color: #b45309; }
+    .trend-stable { color: #aaa; }
+    @media (max-width: 700px) {
+      .audience-bridge-v2 { flex-direction: column; padding: 16px 20px; gap: 16px; }
+      .audience-bridge-divider { width: 100%; height: 1px; margin: 0; }
+      .audience-bridge-item { padding: 0; }
     }
-    .audience-bridge-text {
-      font-family: 'Hanken Grotesk', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: #313131;
-    }
-    .audience-bridge-cta {
-      font-family: 'Hanken Grotesk', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: #5d7400;
-      text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .audience-bridge-cta:hover { color: #97d600; }
     @media (max-width: 600px) {
-      .audience-bridge { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 20px; }
+      .signal-band { padding: 24px 20px; }
+      .signal-grid { grid-template-columns: 1fr; }
+      .field-summary-band { padding: 20px; }
     }
     .stat-strip {
       display: flex;
@@ -945,6 +962,7 @@
       </div>
       <h1 class="page-headline">Atlas Pulse</h1>
       <p class="page-subhead">Independent journalism didn't disappear — it reorganized. Here's where it's publishing.</p>
+      <p class="page-subhead-method">Pulse monitors RSS feeds from <strong id="subhead-feed-count">883</strong> verified Atlas creators — newsletters, video, podcasts, websites. Updated 2–3× per week.</p>
       <div class="stat-strip" id="stat-strip"></div>
     </div>
     <div class="header-right" id="header-top-posts"></div>
@@ -956,10 +974,45 @@
   <p id="thesis-band-text"><strong>Beta · Updated weekly.</strong> Pulse monitors <strong id="thesis-feed-count">883 creator feeds</strong> via RSS — newsletters, videos, podcasts, websites. Posts are organized by beat tag. Not every creator has a feed yet; the <strong id="thesis-no-feed-count">570 without one</strong> are tracked in the Atlas database but don't appear here. <a href="about-this-project.html" style="color:#5d7400; text-decoration:none;">Learn how the Atlas works →</a></p>
 </div>
 
+<!-- SIGNAL STORIES BAND -->
+<div id="signal-band" class="signal-band" style="display:none">
+  <div class="signal-band-eyebrow"></div>
+  <p class="signal-band-explain">The highest-signal stories from this week's Pulse — scored for beat rarity, publishing context, and public-affairs relevance.</p>
+  <div class="signal-grid"></div>
+</div>
+
+<!-- FIELD SUMMARY BAND -->
+<div id="field-summary-band" class="field-summary-band" style="display:none">
+  <div class="field-summary-inner">
+    <div class="field-summary-eyebrow">
+      What This Week Tells Us
+      <!-- DEV ONLY: remove span below before public launch if not needed -->
+      <span id="field-summary-draft" class="field-summary-draft">(draft)</span>
+    </div>
+    <p class="field-summary-text" id="field-summary-text"></p>
+    <div class="field-summary-byline" id="field-summary-byline"></div>
+  </div>
+</div>
+
 <!-- AUDIENCE BRIDGE BAR -->
-<div class="audience-bridge">
-  <span class="audience-bridge-text">Looking for custom beat briefs or brand intelligence reports?</span>
-  <a href="for-brands.html" class="audience-bridge-cta">Learn how Atlas works for teams →</a>
+<div class="audience-bridge-v2">
+  <div class="audience-bridge-item">
+    <span class="audience-bridge-label">For journalists &amp; researchers</span>
+    <span class="audience-bridge-sub">See who's covering your beat.</span>
+    <a href="/index.html" class="audience-bridge-link">Search the database →</a>
+  </div>
+  <div class="audience-bridge-divider"></div>
+  <div class="audience-bridge-item">
+    <span class="audience-bridge-label">For brands &amp; comms teams</span>
+    <span class="audience-bridge-sub">Turn this into a weekly brief for your team.</span>
+    <a href="/for-brands.html" class="audience-bridge-link">How it works for brands →</a>
+  </div>
+  <div class="audience-bridge-divider"></div>
+  <div class="audience-bridge-item">
+    <span class="audience-bridge-label">For funders &amp; partners</span>
+    <span class="audience-bridge-sub">This is the infrastructure at work.</span>
+    <a href="/about-this-project.html" class="audience-bridge-link">About the Atlas →</a>
+  </div>
 </div>
 
 <!-- SPLIT LAYOUT WRAPPER -->
@@ -1033,6 +1086,10 @@
           <span class="material-symbols-outlined">insights</span>
           Intel
         </button>
+        <button class="analysis-tab" data-tab="pa" data-descriptor="Signals for communications, brand, and public affairs teams." role="tab" id="tab-pa" style="display:none">
+          <span class="material-symbols-outlined">campaign</span>
+          For Teams
+        </button>
       </div>
 
       <!-- Tab panels -->
@@ -1079,6 +1136,10 @@
           <div class="section-eyebrow" style="margin-bottom:4px;">Weekly intelligence brief</div>
           <div style="font-size:12px;color:#999;margin-bottom:16px;line-height:1.5;">Synthesized from this week's posts across the creator ecosystem.</div>
           <div id="intel-content"></div>
+        </div>
+
+        <div class="analysis-pane" id="pane-pa">
+          <div id="pa-content"></div>
         </div>
 
       </div>
@@ -2209,13 +2270,135 @@ function renderIntel() {
     notable.forEach(n => { const txt = typeof n === "string" ? n : (n.description || ""); html += `<div class="intel-bullet">${esc(txt)}</div>`; });
   }
 
+  // Beat trends section
+  const trends = DIGEST_DATA.beat_trends;
+  if (trends && Object.keys(trends).length) {
+    html += `<div class="intel-section-eyebrow">Beat Momentum</div>`;
+    html += `<div class="beat-trend-grid">`;
+    Object.entries(trends)
+      .sort((a, b) => Math.abs(b[1].delta_pct) - Math.abs(a[1].delta_pct))
+      .slice(0, 8)
+      .forEach(([beat, data]) => {
+        const arrow = data.trend === 'up' ? '↑' : data.trend === 'down' ? '↓' : '→';
+        const cls = data.trend === 'up' ? 'trend-up' : data.trend === 'down' ? 'trend-down' : 'trend-stable';
+        const pct = data.delta_pct > 0 ? '+' + data.delta_pct + '%' : data.delta_pct + '%';
+        html += `<div class="beat-trend-row">
+          <span class="beat-trend-name">${esc(beat)}</span>
+          <span class="beat-trend-arrow ${esc(cls)}">${arrow}</span>
+          <span class="beat-trend-pct ${esc(cls)}">${esc(pct)}</span>
+        </div>`;
+      });
+    html += `</div>`;
+  }
+
   const el = document.getElementById('intel-content');
   if (el) el.innerHTML = html;
+}
+
+function renderSignalBand() {
+  const stories = DIGEST_DATA.signal_stories;
+  if (!stories || !stories.length) return;
+
+  const band = document.getElementById('signal-band');
+  if (!band) return;
+
+  const date = DIGEST_DATA.metadata && DIGEST_DATA.metadata.date ? DIGEST_DATA.metadata.date : '';
+  band.querySelector('.signal-band-eyebrow').textContent =
+    'Signal Stories' + (date ? ' — Week of ' + date : '');
+
+  const grid = band.querySelector('.signal-grid');
+  grid.innerHTML = stories.slice(0, 5).map(s => {
+    const beats = (s.topic || s.beat || '').split(',').map(b => b.trim()).filter(Boolean);
+    const beatTag = beats[0] ? `<span class="signal-beat-tag">${esc(beats[0])}</span>` : '';
+    const reasonTag = s.signal_reason ? `<span class="signal-reason-tag">${esc(s.signal_reason)}</span>` : '';
+    const platShort = abbreviatePlatform(s.platform || '');
+    const dateStr = s.published ? fmtDateShort(s.published) : '';
+    const metaParts = [esc(s.creator), platShort, dateStr].filter(Boolean);
+    return `<div class="signal-card">
+      <div class="signal-card-tags">${beatTag}${reasonTag}</div>
+      <div class="signal-card-title"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></div>
+      <div class="signal-card-meta">${metaParts.join(' · ')}</div>
+    </div>`;
+  }).join('');
+
+  band.style.display = '';
+}
+
+function renderFieldSummary() {
+  const fs = DIGEST_DATA.field_summary;
+  if (!fs || !fs.text) return;
+  const band = document.getElementById('field-summary-band');
+  if (!band) return;
+  document.getElementById('field-summary-text').textContent = fs.text;
+  document.getElementById('field-summary-byline').textContent =
+    '— Justin Bank · ' + fmtDateShort(fs.date || (DIGEST_DATA.metadata && DIGEST_DATA.metadata.date));
+  const draftEl = document.getElementById('field-summary-draft');
+  if (draftEl) draftEl.style.display = fs.edited ? 'none' : '';
+  band.style.display = '';
+}
+
+function renderPASignals() {
+  const pa = DIGEST_DATA.public_affairs_signals;
+  const el = document.getElementById('pa-content');
+  if (!pa || !el) return;
+
+  const CATEGORY_LABELS = {
+    accountability: 'Accountability & Government',
+    economy_labor: 'Economy & Labor',
+    climate_policy: 'Climate & Policy',
+    local_civic: 'Local & Civic'
+  };
+
+  const date = DIGEST_DATA.metadata && DIGEST_DATA.metadata.date ? DIGEST_DATA.metadata.date : '';
+  let html = `<span class="intel-week-badge">For Teams${date ? ' — Week of ' + esc(date) : ''}</span>`;
+  html += `<p style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;color:#888;line-height:1.5;margin-bottom:16px;">Stories from this week's Pulse most relevant to communications, public affairs, and brand intelligence teams.</p>`;
+
+  let hasContent = false;
+  Object.entries(pa).forEach(([cat, stories]) => {
+    if (!stories || !stories.length) return;
+    hasContent = true;
+    html += `<div class="intel-section-eyebrow">${esc(CATEGORY_LABELS[cat] || cat)}</div>`;
+    stories.forEach(s => {
+      html += `<div class="intel-topic">
+        <ul class="intel-post-list"><li class="intel-post-item">
+          <a href="${esc(s.url)}" target="_blank" rel="noopener" class="intel-post-link">${esc(s.title)}</a>
+          <span class="intel-post-creator">${esc(s.creator)} · ${esc(s.beat)}</span>
+        </li></ul>
+      </div>`;
+    });
+  });
+
+  if (!hasContent) {
+    html += `<p style="font-family:'DM Mono',monospace;font-size:12px;color:#bbb;padding:16px 0;">No public affairs signals this week.</p>`;
+  }
+
+  el.innerHTML = html;
 }
 
 renderBadge();
 renderIntel();
 renderThesisBand();
+renderSignalBand();
+renderFieldSummary();
+
+// PA tab: show only when public_affairs_signals is populated
+(function() {
+  const pa = DIGEST_DATA.public_affairs_signals;
+  const paTab = document.getElementById('tab-pa');
+  if (pa && Object.keys(pa).length) {
+    if (paTab) paTab.style.display = '';
+    renderPASignals();
+  }
+})();
+
+// Sync subhead feed count from same source as thesis band
+(function() {
+  try {
+    const el = document.getElementById('subhead-feed-count');
+    if (el) el.textContent = PULSE_DATA.total_rss_resolved.toLocaleString();
+  } catch(e) {}
+})();
+
 renderStatStrip();
 renderBeatBar();
 renderHeatCalendar();
@@ -2357,6 +2540,7 @@ document.getElementById('beat-search').addEventListener('keydown', function(e) {
 
       // Re-animate Intel topics each time the tab is activated
       if (target === 'intel') renderIntel();
+      if (target === 'pa') renderPASignals();
     });
   });
 })();
