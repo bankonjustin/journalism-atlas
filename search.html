@@ -929,13 +929,14 @@
 
     // ── FIELD VIEW ──
     const FIELD_GROUP_COLORS = {
-      "Power & Politics":              "#ceff00",
-      "Money & Work":                  "#ffaa00",
-      "Science, Health & Environment": "#00e5ff",
+      // TODO-JAMES: light-surface palette needed — canvas renders on #efeff2, these colors need redesign for contrast
+      "Power & Politics":              "#ceff00",   // acid green — wrong on light, placeholder
+      "Money & Work":                  "#ffaa00",   // reads fine on light, may keep
+      "Science, Health & Environment": "#00e5ff",   // too faint on light bg
       "Culture & Media":               "#ff66ff",
-      "Civic Life":                    "#97d600",
+      "Civic Life":                    "#97d600",   // lime — correct token for light surface
       "Social Issues":                 "#ff33cc",
-      "_default":                      "#606068"
+      "_default":                      "#909098"    // legibility fix: was #606068, near-invisible on #efeff2
     };
 
     const FIELD_PLATFORM_COLORS = {
@@ -1033,7 +1034,7 @@
       const cellW = (W - padX * 2) / COLS;
       const cellH = (H - padY * 2) / ROWS;
 
-      const DOT_R = 4, GAP = 2, CELL = DOT_R * 2 + GAP;
+      const DOT_R = 5, GAP = 1, CELL = DOT_R * 2 + GAP;
 
       fieldDots = [];
 
@@ -1177,7 +1178,7 @@
                 if (dimension === 'platform') match = d.creator.platform === key;
                 else if (dimension === 'geography') match = (d.creator.geoRegion || '') === key;
                 else match = d.group === key;
-                d.opacity = match ? 1 : 0.08;
+                d.opacity = match ? 1 : 0.06;
               });
             }
             drawFieldDots();
