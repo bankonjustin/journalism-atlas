@@ -97,18 +97,13 @@
     /* ═══════════════════════════════════════════════════════════
        SECTION 3 — THE PROBLEM
     ═══════════════════════════════════════════════════════════ */
-    .problem-section { background: #111111; padding: 56px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .problem-lede {
-      font-size: 18px; color: #bdbdbd; line-height: 1.75;
-      max-width: 700px; margin: 0 0 36px;
-    }
-    .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-    .stat-item {}
-    .stat-num {
-      font-family: 'DM Mono', monospace; font-size: 48px; font-weight: 700;
-      color: #fff; line-height: 1; letter-spacing: -0.03em;
-    }
-    .stat-label { font-size: 14px; color: #bdbdbd; margin-top: 8px; line-height: 1.5; max-width: 200px; }
+    /* ── Landscape Strip ── */
+    .landscape-strip { background: #1a1a1a; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 14px 40px; }
+    .landscape-strip-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; }
+    .landscape-strip-stat { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; white-space: nowrap; }
+    .landscape-strip-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(206,255,0,0.3); flex-shrink: 0; }
+    .landscape-strip-source { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; margin-left: auto; white-space: nowrap; }
+    @media (max-width: 768px) { .landscape-strip { padding: 12px 20px; } .landscape-strip-source { display: none; } }
 
     /* ═══════════════════════════════════════════════════════════
        SECTION 4 — COMPARISON TABLE
@@ -134,7 +129,7 @@
       border-bottom: 2px solid #dddde0;
     }
     .compare-th--left { background: #fff9e0; color: #666; border-left: 1px solid #dddde0; }
-    .compare-th--right { background: var(--color-lime-green); color: #111111; border-left: 1px solid var(--color-dark-olive); }
+    .compare-th--right { background: #97d600; color: #111111; border-left: 1px solid #7ab000; border-bottom: 3px solid #5d7400; }
 
     /* Data rows */
     .compare-row-label {
@@ -164,9 +159,13 @@
     .way-card {
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
       border-radius: 6px; padding: 32px 28px;
+      transition: border-color 0.2s, background 0.2s;
     }
+    .way-card:hover { border-color: rgba(206,255,0,0.2); background: rgba(206,255,0,0.03); }
     .way-card-icon {
       color: #ceff00; font-size: 32px; margin-bottom: 16px;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; background: rgba(206,255,0,0.08); border-radius: 100px;
     }
     .way-card-title {
       font-size: 20px; font-weight: 700; color: #fff;
@@ -187,8 +186,12 @@
     .good-news-stat {}
     .good-news-num {
       font-family: 'DM Mono', monospace; font-size: clamp(64px, 8vw, 96px);
-      font-weight: 700; color: #313131; line-height: 1; letter-spacing: -0.04em;
+      font-weight: 700; color: #111111; line-height: 1; letter-spacing: -0.04em;
     }
+    .good-news-headline { position: relative; display: inline-block; }
+    .good-news-headline::after { content: ''; display: block; height: 4px; width: 48px; background: #97d600; border-radius: 2px; margin-top: 12px; }
+    .trust-cite-view-all { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: #97d600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: opacity 0.15s; margin-left: 8px; }
+    .trust-cite-view-all:hover { opacity: 0.7; }
     .good-news-label { font-size: 18px; color: #313131; margin-top: 16px; line-height: 1.5; max-width: 320px; }
     .good-news-followup {
       font-size: 18px; color: rgba(17,17,17,0.65); line-height: 1.75; max-width: 680px;
@@ -347,6 +350,11 @@
     }
     .brief-confirm-headline { font-size: 20px; font-weight: 700; color: #ceff00; margin: 0 0 12px; }
     .brief-confirm-body { font-size: 16px; color: #bdbdbd; line-height: 1.7; margin: 0; }
+    .brief-section .eyebrow { display: inline-flex; align-items: center; gap: 8px; }
+    .brief-section .eyebrow::before { content: ''; display: inline-block; width: 16px; height: 2px; background: #ceff00; border-radius: 1px; }
+    .bf-secondary-path { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .bf-hello-trigger { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: color 0.15s; cursor: pointer; }
+    .bf-hello-trigger:hover { color: rgba(255,255,255,0.65); }
     .brief-confirm-icon { margin-bottom: 16px; }
     .brief-confirm-next { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 16px 0 0; }
     .bf-submit-row { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
@@ -434,7 +442,7 @@
     .beat-explorer-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
     .bx-chip { font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 7px 16px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
     .bx-chip:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
-    .bx-chip--active { color: #111; background: #ceff00; border-color: #ceff00; font-weight: 700; }
+    .bx-chip--active { color: #111; background: #ceff00; border-color: #ceff00; font-weight: 700; box-shadow: 0 0 12px rgba(206,255,0,0.25); }
     .bx-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; min-height: 120px; }
     @media (max-width: 768px) { .bx-panel { grid-template-columns: 1fr; } }
     .bx-creator-card { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 16px 18px; transition: border-color 0.15s; }
@@ -458,16 +466,15 @@
     .pricing-col-list .material-symbols-outlined { font-size: 20px; color: #ceff00; flex-shrink: 0; margin-top: 2px; }
 
     /* ── Live Window Editorial (Pulse section) ── */
-    .live-window-editorial { font-size: 18px; color: #e0e0e0; line-height: 1.8; max-width: 680px; margin: 0 0 40px; border-left: 3px solid rgba(206,255,0,0.4); padding-left: 20px; }
+    .live-window-editorial { font-size: 18px; color: #e0e0e0; line-height: 1.8; max-width: 680px; margin: 0 0 40px; border-left: 3px solid rgba(206,255,0,0.65); padding-left: 20px; }
 
     /* ── Pulse Follower Note ── */
     .pulse-intel-follower-note { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; margin: 16px 0 0; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
 
     @media (max-width: 768px) {
-      .hero-section, .problem-section, .compare-section, .three-ways-section,
+      .hero-section, .compare-section, .three-ways-section,
       .good-news-section, .atlas-does-section, .gallery-section, .pulse-intel-section,
       .brief-section, .form-section, .trust-bar-section { padding-left: 20px; padding-right: 20px; }
-      .problem-section { padding-top: 40px; padding-bottom: 40px; }
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
       .hero-ctas { flex-direction: column; }
@@ -557,6 +564,18 @@
 })();
 </script>
 
+<!-- ── LANDSCAPE STRIP ── -->
+<div class="landscape-strip">
+  <div class="landscape-strip-inner">
+    <span class="landscape-strip-stat">1 in 3 journalists now publishes independently</span>
+    <span class="landscape-strip-dot" aria-hidden="true"></span>
+    <span class="landscape-strip-stat">3,500+ newspapers closed since 2005</span>
+    <span class="landscape-strip-dot" aria-hidden="true"></span>
+    <span class="landscape-strip-stat">$43.9B creator economy ad spend in 2026</span>
+    <span class="landscape-strip-source">Sources: Reuters Institute · Medill · IAB</span>
+  </div>
+</div>
+
 <!-- ── TRUST BAR ── -->
 <section class="trust-bar-section">
   <div class="trust-bar-inner">
@@ -603,34 +622,19 @@
          class="trust-cite-pill trust-cite-pill--link">
         CNTI Report
       </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 3 — THE PROBLEM
-═══════════════════════════════════════════════════════════ -->
-<section class="problem-section">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--dark">The Landscape Has Changed</div>
-    <p class="problem-lede">News employment has dropped more than 75% since 2005. More than 3,500 newspapers have closed. The journalists who left didn't disappear — they went independent. One in three journalists now publishes independently. They took their audiences with them.</p>
-    <p class="source-attr" style="margin-bottom:48px;">Source: Medill Local News Report</p>
-    <div class="stat-strip">
-      <div class="stat-item">
-        <div class="stat-num">1 in 3</div>
-        <div class="stat-label">journalists now publishes independently</div>
-        <div class="source-attr">Reuters Institute, Journalism, Media and Technology Trends and Predictions 2026</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">50M</div>
-        <div class="stat-label">active Substack users, 5M paying</div>
-        <div class="source-attr">Substack company data / eMarketer, 2025</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">$43.9B</div>
-        <div class="stat-label">creator economy ad spend in 2026</div>
-        <div class="source-attr">IAB / eMarketer, 2025 Creator Economy Ad Spend &amp; Strategy Report</div>
-      </div>
+      <a href="https://www.niemanlab.org/2025/12/the-creator-infrastructure-gap-will-define-journalisms-next-chapter/"
+         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
+        Nieman Lab — Infrastructure Gap
+      </a>
+      <a href="https://www.niemanlab.org/2025/12/journalisms-songwriter-era/"
+         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
+        Nieman Lab — Songwriter Era
+      </a>
+      <a href="https://videoconsortium.org/member-resources/rise-of-creator-journalist-report"
+         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
+        Video Consortium
+      </a>
+      <a href="/research" class="trust-cite-view-all">View all research →</a>
     </div>
   </div>
 </section>
@@ -687,63 +691,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
-     SECTION 5 — THREE WAYS BRANDS SHOW UP
-═══════════════════════════════════════════════════════════ -->
-<section class="three-ways-section">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--dark">Your Relationship Options</div>
-    <h2 class="h2-dark">Three ways brands engage with creator journalists.</h2>
-    <div class="three-ways-grid">
-      <div class="way-card">
-        <div class="way-card-icon"><span class="material-symbols-outlined">article</span></div>
-        <div class="way-card-title">As the story.</div>
-        <p class="way-card-body">A creator covers you — favorably, critically, or somewhere in between. You don't choose this. Your only choice is whether you're prepared. The Atlas tells you who's covering your beat before they publish.</p>
-      </div>
-      <div class="way-card">
-        <div class="way-card-icon"><span class="material-symbols-outlined">handshake</span></div>
-        <div class="way-card-title">As the sponsor.</div>
-        <p class="way-card-body">You underwrite the work. You don't shape the editorial. You're buying association with their credibility, not control of their output. Think NPR underwriting, not native advertising.</p>
-      </div>
-      <div class="way-card">
-        <div class="way-card-icon"><span class="material-symbols-outlined">group</span></div>
-        <div class="way-card-title">As the collaborator.</div>
-        <p class="way-card-body">You co-create something — a series, a live event, a piece of access reporting. The creator keeps editorial independence; you bring something they couldn't make alone.</p>
-      </div>
-    </div>
-    <p class="three-ways-note">88% of creator journalists agree there should be shared standards for brand partnerships. <em>Your job is to be the brand they say yes to.</em><br><span style="font-size:12px;color:rgba(255,255,255,0.25);display:block;margin-top:8px;">— Project C / Muck Rack</span></p>
-    <div style="text-align:center;margin-top:32px;">
-      <a href="#build-brief" style="font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:rgba(206,255,0,0.5);letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='#ceff00'" onmouseout="this.style.color='rgba(206,255,0,0.5)'">
-        Tell us what you're tracking →
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 6 — THE GOOD NEWS (light surface — sourced stats read as evidence, not billboard)
-═══════════════════════════════════════════════════════════ -->
-<section class="good-news-section">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--light">The Good News for Communicators</div>
-    <h2 class="h2-light">They want to hear from you.</h2>
-    <div class="good-news-stats">
-      <div class="good-news-stat">
-        <div class="good-news-num">82%</div>
-        <div class="good-news-label">of creator journalists say some stories start with a pitch</div>
-        <div class="source-attr--light">Muck Rack</div>
-      </div>
-      <div class="good-news-stat">
-        <div class="good-news-num">32%</div>
-        <div class="good-news-label">see PR professionals as essential partners</div>
-        <div class="source-attr--light">Muck Rack</div>
-      </div>
-    </div>
-    <p class="good-news-followup">The opportunity is real. The barrier is discoverability. Most comms teams don't know which creator journalists are covering their issues or industry, in their markets, at the scale that matters. That's the gap the Atlas closes.</p>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 7 — WHAT THE ATLAS DOES
+     SECTION 5 — WHAT THE ATLAS DOES
 ═══════════════════════════════════════════════════════════ -->
 <section class="atlas-does-section" id="intelligence-layer">
   <div class="section-inner">
@@ -876,7 +824,63 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
-     SECTION 9 — BRIEF BUILDER FORM
+     THE GOOD NEWS (light surface)
+═══════════════════════════════════════════════════════════ -->
+<section class="good-news-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--light">The Good News for Communicators</div>
+    <h2 class="h2-light good-news-headline">They want to hear from you.</h2>
+    <div class="good-news-stats">
+      <div class="good-news-stat">
+        <div class="good-news-num">82%</div>
+        <div class="good-news-label">of creator journalists say some stories start with a pitch</div>
+        <div class="source-attr--light">Muck Rack</div>
+      </div>
+      <div class="good-news-stat">
+        <div class="good-news-num">32%</div>
+        <div class="good-news-label">see PR professionals as essential partners</div>
+        <div class="source-attr--light">Muck Rack</div>
+      </div>
+    </div>
+    <p class="good-news-followup">The opportunity is real. The barrier is discoverability. Most comms teams don't know which creator journalists are covering their issues or industry, in their markets, at the scale that matters. That's the gap the Atlas closes.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     THREE WAYS BRANDS SHOW UP
+═══════════════════════════════════════════════════════════ -->
+<section class="three-ways-section">
+  <div class="section-inner">
+    <div class="eyebrow eyebrow--dark">Your Relationship Options</div>
+    <h2 class="h2-dark">Three ways brands engage with creator journalists.</h2>
+    <div class="three-ways-grid">
+      <div class="way-card">
+        <div class="way-card-icon"><span class="material-symbols-outlined">article</span></div>
+        <div class="way-card-title">As the story.</div>
+        <p class="way-card-body">A creator covers you — favorably, critically, or somewhere in between. You don't choose this. Your only choice is whether you're prepared. The Atlas tells you who's covering your beat before they publish.</p>
+      </div>
+      <div class="way-card">
+        <div class="way-card-icon"><span class="material-symbols-outlined">handshake</span></div>
+        <div class="way-card-title">As the sponsor.</div>
+        <p class="way-card-body">You underwrite the work. You don't shape the editorial. You're buying association with their credibility, not control of their output. Think NPR underwriting, not native advertising.</p>
+      </div>
+      <div class="way-card">
+        <div class="way-card-icon"><span class="material-symbols-outlined">group</span></div>
+        <div class="way-card-title">As the collaborator.</div>
+        <p class="way-card-body">You co-create something — a series, a live event, a piece of access reporting. The creator keeps editorial independence; you bring something they couldn't make alone.</p>
+      </div>
+    </div>
+    <p class="three-ways-note">88% of creator journalists agree there should be shared standards for brand partnerships. <em>Your job is to be the brand they say yes to.</em><br><span style="font-size:12px;color:rgba(255,255,255,0.25);display:block;margin-top:8px;">— Project C / Muck Rack</span></p>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="#build-brief" style="font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:rgba(206,255,0,0.5);letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='#ceff00'" onmouseout="this.style.color='rgba(206,255,0,0.5)'">
+        Tell us what you're tracking →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BRIEF BUILDER FORM
 ═══════════════════════════════════════════════════════════ -->
 <section class="brief-section" id="build-brief">
   <div class="section-inner">
@@ -993,6 +997,12 @@
         </div>
       </div>
 
+      <div class="bf-secondary-path" id="bf-hello-trigger-wrap">
+        <a href="#capture-form" class="bf-hello-trigger" id="bf-hello-trigger">
+          Or just say hello →
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1000,7 +1010,7 @@
 <!-- ═══════════════════════════════════════════════════════════
      SECTION 10 — CAPTURE FORM
 ═══════════════════════════════════════════════════════════ -->
-<section class="form-section" id="capture-form">
+<section class="form-section" id="capture-form" style="display:none;">
   <div class="section-inner">
     <div class="eyebrow eyebrow--light">Or just say hello</div>
     <h2 class="h2-light">Not ready for a full brief? Start here.</h2>
@@ -1258,6 +1268,22 @@ fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
     });
   }, { threshold: 0.6 });
   observer.observe(el);
+})();
+
+// "Or just say hello" reveal
+(function() {
+  const trigger = document.getElementById('bf-hello-trigger');
+  const target = document.getElementById('capture-form');
+  if (!trigger || !target) return;
+  trigger.addEventListener('click', function(e) {
+    e.preventDefault();
+    target.style.display = 'block';
+    target.offsetHeight;
+    setTimeout(function() {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+    document.getElementById('bf-hello-trigger-wrap').style.display = 'none';
+  });
 })();
 
 // Soft inquiry toggle
