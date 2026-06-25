@@ -348,10 +348,20 @@
                 } else if (currentView === 'treemap') {
                     treemapDrillGroup = null; // Reset drill state on external filter change
                     renderTreemapChart();
+                } else if (currentView === 'field') {
+                    if (typeof window.updateFieldOpacity === 'function') {
+                        const visibleSlugs = new Set(filteredCreators.map(c => c.channel || c.name));
+                        window.updateFieldOpacity(visibleSlugs);
+                    }
+                }
+                // Field view filter hook + beat-action banner count (safe no-op on pages without field view)
+                if (typeof window.onFieldFilterUpdate === 'function') {
+                    const visibleSlugs = new Set(filteredCreators.map(c => c.channel || c.name));
+                    window.onFieldFilterUpdate(visibleSlugs, filteredCreators.length);
                 }
             }
         }
-        
+
         // Initialize filter state manager
         const filterState = new FilterStateManager();
 
@@ -742,16 +752,18 @@
             const bubbles = document.getElementById('bubblesView');
             const sunburst = document.getElementById('sunburstView');
             const treemap = document.getElementById('treemapView');
+            const fieldView = document.getElementById('fieldView');
             const empty = document.getElementById('emptyState');
-            
+
             // Reset all views
             grid.style.display = 'none';
             grid.classList.remove('active');
             list.style.display = 'none';
             list.classList.remove('active');
             bubbles.classList.remove('active');
-            sunburst.classList.remove('active');
-            treemap.classList.remove('active');
+            if (sunburst) sunburst.classList.remove('active');
+            if (treemap) treemap.classList.remove('active');
+            if (fieldView) fieldView.style.display = 'none';
             empty.style.display = 'none';
             
             // Show selected view
@@ -775,11 +787,18 @@
                 bubbles.classList.add('active');
                 renderBubbleChart();
             } else if (view === 'wheel') {
-                sunburst.classList.add('active');
-                renderSunburstChart();
+                if (sunburst) { sunburst.classList.add('active'); renderSunburstChart(); }
             } else if (view === 'treemap') {
-                treemap.classList.add('active');
-                renderTreemapChart();
+                if (treemap) { treemap.classList.add('active'); renderTreemapChart(); }
+            } else if (view === 'field') {
+                if (fieldView) {
+                    fieldView.style.display = 'block';
+                    if (typeof window.setFieldCanvasDimensions === 'function') window.setFieldCanvasDimensions();
+                    if (!window.fieldInitialized) {
+                        window.fieldInitialized = true;
+                        if (typeof window.initFieldView === 'function') window.initFieldView();
+                    }
+                }
             }
         }
 

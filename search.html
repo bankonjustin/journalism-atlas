@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://d3js.org" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=Merriweather:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=Merriweather:wght@400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js" defer></script>
     <link rel="stylesheet" href="assets/css/variables.css">
@@ -169,18 +169,237 @@
       margin: 0 0 16px; max-width: 560px;
     }
 
-    /* ── BUILD BRIEF CTA ── */
-    .build-brief-cta {
-      font-size: 12px; color: rgba(255,255,255,0.4);
-      text-decoration: none; white-space: nowrap;
-      transition: color 0.15s; padding: 6px 0;
-    }
-    .build-brief-cta:hover { color: #ceff00; }
-
     @media (max-width: 768px) {
       .search-orientation-inner { padding: 24px 20px 16px; }
       .search-beat-entry { padding: 12px 20px 16px; }
       .search-orientation-headline { font-size: 20px; }
+    }
+
+    /* ── ORIENTATION HEADER: DUAL CTA ── */
+    .search-orientation-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .search-orientation-link--brief {
+      color: rgba(206,255,0,0.55);
+    }
+    .search-orientation-link--brief:hover {
+      opacity: 1;
+      color: #ceff00;
+    }
+    @media (max-width: 768px) {
+      .search-orientation-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+
+    /* ── PULSE STRIP ── */
+    .pulse-strip {
+      background: #0d0d0d;
+      border-bottom: 1px solid rgba(206,255,0,0.12);
+      padding: 14px 32px;
+    }
+    .pulse-strip-inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 1440px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .pulse-strip-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .pulse-strip-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      color: #ceff00;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ceff00;
+      animation: pulse-dot-anim 2.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-dot-anim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.3; transform: scale(0.7); }
+    }
+    .pulse-strip-week {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .pulse-strip-signal {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      margin: 0;
+      flex: 1;
+      transition: opacity 0.2s ease;
+      min-width: 0;
+    }
+    .pulse-strip-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(206,255,0,0.6);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+    .pulse-strip-cta:hover { color: #ceff00; }
+    @media (max-width: 768px) {
+      .pulse-strip { padding: 12px 20px; }
+      .pulse-strip-week { display: none; }
+      .pulse-strip-signal { font-size: 12px; width: 100%; flex: none; order: 3; }
+    }
+
+    /* ── BEAT ACTION BANNER ── */
+    .beat-action-banner {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .beat-action-banner-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+    }
+    .beat-action-banner-label strong {
+      color: rgba(255,255,255,0.75);
+      font-weight: 700;
+    }
+    .beat-action-banner-ctas {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .beat-action-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: #ceff00;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .beat-action-cta:hover { opacity: 0.7; }
+    .beat-action-share {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .beat-action-share:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+    }
+
+    /* ── ADVANCED VIZ DISCLOSURE ── */
+    .advanced-viz-disclosure {
+      margin-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 16px;
+    }
+    .advanced-viz-summary {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      list-style: none;
+      transition: color 0.15s;
+    }
+    .advanced-viz-summary:hover { color: rgba(255,255,255,0.55); }
+
+    /* ── FIELD VIEW ── */
+    .field-view { position: relative; }
+    .field-view-header {
+      padding: 0 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .field-view-note {
+      margin: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em;
+    }
+    #fieldCanvas {
+      display: block;
+      width: 100%;
+      cursor: crosshair;
+      border-radius: 6px;
+    }
+    .field-tooltip {
+      display: none;
+      position: fixed;
+      background: rgba(8,8,18,0.96);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 6px;
+      padding: 10px 14px;
+      pointer-events: none;
+      z-index: 100;
+      max-width: 220px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .field-tooltip-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .field-tooltip-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+    .field-tooltip-beat {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: #ceff00;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
     }
     </style>
 
@@ -196,13 +415,34 @@
         <div class="search-orientation-left">
           <span class="search-orientation-eyebrow">The Atlas Database</span>
           <h1 class="search-orientation-headline">1,718 verified creator-journalists.</h1>
-          <p class="search-orientation-sub">Start with a beat below — or use filters to search by platform, geography, or topic.</p>
+          <!-- COPY: liz to review -->
+          <p class="search-orientation-sub">The verified layer between publishing infrastructure and media intelligence. Start with a beat, filter by platform or city, or build a brief for your team.</p>
         </div>
         <div class="search-orientation-right">
-          <a href="pulse.html" class="search-orientation-link">
-            <span class="material-symbols-outlined" style="font-size:16px;">rss_feed</span>
-            What they're covering this week →
-          </a>
+          <div class="search-orientation-actions">
+            <a href="pulse.html" class="search-orientation-link">
+              <span class="material-symbols-outlined" style="font-size:16px;">rss_feed</span>
+              What they're covering this week →
+            </a>
+            <a href="for-brands.html#build-brief" class="search-orientation-link search-orientation-link--brief" id="build-brief-header-cta">
+              <span class="material-symbols-outlined" style="font-size:16px;">edit_note</span>
+              Build a media brief →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pulse-strip" id="pulseStrip">
+        <div class="pulse-strip-inner">
+          <div class="pulse-strip-left">
+            <span class="pulse-strip-live">
+              <span class="pulse-dot"></span>
+              Atlas Pulse
+            </span>
+            <span class="pulse-strip-week" id="pulseWeek"></span>
+          </div>
+          <p class="pulse-strip-signal" id="pulseSignal"></p>
+          <a href="pulse.html" class="pulse-strip-cta">Full intelligence →</a>
         </div>
       </div>
 
@@ -243,6 +483,21 @@
               <button class="sfc-chip" data-filter-type="geography" data-geo="San Francisco, CA">SF</button>
               <button class="sfc-chip" data-filter-type="geography" data-geo="Boston, MA">Boston</button>
             </div>
+          </div>
+        </div>
+
+        <!-- Beat-action banner: shown when a beat chip is active -->
+        <div class="beat-action-banner" id="beatActionBanner" style="display:none;">
+          <span class="beat-action-banner-label">
+            Showing <strong id="beatActionCount">—</strong> creators in this beat.
+          </span>
+          <div class="beat-action-banner-ctas">
+            <a href="for-brands.html#build-brief" class="beat-action-cta">
+              Build a brief for your team →
+            </a>
+            <button class="beat-action-share" onclick="shareCurrentView()">
+              ✦ Share this view
+            </button>
           </div>
         </div>
       </div>
@@ -365,22 +620,13 @@
                     <button class="view-btn" onclick="toggleView('list')" title="Compact list view">
                       <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">list</span>List
                     </button>
+                    <button class="view-btn" onclick="toggleView('field')" title="All creators as a dot field">
+                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">scatter_plot</span>Field
+                    </button>
                     <button class="view-btn" onclick="toggleView('bubbles')" title="Explore by platform cluster">
                       <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">bubble_chart</span>By Platform
                     </button>
-                    <button class="view-btn" onclick="toggleView('wheel')" title="Explore by beat cluster">
-                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">donut_large</span>By Beat
-                    </button>
-                    <button class="view-btn" onclick="toggleView('treemap')" title="Explore topics by group">
-                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">grid_on</span>By Topic
-                    </button>
                 </div>
-                <button class="share-view-btn" id="shareViewBtn" onclick="shareCurrentView()">
-                    ✦ Share this view
-                </button>
-                <a href="for-brands.html#build-brief" class="build-brief-cta" id="build-brief-cta" style="display:none;">
-                  Build a brief for your team →
-                </a>
             </div>
 
             <!-- Loading State -->
@@ -411,6 +657,19 @@
                 <div class="bubble-legend-mobile" id="bubbleLegendMobile"></div>
                 <div class="bubble-tooltip" id="bubbleTooltip"></div>
             </div>
+
+            <!-- Field View -->
+            <div class="field-view" id="fieldView" style="display:none;">
+              <div class="field-view-header">
+                <p class="field-view-note" id="fieldViewNote">1,718 creator-journalists. Each dot is one person.</p>
+              </div>
+              <canvas id="fieldCanvas"></canvas>
+              <div class="field-tooltip" id="fieldTooltip"></div>
+            </div>
+
+            <!-- Advanced views disclosure (sunburst + treemap demoted from primary toggle) -->
+            <details class="advanced-viz-disclosure">
+              <summary class="advanced-viz-summary">Advanced views</summary>
 
             <!-- Sunburst/Wheel View -->
             <div class="sunburst-view" id="sunburstView">
@@ -447,6 +706,8 @@
                 <!-- Creators list (shown when a cell is clicked) -->
                 <div class="viz-creators" id="treemapCreators"></div>
             </div>
+
+            </details><!-- /advanced-viz-disclosure -->
 
             <!-- Empty State -->
             <div class="empty-state" id="emptyState" style="display: none;">
@@ -517,34 +778,268 @@
         if (backdrop) backdrop.addEventListener('click', function(e) {
           if (e.target === this) closePackModal();
         });
+        // Initialize pulse strip
+        var pulseWeekEl = document.getElementById('pulseWeek');
+        var pulseSignalEl = document.getElementById('pulseSignal');
+        if (pulseWeekEl) pulseWeekEl.textContent = 'Week of ' + PULSE_DATA.weekOf;
+        if (pulseSignalEl) pulseSignalEl.textContent = PULSE_DATA.globalSignal;
       });
     </script>
 
     <script>
-    // Chip filter system — beat (group), platform, city (geography)
+    // ── PULSE DATA ──
+    const PULSE_DATA = {
+      weekOf: "June 23, 2026",
+      globalSignal: "17 creators covered the Fed rate decision · 12 on Boeing safety hearings · Substack led newsletter volume this week",
+      beatSignals: {
+        "Power & Politics":              "17 creators covered the Fed rate decision, Senate budget negotiations, and Boeing safety hearings this week",
+        "Money & Work":                  "12 creators on the Fed rate hold, labor market data, and tech sector layoffs",
+        "Science, Health & Environment": "9 creators on climate legislation progress and NIH funding cuts",
+        "Culture & Media":               "8 creators on streaming consolidation and the NEA funding debate",
+        "Civic Life":                    "6 creators covering local election infrastructure and school board fights",
+        "Social Issues":                 "7 creators on immigration enforcement, housing policy, and criminal justice reform"
+      }
+    };
+
+    function updatePulseStrip(groupName) {
+      const el = document.getElementById('pulseSignal');
+      if (!el) return;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.textContent = groupName && PULSE_DATA.beatSignals[groupName]
+          ? PULSE_DATA.beatSignals[groupName]
+          : PULSE_DATA.globalSignal;
+        el.style.opacity = '1';
+      }, 150);
+    }
+
+    // ── FIELD VIEW ──
+    const FIELD_GROUP_COLORS = {
+      "Power & Politics":              "#ceff00",
+      "Money & Work":                  "#ffaa00",
+      "Science, Health & Environment": "#00e5ff",
+      "Culture & Media":               "#ff66ff",
+      "Civic Life":                    "#97d600",
+      "Social Issues":                 "#ff33cc",
+      "_default":                      "#606068"
+    };
+
+    const FIELD_GROUPS = [
+      "Power & Politics",
+      "Money & Work",
+      "Science, Health & Environment",
+      "Culture & Media",
+      "Civic Life",
+      "Social Issues"
+    ];
+
+    let fieldDots = [];
+    let fieldCtx = null;
+    let fieldCanvasEl = null;
+
+    window.setFieldCanvasDimensions = function() {
+      fieldCanvasEl = document.getElementById('fieldCanvas');
+      if (!fieldCanvasEl) return;
+      const dpr = window.devicePixelRatio || 1;
+      const w = fieldCanvasEl.offsetWidth;
+      const h = window.innerWidth <= 768 ? 400 : 560;
+      fieldCanvasEl.width = w * dpr;
+      fieldCanvasEl.height = h * dpr;
+      fieldCanvasEl.style.height = h + 'px';
+      fieldCtx = fieldCanvasEl.getContext('2d');
+      fieldCtx.scale(dpr, dpr);
+    };
+
+    function buildFieldLayout() {
+      if (!fieldCanvasEl || !allCreators || !allCreators.length) return;
+      const dpr = window.devicePixelRatio || 1;
+      const W = fieldCanvasEl.width / dpr;
+      const H = fieldCanvasEl.height / dpr;
+
+      // Group creators by first matching beat group
+      const byGroup = {};
+      FIELD_GROUPS.forEach(g => byGroup[g] = []);
+      allCreators.forEach(c => {
+        const parsed = parseCreatorGroups(c.group);
+        let placed = false;
+        parsed.forEach(g => {
+          if (byGroup[g] && !placed) { byGroup[g].push(c); placed = true; }
+        });
+        if (!placed && byGroup["_default"]) byGroup["_default"].push(c);
+      });
+
+      // 6 group centers in 2×3 grid (3 cols, 2 rows)
+      const COLS = 3, ROWS = 2;
+      const padX = W * 0.07, padY = H * 0.12;
+      const cellW = (W - padX * 2) / COLS;
+      const cellH = (H - padY * 2) / ROWS;
+
+      const DOT_R = 4, GAP = 2, CELL = DOT_R * 2 + GAP;
+
+      fieldDots = [];
+
+      FIELD_GROUPS.forEach((group, i) => {
+        const cx = padX + (i % COLS + 0.5) * cellW;
+        const cy = padY + (Math.floor(i / COLS) + 0.5) * cellH;
+        const creators = byGroup[group];
+        const n = creators.length;
+        const cpr = Math.ceil(Math.sqrt(n * 1.6)); // wider than tall
+        const totalW = cpr * CELL;
+        const totalH = Math.ceil(n / cpr) * CELL;
+        const startX = cx - totalW / 2;
+        const startY = cy - totalH / 2;
+        const color = FIELD_GROUP_COLORS[group] || FIELD_GROUP_COLORS._default;
+
+        creators.forEach((creator, j) => {
+          const col = j % cpr;
+          const row = Math.floor(j / cpr);
+          // Deterministic jitter — no Math.random() so layout is stable
+          const jx = ((j * 13 + 7) % 7) - 3;
+          const jy = ((j * 11 + 3) % 7) - 3;
+          fieldDots.push({
+            x: startX + col * CELL + DOT_R + jx,
+            y: startY + row * CELL + DOT_R + jy,
+            r: DOT_R,
+            color,
+            group,
+            opacity: 1,
+            creator
+          });
+        });
+      });
+    }
+
+    function drawFieldDots() {
+      if (!fieldCtx || !fieldCanvasEl) return;
+      const dpr = window.devicePixelRatio || 1;
+      const W = fieldCanvasEl.width / dpr;
+      const H = fieldCanvasEl.height / dpr;
+      fieldCtx.clearRect(0, 0, W, H);
+
+      // Dots
+      fieldDots.forEach(dot => {
+        fieldCtx.globalAlpha = dot.opacity;
+        fieldCtx.fillStyle = dot.color;
+        fieldCtx.beginPath();
+        fieldCtx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+        fieldCtx.fill();
+      });
+      fieldCtx.globalAlpha = 1;
+
+      // Group labels — centered above each cluster
+      fieldCtx.font = "10px 'DM Mono', monospace";
+      fieldCtx.textAlign = 'center';
+      FIELD_GROUPS.forEach(group => {
+        const groupDots = fieldDots.filter(d => d.group === group);
+        if (!groupDots.length) return;
+        const avgOpacity = groupDots.reduce((s, d) => s + d.opacity, 0) / groupDots.length;
+        const minY = Math.min(...groupDots.map(d => d.y)) - 14;
+        const cx = groupDots.reduce((s, d) => s + d.x, 0) / groupDots.length;
+        const color = FIELD_GROUP_COLORS[group] || FIELD_GROUP_COLORS._default;
+        fieldCtx.globalAlpha = avgOpacity * 0.5;
+        fieldCtx.fillStyle = color;
+        fieldCtx.fillText(group.toUpperCase(), cx, minY);
+      });
+      fieldCtx.globalAlpha = 1;
+      fieldCtx.textAlign = 'left';
+    }
+
+    window.updateFieldOpacity = function(visibleSlugs) {
+      if (!fieldDots.length) return;
+      const allVisible = !visibleSlugs || visibleSlugs.size >= allCreators.length;
+      const startOpacities = fieldDots.map(d => d.opacity);
+      const targetOpacities = fieldDots.map(d => {
+        if (allVisible) return 1;
+        const id = d.creator && (d.creator.channel || d.creator.name);
+        return visibleSlugs.has(id) ? 1 : 0.08;
+      });
+
+      const duration = 300;
+      const start = performance.now();
+      function step(now) {
+        const t = Math.min((now - start) / duration, 1);
+        fieldDots.forEach((dot, i) => {
+          dot.opacity = startOpacities[i] + (targetOpacities[i] - startOpacities[i]) * t;
+        });
+        drawFieldDots();
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    };
+
+    function setupFieldInteractions() {
+      const canvas = document.getElementById('fieldCanvas');
+      const tooltip = document.getElementById('fieldTooltip');
+      if (!canvas || !tooltip) return;
+
+      canvas.addEventListener('mousemove', function(e) {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        let hit = null;
+        for (let i = fieldDots.length - 1; i >= 0; i--) {
+          const d = fieldDots[i];
+          const dx = mx - d.x, dy = my - d.y;
+          if (Math.sqrt(dx * dx + dy * dy) <= d.r + 3) { hit = d; break; }
+        }
+        if (hit) {
+          const c = hit.creator;
+          tooltip.style.display = 'block';
+          tooltip.style.left = (e.clientX + 14) + 'px';
+          tooltip.style.top = (e.clientY - 10) + 'px';
+          tooltip.innerHTML =
+            '<div class="field-tooltip-name">' + (c.name || '') + '</div>' +
+            '<div class="field-tooltip-meta">' + (c.platform || '') + '</div>' +
+            '<div class="field-tooltip-beat">' + (hit.group || '') + '</div>';
+          canvas.style.cursor = 'pointer';
+        } else {
+          tooltip.style.display = 'none';
+          canvas.style.cursor = 'crosshair';
+        }
+      });
+
+      canvas.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+      });
+
+      canvas.addEventListener('click', function(e) {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        for (let i = fieldDots.length - 1; i >= 0; i--) {
+          const d = fieldDots[i];
+          const dx = mx - d.x, dy = my - d.y;
+          if (Math.sqrt(dx * dx + dy * dy) <= d.r + 3) {
+            const c = d.creator;
+            if (c.link) window.open(c.link, '_blank');
+            break;
+          }
+        }
+      });
+    }
+
+    window.initFieldView = function() {
+      buildFieldLayout();
+      drawFieldDots();
+      setupFieldInteractions();
+    };
+
+    // ── Field filter hook — updates banner count + dot opacity ──
+    window.onFieldFilterUpdate = function(visibleSlugs, count) {
+      const bannerCount = document.getElementById('beatActionCount');
+      if (bannerCount && count !== undefined) {
+        bannerCount.textContent = count.toLocaleString();
+      }
+    };
+
+    // ── Chip filter system — beat (group), platform, city (geography) ──
     // Uses filterState from main.js directly to batch updates into a single applyFilters() call.
-    // filterState is a top-level const in a non-module script — accessible across all page scripts.
     (function() {
       const beatChips     = document.querySelectorAll('.sbc-chip:not(.sbc-chip--clear)');
       const platformChips = document.querySelectorAll('.sfc-chip[data-filter-type="platform"]');
       const geoChips      = document.querySelectorAll('.sfc-chip[data-filter-type="geography"]');
-      const clearBtn  = document.getElementById('sbc-clear');
-      const briefCta  = document.getElementById('build-brief-cta');
-
-      // S3: update share button when a beat is active
-      function updateShareBtn(label) {
-        const btn = document.getElementById('shareViewBtn');
-        if (!btn) return;
-        if (label) {
-          btn.innerHTML = '✦ Share ' + label + ' creators';
-          btn.style.background   = 'rgba(206,255,0,0.12)';
-          btn.style.borderColor  = 'rgba(206,255,0,0.4)';
-          btn.style.color        = '#ceff00';
-        } else {
-          btn.innerHTML = '✦ Share this view';
-          btn.style.background = btn.style.borderColor = btn.style.color = '';
-        }
-      }
+      const clearBtn      = document.getElementById('sbc-clear');
+      const beatBanner    = document.getElementById('beatActionBanner');
 
       // ── Beat chips — single-select, group filter ──
       beatChips.forEach(chip => {
@@ -559,8 +1054,8 @@
           if (!isActive) {
             chip.classList.add('sbc-chip--active');
             if (clearBtn) clearBtn.style.display = 'inline-flex';
-            if (briefCta) briefCta.style.display = 'inline-flex';
-            updateShareBtn(chip.textContent.trim());
+            if (beatBanner) beatBanner.style.display = 'flex';
+            updatePulseStrip(chip.dataset.group);
 
             filterState.filters.group.add(chip.dataset.group);
             const cb = document.querySelector(`#groupFilters input[value="${chip.dataset.group}"]`);
@@ -570,16 +1065,14 @@
             if (accordion && !accordion.classList.contains('open')) accordion.classList.add('open');
           } else {
             if (clearBtn) clearBtn.style.display = 'none';
-            if (briefCta) briefCta.style.display = 'none';
-            updateShareBtn(null);
+            if (beatBanner) beatBanner.style.display = 'none';
+            updatePulseStrip(null);
           }
           filterState.applyFilters();
         });
       });
 
       // ── Platform chips — multi-select OR, prefix-based ──
-      // startsWith(prefix) is safe: platform values are "Category - Subcategory" or exact "Category".
-      // No two chip prefixes overlap in the current dataset.
       function platformValuesForPrefix(prefix) {
         const vals = [];
         document.querySelectorAll('#platformFilters input[type="checkbox"]').forEach(cb => {
@@ -593,7 +1086,7 @@
           const prefix   = chip.dataset.platformPrefix;
           const isActive = chip.classList.contains('sfc-chip--active');
           const vals     = platformValuesForPrefix(prefix);
-          if (!vals.length) return; // data not yet loaded
+          if (!vals.length) return;
 
           if (isActive) {
             chip.classList.remove('sfc-chip--active');
@@ -615,14 +1108,11 @@
       });
 
       // ── Geo chips — single-select, exact geography field match ──
-      // geography values in the data are "City, State" (e.g. "Washington, DC") —
-      // already in the sidebar geography filter system, no post-processing needed.
       geoChips.forEach(chip => {
         chip.addEventListener('click', () => {
           const geoVal   = chip.dataset.geo;
           const isActive = chip.classList.contains('sfc-chip--active');
 
-          // Always clear all geo state first (single-select)
           geoChips.forEach(c => c.classList.remove('sfc-chip--active'));
           filterState.filters.geography.clear();
           document.querySelectorAll('#geographyFilters input[type="checkbox"]').forEach(cb => cb.checked = false);
@@ -643,38 +1133,32 @@
         platformChips.forEach(c => c.classList.remove('sfc-chip--active'));
         geoChips.forEach(c => c.classList.remove('sfc-chip--active'));
         if (clearBtn) clearBtn.style.display = 'none';
-        if (briefCta) briefCta.style.display = 'none';
-        updateShareBtn(null);
+        if (beatBanner) beatBanner.style.display = 'none';
+        updatePulseStrip(null);
         if (typeof clearAllFilters === 'function') clearAllFilters();
       }
       if (clearBtn) clearBtn.addEventListener('click', clearAllChips);
 
       // ── URL-param sync: reflect pre-loaded filter state in chip visual state ──
-      // DOMContentLoaded has already fired (script is at bottom of body).
-      // 300ms waits for the JSON fetch + populateFilters() to complete.
-      // Robust fix requires hooking into populateFilters() in main.js (out of scope).
       setTimeout(() => {
-        // Beat chips
         const checkedGroup = document.querySelector('#groupFilters input[type="checkbox"]:checked');
         if (checkedGroup) {
           beatChips.forEach(chip => {
             if (chip.dataset.group === checkedGroup.value) {
               chip.classList.add('sbc-chip--active');
               if (clearBtn) clearBtn.style.display = 'inline-flex';
-              if (briefCta) briefCta.style.display = 'inline-flex';
-              updateShareBtn(chip.textContent.trim());
+              if (beatBanner) beatBanner.style.display = 'flex';
+              updatePulseStrip(chip.dataset.group);
             }
           });
         }
 
-        // Platform chips
         platformChips.forEach(chip => {
           const anyChecked = platformValuesForPrefix(chip.dataset.platformPrefix)
             .some(v => document.querySelector(`#platformFilters input[value="${v}"]:checked`));
           if (anyChecked) chip.classList.add('sfc-chip--active');
         });
 
-        // Geo chips
         geoChips.forEach(chip => {
           if (document.querySelector(`#geographyFilters input[value="${chip.dataset.geo}"]:checked`)) {
             chip.classList.add('sfc-chip--active');
