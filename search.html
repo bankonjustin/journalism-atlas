@@ -175,27 +175,77 @@
       .search-orientation-headline { font-size: 20px; }
     }
 
-    /* ── ORIENTATION HEADER: DUAL CTA ── */
-    .search-orientation-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
+    /* ── ORIENTATION HEADER: SINGLE ACTION CTA ── */
+    .search-orientation-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 6px 14px;
+      transition: all 0.15s;
     }
-    .search-orientation-link--brief {
-      color: rgba(206,255,0,0.55);
-    }
-    .search-orientation-link--brief:hover {
-      opacity: 1;
+    .search-orientation-action:hover {
       color: #ceff00;
+      border-color: rgba(206,255,0,0.3);
+      background: rgba(206,255,0,0.04);
     }
     @media (max-width: 768px) {
-      .search-orientation-actions {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        gap: 12px;
-      }
+      .search-orientation-action { display: none; }
+    }
+
+    /* ── PULSE WHISPER (inline in header left column) ── */
+    .search-pulse-whisper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      flex-wrap: wrap;
+    }
+    .pulse-dot-sm {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ceff00;
+      flex-shrink: 0;
+      animation: pulse-dot-anim 2.4s ease-in-out infinite;
+    }
+    .search-pulse-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      flex: 1;
+      min-width: 0;
+      transition: opacity 0.2s ease;
+    }
+    .search-pulse-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(206,255,0,0.45);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+    .search-pulse-link:hover { color: #ceff00; }
+    @media (max-width: 768px) {
+      .search-pulse-whisper { gap: 8px; }
+      .search-pulse-link { display: none; }
     }
 
     /* ── PULSE STRIP ── */
@@ -416,33 +466,18 @@
           <span class="search-orientation-eyebrow">The Atlas Database</span>
           <h1 class="search-orientation-headline">1,718 verified creator-journalists.</h1>
           <!-- COPY: liz to review -->
-          <p class="search-orientation-sub">The verified layer between publishing infrastructure and media intelligence. Start with a beat, filter by platform or city, or build a brief for your team.</p>
+          <p class="search-orientation-sub">Verified creator-journalists, filterable by beat, platform, and city.</p>
+          <div class="search-pulse-whisper" id="searchPulseWhisper">
+            <span class="pulse-dot-sm"></span>
+            <span class="search-pulse-text" id="searchPulseText"></span>
+            <a href="pulse.html" class="search-pulse-link">Full intelligence →</a>
+          </div>
         </div>
         <div class="search-orientation-right">
-          <div class="search-orientation-actions">
-            <a href="pulse.html" class="search-orientation-link">
-              <span class="material-symbols-outlined" style="font-size:16px;">rss_feed</span>
-              What they're covering this week →
-            </a>
-            <a href="for-brands.html#build-brief" class="search-orientation-link search-orientation-link--brief" id="build-brief-header-cta">
-              <span class="material-symbols-outlined" style="font-size:16px;">edit_note</span>
-              Build a media brief →
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="pulse-strip" id="pulseStrip">
-        <div class="pulse-strip-inner">
-          <div class="pulse-strip-left">
-            <span class="pulse-strip-live">
-              <span class="pulse-dot"></span>
-              Atlas Pulse
-            </span>
-            <span class="pulse-strip-week" id="pulseWeek"></span>
-          </div>
-          <p class="pulse-strip-signal" id="pulseSignal"></p>
-          <a href="pulse.html" class="pulse-strip-cta">Full intelligence →</a>
+          <a href="for-brands.html#build-brief" class="search-orientation-action" id="build-brief-header-cta">
+            <span class="material-symbols-outlined" style="font-size:15px; vertical-align:middle;">edit_note</span>
+            Build a media brief →
+          </a>
         </div>
       </div>
 
@@ -778,11 +813,9 @@
         if (backdrop) backdrop.addEventListener('click', function(e) {
           if (e.target === this) closePackModal();
         });
-        // Initialize pulse strip
-        var pulseWeekEl = document.getElementById('pulseWeek');
-        var pulseSignalEl = document.getElementById('pulseSignal');
-        if (pulseWeekEl) pulseWeekEl.textContent = 'Week of ' + PULSE_DATA.weekOf;
-        if (pulseSignalEl) pulseSignalEl.textContent = PULSE_DATA.globalSignal;
+        // Initialize pulse whisper
+        var pulseTextEl = document.getElementById('searchPulseText');
+        if (pulseTextEl) pulseTextEl.textContent = PULSE_DATA.globalSignal;
       });
     </script>
 
@@ -790,19 +823,19 @@
     // ── PULSE DATA ──
     const PULSE_DATA = {
       weekOf: "June 23, 2026",
-      globalSignal: "17 creators covered the Fed rate decision · 12 on Boeing safety hearings · Substack led newsletter volume this week",
+      globalSignal: "This week: 17 creators on the Fed rate decision · 12 on Boeing hearings · Substack led newsletter volume",
       beatSignals: {
-        "Power & Politics":              "17 creators covered the Fed rate decision, Senate budget negotiations, and Boeing safety hearings this week",
-        "Money & Work":                  "12 creators on the Fed rate hold, labor market data, and tech sector layoffs",
-        "Science, Health & Environment": "9 creators on climate legislation progress and NIH funding cuts",
-        "Culture & Media":               "8 creators on streaming consolidation and the NEA funding debate",
-        "Civic Life":                    "6 creators covering local election infrastructure and school board fights",
-        "Social Issues":                 "7 creators on immigration enforcement, housing policy, and criminal justice reform"
+        "Power & Politics":              "This week in Politics: 17 creators on the Fed rate decision, Senate negotiations, and Boeing safety hearings",
+        "Money & Work":                  "This week in Money & Work: 12 creators on the Fed rate hold, labor data, and tech layoffs",
+        "Science, Health & Environment": "This week in Science & Health: 9 creators on climate legislation and NIH funding cuts",
+        "Culture & Media":               "This week in Culture: 8 creators on streaming consolidation and the NEA funding debate",
+        "Civic Life":                    "This week in Civic Life: 6 creators on local election infrastructure and school board fights",
+        "Social Issues":                 "This week in Social Issues: 7 creators on immigration enforcement, housing policy, and criminal justice"
       }
     };
 
     function updatePulseStrip(groupName) {
-      const el = document.getElementById('pulseSignal');
+      const el = document.getElementById('searchPulseText');
       if (!el) return;
       el.style.opacity = '0';
       setTimeout(() => {
