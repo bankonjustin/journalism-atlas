@@ -97,10 +97,10 @@
     /* ═══════════════════════════════════════════════════════════
        SECTION 3 — THE PROBLEM
     ═══════════════════════════════════════════════════════════ */
-    .problem-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .problem-section { background: #111111; padding: 56px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
     .problem-lede {
       font-size: 18px; color: #bdbdbd; line-height: 1.75;
-      max-width: 700px; margin: 0 0 56px;
+      max-width: 700px; margin: 0 0 36px;
     }
     .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
     .stat-item {}
@@ -198,14 +198,11 @@
        SECTION 7 — WHAT THE ATLAS DOES
     ═══════════════════════════════════════════════════════════ */
     .atlas-does-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .atlas-does-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-    .atlas-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px; padding: 28px 24px;
-    }
-    .atlas-card-icon { color: #ceff00; font-size: 28px; margin-bottom: 14px; }
-    .atlas-card-title { font-size: 17px; font-weight: 700; color: #fff; margin: 0 0 10px; }
-    .atlas-card-body { font-size: 16px; color: #bdbdbd; line-height: 1.7; margin: 0; }
+    .atlas-does-intro { font-size: 17px; color: #bdbdbd; line-height: 1.7; max-width: 600px; margin: 0 0 32px; }
+    .intel-layer-ctas { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .intel-cta-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: #ceff00; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: opacity 0.15s; }
+    .intel-cta-link:hover { opacity: 0.7; }
+    .intel-cta-link--anchor { color: rgba(206,255,0,0.7); }
 
     /* ═══════════════════════════════════════════════════════════
        GALLERY + GALLERY MINI PREVIEWS
@@ -350,6 +347,13 @@
     }
     .brief-confirm-headline { font-size: 20px; font-weight: 700; color: #ceff00; margin: 0 0 12px; }
     .brief-confirm-body { font-size: 16px; color: #bdbdbd; line-height: 1.7; margin: 0; }
+    .brief-confirm-icon { margin-bottom: 16px; }
+    .brief-confirm-next { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 16px 0 0; }
+    .bf-submit-row { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+    .bf-soft-cta { background: none; border: none; padding: 0; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-align: left; transition: color 0.15s; }
+    .bf-soft-cta:hover { color: rgba(255,255,255,0.7); }
+    .bf-soft-submit { background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; font-weight: 700; padding: 12px 24px; border-radius: 6px; cursor: pointer; transition: border-color 0.15s; margin-top: 8px; }
+    .bf-soft-submit:hover { border-color: rgba(255,255,255,0.5); }
 
     .atlas-card-link { display: inline-block; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(206,255,0,0.8); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; text-decoration: none; }
     .atlas-card-link:hover { color: #ceff00; }
@@ -418,6 +422,10 @@
     .trust-cites { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
     .trust-cites-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(17,17,17,0.35); letter-spacing: 0.14em; text-transform: uppercase; }
     .trust-cite-pill { font-size: 12px; color: #313131; background: #fff; border: 1px solid #d4d4d8; border-radius: 100px; padding: 5px 14px; }
+    .trust-cite-pill--link { text-decoration: none; transition: background 0.15s, border-color 0.15s; cursor: pointer; }
+    .trust-cite-pill--link:hover { background: #f0f0f0; border-color: #bbb; }
+    .compare-headline-emphasis { display: inline; color: #111111; transition: color 0.4s ease; }
+    .compare-headline-emphasis.is-visible { color: #97d600; }
 
     /* ── Beat Explorer ── */
     .beat-explorer { margin-top: 40px; }
@@ -459,6 +467,7 @@
       .hero-section, .problem-section, .compare-section, .three-ways-section,
       .good-news-section, .atlas-does-section, .gallery-section, .pulse-intel-section,
       .brief-section, .form-section, .trust-bar-section { padding-left: 20px; padding-right: 20px; }
+      .problem-section { padding-top: 40px; padding-bottom: 40px; }
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
       .hero-ctas { flex-direction: column; }
@@ -553,7 +562,7 @@
   <div class="trust-bar-inner">
     <div class="trust-bar-founders">
       <div style="display:flex;align-items:center;gap:8px;">
-        <div class="trust-avatar">JB</div>
+        <img src="/assets/images/team/justin-bank.png" alt="Justin Bank" width="36" height="36" style="border-radius:100px;object-fit:cover;flex-shrink:0;">
         <div>
           <div class="trust-founder-name">Justin Bank</div>
           <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Washington Post · NYT · NPR</div>
@@ -561,30 +570,39 @@
       </div>
       <div class="trust-divider"></div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <div class="trust-avatar">LN</div>
+        <img src="/assets/images/team/liz-kelly-nelson.jpg" alt="Liz Kelly Nelson" width="36" height="36" style="border-radius:100px;object-fit:cover;flex-shrink:0;">
         <div>
           <div class="trust-founder-name">Liz Kelly Nelson</div>
-          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Washington Post · Strategy &amp; editorial</div>
+          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Project C · Vox · Washington Post</div>
         </div>
       </div>
       <div class="trust-divider"></div>
       <div style="display:flex;align-items:center;gap:8px;">
-        <div class="trust-avatar">RK</div>
+        <img src="/assets/images/team/ryan-kellett.jpg" alt="Ryan Kellett" width="36" height="36" style="border-radius:100px;object-fit:cover;flex-shrink:0;">
         <div>
           <div class="trust-founder-name">Ryan Kellett</div>
-          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Nieman Fellow, Harvard · Washington Post · Axios</div>
+          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Nieman Fellow, Harvard · Axios · Washington Post</div>
         </div>
       </div>
     </div>
     <div class="trust-cites">
-      <span class="trust-cites-label">Cited by</span>
-      <!-- TODO Justin/Liz: Replace with verified press citations.
-           Candidates: Reuters Institute Digital News Report 2026,
-           Nieman Lab, Press Gazette, Columbia Journalism Review.
-           Pull exact URLs + quote fragments when confirmed. -->
-      <span class="trust-cite-pill">Reuters Institute 2026</span>
-      <span class="trust-cite-pill">Nieman Lab</span>
-      <span class="trust-cite-pill">Press Gazette</span>
+      <span class="trust-cites-label">Citations &amp; Research</span>
+      <a href="https://niemanreports.org/liz-kelly-nelson-project-c-creator-journalists-social-media-gen-z-news-vertical-video/"
+         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
+        Nieman Reports
+      </a>
+      <a href="https://www.niemanlab.org/2026/04/independent-journalists-are-mission-driven-but-financially-strained-a-new-report-says/"
+         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
+        Nieman Lab
+      </a>
+      <a href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf"
+         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
+        Chicago Press Forward
+      </a>
+      <a href="https://journalismatlas.com/research"
+         class="trust-cite-pill trust-cite-pill--link">
+        CNTI Report
+      </a>
     </div>
   </div>
 </section>
@@ -623,7 +641,10 @@
 <section class="compare-section">
   <div class="section-inner">
     <div class="eyebrow eyebrow--light">Know Who You're Working With</div>
-    <h2 class="h2-light">Creator journalists are not influencers.</h2>
+    <h2 class="h2-light compare-headline">
+      Creator journalists are
+      <span class="compare-headline-emphasis">not influencers.</span>
+    </h2>
     <p class="compare-framing">The distinction matters for your strategy. A bad brand deal costs an influencer one awkward post. It costs a creator journalist their entire business — which means they're far more selective, and far more valuable when they say yes.</p>
     <div class="compare-wrap">
       <div class="compare-grid">
@@ -690,6 +711,11 @@
       </div>
     </div>
     <p class="three-ways-note">88% of creator journalists agree there should be shared standards for brand partnerships. <em>Your job is to be the brand they say yes to.</em><br><span style="font-size:12px;color:rgba(255,255,255,0.25);display:block;margin-top:8px;">— Project C / Muck Rack</span></p>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="#build-brief" style="font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:rgba(206,255,0,0.5);letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='#ceff00'" onmouseout="this.style.color='rgba(206,255,0,0.5)'">
+        Tell us what you're tracking →
+      </a>
+    </div>
   </div>
 </section>
 
@@ -723,24 +749,7 @@
   <div class="section-inner">
     <div class="eyebrow eyebrow--dark">The Intelligence Layer</div>
     <h2 class="h2-dark"><span class="js-creator-count">1,718</span> verified creator journalists. Mapped, filtered, monitored.</h2>
-    <div class="atlas-does-grid">
-      <div class="atlas-card">
-        <div class="atlas-card-icon"><span class="material-symbols-outlined">search</span></div>
-        <div class="atlas-card-title">Find journalists on your beat.</div>
-        <p class="atlas-card-body">Filter by topic, platform, geography, and audience size. Every creator is human-verified. No algorithmic noise.</p>
-      </div>
-      <div class="atlas-card">
-        <div class="atlas-card-icon"><span class="material-symbols-outlined">rss_feed</span></div>
-        <div class="atlas-card-title">See what they're covering now.</div>
-        <p class="atlas-card-body">Atlas Pulse monitors 882 active creator feeds weekly. Know what's being published across your beats — by topic, by platform, by market — before your morning briefing.</p>
-        <a href="pulse.html" class="atlas-card-link" target="_blank" rel="noopener noreferrer">View the live digest →</a>
-      </div>
-      <div class="atlas-card">
-        <div class="atlas-card-icon"><span class="material-symbols-outlined">summarize</span></div>
-        <div class="atlas-card-title">Custom intelligence for your team.</div>
-        <p class="atlas-card-body">We build filtered creator lists, coverage briefings, and audience intelligence packages for comms teams — tuned to your issues, your markets, your timeline.</p>
-      </div>
-    </div>
+    <p class="atlas-does-intro">Click a beat to see who's covering it — then search the full database or read what they're publishing this week.</p>
     <div class="beat-explorer">
       <div class="beat-explorer-label">Explore by beat</div>
       <p class="beat-explorer-intro">Click any beat to see who's covering it.</p>
@@ -755,12 +764,58 @@
       </div>
       <div class="bx-panel" id="bx-panel"></div>
       <div class="bx-footer">
-        <a href="index.html" class="bx-search-cta" id="bx-search-link">
+        <a href="/search" class="bx-search-cta" id="bx-search-link">
           <span class="material-symbols-outlined" style="font-size:18px;">search</span>
           Search all creators in this beat →
         </a>
         <span class="bx-count" id="bx-count"></span>
       </div>
+      <div class="intel-layer-ctas">
+        <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="intel-cta-link">
+          <span class="material-symbols-outlined" style="font-size:16px;">rss_feed</span>
+          See what they're covering this week →
+        </a>
+        <a href="#build-brief" class="intel-cta-link intel-cta-link--anchor">
+          <span class="material-symbols-outlined" style="font-size:16px;">summarize</span>
+          Build a custom brief for your team →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION: PULSE COVERAGE INTELLIGENCE
+═══════════════════════════════════════════════════════════ -->
+<section class="pulse-intel-section">
+  <div class="section-inner">
+    <div class="pulse-intel-header">
+      <div>
+        <div class="eyebrow eyebrow--dark"><span class="pulse-dot-acid"></span>↓ Live now · Atlas Pulse</div>
+        <h2 class="h2-dark">What the ecosystem is publishing this week.</h2>
+        <!-- TODO: Update this paragraph weekly alongside PULSE_SNAPSHOT_BRANDS data swap.
+             Write 2-3 sentences in plain editorial voice. Name the actual dominant story.
+             Keep the same structure: dominant beat + post count, named creators, closing signal line. -->
+        <p class="live-window-editorial">The week of June 21 — 125 independent political and policy journalists published 879 posts, dominated by Juneteenth and what it means in 2026. Culture, Technology, and Media/Power voices combined for another 598 posts; Jerusalem Demsas covered the "dad tax" for The Argument, Andy Revkin filed on the NatGeo museum, and M.G. Siegler tracked Amazon's move on OpenAI. Business and Economy voices — including Kyla Scanlon and Brad DeLong — added 162 more across 41 creators. This is 882 feeds, monitored weekly, filtered to what's actually moving.</p>
+        <p class="pulse-intel-sub">
+          <span id="brands-pulse-date">Updated May 9, 2026</span> · 882 feeds ·
+          <span id="brands-pulse-active">574</span> creators active this week
+        </p>
+      </div>
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta">See full digest →</a>
+    </div>
+    <div class="pulse-intel-grid" id="pulse-intel-grid"></div>
+    <div class="pulse-intel-follower-note">
+      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">info</span>
+      Follower counts, platform reach, and audience size data are available for every verified creator in the Atlas database.
+      <a href="index.html" style="color:rgba(206,255,0,0.7);">Search the full Atlas →</a>
+    </div>
+    <div class="pulse-intel-footer">
+      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">lock_open</span>
+      Atlas Pulse is always free. &nbsp;
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer">Explore the full digest →</a>
+      <span style="opacity:0.4;">&nbsp;·&nbsp;</span>
+      <span style="opacity:0.5;">Powered by Journalism Atlas data</span>
     </div>
   </div>
 </section>
@@ -821,42 +876,6 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
-     SECTION: PULSE COVERAGE INTELLIGENCE
-═══════════════════════════════════════════════════════════ -->
-<section class="pulse-intel-section">
-  <div class="section-inner">
-    <div class="pulse-intel-header">
-      <div>
-        <div class="eyebrow eyebrow--dark"><span class="pulse-dot-acid"></span>↓ Live now · Atlas Pulse</div>
-        <h2 class="h2-dark">What the ecosystem is publishing this week.</h2>
-        <!-- TODO: Update this paragraph weekly alongside PULSE_SNAPSHOT_BRANDS data swap.
-             Write 2-3 sentences in plain editorial voice. Name the actual dominant story.
-             Keep the same structure: dominant beat + post count, named creators, closing signal line. -->
-        <p class="live-window-editorial">The week of June 21 — 125 independent political and policy journalists published 879 posts, dominated by Juneteenth and what it means in 2026. Culture, Technology, and Media/Power voices combined for another 598 posts; Jerusalem Demsas covered the "dad tax" for The Argument, Andy Revkin filed on the NatGeo museum, and M.G. Siegler tracked Amazon's move on OpenAI. Business and Economy voices — including Kyla Scanlon and Brad DeLong — added 162 more across 41 creators. This is 882 feeds, monitored weekly, filtered to what's actually moving.</p>
-        <p class="pulse-intel-sub">
-          <span id="brands-pulse-date">Updated May 9, 2026</span> · 882 feeds ·
-          <span id="brands-pulse-active">574</span> creators active this week
-        </p>
-      </div>
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta">See full digest →</a>
-    </div>
-    <div class="pulse-intel-grid" id="pulse-intel-grid"></div>
-    <div class="pulse-intel-follower-note">
-      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">info</span>
-      Follower counts, platform reach, and audience size data are available for every verified creator in the Atlas database.
-      <a href="index.html" style="color:rgba(206,255,0,0.7);">Search the full Atlas →</a>
-    </div>
-    <div class="pulse-intel-footer">
-      <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">lock_open</span>
-      Atlas Pulse is always free. &nbsp;
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer">Explore the full digest →</a>
-      <span style="opacity:0.4;">&nbsp;·&nbsp;</span>
-      <span style="opacity:0.5;">Powered by Journalism Atlas data</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
      SECTION 9 — BRIEF BUILDER FORM
 ═══════════════════════════════════════════════════════════ -->
 <section class="brief-section" id="build-brief">
@@ -887,12 +906,18 @@
                 <option>Foundation &amp; Philanthropy</option>
                 <option>International Affairs</option>
               </optgroup>
-              <optgroup label="Agency">
+              <optgroup label="Communications Agency">
                 <option>PR Agency (multi-client)</option>
                 <option>Public Affairs Firm</option>
                 <option>Integrated / Full-Service Agency</option>
               </optgroup>
-              <option>Other</option>
+              <optgroup label="Other">
+                <option>Academic / Research Institution</option>
+                <option>Journalism School or Program</option>
+                <option>Government / Public Sector</option>
+                <option>Media Company or Publisher</option>
+                <option>Something else — I'll explain below</option>
+              </optgroup>
             </select>
           </div>
 
@@ -929,12 +954,42 @@
             <input class="bf-input" id="bf-email" name="email" type="email" placeholder="you@company.com" required>
           </div>
 
-          <button type="submit" class="bf-submit">Build my brief</button>
+          <div class="bf-submit-row">
+            <button type="submit" class="bf-submit">Build my brief</button>
+            <button type="button" class="bf-soft-cta" id="bf-soft-toggle">
+              Not ready? Send us a question instead →
+            </button>
+          </div>
+
+          <!-- Soft inquiry panel — hidden by default -->
+          <div class="bf-soft-panel" id="bf-soft-panel" style="display:none;">
+            <div class="bf-field" style="margin-top:24px;">
+              <label class="bf-label" for="bf-question">Your question</label>
+              <textarea class="bf-input" id="bf-question" name="soft_question" rows="3"
+                placeholder="Tell us what you're trying to figure out. We'll respond directly."></textarea>
+            </div>
+            <div class="bf-field">
+              <label class="bf-label" for="bf-soft-email">Your email</label>
+              <input class="bf-input" id="bf-soft-email" name="soft_email" type="email"
+                placeholder="you@company.com">
+            </div>
+            <button type="button" class="bf-soft-submit" id="bf-soft-submit">Send my question →</button>
+          </div>
         </form>
 
         <div class="brief-confirm" id="brief-confirm">
-          <div class="brief-confirm-headline">We're on it.</div>
-          <p class="brief-confirm-body">We build these by hand — you'll hear from us soon. That's what makes them useful.</p>
+          <div class="brief-confirm-icon">
+            <span class="material-symbols-outlined" style="font-size:40px;color:#ceff00;">task_alt</span>
+          </div>
+          <div class="brief-confirm-headline">Brief received.</div>
+          <p class="brief-confirm-body">
+            We build these by hand — no template, no automation.
+            You'll hear from us within one business day with a first look at what we're seeing in your space.
+          </p>
+          <p class="brief-confirm-next">
+            In the meantime, see what's being covered across beats this week in
+            <a href="pulse.html" style="color:#ceff00;">Atlas Pulse →</a>
+          </p>
         </div>
       </div>
 
@@ -1190,6 +1245,52 @@ fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
   const n = data.length.toLocaleString();
   document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = n; });
 }).catch(() => {});
+
+(function() {
+  const el = document.querySelector('.compare-headline-emphasis');
+  if (!el || !('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        el.classList.add('is-visible');
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.6 });
+  observer.observe(el);
+})();
+
+// Soft inquiry toggle
+(function() {
+  const toggle = document.getElementById('bf-soft-toggle');
+  const panel = document.getElementById('bf-soft-panel');
+  if (toggle && panel) {
+    toggle.addEventListener('click', function() {
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+      if (panel.style.display === 'block') {
+        toggle.style.display = 'none';
+        panel.querySelector('textarea').focus();
+      }
+    });
+  }
+  const softSubmit = document.getElementById('bf-soft-submit');
+  if (softSubmit) {
+    softSubmit.addEventListener('click', async function() {
+      const q = document.getElementById('bf-question')?.value;
+      const e = document.getElementById('bf-soft-email')?.value;
+      if (!q || !e) return;
+      try {
+        await fetch('https://formspree.io/f/xzznlvgj', {
+          method: 'POST',
+          body: JSON.stringify({ soft_question: q, soft_email: e, type: 'soft_inquiry' }),
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        });
+      } catch(err) {}
+      document.getElementById('bf-soft-panel').innerHTML =
+        '<p style="color:#ceff00;font-size:15px;margin:16px 0 0;">Got it — we\'ll be in touch.</p>';
+    });
+  }
+})();
 </script>
 </body>
 </html>
