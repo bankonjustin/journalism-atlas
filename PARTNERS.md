@@ -15,6 +15,14 @@
 
 ---
 
+## Partner Index
+
+| File | Description | Status | URL | Deploy |
+|------|-------------|--------|-----|--------|
+| `partners/index.html` | Partner index holding page | Pre-launch | `/partners` | Live |
+
+---
+
 ## Live Pages (12 total)
 
 | File | Partner | URL | Status |

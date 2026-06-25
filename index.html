@@ -177,18 +177,16 @@
     .featured-sub { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 480px; margin-top: 8px; }
     .featured-view-all { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #ceff00; letter-spacing: 0.08em; white-space: nowrap; }
     .featured-grid-wrap { position: relative; }
-    .featured-grid-wrap::after { content: ''; position: absolute; top: 0; right: 0; width: 160px; height: 100%; background: linear-gradient(to right, transparent, #000 85%); pointer-events: none; z-index: 2; }
-    .featured-grid { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-right: 80px; cursor: grab; }
-    .featured-grid::-webkit-scrollbar { display: none; }
-    .featured-grid:active { cursor: grabbing; }
-    .featured-card { flex: 0 0 380px; padding: 32px 28px; border: 1px solid #1f1f1f; border-left: none; display: flex; flex-direction: column; gap: 12px; scroll-snap-align: start; min-height: 0; }
-    .featured-card:first-child { border-left: 1px solid #1f1f1f; }
-    .featured-grid::after { content: ''; flex: 0 0 40px; }
-    .featured-header-right { display: flex; align-items: center; gap: 20px; padding-right: 40px; }
-    .featured-scroll-hint { display: flex; align-items: center; gap: 6px; }
-    .featured-scroll-arrow { font-size: 16px; color: rgba(255,255,255,0.2); animation: arrowPulse 2s ease-in-out infinite; }
-    .featured-scroll-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.14em; text-transform: uppercase; }
-    @keyframes arrowPulse { 0%, 100% { transform: translateX(0); opacity: 0.2; } 50% { transform: translateX(5px); opacity: 0.5; } }
+    .featured-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; position: relative; transition: opacity 0.3s ease; }
+    .featured-card { padding: 32px 28px; border: 1px solid #1f1f1f; border-left: 1px solid #1f1f1f; display: flex; flex-direction: column; gap: 12px; min-height: 0; transition: opacity 0.3s ease; }
+    .featured-header-right { display: flex; align-items: center; gap: 16px; padding-right: 40px; }
+    .featured-pause-btn { background: none; border: none; cursor: pointer; padding: 0; color: rgba(255,255,255,0.25); display: flex; align-items: center; transition: color 0.15s; line-height: 1; }
+    .featured-pause-btn:hover { color: rgba(255,255,255,0.6); }
+    .featured-pause-btn .material-symbols-outlined { font-size: 20px; }
+    .featured-progress { display: flex; gap: 6px; justify-content: center; margin-top: 24px; padding-right: 40px; }
+    .featured-progress-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: background 0.3s ease; cursor: pointer; border: none; padding: 0; }
+    .featured-progress-dot.active { background: #ceff00; }
+    @media (max-width: 767px) { .featured-grid { grid-template-columns: 1fr; } }
     .featured-avatar { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #bdbdbd; flex-shrink: 0; overflow: hidden; position: relative; }
     .featured-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
     .featured-avatar[data-initials]::after { content: attr(data-initials); font-size: 18px; font-weight: 700; color: #bdbdbd; }
@@ -645,170 +643,347 @@
         <div class="featured-sub">A rotating selection from our verified creator pool, updated weekly. Each pick reflects the depth of the ecosystem — <strong>not just its most familiar names.</strong></div>
       </div>
       <div class="featured-header-right">
-        <div class="featured-scroll-hint">
-          <span class="featured-scroll-arrow">&#8594;</span>
-          <span class="featured-scroll-label">scroll</span>
-        </div>
+        <button class="featured-pause-btn" id="featured-pause-btn" aria-label="Pause rotation">
+          <span class="material-symbols-outlined">pause_circle</span>
+        </button>
         <a href="search.html" class="featured-view-all">View all →</a>
       </div>
     </div>
 
     <div class="featured-grid-wrap">
-    <div class="featured-grid">
-
-      <div class="featured-card">
-        <div class="featured-avatar">
-          <img src="assets/images/creators/casey_newton.jpg" alt="Casey Newton"
-               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','CN')">
-        </div>
-        <div class="featured-name">Casey Newton</div>
-        <div class="featured-pub">Platformer</div>
-        <span class="featured-beat">Technology</span>
-        <div class="featured-editorial">Newton left The Verge to build Platformer into one of the most closely-read newsletters in tech — breaking stories institutional outlets follow up on. Proof that the byline isn't the credential anymore. <strong>The work is.</strong></div>
-        <a href="search.html" class="featured-link">View in Atlas →</a>
+      <div class="featured-grid" id="featured-grid">
+        <!-- Cards injected by JS -->
       </div>
-
-      <div class="featured-card">
-        <div class="featured-avatar">
-          <img src="assets/images/creators/jessica_valenti.jpg" alt="Jessica Valenti"
-               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','JV')">
-        </div>
-        <div class="featured-name">Jessica Valenti</div>
-        <div class="featured-pub">Abortion, Every Day</div>
-        <span class="featured-beat">Gender &amp; Rights</span>
-        <div class="featured-editorial">Valenti launched Abortion, Every Day the week <em>Roe</em> fell and built it into the most closely-read independent newsletter on reproductive rights in the country — faster, more granular, and more trusted than any institutional outlet covering the same beat. <strong>The story found its reporter.</strong></div>
-        <a href="search.html?q=Jessica+Valenti" class="featured-link">View in Atlas →</a>
-      </div>
-
-      <div class="featured-card">
-        <div class="featured-avatar">
-          <img src="assets/images/creators/alicia_kennedy.jpeg" alt="Alicia Kennedy"
-               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','AK')">
-        </div>
-        <div class="featured-name">Alicia Kennedy</div>
-        <div class="featured-pub">From the Desk of Alicia Kennedy</div>
-        <span class="featured-beat">Food &amp; Culture</span>
-        <div class="featured-editorial">Kennedy turned food writing into moral and political inquiry — her newsletter on what we eat, why it matters, and who profits is essential reading in food media and well beyond it. Built a loyal paid subscriber base without a masthead behind her. <strong>The beat is bigger than the institution ever made it.</strong></div>
-        <a href="search.html?q=Alicia+Kennedy" class="featured-link">View in Atlas →</a>
-      </div>
-
-      <!-- Card 4: Oliver Darcy -->
-      <div class="featured-card">
-        <div class="featured-avatar">
-          <img src="assets/images/creators/oliver_darcy.jpg" alt="Oliver Darcy"
-               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','OD')">
-        </div>
-        <div class="featured-name">Oliver Darcy</div>
-        <div class="featured-pub">Status</div>
-        <span class="featured-beat">Media</span>
-        <div class="featured-editorial">Darcy walked away from CNN's Reliable Sources to launch Status — now the definitive nightly briefing on media power, with 85,000 subscribers and a track record of scoops that institutions follow up on. <strong>Accountability journalism about the people who control the news.</strong></div>
-        <a href="search.html?q=Oliver+Darcy" class="featured-link">View in Atlas →</a>
-      </div>
-
-      <!-- Card 5: Kyla Scanlon -->
-      <div class="featured-card">
-        <div class="featured-avatar">
-          <img src="assets/images/creators/kyla_scanlon.jpeg" alt="Kyla Scanlon"
-               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','KS')">
-        </div>
-        <div class="featured-name">Kyla Scanlon</div>
-        <div class="featured-pub">Kyla's Newsletter</div>
-        <span class="featured-beat">Economics</span>
-        <div class="featured-editorial">Scanlon coined "vibecession" before economists would name it, wrote a NYT bestseller, and built a million-follower cross-platform operation explaining how money and markets actually work — to audiences who never thought economics was for them. <strong>Making the most important beat accessible is its own kind of journalism.</strong></div>
-        <a href="search.html?q=Kyla+Scanlon" class="featured-link">View in Atlas →</a>
-      </div>
-
-      <!-- Card 6: Kahlil Greene -->
-      <div class="featured-card">
-        <div class="featured-avatar">
-          <img src="assets/images/creators/kahlil_greene.jpg" alt="Kahlil Greene"
-               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','KG')">
-        </div>
-        <div class="featured-name">Kahlil Greene</div>
-        <div class="featured-pub">History Can't Hide</div>
-        <span class="featured-beat">History &amp; Culture</span>
-        <div class="featured-editorial">Greene built a million-follower operation making suppressed American history impossible to ignore — Emmy-nominated, Peabody-winning, and now a National Geographic docuseries. Yale-educated, first Black student body president, entirely independent. <strong>The credential is the audience, not the institution.</strong></div>
-        <a href="search.html?q=Kahlil+Greene" class="featured-link">View in Atlas →</a>
-      </div>
-
-      <!-- Card 7: Tim Mak -->
-      <div class="featured-card">
-        <div class="featured-avatar">
-          <img src="assets/images/creators/tim_mak.jpg" alt="Tim Mak"
-               onerror="this.style.display='none'; this.parentElement.setAttribute('data-initials','TM')">
-        </div>
-        <div class="featured-name">Tim Mak</div>
-        <div class="featured-pub">The Counteroffensive</div>
-        <span class="featured-beat">International</span>
-        <div class="featured-editorial">NPR laid Mak off. He flew back to Kyiv alone, launched the first Substack dedicated to war correspondence, and built a team of seven journalists on the ground. Now 142,000 subscribers — Substack's largest international publication. <strong>The foreign bureau didn't disappear. It went independent.</strong></div>
-        <a href="search.html?q=Tim+Mak" class="featured-link">View in Atlas →</a>
-      </div>
-
     </div>
-    </div><!-- /.featured-grid-wrap -->
+
+    <div class="featured-progress" id="featured-progress">
+      <!-- Dots injected by JS -->
+    </div>
 
   </div>
 </section>
 
 <script>
-(function() {
-  var grid = document.querySelector('.featured-grid');
-  if (!grid) return;
+const FEATURED_POOL = [
+  {
+    name: "Casey Newton",
+    pub: "Platformer",
+    beat: "Technology",
+    editorial: "Newton left The Verge to build Platformer into one of the most closely-read newsletters in tech — breaking stories institutional outlets follow up on. Proof that the byline isn't the credential anymore. <strong>The work is.</strong>",
+    imgSrc: "assets/images/creators/casey_newton.jpg",
+    initials: "CN",
+    searchUrl: "search.html"
+  },
+  {
+    name: "Jessica Valenti",
+    pub: "Abortion, Every Day",
+    beat: "Gender &amp; Rights",
+    editorial: "Valenti launched Abortion, Every Day the week <em>Roe</em> fell and built it into the most closely-read independent newsletter on reproductive rights in the country. <strong>The story found its reporter.</strong>",
+    imgSrc: "assets/images/creators/jessica_valenti.jpg",
+    initials: "JV",
+    searchUrl: "search.html?q=Jessica+Valenti"
+  },
+  {
+    name: "Alicia Kennedy",
+    pub: "From the Desk of Alicia Kennedy",
+    beat: "Food &amp; Culture",
+    editorial: "Kennedy turned food writing into moral and political inquiry. Built a loyal paid subscriber base without a masthead behind her. <strong>The beat is bigger than the institution ever made it.</strong>",
+    imgSrc: "assets/images/creators/alicia_kennedy.jpeg",
+    initials: "AK",
+    searchUrl: "search.html?q=Alicia+Kennedy"
+  },
+  {
+    name: "Oliver Darcy",
+    pub: "Status",
+    beat: "Media",
+    editorial: "Darcy walked away from CNN to launch Status — now the definitive nightly briefing on media power. <strong>Accountability journalism about the people who control the news.</strong>",
+    imgSrc: "assets/images/creators/oliver_darcy.jpg",
+    initials: "OD",
+    searchUrl: "search.html?q=Oliver+Darcy"
+  },
+  {
+    name: "Kyla Scanlon",
+    pub: "Kyla's Newsletter",
+    beat: "Economics",
+    editorial: "Scanlon coined 'vibecession' before economists would name it and built a million-follower cross-platform operation explaining how money actually works. <strong>Making the most important beat accessible is its own kind of journalism.</strong>",
+    imgSrc: "assets/images/creators/kyla_scanlon.jpeg",
+    initials: "KS",
+    searchUrl: "search.html?q=Kyla+Scanlon"
+  },
+  {
+    name: "Kahlil Greene",
+    pub: "History Can't Hide",
+    beat: "History &amp; Culture",
+    editorial: "Greene built a million-follower operation making suppressed American history impossible to ignore — Emmy-nominated, Peabody-winning, National Geographic docuseries. <strong>The credential is the audience, not the institution.</strong>",
+    imgSrc: "assets/images/creators/kahlil_greene.jpg",
+    initials: "KG",
+    searchUrl: "search.html?q=Kahlil+Greene"
+  },
+  {
+    name: "Tim Mak",
+    pub: "The Counteroffensive",
+    beat: "International",
+    editorial: "NPR laid Mak off. He flew back to Kyiv alone and built the first Substack dedicated to war correspondence — 142,000 subscribers, Substack's largest international publication. <strong>The foreign bureau didn't disappear. It went independent.</strong>",
+    imgSrc: "assets/images/creators/tim_mak.jpg",
+    initials: "TM",
+    searchUrl: "search.html?q=Tim+Mak"
+  },
+  {
+    name: "Katelyn Jetelina",
+    pub: "Your Local Epidemiologist",
+    beat: "Health",
+    editorial: "Jetelina built the most trusted independent public health newsletter in America — translating complex epidemiology for millions of readers without dumbing it down. <strong>Science communication as a public service.</strong>",
+    imgSrc: null,
+    initials: "KJ",
+    searchUrl: "search.html?q=Katelyn+Jetelina"
+  },
+  {
+    name: "Heather Cox Richardson",
+    pub: "Letters from an American",
+    beat: "Politics &amp; History",
+    editorial: "Richardson contextualizes daily political events against the sweep of American history — 1.5 million subscribers read her every night. <strong>Context is the scarcest resource in political journalism.</strong>",
+    imgSrc: null,
+    initials: "HR",
+    searchUrl: "search.html?q=Heather+Cox+Richardson"
+  },
+  {
+    name: "Isaac Saul",
+    pub: "Tangle News",
+    beat: "Politics",
+    editorial: "Saul built Tangle into the rare political newsletter that presents the left and right arguments side by side without false equivalence. <strong>The model is the message.</strong>",
+    imgSrc: null,
+    initials: "IS",
+    searchUrl: "search.html?q=Isaac+Saul"
+  },
+  {
+    name: "Judd Legum",
+    pub: "Popular Info",
+    beat: "Government Accountability",
+    editorial: "Legum left ThinkProgress to build Popular Info — focused investigations into corporate influence and political accountability that legacy newsrooms often can't or won't pursue. <strong>Independence enables the story.</strong>",
+    imgSrc: null,
+    initials: "JL",
+    searchUrl: "search.html?q=Judd+Legum"
+  },
+  {
+    name: "Molly White",
+    pub: "Citation Needed",
+    beat: "Technology",
+    editorial: "White became the most rigorous independent voice on crypto and Web3 fraud — building a body of accountability journalism that shaped congressional hearings. <strong>One reporter. Real consequences.</strong>",
+    imgSrc: null,
+    initials: "MW",
+    searchUrl: "search.html?q=Molly+White"
+  },
+  {
+    name: "Emily Atkin",
+    pub: "Heated",
+    beat: "Climate",
+    editorial: "Atkin left The New Republic to build Heated into the sharpest accountability newsletter on the climate beat — focused on who profits from delay. <strong>The story has villains. She names them.</strong>",
+    imgSrc: null,
+    initials: "EA",
+    searchUrl: "search.html?q=Emily+Atkin"
+  },
+  {
+    name: "Ryan Broderick",
+    pub: "Garbage Day",
+    beat: "Internet Culture",
+    editorial: "Broderick maps the internet's weirdest corners with a journalist's rigor — Garbage Day is the definitive independent newsletter for understanding how online culture shapes offline reality. <strong>The feed is the beat.</strong>",
+    imgSrc: null,
+    initials: "RB",
+    searchUrl: "search.html?q=Ryan+Broderick"
+  },
+  {
+    name: "Matt Brown",
+    pub: "Extra Points",
+    beat: "Sports",
+    editorial: "Brown covers the business and politics of college sports from the outside — no access to protect, no athletic department to appease. <strong>The story behind the scoreboard.</strong>",
+    imgSrc: null,
+    initials: "MB",
+    searchUrl: "search.html?q=Matt+Brown"
+  },
+  {
+    name: "Adam Tooze",
+    pub: "Chartbook",
+    beat: "Economics &amp; Politics",
+    editorial: "Tooze connects macroeconomics, geopolitics, and history in a newsletter that Columbia University can't contain. <strong>The most important economic ideas don't live in academic journals anymore.</strong>",
+    imgSrc: null,
+    initials: "AT",
+    searchUrl: "search.html?q=Adam+Tooze"
+  },
+  {
+    name: "Alastair Campbell",
+    pub: "Rest Is Politics",
+    beat: "International",
+    editorial: "Campbell and Rory Stewart turned political commentary into the UK's most-downloaded podcast and newsletter — reaching audiences that had given up on political media. <strong>The conversation left broadcast behind.</strong>",
+    imgSrc: null,
+    initials: "AC",
+    searchUrl: "search.html?q=Alastair+Campbell"
+  },
+  {
+    name: "Charlotte Clymer",
+    pub: "Charlotte's Web Thoughts",
+    beat: "Politics &amp; LGBTQ+",
+    editorial: "Clymer covers LGBTQ+ policy and political accountability with the urgency of someone whose community is directly at stake. <strong>The stakes are the credential.</strong>",
+    imgSrc: null,
+    initials: "CC",
+    searchUrl: "search.html?q=Charlotte+Clymer"
+  },
+  {
+    name: "Adam Klasfeld",
+    pub: "All Rise News",
+    beat: "Law &amp; Courts",
+    editorial: "Klasfeld built independent legal journalism around the courtrooms that matter most — from January 6th trials to Trump prosecutions — without a wire service behind him. <strong>The gavel doesn't wait for institutional approval.</strong>",
+    imgSrc: null,
+    initials: "AK",
+    searchUrl: "search.html?q=Adam+Klasfeld"
+  },
+  {
+    name: "Noah Smith",
+    pub: "Noahpinion",
+    beat: "Economics",
+    editorial: "Smith left Bloomberg Opinion to build Noahpinion into one of the most-read independent economics newsletters — engaging experts and laypeople alike across tech, trade, and industrial policy. <strong>Economic literacy is a public good.</strong>",
+    imgSrc: null,
+    initials: "NS",
+    searchUrl: "search.html?q=Noah+Smith"
+  },
+  {
+    name: "Ed Zitron",
+    pub: "Where's Your Ed At",
+    beat: "Technology",
+    editorial: "Zitron holds Silicon Valley power accountable from Las Vegas — no press junkets, no access journalism, just pointed criticism of the industry's most powerful figures. <strong>Distance is an editorial asset.</strong>",
+    imgSrc: null,
+    initials: "EZ",
+    searchUrl: "search.html?q=Ed+Zitron"
+  },
+  {
+    name: "Anne Helen Petersen",
+    pub: "Culture Study",
+    beat: "Culture",
+    editorial: "Petersen left BuzzFeed News to build Culture Study — a newsletter that treats burnout, labor, and American life as serious subjects worth extended analysis. <strong>Cultural criticism as reporting.</strong>",
+    imgSrc: null,
+    initials: "AP",
+    searchUrl: "search.html?q=Anne+Helen+Petersen"
+  },
+  {
+    name: "Aaron Carroll",
+    pub: "Healthcare Triage",
+    beat: "Health",
+    editorial: "Carroll built Healthcare Triage into the go-to resource for understanding medical research and health policy — rigorous, accessible, and independent of pharma or hospital influence. <strong>Evidence-based journalism about evidence-based medicine.</strong>",
+    imgSrc: null,
+    initials: "AC",
+    searchUrl: "search.html?q=Aaron+Carroll"
+  },
+  {
+    name: "Jessica Huseman",
+    pub: "Votebeat",
+    beat: "Elections",
+    editorial: "Huseman built Votebeat into the essential nonprofit newsroom covering election administration — the unglamorous infrastructure beat that determines whether democracy actually functions. <strong>Who counts the votes matters more than who runs.</strong>",
+    imgSrc: null,
+    initials: "JH",
+    searchUrl: "search.html?q=Jessica+Huseman"
+  }
+];
+// FEATURED_POOL count: 24
 
-  // Scroll-peek: scroll right to reveal card 2's edge, then ease back
-  var peeked = false;
-  function scrollPeek() {
-    if (peeked) return;
-    peeked = true;
-    var target = 200;
-    var duration = 520;
-    var start = null;
-    function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-    function step(ts) {
-      if (!start) start = ts;
-      var progress = Math.min((ts - start) / duration, 1);
-      grid.scrollLeft = easeInOut(progress) * target;
-      if (progress < 1) { requestAnimationFrame(step); }
-      else {
-        // pause then ease back
-        setTimeout(function() {
-          var start2 = null;
-          function stepBack(ts2) {
-            if (!start2) start2 = ts2;
-            var p = Math.min((ts2 - start2) / 420, 1);
-            grid.scrollLeft = target * (1 - easeInOut(p));
-            if (p < 1) requestAnimationFrame(stepBack);
-          }
-          requestAnimationFrame(stepBack);
-        }, 480);
-      }
-    }
-    requestAnimationFrame(step);
+(function() {
+  var pool = FEATURED_POOL;
+  var pageSize = window.innerWidth < 768 ? 2 : 4;
+  var totalPages = Math.ceil(pool.length / pageSize);
+  var currentPage = 0;
+  var isPaused = false;
+  var cycleInterval = null;
+  var CYCLE_MS = 10000;
+  var FADE_MS  = 300;
+
+  var grid     = document.getElementById('featured-grid');
+  var dotsEl   = document.getElementById('featured-progress');
+  var pauseBtn = document.getElementById('featured-pause-btn');
+  var pauseIcon = pauseBtn ? pauseBtn.querySelector('.material-symbols-outlined') : null;
+
+  for (var i = 0; i < totalPages; i++) {
+    var dot = document.createElement('button');
+    dot.className = 'featured-progress-dot';
+    dot.setAttribute('aria-label', 'Go to page ' + (i + 1));
+    dot.dataset.page = i;
+    dot.addEventListener('click', function() {
+      goToPage(parseInt(this.dataset.page));
+      resetTimer();
+    });
+    dotsEl.appendChild(dot);
   }
 
-  // Fire peek after a short delay, cancel if user scrolls first
-  var peekTimer = setTimeout(scrollPeek, 1400);
-  grid.addEventListener('scroll', function() { clearTimeout(peekTimer); peeked = true; }, { once: true });
+  function renderPage(page) {
+    var start = page * pageSize;
+    var creators = pool.slice(start, start + pageSize);
+    grid.innerHTML = creators.map(function(c) {
+      var avatarInner = c.imgSrc
+        ? '<img src="' + c.imgSrc + '" alt="' + c.name + '" onerror="this.style.display=\'none\'; this.parentElement.setAttribute(\'data-initials\',\'' + c.initials + '\')">'
+        : '';
+      var avatarAttrs = c.imgSrc ? '' : ' data-initials="' + c.initials + '"';
+      return [
+        '<div class="featured-card">',
+          '<div class="featured-avatar"' + avatarAttrs + '>' + avatarInner + '</div>',
+          '<div class="featured-name">' + c.name + '</div>',
+          '<div class="featured-pub">' + c.pub + '</div>',
+          '<span class="featured-beat">' + c.beat + '</span>',
+          '<div class="featured-editorial">' + c.editorial + '</div>',
+          '<a href="' + c.searchUrl + '" class="featured-link">View in Atlas →</a>',
+        '</div>'
+      ].join('');
+    }).join('');
+    dotsEl.querySelectorAll('.featured-progress-dot').forEach(function(d, idx) {
+      d.classList.toggle('active', idx === page);
+    });
+  }
 
-  // Mouse drag to scroll
-  var isDown = false, startX, scrollLeft;
-  grid.addEventListener('mousedown', function(e) {
-    isDown = true;
-    grid.style.userSelect = 'none';
-    startX = e.pageX - grid.offsetLeft;
-    scrollLeft = grid.scrollLeft;
-  });
-  grid.addEventListener('mouseleave', function() { isDown = false; });
-  grid.addEventListener('mouseup', function() {
-    isDown = false;
-    grid.style.userSelect = '';
-  });
-  grid.addEventListener('mousemove', function(e) {
-    if (!isDown) return;
-    e.preventDefault();
-    var x = e.pageX - grid.offsetLeft;
-    grid.scrollLeft = scrollLeft - (x - startX);
-  });
+  function goToPage(page) {
+    grid.style.opacity = '0';
+    setTimeout(function() {
+      currentPage = page % totalPages;
+      renderPage(currentPage);
+      grid.style.opacity = '1';
+    }, FADE_MS);
+  }
+
+  function advance() {
+    goToPage((currentPage + 1) % totalPages);
+  }
+
+  function startTimer() {
+    if (cycleInterval) clearInterval(cycleInterval);
+    cycleInterval = setInterval(advance, CYCLE_MS);
+  }
+
+  function resetTimer() {
+    startTimer();
+  }
+
+  function setPaused(paused) {
+    isPaused = paused;
+    if (paused) {
+      clearInterval(cycleInterval);
+      cycleInterval = null;
+      if (pauseIcon) pauseIcon.textContent = 'play_circle';
+    } else {
+      startTimer();
+      if (pauseIcon) pauseIcon.textContent = 'pause_circle';
+    }
+  }
+
+  var section = grid.closest('.featured-section');
+  if (section) {
+    section.addEventListener('mouseenter', function() { if (!isPaused) { clearInterval(cycleInterval); } });
+    section.addEventListener('mouseleave', function() { if (!isPaused) { startTimer(); } });
+  }
+
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', function() {
+      setPaused(!isPaused);
+    });
+  }
+
+  grid.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+  renderPage(0);
+  startTimer();
 })();
 </script>
 
