@@ -4,6 +4,20 @@
         let currentView = 'grid';
         let currentBubbleMode = 'platform';
 
+        function getFormat(platformPrimary) {
+            if (!platformPrimary) return 'Other';
+            const medium = platformPrimary.split(' - ')[0].trim();
+            if (medium === 'Social') return 'Native Social';
+            return medium;
+        }
+
+        function getPlatformLabel(platformPrimary) {
+            if (!platformPrimary) return null;
+            const parts = platformPrimary.split(' - ');
+            if (parts.length > 1) return parts[1].trim();
+            return null;
+        }
+
         // Shared ordered groups list (used in filters and treemap)
         const ORDERED_GROUPS = [
             'Power & Politics',
@@ -129,6 +143,8 @@
                     topic: new Set(),
                     search: ''
                 };
+                this.activeFormat = null;
+                this.activePlatform = null;
             }
             
             // Toggle a filter value (add if not present, remove if present)
@@ -299,11 +315,21 @@
                         }
                     }
                     
-                    // Platform filter
+                    // Platform filter (sidebar checkboxes — exact match)
                     if (this.filters.platform.size > 0 && !this.filters.platform.has(creator.platform)) {
                         return false;
                     }
-                    
+
+                    // Format chip filter (AND with platform filter)
+                    if (this.activeFormat !== null && getFormat(creator.platform) !== this.activeFormat) {
+                        return false;
+                    }
+
+                    // Platform refinement chip filter (AND with format filter)
+                    if (this.activePlatform !== null && getPlatformLabel(creator.platform) !== this.activePlatform) {
+                        return false;
+                    }
+
                     // Geography filter
                     if (this.filters.geography.size > 0 && !this.filters.geography.has(creator.geography)) {
                         return false;
@@ -378,6 +404,10 @@
                 if (currentView === 'bubbles') renderBubbleChart();
                 else if (currentView === 'wheel') renderSunburstChart();
                 else if (currentView === 'treemap') renderTreemapChart();
+                else if (currentView === 'field') {
+                    if (typeof window.setFieldCanvasDimensions === 'function') window.setFieldCanvasDimensions();
+                    if (typeof window.initFieldView === 'function') window.initFieldView();
+                }
             }, 250);
         });
 
@@ -730,7 +760,10 @@
         // Clear all filters
         function clearAllFilters() {
             window.atlasTrack('filter_cleared', {});
+            filterState.activeFormat = null;
+            filterState.activePlatform = null;
             filterState.clearAll();
+            if (typeof window.clearFormatChips === 'function') window.clearFormatChips();
         }
 
         // Toggle view
@@ -794,10 +827,7 @@
                 if (fieldView) {
                     fieldView.style.display = 'block';
                     if (typeof window.setFieldCanvasDimensions === 'function') window.setFieldCanvasDimensions();
-                    if (!window.fieldInitialized) {
-                        window.fieldInitialized = true;
-                        if (typeof window.initFieldView === 'function') window.initFieldView();
-                    }
+                    if (typeof window.initFieldView === 'function') window.initFieldView();
                 }
             }
         }

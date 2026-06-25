@@ -163,6 +163,25 @@
       .search-secondary-divider { display: none; }
     }
 
+    /* ── FORMAT / PLATFORM progressive filter ── */
+    .platform-refinement-row {
+      transition: opacity 200ms ease, transform 200ms ease;
+      transform: translateY(-4px);
+      flex-basis: 100%;
+      margin-top: 4px;
+    }
+    .platform-refinement-row.visible {
+      opacity: 1 !important;
+      transform: translateY(0);
+    }
+    .native-social-note {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 12px; font-weight: 400;
+      color: rgba(255,255,255,0.32);
+      line-height: 1.5; margin: 6px 0 0;
+      flex-basis: 100%;
+    }
+
     /* ── VIZ ENTRY NOTES ── */
     .viz-entry-note {
       font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
@@ -451,6 +470,48 @@
       text-transform: uppercase;
       margin-top: 4px;
     }
+    .field-dim-bar {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 0 8px;
+    }
+    .field-dim-label {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      font-weight: 500; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .field-dim-tabs { display: flex; gap: 6px; }
+    .field-dim-btn {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px; padding: 5px 14px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .field-dim-btn:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
+    .field-dim-btn.active {
+      color: #111; background: #ceff00; border-color: #ceff00;
+    }
+    .field-legend {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 8px 0 12px;
+    }
+    .field-legend-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 12px; color: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px; padding: 4px 12px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .field-legend-item:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+    .field-legend-item.active { color: #111; border-color: transparent; }
+    .field-legend-swatch {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
     </style>
 
     <link rel="stylesheet" href="/assets/css/header.css">
@@ -495,17 +556,25 @@
           </div>
         </div>
 
-        <!-- Secondary filter chips: Platform (OR) and City (single-select) -->
+        <!-- Secondary filter chips: Format (progressive) and City (single-select) -->
         <div class="search-secondary-filters" id="search-secondary-filters">
-          <div class="search-secondary-group">
-            <span class="search-secondary-label">Platform</span>
-            <div class="search-secondary-chips">
-              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Newsletter">Newsletter</button>
-              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Video">Video</button>
-              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Social">Social</button>
-              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Podcast">Podcast</button>
-              <button class="sfc-chip" data-filter-type="platform" data-platform-prefix="Website">Website</button>
+          <div class="search-secondary-group" id="formatChipGroup">
+            <span class="search-secondary-label">Format</span>
+            <div class="search-secondary-chips" id="formatChips">
+              <button class="sfc-chip" data-filter-type="format" data-format="Newsletter">Newsletter</button>
+              <button class="sfc-chip" data-filter-type="format" data-format="Video">Video</button>
+              <button class="sfc-chip" data-filter-type="format" data-format="Podcast">Podcast</button>
+              <button class="sfc-chip" data-filter-type="format" data-format="Website">Website</button>
+              <button class="sfc-chip" data-filter-type="format" data-format="Native Social">Native Social</button>
             </div>
+          </div>
+          <!-- Platform refinement row — hidden until a Format is selected -->
+          <div class="search-secondary-group platform-refinement-row" id="platformRefinementRow" style="display:none; opacity:0;">
+            <span class="search-secondary-label">Platform</span>
+            <div class="search-secondary-chips" id="platformRefinementChips"></div>
+            <p class="native-social-note" id="nativeSocialNote" style="display:none;">
+              Native Social creators publish text and photo content directly to social platforms — distinct from video-primary creators on the same platforms.
+            </p>
           </div>
           <div class="search-secondary-divider"></div>
           <div class="search-secondary-group">
@@ -658,9 +727,6 @@
                     <button class="view-btn" onclick="toggleView('field')" title="All creators as a dot field">
                       <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">scatter_plot</span>Field
                     </button>
-                    <button class="view-btn" onclick="toggleView('bubbles')" title="Explore by platform cluster">
-                      <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;margin-right:3px;">bubble_chart</span>By Platform
-                    </button>
                 </div>
             </div>
 
@@ -695,11 +761,26 @@
 
             <!-- Field View -->
             <div class="field-view" id="fieldView" style="display:none;">
-              <div class="field-view-header">
-                <p class="field-view-note" id="fieldViewNote">1,718 creator-journalists. Each dot is one person.</p>
+
+              <!-- Dimension selector -->
+              <div class="field-dim-bar">
+                <span class="field-dim-label">Color by</span>
+                <div class="field-dim-tabs">
+                  <button class="field-dim-btn active" data-dim="group">Group</button>
+                  <button class="field-dim-btn" data-dim="platform">Platform</button>
+                  <button class="field-dim-btn" data-dim="geography">Geography</button>
+                </div>
               </div>
+
+              <!-- Legend -->
+              <div class="field-legend" id="fieldLegend"></div>
+
+              <!-- Note -->
+              <p class="field-view-note" id="fieldViewNote">1,718 creator-journalists. Each dot is one person.</p>
+
               <canvas id="fieldCanvas"></canvas>
               <div class="field-tooltip" id="fieldTooltip"></div>
+
             </div>
 
             <!-- Advanced views disclosure (sunburst + treemap demoted from primary toggle) -->
@@ -857,6 +938,37 @@
       "_default":                      "#606068"
     };
 
+    const FIELD_PLATFORM_COLORS = {
+      "Newsletter - Substack": "#ceff00",
+      "Video - YouTube":       "#ffaa00",
+      "Video - Instagram":     "#ff33cc",
+      "Social - Instagram":    "#ff33cc",
+      "Video - TikTok":        "#ff66aa",
+      "Social - TikTok":       "#ff66aa",
+      "Website":               "#97d600",
+      "Podcast":               "#00e5ff",
+      "Newsletter - Beehiiv":  "#fff700",
+      "_default":              "#606068"
+    };
+
+    const FORMAT_PLATFORM_MAP = {
+      'Newsletter':    ['Substack', 'Beehiiv', 'Ghost', 'Buttondown', 'Other'],
+      'Video':         ['Instagram', 'YouTube', 'TikTok', 'Twitch'],
+      'Native Social': ['Instagram', 'TikTok', 'Twitter/X', 'LinkedIn', 'Bluesky', 'Facebook'],
+      'Podcast':       null,
+      'Website':       null,
+    };
+
+    const FIELD_GEO_COLORS = {
+      "National":        "#ceff00",
+      "Northeast":       "#ffaa00",
+      "South":           "#ff66ff",
+      "Midwest":         "#97d600",
+      "West":            "#ff33cc",
+      "International":   "#00e5ff",
+      "_default":        "#606068"
+    };
+
     const FIELD_GROUPS = [
       "Power & Politics",
       "Money & Work",
@@ -865,6 +977,20 @@
       "Civic Life",
       "Social Issues"
     ];
+
+    let currentFieldDim = 'group';
+
+    function getCreatorColor(creator, dimension) {
+      if (dimension === 'platform') {
+        return FIELD_PLATFORM_COLORS[creator.platform] || FIELD_PLATFORM_COLORS._default;
+      }
+      if (dimension === 'geography') {
+        return FIELD_GEO_COLORS[creator.geoRegion || ''] || FIELD_GEO_COLORS._default;
+      }
+      const parsed = parseCreatorGroups(creator.group);
+      const firstGroup = parsed[0] || '';
+      return FIELD_GROUP_COLORS[firstGroup] || FIELD_GROUP_COLORS._default;
+    }
 
     let fieldDots = [];
     let fieldCtx = null;
@@ -921,9 +1047,8 @@
         const totalH = Math.ceil(n / cpr) * CELL;
         const startX = cx - totalW / 2;
         const startY = cy - totalH / 2;
-        const color = FIELD_GROUP_COLORS[group] || FIELD_GROUP_COLORS._default;
-
         creators.forEach((creator, j) => {
+          const color = getCreatorColor(creator, currentFieldDim);
           const col = j % cpr;
           const row = Math.floor(j / cpr);
           // Deterministic jitter — no Math.random() so layout is stable
@@ -1000,7 +1125,74 @@
       requestAnimationFrame(step);
     };
 
+    function renderFieldLegend(dimension) {
+      const legendEl = document.getElementById('fieldLegend');
+      if (!legendEl) return;
+
+      let colorMap, keys;
+      if (dimension === 'platform') {
+        colorMap = FIELD_PLATFORM_COLORS;
+        keys = Object.keys(colorMap).filter(k => k !== '_default');
+      } else if (dimension === 'geography') {
+        colorMap = FIELD_GEO_COLORS;
+        keys = Object.keys(colorMap).filter(k => k !== '_default');
+      } else {
+        colorMap = FIELD_GROUP_COLORS;
+        keys = FIELD_GROUPS;
+      }
+
+      // Count creators per key
+      const counts = {};
+      if (dimension === 'platform') {
+        allCreators.forEach(c => { if (c.platform) counts[c.platform] = (counts[c.platform] || 0) + 1; });
+      } else if (dimension === 'geography') {
+        allCreators.forEach(c => { const r = c.geoRegion || ''; counts[r] = (counts[r] || 0) + 1; });
+      } else {
+        allCreators.forEach(c => {
+          const g = parseCreatorGroups(c.group)[0] || '';
+          counts[g] = (counts[g] || 0) + 1;
+        });
+      }
+
+      let activeLegendKey = null;
+
+      function buildLegendHTML() {
+        legendEl.innerHTML = '';
+        keys.forEach(key => {
+          const count = counts[key] || 0;
+          if (!count) return;
+          const color = colorMap[key] || colorMap._default;
+          const item = document.createElement('button');
+          item.className = 'field-legend-item' + (activeLegendKey === key ? ' active' : '');
+          if (activeLegendKey === key) item.style.background = color;
+          item.innerHTML = `<span class="field-legend-swatch" style="background:${color}"></span>${key} (${count})`;
+          item.addEventListener('click', () => {
+            if (activeLegendKey === key) {
+              activeLegendKey = null;
+              fieldDots.forEach(d => d.opacity = 1);
+            } else {
+              activeLegendKey = key;
+              fieldDots.forEach(d => {
+                let match = false;
+                if (dimension === 'platform') match = d.creator.platform === key;
+                else if (dimension === 'geography') match = (d.creator.geoRegion || '') === key;
+                else match = d.group === key;
+                d.opacity = match ? 1 : 0.08;
+              });
+            }
+            drawFieldDots();
+            buildLegendHTML();
+          });
+          legendEl.appendChild(item);
+        });
+      }
+
+      buildLegendHTML();
+    }
+
     function setupFieldInteractions() {
+      if (window._fieldInteractionsSetup) return;
+      window._fieldInteractionsSetup = true;
       const canvas = document.getElementById('fieldCanvas');
       const tooltip = document.getElementById('fieldTooltip');
       if (!canvas || !tooltip) return;
@@ -1054,7 +1246,21 @@
     window.initFieldView = function() {
       buildFieldLayout();
       drawFieldDots();
+      renderFieldLegend(currentFieldDim);
       setupFieldInteractions();
+
+      // Wire up dimension tabs (safe to re-run — replaces existing handlers via onclick)
+      document.querySelectorAll('.field-dim-btn').forEach(btn => {
+        btn.onclick = function() {
+          document.querySelectorAll('.field-dim-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFieldDim = btn.dataset.dim;
+          // Re-color dots with new dimension
+          fieldDots.forEach(d => { d.color = getCreatorColor(d.creator, currentFieldDim); d.opacity = 1; });
+          drawFieldDots();
+          renderFieldLegend(currentFieldDim);
+        };
+      });
     };
 
     // ── Field filter hook — updates banner count + dot opacity ──
@@ -1063,13 +1269,19 @@
       if (bannerCount && count !== undefined) {
         bannerCount.textContent = count.toLocaleString();
       }
+      const noteEl = document.getElementById('fieldViewNote');
+      if (noteEl && count !== undefined) {
+        const total = allCreators.length;
+        const isFiltered = count < total;
+        noteEl.textContent = (isFiltered ? count.toLocaleString() : total.toLocaleString()) +
+          ' creator-journalists. Each dot is one person.';
+      }
     };
 
     // ── Chip filter system — beat (group), platform, city (geography) ──
     // Uses filterState from main.js directly to batch updates into a single applyFilters() call.
     (function() {
       const beatChips     = document.querySelectorAll('.sbc-chip:not(.sbc-chip--clear)');
-      const platformChips = document.querySelectorAll('.sfc-chip[data-filter-type="platform"]');
       const geoChips      = document.querySelectorAll('.sfc-chip[data-filter-type="geography"]');
       const clearBtn      = document.getElementById('sbc-clear');
       const beatBanner    = document.getElementById('beatActionBanner');
@@ -1105,40 +1317,81 @@
         });
       });
 
-      // ── Platform chips — multi-select OR, prefix-based ──
-      function platformValuesForPrefix(prefix) {
-        const vals = [];
-        document.querySelectorAll('#platformFilters input[type="checkbox"]').forEach(cb => {
-          if (cb.value.startsWith(prefix)) vals.push(cb.value);
+      // ── FORMAT chips — single-select, drives progressive Platform refinement row ──
+      const formatChips      = document.querySelectorAll('.sfc-chip[data-filter-type="format"]');
+      const refinementRow    = document.getElementById('platformRefinementRow');
+      const refinementChips  = document.getElementById('platformRefinementChips');
+      const nativeSocialNote = document.getElementById('nativeSocialNote');
+
+      function showRefinementRow(format) {
+        const platforms = FORMAT_PLATFORM_MAP[format];
+        if (!platforms) { hideRefinementRow(); return; }
+        refinementChips.innerHTML = '';
+        platforms.forEach(p => {
+          const btn = document.createElement('button');
+          btn.className = 'sfc-chip';
+          btn.dataset.filterType = 'platform-refinement';
+          btn.dataset.platform = p;
+          btn.textContent = p;
+          btn.addEventListener('click', () => handlePlatformRefinementClick(btn, p));
+          refinementChips.appendChild(btn);
         });
-        return vals;
+        if (nativeSocialNote) {
+          nativeSocialNote.style.display = format === 'Native Social' ? 'block' : 'none';
+        }
+        refinementRow.style.display = 'flex';
+        refinementRow.style.flexWrap = 'wrap';
+        refinementRow.style.alignItems = 'center';
+        refinementRow.style.gap = '8px';
+        requestAnimationFrame(() => refinementRow.classList.add('visible'));
       }
 
-      platformChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-          const prefix   = chip.dataset.platformPrefix;
-          const isActive = chip.classList.contains('sfc-chip--active');
-          const vals     = platformValuesForPrefix(prefix);
-          if (!vals.length) return;
+      function hideRefinementRow() {
+        refinementRow.classList.remove('visible');
+        filterState.activePlatform = null;
+        setTimeout(() => {
+          refinementRow.style.display = 'none';
+          refinementChips.innerHTML = '';
+          if (nativeSocialNote) nativeSocialNote.style.display = 'none';
+        }, 210);
+      }
 
+      function handlePlatformRefinementClick(btn, platform) {
+        const isActive = btn.classList.contains('sfc-chip--active');
+        document.querySelectorAll('.sfc-chip[data-filter-type="platform-refinement"]')
+          .forEach(c => c.classList.remove('sfc-chip--active'));
+        if (isActive) {
+          filterState.activePlatform = null;
+        } else {
+          btn.classList.add('sfc-chip--active');
+          filterState.activePlatform = platform;
+        }
+        filterState.applyFilters();
+      }
+
+      formatChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const format   = chip.dataset.format;
+          const isActive = chip.classList.contains('sfc-chip--active');
+          formatChips.forEach(c => c.classList.remove('sfc-chip--active'));
+          filterState.activeFormat   = null;
+          filterState.activePlatform = null;
           if (isActive) {
-            chip.classList.remove('sfc-chip--active');
-            vals.forEach(v => {
-              filterState.filters.platform.delete(v);
-              const cb = document.querySelector(`#platformFilters input[value="${v}"]`);
-              if (cb) cb.checked = false;
-            });
+            hideRefinementRow();
           } else {
             chip.classList.add('sfc-chip--active');
-            vals.forEach(v => {
-              filterState.filters.platform.add(v);
-              const cb = document.querySelector(`#platformFilters input[value="${v}"]`);
-              if (cb) cb.checked = true;
-            });
+            filterState.activeFormat = format;
+            showRefinementRow(format);
           }
           filterState.applyFilters();
         });
       });
+
+      // ── clearFormatChips shim — called by clearAllFilters() in main.js ──
+      window.clearFormatChips = function() {
+        formatChips.forEach(c => c.classList.remove('sfc-chip--active'));
+        hideRefinementRow();
+      };
 
       // ── Geo chips — single-select, exact geography field match ──
       geoChips.forEach(chip => {
@@ -1163,7 +1416,6 @@
       // ── Clear all — beat row × button resets every filter ──
       function clearAllChips() {
         beatChips.forEach(c => c.classList.remove('sbc-chip--active'));
-        platformChips.forEach(c => c.classList.remove('sfc-chip--active'));
         geoChips.forEach(c => c.classList.remove('sfc-chip--active'));
         if (clearBtn) clearBtn.style.display = 'none';
         if (beatBanner) beatBanner.style.display = 'none';
@@ -1185,12 +1437,6 @@
             }
           });
         }
-
-        platformChips.forEach(chip => {
-          const anyChecked = platformValuesForPrefix(chip.dataset.platformPrefix)
-            .some(v => document.querySelector(`#platformFilters input[value="${v}"]:checked`));
-          if (anyChecked) chip.classList.add('sfc-chip--active');
-        });
 
         geoChips.forEach(chip => {
           if (document.querySelector(`#geographyFilters input[value="${chip.dataset.geo}"]:checked`)) {
