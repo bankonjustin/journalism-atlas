@@ -38,20 +38,6 @@ img { max-width: 100%; display: block; }
 
 .container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 40px; }
 
-/* ── CONSENT BANNER ── */
-.consent-warning {
-  position: fixed;
-  top: var(--nav-height);
-  left: 0; right: 0;
-  z-index: 999;
-  background: #ffb700;
-  color: #000;
-  font-size: 13px;
-  font-weight: 700;
-  text-align: center;
-  padding: 8px 16px;
-}
-
 /* ── ACT ONE: HERO — black ── */
 .hero { background: #000; padding: 48px 0 0; }
 .hero-eyebrow { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 14px; }
@@ -142,13 +128,15 @@ img { max-width: 100%; display: block; }
   font-size: 12px; font-weight: 400;
   background: #efeff2; border: 0.5px solid var(--border); color: #313131;
 }
-.pill.platform { background: var(--lime); border-color: var(--olive); }
+.pill.platform { background: transparent; border: 1px solid #d4d4d8; color: #313131; }
+.pill.platform:hover { background: #97d600; border-color: #97d600; color: #313131; }
 .pill .material-symbols-outlined { font-size: 14px; line-height: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 14; }
 .card-divider { border: none; border-top: 0.5px solid var(--border); margin-bottom: 16px; }
 .card-link {
   font-size: 14px; font-weight: 400; color: var(--olive); margin-top: auto;
   display: inline-flex; align-items: center;
   padding: 6px 12px; border-radius: 6px; margin-left: -12px;
+  min-height: 44px;
   transition: color 0.15s, background 0.15s;
 }
 .card-link:hover { color: #313131; background: var(--lime); }
@@ -181,6 +169,9 @@ img { max-width: 100%; display: block; }
 .about-body { font-size: 16px; font-weight: 400; line-height: 26px; color: #444; margin-bottom: 20px; }
 .about-link { font-size: 14px; font-weight: 400; color: var(--olive); transition: color 0.15s; }
 .about-link:hover { color: #000; }
+
+.curatorial-intro { padding: 32px 0 0; background: var(--page-bg); }
+.curatorial-text { max-width: 680px; font-size: 16px; font-weight: 400; color: #313131; line-height: 1.6; }
 
 .atlas-footer { background: #313131; padding: 80px 0; }
 .atlas-footer-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
@@ -225,14 +216,17 @@ img { max-width: 100%; display: block; }
 <body>
 <script src="/assets/js/header.js"></script>
 
-<div class="consent-warning" id="consent-warning" style="display:none;">
-  &#9888;&#xFE0E; DRAFT — Curator consent not confirmed. Do not deploy live.
-</div>
-
 <section class="hero">
   <div class="container" id="hero-content"></div>
   <div class="curator-strip">
     <div class="curator-strip-inner" id="curator-strip-content"></div>
+  </div>
+</section>
+
+<!-- CURATORIAL INTRO -->
+<section class="curatorial-intro">
+  <div class="container">
+    <p class="curatorial-text">Emily Atkin selected these 11 journalists based on their climate accountability reporting — writers holding power responsible for the policies and practices shaping the climate crisis. Each has been independently verified by the Atlas and represents the independent journalism filling gaps that institutional outlets have left.</p>
   </div>
 </section>
 
@@ -264,7 +258,7 @@ img { max-width: 100%; display: block; }
   <div class="container">
     <div class="atlas-footer-inner">
       <div class="atlas-footer-logo">
-        <img src="../assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_white.png" alt="Independent Journalism Atlas">
+        <img src="/assets/images/logos/Journalism_Atlas_wordmark_stacked_white.png" alt="Independent Journalism Atlas" style="height:40px;width:auto;">
       </div>
       <p class="atlas-footer-tagline">Curated from 1,700+ creator-journalists — powered by Journalism Atlas data.</p>
       <a href="https://journalismatlas.com" class="atlas-footer-btn">Explore the Atlas &rarr;</a>
@@ -286,9 +280,6 @@ const PARTNER_CONFIG = {
   showFilters:    false,
   logoColor:      null,
   logoWhite:      null,
-  consentConfirmed: false,
-  consentDate:    '',
-  consentNotes:   '',
   aboutHeadline:   'About Emily Atkin',
   aboutParagraphs: [
     'Emily Atkin is the author of Heated (heated.world), one of the most influential independent climate newsletters. A former reporter who covered climate for The New Republic and other outlets, she launched Heated in 2019 and built it into a flagship of independent climate accountability journalism — known for holding polluters, politicians, and media accountable.',
@@ -342,12 +333,6 @@ function getMonogramInitials(name) {
   const parts = name.trim().split(/\s+/);
   if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   return parts[0][0].toUpperCase();
-}
-
-function renderConsentBanner() {
-  if (!PARTNER_CONFIG.consentConfirmed) {
-    document.getElementById('consent-warning').style.display = '';
-  }
 }
 
 function renderHero() {
@@ -427,7 +412,6 @@ function renderAbout() {
 document.addEventListener('DOMContentLoaded', () => {
   document.title = PARTNER_CONFIG.pageTitle;
   document.querySelector('meta[name="description"]').setAttribute('content', PARTNER_CONFIG.pageDescription);
-  renderConsentBanner();
   renderHero();
   if (PARTNER_CONFIG.showFilters) renderFilterBar();
   renderGrid();
