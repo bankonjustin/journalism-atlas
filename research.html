@@ -4,245 +4,720 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research &amp; Writing | The Independent Journalism Atlas</title>
-    <meta name="description" content="Explore our research on creator journalism, including the Top 50 Creator Journalists list, reports, and analysis of the independent journalism landscape.">
+    <meta name="description" content="Three co-founders. Decades inside the Washington Post, Axios, Vox, and USA Today. Original research, publications, and conference appearances on the future of independent journalism.">
 
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://journalismatlas.com/research">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://journalismatlas.com/research">
     <meta property="og:title" content="Research &amp; Writing | The Independent Journalism Atlas">
-    <meta property="og:description" content="Explore our research on creator journalism, including the Top 50 Creator Journalists list, reports, and analysis of the independent journalism landscape.">
+    <meta property="og:description" content="Three co-founders. Decades inside the Washington Post, Axios, Vox, and USA Today. Original research, publications, and conference appearances on the future of independent journalism.">
     <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
     <meta property="og:site_name" content="Independent Journalism Atlas">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Independent Journalism Atlas - Mapping the future of independent journalism">
+    <meta property="og:image:alt" content="Independent Journalism Atlas — Research &amp; Writing">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://journalismatlas.com/research">
     <meta property="twitter:title" content="Research &amp; Writing | The Independent Journalism Atlas">
-    <meta property="twitter:description" content="Explore our research on creator journalism, including the Top 50 Creator Journalists list, reports, and analysis of the independent journalism landscape.">
+    <meta property="twitter:description" content="Three co-founders. Decades inside the Washington Post, Axios, Vox, and USA Today. Original research, publications, and conference appearances on the future of independent journalism.">
     <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
 
     <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
     <link rel="stylesheet" href="assets/css/variables.css">
     <style>
-        /* legacy top-nav CSS removed — header now injected via header.js */
-        :root {
-            --black: #000000;
-            --white: #FFFFFF;
-            --acid-green: #ceff00;
-            --lime-green: #97d600;
-            --light-gray: #efeff2;
-            
-            --dark-gray: #313131;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: var(--font-primary);
-            line-height: 1.6;
-            color: var(--black);
-            background-color: var(--white);
+            font-family: var(--font-primary, 'Hanken Grotesk', sans-serif);
+            background: #efeff2;
+            color: #313131;
         }
 
-        /* Navigation */
-
-
-
-
-
-
-
-
-        /* Main Content */
-        .content-wrapper {
+        /* ─── Shared layout ─────────────────────────────────────── */
+        .section-inner {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 0 32px;
         }
 
-        .page-header {
-            margin-bottom: 3rem;
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
         }
 
-        .page-title {
-            font-size: 48px;
+        /* ─── Section 1: Dark Hero ──────────────────────────────── */
+        .hero {
+            background: #000;
+            padding: 80px 32px 64px;
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero .eyebrow {
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--black);
+            color: #fff;
+            letter-spacing: -0.025em;
+            max-width: 680px;
+            line-height: 1.15;
         }
 
-        .page-subtitle {
-            font-size: 20px;
-            color: var(--dark-gray);
-            line-height: 1.5;
+        .hero-body {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.65);
+            max-width: 560px;
+            margin-top: 16px;
+            line-height: 1.6;
         }
 
-        .section {
-            margin-bottom: 4rem;
-        }
-
-        .section-header {
+        .hero-actions {
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid var(--lime-green);
-        }
-
-        .section-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--lime-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 20px;
-        }
-
-        .section-title {
-            font-weight: 700;
-            color: var(--black);
-        }
-
-        .article-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .article-card {
-            background-color: var(--light-gray);
-            padding: 2rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--medium-gray);
-            transition: all 0.3s;
-        }
-
-        .article-card:hover {
-            border-left-color: var(--lime-green);
-            transform: translateX(4px);
-        }
-
-        .article-meta {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 0.75rem;
+            gap: 12px;
+            margin-top: 32px;
             flex-wrap: wrap;
         }
 
-        .article-author {
+        .btn-ghost {
+            display: inline-block;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            color: #fff;
+            background: transparent;
+            border-radius: 6px;
+            padding: 12px 24px;
             font-size: 14px;
-            font-weight: 700;
-            color: var(--dark-gray);
-        }
-
-        .article-date {
-            font-size: 14px;
-            color: var(--dark-gray);
-        }
-
-        .article-publication {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--black);
-            background-color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-        }
-
-        .article-card h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: var(--black);
-        }
-
-        .article-card h3 a {
-            color: var(--black);
+            font-weight: 500;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: border-color 0.2s, background 0.2s;
         }
 
-        .article-card h3 a:hover {
-            color: var(--dark-gray);
+        .btn-ghost:hover {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.05);
         }
 
-        .article-card p {
+        /* ─── Section 2: Project C Ticker ──────────────────────── */
+        .ticker-section {
+            background: #efeff2;
+            padding: 48px 0;
+        }
+
+        .ticker-header {
+            padding: 0 32px;
+            max-width: 1100px;
+            margin: 0 auto 32px;
+        }
+
+        .ticker-header .eyebrow {
+            color: #5d7400;
+            margin-bottom: 12px;
+        }
+
+        .ticker-intro {
             font-size: 16px;
-            line-height: 1.7;
-            color: var(--dark-gray);
+            color: #313131;
+            max-width: 680px;
+            line-height: 1.6;
         }
 
-        .featured-resource {
-            background-color: var(--black);
-            color: var(--white);
-            padding: 3rem;
-            border-radius: 12px;
-            margin-bottom: 3rem;
-            text-align: center;
+        .ticker-viewport {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
         }
 
-        .featured-resource h3 {
+        /* Fade edges */
+        .ticker-viewport::before,
+        .ticker-viewport::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .ticker-viewport::before {
+            left: 0;
+            background: linear-gradient(to right, #efeff2, transparent);
+        }
+
+        .ticker-viewport::after {
+            right: 0;
+            background: linear-gradient(to left, #efeff2, transparent);
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 16px;
+            width: max-content;
+            animation: ticker-scroll 55s linear infinite;
+            padding: 4px 0 12px;
+        }
+
+        .ticker-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes ticker-scroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        .ticker-card {
+            background: #fff;
+            border: 0.5px solid #d4d4d8;
+            border-radius: 6px;
+            padding: 20px 24px;
+            width: 300px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ticker-card-byline {
+            font-size: 11px;
+            font-weight: 500;
+            color: #5d7400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .ticker-card-headline {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000;
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+
+        .ticker-card-desc {
+            font-size: 13px;
+            font-weight: 400;
+            color: #313131;
+            margin-top: 6px;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .ticker-card-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: #5d7400;
+            text-decoration: none;
+            margin-top: 12px;
+            display: block;
+        }
+
+        .ticker-card-link:hover {
+            text-decoration: underline;
+        }
+
+        .ticker-cta-wrap {
+            padding: 24px 32px 0;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .btn-lime {
+            display: inline-block;
+            background: #97d600;
+            color: #313131;
+            border: 1px solid #5d7400;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-lime:hover {
+            background: #8bc400;
+        }
+
+        /* ─── Section 3: Featured Research (Dark) ───────────────── */
+        .research-section {
+            background: #000;
+            padding: 64px 32px;
+        }
+
+        .research-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .research-section .eyebrow {
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 16px;
+        }
+
+        .research-section .section-headline {
             font-size: 28px;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--acid-green);
+            color: #fff;
+            max-width: 680px;
+            line-height: 1.2;
+            margin-bottom: 32px;
         }
 
-        .featured-resource p {
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
+        /* CNTI anchor card: full width */
+        .research-anchor {
+            background: #1a1a1a;
+            border: 0.5px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 32px;
+            margin-bottom: 16px;
         }
 
-        .featured-link {
+        /* 2-col row below */
+        .research-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .research-card {
+            background: #1a1a1a;
+            border: 0.5px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 32px;
+            transition: border-color 0.2s;
+        }
+
+        .research-card:hover,
+        .research-anchor:hover {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .badge-pill {
             display: inline-block;
-            background-color: var(--acid-green);
-            color: var(--black);
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #ceff00;
+            background: rgba(206,255,0,0.1);
+            border: 0.5px solid rgba(206,255,0,0.25);
+            border-radius: 100px;
+            padding: 4px 12px;
+        }
+
+        .research-card-headline,
+        .research-anchor-headline {
+            font-size: 20px;
             font-weight: 700;
+            color: #fff;
+            margin-top: 16px;
+            line-height: 1.3;
+        }
+
+        .research-card-body,
+        .research-anchor-body {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.65);
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .stat-row {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item .stat-num {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ceff00;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-item .stat-label {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+
+        .research-link {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #ceff00;
+            text-decoration: none;
+            margin-top: 16px;
+        }
+
+        .research-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ─── Section 4+5: Publications + Press (Light) ─────────── */
+        .publications-section {
+            background: #efeff2;
+            padding: 64px 32px 0;
+        }
+
+        .publications-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .publications-section .eyebrow {
+            color: #5d7400;
+            margin-bottom: 12px;
+        }
+
+        .publications-section .section-headline {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.2;
+        }
+
+        .publications-section .section-subhead {
             font-size: 16px;
+            font-weight: 400;
+            color: #313131;
+            max-width: 600px;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .pub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .pub-card {
+            background: #fff;
+            border: 0.5px solid #d4d4d8;
+            border-radius: 6px;
+            padding: 24px 28px;
+            text-decoration: none;
+            display: block;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+
+        .pub-card:hover {
+            border-color: #97d600;
+        }
+
+        .pub-card:hover .pub-arrow {
+            transform: translateX(4px);
+        }
+
+        .outlet-pill {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #313131;
+            background: #efeff2;
+            border: 0.5px solid #d4d4d8;
+            border-radius: 100px;
+            padding: 3px 10px;
+        }
+
+        .pub-headline {
+            font-size: 19px;
+            font-weight: 700;
+            color: #000;
+            margin-top: 12px;
+            line-height: 1.3;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .pub-headline-text {
+            flex: 1;
+        }
+
+        .pub-arrow {
+            font-size: 16px;
+            color: #5d7400;
             transition: transform 0.2s;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
-        .featured-link:hover {
-            transform: translateY(-2px);
+        .pub-card:hover .pub-headline-text {
+            color: #5d7400;
         }
 
-        .coming-soon {
-            background-color: var(--light-gray);
-            padding: 2rem;
-            border-radius: 12px;
+        .pub-meta {
+            font-size: 12px;
+            font-weight: 500;
+            color: #b0b0b8;
+            margin-top: 8px;
+        }
+
+        .pub-blurb {
+            font-size: 14px;
+            font-weight: 400;
+            color: #313131;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* ─── Press Strip ────────────────────────────────────────── */
+        .press-section {
+            background: #efeff2;
+            padding: 40px 32px 64px;
+        }
+
+        .press-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .press-section .eyebrow {
+            color: #5d7400;
+            margin-bottom: 8px;
+        }
+
+        .press-intro {
+            font-size: 14px;
+            font-weight: 400;
+            color: #313131;
+        }
+
+        .press-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .press-chip {
+            display: inline-block;
+            background: #fff;
+            border: 0.5px solid #d4d4d8;
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #313131;
+            text-decoration: none;
+            transition: border-color 0.2s;
+        }
+
+        .press-chip:hover {
+            border-color: #97d600;
+        }
+
+        /* ─── Section 6: Speaking (Dark) ────────────────────────── */
+        .speaking-section {
+            background: #000;
+            padding: 64px 32px;
+        }
+
+        .speaking-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .speaking-section .eyebrow {
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 16px;
+        }
+
+        .speaking-section .section-headline {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .speaking-section .section-subhead {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.65);
+            max-width: 560px;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .appearances-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .appearance-card {
+            background: #1a1a1a;
+            border: 0.5px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            padding: 20px 24px;
+            transition: border-color 0.2s, border-left-color 0.2s;
+            border-left: 2px solid transparent;
+        }
+
+        .appearance-card:hover {
+            border-color: rgba(255,255,255,0.15);
+            border-left-color: rgba(206,255,0,0.35);
+        }
+
+        .appearance-event {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .appearance-role {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            color: #ceff00;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 6px;
+        }
+
+        .appearance-detail {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .credentials-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin-top: 40px;
+        }
+
+        .credentials-eyebrow {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+
+        .credentials-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .cred-pill {
+            background: rgba(255,255,255,0.07);
+            border: 0.5px solid rgba(255,255,255,0.12);
+            border-radius: 100px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 14px;
+        }
+
+        /* ─── Section 7: CTA Strip (Dark) ───────────────────────── */
+        .cta-section {
+            background: #000;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 64px 32px;
             text-align: center;
-            font-style: italic;
-            color: var(--dark-gray);
         }
 
+        .cta-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .cta-section .section-headline {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .cta-section .section-subhead {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.6);
+            max-width: 480px;
+            margin: 12px auto 0;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .btn-acid {
+            display: inline-block;
+            background: #ceff00;
+            color: #000;
+            border: 1px solid #97d600;
+            border-radius: 6px;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-acid:hover {
+            background: #d8ff33;
+        }
+
+        /* ─── Responsive ─────────────────────────────────────────── */
         @media (max-width: 768px) {
+            .hero h1 { font-size: 28px; }
+            .research-section .section-headline,
+            .publications-section .section-headline,
+            .speaking-section .section-headline,
+            .cta-section .section-headline { font-size: 24px; }
 
-            .page-title {
-                font-size: 36px;
-            }
+            .research-grid { grid-template-columns: 1fr; }
+            .pub-grid { grid-template-columns: 1fr; }
+            .appearances-grid { grid-template-columns: 1fr 1fr; }
 
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            .hero { padding: 56px 24px 48px; }
+            .research-section,
+            .speaking-section,
+            .cta-section { padding: 48px 24px; }
+            .publications-section { padding: 48px 24px 0; }
+            .press-section { padding: 32px 24px 48px; }
+            .ticker-header { padding: 0 24px; }
+            .ticker-cta-wrap { padding: 20px 24px 0; }
+        }
+
+        @media (max-width: 480px) {
+            .appearances-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 24px; }
+            .hero-actions { flex-direction: column; }
+            .cta-buttons { flex-direction: column; align-items: center; }
         }
     </style>
     <link rel="stylesheet" href="/assets/css/header.css">
@@ -250,103 +725,358 @@
 <body>
     <script src="/assets/js/header.js"></script>
 
-
-    <!-- Main Content -->
-    <div class="content-wrapper">
-        <div class="page-header">
-            <h1 class="page-title">Research &amp; Writing</h1>
-            <p class="page-subtitle">Original analysis of an ecosystem most journalism coverage ignores — produced with researchers, journalism organizations, and partner institutions.</p>
-        </div>
-
-        <!-- Featured Resource -->
-        <div class="featured-resource">
-            <h3>The Top 50 Creator-Model Journalists</h3>
-            <p>Our comprehensive analysis of the leading independent journalism creators shaping the future of news. This list showcases the diverse approaches, platforms, and business models powering creator journalism today.</p>
-            <a href="https://projectc.biz/top50creatorjournalists" target="_blank" class="featured-link">View the Top 50 List</a>
-        </div>
-
-        <!-- Project C Newsletter -->
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon">📰</div>
-                <h2 class="section-title">Project C Newsletter</h2>
-            </div>
-            <div class="article-grid">
-                <div class="article-card">
-                    <p>Project C supports and chronicles the creator journalism movement. As the Atlas' flagship publication, it features regular contributions from all three co-founders exploring this emerging space.</p>
-                    <p style="margin-top: 1rem;"><a href="https://newsletter.projectc.biz/" target="_blank" style="color: var(--black); font-weight: 700; text-decoration: underline;">Visit Project C Newsletter →</a></p>
-                </div>
-                <div class="article-card">
-                    <p style="font-size:11px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;color:#888;margin-bottom:8px;">Liz Kelly Nelson &amp; Justin Bank · April 2026</p>
-                    <h4 style="font-size:17px;font-weight:700;color:#000;margin:0 0 8px;line-height:1.3;">The reporting is moving. The credit isn't.</h4>
-                    <p>Marisa Kabas spent a year in federal court to get the footage. Then a TV station called with three hours notice. A story about accountability journalism outside the institution — and who gets credit for it.</p>
-                    <p style="margin-top: 1rem;"><a href="https://newsletter.projectc.biz/p/the-accountability-beat-has-moved" target="_blank" style="color: var(--black); font-weight: 700; text-decoration: underline;">Read on Project C →</a></p>
-                </div>
+    <!-- ─── 1. DARK HERO ──────────────────────────────────────── -->
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="eyebrow">Independent Journalism Atlas · Research &amp; Writing</p>
+            <h1>We study what most journalism coverage ignores.</h1>
+            <p class="hero-body">Three co-founders. Decades inside the Washington Post, Axios, Vox, and USA Today. Now building the infrastructure layer for independent journalism — and publishing what we learn alongside the researchers, funders, and institutions paying attention to the same shift.</p>
+            <div class="hero-actions">
+                <a href="/" class="btn-ghost">Explore the Atlas →</a>
+                <a href="/search" class="btn-ghost">Search 1,718 creators →</a>
             </div>
         </div>
+    </section>
 
-        <!-- Publications -->
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon">📄</div>
-                <h2 class="section-title">Publications</h2>
+    <!-- ─── 2. PROJECT C TICKER ───────────────────────────────── -->
+    <section class="ticker-section">
+        <div class="ticker-header">
+            <p class="eyebrow">From Project C</p>
+            <p class="ticker-intro">Project C is the flagship publication for creator-model journalism. All three co-founders contribute. These are the pieces that have moved the conversation.</p>
+        </div>
+
+        <div class="ticker-viewport">
+            <div class="ticker-track" id="tickerTrack"></div>
+        </div>
+
+        <div class="ticker-cta-wrap">
+            <a href="https://newsletter.projectc.biz/" target="_blank" rel="noopener noreferrer" class="btn-lime">Subscribe to Project C →</a>
+        </div>
+    </section>
+
+    <!-- ─── 3. FEATURED RESEARCH (DARK) ──────────────────────── -->
+    <section class="research-section">
+        <div class="research-inner">
+            <p class="eyebrow">Research &amp; Partnerships</p>
+            <h2 class="section-headline">Original research on a landscape most funders are still figuring out.</h2>
+
+            <!-- CNTI anchor card — full width -->
+            <div class="research-anchor">
+                <span class="badge-pill">April 2026 · Center for News, Technology &amp; Innovation</span>
+                <h3 class="research-anchor-headline">US Indie Info Providers: Professionally Diverse, Mission-driven, Sometimes Lonely, Rarely Earning Profit</h3>
+                <p class="research-anchor-body">A first look at the people shaping independent information in the US. 26 creators interviewed. Project C provided recruitment, field knowledge, and expertise throughout the research process.</p>
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <span class="stat-num">1 in 5</span>
+                        <span class="stat-label">Americans get news from individuals</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">26</span>
+                        <span class="stat-label">creators interviewed</span>
+                    </div>
+                </div>
+                <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-link">Read the report →</a>
             </div>
-            <div class="article-grid">
-                <div class="article-card">
-                    <h3><a href="https://reason.com/2026/01/24/how-to-build-your-own-internet-in-2026/" target="_blank">How to Build Your Own Internet in 2026</a></h3>
-                    <p style="margin-top: 0.5rem;"><span style="font-weight: 700;">Reason</span> | January 24, 2026</p>
-                </div>
 
-                <div class="article-card">
-                    <h3><a href="https://www.niemanlab.org/2025/12/the-creator-infrastructure-gap-will-define-journalisms-next-chapter/" target="_blank">The Creator Infrastructure Gap Will Define Journalism's Next Chapter</a></h3>
-                    <p style="margin-top: 0.5rem;"><span style="font-weight: 700;">Nieman Lab</span> | December 2025</p>
+            <!-- 2-col row: Chicago Toolkit + News Ecosystem Map -->
+            <div class="research-grid">
+                <div class="research-card">
+                    <span class="badge-pill">June 2026 · Press Forward Chicago</span>
+                    <h3 class="research-card-headline">Creator Journalism Toolkit</h3>
+                    <p class="research-card-body">A practical field guide for independent journalists in Chicago — produced with Press Forward Chicago and the Chicago Community Trust. Maps the creator journalism landscape, identifies infrastructure gaps, and provides actionable guidance for building sustainable independent ventures.</p>
+                    <a href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf" target="_blank" rel="noopener noreferrer" class="research-link">Download the toolkit →</a>
                 </div>
-
-                <div class="article-card">
-                    <h3><a href="https://www.niemanlab.org/2025/12/journalisms-songwriter-era/" target="_blank">Journalism's Songwriter Era</a></h3>
-                    <p style="margin-top: 0.5rem;"><span style="font-weight: 700;">Nieman Lab</span> | December 2025</p>
+                <div class="research-card">
+                    <span class="badge-pill">March 2025 · Project C</span>
+                    <h3 class="research-card-headline">The 2025 News Ecosystem Map</h3>
+                    <p class="research-card-body">An interactive graphic mapping the full spectrum of where news content is being produced and distributed today — from established legacy media to creator-model journalists to news influencers. Presented at ISOJ 2025, Knight Media Forum, and referenced across industry research.</p>
+                    <a href="https://newsletter.projectc.biz/p/from-trad-news-to-ai-the-evolving-journalism-landscape" target="_blank" rel="noopener noreferrer" class="research-link">Explore the map →</a>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Research -->
-        <div class="section">
-            <div class="section-header">
-                <div class="section-icon">🔬</div>
-                <h2 class="section-title">Research</h2>
-            </div>
+    <!-- ─── 4. PUBLICATIONS GRID (LIGHT) ─────────────────────── -->
+    <section class="publications-section">
+        <div class="publications-inner">
+            <p class="eyebrow">Publications</p>
+            <h2 class="section-headline">Writing that ranges from academic to commercial.</h2>
+            <p class="section-subhead">Nieman Lab, Nieman Reports, Reason, CJR, IJNet — the range of venues reflects the range of arguments we're making.</p>
+            <div class="pub-grid" id="pubGrid"></div>
+        </div>
+    </section>
 
-            <!-- CNTI report — live -->
-            <div class="featured-resource" style="margin-bottom: 1.5rem;">
-                <h3>US Indie Info Providers: Professionally Diverse, Mission-driven, Sometimes Lonely, Rarely Earning Profit</h3>
-                <p>A first look at the people shaping independent information in the US — and the challenges keeping most from breaking even. 26 independent info providers interviewed. 1 in 5 Americans now get news from individuals, not institutions.</p>
-                <div style="margin-bottom: 1rem; font-size: 14px; color: rgba(255,255,255,0.5);">Center for News, Technology &amp; Innovation · April 2026</div>
-                <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="featured-link">Read the report →</a>
-            </div>
+    <!-- ─── 5. PRESS STRIP (LIGHT, continuous) ───────────────── -->
+    <section class="press-section">
+        <div class="press-inner">
+            <p class="eyebrow">In the Press</p>
+            <p class="press-intro">Where our work has been covered and cited.</p>
+            <div class="press-chips" id="pressChips"></div>
+        </div>
+    </section>
 
-            <!-- Video Consortium card -->
-            <div class="article-grid" style="margin-bottom: 1.5rem;">
-                <div class="article-card">
-                    <h3><a href="https://videoconsortium.org/member-resources/rise-of-creator-journalist-report" target="_blank">Rise of Creator Journalist Report</a></h3>
-                    <p style="margin-top: 0.5rem;"><span style="font-weight: 700;">Video Consortium</span></p>
-                </div>
-            </div>
+    <!-- ─── 6. SPEAKING & APPEARANCES (DARK) ─────────────────── -->
+    <section class="speaking-section">
+        <div class="speaking-inner">
+            <p class="eyebrow">On the Stage</p>
+            <h2 class="section-headline">Where we show up.</h2>
+            <p class="section-subhead">We speak at the conferences, fellowships, and convenings where journalism's future gets decided — and where funders, journalists, and institutions are working through the same questions we are.</p>
 
-            <!-- Chicago Press Forward -->
-            <div class="featured-resource" style="margin-bottom: 1.5rem;">
-                <h3>Creator Journalism Toolkit</h3>
-                <p>A practical toolkit for independent creator-journalists in Chicago — produced in partnership with Press Forward Chicago and the Independent Journalism Atlas. Maps the creator journalism landscape, identifies infrastructure gaps, and provides actionable guidance for journalists building sustainable independent ventures.</p>
-                <div style="margin-bottom: 1rem; font-size: 14px; color: rgba(255,255,255,0.5);">Chicago Community Trust / Press Forward Chicago · June 2026</div>
-                <a href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf" target="_blank" rel="noopener noreferrer" class="featured-link">Download the toolkit →</a>
-            </div>
+            <div class="appearances-grid" id="appearancesGrid"></div>
 
-            <!-- ASU/Knight — coming -->
-            <div class="coming-soon">
-                <p style="font-weight: 700; margin-bottom: 0.5rem;">Coming June 2026 — The Economics of Independent Journalism at Scale</p>
-                <p>A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem. With Knight Foundation &amp; Arizona State University.</p>
+            <hr class="credentials-divider">
+            <p class="credentials-eyebrow">Alumni of</p>
+            <div class="credentials-pills">
+                <span class="cred-pill">Washington Post</span>
+                <span class="cred-pill">The New York Times</span>
+                <span class="cred-pill">NPR</span>
+                <span class="cred-pill">Axios</span>
+                <span class="cred-pill">Vox</span>
+                <span class="cred-pill">USA Today</span>
+                <span class="cred-pill">Nieman Foundation</span>
+                <span class="cred-pill">Columbia Journalism School</span>
+                <span class="cred-pill">Harvard Berkman Klein</span>
+                <span class="cred-pill">Stanford JSK</span>
+                <span class="cred-pill">ONA Board</span>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- ─── 7. CTA STRIP (DARK) ──────────────────────────────── -->
+    <section class="cta-section">
+        <div class="cta-inner">
+            <h2 class="section-headline">We built the map. Now use it.</h2>
+            <p class="section-subhead">1,718 verified independent creator-journalists. Searchable by beat, platform, geography, and format.</p>
+            <div class="cta-buttons">
+                <a href="/" class="btn-acid">Explore the Atlas →</a>
+                <a href="/search" class="btn-ghost">Search creators →</a>
+                <a href="/public-affairs" class="btn-ghost">Track for PR &amp; comms →</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    const TICKER_ITEMS = [
+      {
+        author: "LIZ KELLY NELSON & JUSTIN BANK",
+        date: "APRIL 2026",
+        headline: "The reporting is moving. The credit isn't.",
+        description: "Marisa Kabas spent a year in federal court. Monique O. Madan left The Markup with no salary, no legal team, and no expense account. A reported piece on accountability journalism outside the institution — and who gets credit for it.",
+        url: "https://newsletter.projectc.biz/p/the-accountability-beat-has-moved"
+      },
+      {
+        author: "RYAN KELLETT",
+        date: "DECEMBER 2025",
+        headline: "Journalism's Songwriter Era",
+        description: "The creator model mirrors what happened to the music industry. Audiences want journalism that feels direct and human. What that means for newsrooms that still think in factory terms.",
+        url: "https://www.niemanlab.org/2025/12/journalisms-songwriter-era/"
+      },
+      {
+        author: "LIZ KELLY NELSON",
+        date: "DECEMBER 2025",
+        headline: "The Creator Infrastructure Gap Will Define Journalism's Next Chapter",
+        description: "Independent journalism has a discovery and distribution problem. The infrastructure to connect creators with audiences, platforms, and funders doesn't exist yet — and building it is the work.",
+        url: "https://www.niemanlab.org/2025/12/the-creator-infrastructure-gap-will-define-journalisms-next-chapter/"
+      },
+      {
+        author: "JUSTIN BANK",
+        date: "JANUARY 2026",
+        headline: "How to Build Your Own Internet in 2026",
+        description: "As platform volatility intensifies, the case for owning your own infrastructure has never been stronger. A practical argument for a better internet — written for Reason.",
+        url: "https://reason.com/2026/01/24/how-to-build-your-own-internet-in-2026/"
+      },
+      {
+        author: "LIZ KELLY NELSON, JUSTIN BANK & RYAN KELLETT",
+        date: "JULY 2025",
+        headline: "The Top 50 Creator-Model Journalists",
+        description: "Months of research. Nominations, vetting, business model analysis, ethics review. The first list of its kind — the best and brightest building independent journalism right now.",
+        url: "https://newsletter.projectc.biz/p/this-is-what-journalism-looks-like-now"
+      },
+      {
+        author: "RYAN KELLETT & BEN REININGA",
+        date: "AUGUST 2025",
+        headline: "What Legacy Newsrooms Can Learn from Social Media Creators",
+        description: "Nieman Reports Spring/Summer 2025 cover story. How TikTok creators are redefining how audiences consume news — and the concrete lessons for traditional news organizations.",
+        url: "https://niemanreports.org/news-influencers-content-creators-social-media-journalism/"
+      },
+      {
+        author: "LIZ KELLY NELSON",
+        date: "JANUARY 2025",
+        headline: "Who gets to be called a journalist in 2025?",
+        description: "The Pew study on news influencers doesn't account for scale mattering less when audiences splinter and niche. A framework for the distinction that actually matters.",
+        url: "https://newsletter.projectc.biz/p/who-gets-to-be-called-a-journalist"
+      },
+      {
+        author: "RYAN KELLETT",
+        date: "OCTOBER 2025",
+        headline: "10 Creator-Model Journalists at Traditional Publishers to Follow",
+        description: "The creator model isn't only happening outside legacy institutions. These are the journalists inside traditional publishers who have already made the shift — and what it looks like from the inside.",
+        url: "https://newsletter.projectc.biz/p/10-creator-model-journalists-at-traditional-publishers-to-follow"
+      },
+    ];
+
+    const PUBLICATIONS = [
+      {
+        outlet: "Nieman Reports",
+        date: "April 2026",
+        headline: "How Are Creator Journalists Reaching Audiences Traditional Media Miss?",
+        authors: "Liz Kelly Nelson",
+        blurb: "Speaking with the 2026 class of Nieman Fellows, Liz discusses why media consumers — especially younger ones — are turning to independent voices, how creator journalists are building sustainable careers, and what their rise means for the future of the news ecosystem.",
+        url: "https://niemanreports.org/liz-kelly-nelson-project-c-creator-journalists-social-media-gen-z-news-vertical-video/"
+      },
+      {
+        outlet: "Poynter",
+        date: "April 2026",
+        headline: "As newsroom jobs shrink, some journalism schools teach students to go solo",
+        authors: "Liz Kelly Nelson & Ryan Kellett (quoted)",
+        blurb: "A Poynter investigation into journalism education's shift toward creator curricula, featuring Liz on schools' momentum toward creator-focused tracks and Ryan on the emerging role of employee-generated content.",
+        url: "https://www.poynter.org/educators-students/2026/how-to-become-creator-journalist/"
+      },
+      {
+        outlet: "Nieman Lab",
+        date: "December 2025",
+        headline: "The Creator Infrastructure Gap Will Define Journalism's Next Chapter",
+        authors: "Liz Kelly Nelson",
+        blurb: "Independent journalism has a discovery and distribution problem. The infrastructure to connect creators with audiences, platforms, and funders doesn't exist yet — but it needs to.",
+        url: "https://www.niemanlab.org/2025/12/the-creator-infrastructure-gap-will-define-journalisms-next-chapter/"
+      },
+      {
+        outlet: "Nieman Lab",
+        date: "December 2025",
+        headline: "Journalism's Songwriter Era",
+        authors: "Ryan Kellett",
+        blurb: "The creator model mirrors what happened to the music industry — and the implications for news organizations that still think in factory terms are just as profound.",
+        url: "https://www.niemanlab.org/2025/12/journalisms-songwriter-era/"
+      },
+      {
+        outlet: "Nieman Reports",
+        date: "August 2025",
+        headline: "What Legacy Newsrooms Can Learn from Social Media Creators",
+        authors: "Ryan Kellett & Ben Reininga",
+        blurb: "Cover story, Spring/Summer 2025. How content creators on TikTok and other platforms are redefining how audiences consume news — and what traditional newsrooms should do about it.",
+        url: "https://niemanreports.org/news-influencers-content-creators-social-media-journalism/"
+      },
+      {
+        outlet: "Columbia Journalism Review",
+        date: "December 2025",
+        headline: "Pivoting to Creator: An interview with Liz Kelly Nelson",
+        authors: "Liz Kelly Nelson",
+        blurb: "CJR's deep profile on how a Vox VP became one of the leading voices for the creator journalism movement — and what she thinks traditional journalism gets wrong about it.",
+        url: "https://www.cjr.org/the-interview/pivoting-to-creator-liz-kelly-nelson.php"
+      },
+      {
+        outlet: "Reason",
+        date: "January 2026",
+        headline: "How to Build Your Own Internet in 2026",
+        authors: "Justin Bank",
+        blurb: "As TikTok's US ownership shifts and platform volatility intensifies, the case for owning your own infrastructure has never been stronger.",
+        url: "https://reason.com/2026/01/24/how-to-build-your-own-internet-in-2026/"
+      },
+      {
+        outlet: "Nieman Lab",
+        date: "December 2022",
+        headline: "Airline-like loyalty programs try to tie down news readers",
+        authors: "Ryan Kellett",
+        blurb: "Loyalty programs — best known in the travel industry — are coming for news. A Nieman Lab predictions piece that anticipated the reader revenue wars of the mid-2020s.",
+        url: "https://www.niemanlab.org/2022/12/airline-like-loyalty-programs-try-to-tie-down-news-readers/"
+      },
+      {
+        outlet: "IJNet",
+        date: "June 2025",
+        headline: "Understanding creator journalism with Liz Kelly Nelson, founder of Project C",
+        authors: "Liz Kelly Nelson",
+        blurb: "Audiences are increasingly turning to content creators and away from traditional news sources. A primer on what creator journalism is, why it matters, and where it's going.",
+        url: "https://ijnet.org/en/story/understanding-creator-journalism-liz-kelly-nelson-founder-project-c"
+      },
+      {
+        outlet: "Nieman Lab",
+        date: "December 2020",
+        headline: "The bundle gets bundled",
+        authors: "Ryan Kellett",
+        blurb: "How publishers think about the bundle and brand is changing as a wider set of consumer services change. An early prediction that read the room on the bundling wars ahead.",
+        url: "https://www.niemanlab.org/2020/12/the-bundle-gets-bundled/"
+      },
+    ];
+
+    const PRESS_ITEMS = [
+      { outlet: "Nieman Reports", url: "https://niemanreports.org/liz-kelly-nelson-project-c-creator-journalists-social-media-gen-z-news-vertical-video/" },
+      { outlet: "Poynter", url: "https://www.poynter.org/educators-students/2026/how-to-become-creator-journalist/" },
+      { outlet: "Columbia Journalism Review", url: "https://www.cjr.org/the-interview/pivoting-to-creator-liz-kelly-nelson.php" },
+      { outlet: "INMA", url: "https://www.inma.org/blogs/newsroom-initiative/post.cfm/nieman-lab-offers-these-7-newsroom-specific-predictions" },
+      { outlet: "IJNet", url: "https://ijnet.org/en/story/understanding-creator-journalism-liz-kelly-nelson-founder-project-c" },
+      { outlet: "LatAm Journalism Review / Knight Center", url: "https://latamjournalismreview.org/articles/isoj-influencers-journalists/" },
+      { outlet: "ISOJ", url: "https://isoj.org/speakers-2025/liz-kelly-nelson-2/" },
+      { outlet: "GBH Media Summit", url: "https://www.wgbh.org/collections/gbh-media-summit-schedule" },
+      { outlet: "Pugpig Publishing Intelligence", url: "https://www.pugpig.com/2026/01/07/2026-publishing-predictions/" },
+    ];
+
+    const APPEARANCES = [
+      { event: "Nieman Fellows, Harvard University", role: "Speaker", detail: "Class of 2026 · Cambridge, MA — Liz Kelly Nelson" },
+      { event: "International Symposium on Online Journalism (ISOJ)", role: "Panelist", detail: "March 2025 · Austin, TX — Liz Kelly Nelson" },
+      { event: "International Journalism Festival, Perugia", role: "Workshop Leader", detail: "April 2025 · Perugia, Italy — Liz Kelly Nelson, Going Solo workshop" },
+      { event: "GBH Media Summit", role: "Panel Moderator", detail: "2025 · Liz Kelly Nelson" },
+      { event: "Online News Association (ONA)", role: "Presenter & Cohort Lead", detail: "ONA25 New Orleans · ONA26 Chicago — Liz Kelly Nelson, Ryan Kellett, Justin Bank" },
+      { event: "Knight Media Forum", role: "Panelist", detail: "February 2025 · Miami, FL — Liz Kelly Nelson" },
+      { event: "Hacks/Hackers AI x Journalism Summit", role: "Participant", detail: "May 2025 · Baltimore, MD" },
+      { event: "Sciences Po", role: "Speaker", detail: "Winter 2025 · Paris, France — Liz Kelly Nelson" },
+      { event: "Harvard Extension School", role: "Instructor", detail: "Summer 2025 · Content Creator Journalism course — Ryan Kellett" },
+      { event: "GW University Terker Fellowship", role: "Fellow", detail: "2025–2026 · Liz Kelly Nelson" },
+      { event: "ASU Knight Center for the Future of News", role: "Fellow", detail: "Liz Kelly Nelson" },
+      { event: "Columbia Sulzberger Fellowship", role: "Fellow", detail: "2024 · Liz Kelly Nelson" },
+      { event: "Harvard Nieman-Berkman Klein Fellowship", role: "Fellow", detail: "2025 · Ryan Kellett" },
+      { event: "Stanford JSK Fellowship Board", role: "Board Member", detail: "Liz Kelly Nelson" },
+    ];
+
+    // Render ticker — duplicate for seamless loop
+    (function() {
+      const track = document.getElementById('tickerTrack');
+      const allItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
+      track.innerHTML = allItems.map(item => `
+        <div class="ticker-card">
+          <span class="ticker-card-byline">${item.author} · ${item.date}</span>
+          <span class="ticker-card-headline">${item.headline}</span>
+          <span class="ticker-card-desc">${item.description}</span>
+          <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="ticker-card-link">Read →</a>
+        </div>
+      `).join('');
+    })();
+
+    // Render publications grid
+    (function() {
+      const grid = document.getElementById('pubGrid');
+      grid.innerHTML = PUBLICATIONS.map(p => `
+        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="pub-card">
+          <span class="outlet-pill">${p.outlet}</span>
+          <div class="pub-headline">
+            <span class="pub-headline-text">${p.headline}</span>
+            <span class="pub-arrow">→</span>
+          </div>
+          <div class="pub-meta">${p.authors} · ${p.date}</div>
+          <div class="pub-blurb">${p.blurb}</div>
+        </a>
+      `).join('');
+    })();
+
+    // Render press chips
+    (function() {
+      const wrap = document.getElementById('pressChips');
+      wrap.innerHTML = PRESS_ITEMS.map(p => `
+        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="press-chip">${p.outlet}</a>
+      `).join('');
+    })();
+
+    // Render appearances grid
+    (function() {
+      const grid = document.getElementById('appearancesGrid');
+      grid.innerHTML = APPEARANCES.map(a => `
+        <div class="appearance-card">
+          <div class="appearance-event">${a.event}</div>
+          <div class="appearance-role">${a.role}</div>
+          <div class="appearance-detail">${a.detail}</div>
+        </div>
+      `).join('');
+    })();
+    </script>
 
     <script src="/assets/js/footer.js"></script>
 </body>
