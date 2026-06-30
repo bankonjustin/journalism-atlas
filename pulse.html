@@ -160,11 +160,13 @@
     .masthead-dateline { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
     .masthead-dot-field { width: 100%; margin-bottom: 24px; overflow: hidden; line-height: 0; }
     .masthead-dot-field svg { display: block; width: 100%; }
-    .masthead-lede { font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(40px, 6vw, 72px); font-weight: 800; line-height: 1.1; color: #ffffff; letter-spacing: -0.02em; max-width: 1000px; margin-bottom: 48px; }
-    .masthead-lede-fallback { font-size: clamp(28px, 4vw, 48px); }
+    .masthead-lede { font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(32px, 4.5vw, 56px); font-weight: 800; line-height: 1.1; color: #ffffff; letter-spacing: -0.02em; max-width: 960px; margin-bottom: 16px; }
+    .masthead-lede-fallback { font-size: clamp(24px, 3.5vw, 40px); }
+    .masthead-supporting { font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(16px, 1.6vw, 20px); font-weight: 400; color: rgba(255,255,255,0.5); line-height: 1.5; max-width: 760px; margin-bottom: 40px; }
     /* Entity highlights in lede — data-driven, not decorative */
     .lede-creator { color: #ceff00; }
     .lede-beat { border-bottom: 2px solid rgba(206,255,0,0.5); padding-bottom: 2px; }
+    .lede-stat { border-bottom: 2px dotted rgba(206,255,0,0.6); padding-bottom: 2px; }
 
     /* ── MASTHEAD TICKER ── */
     .pulse-ticker-wrap { overflow: hidden; width: 100vw; position: relative; left: 50%; transform: translateX(-50%); mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.07); }
@@ -997,8 +999,9 @@
   <div class="masthead-inner">
     <!-- TODO-JUSTIN: increment VOL. number per edition until automated against stored volume counter -->
     <div class="masthead-dateline" id="masthead-dateline">PULSE · VOL. 1 · —</div>
-    <div class="masthead-dot-field" id="masthead-dot-field" aria-hidden="true"></div>
     <p class="masthead-lede" id="masthead-lede"></p>
+    <p class="masthead-supporting" id="masthead-supporting" style="display:none"></p>
+    <div class="masthead-dot-field" id="masthead-dot-field" aria-hidden="true"></div>
   </div>
   <div class="pulse-ticker-wrap" aria-hidden="true">
     <div class="pulse-ticker-row pulse-ticker-row--forward" id="pulse-ticker-row"></div>
@@ -1190,14 +1193,14 @@
       "trending_topics": [
         {
           "topic": "Politics",
-          "description": "Politics dominates the week with 400 posts from 63 creators. Farron Cousins is tracking a sharp drop in Trump's approval rating, while Shikha Dalmia at The Unpopulist dissects the irony of the Trump Phone being manufactured outside the US. Roland S. Martin covers Texas mandating Bible reading in schools and a Fisk University data center revolt, Nick Cohen explores the ideological tensions between the radical left, Muslim communities, and Jewish communities, and Luke O'Neil contributes a piece on 'Decades of glorious self-destruction.'",
+          "description": "Politics dominates universal output this week with 400 posts from 63 creators, making it by far the highest-volume topic in the digest. Farron Cousins is tracking a new national poll showing Trump's approval dropping to 30 percent, while Shikha Dalmia at The Unpopulist examines the contradictions of Trump-branded phones manufactured outside America. Roland S. Martin covers a Texas mandate requiring Bible reading in schools alongside a Democrat Socialist organizing surge, and Luke O'Neil reflects on what he frames as decades of self-destructive political behavior on the American left. Nick Cohen writes on 'Islamo-leftism' and the radical left's fraught relationship with Muslim and Jewish communities, representing the more internationally focused end of political commentary this week.",
           "post_count": 400,
           "creator_count": 63,
           "example_posts": [
             {
               "title": "Trump Hits BRUTAL New Low As Approval Crashes To DANGEROUS Level!",
               "url": "https://www.youtube.com/watch?v=iPYTdf2knh0",
-              "summary_snippet": "Farron Cousins reports on a new national poll showing a sharp decline in Trump's approval rating"
+              "summary_snippet": "A new national poll shows Trump's approval falling to just 30 percent"
             },
             {
               "title": "Trump Phone\u2014Made In Everywhere But America: A Video Roundup",
@@ -1212,77 +1215,90 @@
           ]
         },
         {
-          "topic": "Tech / AI",
-          "description": "Tech coverage this week is anchored by AI developments, with Azeem Azhar's Exponential View arguing fifty years of Moore's Law was still insufficient to prepare for AI's demands, and Lenny Rachitsky interviewing OpenAI Codex lead Andrew Ambrosino about how nearly 100% of OpenAI employees are already using agentic tools daily. Mathew Ingram published a memorial edition of The Torment Nexus for Om Malik (1966\u20132026), and Cleo Abram explores synthetic diamond applications in computing as a potential $1 trillion problem-solver. Christopher Barnatt also contributed a retrospective on extinct storage media, rounding out a week of broad technology reflection.",
+          "topic": "Tech",
+          "description": "Tech coverage spans 75 posts from 22 creators, with Mathew Ingram publishing a special edition of The Torment Nexus titled 'Om Malik 1966-2026,' paying tribute to the veteran tech journalist. Azeem Azhar's Exponential View issue #580 argues fifty years of Moore's Law still wasn't fast enough for AI demands, while Lenny Rachitsky interviews OpenAI Codex lead Andrew Ambrosino, who reveals nearly 100% of OpenAI employees now use Codex internally. Rounding out the week, Cleo Abram examines how synthetic diamonds could address a trillion-dollar materials problem, and Christopher Barnatt takes a nostalgic look at the top ten extinct storage media formats.",
           "post_count": 75,
           "creator_count": 22,
           "example_posts": [
             {
+              "title": "Om Malik 1966-2026",
+              "url": "https://torment-nexus.mathewingram.com/om-malik-1966-2026/",
+              "summary_snippet": "A special edition of The Torment Nexus, dedicated to my friend"
+            },
+            {
               "title": "\ud83d\udd2e Fifty years of Moore's Law wasn't fast enough for AI #580",
               "url": "https://www.exponentialview.co/p/ev-580",
-              "summary_snippet": "Plus: The frontier is already agentic; unlocking innovation; new drugs, food apps"
+              "summary_snippet": "Plus: The frontier is already agentic; unlocking innovation; new drugs"
             },
             {
               "title": "OpenAI Codex lead on the new shape of product work | Andrew Ambrosino",
               "url": "https://www.youtube.com/watch?v=P3KDebPTUrw",
-              "summary_snippet": "Nearly 100% of OpenAI employees use Codex"
-            },
-            {
-              "title": "Om Malik 1966-2026",
-              "url": "https://torment-nexus.mathewingram.com/om-malik-1966-2026/",
-              "summary_snippet": "A special edition dedicated to Om Malik, published by Mathew Ingram"
+              "summary_snippet": "Nearly 100% of OpenAI employees use Codex internally"
             }
           ]
         },
         {
           "topic": "Media/Power",
-          "description": "Media criticism and power analysis generated 62 posts from 15 creators this week. Andrew Callaghan published a short-form dispatch from Palestine, and Richard Prince at Journal-isms examines the lived reality of Black Cubans versus official government narratives on race. An unattributed Bluesky post (source data lists creator as Rusty Foster) makes the argument that free-expression absolutists go quiet when their own interests are threatened \u2014 the digest's earlier attribution of this post to Oliver Darcy could not be confirmed from source data and has been corrected.",
+          "description": "Media and power criticism generated 62 posts from 15 creators, with Andrew Callaghan publishing a short-form documentary on his trip to Palestine as the week's most visually striking entry. Richard Prince at Journal-Isms covered how Black journalists in Cuba are confronting the gap between the government's anti-racism rhetoric and lived reality, running the piece in Spanish as '\u00bfC\u00f3mo es realmente la vida para los negros en Cuba?' Note: a reference to Oliver Darcy appearing in an earlier draft of this description could not be confirmed against source data and has been removed pending verification.",
           "post_count": 62,
           "creator_count": 15,
           "example_posts": [
             {
               "title": "Andrew goes to Palestine",
               "url": "https://www.youtube.com/shorts/jJXfz6dg3Fs",
-              "summary_snippet": "Andrew Callaghan's short-form dispatch from Palestine"
+              "summary_snippet": ""
             },
             {
               "title": "\u00bfC\u00f3mo es realmente la vida para los negros en Cuba?",
               "url": "https://www.journal-isms.com/como-es-realmente-la-vida-para-los-negros-en-cuba/",
               "summary_snippet": "El gobierno dice que est\u00e1 combatiendo el racismo. Un periodista dice: no seas ingenuo."
-            },
-            {
-              "title": "No title",
-              "url": "https://bsky.app/profile/oliverdarcy.bsky.social/post/3mpbmbi6uwk2g",
-              "summary_snippet": "Billionaires claim to support free expression\u2014until their own interests are threatened [creator attribution unverified; source data lists Rusty Foster]"
             }
           ]
         },
         {
-          "topic": "World / Iran-US Conflict",
-          "description": "International coverage this week is dominated by escalating US-Iran conflict in the Strait of Hormuz, with Yves Smith at Naked Capitalism running sustained daily coverage of US Navy tanker escorts and tit-for-tat strikes. Tim Mak at Counter Offensive reports that Ukrainian drone strikes have caused serious gasoline shortages inside Russia, and Peter Zeihan publishes a major piece on NATO dissolution following the Trump administration's stated policy of withholding reinforcements. [Note: A previous version of this digest attributed Venezuela earthquake coverage to Jordana Timerman, but this creator could not be confirmed in source data and has been removed pending verification.]",
-          "post_count": 38,
-          "creator_count": 17,
+          "topic": "Finance/Economics",
+          "description": "Finance and economics output this week is anchored by Naked Capitalism's coverage of the escalating US-Iran confrontation over the Strait of Hormuz and its direct impact on oil and diesel supply chains, with the site also tracking Ukrainian drone strikes cutting into Russia's internal gasoline supply as a secondary economic pressure point. Brad DeLong cross-posted a long-form historical essay on Eric Hobsbawm via Enzo Traverso, offering a counterpoint to the week's geopolitical focus with a deeper look at twentieth-century economic history. Note: creator attributions for Naked Capitalism posts could not be fully verified against truncated source data and should be confirmed before publication.",
+          "post_count": 50,
+          "creator_count": 14,
           "example_posts": [
             {
               "title": "Iran War: Struggle Over Strait of Hormuz Intensifies",
               "url": "https://www.nakedcapitalism.com/2026/06/iran-war-struggle-over-strait-of-hormuz-intensifies-as-us-and-iran-strikes-and-counterstrikes-intensify-us-navy-escorts-tankers-on-oman-side-yet-more-on-oil-and-diesel-squeeze.html",
-              "summary_snippet": "Escalating strikes and counterstrikes in the Strait of Hormuz"
+              "summary_snippet": "Escalating strikes and counterstrikes in the Strait of Hormuz; US Navy escorts tankers"
             },
+            {
+              "title": "(SEMI-)CROSSPOST: ENZO TRAVERSO: The Centuries of Eric Hobsbawm",
+              "url": "https://braddelong.substack.com/p/semi-crosspost-enzo-traverso-the",
+              "summary_snippet": "Reading Traverso reading Chabal reading Hobsbawm"
+            }
+          ]
+        },
+        {
+          "topic": "World",
+          "description": "World affairs coverage across 38 posts from 17 creators is dominated by three crises: the US-Iran conflict and its stranglehold on oil shipping through the Strait of Hormuz, Venezuela's earthquake devastation covered by Jordana Timerman at Latin America Daily Briefing, and Peter Zeihan declaring the effective end of NATO following the Trump administration's stated policy against reinforcing alliance members. Counter Offensive's coverage of Russia's gasoline shortages \u2014 driven by Ukrainian drone strikes on fuel infrastructure \u2014 provides a fourth thread tying the week's energy and conflict stories together. Creator attribution for the Counter Offensive post could not be fully verified against truncated source data and should be confirmed before publication.",
+          "post_count": 38,
+          "creator_count": 17,
+          "example_posts": [
             {
               "title": "Russia's oil empire running low on gas",
               "url": "https://www.counteroffensive.news/p/russias-oil-empire-running-low-on",
               "summary_snippet": "Ukrainian drone strikes left Russia with serious gasoline shortages"
             },
             {
+              "title": "Venezuela's Earthquake Devastation",
+              "url": "https://latinamericadailybriefing.substack.com/p/venezuelas-earthquake-devastation",
+              "summary_snippet": "June 26, 2026"
+            },
+            {
               "title": "The End of NATO",
               "url": "https://zeihan.com/the-end-of-nato/",
-              "summary_snippet": "Trump policy: no meaningful reinforcements to NATO allies"
+              "summary_snippet": "Trump admin policy to not send meaningful reinforcements to alliance members"
             }
           ]
         },
         {
           "topic": "Climate/Environment",
-          "description": "Climate coverage spiked around converging events including an approaching US heat wave and the Venezuela earthquake. Andy Revkin published two pieces \u2014 one on the US heat wave and air conditioning access as a near-term adaptation tool, and one connecting Venezuela's earthquake calamity to global seismic preparedness gaps. Bill McKibben signals a new phase in climate politics with 'And so climate returns.' [Note: A previous version attributed an air conditioning policy argument to Leah Stokes, but this creator could not be confirmed in source data and has been removed pending verification.]",
+          "description": "Climate coverage generated 34 posts from 16 creators, with Andy Revkin addressing both the US heat wave and the Venezuela earthquake as converging climate and infrastructure crises in a piece arguing for both long-haul carbon cuts and immediate air conditioning expansion. Bill McKibben published a strategic essay titled 'And so climate returns,' framing the current political moment as the opening of the most important advocacy cycle yet, while Leah Stokes used European heat as a platform to argue the left should embrace air conditioning as a populist issue rather than cede it to the right.",
           "post_count": 34,
           "creator_count": 16,
           "example_posts": [
@@ -1294,36 +1310,13 @@
             {
               "title": "And so \"climate\" returns",
               "url": "https://billmckibben.substack.com/p/and-so-climate-returns",
-              "summary_snippet": "The next\u2014and most important\u2014cycle in a long-running battle"
-            },
-            {
-              "title": "Venezuela's Earthquake Calamity Reflects Urgent Issues in Seismic Hot Spots Worldwide",
-              "url": "https://revkin.substack.com/p/venezuelas-earthquake-calamity-reflects",
-              "summary_snippet": "Retrofitting is a nightmare but building collapses don't have to happen"
+              "summary_snippet": "The next--and most important--cycle in a long-running battle"
             }
           ]
         },
         {
-          "topic": "Government Accountability",
-          "description": "Government accountability coverage this week centers on legal and electoral integrity, with Chris Geidner at Law Dork publishing a historical deep-dive on the 20-year fight over sodomy laws ahead of the Lawrence v. Texas anniversary, and Lisa Remillard reporting on $1 million starter homes in a special edition connecting housing costs to policy failures. [Note: A previous version named Judd Legum, Matt Kiser, Kyle Tharp, and Marisa Kabas as active contributors this week, but none of these creators could be confirmed in the available source data; they have been removed pending verification.]",
-          "post_count": 45,
-          "creator_count": 7,
-          "example_posts": [
-            {
-              "title": "Before marriage, there was the nearly 20-year fight over sodomy laws",
-              "url": "https://www.lawdork.com/p/before-marriage-there-was-the-nearly",
-              "summary_snippet": "In 2003, the Supreme Court overturned its 1986 decision upholding sodomy laws"
-            },
-            {
-              "title": "SPECIAL EDITION: $1 MILLION STARTER HOMES [FULL LIST INCLUDED]",
-              "url": "https://lisaremillard.substack.com/p/special-edition-1-million-starter",
-              "summary_snippet": "SATURDAY, JUNE 27, 2026"
-            }
-          ]
-        },
-        {
-          "topic": "History / Democratic Politics",
-          "description": "The History beat this week features Timothy Snyder drawing a direct parallel between Marcus Aurelius's wars and Trump's second term in 'Of Stoicism and Stupor,' and Patrick Boyle producing a data-driven retrospective on the concrete economic costs of Brexit at the ten-year mark. [Note: A previous version prominently featured Jared Yates Sexton as a key contributor with multiple Bluesky dispatches, but this creator could not be confirmed in the available source data and has been removed pending verification.] The topic logged 41 posts from 4 creators, suggesting concentrated output from a small group of voices.",
+          "topic": "History",
+          "description": "The History beat produced 41 posts from just 4 creators, showing concentrated rather than broad coverage. Timothy Snyder published 'Of Stoicism and Stupor,' drawing a direct comparison between Marcus Aurelius's wars and Trump's second term, while Patrick Boyle released a video marking Brexit's ten-year anniversary with a concrete accounting of its economic costs to Britain. Jared Yates Sexton posted multiple pieces arguing both parties have abandoned grassroots organizing and that insurgent political movements now appeal to majority sentiment, connecting historical patterns of political decline to the present moment.",
           "post_count": 41,
           "creator_count": 4,
           "example_posts": [
@@ -1335,39 +1328,39 @@
             {
               "title": "Brexit, 10 Years On: What It Actually Cost Britain",
               "url": "https://www.youtube.com/watch?v=mogiYAtfn7w",
-              "summary_snippet": "A data-driven look at Brexit's economic legacy"
+              "summary_snippet": "Ten-year retrospective on Brexit's measurable economic damage"
             }
           ]
         }
       ],
       "insights": [
-        "The death of Om Malik prompted an unusual moment of cross-beat mourning in the tech journalism community, with Mathew Ingram dedicating a full newsletter edition to him \u2014 a rare non-analysis post from a creator who almost exclusively publishes criticism and media commentary.",
-        "Yves Smith at Naked Capitalism is functioning as a one-person wire service on the Iran-US Strait of Hormuz conflict, publishing near-daily updates that are filling a gap left by legacy outlets; her posts account for a disproportionate share of the World beat's 38 posts this week.",
-        "Andy Revkin is the only creator this week to bridge the Climate/Environment and World beats simultaneously, publishing substantive pieces on both the US heat wave and Venezuela's earthquake within the same 7-day window \u2014 suggesting he is tracking climate-linked disaster convergence as a unified story.",
-        "Farron Cousins' Trump 30% approval video and Shikha Dalmia's Trump Phone piece represent two stylistically opposite poles of the Politics beat \u2014 one YouTube-native outrage framing, one newsletter-native ironic analysis \u2014 both gaining traction in the same window, illustrating the ideological and format diversity within independent political journalism.",
-        "The Finance/Economics beat shows unusual intellectual range this week: Brad DeLong is republishing Enzo Traverso on Eric Hobsbawm, Adam Tooze is analyzing China Shock 2.0 mercantilist dynamics, and Paul Krugman is writing about AI's cognitive effects \u2014 suggesting the beat is absorbing AI, geopolitics, and intellectual history simultaneously."
+        "The death of Om Malik prompted Mathew Ingram to publish a special memorial edition of The Torment Nexus, signaling that tech journalism community losses are being processed publicly within the independent creator ecosystem rather than only through legacy outlets.",
+        "Yves Smith at Naked Capitalism is operating as a one-person wire service for the US-Iran war, producing multiple posts on Strait of Hormuz shipping disruptions, oil supply squeezes, and the broader economic fallout\u2014a volume and specificity of coverage rarely matched by a single independent creator on a geopolitical crisis.",
+        "The History beat shows extreme concentration: 41 posts from only 4 creators (Timothy Snyder, Jared Yates Sexton, Patrick Boyle, Garrett Graff), suggesting historical framing of current events is dominated by a small set of high-output voices rather than distributed across the ecosystem.",
+        "Climate coverage is coalescing around a dual narrative this week\u2014immediate heat and disaster response (Revkin on AC access, Venezuela earthquake) and long-term political strategy (McKibben declaring a new advocacy cycle), showing the beat is bifurcating between crisis journalism and movement journalism.",
+        "Andrew Callaghan's Palestine short and Nick Cohen's essay on Islamo-leftism represent the widest ideological spread in Media/Power coverage this week, illustrating how the independent ecosystem surfaces perspectives that rarely appear in the same institutional outlet."
       ],
       "notable_activity": [
         {
-          "type": "surge",
-          "description": "Iran-US Strait of Hormuz conflict triggered a surge in Finance/Economics and World beat overlap, with Yves Smith publishing at least four distinct posts on the topic in 7 days including oil squeeze analysis, tanker escort developments, and military strike updates."
-        },
-        {
           "type": "dark",
-          "description": "Cross-platform creator data returned entirely empty for all 15 slots this data window, suggesting a pipeline or enrichment failure in platform-attribution tracking for the week of 2026-06-28."
+          "description": "Cross-platform creator data returned empty for all 15 slots, indicating a data pipeline failure in platform attribution this reporting window. Multi-platform activity cannot be assessed for this digest."
         },
         {
           "type": "surge",
-          "description": "The Science beat saw a concentrated Fraser Cain posting surge at Universe Today, with at least four distinct astrophysics stories published including black hole polarization, a retrograde hot Jupiter, comet deuterium isotope findings, and a supernova remnant near the Milky Way's galactic center."
+          "description": "Government Accountability posts reached 45 from only 7 creators, with Chris Geidner at Law Dork publishing a deep retrospective on the 20-year fight over sodomy laws timed to the anniversary of Lawrence v. Texas, driving concentrated output on LGBTQ legal history."
         },
         {
           "type": "surge",
-          "description": "The Government Accountability beat's Bluesky activity from Marisa Kabas skews personal/ambient rather than hard accountability journalism this week, with posts about Lawrence, Kansas tourism and transit help \u2014 a potential signal of creator fatigue or a deliberate tonal shift mid-cycle."
+          "description": "Science output of 52 posts is heavily concentrated from Fraser Cain at Universe Today, who published at least four distinct astronomy stories this week covering M87 black hole polarization, the retrograde Hot Jupiter CoRoT-2b, deuterium in comet 3I/ATLAS observed by JWST, and a possible supernova remnant near the Milky Way's core."
+        },
+        {
+          "type": "surge",
+          "description": "The Venezuela earthquake generated simultaneous coverage across World (Jordana Timerman), Climate/Environment (Andy Revkin on seismic vulnerability in hot spots), and World/Finance beats, making it the week's clearest multi-beat convergence story outside of US domestic politics."
         }
       ]
     },
     "local": {
-      "summary": "Local coverage this week is led by Politics (324 posts, 42 creators) and a near-tie between Tech and Sports (91 posts each, 35 and 13 creators respectively). Jennifer Russell at Woodbury Warbler is the most prolific local publisher by volume, generating a dense calendar of municipal meeting notices across Gloucester County, NJ \u2014 West Deptford, Westville, Woodbury Heights, and the County Board \u2014 suggesting hyperlocal civic infrastructure journalism remains active. Sports coverage is anchored by Mark Zuckerman's Nats Journal and Greg Prince's Faith and Fear in Flushing tracking the Washington Nationals' four-game losing streak and Mets struggles respectively.",
+      "summary": "Local coverage this week is led by Politics (324 posts, 42 creators), with Taegan Goddard at Political Wire driving high volume on the Zohran Mamdani DSA primary win narrative and its national implications, US-Lebanon diplomacy, and Trump's second-term constitutional stress tests. Sports is the second-largest local beat (91 posts, 13 creators), anchored by Mark Zuckerman covering the Washington Nationals' four-game losing streak and Greg Prince's ongoing Mets despair coverage at Faith and Fear in Flushing. Investigative output is notable for a David Cay Johnston/DCReport story on post offices in Western North Carolina still closed from Hurricane Helene damage, and David Sirota's Lever News framing Mamdani's win as evidence socialist candidates can compete nationally.",
       "top_topics": [
         "Politics",
         "Tech",
@@ -1527,179 +1520,189 @@
     ]
   },
   "field_summary": {
-    "text": "The Iran-US Strait of Hormuz standoff drove the week's most concentrated independent coverage, with Yves Smith publishing at least four posts spanning oil markets, tanker movements, and military updates \u2014 pulling Finance and World beats into unusually tight overlap. The Science beat saw a parallel surge from Fraser Cain at Universe Today across four distinct astrophysics stories.",
+    "text": "Justin Gerdes covers clean energy policy across three jurisdictions in one newsletter",
     "generated": true,
     "edited": false,
+    "date": "2026-06-28"
+  },
+  "masthead": {
+    "headline_beat": "Energy",
+    "headline_creator": "Justin Gerdes",
+    "headline_stat": 1,
+    "headline_reason": "rare beat",
+    "supporting_creator": "Enrique Anarte Lazo",
+    "supporting_beat": "LGBTQIA",
+    "headline_text": "Justin Gerdes covers clean energy policy across three jurisdictions in one newsletter",
     "date": "2026-06-28"
   },
   "beat_trends": {
     "Local": {
       "current": 335,
-      "baseline": 319,
+      "baseline": 335,
       "trend": "stable",
-      "delta_pct": 5
+      "delta_pct": 0
     },
     "Things to Do": {
       "current": 45,
-      "baseline": 49,
+      "baseline": 45,
       "trend": "stable",
-      "delta_pct": -8
+      "delta_pct": 0
     },
     "Politics": {
       "current": 958,
-      "baseline": 879,
+      "baseline": 958,
       "trend": "stable",
-      "delta_pct": 9
+      "delta_pct": 0
     },
     "Policy": {
       "current": 38,
-      "baseline": 39,
+      "baseline": 38,
       "trend": "stable",
-      "delta_pct": -3
+      "delta_pct": 0
     },
     "General News": {
       "current": 120,
-      "baseline": 127,
+      "baseline": 120,
       "trend": "stable",
-      "delta_pct": -6
+      "delta_pct": 0
     },
     "Tech": {
       "current": 210,
-      "baseline": 238,
-      "trend": "down",
-      "delta_pct": -12
+      "baseline": 210,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Finance/Economics": {
       "current": 184,
-      "baseline": 162,
-      "trend": "up",
-      "delta_pct": 14
+      "baseline": 184,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Food": {
       "current": 65,
-      "baseline": 64,
+      "baseline": 65,
       "trend": "stable",
-      "delta_pct": 2
+      "delta_pct": 0
     },
     "Culture": {
       "current": 185,
-      "baseline": 147,
-      "trend": "up",
-      "delta_pct": 26
+      "baseline": 185,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Health/Wellness": {
       "current": 82,
-      "baseline": 58,
-      "trend": "up",
-      "delta_pct": 41
+      "baseline": 82,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Climate/Environment": {
       "current": 92,
-      "baseline": 66,
-      "trend": "up",
-      "delta_pct": 39
+      "baseline": 92,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Internet Culture": {
       "current": 61,
-      "baseline": 54,
-      "trend": "up",
-      "delta_pct": 13
+      "baseline": 61,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Business": {
       "current": 69,
-      "baseline": 60,
-      "trend": "up",
-      "delta_pct": 15
+      "baseline": 69,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Music": {
       "current": 20,
-      "baseline": 16,
-      "trend": "up",
-      "delta_pct": 25
+      "baseline": 20,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Education": {
       "current": 59,
-      "baseline": 54,
+      "baseline": 59,
       "trend": "stable",
-      "delta_pct": 9
+      "delta_pct": 0
     },
     "History": {
       "current": 100,
-      "baseline": 91,
+      "baseline": 100,
       "trend": "stable",
-      "delta_pct": 10
+      "delta_pct": 0
     },
     "World": {
       "current": 145,
-      "baseline": 176,
-      "trend": "down",
-      "delta_pct": -18
+      "baseline": 145,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Investigative": {
       "current": 107,
-      "baseline": 128,
-      "trend": "down",
-      "delta_pct": -16
+      "baseline": 107,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Restaurants and bars": {
       "current": 11,
-      "baseline": 9,
-      "trend": "up",
-      "delta_pct": 22
+      "baseline": 11,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Human Rights": {
       "current": 27,
-      "baseline": 25,
+      "baseline": 27,
       "trend": "stable",
-      "delta_pct": 8
+      "delta_pct": 0
     },
     "Identity/Belonging": {
       "current": 56,
-      "baseline": 54,
+      "baseline": 56,
       "trend": "stable",
-      "delta_pct": 4
+      "delta_pct": 0
     },
     "Faith/Religion": {
       "current": 39,
-      "baseline": 31,
-      "trend": "up",
-      "delta_pct": 26
+      "baseline": 39,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Government Accountability": {
       "current": 191,
-      "baseline": 160,
-      "trend": "up",
-      "delta_pct": 19
+      "baseline": 191,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Real Estate": {
       "current": 9,
-      "baseline": 11,
-      "trend": "down",
-      "delta_pct": -18
+      "baseline": 9,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Media/Power": {
       "current": 213,
-      "baseline": 163,
-      "trend": "up",
-      "delta_pct": 31
+      "baseline": 213,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Gender": {
       "current": 38,
-      "baseline": 35,
+      "baseline": 38,
       "trend": "stable",
-      "delta_pct": 9
+      "delta_pct": 0
     },
     "Parenting": {
       "current": 25,
-      "baseline": 27,
+      "baseline": 25,
       "trend": "stable",
-      "delta_pct": -7
+      "delta_pct": 0
     },
     "Mental Health": {
       "current": 15,
-      "baseline": 13,
-      "trend": "up",
-      "delta_pct": 15
+      "baseline": 15,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Dating/Romance": {
       "current": 4,
@@ -1709,57 +1712,57 @@
     },
     "National Security": {
       "current": 34,
-      "baseline": 26,
-      "trend": "up",
-      "delta_pct": 31
+      "baseline": 34,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Foreign Policy": {
       "current": 37,
-      "baseline": 36,
+      "baseline": 37,
       "trend": "stable",
-      "delta_pct": 3
+      "delta_pct": 0
     },
     "Books/Writing": {
       "current": 27,
-      "baseline": 16,
-      "trend": "up",
-      "delta_pct": 69
+      "baseline": 27,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Sports": {
       "current": 120,
-      "baseline": 86,
-      "trend": "up",
-      "delta_pct": 40
+      "baseline": 120,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Data Visualization": {
       "current": 36,
-      "baseline": 15,
-      "trend": "up",
-      "delta_pct": 140
+      "baseline": 36,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Explanatory": {
       "current": 54,
-      "baseline": 63,
-      "trend": "down",
-      "delta_pct": -14
+      "baseline": 54,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Science": {
       "current": 108,
-      "baseline": 71,
-      "trend": "up",
-      "delta_pct": 52
+      "baseline": 108,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Activism": {
       "current": 35,
-      "baseline": 37,
+      "baseline": 35,
       "trend": "stable",
-      "delta_pct": -5
+      "delta_pct": 0
     },
     "Art": {
       "current": 34,
-      "baseline": 30,
-      "trend": "up",
-      "delta_pct": 13
+      "baseline": 34,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Museums": {
       "current": 15,
@@ -1769,99 +1772,105 @@
     },
     "Travel": {
       "current": 52,
-      "baseline": 36,
-      "trend": "up",
-      "delta_pct": 44
+      "baseline": 52,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Law/Legal Issues": {
       "current": 145,
-      "baseline": 100,
-      "trend": "up",
-      "delta_pct": 45
+      "baseline": 145,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Comedy": {
       "current": 30,
-      "baseline": 47,
-      "trend": "down",
-      "delta_pct": -36
+      "baseline": 30,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Careers": {
       "current": 36,
-      "baseline": 22,
-      "trend": "up",
-      "delta_pct": 64
+      "baseline": 36,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Personal Finance": {
       "current": 39,
-      "baseline": 25,
-      "trend": "up",
-      "delta_pct": 56
+      "baseline": 39,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Labor/Workers Rights": {
       "current": 20,
-      "baseline": 15,
-      "trend": "up",
-      "delta_pct": 33
+      "baseline": 20,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Agriculture": {
       "current": 3,
-      "baseline": 1,
-      "trend": "up",
-      "delta_pct": 200
+      "baseline": 3,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Crime": {
       "current": 53,
-      "baseline": 56,
+      "baseline": 53,
       "trend": "stable",
-      "delta_pct": -5
+      "delta_pct": 0
     },
     "Immigration": {
       "current": 34,
-      "baseline": 27,
-      "trend": "up",
-      "delta_pct": 26
+      "baseline": 34,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Housing": {
       "current": 22,
-      "baseline": 8,
-      "trend": "up",
-      "delta_pct": 175
+      "baseline": 22,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Design": {
       "current": 22,
-      "baseline": 4,
-      "trend": "up",
-      "delta_pct": 450
+      "baseline": 22,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Fashion": {
       "current": 5,
-      "baseline": 2,
-      "trend": "up",
-      "delta_pct": 150
+      "baseline": 5,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Entertainment/Hollywood": {
       "current": 53,
-      "baseline": 55,
+      "baseline": 53,
       "trend": "stable",
-      "delta_pct": -4
+      "delta_pct": 0
+    },
+    "Games/Gaming": {
+      "current": 10,
+      "baseline": 10,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Transportation": {
       "current": 12,
-      "baseline": 10,
-      "trend": "up",
-      "delta_pct": 20
+      "baseline": 12,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "LGBTQIA": {
       "current": 10,
-      "baseline": 12,
-      "trend": "down",
-      "delta_pct": -17
+      "baseline": 10,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Film/Movies": {
       "current": 11,
-      "baseline": 18,
-      "trend": "down",
-      "delta_pct": -39
+      "baseline": 11,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Construction": {
       "current": 2,
@@ -1871,33 +1880,33 @@
     },
     "Outdoors": {
       "current": 11,
-      "baseline": 14,
-      "trend": "down",
-      "delta_pct": -21
+      "baseline": 11,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Lifestyle": {
       "current": 27,
-      "baseline": 32,
-      "trend": "down",
-      "delta_pct": -16
+      "baseline": 27,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Home": {
       "current": 12,
-      "baseline": 17,
-      "trend": "down",
-      "delta_pct": -29
+      "baseline": 12,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Energy": {
       "current": 8,
-      "baseline": 3,
-      "trend": "up",
-      "delta_pct": 167
+      "baseline": 8,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Photography": {
       "current": 2,
-      "baseline": 1,
-      "trend": "up",
-      "delta_pct": 100
+      "baseline": 2,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Military": {
       "current": 2,
@@ -1907,27 +1916,33 @@
     },
     "Recipes": {
       "current": 6,
-      "baseline": 8,
-      "trend": "down",
-      "delta_pct": -25
+      "baseline": 6,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Positive News": {
       "current": 8,
-      "baseline": 4,
-      "trend": "up",
-      "delta_pct": 100
+      "baseline": 8,
+      "trend": "stable",
+      "delta_pct": 0
+    },
+    "Beauty": {
+      "current": 3,
+      "baseline": 3,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Day in a Life": {
       "current": 4,
-      "baseline": 7,
-      "trend": "down",
-      "delta_pct": -43
+      "baseline": 4,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Solutions Journalism": {
       "current": 2,
-      "baseline": 1,
-      "trend": "up",
-      "delta_pct": 100
+      "baseline": 2,
+      "trend": "stable",
+      "delta_pct": 0
     },
     "Architecture": {
       "current": 2,
@@ -2926,11 +2941,12 @@ function renderPASignals() {
   el.innerHTML = html;
 }
 
-// ── Lede entity highlighting — data-driven, not hardcoded ────────────────────
-// Creator names → acid green; exact beat names → acid-green underline.
-// Scans raw text with a single regex pass (longest entities first) so no
-// partial matches or double-wrapping can occur.
-function applyLedeHighlights(rawText) {
+// ── Lede entity highlighting — data-driven, three tiers ──────────────────────
+// Tier 1 (creator names)  → acid green text
+// Tier 2 (beat names)     → solid acid-green underline
+// Tier 3 (headline_stat)  → dotted acid-green underline (visually distinct)
+// Single regex pass, longest-first — no partial matches, no double-wrapping.
+function applyLedeHighlights(rawText, headlineStat) {
   const creators = new Set(
     (PULSE_DATA.posts || []).map(p => p.creator).filter(Boolean)
   );
@@ -2939,16 +2955,28 @@ function applyLedeHighlights(rawText) {
     ...Object.keys(PULSE_DATA.beat_activity || {})
   ]);
 
-  // Only entities that actually appear in the text
+  // Tier-3: find any numeral or written quantity in the text that matches
+  // headline_stat. Look for the digit form and common written forms (e.g. "four").
+  const WRITTEN_NUMBERS = { 'two':2,'three':3,'four':4,'five':5,'six':6,'seven':7,
+    'eight':8,'nine':9,'ten':10,'eleven':11,'twelve':12 };
+  const statNumbers = new Set();
+  if (headlineStat && headlineStat > 1) {
+    statNumbers.add(String(headlineStat));
+    for (const [word, val] of Object.entries(WRITTEN_NUMBERS)) {
+      if (val === headlineStat) statNumbers.add(word);
+    }
+  }
+
   const present = [
     ...[...creators].filter(c => rawText.includes(c)),
-    ...[...beats].filter(b => rawText.includes(b))
-  ].sort((a, b) => b.length - a.length); // longest-first prevents partial matches
+    ...[...beats].filter(b => rawText.includes(b)),
+    ...[...statNumbers].filter(n => new RegExp('\\b' + n + '\\b', 'i').test(rawText))
+  ].sort((a, b) => b.length - a.length);
 
   if (!present.length) return esc(rawText);
 
   const pattern = present.map(e => e.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
-  const re = new RegExp('(' + pattern + ')', 'g');
+  const re = new RegExp('(' + pattern + ')', 'gi');
 
   const parts = [];
   let last = 0;
@@ -2959,6 +2987,8 @@ function applyLedeHighlights(rawText) {
     const safe = esc(word);
     if (creators.has(word)) {
       parts.push(`<span class="lede-creator">${safe}</span>`);
+    } else if (statNumbers.has(word.toLowerCase()) || statNumbers.has(word)) {
+      parts.push(`<span class="lede-stat">${safe}</span>`);
     } else {
       parts.push(`<span class="lede-beat">${safe}</span>`);
     }
@@ -2987,19 +3017,36 @@ function renderMasthead() {
   const datelineEl = document.getElementById('masthead-dateline');
   if (datelineEl) datelineEl.textContent = 'PULSE · VOL. 1 · ' + dateRange.toUpperCase();
 
-  // Lede: field_summary.text if present, else automated fallback
+  // Lede: use masthead.headline_text if available (new pipeline format),
+  // fall back to field_summary.text first sentence, then automated template.
   const ledeEl = document.getElementById('masthead-lede');
+  const supportingEl = document.getElementById('masthead-supporting');
   if (ledeEl) {
+    const mh = DIGEST_DATA.masthead;
     const fs = DIGEST_DATA.field_summary;
-    if (fs && fs.text) {
-      // Use first sentence only — hero register needs a single declarative statement
-      const sentence = fs.text.split(/(?<=\.)\s+/)[0];
-      ledeEl.innerHTML = applyLedeHighlights(sentence);
+    const stat = mh && mh.headline_stat ? mh.headline_stat : null;
+
+    let ledeText = '';
+    if (mh && mh.headline_text) {
+      ledeText = mh.headline_text;
+    } else if (fs && fs.text) {
+      ledeText = fs.text.split(/(?<=\.)\s+/)[0];
+    }
+
+    if (ledeText) {
+      ledeEl.innerHTML = applyLedeHighlights(ledeText, stat);
     } else {
       const nCreators = PULSE_DATA.active_7d || 0;
       const nPosts = (PULSE_DATA.recency && PULSE_DATA.recency['7d']) || 0;
       ledeEl.textContent = 'This week: ' + nCreators.toLocaleString() + ' creators across ' + ECOSYSTEM_BEATS_7D + ' beats published ' + nPosts.toLocaleString() + ' posts.';
       ledeEl.classList.add('masthead-lede-fallback');
+    }
+
+    // Supporting line — only when both fields present, never broken template
+    // TODO-LIZ: confirm phrasing of supporting line
+    if (supportingEl && mh && mh.supporting_creator && mh.supporting_beat) {
+      supportingEl.textContent = 'Also this week: ' + mh.supporting_creator + ' surged in ' + mh.supporting_beat + '.';
+      supportingEl.style.display = '';
     }
   }
 
