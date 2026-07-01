@@ -162,12 +162,24 @@
     .masthead-dot-field svg { display: block; width: 100%; }
     .masthead-lede { font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; line-height: 1.4; color: #ffffff; letter-spacing: -0.01em; max-width: 760px; margin-bottom: 12px; }
     .masthead-lede-fallback { font-size: clamp(18px, 2.2vw, 24px); }
-    .masthead-supporting { font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(16px, 1.6vw, 20px); font-weight: 400; color: rgba(255,255,255,0.5); line-height: 1.5; max-width: 760px; margin-bottom: 16px; }
     .masthead-stat-line { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 40px; }
     /* Entity highlights in lede — data-driven, not decorative */
-    .lede-creator { color: #ceff00; font-weight: 700; }
-    .lede-beat { text-decoration: underline 2px #97d600; text-underline-offset: 3px; }
+    .masthead-lede a { text-decoration: none; cursor: pointer; }
+    .lede-creator { color: #ceff00; font-weight: 700; transition: opacity 0.15s ease; }
+    .lede-creator:hover { opacity: 0.75; }
+    .lede-beat { color: inherit; border-bottom: 2px solid rgba(151,214,0,0.5); padding-bottom: 2px; transition: border-color 0.15s ease; }
+    .lede-beat:hover { border-color: rgba(151,214,0,1); }
     .lede-stat { text-decoration: underline 1px dotted rgba(255,255,255,0.45); text-underline-offset: 3px; }
+    /* Story stack — replaces "Also this week" supporting line */
+    .masthead-story-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; max-width: 760px; }
+    .story-stack-item { font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.85); display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+    .story-stack-creator { color: #ceff00; font-weight: 700; text-decoration: none; flex-shrink: 0; transition: opacity 0.15s ease; }
+    .story-stack-creator:hover { opacity: 0.75; }
+    .story-stack-sep { color: rgba(255,255,255,0.3); flex-shrink: 0; }
+    .story-stack-title { color: rgba(255,255,255,0.85); text-decoration: none; }
+    .story-stack-title:hover { text-decoration: underline; text-decoration-color: rgba(206,255,0,0.4); }
+    .story-stack-beat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 9999px; padding: 2px 8px; flex-shrink: 0; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .story-stack-beat:hover { background: rgba(206,255,0,0.12); border-color: rgba(206,255,0,0.3); color: #ceff00; }
 
     /* ── MASTHEAD TICKER ── */
     .pulse-ticker-wrap { overflow: hidden; width: 100vw; position: relative; left: 50%; transform: translateX(-50%); mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.07); }
@@ -1021,7 +1033,7 @@
     <!-- TODO-JUSTIN: increment VOL. number per edition until automated against stored volume counter -->
     <div class="masthead-dateline" id="masthead-dateline">PULSE · VOL. 1 · —</div>
     <p class="masthead-lede" id="masthead-lede"></p>
-    <p class="masthead-supporting" id="masthead-supporting" style="display:none"></p>
+    <div class="masthead-story-stack" id="masthead-story-stack" style="display:none"></div>
     <div class="masthead-stat-line" id="masthead-stat-line" style="display:none"></div>
     <div class="masthead-dot-field" id="masthead-dot-field" aria-hidden="true"></div>
   </div>
@@ -3170,16 +3182,93 @@ function applyLedeHighlights(rawText, headlineStat) {
     const word = m[0];
     const safe = esc(word);
     if (sigCreators.has(word)) {
-      parts.push(`<span class="lede-creator">${safe}</span>`);
+      // TODO-JUSTIN: wire search.html ?q= param — links to search homepage until then
+      parts.push(`<a class="lede-creator" href="/search.html" target="_blank" rel="noopener noreferrer">${safe}</a>`);
     } else if (statNumbers.has(word) || statNumbers.has(word.toLowerCase())) {
       parts.push(`<span class="lede-stat">${safe}</span>`);
     } else {
-      parts.push(`<span class="lede-beat">${safe}</span>`);
+      // Beat link: triggers archive filter in-page, no new tab
+      parts.push(`<a class="lede-beat" href="#" data-beat-filter="${safe}">${safe}</a>`);
     }
     last = m.index + word.length;
   }
   if (last < rawText.length) parts.push(esc(rawText.slice(last)));
   return parts.join('');
+}
+
+// ── Render: story stack (3-4 signal stories below lede, replaces "Also this week") ──
+function renderStoryStack(mh) {
+  const el = document.getElementById('masthead-story-stack');
+  if (!el) return;
+
+  const stories = DIGEST_DATA.signal_stories || [];
+  if (stories.length < 2) { el.style.display = 'none'; return; }
+
+  // Skip creators already named in the lede paragraph — check rendered text
+  const ledeText = document.getElementById('masthead-lede') ? document.getElementById('masthead-lede').textContent : '';
+  const ledeFeatured = new Set([
+    (mh && mh.headline_creator) || '',
+    (mh && mh.supporting_creator) || '',
+    ...(DIGEST_DATA.signal_stories || []).slice(0, 5)
+      .map(s => s.creator || s.channel || '')
+      .filter(c => c && ledeText.includes(c))
+  ].filter(Boolean));
+
+  const candidates = stories.filter(s => {
+    const c = s.creator || s.channel || '';
+    return !ledeFeatured.has(c);
+  }).slice(0, 4);
+
+  // Supplement from recent posts if fewer than 3 candidates
+  if (candidates.length < 3) {
+    const seenUrls = new Set(stories.map(s => s.url));
+    const seenCreators = new Set([...ledeFeatured, ...candidates.map(s => s.creator || s.channel || '')]);
+    const extra = (PULSE_DATA.posts || [])
+      .filter(p => !seenUrls.has(p.url) && !seenCreators.has(p.creator || p.channel || '') && p.url && p.title)
+      .sort((a, b) => (b.signal_score || 0) - (a.signal_score || 0) || (b.published || '').localeCompare(a.published || ''))
+      .slice(0, 3 - candidates.length);
+    candidates.push(...extra);
+  }
+
+  if (candidates.length < 2) { el.style.display = 'none'; return; }
+
+  el.innerHTML = candidates.map(s => {
+    const creator = s.creator || s.channel || '';
+    const rawTitle = s.title || '';
+    const title = rawTitle.length > 70 ? rawTitle.slice(0, 70) + '…' : rawTitle;
+    const beat = (s.topic || s.beat || '').split(',')[0].trim();
+
+    const creatorLink = creator
+      // TODO-JUSTIN: wire search.html ?q= param — links to search homepage until then
+      ? `<a class="story-stack-creator" href="/search.html" target="_blank" rel="noopener noreferrer">${esc(creator)}</a>`
+      : '';
+    const titleLink = s.url
+      ? `<a class="story-stack-title" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`
+      : `<span class="story-stack-title">${esc(title)}</span>`;
+    const beatPill = beat
+      ? `<span class="story-stack-beat" data-beat-filter="${esc(beat)}">${esc(beat)}</span>`
+      : '';
+
+    return `<div class="story-stack-item">
+      ${creatorLink}<span class="story-stack-sep">·</span>${titleLink}${beatPill ? ' ' + beatPill : ''}
+    </div>`;
+  }).join('');
+
+  // Beat pill clicks filter archive
+  el.querySelectorAll('[data-beat-filter]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      activeBeat = pill.dataset.beatFilter;
+      visibleCount = 50;
+      renderBeatPills();
+      renderPlatformBreakdown(activeBeat);
+      renderCreatorStrip();
+      renderPosts();
+      const archiveEl = document.querySelector('.controls-row');
+      if (archiveEl) archiveEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  el.style.display = '';
 }
 
 // ── Render: masthead (dateline + lede + dot-field + ticker) ──────────────────
@@ -3219,6 +3308,20 @@ function renderMasthead() {
 
     if (ledeText) {
       ledeEl.innerHTML = applyLedeHighlights(ledeText, stat);
+      // Wire beat filter clicks on lede links
+      ledeEl.querySelectorAll('[data-beat-filter]').forEach(a => {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          activeBeat = a.dataset.beatFilter;
+          visibleCount = 50;
+          renderBeatPills();
+          renderPlatformBreakdown(activeBeat);
+          renderCreatorStrip();
+          renderPosts();
+          const archiveEl = document.querySelector('.controls-row');
+          if (archiveEl) archiveEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
     } else {
       const nCreators = PULSE_DATA.active_7d || 0;
       const nPosts = (PULSE_DATA.recency && PULSE_DATA.recency['7d']) || 0;
@@ -3226,12 +3329,7 @@ function renderMasthead() {
       ledeEl.classList.add('masthead-lede-fallback');
     }
 
-    // Supporting line — only when both fields present, never broken template
-    // TODO-LIZ: confirm phrasing of supporting line
-    if (supportingEl && mh && mh.supporting_creator && mh.supporting_beat) {
-      supportingEl.textContent = 'Also this week: ' + mh.supporting_creator + ' surged in ' + mh.supporting_beat + '.';
-      supportingEl.style.display = '';
-    }
+    renderStoryStack(mh);
 
     // Stat line: [N] creators · [N] beats active · [N] posts this week
     const statLineEl = document.getElementById('masthead-stat-line');
