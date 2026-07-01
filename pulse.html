@@ -177,23 +177,32 @@
     .story-stack-title:hover { text-decoration: underline; text-decoration-color: rgba(206,255,0,0.4); }
     .story-stack-beat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 9999px; padding: 2px 8px; flex-shrink: 0; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
     .story-stack-beat:hover { background: rgba(206,255,0,0.12); border-color: rgba(206,255,0,0.3); color: #ceff00; }
-    /* Co-coverage clusters */
-    .masthead-story-stack { gap: 16px; }
+    /* Co-coverage clusters (v5 sparse fallback) + corpus clusters (v6) */
+    .masthead-story-stack { gap: 14px; }
     .story-cluster { display: flex; flex-direction: column; gap: 6px; padding-left: 12px; border-left: 2px solid rgba(206,255,0,0.2); }
     .story-cluster-header { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
     .story-cluster-voice-count { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #ceff00; }
     .story-cluster-item { font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.75); display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
     .story-cluster-bullet { color: rgba(255,255,255,0.2); flex-shrink: 0; }
+    /* Corpus-first topic clusters (v6) */
+    .corpus-cluster { display: flex; flex-direction: column; gap: 4px; }
+    .corpus-cluster-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .corpus-cluster-count { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #ceff00; white-space: nowrap; }
+    .corpus-cluster-names { font-family: 'Hanken Grotesk', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.65); }
+    .corpus-cluster-names a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; }
+    .corpus-cluster-names a:hover { color: #ceff00; }
+    .corpus-cluster-sep { color: rgba(255,255,255,0.25); margin: 0 3px; }
+    .corpus-cluster-more { color: rgba(255,255,255,0.3); }
     /* Beat coverage map — replaces dot field */
     .masthead-beat-map { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 24px 0 40px; max-width: 960px; }
     .beat-map-item { display: flex; align-items: center; gap: 8px; min-width: 160px; flex: 1 1 160px; cursor: pointer; }
     .beat-map-item.no-filter { cursor: default; }
     .beat-map-item:not(.no-filter):hover .beat-map-bar-fill { opacity: 0.6; }
-    .beat-map-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; width: 120px; }
+    .beat-map-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.70); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; width: 120px; }
     .beat-map-bar-track { flex: 1; height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
     .beat-map-bar-fill { height: 100%; background: #ceff00; opacity: 0.3; border-radius: 2px; transition: opacity 0.15s ease; }
     .beat-map-bar-fill.is-headline-beat { opacity: 0.55; }
-    .beat-map-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); white-space: nowrap; flex-shrink: 0; width: 32px; text-align: right; }
+    .beat-map-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.55); white-space: nowrap; flex-shrink: 0; width: 32px; text-align: right; }
     .beat-map-more { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.25); letter-spacing: 0.05em; align-self: center; flex: 0 0 auto; }
 
     /* ── MASTHEAD TICKER ── */
@@ -3255,15 +3264,13 @@ function _singleLineItem(s) {
   return `<div class="story-stack-item">${creatorLink}<span class="story-stack-sep">·</span>${titleLink}${beatPill ? ' ' + beatPill : ''}</div>`;
 }
 
-// ── Render: story stack (co-coverage clusters or single-line fallback) ────────
+// ── Render: story stack (corpus-first topic clusters) ────────────────────────
 function renderStoryStack(mh) {
   const el = document.getElementById('masthead-story-stack');
   if (!el) return;
 
-  const stories = DIGEST_DATA.signal_stories || [];
-  if (stories.length < 2) { el.style.display = 'none'; return; }
-
-  // Skip creators already named in the lede paragraph
+  // Build ledeFeatured: creators to exclude from the rendered name rows
+  // (still counted in cluster totals so the numbers stay honest)
   const ledeText = document.getElementById('masthead-lede') ? document.getElementById('masthead-lede').textContent : '';
   const ledeFeatured = new Set([
     (mh && mh.headline_creator) || '',
@@ -3273,80 +3280,64 @@ function renderStoryStack(mh) {
       .filter(c => c && ledeText.includes(c))
   ].filter(Boolean));
 
-  const allCandidates = stories.filter(s => !ledeFeatured.has(s.creator || s.channel || ''));
-
-  // Supplement from recent posts if fewer than 3 candidates
-  if (allCandidates.length < 3) {
-    const seenUrls = new Set(stories.map(s => s.url));
-    const seenCreators = new Set([...ledeFeatured, ...allCandidates.map(s => s.creator || s.channel || '')]);
-    const extra = (PULSE_DATA.posts || [])
-      .filter(p => !seenUrls.has(p.url) && !seenCreators.has(p.creator || p.channel || '') && p.url && p.title)
-      .sort((a, b) => (b.signal_score || 0) - (a.signal_score || 0) || (b.published || '').localeCompare(a.published || ''))
-      .slice(0, 4 - allCandidates.length);
-    allCandidates.push(...extra);
-  }
-
-  if (allCandidates.length < 2) { el.style.display = 'none'; return; }
-
-  // Attempt clustering: group by primary beat, show multi-creator clusters first
-  const beatBuckets = {};
-  allCandidates.forEach(s => {
-    const beat = (s.topic || s.beat || '').split(',')[0].trim();
-    if (!beatBuckets[beat]) beatBuckets[beat] = [];
-    beatBuckets[beat].push(s);
+  // Step 1 — Build topic buckets from the full post corpus
+  const allPosts = PULSE_DATA.posts || [];
+  const buckets = {};
+  allPosts.forEach(p => {
+    const primaryTopic = (p.topic || '').split(',')[0].trim();
+    if (!primaryTopic) return;
+    if (!buckets[primaryTopic]) buckets[primaryTopic] = [];
+    buckets[primaryTopic].push(p);
   });
 
-  const multiClusters = Object.entries(beatBuckets)
-    .filter(([, items]) => items.length >= 2)
-    .sort((a, b) => b[1].length - a[1].length);
+  // Step 2 — Score: deduplicate to one post per creator (recency sort), count unique creators
+  const rankedBuckets = Object.entries(buckets).map(([topic, posts]) => {
+    const seen = new Set();
+    const deduped = posts
+      .sort((a, b) => (b.published || '').localeCompare(a.published || ''))
+      .filter(p => {
+        const creator = p.creator || p.channel || '';
+        if (!creator || seen.has(creator)) return false;
+        seen.add(creator);
+        return true;
+      });
+    return { topic, count: posts.length, uniqueCreators: deduped.length, posts: deduped };
+  }).sort((a, b) => b.uniqueCreators - a.uniqueCreators);
 
-  let html = '';
-
-  if (allCandidates.length >= 4 && multiClusters.length > 0) {
-    // Clustered rendering
-    const singles = Object.entries(beatBuckets)
-      .filter(([, items]) => items.length === 1)
-      .map(([, items]) => items[0]);
-
-    const displayItems = [];
-    for (const [beat, items] of multiClusters) {
-      if (displayItems.length >= 3) break;
-      displayItems.push({ type: 'cluster', beat, items: items.slice(0, 3) });
-    }
-    for (const s of singles) {
-      if (displayItems.length >= 3) break;
-      displayItems.push({ type: 'single', story: s });
-    }
-
-    html = displayItems.map(item => {
-      if (item.type === 'cluster') {
-        const canonBeat = canonicalizeBeat(item.beat);
-        const beatPill = `<span class="story-stack-beat${canonBeat ? '' : ' no-filter'}"${canonBeat ? ` data-beat-filter="${esc(canonBeat)}"` : ''}>${esc(item.beat)}</span>`;
-        const voiceCount = `<span class="story-cluster-voice-count">${item.items.length} VOICES THIS WEEK</span>`;
-        const header = `<div class="story-cluster-header">${beatPill}${voiceCount}</div>`;
-        const rows = item.items.map(s => {
-          const creator = s.creator || s.channel || '';
-          const rawTitle = s.title || '';
-          const title = rawTitle.length > 70 ? rawTitle.slice(0, 70) + '…' : rawTitle;
-          const creatorLink = creator
-            // TODO-JUSTIN: wire search.html ?q= param
-            ? `<a class="story-stack-creator" href="/search.html" target="_blank" rel="noopener noreferrer">${esc(creator)}</a>`
-            : '';
-          const titleLink = s.url
-            ? `<a class="story-stack-title" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`
-            : `<span class="story-stack-title">${esc(title)}</span>`;
-          return `<div class="story-cluster-item"><span class="story-cluster-bullet">·</span>${creatorLink}<span class="story-stack-sep">—</span>${titleLink}</div>`;
-        }).join('');
-        return `<div class="story-cluster">${header}${rows}</div>`;
-      }
-      return _singleLineItem(item.story);
-    }).join('');
-  } else {
-    // Sparse week — fall back to v4 single-line rendering
-    html = allCandidates.slice(0, 4).map(_singleLineItem).join('');
+  // Step 3 — Select top 8 clusters with min 3 unique creators
+  const MIN_CREATORS = 3;
+  let displayClusters = rankedBuckets.filter(b => b.uniqueCreators >= MIN_CREATORS).slice(0, 8);
+  if (displayClusters.length < 4) {
+    displayClusters = rankedBuckets.slice(0, 6); // sparse fallback
   }
 
-  el.innerHTML = html;
+  console.log('[Pulse v6] Corpus clusters:', displayClusters.map(b => b.topic + ': ' + b.uniqueCreators + ' creators'));
+
+  if (displayClusters.length < 2) { el.style.display = 'none'; return; }
+
+  // Step 4 — Render
+  el.innerHTML = displayClusters.map(bucket => {
+    const canonBeat = canonicalizeBeat(bucket.topic);
+    const beatPill = `<span class="story-stack-beat${canonBeat ? '' : ' no-filter'}"${canonBeat ? ` data-beat-filter="${esc(canonBeat)}"` : ''}>${esc(bucket.topic)}</span>`;
+    const countLabel = `<span class="corpus-cluster-count">${bucket.uniqueCreators} CREATORS THIS WEEK</span>`;
+
+    // Name row: render up to 6 creators, excluding lede-featured, show +N more for the rest
+    const renderNames = bucket.posts.filter(p => !ledeFeatured.has(p.creator || p.channel || '')).slice(0, 6);
+    const overflow = bucket.uniqueCreators - renderNames.length;
+    const nameParts = renderNames.map(p => {
+      const c = esc(p.creator || p.channel || '');
+      // TODO-JUSTIN: wire search.html ?q= param
+      return `<a href="/search.html" target="_blank" rel="noopener noreferrer">${c}</a>`;
+    });
+    if (overflow > 0) nameParts.push(`<span class="corpus-cluster-more">+${overflow} more</span>`);
+    const namesHtml = nameParts.join(`<span class="corpus-cluster-sep">·</span>`);
+
+    return `<div class="corpus-cluster">
+      <div class="corpus-cluster-header">${beatPill}${countLabel}</div>
+      <div class="corpus-cluster-names">${namesHtml}</div>
+    </div>`;
+  }).join('');
+
   _wireBeatFilterClicks(el);
   el.style.display = '';
 }
