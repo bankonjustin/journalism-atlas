@@ -179,9 +179,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .filter-pill:hover { border-color: var(--lime); color: var(--text-primary); }
 .filter-pill.active { background: var(--lime); color: #000; border-color: var(--lime); font-weight: 600; }
 .filter-divider { width: 1px; height: 18px; background: var(--border); margin: 0 4px; flex-shrink: 0; }
-.new-additions-strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
-.na-card { flex-shrink: 0; width: 190px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--card-bg, var(--page-bg)); }
-.na-view-all { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--lime); text-decoration: none; letter-spacing: 0.04em; white-space: nowrap; align-self: center; flex-shrink: 0; }
 
 /* status count */
 .index-status { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); padding: 8px 0 16px; letter-spacing: 0.03em; }
@@ -282,7 +279,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
         tech reporters orbiting the same outlets, investigators surfacing in each other's feeds.
         <strong>Atlas has mapped <span id="hero-count">…</span> verified independent journalists on Bluesky,</strong>
         organized by beat, cross-referenced against their full platform presence across newsletters,
-        video, and podcast. This is the most complete map of independent journalism on Bluesky — and it grows with every session.
+        video, and podcast. This is the most complete map of independent journalism on Bluesky. It grows as we find more creators who fit our taxonomy — <a href="#methodology" style="color:var(--text-primary);text-decoration:underline;text-underline-offset:2px;">see how we verify</a>, or <a href="#coverage" style="color:var(--text-primary);text-decoration:underline;text-underline-offset:2px;">tell us who we're missing</a>.
       </p>
     </div>
   </div>
@@ -334,19 +331,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   <div id="distribution-chart"></div>
 </section>
 
-<!-- ── NEW ADDITIONS ──────────────────────────────────────── -->
-<section class="section" id="new-additions" style="display:none">
-  <div class="section-header">
-    <span class="section-num">↗</span>
-    <h2 class="section-title">Recently Confirmed on Bluesky</h2>
-    <span class="section-meta" id="new-additions-meta"></span>
-  </div>
-  <p class="section-subtitle" id="new-additions-subtitle"></p>
-  <div style="display:flex;align-items:flex-start;gap:0;">
-    <div class="new-additions-strip" id="new-additions-strip"></div>
-    <a href="#index" class="na-view-all" id="new-additions-viewall" style="display:none;margin-left:16px;">View all in index ↓</a>
-  </div>
-</section>
 
 <!-- ── SECTION 01: CLUSTER MAP ────────────────────────────── -->
 <section class="section" id="clusters">
@@ -443,7 +427,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
       </div>
     </div>
 
-    <!-- platform + verified filters -->
+    <!-- platform filters -->
     <div class="filter-row">
       <span class="filter-label">Platform:</span>
       <div class="filter-pills">
@@ -451,10 +435,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
         <button class="filter-pill" data-platform="video">Video</button>
         <button class="filter-pill" data-platform="podcast">Podcast</button>
         <button class="filter-pill" data-platform="cross">Cross-platform</button>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-pills">
-        <button class="filter-pill" data-verified="true">Verified only</button>
       </div>
     </div>
 
@@ -492,7 +472,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <!-- rendered by JS -->
   </div>
   <div class="suggest-band">
-    <p class="section-subtitle">Know a creator who should be here? Every suggestion goes through the same multi-reviewer human approval as every other entry in the database — we don't auto-add.</p>
+    <p class="section-subtitle">Know a creator, a community, or a Bluesky starter pack we should be looking at? Every suggestion goes through the same multi-reviewer human approval as every other entry in the database — we don't auto-add.</p>
     <a href="mailto:justin&#64;journalismatlas.com" class="header-cta" style="display:inline-block;text-decoration:none;">Suggest a creator or flag a correction →</a>
   </div>
 </section>
@@ -500,9 +480,9 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 <!-- ── PARTNER CTA ──────────────────────────────────────── -->
 <section class="section" id="partner" style="background: #080810; border-bottom: none;">
   <div style="max-width: 640px;">
-    <h2 class="partner-headline">Ready to use this intelligence?</h2>
-    <p class="partner-sub">The Atlas is available for partnership, licensing, and comms team access. Tell us what you're working on.</p>
-    <a href="https://journalismatlas.com/for-brands" style="display: inline-block; background: var(--lime); color: #000; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 2px;">Talk to us →</a><a href="https://journalismatlas.com" style="display: inline-block; color: rgba(255,255,255,0.45); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.15); margin-left: 28px; transition: color 0.18s, border-color 0.18s;">Explore the Atlas →</a>
+    <h2 class="partner-headline">Building on the open web?</h2>
+    <p class="partner-sub">If you're building a publishing platform, feed aggregator, or reader tool on AT Protocol — this map is for you. Atlas is available for partnership and data licensing. And if you're on the comms or research side, that door's open too.</p>
+    <a href="mailto:justin&#64;journalismatlas.com" style="display: inline-block; background: var(--lime); color: #000; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 2px;">Get in touch →</a><a href="https://journalismatlas.com/for-brands" style="display: inline-block; color: rgba(255,255,255,0.45); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.15); margin-left: 28px; transition: color 0.18s, border-color 0.18s;">For brands →</a>
   </div>
 </section>
 
@@ -532,8 +512,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
    STATIC CONFIG — cluster positioning/color for viz only
    Counts, platform mix, and anchors are computed live from data.
    ════════════════════════════════════════════════════════════ */
-const NEW_ADDITIONS_LABEL = 'July 2026';
-
 const TOPIC_CLUSTER = {
   'Politics': 'Politics', 'Policy': 'Politics', 'Government Accountability': 'Politics',
   'Immigration': 'Politics', 'Activism': 'Politics', 'Labor/Workers Rights': 'Politics',
@@ -597,7 +575,6 @@ const filterState = {
   search: '',
   beat: null,
   platform: null,
-  verified: false,
   geo: null,
 };
 
@@ -728,10 +705,15 @@ function initClusterGrid(creators) {
       </span>`).join('');
 
     const anchorRows = d.anchors.length
-      ? d.anchors.map(c => `<div class="cc-row">
-          <span class="cc-name">${c.name}</span>
-          <span class="cc-handle">${c.bsky_handle ? '@' + c.bsky_handle : ''}</span>
-        </div>`).join('')
+      ? d.anchors.map(c => {
+          const url = c.bsky_handle ? `https://bsky.app/profile/${c.bsky_handle}` : null;
+          return `<div class="cc-row">
+            ${url ? `<a href="${url}" target="_blank" rel="noopener" class="cc-name" style="text-decoration:none;color:inherit;">${c.name}</a>`
+                  : `<span class="cc-name">${c.name}</span>`}
+            ${url ? `<a href="${url}" target="_blank" rel="noopener" class="cc-handle" style="text-decoration:none;">@${c.bsky_handle}</a>`
+                  : `<span class="cc-handle"></span>`}
+          </div>`;
+        }).join('')
       : `<div class="cc-row"><span class="cc-name" style="color:var(--text-muted);font-weight:400;">No follower data yet</span></div>`;
 
     const card = document.createElement('div');
@@ -919,15 +901,6 @@ function initControls(creators) {
     });
   });
 
-  const verifiedPill = document.querySelector('.filter-pill[data-verified]');
-  if (verifiedPill) {
-    verifiedPill.addEventListener('click', () => {
-      filterState.verified = !filterState.verified;
-      verifiedPill.classList.toggle('active', filterState.verified);
-      renderList(creators);
-    });
-  }
-
   const searchInput = document.getElementById('search-input');
   const searchClear = document.getElementById('search-clear');
 
@@ -967,15 +940,13 @@ function renderList(creators) {
   if (filterState.platform) {
     filtered = filtered.filter(c => {
       if (filterState.platform === 'cross') return !!c.platform_2;
-      if (filterState.platform === 'newsletter') return (c.platform_primary || '').toLowerCase().includes('newsletter');
-      if (filterState.platform === 'video') return (c.platform_primary || '').toLowerCase().includes('video');
-      if (filterState.platform === 'podcast') return (c.platform_primary || '').toLowerCase() === 'podcast';
+      const p1 = (c.platform_primary || '').toLowerCase();
+      const p2 = (c.platform_2 || '').toLowerCase();
+      if (filterState.platform === 'newsletter') return p1.includes('newsletter') || p2.includes('newsletter');
+      if (filterState.platform === 'video')      return p1.includes('video')      || p2.includes('video');
+      if (filterState.platform === 'podcast')    return p1.includes('podcast')    || p2.includes('podcast');
       return true;
     });
-  }
-
-  if (filterState.verified) {
-    filtered = filtered.filter(c => c.confirmed === 'YES');
   }
 
   if (filterState.geo) {
@@ -994,7 +965,7 @@ function renderList(creators) {
 
   const total = creators.length;
   const shown = filtered.length;
-  const anyFilter = filterState.beat || filterState.platform || filterState.verified || filterState.geo || filterState.search;
+  const anyFilter = filterState.beat || filterState.platform || filterState.geo || filterState.search;
 
   if (filterState.sort === 'followers') {
     filtered.sort((a, b) => {
@@ -1027,18 +998,34 @@ function renderList(creators) {
     return;
   }
 
-  list.innerHTML = filtered.map(c => {
+  const rows = [];
+  let lastBeat = null;
+
+  filtered.forEach(c => {
     const beat = clusterFor(c);
     const cfg = CLUSTERS[beat] || {};
+
+    /* Beat group header when sort=beat and the beat changes */
+    if (filterState.sort === 'beat' && beat !== lastBeat) {
+      const beatCount = filtered.filter(x => clusterFor(x) === beat).length;
+      rows.push(`<div style="grid-column:1/-1;padding:8px 16px 6px;background:var(--page-bg);border-bottom:1px solid var(--border);display:grid;grid-template-columns:2fr 1.4fr 1fr 1fr 0.8fr;">
+        <span style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:${cfg.color};font-weight:700;padding-left:0;">${beat} <span style="color:var(--text-muted);font-weight:400;">(${beatCount})</span></span>
+      </div>`);
+      lastBeat = beat;
+    }
+
     const followers = fmtFollowers(c.bsky_followers);
     const isCross = !!c.platform_2;
     const platformLabel = (c.platform_primary || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ');
     const p2Label = c.platform_2 ? (c.platform_2 || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ') : null;
+    const profileUrl = c.bsky_handle ? `https://bsky.app/profile/${c.bsky_handle}` : null;
 
-    return `<div class="ci-row">
+    rows.push(`<div class="ci-row">
       <div class="ci-col">
-        <div class="ci-name">${c.name}</div>
-        ${c.bsky_handle ? `<div class="ci-bsky">@${c.bsky_handle}</div>` : ''}
+        ${profileUrl
+          ? `<a href="${profileUrl}" target="_blank" rel="noopener" class="ci-name" style="text-decoration:none;color:inherit;">${c.name}</a>`
+          : `<div class="ci-name">${c.name}</div>`}
+        ${c.bsky_handle ? `<a href="${profileUrl}" target="_blank" rel="noopener" class="ci-bsky" style="text-decoration:none;">@${c.bsky_handle}</a>` : ''}
       </div>
       <div class="ci-col">
         <div class="ci-channel">${c.channel || ''}</div>
@@ -1055,8 +1042,10 @@ function renderList(creators) {
           ? `<div class="ci-followers">${followers}</div>`
           : `<div class="ci-followers empty">—</div>`}
       </div>
-    </div>`;
-  }).join('');
+    </div>`);
+  });
+
+  list.innerHTML = rows.join('');
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1082,6 +1071,16 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
 
+  /* Log-scale base radius from follower count: min 1.5px, max 6px */
+  const allFollowers = creators.map(c => c.bsky_followers || 0).filter(f => f > 0);
+  const logMin = allFollowers.length ? Math.log1p(Math.min(...allFollowers)) : 0;
+  const logMax = allFollowers.length ? Math.log1p(Math.max(...allFollowers)) : 1;
+  function baseRadius(followers) {
+    if (!followers || followers <= 0) return 1.5;
+    const t = (Math.log1p(followers) - logMin) / (logMax - logMin || 1);
+    return 1.5 + t * 4.5; // 1.5–6px
+  }
+
   const nodes = creators.map(c => {
     const cluster = TOPIC_CLUSTER[c.topic] || 'Culture';
     const cfg = CLUSTERS[cluster];
@@ -1101,6 +1100,7 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
       cluster,
       name: c.name,
       handle: c.bsky_handle,
+      baseR: baseRadius(c.bsky_followers),
       driftPhase: Math.random() * Math.PI * 2,
       driftAmp:   2 + Math.random() * 3,
       driftSpeed: 0.4 + Math.random() * 0.6,
@@ -1208,7 +1208,7 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
         n.cx = n.sx + (n.tx - n.sx) * et;
         n.cy = n.sy + (n.ty - n.sy) * et;
         ctx.beginPath();
-        ctx.arc(n.cx, n.cy, 2.5, 0, Math.PI * 2);
+        ctx.arc(n.cx, n.cy, n.baseR, 0, Math.PI * 2);
         ctx.fillStyle = hexAlpha(n.color, 0.72);
         ctx.fill();
       });
@@ -1243,9 +1243,9 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
           }
         });
         let alpha, radius;
-        if      (hoveredCluster === null)      { alpha = 0.72; radius = 2.5; }
-        else if (n.cluster === hoveredCluster) { alpha = 1.0;  radius = 4.0; }
-        else                                   { alpha = 0.12; radius = 2.0; }
+        if      (hoveredCluster === null)      { alpha = 0.72; radius = n.baseR; }
+        else if (n.cluster === hoveredCluster) { alpha = 1.0;  radius = Math.max(n.baseR, 3.5) * 1.4; }
+        else                                   { alpha = 0.12; radius = n.baseR * 0.8; }
         ctx.beginPath();
         ctx.arc(n.cx, n.cy, radius, 0, Math.PI * 2);
         ctx.fillStyle = hexAlpha(n.color, alpha);
@@ -1325,42 +1325,6 @@ function buildViz(canvas, tooltip, creators, { startSettled = false, onCanvasCli
   ro.observe(container);
 
   return { stop: () => cancelAnimationFrame(rafId) };
-}
-
-/* ════════════════════════════════════════════════════════════
-   INIT: new additions strip
-   ════════════════════════════════════════════════════════════ */
-function initNewAdditions(creators) {
-  const newOnes = creators.filter(c => c.new_bsky_addition);
-  if (!newOnes.length) return;
-
-  const section = document.getElementById('new-additions');
-  section.style.display = '';
-
-  const shown = newOnes.slice(0, 20);
-  document.getElementById('new-additions-meta').textContent =
-    `${newOnes.length} creators · ${NEW_ADDITIONS_LABEL}`;
-  document.getElementById('new-additions-subtitle').textContent =
-    `New additions from the ${NEW_ADDITIONS_LABEL} enrichment`;
-
-  const strip = document.getElementById('new-additions-strip');
-  strip.innerHTML = shown.map(c => {
-    const beat = clusterFor(c);
-    return `<div class="na-card">
-      <div class="ci-name">${c.name}</div>
-      ${c.bsky_handle ? `<div class="ci-bsky" style="margin-top:3px;">@${c.bsky_handle}</div>` : ''}
-      <div style="margin-top:6px;"><span class="ci-beat">${beat}</span></div>
-    </div>`;
-  }).join('');
-
-  if (newOnes.length > 20) {
-    const viewAll = document.getElementById('new-additions-viewall');
-    viewAll.style.display = '';
-    viewAll.addEventListener('click', e => {
-      e.preventDefault();
-      document.getElementById('index').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1450,7 +1414,6 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       CREATORS = data;
       const stats = initStats(CREATORS);
-      initNewAdditions(CREATORS);
       initDistribution(CREATORS, stats.median);
       initClusterGrid(CREATORS);
       initBeatPills(CREATORS);
