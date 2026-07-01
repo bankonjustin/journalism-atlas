@@ -158,11 +158,8 @@
     .pulse-masthead { background: #111111; padding: 64px 40px 0; }
     .masthead-inner { max-width: 1440px; margin: 0 auto; }
     .masthead-dateline { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
-    .masthead-dot-field { width: 100%; margin-bottom: 24px; overflow: hidden; line-height: 0; }
-    .masthead-dot-field svg { display: block; width: 100%; }
     .masthead-lede { font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; line-height: 1.4; color: #ffffff; letter-spacing: -0.01em; max-width: 760px; margin-bottom: 12px; }
     .masthead-lede-fallback { font-size: clamp(18px, 2.2vw, 24px); }
-    .masthead-stat-line { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 40px; }
     /* Entity highlights in lede — data-driven, not decorative */
     .masthead-lede a { text-decoration: none; cursor: pointer; }
     .lede-creator { color: #ceff00; font-weight: 700; transition: opacity 0.15s ease; }
@@ -180,6 +177,24 @@
     .story-stack-title:hover { text-decoration: underline; text-decoration-color: rgba(206,255,0,0.4); }
     .story-stack-beat { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 9999px; padding: 2px 8px; flex-shrink: 0; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
     .story-stack-beat:hover { background: rgba(206,255,0,0.12); border-color: rgba(206,255,0,0.3); color: #ceff00; }
+    /* Co-coverage clusters */
+    .masthead-story-stack { gap: 16px; }
+    .story-cluster { display: flex; flex-direction: column; gap: 6px; padding-left: 12px; border-left: 2px solid rgba(206,255,0,0.2); }
+    .story-cluster-header { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+    .story-cluster-voice-count { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #ceff00; }
+    .story-cluster-item { font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.75); display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+    .story-cluster-bullet { color: rgba(255,255,255,0.2); flex-shrink: 0; }
+    /* Beat coverage map — replaces dot field */
+    .masthead-beat-map { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 24px 0 40px; max-width: 960px; }
+    .beat-map-item { display: flex; align-items: center; gap: 8px; min-width: 160px; flex: 1 1 160px; cursor: pointer; }
+    .beat-map-item.no-filter { cursor: default; }
+    .beat-map-item:not(.no-filter):hover .beat-map-bar-fill { opacity: 0.6; }
+    .beat-map-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; width: 120px; }
+    .beat-map-bar-track { flex: 1; height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .beat-map-bar-fill { height: 100%; background: #ceff00; opacity: 0.3; border-radius: 2px; transition: opacity 0.15s ease; }
+    .beat-map-bar-fill.is-headline-beat { opacity: 0.55; }
+    .beat-map-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); white-space: nowrap; flex-shrink: 0; width: 32px; text-align: right; }
+    .beat-map-more { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.25); letter-spacing: 0.05em; align-self: center; flex: 0 0 auto; }
 
     /* ── MASTHEAD TICKER ── */
     .pulse-ticker-wrap { overflow: hidden; width: 100vw; position: relative; left: 50%; transform: translateX(-50%); mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.07); }
@@ -234,7 +249,8 @@
       .pulse-masthead { padding: 40px 20px 0; }
       .pulse-rail { padding: 24px 20px 36px; }
       .archive-header { padding: 24px 20px; }
-      .masthead-dot-field { display: none; }
+      .beat-map-label { width: 100px; }
+      .beat-map-item { min-width: 140px; flex: 1 1 140px; }
       .signal-stack { max-height: 300px; }
     }
     .stat-strip {
@@ -1034,8 +1050,7 @@
     <div class="masthead-dateline" id="masthead-dateline">PULSE · VOL. 1 · —</div>
     <p class="masthead-lede" id="masthead-lede"></p>
     <div class="masthead-story-stack" id="masthead-story-stack" style="display:none"></div>
-    <div class="masthead-stat-line" id="masthead-stat-line" style="display:none"></div>
-    <div class="masthead-dot-field" id="masthead-dot-field" aria-hidden="true"></div>
+    <div class="masthead-beat-map" id="masthead-beat-map" aria-label="Beat coverage this week"></div>
   </div>
   <div class="pulse-ticker-wrap" aria-hidden="true">
     <div class="pulse-ticker-row pulse-ticker-row--forward" id="pulse-ticker-row"></div>
@@ -3141,7 +3156,7 @@ function renderPASignals() {
 function applyLedeHighlights(rawText, headlineStat) {
   // Tier 1: creator names from top signal stories (paragraph may name 2-4)
   const sigCreators = new Set(
-    (DIGEST_DATA.signal_stories || []).slice(0, 5).map(s => s.creator || s.channel || '').filter(Boolean)
+    (DIGEST_DATA.signal_stories || []).slice(0, 10).flatMap(s => [s.creator, s.channel].filter(Boolean))
   );
   // Tier 2: canonical beat names — word-boundary matched to avoid partial matches
   const beats = new Set([
@@ -3196,7 +3211,51 @@ function applyLedeHighlights(rawText, headlineStat) {
   return parts.join('');
 }
 
-// ── Render: story stack (3-4 signal stories below lede, replaces "Also this week") ──
+// ── Beat normalization: map raw topic strings to canonical archive pill names ──
+const BEAT_NORMALIZE = { 'local': 'Local News', 'general news': 'Local News' };
+function canonicalizeBeat(raw) {
+  if (!raw) return null;
+  const lower = raw.toLowerCase().trim();
+  if (BEAT_NORMALIZE[lower]) return BEAT_NORMALIZE[lower];
+  const all = [...BEAT_PILLS_ORDER, ...BEAT_PILLS_TIER2];
+  for (const p of all) { if (p.toLowerCase() === lower) return p; }
+  return null;
+}
+
+function _wireBeatFilterClicks(el) {
+  el.querySelectorAll('[data-beat-filter]').forEach(node => {
+    node.addEventListener('click', e => {
+      e.preventDefault && e.preventDefault();
+      activeBeat = node.dataset.beatFilter;
+      visibleCount = 50;
+      renderBeatPills(); renderPlatformBreakdown(activeBeat);
+      renderCreatorStrip(); renderPosts();
+      const archiveEl = document.querySelector('.controls-row');
+      if (archiveEl) archiveEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+function _singleLineItem(s) {
+  const creator = s.creator || s.channel || '';
+  const rawTitle = s.title || '';
+  const title = rawTitle.length > 70 ? rawTitle.slice(0, 70) + '…' : rawTitle;
+  const rawBeat = (s.topic || s.beat || '').split(',')[0].trim();
+  const canonBeat = canonicalizeBeat(rawBeat);
+  const creatorLink = creator
+    // TODO-JUSTIN: wire search.html ?q= param
+    ? `<a class="story-stack-creator" href="/search.html" target="_blank" rel="noopener noreferrer">${esc(creator)}</a>`
+    : '';
+  const titleLink = s.url
+    ? `<a class="story-stack-title" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`
+    : `<span class="story-stack-title">${esc(title)}</span>`;
+  const beatPill = rawBeat
+    ? `<span class="story-stack-beat${canonBeat ? '' : ' no-filter'}"${canonBeat ? ` data-beat-filter="${esc(canonBeat)}"` : ''}>${esc(rawBeat)}</span>`
+    : '';
+  return `<div class="story-stack-item">${creatorLink}<span class="story-stack-sep">·</span>${titleLink}${beatPill ? ' ' + beatPill : ''}</div>`;
+}
+
+// ── Render: story stack (co-coverage clusters or single-line fallback) ────────
 function renderStoryStack(mh) {
   const el = document.getElementById('masthead-story-stack');
   if (!el) return;
@@ -3204,70 +3263,91 @@ function renderStoryStack(mh) {
   const stories = DIGEST_DATA.signal_stories || [];
   if (stories.length < 2) { el.style.display = 'none'; return; }
 
-  // Skip creators already named in the lede paragraph — check rendered text
+  // Skip creators already named in the lede paragraph
   const ledeText = document.getElementById('masthead-lede') ? document.getElementById('masthead-lede').textContent : '';
   const ledeFeatured = new Set([
     (mh && mh.headline_creator) || '',
     (mh && mh.supporting_creator) || '',
-    ...(DIGEST_DATA.signal_stories || []).slice(0, 5)
+    ...(DIGEST_DATA.signal_stories || []).slice(0, 10)
       .map(s => s.creator || s.channel || '')
       .filter(c => c && ledeText.includes(c))
   ].filter(Boolean));
 
-  const candidates = stories.filter(s => {
-    const c = s.creator || s.channel || '';
-    return !ledeFeatured.has(c);
-  }).slice(0, 4);
+  const allCandidates = stories.filter(s => !ledeFeatured.has(s.creator || s.channel || ''));
 
   // Supplement from recent posts if fewer than 3 candidates
-  if (candidates.length < 3) {
+  if (allCandidates.length < 3) {
     const seenUrls = new Set(stories.map(s => s.url));
-    const seenCreators = new Set([...ledeFeatured, ...candidates.map(s => s.creator || s.channel || '')]);
+    const seenCreators = new Set([...ledeFeatured, ...allCandidates.map(s => s.creator || s.channel || '')]);
     const extra = (PULSE_DATA.posts || [])
       .filter(p => !seenUrls.has(p.url) && !seenCreators.has(p.creator || p.channel || '') && p.url && p.title)
       .sort((a, b) => (b.signal_score || 0) - (a.signal_score || 0) || (b.published || '').localeCompare(a.published || ''))
-      .slice(0, 3 - candidates.length);
-    candidates.push(...extra);
+      .slice(0, 4 - allCandidates.length);
+    allCandidates.push(...extra);
   }
 
-  if (candidates.length < 2) { el.style.display = 'none'; return; }
+  if (allCandidates.length < 2) { el.style.display = 'none'; return; }
 
-  el.innerHTML = candidates.map(s => {
-    const creator = s.creator || s.channel || '';
-    const rawTitle = s.title || '';
-    const title = rawTitle.length > 70 ? rawTitle.slice(0, 70) + '…' : rawTitle;
+  // Attempt clustering: group by primary beat, show multi-creator clusters first
+  const beatBuckets = {};
+  allCandidates.forEach(s => {
     const beat = (s.topic || s.beat || '').split(',')[0].trim();
-
-    const creatorLink = creator
-      // TODO-JUSTIN: wire search.html ?q= param — links to search homepage until then
-      ? `<a class="story-stack-creator" href="/search.html" target="_blank" rel="noopener noreferrer">${esc(creator)}</a>`
-      : '';
-    const titleLink = s.url
-      ? `<a class="story-stack-title" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`
-      : `<span class="story-stack-title">${esc(title)}</span>`;
-    const beatPill = beat
-      ? `<span class="story-stack-beat" data-beat-filter="${esc(beat)}">${esc(beat)}</span>`
-      : '';
-
-    return `<div class="story-stack-item">
-      ${creatorLink}<span class="story-stack-sep">·</span>${titleLink}${beatPill ? ' ' + beatPill : ''}
-    </div>`;
-  }).join('');
-
-  // Beat pill clicks filter archive
-  el.querySelectorAll('[data-beat-filter]').forEach(pill => {
-    pill.addEventListener('click', () => {
-      activeBeat = pill.dataset.beatFilter;
-      visibleCount = 50;
-      renderBeatPills();
-      renderPlatformBreakdown(activeBeat);
-      renderCreatorStrip();
-      renderPosts();
-      const archiveEl = document.querySelector('.controls-row');
-      if (archiveEl) archiveEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    if (!beatBuckets[beat]) beatBuckets[beat] = [];
+    beatBuckets[beat].push(s);
   });
 
+  const multiClusters = Object.entries(beatBuckets)
+    .filter(([, items]) => items.length >= 2)
+    .sort((a, b) => b[1].length - a[1].length);
+
+  let html = '';
+
+  if (allCandidates.length >= 4 && multiClusters.length > 0) {
+    // Clustered rendering
+    const singles = Object.entries(beatBuckets)
+      .filter(([, items]) => items.length === 1)
+      .map(([, items]) => items[0]);
+
+    const displayItems = [];
+    for (const [beat, items] of multiClusters) {
+      if (displayItems.length >= 3) break;
+      displayItems.push({ type: 'cluster', beat, items: items.slice(0, 3) });
+    }
+    for (const s of singles) {
+      if (displayItems.length >= 3) break;
+      displayItems.push({ type: 'single', story: s });
+    }
+
+    html = displayItems.map(item => {
+      if (item.type === 'cluster') {
+        const canonBeat = canonicalizeBeat(item.beat);
+        const beatPill = `<span class="story-stack-beat${canonBeat ? '' : ' no-filter'}"${canonBeat ? ` data-beat-filter="${esc(canonBeat)}"` : ''}>${esc(item.beat)}</span>`;
+        const voiceCount = `<span class="story-cluster-voice-count">${item.items.length} VOICES THIS WEEK</span>`;
+        const header = `<div class="story-cluster-header">${beatPill}${voiceCount}</div>`;
+        const rows = item.items.map(s => {
+          const creator = s.creator || s.channel || '';
+          const rawTitle = s.title || '';
+          const title = rawTitle.length > 70 ? rawTitle.slice(0, 70) + '…' : rawTitle;
+          const creatorLink = creator
+            // TODO-JUSTIN: wire search.html ?q= param
+            ? `<a class="story-stack-creator" href="/search.html" target="_blank" rel="noopener noreferrer">${esc(creator)}</a>`
+            : '';
+          const titleLink = s.url
+            ? `<a class="story-stack-title" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(title)}</a>`
+            : `<span class="story-stack-title">${esc(title)}</span>`;
+          return `<div class="story-cluster-item"><span class="story-cluster-bullet">·</span>${creatorLink}<span class="story-stack-sep">—</span>${titleLink}</div>`;
+        }).join('');
+        return `<div class="story-cluster">${header}${rows}</div>`;
+      }
+      return _singleLineItem(item.story);
+    }).join('');
+  } else {
+    // Sparse week — fall back to v4 single-line rendering
+    html = allCandidates.slice(0, 4).map(_singleLineItem).join('');
+  }
+
+  el.innerHTML = html;
+  _wireBeatFilterClicks(el);
   el.style.display = '';
 }
 
@@ -3330,16 +3410,6 @@ function renderMasthead() {
     }
 
     renderStoryStack(mh);
-
-    // Stat line: [N] creators · [N] beats active · [N] posts this week
-    const statLineEl = document.getElementById('masthead-stat-line');
-    if (statLineEl) {
-      const nPosts = (PULSE_DATA.recency && PULSE_DATA.recency['7d']) || PULSE_DATA.posts.length;
-      const nBeats = Object.keys(DIGEST_DATA.beat_trends || {}).length;
-      const nCreators = PULSE_DATA.active_7d || 0;
-      statLineEl.textContent = nCreators.toLocaleString() + ' creators · ' + nBeats + ' beats active · ' + nPosts.toLocaleString() + ' posts this week';
-      statLineEl.style.display = '';
-    }
   }
 
   // Archive method note — populate feed counts from live data
@@ -3351,42 +3421,37 @@ function renderMasthead() {
     noFeedEl.textContent = noFeed.toLocaleString();
   }
 
-  renderDotField();
+  renderBeatMap();
   renderMastheadTicker();
 }
 
-// ── Render: dot-field (beat density, acid-green single-hue) ──────────────────
-function renderDotField() {
-  const el = document.getElementById('masthead-dot-field');
+// ── Render: beat coverage map (replaces dot field) ───────────────────────────
+function renderBeatMap() {
+  const el = document.getElementById('masthead-beat-map');
   if (!el) return;
   const trends = DIGEST_DATA.beat_trends;
   if (!trends || !Object.keys(trends).length) return;
 
-  const beats = Object.entries(trends)
-    .sort((a, b) => b[1].current - a[1].current)
-    .slice(0, 12);
+  const mh = DIGEST_DATA.masthead;
+  const headlineBeat = (mh && mh.headline_beat) ? mh.headline_beat.toLowerCase() : '';
 
-  const maxCount = beats[0][1].current;
-  const W = 1200, H = 100;
-  const minR = 5, maxR = 38;
-  // Distribute vertically with variation so dots don't sit on one line
-  const yPositions = [50, 34, 66, 42, 58, 38, 62, 46, 54, 36, 64, 50];
+  const sorted = Object.entries(trends).sort((a, b) => b[1].current - a[1].current);
+  const top8 = sorted.slice(0, 8);
+  const remaining = sorted.length - 8;
+  const maxCount = top8[0][1].current;
 
-  const svgItems = beats.map(([beat, data], i) => {
-    const r = minR + (data.current / maxCount) * (maxR - minR);
-    const xSpan = W - maxR * 2;
-    const x = maxR + (beats.length > 1 ? (i / (beats.length - 1)) * xSpan : xSpan / 2);
-    const y = yPositions[i];
-    const opacity = 0.12 + (data.current / maxCount) * 0.62;
-    if (i === 0) {
-      // Dominant beat: pulsing ring
-      return `<circle cx="${x.toFixed(1)}" cy="${y}" r="${r.toFixed(1)}" fill="#ceff00" opacity="${opacity.toFixed(2)}"/>` +
-             `<circle cx="${x.toFixed(1)}" cy="${y}" r="${(r * 1.6).toFixed(1)}" fill="none" stroke="#ceff00" stroke-width="1" opacity="0.12"/>`;
-    }
-    return `<circle cx="${x.toFixed(1)}" cy="${y}" r="${r.toFixed(1)}" fill="#ceff00" opacity="${opacity.toFixed(2)}"/>`;
-  }).join('');
+  el.innerHTML = top8.map(([beat, data]) => {
+    const pct = Math.round((data.current / maxCount) * 100);
+    const isHero = beat.toLowerCase() === headlineBeat;
+    const canonBeat = canonicalizeBeat(beat);
+    return `<div class="beat-map-item${canonBeat ? '' : ' no-filter'}"${canonBeat ? ` data-beat-filter="${esc(canonBeat)}"` : ''}>
+      <span class="beat-map-label">${esc(beat)}</span>
+      <div class="beat-map-bar-track"><div class="beat-map-bar-fill${isHero ? ' is-headline-beat' : ''}" style="width:${pct}%"></div></div>
+      <span class="beat-map-count">${data.current > 999 ? (Math.round(data.current / 100) / 10) + 'k' : data.current}</span>
+    </div>`;
+  }).join('') + (remaining > 0 ? `<div class="beat-map-more">+ ${remaining} MORE</div>` : '');
 
-  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${svgItems}</svg>`;
+  _wireBeatFilterClicks(el);
 }
 
 // ── Render: masthead ticker (recent posts feed) ───────────────────────────────
