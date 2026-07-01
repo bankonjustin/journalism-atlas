@@ -178,6 +178,7 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 | `city-lab-dc-v3.html` | DC/DMV journalism ecosystem — "Who Covers Washington Now" | ~350 | Inline `<style>` + inlined data |
 | `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |
 | `nj-lab.html` | NJ State Lab — CCM partnership. 51 creators (CCM NJ Influencer Study), 6 sections, filterable grid, CSS vizzes. | 51 | Inline `<style>` + inlined data |
+| `bluesky-creator-intelligence.html` | Bluesky Creator Intelligence — AT Protocol ecosystem map. 552+ creators (live from `assets/data/bluesky-creators.json`). Beat cluster map (live-computed), creator index, methodology band, coverage gaps + suggest-a-creator. Canonical URL: `/bluesky-creator-intelligence`. **Nav inclusion: flag for James — not added to header.js this session.** | 552+ (live JSON) | `variables.css` + inline `<style>` + `header.css` |
 
 All pages above have been swept to the design token system (variables.css linked first, slim `:root` alias block, no canonical token redefinitions inline). Design sweep completed April 2026.
 
@@ -189,8 +190,7 @@ All pages above have been swept to the design token system (variables.css linked
 | `about-this-project.html` | Canonical "About This Project" page (replaced what-we-do.html) |
 | `atlas-portal/index.html` | Internal portal |
 | `atlas-portal/google-form-template.html` | Internal template |
-| `bluesky-creator-intelligence.html` | Research/dev — not public |
-| `bluesky-creator-intelligence-v2/v3/v4/v5.html` | Version history — not public |
+| `bluesky-creator-intelligence-v2/v3/v4/v5.html` | Version history — not public (superseded by current file) |
 | `beat-tech.html`, `beat-climate.html`, `beat-finance.html` | Research pages — not public |
 | `chicago-analysis.html`, `chicago-survey.html` | Internal research — not public |
 | `knight-brief.html`, `atlas-signal-brief.html` | Internal briefs — not public |

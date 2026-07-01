@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bluesky Creator Intelligence — Atlas</title>
+<meta name="description" content="550+ verified independent journalists on Bluesky, organized by beat. The most complete map of independent journalism on AT Protocol.">
+<meta property="og:title" content="Bluesky Creator Intelligence — Atlas">
+<meta property="og:description" content="550+ verified independent journalists on Bluesky, organized by beat. The most complete map of journalism on AT Protocol.">
+<meta property="og:url" content="https://journalismatlas.com/bluesky-creator-intelligence">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bluesky Creator Intelligence — Atlas">
+<meta name="twitter:description" content="550+ verified independent journalists on Bluesky, organized by beat.">
+<link rel="canonical" href="https://journalismatlas.com/bluesky-creator-intelligence">
+<link rel="stylesheet" href="assets/css/variables.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@300;400;500&display=swap');
 
@@ -107,6 +117,37 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .cc-name { font-size: 12px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; max-width: 115px; }
 .cc-handle { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; text-align: right; }
 
+/* ── DISTRIBUTION MODULE ──────────────────────────────────── */
+.dist-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.dist-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); width: 72px; text-align: right; flex-shrink: 0; }
+.dist-bar-wrap { flex: 1; height: 14px; background: var(--page-bg); border-radius: 2px; overflow: hidden; }
+.dist-bar-fill { height: 100%; background: var(--lime); opacity: 0.8; border-radius: 2px; transition: width 0.4s ease; }
+.dist-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); width: 80px; flex-shrink: 0; }
+
+/* ── METHODOLOGY BAND ─────────────────────────────────────── */
+.method-steps { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.method-step { padding: 24px 20px; border-right: 1px solid var(--border); position: relative; }
+.method-step:last-child { border-right: none; }
+.method-step::after { content: '→'; position: absolute; right: -8px; top: 24px; font-size: 12px; color: var(--text-muted); z-index: 1; background: var(--card-bg); padding: 2px 0; }
+.method-step:last-child::after { display: none; }
+.method-num { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 8px; }
+.method-name { font-size: 14px; font-weight: 700; color: #000; margin-bottom: 8px; }
+.method-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+.method-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
+.method-tag { font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 9999px; border: 1px solid var(--border); color: var(--text-muted); background: var(--page-bg); }
+
+/* ── COVERAGE GAPS ────────────────────────────────────────── */
+.gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.gap-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 3px; padding: 20px 18px; }
+.gap-micro { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 10px; }
+.gap-stat { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; color: #000; }
+.gap-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
+.gap-thin { margin-top: 12px; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); line-height: 1.7; }
+
+/* ── SUGGEST BAND ─────────────────────────────────────────── */
+.suggest-band { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+.suggest-band .section-subtitle { margin-bottom: 16px; }
+
 /* ── CREATOR INDEX SECTION ────────────────────────────────── */
 .index-toolbar { margin-bottom: 20px; display: flex; flex-direction: column; gap: 14px; }
 
@@ -147,7 +188,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 .index-status strong { color: var(--text-secondary); }
 
 /* creator list */
-/* creator list — row layout */
 .creator-list { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; background: var(--card-bg); }
 .ci-row { display: grid; grid-template-columns: 2fr 1.4fr 1fr 1fr 0.8fr; align-items: center; gap: 0; border-bottom: 1px solid var(--border); padding: 11px 16px; transition: background 0.12s; min-width: 0; }
 .ci-row:last-child { border-bottom: none; }
@@ -196,7 +236,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   50%       { color: rgba(255,255,255,0.75); }
 }
 
-
 /* overlay — retired */
 #viz-overlay { display: none !important; }
 
@@ -222,7 +261,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <span class="badge badge-bsky">Bluesky Intelligence</span>
   </div>
   <div class="header-right">
-    <span id="header-count">384 creators · 14 clusters</span>
+    <span id="header-count">Loading…</span>
     <a href="/for-brands" class="header-cta">Request a brief →</a>
   </div>
 </header>
@@ -241,14 +280,14 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
         When journalism moved off Twitter, it didn't scatter — it clustered.
         Beat communities formed around shared networks: climate journalists following climate journalists,
         tech reporters orbiting the same outlets, investigators surfacing in each other's feeds.
-        <strong>Atlas has mapped <span id="hero-count">384</span> verified independent journalists on Bluesky,</strong>
+        <strong>Atlas has mapped <span id="hero-count">…</span> verified independent journalists on Bluesky,</strong>
         organized by beat, cross-referenced against their full platform presence across newsletters,
         video, and podcast. This is the most complete map of independent journalism on Bluesky — and it grows with every session.
       </p>
     </div>
   </div>
   <div class="hero-right">
-    <div class="viz-label" id="viz-label">384 creators · 14 beat clusters</div>
+    <div class="viz-label" id="viz-label">Loading…</div>
     <canvas id="network-canvas"></canvas>
     <div id="viz-tooltip"></div>
     <div class="viz-expand-hint">Search the index</div>
@@ -258,12 +297,12 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 <!-- ── STAT STRIP ──────────────────────────────────────────── -->
 <div class="stat-strip">
   <div class="stat-cell">
-    <div class="stat-num" id="stat-total">384</div>
+    <div class="stat-num" id="stat-total">—</div>
     <div class="stat-label">Independent creators<br>on Bluesky</div>
     <div class="stat-so-what">The most complete map of journalism on the platform</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num gray" id="stat-beats">14</div>
+    <div class="stat-num gray" id="stat-beats">—</div>
     <div class="stat-label">Beat communities<br>mapped</div>
     <div class="stat-so-what">Every major editorial beat, queryable</div>
   </div>
@@ -284,6 +323,17 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 </div>
 
+<!-- ── DISTRIBUTION MODULE ──────────────────────────────────── -->
+<section class="section on-white" id="distribution" style="display:none">
+  <div class="section-header" style="margin-bottom:16px;">
+    <span class="section-num">◉</span>
+    <h2 class="section-title">Follower Distribution</h2>
+    <span class="section-meta" id="distribution-meta"></span>
+  </div>
+  <p class="section-subtitle" id="distribution-callout" style="margin-bottom:24px;"></p>
+  <div id="distribution-chart"></div>
+</section>
+
 <!-- ── NEW ADDITIONS ──────────────────────────────────────── -->
 <section class="section" id="new-additions" style="display:none">
   <div class="section-header">
@@ -291,7 +341,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
     <h2 class="section-title">Recently Confirmed on Bluesky</h2>
     <span class="section-meta" id="new-additions-meta"></span>
   </div>
-  <p class="section-subtitle">New additions from June 2026 enrichment</p>
+  <p class="section-subtitle" id="new-additions-subtitle"></p>
   <div style="display:flex;align-items:flex-start;gap:0;">
     <div class="new-additions-strip" id="new-additions-strip"></div>
     <a href="#index" class="na-view-all" id="new-additions-viewall" style="display:none;margin-left:16px;">View all in index ↓</a>
@@ -303,21 +353,69 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   <div class="section-header">
     <span class="section-num">01</span>
     <h2 class="section-title">Beat Cluster Map</h2>
-    <span class="section-meta" id="cluster-meta">14 communities · 384 creators</span>
+    <span class="section-meta" id="cluster-meta">Loading…</span>
   </div>
-  <p class="section-subtitle">14 editorial communities mapped across Bluesky. Click any cluster to filter the index.</p>
+  <p class="section-subtitle" id="cluster-subtitle">Loading beat communities…</p>
   <div class="cluster-grid" id="cluster-grid">
     <!-- rendered by JS -->
   </div>
 </section>
 
+<!-- ── METHODOLOGY BAND ──────────────────────────────────── -->
+<section class="section on-white" id="methodology">
+  <div class="section-header" style="margin-bottom:16px;">
+    <span class="section-num" style="visibility:hidden">—</span>
+    <h2 class="section-title">How Atlas Verifies</h2>
+  </div>
+  <p class="section-subtitle">Every creator in this index passed the same mandatory human review. No scraper can replicate this — here's what it looks like.</p>
+  <div class="method-steps">
+    <div class="method-step">
+      <div class="method-num">01 · Discovery</div>
+      <div class="method-name">Finding candidates</div>
+      <div class="method-desc">Network spidering, referrals, reader tips, and self-submission. The intake queue is always open.</div>
+      <div class="method-tags">
+        <span class="method-tag">Spidering</span>
+        <span class="method-tag">Referrals</span>
+        <span class="method-tag">Self-submission</span>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="method-num">02 · Human Review</div>
+      <div class="method-name">The intake queue</div>
+      <div class="method-desc">Each candidate enters the Atlas Intake Queue. Multiple reviewers evaluate independently — no single person decides.</div>
+      <div class="method-tags">
+        <span class="method-tag">Multi-reviewer</span>
+        <span class="method-tag">Independent</span>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="method-num">03 · Decision</div>
+      <div class="method-name">Approve or reject</div>
+      <div class="method-desc">Reviewers vote. Rejection categories are real and enforced: legacy, inactive, duplicate, not-journalism, out of scope, insufficient presence.</div>
+      <div class="method-tags">
+        <span class="method-tag">Voted</span>
+        <span class="method-tag">Named rejection criteria</span>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="method-num">04 · Live in Atlas</div>
+      <div class="method-name">Confirmed and mapped</div>
+      <div class="method-desc">Approved creators are added to the master database, tagged by beat, platform, and geography, and appear here.</div>
+      <div class="method-tags">
+        <span class="method-tag">Beat taxonomy</span>
+        <span class="method-tag">Platform tagging</span>
+        <span class="method-tag">Geo tagging</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ── SECTION 02: CREATOR INDEX ──────────────────────────── -->
 <section class="section" id="index">
   <div class="section-header">
     <span class="section-num">02</span>
     <h2 class="section-title">Creator Index</h2>
-    <span class="section-meta" id="index-meta">384 creators · sortable · filterable</span>
+    <span class="section-meta" id="index-meta">Sortable · filterable</span>
   </div>
 
   <div class="index-toolbar">
@@ -382,7 +480,24 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
   </div>
 </section>
 
-<!-- ── PARTNER CTA ──────────────────────────────────────────── -->
+<!-- ── SECTION 03: COVERAGE GAPS + SUGGEST ──────────────── -->
+<section class="section" id="coverage">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Where We're Thin</h2>
+    <span class="section-meta" id="coverage-meta"></span>
+  </div>
+  <p class="section-subtitle">Atlas maps the ecosystem honestly — including the gaps. These are invitations to extend the work, not apologies.</p>
+  <div id="coverage-content" class="gap-grid">
+    <!-- rendered by JS -->
+  </div>
+  <div class="suggest-band">
+    <p class="section-subtitle">Know a creator who should be here? Every suggestion goes through the same multi-reviewer human approval as every other entry in the database — we don't auto-add.</p>
+    <a href="mailto:justin&#64;journalismatlas.com" class="header-cta" style="display:inline-block;text-decoration:none;">Suggest a creator or flag a correction →</a>
+  </div>
+</section>
+
+<!-- ── PARTNER CTA ──────────────────────────────────────── -->
 <section class="section" id="partner" style="background: #080810; border-bottom: none;">
   <div style="max-width: 640px;">
     <h2 class="partner-headline">Ready to use this intelligence?</h2>
@@ -397,7 +512,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 <div id="viz-overlay">
   <div id="overlay-inner">
     <div id="overlay-header">
-      <span id="overlay-title">Independent Journalism Atlas · Bluesky Creator Network · 384 creators · 14 clusters</span>
+      <span id="overlay-title">Independent Journalism Atlas · Bluesky Creator Network</span>
       <button id="overlay-close">×</button>
     </div>
     <div id="overlay-canvas-wrap">
@@ -414,8 +529,11 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Han
 
 <script>
 /* ════════════════════════════════════════════════════════════
-   STATIC CONFIG — cluster definitions, topic mapping, featured
+   STATIC CONFIG — cluster positioning/color for viz only
+   Counts, platform mix, and anchors are computed live from data.
    ════════════════════════════════════════════════════════════ */
+const NEW_ADDITIONS_LABEL = 'July 2026';
+
 const TOPIC_CLUSTER = {
   'Politics': 'Politics', 'Policy': 'Politics', 'Government Accountability': 'Politics',
   'Immigration': 'Politics', 'Activism': 'Politics', 'Labor/Workers Rights': 'Politics',
@@ -442,21 +560,22 @@ const TOPIC_CLUSTER = {
   'Food': 'Food', 'Recipes': 'Food', 'Restaurants': 'Food',
 };
 
+/* Positioning + color only — no hardcoded counts or anchors */
 const CLUSTERS = {
-  'Politics':      { color: '#e63946', cx: 0.22, cy: 0.18, count: 36,  newsletter: 21, video: 9,  podcast: 2,  website: 4,  anchors: ['Aaron Rupar', 'Chris Cillizza', 'Aaron Parnas', 'Charlotte Clymer'] },
-  'Tech':          { color: '#457b9d', cx: 0.55, cy: 0.11, count: 35,  newsletter: 18, video: 5,  podcast: 2,  website: 7,  anchors: ['Casey Newton', 'Alex Kantrowitz', 'Marques Brownlee'] },
-  'Climate':       { color: '#2d6a4f', cx: 0.82, cy: 0.22, count: 10,  newsletter: 10, video: 0,  podcast: 0,  website: 0,  anchors: ['Alex Steffen', 'Andrew Dessler', 'Amy Westervelt'] },
-  'Media/Power':   { color: '#6d4c41', cx: 0.90, cy: 0.52, count: 18,  newsletter: 12, video: 1,  podcast: 3,  website: 2,  anchors: ['Hamilton Nolan', 'Oliver Darcy', 'Adam Johnson'] },
-  'Health':        { color: '#e76f51', cx: 0.78, cy: 0.82, count: 7,   newsletter: 7,  video: 0,  podcast: 0,  website: 0,  anchors: ['Katelyn Jetelina', 'Caitlin Rivers', 'Dan Harris'] },
-  'Investigations':{ color: '#f4a261', cx: 0.50, cy: 0.90, count: 5,   newsletter: 2,  video: 1,  podcast: 0,  website: 2,  anchors: ['Judd Legum', 'Jessica Valenti', 'Chris Geidner'] },
-  'Law':           { color: '#8338ec', cx: 0.22, cy: 0.82, count: 6,   newsletter: 4,  video: 0,  podcast: 0,  website: 2,  anchors: ['Alec Karakatsanis', 'Adam Klasfeld'] },
-  'Sports':        { color: '#fb8500', cx: 0.08, cy: 0.52, count: 10,  newsletter: 5,  video: 3,  podcast: 0,  website: 1,  anchors: ['Charlotte Wilder', 'Brett Kollmann', 'Craig Calcaterra'] },
-  'Culture':       { color: '#c77dff', cx: 0.12, cy: 0.22, count: 236, newsletter: 162,video: 31, podcast: 9,  website: 28, anchors: ['Alicia Kennedy', 'Hunter Harris', 'Adrienne Keene'] },
-  'Finance':       { color: '#4cc9f0', cx: 0.38, cy: 0.26, count: 7,   newsletter: 4,  video: 3,  podcast: 0,  website: 0,  anchors: ['Adam Tooze', 'Kyla Scanlon', 'Brad DeLong'] },
-  'Science':       { color: '#06d6a0', cx: 0.68, cy: 0.38, count: 5,   newsletter: 0,  video: 4,  podcast: 0,  website: 1,  anchors: ['Grant Sanderson', 'Adam Mastroianni'] },
-  'Local News':    { color: '#ffd166', cx: 0.65, cy: 0.72, count: 0,   newsletter: 0,  video: 0,  podcast: 0,  website: 0,  anchors: ['Alissa Walker', 'Charlie Meyerson', 'Chas Hundley'] },
-  'World':         { color: '#ef476f', cx: 0.35, cy: 0.70, count: 7,   newsletter: 4,  video: 1,  podcast: 0,  website: 2,  anchors: ['Bill Bishop', 'Anders Puck Nielsen', 'Tim Mak'] },
-  'Food':          { color: '#a8dadc', cx: 0.18, cy: 0.54, count: 2,   newsletter: 1,  video: 0,  podcast: 0,  website: 1,  anchors: ['Andrew Janjigian', 'Alicia Kennedy'] },
+  'Politics':      { color: '#e63946', cx: 0.22, cy: 0.18 },
+  'Tech':          { color: '#457b9d', cx: 0.55, cy: 0.11 },
+  'Climate':       { color: '#2d6a4f', cx: 0.82, cy: 0.22 },
+  'Media/Power':   { color: '#6d4c41', cx: 0.90, cy: 0.52 },
+  'Health':        { color: '#e76f51', cx: 0.78, cy: 0.82 },
+  'Investigations':{ color: '#f4a261', cx: 0.50, cy: 0.90 },
+  'Law':           { color: '#8338ec', cx: 0.22, cy: 0.82 },
+  'Sports':        { color: '#fb8500', cx: 0.08, cy: 0.52 },
+  'Culture':       { color: '#c77dff', cx: 0.12, cy: 0.22 },
+  'Finance':       { color: '#4cc9f0', cx: 0.38, cy: 0.26 },
+  'Science':       { color: '#06d6a0', cx: 0.68, cy: 0.38 },
+  'Local News':    { color: '#ffd166', cx: 0.65, cy: 0.72 },
+  'World':         { color: '#ef476f', cx: 0.35, cy: 0.70 },
+  'Food':          { color: '#a8dadc', cx: 0.18, cy: 0.54 },
 };
 
 const VIZ_ANCHORS = [
@@ -476,10 +595,10 @@ const VIZ_ANCHORS = [
 const filterState = {
   sort: 'followers',
   search: '',
-  beat: null,       // cluster name string
-  platform: null,   // 'newsletter' | 'video' | 'podcast' | 'cross'
+  beat: null,
+  platform: null,
   verified: false,
-  geo: null,        // geo_region string
+  geo: null,
 };
 
 /* ════════════════════════════════════════════════════════════
@@ -510,7 +629,7 @@ function hexAlpha(hex, a) {
 }
 
 /* ════════════════════════════════════════════════════════════
-   INIT: stats
+   INIT: stats — returns computed values for downstream use
    ════════════════════════════════════════════════════════════ */
 function initStats(creators) {
   const total = creators.length;
@@ -523,8 +642,6 @@ function initStats(creators) {
     : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
   const top = creators.slice().sort((a,b) => (b.bsky_followers||0) - (a.bsky_followers||0))[0];
 
-  console.log(`Bluesky corpus stats — total followers: ${totalFollowers.toLocaleString()}, median: ${median.toLocaleString()}`);
-
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-total-followers').textContent = fmtFollowers(totalFollowers) || '—';
   document.getElementById('stat-median-followers').textContent = fmtFollowers(median) || '—';
@@ -535,32 +652,72 @@ function initStats(creators) {
   }
 
   document.getElementById('hero-count').textContent = total;
-  document.getElementById('header-count').textContent = `${total} creators · 14 clusters`;
-  document.getElementById('viz-label').textContent = `${total} creators · 14 beat clusters`;
 
+  return { total, totalFollowers, median, withFollowers: withFollowers.length };
 }
 
 /* ════════════════════════════════════════════════════════════
-   INIT: cluster grid
+   INIT: cluster grid — all counts/platform mix/anchors live
    ════════════════════════════════════════════════════════════ */
 function initClusterGrid(creators) {
-  const byName = {};
-  creators.forEach(c => { byName[c.name] = c; });
+  /* Build live stats per cluster */
+  const live = {};
+  Object.keys(CLUSTERS).forEach(name => {
+    live[name] = { count: 0, newsletter: 0, video: 0, podcast: 0, website: 0, creators: [] };
+  });
 
+  creators.forEach(c => {
+    const name = clusterFor(c);
+    if (!live[name]) return;
+    const d = live[name];
+    d.count++;
+    d.creators.push(c);
+    const p = (c.platform_primary || '').toLowerCase();
+    if (p.includes('newsletter'))   d.newsletter++;
+    else if (p.includes('video'))   d.video++;
+    else if (p.includes('podcast')) d.podcast++;
+    else                            d.website++;
+  });
+
+  /* Top anchors per cluster ranked by followers */
+  Object.values(live).forEach(d => {
+    d.anchors = d.creators
+      .filter(c => c.bsky_followers > 0)
+      .sort((a, b) => (b.bsky_followers || 0) - (a.bsky_followers || 0))
+      .slice(0, 4);
+  });
+
+  const activeCount = Object.values(live).filter(d => d.count > 0).length;
+  const total = creators.length;
+
+  /* Update all header/meta elements that reference cluster count */
+  document.getElementById('header-count').textContent = `${total} creators · ${activeCount} clusters`;
+  document.getElementById('viz-label').textContent = `${total} creators · ${activeCount} beat clusters`;
+  document.getElementById('cluster-meta').textContent = `${activeCount} communities · ${total} creators`;
+  document.getElementById('cluster-subtitle').textContent =
+    `${activeCount} editorial communities mapped across Bluesky. Click any cluster to filter the index.`;
+  document.getElementById('stat-beats').textContent = activeCount;
+  document.getElementById('index-meta').textContent = `${total} creators · sortable · filterable`;
+
+  /* Render cards */
   const grid = document.getElementById('cluster-grid');
   grid.innerHTML = '';
 
   Object.entries(CLUSTERS).forEach(([name, cfg]) => {
-    const total = cfg.newsletter + cfg.video + cfg.podcast + cfg.website;
+    const d = live[name];
+    if (!d || d.count === 0) return;
+
     const platforms = [
-      { key: 'newsletter', count: cfg.newsletter, label: 'Newsletter', opacity: 1.0 },
-      { key: 'video',      count: cfg.video,      label: 'Video',      opacity: 0.72 },
-      { key: 'podcast',    count: cfg.podcast,    label: 'Podcast',    opacity: 0.48 },
-      { key: 'website',    count: cfg.website,    label: 'Website',    opacity: 0.28 },
+      { key: 'newsletter', count: d.newsletter, label: 'Newsletter', opacity: 1.0 },
+      { key: 'video',      count: d.video,      label: 'Video',      opacity: 0.72 },
+      { key: 'podcast',    count: d.podcast,    label: 'Podcast',    opacity: 0.48 },
+      { key: 'website',    count: d.website,    label: 'Website',    opacity: 0.28 },
     ].filter(p => p.count > 0);
 
+    const platTotal = platforms.reduce((s, p) => s + p.count, 0);
+
     const fpSegs = platforms.map(p => {
-      const pct = ((p.count / total) * 100).toFixed(1);
+      const pct = platTotal > 0 ? ((p.count / platTotal) * 100).toFixed(1) : 0;
       return `<div class="fp-seg" style="width:${pct}%;background:${cfg.color};opacity:${p.opacity};" title="${p.label}: ${p.count}"></div>`;
     }).join('');
 
@@ -570,14 +727,12 @@ function initClusterGrid(creators) {
         ${p.label} ${p.count}
       </span>`).join('');
 
-    const anchorRows = cfg.anchors.map(aName => {
-      const creator = byName[aName];
-      const handle = creator ? `@${creator.bsky_handle}` : '';
-      return `<div class="cc-row">
-        <span class="cc-name">${aName}</span>
-        <span class="cc-handle">${handle}</span>
-      </div>`;
-    }).join('');
+    const anchorRows = d.anchors.length
+      ? d.anchors.map(c => `<div class="cc-row">
+          <span class="cc-name">${c.name}</span>
+          <span class="cc-handle">${c.bsky_handle ? '@' + c.bsky_handle : ''}</span>
+        </div>`).join('')
+      : `<div class="cc-row"><span class="cc-name" style="color:var(--text-muted);font-weight:400;">No follower data yet</span></div>`;
 
     const card = document.createElement('div');
     card.className = 'cluster-card';
@@ -585,7 +740,7 @@ function initClusterGrid(creators) {
     card.innerHTML = `
       <div class="cluster-accent-bar" style="background:${cfg.color};opacity:0.9;"></div>
       <div class="cluster-name">${name}</div>
-      <div class="cluster-count"><span class="n">${cfg.count}</span><span class="label"> creators</span></div>
+      <div class="cluster-count"><span class="n">${d.count}</span><span class="label"> creators</span></div>
       <div class="fingerprint">
         <div class="fp-bar">${fpSegs}</div>
         <div class="fp-labels">${fpLabels}</div>
@@ -612,6 +767,96 @@ function initClusterGrid(creators) {
 
     grid.appendChild(card);
   });
+
+  return activeCount;
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT: follower distribution module
+   ════════════════════════════════════════════════════════════ */
+function initDistribution(creators, median) {
+  const withFollowers = creators.filter(c => c.bsky_followers > 0);
+  if (!withFollowers.length) return;
+
+  const buckets = [
+    { label: '<1K',      min: 1,      max: 999,      count: 0 },
+    { label: '1K–10K',   min: 1000,   max: 9999,     count: 0 },
+    { label: '10K–50K',  min: 10000,  max: 49999,    count: 0 },
+    { label: '50K–200K', min: 50000,  max: 199999,   count: 0 },
+    { label: '200K+',    min: 200000, max: Infinity,  count: 0 },
+  ];
+
+  withFollowers.forEach(c => {
+    const b = buckets.find(b => c.bsky_followers >= b.min && c.bsky_followers <= b.max);
+    if (b) b.count++;
+  });
+
+  const total = withFollowers.length;
+  const maxCount = Math.max(...buckets.map(b => b.count));
+
+  document.getElementById('distribution').style.display = '';
+  document.getElementById('distribution-meta').textContent =
+    `${total} creators with follower data`;
+
+  const medianFmt = fmtFollowers(median);
+  document.getElementById('distribution-callout').innerHTML =
+    `Half the creators with follower data have fewer than <strong>${medianFmt} followers</strong> — Atlas maps the full ecosystem, not just its loudest voices.`;
+
+  document.getElementById('distribution-chart').innerHTML = buckets.map(b => {
+    const barPct = maxCount > 0 ? ((b.count / maxCount) * 100).toFixed(1) : 0;
+    const sharePct = total > 0 ? ((b.count / total) * 100).toFixed(0) : 0;
+    return `<div class="dist-row">
+      <div class="dist-label">${b.label}</div>
+      <div class="dist-bar-wrap">
+        <div class="dist-bar-fill" style="width:${barPct}%;"></div>
+      </div>
+      <div class="dist-count">${b.count} <span style="opacity:0.55">(${sharePct}%)</span></div>
+    </div>`;
+  }).join('');
+}
+
+/* ════════════════════════════════════════════════════════════
+   INIT: coverage gaps
+   ════════════════════════════════════════════════════════════ */
+function initCoverageGaps(creators) {
+  const total = creators.length;
+
+  /* Geo breakdown */
+  const geoCounts = {};
+  creators.forEach(c => {
+    if (c.geo_region) geoCounts[c.geo_region] = (geoCounts[c.geo_region] || 0) + 1;
+  });
+  const sortedGeos = Object.entries(geoCounts).sort((a, b) => b[1] - a[1]);
+  const topGeo = sortedGeos[0];
+  const topGeoPct = topGeo ? Math.round((topGeo[1] / total) * 100) : 0;
+  const thinGeos = sortedGeos.filter(([, n]) => n < 5 && n > 0).map(([g]) => g);
+
+  /* Beat breakdown */
+  const beatCounts = {};
+  creators.forEach(c => {
+    const beat = clusterFor(c);
+    beatCounts[beat] = (beatCounts[beat] || 0) + 1;
+  });
+  const sortedBeats = Object.entries(beatCounts).sort((a, b) => b[1] - a[1]);
+  const thinBeats = sortedBeats.filter(([, n]) => n < 8).map(([b]) => b);
+
+  document.getElementById('coverage-meta').textContent =
+    `${sortedGeos.length} regions · ${sortedBeats.length} beats`;
+
+  document.getElementById('coverage-content').innerHTML = `
+    <div class="gap-card">
+      <div class="gap-micro">Geographic concentration</div>
+      <div class="gap-stat">${topGeoPct}%</div>
+      <div class="gap-sub">${topGeo ? topGeo[0] : '—'} accounts for ${topGeoPct}% of the corpus</div>
+      ${thinGeos.length ? `<div class="gap-thin">Under-represented regions: ${thinGeos.slice(0, 5).join(' · ')}</div>` : ''}
+    </div>
+    <div class="gap-card">
+      <div class="gap-micro">Beat coverage</div>
+      <div class="gap-stat">${sortedBeats[0] ? sortedBeats[0][0] : '—'}</div>
+      <div class="gap-sub">Largest beat cluster · ${sortedBeats[0] ? sortedBeats[0][1] : 0} creators</div>
+      ${thinBeats.length ? `<div class="gap-thin">Thinnest beats: ${thinBeats.slice(0, 5).join(' · ')}</div>` : ''}
+    </div>
+  `;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -654,7 +899,6 @@ function initBeatPills(creators) {
    INIT: sort + platform + verified controls
    ════════════════════════════════════════════════════════════ */
 function initControls(creators) {
-  /* sort buttons */
   document.querySelectorAll('.sort-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       filterState.sort = btn.dataset.sort;
@@ -664,7 +908,6 @@ function initControls(creators) {
     });
   });
 
-  /* platform pills */
   document.querySelectorAll('.filter-pill[data-platform]').forEach(pill => {
     pill.addEventListener('click', () => {
       const val = pill.dataset.platform;
@@ -676,7 +919,6 @@ function initControls(creators) {
     });
   });
 
-  /* verified pill */
   const verifiedPill = document.querySelector('.filter-pill[data-verified]');
   if (verifiedPill) {
     verifiedPill.addEventListener('click', () => {
@@ -686,7 +928,6 @@ function initControls(creators) {
     });
   }
 
-  /* search */
   const searchInput = document.getElementById('search-input');
   const searchClear = document.getElementById('search-clear');
 
@@ -719,12 +960,10 @@ function initControls(creators) {
 function renderList(creators) {
   let filtered = creators.slice();
 
-  /* beat filter */
   if (filterState.beat) {
     filtered = filtered.filter(c => clusterFor(c) === filterState.beat);
   }
 
-  /* platform filter */
   if (filterState.platform) {
     filtered = filtered.filter(c => {
       if (filterState.platform === 'cross') return !!c.platform_2;
@@ -735,17 +974,14 @@ function renderList(creators) {
     });
   }
 
-  /* verified filter */
   if (filterState.verified) {
     filtered = filtered.filter(c => c.confirmed === 'YES');
   }
 
-  /* geo filter */
   if (filterState.geo) {
     filtered = filtered.filter(c => c.geo_region === filterState.geo);
   }
 
-  /* search filter */
   if (filterState.search) {
     const q = filterState.search;
     filtered = filtered.filter(c =>
@@ -756,7 +992,6 @@ function renderList(creators) {
     );
   }
 
-  /* sort */
   const total = creators.length;
   const shown = filtered.length;
   const anyFilter = filterState.beat || filterState.platform || filterState.verified || filterState.geo || filterState.search;
@@ -779,7 +1014,6 @@ function renderList(creators) {
     });
   }
 
-  /* status */
   const statusEl = document.getElementById('index-status');
   if (anyFilter) {
     statusEl.innerHTML = `<strong>Showing ${shown.toLocaleString()} of ${total.toLocaleString()} creators</strong>`;
@@ -787,7 +1021,6 @@ function renderList(creators) {
     statusEl.innerHTML = `${total.toLocaleString()} creators &middot; sorted by Bluesky followers`;
   }
 
-  /* render cards */
   const list = document.getElementById('creator-list');
   if (filtered.length === 0) {
     list.innerHTML = '<div class="no-results"><p>No creators match these filters.</p></div>';
@@ -797,7 +1030,6 @@ function renderList(creators) {
   list.innerHTML = filtered.map(c => {
     const beat = clusterFor(c);
     const cfg = CLUSTERS[beat] || {};
-    const beatColor = cfg.color || '#888';
     const followers = fmtFollowers(c.bsky_followers);
     const isCross = !!c.platform_2;
     const platformLabel = (c.platform_primary || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ');
@@ -1106,12 +1338,14 @@ function initNewAdditions(creators) {
   section.style.display = '';
 
   const shown = newOnes.slice(0, 20);
-  document.getElementById('new-additions-meta').textContent = `${newOnes.length} creators · June 2026`;
+  document.getElementById('new-additions-meta').textContent =
+    `${newOnes.length} creators · ${NEW_ADDITIONS_LABEL}`;
+  document.getElementById('new-additions-subtitle').textContent =
+    `New additions from the ${NEW_ADDITIONS_LABEL} enrichment`;
 
   const strip = document.getElementById('new-additions-strip');
   strip.innerHTML = shown.map(c => {
     const beat = clusterFor(c);
-    const cfg = CLUSTERS[beat] || {};
     return `<div class="na-card">
       <div class="ci-name">${c.name}</div>
       ${c.bsky_handle ? `<div class="ci-bsky" style="margin-top:3px;">@${c.bsky_handle}</div>` : ''}
@@ -1198,8 +1432,6 @@ function openOverlay() {
   }, 860);
 }
 
-function closeOverlay() { /* no-op */ }
-
 function initOverlay() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
@@ -1217,12 +1449,14 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(r => r.json())
     .then(data => {
       CREATORS = data;
-      initStats(CREATORS);
+      const stats = initStats(CREATORS);
       initNewAdditions(CREATORS);
+      initDistribution(CREATORS, stats.median);
       initClusterGrid(CREATORS);
       initBeatPills(CREATORS);
       initGeoPills(CREATORS);
       initControls(CREATORS);
+      initCoverageGaps(CREATORS);
       renderList(CREATORS);
       buildViz(
         document.getElementById('network-canvas'),
