@@ -115,21 +115,31 @@ def main():
 
             seen_handles[handle] = slug
 
+            extra_platforms = []
+            for slot_name, slot_link in [('Platform 2 Name', 'Platform 2 Link'),
+                                          ('Platform 3 Name', 'Platform 3 Link'),
+                                          ('Platform 4 Name', 'Platform 4 Link')]:
+                name_val = row.get(slot_name, '').strip()
+                link_val = row.get(slot_link, '').strip()
+                if name_val and name_val != 'Social - BlueSky':
+                    extra_platforms.append({'name': name_val, 'url': link_val})
+
             out.append({
-                'name':             row.get('Creator Name', '').strip(),
-                'slug':             slug,
-                'channel':          row.get('Creator Channel', '').strip(),
-                'primary_url':      row.get('Link Primary', '').strip(),
-                'platform_primary': row.get('Platform Primary', '').strip(),
-                'bsky_handle':      handle,
-                'bsky_url':         f'{BSKY_PREFIX}{handle}',
-                'bsky_followers':   0,
-                'topic':            row.get('Topic/Category', '').strip(),
-                'geography':        row.get('Geography', '').strip(),
-                'geo_region':       row.get('Geo Region', '').strip(),
-                'geo_state':        row.get('Geo State', '').strip(),
-                'geo_city':         row.get('Geo City', '').strip(),
-                'groups':           row.get('Groups', '').strip(),
+                'name':              row.get('Creator Name', '').strip(),
+                'slug':              slug,
+                'channel':           row.get('Creator Channel', '').strip(),
+                'primary_url':       row.get('Link Primary', '').strip(),
+                'platform_primary':  row.get('Platform Primary', '').strip(),
+                'platforms':         extra_platforms,
+                'bsky_handle':       handle,
+                'bsky_url':          f'{BSKY_PREFIX}{handle}',
+                'bsky_followers':    0,
+                'topic':             row.get('Topic/Category', '').strip(),
+                'geography':         row.get('Geography', '').strip(),
+                'geo_region':        row.get('Geo Region', '').strip(),
+                'geo_state':         row.get('Geo State', '').strip(),
+                'geo_city':          row.get('Geo City', '').strip(),
+                'groups':            row.get('Groups', '').strip(),
                 'new_bsky_addition': slug in NEW_BSKY_SLUGS,
             })
 
