@@ -939,12 +939,11 @@ function renderList(creators) {
 
   if (filterState.platform) {
     filtered = filtered.filter(c => {
-      if (filterState.platform === 'cross') return !!c.platform_2;
-      const p1 = (c.platform_primary || '').toLowerCase();
-      const p2 = (c.platform_2 || '').toLowerCase();
-      if (filterState.platform === 'newsletter') return p1.includes('newsletter') || p2.includes('newsletter');
-      if (filterState.platform === 'video')      return p1.includes('video')      || p2.includes('video');
-      if (filterState.platform === 'podcast')    return p1.includes('podcast')    || p2.includes('podcast');
+      if (filterState.platform === 'cross') return !!(c.platforms && c.platforms.length);
+      const allPlatforms = [c.platform_primary, ...((c.platforms || []).map(p => p.name))].join(' ').toLowerCase();
+      if (filterState.platform === 'newsletter') return allPlatforms.includes('newsletter');
+      if (filterState.platform === 'video')      return allPlatforms.includes('video');
+      if (filterState.platform === 'podcast')    return allPlatforms.includes('podcast');
       return true;
     });
   }
@@ -1015,9 +1014,10 @@ function renderList(creators) {
     }
 
     const followers = fmtFollowers(c.bsky_followers);
-    const isCross = !!c.platform_2;
-    const platformLabel = (c.platform_primary || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ');
-    const p2Label = c.platform_2 ? (c.platform_2 || '').replace(/^(Newsletter|Video|Podcast) - /, '$1 · ') : null;
+    const platformLabel = (c.platform_primary || '').replace(/^(Newsletter|Video|Podcast|Social) - /, '$1 · ');
+    const extraBadges = (c.platforms || []).map(p =>
+      `<span class="ci-platform cross">${p.name.replace(/^(Newsletter|Video|Podcast|Social) - /, '$1 · ')}</span>`
+    ).join('');
     const profileUrl = c.bsky_handle ? `https://bsky.app/profile/${c.bsky_handle}` : null;
 
     rows.push(`<div class="ci-row">
@@ -1033,9 +1033,9 @@ function renderList(creators) {
       <div class="ci-col">
         <span class="ci-beat">${beat}</span>
       </div>
-      <div class="ci-col">
+      <div class="ci-col" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">
         <span class="ci-platform">${platformLabel}</span>
-        ${isCross ? `<span class="ci-platform cross">+ ${p2Label || c.platform_2}</span>` : ''}
+        ${extraBadges}
       </div>
       <div class="ci-col">
         ${followers
