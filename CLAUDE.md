@@ -173,7 +173,7 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 
 - **Single deployable HTML file** — no build step, no external dependencies beyond CDNs
 - **City Lab pages** — inline all data as JS constants (no fetch). Hard constraint.
-- **pack.html, lists.html, mobile.html, search.html** — fetch() from `assets/data/creators-data.json`. Do NOT convert to inline constants (data is too large).
+- **lists.html, mobile.html, search.html** — fetch() from `assets/data/creators-data.json`. Do NOT convert to inline constants (data is too large).
 - **Cloudflare intercepts plain-text email** — encode as HTML entities or use `[at]` notation
 - **Git push via GitHub Desktop** — never attempt `git push` from terminal
 - **Clean up dead code while working** — remove dead CSS, unused classes, stale placeholder comments as they become irrelevant
@@ -214,12 +214,14 @@ All pages above have been swept to the design token system (variables.css linked
 | `what-we-do.html` | Legacy URL — redirects to `about-this-project.html` via `_redirects` |
 | `about-this-project.html` | Canonical "About This Project" page (replaced what-we-do.html) |
 | `_deprecated/postcard.html` | **Retired July 2026** — Starter Pack builder. No traffic, stale creator-count copy. `/postcard` now redirects to `/` via `_redirects` (the matching Cloudflare Pages Function that used to intercept `/postcard` was also removed — see `_deprecated/functions-postcard.js` — Functions take precedence over `_redirects`, so it had to go too). Its curate-and-share interaction pattern is a reference point for the planned creator profile card system (see Out of Scope below) — not currently active work. |
+| `_deprecated/pack.html` | **Retired July 2026** — separate, older full creator-database + curate-and-share view (its own inline fetch of `creators-data.json`, own postcard-style share feature — unrelated to `main.js`'s `renderPackCanvas`, which is a distinct feature embedded directly in `search.html`). Never linked from live nav; its canonical `/pack` URL was already being shadowed by a stale `/pack → /postcard` redirect. `/pack` and `/pack.html` now redirect to `/`. |
 | `atlas-portal/index.html` | Internal portal |
 | `atlas-portal/google-form-template.html` | Internal template |
 | `bluesky-creator-intelligence-v2/v3/v4/v5.html` | Version history — not public (superseded by current file) |
 | `beat-tech.html`, `beat-climate.html`, `beat-finance.html` | Research pages — not public |
 | `chicago-analysis.html`, `chicago-survey.html` | Internal research — not public |
-| `knight-brief.html`, `atlas-signal-brief.html` | Internal briefs — not public |
+| `atlas-signal-brief.html` | Internal brief — not public |
+| `_deprecated/knight-brief.html` | **Retired July 2026** — internal Knight Foundation pitch brief. Not linked from anywhere live; `/knight-brief` and `/knight-brief.html` now redirect to `/`. |
 | `index-exploration-V1.html` | Dev experiment — not public |
 | `index-pre-homepage.html` | Pre-homepage-launch archive — do not delete until homepage is confirmed stable |
 | `partners/_shell.html` | Partner page template — not public |

@@ -14,7 +14,8 @@
 //     `geoCity`, `geoState`, `geoCountry`, `geoRegion` are the structured
 //     replacements added in Ryan's March 2026 schema update.
 //   - `slug` is a URL-safe identifier frozen on first entry in the pipeline.
-//     Used for stable URL params on pack.html share links.
+//     Originally used for stable URL params on pack.html/postcard.html share
+//     links (both retired July 2026) — not currently consumed by any live page.
 //   - `secondaryPlatforms` is an array of {name, link} objects for Platform 2–4.
 //     Only populated entries (non-empty name) are included. Most creators have
 //     0 entries; some have 1–3.

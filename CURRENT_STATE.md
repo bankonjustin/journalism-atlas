@@ -8,9 +8,14 @@
 - Moved to `_deprecated/postcard.html`. `/postcard` and `/postcard.html` now 301 to `/` via `_redirects`.
 - **Also removed `functions/postcard.js`** (moved to `_deprecated/functions-postcard.js`) — this Cloudflare Pages Function intercepted every `/postcard` request at the edge to inject OG tags, and Functions take precedence over `_redirects`. Without removing it, the new redirect would never have fired. Verified locally with `wrangler pages dev` (`GET /postcard` → `301 Location: /`) before this was caught — not something the original brief anticipated.
 - Removed the two remaining live links: `assets/js/footer.js` (footer nav) and `index.html` cluster-drawer "Build a starter pack →" link + its JS wiring (the latter wasn't in the shared footer, easy to miss).
-- Left untouched, unrelated: `pack.html` (a different, still-active creator-curation feature using `main.js`'s `renderPackCanvas`) and its pre-existing `/pack → /postcard` redirect — now a harmless double-hop (`/pack` → `/postcard` → `/`).
-- **Open decision, deferred by Justin mid-session:** `knight-brief.html` (internal, non-public pitch doc) still pitches "Postcard Generator" as a live product with a link to `/postcard`. Needs a decision — leave as-is, fix the link to `/`, or remove the pitch section entirely.
 - Reference for future work: `postcard.html`'s curate-and-share interaction pattern is the intended reference point for the September creator profile card system (per `CLAUDE.md` Out of Scope) — no design/spec work on that system was done in this session.
+
+### pack.html + knight-brief.html also retired (July 6, 2026, same session)
+- Justin decided to mothball both once he saw `postcard.html`'s retirement — same pattern applied.
+- `pack.html`: a separate, older full creator-database + curate-and-share view, unrelated to `postcard.html` despite similar functionality (self-contained inline JS, own fetch of `creators-data.json`). Never linked from live nav. Its canonical `/pack` URL was already being shadowed by the old `/pack → /postcard` redirect, so it was effectively unreachable via clean URL already. Moved to `_deprecated/pack.html`; `/pack` and `/pack.html` now redirect to `/` directly (old `/pack → /postcard` chain removed).
+- `knight-brief.html`: internal Knight Foundation pitch brief, not linked from anywhere live (this resolves the deferred "Postcard Generator" link question from earlier — moot now that the whole page is archived, no content edit needed). Moved to `_deprecated/knight-brief.html`; `/knight-brief` and `/knight-brief.html` now redirect to `/`.
+- `main.js`'s `renderPackCanvas`/`packPreviewCanvas` feature — embedded directly in `search.html`, **not** part of `pack.html` — is untouched and still live.
+- Not verified against production `wrangler pages dev` this round (no new Functions or Function-vs-redirect conflicts involved, unlike `postcard.html`) — worth a quick post-deploy spot check on `/pack` and `/knight-brief` anyway.
 
 ## What's live
 
