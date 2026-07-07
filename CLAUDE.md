@@ -35,7 +35,7 @@
 ### Role-scoped subagents
 
 - **`ryan-dataops`** (`.claude/agents/ryan-dataops.md`, this repo) — Ryan's data-ops lane: `creators-master.csv`, `atlas-private-columns.csv`, `DATA-OPS-PROTOCOL.md`. No Bash tool (hard block on running any script, including `atlas_groups.py`/`atlas_append.py`). No git push.
-- **`liz-editorial`** (Atlas Spidering workspace) — not yet built; blocked on locating/creating the editorial standards doc and deciding how Liz gets Shadow Lists access (no Google Sheets connector exists in this environment — see `CURRENT_STATE.md`).
+- **`liz-editorial`** (`.claude/agents/liz-editorial.md`, Atlas Spidering workspace, not this repo) — read-only: editorial standards doc v1.4 + Global Correspondents session note. No Shadow Lists or rejection-notes access — both are canonical Google Sheets and no Sheets connector exists in this environment (see `CURRENT_STATE.md`). Revisit once that's resolved.
 - Scoping for these subagents is enforced by their prompt instructions and by which tools are granted (e.g. omitting Bash) — not by a filesystem ACL. Treat the "in scope" file lists as a convention the subagent is instructed to follow, not a hard sandbox.
 
 ---
