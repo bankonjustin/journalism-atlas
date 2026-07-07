@@ -283,7 +283,7 @@
       Live on Bluesky
     </div>
     <h1>Atlas <em>Wire</em></h1>
-    <p class="wire-hero-sub">Independent journalism, surfaced daily. Every morning the Atlas scans its database of 1,500+ creator-journalists and curates the work that matters.</p>
+    <p class="wire-hero-sub">Independent journalism, surfaced daily. Every morning the Atlas scans its database of <span class="js-creator-count">1,500+</span> creator-journalists and curates the work that matters.</p>
     <a class="wire-bsky-link" href="https://bsky.app/profile/journalismatlas.com" target="_blank" rel="noopener">
       <span class="material-symbols-outlined">open_in_new</span>
       Follow @journalismatlas.com on Bluesky
@@ -513,9 +513,11 @@ function formatDate(str) {
 }
 
 function updateFooter() {
-  // Show total atlas count from wire items (distinct creators)
-  const creators = new Set(allItems.map(x => x.creator_name)).size;
-  document.getElementById('footer-count').textContent = '1,500+';
+  fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
+    const n = data.length.toLocaleString();
+    document.getElementById('footer-count').textContent = n;
+    document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = n; });
+  }).catch(() => {});
 }
 
 function esc(str) {

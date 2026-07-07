@@ -23,8 +23,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const INPUT  = path.join(__dirname, 'assets', 'data', 'creators-master.csv');
-const OUTPUT = path.join(__dirname, 'assets', 'data', 'creators-data.json');
+const INPUT       = path.join(__dirname, 'assets', 'data', 'creators-master.csv');
+const OUTPUT      = path.join(__dirname, 'assets', 'data', 'creators-data.json');
+const STATS_OUTPUT = path.join(__dirname, 'assets', 'data', 'site-stats.json');
 
 // Parse an entire CSV file, correctly handling quoted fields that contain
 // commas, escaped quotes (""), and embedded newlines.
@@ -123,4 +124,26 @@ for (let i = 1; i < rows.length; i++) {
 }
 
 fs.writeFileSync(OUTPUT, JSON.stringify(creators, null, 2), 'utf8');
+
+// site-stats.json — canonical stat-strip numbers for any page that needs
+// totals without fetching/parsing the full creators-data.json array.
+const topics = new Set();
+const platforms = new Set();
+creators.forEach(c => {
+  (c.topic || '').split(',').forEach(t => {
+    t = t.trim();
+    if (t) topics.add(t);
+  });
+  if (c.platform) platforms.add(c.platform);
+});
+
+const stats = {
+  totalCreators: creators.length,
+  topicCount:    topics.size,
+  platformCount: platforms.size,
+  lastUpdated:   new Date().toISOString().slice(0, 10),
+};
+
+fs.writeFileSync(STATS_OUTPUT, JSON.stringify(stats, null, 2), 'utf8');
 console.log(`Done — wrote ${creators.length} creators to ${OUTPUT}`);
+console.log(`Done — wrote site stats to ${STATS_OUTPUT}`);
