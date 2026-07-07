@@ -733,7 +733,7 @@
             <p class="hero-body">Three co-founders. Decades inside the Washington Post, Axios, Vox, and USA Today. Now building the infrastructure layer for independent journalism — and publishing what we learn alongside the researchers, funders, and institutions paying attention to the same shift.</p>
             <div class="hero-actions">
                 <a href="/" class="btn-ghost">Explore the Atlas →</a>
-                <a href="/search" class="btn-ghost">Search 1,718 creators →</a>
+                <a href="/search" class="btn-ghost">Search <span class="js-creator-count">1,718</span> creators →</a>
             </div>
         </div>
     </section>
@@ -846,7 +846,7 @@
     <section class="cta-section">
         <div class="cta-inner">
             <h2 class="section-headline">We built the map. Now use it.</h2>
-            <p class="section-subhead">1,718 verified independent creator-journalists. Searchable by beat, platform, geography, and format.</p>
+            <p class="section-subhead"><span class="js-creator-count">1,718</span> verified independent creator-journalists. Searchable by beat, platform, geography, and format.</p>
             <div class="cta-buttons">
                 <a href="/" class="btn-acid">Explore the Atlas →</a>
                 <a href="/search" class="btn-ghost">Search creators →</a>
@@ -1076,6 +1076,11 @@
         </div>
       `).join('');
     })();
+
+    fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
+      const n = data.length.toLocaleString();
+      document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = n; });
+    }).catch(() => {});
     </script>
 
     <script src="/assets/js/footer.js"></script>
