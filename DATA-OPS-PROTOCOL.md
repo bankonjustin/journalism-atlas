@@ -9,7 +9,21 @@
 
 This is the authoritative reference for how creator data moves through the Atlas pipeline — from first mention to live in the database. It supersedes all prior handoff notes, Cowork session logs, and earlier pipeline documentation including `atlas-handoff-note.md`, `rejections-passoff.md`, and any `proposals.csv`-era references.
 
-For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md`. This document covers only what is currently operational.
+For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` (location below). This document covers only what is currently operational.
+
+---
+
+## Reference doc locations (added July 7, 2026 — filesystem audit)
+
+Three docs cited below by bare filename are not in this repo — they're Ryan's local docs, dropped in `~/Downloads/` (same pattern as `atlas-private-columns.csv`):
+
+| Doc | Actual location | Notes |
+|---|---|---|
+| `ATLAS-EDITORIAL-STANDARDS.md` | `~/Downloads/ATLAS-EDITORIAL-STANDARDS-v1_4.md` | **Canonical version confirmed: v1.4** (July 7, 2026 — adds the Noosphere platform note to Rule 3). Three superseded copies (unversioned/"v1.1", v1.3, and an exact-duplicate `v1.3 (1)`) archived to `~/Downloads/_archive_editorial_standards/` this session — content-diffed, not just filename/date-guessed. Filename still carries a version suffix only because `liz-editorial.md` (Atlas Spidering workspace) is scoped to that exact path; rename to the unversioned `ATLAS-EDITORIAL-STANDARDS.md` next time this file is edited, and update that subagent's scope in the same pass. |
+| `REJECTION_GUIDE.md` | `~/Downloads/REJECTION_GUIDE.md` | Single copy, no drift found. |
+| `DATA-ROADMAP.md` | `~/Downloads/DATA-ROADMAP.md` | Single copy, no drift found. |
+
+**Going forward:** new versions of these docs should overwrite the file in place with no version suffix in the filename (matching the convention already used by `CLAUDE.md`/`DATA-OPS-PROTOCOL.md`/`CURRENT_STATE.md`) — track version history in the doc's own changelog table instead, the way `ATLAS-EDITORIAL-STANDARDS.md` already does internally. No more `(1)`-suffixed duplicate copies.
 
 ---
 
@@ -626,6 +640,7 @@ Private creator data lives in a local CSV file managed by Ryan. It is intentiona
 | Root-level `rejections.csv` in repo is an empty shell | Ignore — active rejections are in the Rejections Google Sheet | — |
 | `atlas_verify_state.json` link cache is currently empty | Will rebuild on first verify run | — |
 | Working master is 18 columns — `Partner Lists` (col 19) missing from current file | Re-add at next Final Clean before sending to Justin | Ryan |
+| `SCHEMA-VOCAB.md` (cited above under Final Clean schema validation) lives in `Atlas Spidering/core/SCHEMA-VOCAB.md`, a separate untracked workspace — not in this repo | Found during July 7, 2026 filesystem audit. Not fixed — flagging for Ryan/Justin to decide whether it should be copied into this repo or cited by absolute path | Ryan / Justin |
 | Private columns at 1,602 vs master 1,718 — sync incomplete | Bring to parity at next Final Clean (private columns sync step) | Ryan |
 | Human-review process change under consideration | Documented as a not-yet-active placeholder in Step 3; switch on only after team agrees | Ryan |
 

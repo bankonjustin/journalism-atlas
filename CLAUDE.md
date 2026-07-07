@@ -24,8 +24,10 @@
 | `CLAUDE.md` (this file) | Always |
 | `DESIGN-TOKENS.md` | Before any CSS/styling work |
 | `_reference/james-design-principles.md` | Before any visual/component decision |
-| `CURRENT_STATE.md` | Always, for latest data/pipeline state |
+| `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
 | `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
+
+**Note (added July 7, 2026 — filesystem audit):** `CURRENT_STATE.md` in this repo covers site/deploy/subagent state only. Data-pipeline and spidering state lives in a *different* file with the same name: `Atlas Spidering/sessions/CURRENT_STATE.md` (a separate, untracked workspace — see "External file locations" below). Read whichever one matches the task; they are not duplicates of each other. A third file, `Atlas Spidering/core/CURRENT_STATE.md`, existed until this session — it was actually a single stale session log misnamed to look like a tracker, and has been archived as `Atlas Spidering/archive/SESSION_LOG_bsky_corpus_anchor_v1_20260626.md`.
 
 ### Session close-out
 
@@ -160,6 +162,24 @@ Old root-level partner URLs redirect to new paths via `_redirects` at repo root.
 `creators-master.csv` → `node convert.js` → `creators-data.json` (live site reads this).
 
 See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and how to keep Ryan's master in sync.
+
+---
+
+## External file locations (verified July 7, 2026 — filesystem audit)
+
+Three locations exist. Don't assume file paths from older briefs still hold — this map was verified against disk, not carried forward from memory.
+
+| Location | What lives there | Tracked? |
+|---|---|---|
+| `journalism-atlas/` (this repo) | Production site, deploy docs, pipeline scripts (`pipeline/`) | Git, deploys to Cloudflare |
+| `~/Documents/Atlas Spidering/` | Spidering scripts/output, pulse pipeline, `SCHEMA-VOCAB.md` | Not in Git — local only |
+| `~/Downloads/` | Functions as a de facto third workspace: Ryan's editorial/pipeline reference docs (`ATLAS-EDITORIAL-STANDARDS-v1_4.md`, `REJECTION_GUIDE.md`, `DATA-ROADMAP.md`), `atlas-private-columns.csv`, and a large accumulation of master-CSV snapshots, briefs, and design assets going back to January 2026 | Not tracked anywhere — see open item below |
+
+**Corrections to prior claims:** Earlier docs (and at least one Claude Chat brief) assumed `ATLAS-EDITORIAL-STANDARDS.md` lived in this repo's `_reference/` folder, alongside `james-design-principles.md`. It never has — it's always been in `~/Downloads/`. See `DATA-OPS-PROTOCOL.md` § "Reference doc locations" for the full corrected map of Ryan's reference docs.
+
+**Open item:** `~/Downloads/` has enough real version history (master CSV snapshots, private-columns snapshots, editorial standards) to warrant a private Git repo, separate from this public repo. Proposed, not yet built — needs Justin's go-ahead.
+
+`journalism-atlas/spidering/` must stay empty — confirmed empty as of this audit. Nothing spidering-related belongs there; see `Atlas Spidering/SPIDERING_ALIGNMENT_GUIDE.md`.
 
 ---
 
