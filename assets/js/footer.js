@@ -21,7 +21,6 @@
         '          <li><a href="/search">The Atlas Database</a></li>',
         '          <li><a href="/lists">Collections</a></li>',
         '          <li><a href="/pulse">Atlas Pulse</a></li>',
-        '          <li><a href="/postcard">Build a Starter Pack</a></li>',
         '          <!-- <li><a href="/beat-clusters">Beat Clusters</a></li> -->',
         '          <!-- <li><a href="/city-labs">City Labs</a></li> -->',
         '        </ul>',

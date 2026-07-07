@@ -1,5 +1,16 @@
 # Pulse — Current State
-*Last updated: July 1, 2026 (v6)*
+*Last updated: July 6, 2026 (postcard.html retirement)*
+
+## Site maintenance
+
+### postcard.html retired (July 6, 2026)
+- Mothballed, not rebuilt: `postcard.html` had no traffic, only a leftover footer link, and stale creator-count copy (1,006/1,100+ vs. current 1,718).
+- Moved to `_deprecated/postcard.html`. `/postcard` and `/postcard.html` now 301 to `/` via `_redirects`.
+- **Also removed `functions/postcard.js`** (moved to `_deprecated/functions-postcard.js`) — this Cloudflare Pages Function intercepted every `/postcard` request at the edge to inject OG tags, and Functions take precedence over `_redirects`. Without removing it, the new redirect would never have fired. Verified locally with `wrangler pages dev` (`GET /postcard` → `301 Location: /`) before this was caught — not something the original brief anticipated.
+- Removed the two remaining live links: `assets/js/footer.js` (footer nav) and `index.html` cluster-drawer "Build a starter pack →" link + its JS wiring (the latter wasn't in the shared footer, easy to miss).
+- Left untouched, unrelated: `pack.html` (a different, still-active creator-curation feature using `main.js`'s `renderPackCanvas`) and its pre-existing `/pack → /postcard` redirect — now a harmless double-hop (`/pack` → `/postcard` → `/`).
+- **Open decision, deferred by Justin mid-session:** `knight-brief.html` (internal, non-public pitch doc) still pitches "Postcard Generator" as a live product with a link to `/postcard`. Needs a decision — leave as-is, fix the link to `/`, or remove the pitch section entirely.
+- Reference for future work: `postcard.html`'s curate-and-share interaction pattern is the intended reference point for the September creator profile card system (per `CLAUDE.md` Out of Scope) — no design/spec work on that system was done in this session.
 
 ## What's live
 

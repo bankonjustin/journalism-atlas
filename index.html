@@ -622,7 +622,6 @@
       <div id="cluster-drawer-footer">
         <span id="cluster-drawer-showing"></span>
         <div style="display:flex;align-items:center;gap:16px;">
-          <a id="cluster-drawer-postcard-link" href="postcard.html" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.45);text-decoration:none;letter-spacing:0.06em;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Build a starter pack →</a>
           <a id="cluster-drawer-full-link" href="#">See all in full Atlas →</a>
         </div>
       </div>
@@ -2291,8 +2290,6 @@ function openDrawer(clusterName) {
   const fullLink   = document.getElementById('cluster-drawer-full-link');
   if (atlasLink) atlasLink.href = atlasHref;
   if (fullLink)  fullLink.href  = atlasHref;
-  const postcardLink = document.getElementById('cluster-drawer-postcard-link');
-  if (postcardLink) postcardLink.href = `postcard.html?cluster=${atlasParam}`;
 
   renderDrawerGrid(drawerCreators, clusterName, '');
 

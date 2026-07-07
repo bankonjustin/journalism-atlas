@@ -8,6 +8,32 @@
 
 ---
 
+## Session Behavior
+
+### Tone
+
+- No sycophantic openers ("Great question!", "I'd be happy to help with that!", "Absolutely!")
+- No restating the request back before answering
+- No hedging on calls already settled by this file, `DESIGN-TOKENS.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
+- Flag genuine ambiguity once, briefly, then proceed with the most reasonable interpretation rather than stalling
+
+### Required reading order
+
+| File | When |
+|------|------|
+| `CLAUDE.md` (this file) | Always |
+| `DESIGN-TOKENS.md` | Before any CSS/styling work |
+| `_reference/james-design-principles.md` | Before any visual/component decision |
+| `CURRENT_STATE.md` | Always, for latest data/pipeline state |
+| `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
+
+### Session close-out
+
+- Update `CURRENT_STATE.md` before ending any session that changed data, pipeline state, or in-flight work — even if not explicitly asked
+- Note new out-of-scope items or blockers discovered mid-session in `CURRENT_STATE.md`, not just in chat
+
+---
+
 ## Project Overview
 
 A vanilla JS static HTML site. No build step, no npm, no React. All pages are single HTML files deployed to Cloudflare Pages via GitHub auto-deploy. Data lives in `assets/data/` as JSON.
@@ -63,7 +89,7 @@ The site header is injected via `assets/js/header.js` — a self-contained scrip
 
 `header.js` is loaded as the **first** `<script>` tag in `<body>` on every page. Do not duplicate nav HTML manually — edit `header.js` to change nav content.
 
-Pages with inline `<style>` blocks (postcard.html, partners/*.html, city-lab-chicago.html, latin-america-lab.html) link variables.css before their inline block, and header.css after it (before `</head>`).
+Pages with inline `<style>` blocks (partners/*.html, city-lab-chicago.html, latin-america-lab.html) link variables.css before their inline block, and header.css after it (before `</head>`).
 
 ### How to use DESIGN-TOKENS.md in a session
 
@@ -160,7 +186,6 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 |------|-------------|--------------|--------------|
 | `index.html` | Homepage — hero, stat strip, cluster grid | — | `variables.css` + inline `<style>` + `header.css` |
 | `search.html` | Full creator database — filters, search, card grid | ~1,718 (live JSON) | External: `main.css` |
-| `postcard.html` | Starter Pack builder | — | Inline `<style>` |
 | `partners/_shell.html` | Partner page shell (template) | — | Inline `<style>` |
 | `partners/cillizza.html` | Chris Cillizza curated list | 17 | Inline `<style>` |
 | `partners/ahp.html` | Anne Helen Petersen picks | 17 | Inline `<style>` |
@@ -188,6 +213,7 @@ All pages above have been swept to the design token system (variables.css linked
 |------|-------|
 | `what-we-do.html` | Legacy URL — redirects to `about-this-project.html` via `_redirects` |
 | `about-this-project.html` | Canonical "About This Project" page (replaced what-we-do.html) |
+| `_deprecated/postcard.html` | **Retired July 2026** — Starter Pack builder. No traffic, stale creator-count copy. `/postcard` now redirects to `/` via `_redirects` (the matching Cloudflare Pages Function that used to intercept `/postcard` was also removed — see `_deprecated/functions-postcard.js` — Functions take precedence over `_redirects`, so it had to go too). Its curate-and-share interaction pattern is a reference point for the planned creator profile card system (see Out of Scope below) — not currently active work. |
 | `atlas-portal/index.html` | Internal portal |
 | `atlas-portal/google-form-template.html` | Internal template |
 | `bluesky-creator-intelligence-v2/v3/v4/v5.html` | Version history — not public (superseded by current file) |
@@ -213,7 +239,7 @@ The `_lockup_` files (no "horizontal" in name) are the old equivalents — prefe
 
 ## Out of Scope Until Further Notice
 
-- Full postcard card system — pending James's spec
+- Full postcard card system — pending James's spec (see `_deprecated/postcard.html` for the retired reference implementation's curate-and-share interaction pattern)
 - Additional city lab pages beyond Chicago — same pattern as city-lab-chicago.html when ready
 - Mainstream outlet layer in city-lab-chicago (Tracy Baim / Liz feedback — separate session)
 - Additional ICFJ region labs (africa-lab, asia-lab, etc.) — same pattern as latin-america-lab.html
