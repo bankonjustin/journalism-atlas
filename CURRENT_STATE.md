@@ -1,5 +1,13 @@
 # Pulse — Current State
-*Last updated: July 6, 2026 (postcard.html retirement)*
+*Last updated: July 7, 2026 (role-scoped subagents)*
+
+## Role-scoped subagents (in progress)
+
+- **Ryan (`ryan-dataops`)** — built, `.claude/agents/ryan-dataops.md` in this repo. Scoped to `creators-master.csv`, `atlas-private-columns.csv`, `DATA-OPS-PROTOCOL.md`. No Bash tool (hard block, not just an instruction) — cannot run `atlas_groups.py`, `atlas_append.py`, or anything else.
+- **Liz (`liz-editorial`)** — not built, held pending Shadow Lists access (see below). Decisions made 2026-07-07:
+  - **Editorial standards doc:** `ATLAS-EDITORIAL-STANDARDS-v1.3.md` doesn't exist anywhere (not in this repo's `_reference/`, not in Atlas Spidering) — confirmed not just a wrong path. Justin decided: when `liz-editorial.md` is eventually built, scope it without this doc rather than blocking on writing it now. Still an open item if/when Liz's editorial work needs a written standards reference.
+  - **Global Correspondents cluster output has no canonical, updating file** — only a one-off session note (`Atlas Spidering/sessions/row_bluesky_global_correspondents_clusters_2026-07-02.md`). Open item, not solved by the subagent work.
+  - **Shadow Lists access — the actual blocker:** no Google Sheets connector exists in this environment (not installed, not in the connector registry). The only Google connector present (Drive) can read/export a Sheet's contents but has no cell-level write capability. Justin decided to hold `liz-editorial.md` entirely rather than fake write access with a local CSV — needs Justin to check claude.ai/Claude Code connector settings directly (outside a coding session) for a real Sheets integration before this resumes.
 
 ## Site maintenance
 
