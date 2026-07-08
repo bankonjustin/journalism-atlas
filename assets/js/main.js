@@ -429,6 +429,7 @@
             // Data loaded. Errors from here are rendering bugs, not data failures.
             const totalEl = document.getElementById('totalCreatorsCount');
             if (totalEl) totalEl.textContent = allCreators.length;
+            document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = allCreators.length.toLocaleString(); });
 
             buildFilterOptions();
             filterState.applyFilters();

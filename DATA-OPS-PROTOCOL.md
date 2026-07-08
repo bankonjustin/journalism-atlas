@@ -19,7 +19,7 @@ For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` 
 
 | Doc | Actual location |
 |---|---|
-| `ATLAS-EDITORIAL-STANDARDS.md` | `journalism-atlas-private/docs/ATLAS-EDITORIAL-STANDARDS-v1.4.md`. A maintained mirror also exists at `~/Downloads/ATLAS-EDITORIAL-STANDARDS-v1_4.md` **solely** because `liz-editorial.md` (Atlas Spidering workspace) hardcodes that path as a read-only tool scope — that mirror must be updated by hand whenever this doc's version bumps, until `liz-editorial.md` is repointed directly (flagged, not yet done — requires sign-off per the out-of-scope rule on that file). |
+| `ATLAS-EDITORIAL-STANDARDS.md` | `journalism-atlas-private/docs/ATLAS-EDITORIAL-STANDARDS-v1.4.md`. **Correction (July 7, 2026, later same day):** the maintained mirror this row used to describe at `~/Downloads/ATLAS-EDITORIAL-STANDARDS-v1_4.md` is retired. `liz-editorial.md` was rebuilt with full read access across all three locations (public repo, private repo, Atlas Spidering) instead of a narrow file scope, so it now reads this doc directly from the private repo — no mirror needed. |
 | `REJECTION_GUIDE.md` | `journalism-atlas-private/docs/REJECTION_GUIDE-v1.0.md` |
 | `DATA-ROADMAP.md` | `journalism-atlas-private/docs/DATA-ROADMAP-v1.0.md` |
 | `atlas-private-columns.csv` | `journalism-atlas-private/data/atlas-private-columns.csv` — **this is now the live file.** Ryan edits it there directly; see the private repo's `HANDOFF.md`. The old `~/Downloads/` copies are archived, not live. |
