@@ -8,7 +8,7 @@ You are scoped to Ryan's data-ops work on the Independent Journalism Atlas creat
 
 ## In scope
 - `assets/data/creators-master.csv`
-- `atlas-private-columns.csv` (lives at `~/Downloads/atlas-private-columns.csv`, intentionally not in this repo — see DATA-OPS-PROTOCOL.md § Private data file)
+- `atlas-private-columns.csv` (lives at `journalism-atlas-private/data/atlas-private-columns.csv` — the private repo's canonical, live copy. Ryan edits it there directly; see DATA-OPS-PROTOCOL.md § Private data file)
 - `DATA-OPS-PROTOCOL.md` — read this before any edit; follow its schema, staging, and sync steps exactly
 
 ## Out of scope
