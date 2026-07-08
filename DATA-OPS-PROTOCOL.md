@@ -13,17 +13,18 @@ For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` 
 
 ---
 
-## Reference doc locations (added July 7, 2026 — filesystem audit)
+## Reference doc locations (updated July 7, 2026 — private repo setup)
 
-Three docs cited below by bare filename are not in this repo — they're Ryan's local docs, dropped in `~/Downloads/` (same pattern as `atlas-private-columns.csv`):
+**Correction to the July 7 filesystem-audit note that used to live here:** these docs are no longer in `~/Downloads/`. They've moved into a new private repo, `journalism-atlas-private` (github.com/bankonjustin/journalism-atlas-private — access: Justin, Ryan, Liz, James). Rationale: real version history worth tracking, but content (named individuals, internal editorial judgment, private contact data) inappropriate for this public repo. Full context: `Atlas Spidering/sessions/PASSOFF_FILESYSTEM_AUDIT_JUL2026.md` and the private repo's own `README.md`.
 
-| Doc | Actual location | Notes |
-|---|---|---|
-| `ATLAS-EDITORIAL-STANDARDS.md` | `~/Downloads/ATLAS-EDITORIAL-STANDARDS-v1_4.md` | **Canonical version confirmed: v1.4** (July 7, 2026 — adds the Noosphere platform note to Rule 3). Three superseded copies (unversioned/"v1.1", v1.3, and an exact-duplicate `v1.3 (1)`) archived to `~/Downloads/_archive_editorial_standards/` this session — content-diffed, not just filename/date-guessed. Filename still carries a version suffix only because `liz-editorial.md` (Atlas Spidering workspace) is scoped to that exact path; rename to the unversioned `ATLAS-EDITORIAL-STANDARDS.md` next time this file is edited, and update that subagent's scope in the same pass. |
-| `REJECTION_GUIDE.md` | `~/Downloads/REJECTION_GUIDE.md` | Single copy, no drift found. |
-| `DATA-ROADMAP.md` | `~/Downloads/DATA-ROADMAP.md` | Single copy, no drift found. |
+| Doc | Actual location |
+|---|---|
+| `ATLAS-EDITORIAL-STANDARDS.md` | `journalism-atlas-private/docs/ATLAS-EDITORIAL-STANDARDS-v1.4.md`. A maintained mirror also exists at `~/Downloads/ATLAS-EDITORIAL-STANDARDS-v1_4.md` **solely** because `liz-editorial.md` (Atlas Spidering workspace) hardcodes that path as a read-only tool scope — that mirror must be updated by hand whenever this doc's version bumps, until `liz-editorial.md` is repointed directly (flagged, not yet done — requires sign-off per the out-of-scope rule on that file). |
+| `REJECTION_GUIDE.md` | `journalism-atlas-private/docs/REJECTION_GUIDE-v1.0.md` |
+| `DATA-ROADMAP.md` | `journalism-atlas-private/docs/DATA-ROADMAP-v1.0.md` |
+| `atlas-private-columns.csv` | `journalism-atlas-private/data/atlas-private-columns.csv` — **this is now the live file.** Ryan edits it there directly; see the private repo's `HANDOFF.md`. The old `~/Downloads/` copies are archived, not live. |
 
-**Going forward:** new versions of these docs should overwrite the file in place with no version suffix in the filename (matching the convention already used by `CLAUDE.md`/`DATA-OPS-PROTOCOL.md`/`CURRENT_STATE.md`) — track version history in the doc's own changelog table instead, the way `ATLAS-EDITORIAL-STANDARDS.md` already does internally. No more `(1)`-suffixed duplicate copies.
+**Naming convention (standing rule, adopted July 7, 2026):** `DOCNAME-vX.Y.md`, version bumps require a changelog entry inside the doc, and no parenthetical duplicate filenames (`(1)`, `(2)`) ever — archive or delete a duplicate on sight. This supersedes the unversioned-filename convention this section recommended earlier the same day; Justin's call, adopted going forward for all docs in the private repo.
 
 ---
 
@@ -435,7 +436,7 @@ When a human reviewer decision conflicts with Claude's original determination (C
 
 **Private data split:** Remove `contact_email`, `notes`, `origin_list` from the public output. Store separately, joined by slug.
 
-**Private columns sync (REQUIRED — never skip):** Any time a new master is printed, `atlas-private-columns.csv` must be updated in the same pass so the two files never diverge. The private file must have exactly one row per master slug.
+**Private columns sync (REQUIRED — never skip):** Any time a new master is printed, `atlas-private-columns.csv` must be updated in the same pass so the two files never diverge. The private file must have exactly one row per master slug. **As of July 7, 2026, this file lives in the `journalism-atlas-private` repo** (`data/atlas-private-columns.csv`) — edit and commit it there directly, not in a local Downloads copy. See that repo's `HANDOFF.md`.
 
 - For every newly appended creator, add a stub row to `atlas-private-columns.csv`: `slug | Creator Name | Special Lists | Notes | Contact | Origin List`.
 - `slug` is the join key and must match the master slug exactly.
@@ -444,6 +445,8 @@ When a human reviewer decision conflicts with Claude's original determination (C
 - After updating, verify: private row count equals master row count, and there are no duplicate slugs and no orphan slugs (a private slug with no matching master row, or vice versa).
 
 > This step is the most commonly forgotten one. If a master is sent to Justin without the matching private columns update, the private file silently falls behind and every future join breaks for the missing rows. Treat "print master → update private columns" as a single inseparable action.
+
+**Master-CSV snapshot (REQUIRED, added July 7, 2026):** Every time a new master CSV is printed for send-off, copy it — dated, unmodified — into `journalism-atlas-private/data/snapshots/creators-master-YYYYMMDD.csv` (private repo, same access as the private columns file above). This is the only version history the master CSV has; there was previously no formal mechanism for this, only ad hoc dated backup copies accumulating loose in `~/Downloads/` and in this repo's own `assets/data/` (`creators-master-backup-*.csv` — flagged separately, not yet cleaned up as of this writing). Trigger: same moment the private columns sync happens, so a Final Clean produces exactly one snapshot, one private-columns update, and one master send-off together.
 
 **Partner CSV generation:** For any creator flagged in `partner_lists`: generate a separate partner CSV matching the 19-column master schema. The creator appears in both master and the partner CSV.
 

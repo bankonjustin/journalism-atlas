@@ -11,6 +11,20 @@
 
 ## Site maintenance
 
+### Stale creator-count cleanup + future-proofing (July 7, 2026)
+
+Master crossed from 1,718 → 1,806 rows across several deploy cycles; several site surfaces had hardcoded the older count as text instead of reading it live. Two categories fixed differently, per `CLAUDE.md`'s Creator Count Convention:
+
+- **Bug fixes (JSON-backed pages, should have been dynamic already):**
+  - `index.html:1381` — CTA `<h2>` had a bare `1,718 creators` string outside any `.js-creator-count` span (every other instance on the page was already wired correctly). Wrapped it.
+  - `research.html` — had **no** `creators-data.json` fetch at all despite two hardcoded `1,718` strings (hero CTA + section subhead). Added the same lightweight fetch snippet used by `for-brands.html`, wrapped both strings in `.js-creator-count`.
+  - `wire.html` — `updateFooter()` computed a `creators` variable (distinct creators in *today's wire feed*) but discarded it and hardcoded `'1,500+'` in the footer — badly stale, and the wrong metric anyway (wire-subset vs. site-wide total). Now fetches `creators-data.json` directly and populates both `#footer-count` and a newly-added `.js-creator-count` span in the hero subhead with the true site-wide total.
+- **Static milestone bumps (meta/OG/Twitter tags + partner attribution strings — intentionally not dynamic, per convention):** `index.html`, `lists.html`, `mobile.html` meta descriptions, and all `partners/*.html` (+ `_shell.html` template) attribution strings bumped from `1,700+` → `1,800+`.
+- **Correction to a prior assumption:** `mobile.html` is NOT retired — it's live and required to fetch `creators-data.json` per `CLAUDE.md`'s Key Constraints. A brief for this session incorrectly assumed otherwise; verified against the file and CLAUDE.md directly before proceeding.
+- **New standing tool:** [`pipeline/update_partner_totals.py`](pipeline/update_partner_totals.py) — run this after any deploy that crosses a new hundred-milestone (e.g. 1,806 → 1,900+). Dry-run by default (prints a diff); `--apply` writes. Regex-matches any `N,NNN+ creator-journalists` string across `partners/*.html`, so it doesn't need the old value hardcoded. Partner pages remain fetch-free by design — this script is the substitute for that constraint, not a workaround of it.
+- **`convert.js` now also writes `assets/data/site-stats.json`** on every run (`totalCreators`, `topicCount`, `platformCount`, `lastUpdated`) — a canonical source for future stat-strip numbers so new pages don't need to fetch/parse the full `creators-data.json` array or hardcode a count.
+- Not touched, flagged only: `atlas-portal/index.html`'s "over 1,000 others" social-share testimonial copy (ambiguous whether literal or evocative), and `how-we-did-this.html`'s "approximately 1,000 creators" (describes the original v1 launch dataset — historical record, not a live count).
+
 ### postcard.html retired (July 6, 2026)
 - Mothballed, not rebuilt: `postcard.html` had no traffic, only a leftover footer link, and stale creator-count copy (1,006/1,100+ vs. current 1,718).
 - Moved to `_deprecated/postcard.html`. `/postcard` and `/postcard.html` now 301 to `/` via `_redirects`.

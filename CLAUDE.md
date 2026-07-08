@@ -165,19 +165,20 @@ See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and
 
 ---
 
-## External file locations (verified July 7, 2026 — filesystem audit)
+## External file locations (updated July 7, 2026 — private repo setup)
 
-Three locations exist. Don't assume file paths from older briefs still hold — this map was verified against disk, not carried forward from memory.
+Four locations now exist. Don't assume file paths from older briefs still hold — this map was verified against disk, not carried forward from memory.
 
 | Location | What lives there | Tracked? |
 |---|---|---|
-| `journalism-atlas/` (this repo) | Production site, deploy docs, pipeline scripts (`pipeline/`) | Git, deploys to Cloudflare |
+| `journalism-atlas/` (this repo) | Production site, deploy docs, pipeline scripts (`pipeline/`) | Git, deploys to Cloudflare (public) |
+| `journalism-atlas-private/` (github.com/bankonjustin/journalism-atlas-private) | Editorial/reference docs (`ATLAS-EDITORIAL-STANDARDS`, `REJECTION_GUIDE`, `DATA-ROADMAP`), the live `atlas-private-columns.csv`, dated master-CSV snapshots | Git (private) — access: Justin, Ryan, Liz, James |
 | `~/Documents/Atlas Spidering/` | Spidering scripts/output, pulse pipeline, `SCHEMA-VOCAB.md` | Not in Git — local only |
-| `~/Downloads/` | Functions as a de facto third workspace: Ryan's editorial/pipeline reference docs (`ATLAS-EDITORIAL-STANDARDS-v1_4.md`, `REJECTION_GUIDE.md`, `DATA-ROADMAP.md`), `atlas-private-columns.csv`, and a large accumulation of master-CSV snapshots, briefs, and design assets going back to January 2026 | Not tracked anywhere — see open item below |
+| `~/Downloads/` | Still holds a large accumulation of briefs, historical Mega-Database files, and design assets going back to January 2026 (categorized, not yet individually triaged — see open item below). A maintained *mirror* of `ATLAS-EDITORIAL-STANDARDS` also lives here (`ATLAS-EDITORIAL-STANDARDS-v1_4.md`) solely for `liz-editorial.md`'s hardcoded path — see `DATA-OPS-PROTOCOL.md` § "Reference doc locations." | Not tracked |
 
-**Corrections to prior claims:** Earlier docs (and at least one Claude Chat brief) assumed `ATLAS-EDITORIAL-STANDARDS.md` lived in this repo's `_reference/` folder, alongside `james-design-principles.md`. It never has — it's always been in `~/Downloads/`. See `DATA-OPS-PROTOCOL.md` § "Reference doc locations" for the full corrected map of Ryan's reference docs.
+**Corrections to prior claims:** (1) Earlier docs assumed `ATLAS-EDITORIAL-STANDARDS.md` lived in this repo's `_reference/` folder — it never has. (2) As of the July 7 filesystem audit, this doc said the private repo was "proposed, not yet built" — it's since been approved and built; that recommendation is superseded by the row above.
 
-**Open item:** `~/Downloads/` has enough real version history (master CSV snapshots, private-columns snapshots, editorial standards) to warrant a private Git repo, separate from this public repo. Proposed, not yet built — needs Justin's go-ahead.
+**Still open:** `~/Downloads/` has 150+ Atlas-related files beyond what's been migrated so far, categorized at the bucket level but not individually triaged (Mega-Database, historical briefs, business/legal docs, older private-columns/master-CSV snapshots predating the private repo). A follow-up pass is expected.
 
 `journalism-atlas/spidering/` must stay empty — confirmed empty as of this audit. Nothing spidering-related belongs there; see `Atlas Spidering/SPIDERING_ALIGNMENT_GUIDE.md`.
 
