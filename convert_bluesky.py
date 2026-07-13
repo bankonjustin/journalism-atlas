@@ -1,16 +1,24 @@
 """
 convert_bluesky.py — Build assets/data/bluesky-creators.json from creators-master.csv.
 Includes only creators with Social - BlueSky in any platform slot.
+
+Follower counts are never present in creators-master.csv (no such column exists
+in the 19-column schema). They live only in bluesky-followers-cache.json, a
+persistent cache keyed by bsky_handle that follower-fetch runs update
+(see enrich_bluesky_followers.py). This script merges that cache in on every
+run so regenerating the JSON never silently wipes out follower enrichment.
 """
 
 import csv
 import json
 import os
 import re
+from datetime import datetime, timezone
 
-REPO_ROOT  = os.path.dirname(os.path.abspath(__file__))
-MASTER_CSV = os.path.join(REPO_ROOT, 'assets', 'data', 'creators-master.csv')
-OUT_JSON   = os.path.join(REPO_ROOT, 'assets', 'data', 'bluesky-creators.json')
+REPO_ROOT    = os.path.dirname(os.path.abspath(__file__))
+MASTER_CSV   = os.path.join(REPO_ROOT, 'assets', 'data', 'creators-master.csv')
+OUT_JSON     = os.path.join(REPO_ROOT, 'assets', 'data', 'bluesky-creators.json')
+FOLLOWERS_CACHE = os.path.join(REPO_ROOT, 'bluesky-followers-cache.json')
 
 BSKY_PREFIX = 'https://bsky.app/profile/'
 
@@ -133,7 +141,9 @@ def main():
                 'platforms':         extra_platforms,
                 'bsky_handle':       handle,
                 'bsky_url':          f'{BSKY_PREFIX}{handle}',
-                'bsky_followers':    0,
+                'bsky_followers':    None,
+                'bsky_posts_count':  None,
+                'bsky_indexed_at':   None,
                 'topic':             row.get('Topic/Category', '').strip(),
                 'geography':         row.get('Geography', '').strip(),
                 'geo_region':        row.get('Geo Region', '').strip(),
@@ -143,11 +153,30 @@ def main():
                 'new_bsky_addition': slug in NEW_BSKY_SLUGS,
             })
 
+    # Merge in last-known-good follower data. This is the ONLY place follower
+    # counts come from — never re-derived from master CSV — so a fresh run
+    # never clobbers previously fetched enrichment.
+    if os.path.exists(FOLLOWERS_CACHE):
+        with open(FOLLOWERS_CACHE, encoding='utf-8') as f:
+            followers_cache = json.load(f)
+    else:
+        followers_cache = {}
+        print(f'  WARNING: {FOLLOWERS_CACHE} not found — all follower counts will be null')
+
+    for creator in out:
+        cached = followers_cache.get(creator['bsky_handle'])
+        if cached:
+            creator['bsky_followers']   = cached.get('bsky_followers')
+            creator['bsky_posts_count'] = cached.get('bsky_posts_count')
+            creator['bsky_indexed_at']  = cached.get('bsky_indexed_at')
+
     with open(OUT_JSON, 'w', encoding='utf-8') as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
 
     total_written = len(out)
     total_skipped = skipped_empty + skipped_invalid + skipped_dup
+    with_followers = [c for c in out if c.get('bsky_followers')]
+    without_followers = total_written - len(with_followers)
     print(f'\n--- Summary ---')
     print(f'  Rows with Social - BlueSky: {processed}')
     print(f'  Skipped — empty/non-bsky URL: {skipped_empty}')
@@ -156,6 +185,21 @@ def main():
     print(f'  Written to JSON: {total_written}')
     print(f'  new_bsky_addition=true: {sum(1 for c in out if c["new_bsky_addition"])}')
     print(f'  Output: {OUT_JSON}')
+    print(f'\n--- Follower data freshness ---')
+    print(f'  Rows with follower data: {len(with_followers)}/{total_written}')
+    print(f'  Rows with null follower data (never fetched or fetch failed): {without_followers}')
+    if without_followers:
+        missing_names = ', '.join(c['name'] for c in out if not c.get('bsky_followers'))
+        print(f'  Missing: {missing_names}')
+    indexed_dates = [c['bsky_indexed_at'] for c in with_followers if c.get('bsky_indexed_at')]
+    if indexed_dates:
+        oldest = min(indexed_dates)
+        print(f'  Oldest bsky_indexed_at in cache: {oldest}')
+    fetched_dates = [v.get('fetched_at') for v in followers_cache.values() if v.get('fetched_at')]
+    if fetched_dates:
+        oldest_fetch = min(fetched_dates)
+        now = datetime.now(timezone.utc).isoformat()
+        print(f'  Oldest follower-fetch run in cache: {oldest_fetch} (checked at {now})')
 
 
 if __name__ == '__main__':

@@ -1,9 +1,14 @@
 """
 Bluesky follower-count enrichment script.
 Reads bluesky-creators.json, fetches live profile data for every handle,
-writes bluesky-creators-enriched.json and bluesky_followers_fetch_log.csv.
+writes bluesky-creators-enriched.json and bluesky_followers_fetch_log.csv,
+and merges successful fetches into bluesky-followers-cache.json — the
+persistent, single source of truth for follower counts that
+convert_bluesky.py reads on every regeneration of bluesky-creators.json.
 
-Does NOT overwrite the source file. Review both outputs before swapping in.
+Does NOT overwrite bluesky-creators.json directly. Review the enriched
+JSON/log before relying on them; the cache merge is the part that actually
+propagates into the live data on the next convert_bluesky.py run.
 
 Rate limit note: Bluesky's public API (public.api.bsky.app) is undocumented
 on exact limits but community experience suggests ~3 req/s is safe. We use
@@ -16,14 +21,17 @@ Access-Control-Allow-Origin will tell you if the endpoint permits browser fetche
 
 import json
 import csv
+import os
 import time
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
 
-INPUT_FILE  = 'assets/data/bluesky-creators.json'
-OUTPUT_JSON = 'bluesky-creators-enriched.json'
-OUTPUT_CSV  = 'bluesky_followers_fetch_log.csv'
+REPO_ROOT       = os.path.dirname(os.path.abspath(__file__))
+INPUT_FILE      = os.path.join(REPO_ROOT, 'assets', 'data', 'bluesky-creators.json')
+OUTPUT_JSON     = os.path.join(REPO_ROOT, 'bluesky-creators-enriched.json')
+OUTPUT_CSV      = os.path.join(REPO_ROOT, 'bluesky_followers_fetch_log.csv')
+FOLLOWERS_CACHE = os.path.join(REPO_ROOT, 'bluesky-followers-cache.json')
 
 BASE_URL    = 'https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor={handle}'
 DELAY_S     = 0.2   # 200ms between requests
@@ -168,18 +176,42 @@ def main():
         writer.writeheader()
         writer.writerows(log_rows)
 
+    # Merge successful fetches into the persistent follower cache. This is
+    # the file convert_bluesky.py reads on every run — updating it here is
+    # what actually keeps follower data from getting wiped on next regen.
+    if os.path.exists(FOLLOWERS_CACHE):
+        with open(FOLLOWERS_CACHE, encoding='utf-8') as f:
+            cache = json.load(f)
+    else:
+        cache = {}
+
+    cache_updated = 0
+    for row in log_rows:
+        if row['status'] == 'ok' and row['handle']:
+            cache[row['handle']] = {
+                'bsky_followers':   row['followers_count'],
+                'bsky_posts_count': row['posts_count'],
+                'bsky_indexed_at':  row['indexed_at'],
+                'fetched_at':       row['fetched_at'],
+            }
+            cache_updated += 1
+
+    with open(FOLLOWERS_CACHE, 'w', encoding='utf-8') as f:
+        json.dump(cache, f, indent=2, ensure_ascii=False, sort_keys=True)
+
     print()
     print('─' * 60)
     print(f'Done. {ok_count} succeeded, {fail_count} failed/skipped.')
-    print(f'Enriched JSON → {OUTPUT_JSON}')
-    print(f'Fetch log     → {OUTPUT_CSV}')
+    print(f'Enriched JSON  → {OUTPUT_JSON}')
+    print(f'Fetch log      → {OUTPUT_CSV}')
+    print(f'Follower cache → {FOLLOWERS_CACHE} ({cache_updated} entries updated, {len(cache)} total)')
     print()
     print(f'Phase 4 CORS note: Access-Control-Allow-Origin = {cors_sample!r}')
     print('If that value is "*", the endpoint allows browser fetches without auth.')
     print()
-    print('Next step: review the log for failures, spot-check enriched JSON,')
-    print('then swap bluesky-creators-enriched.json → assets/data/bluesky-creators.json')
-    print('and push via GitHub Desktop.')
+    print('Next step: run `python3 convert_bluesky.py` to regenerate')
+    print('assets/data/bluesky-creators.json with the updated cache merged in,')
+    print('then push via GitHub Desktop.')
 
 
 if __name__ == '__main__':
