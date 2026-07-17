@@ -212,7 +212,7 @@ Four locations now exist. Don't assume file paths from older briefs still hold �
 | File | Description | Creator count | CSS approach |
 |------|-------------|--------------|--------------|
 | `index.html` | Homepage — hero, stat strip, cluster grid | — | `variables.css` + inline `<style>` + `header.css` |
-| `search.html` | Full creator database — filters, search, card grid | ~1,718 (live JSON) | External: `main.css` |
+| `search.html` | Full creator database — filters, search, card grid | live JSON, count varies by Final Clean | External: `main.css` |
 | `partners/_shell.html` | Partner page shell (template) | — | Inline `<style>` |
 | `partners/cillizza.html` | Chris Cillizza curated list | 17 | Inline `<style>` |
 | `partners/ahp.html` | Anne Helen Petersen picks | 17 | Inline `<style>` |

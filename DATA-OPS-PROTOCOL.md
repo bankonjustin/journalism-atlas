@@ -1,6 +1,6 @@
 # DATA-OPS-PROTOCOL.md
 **Independent Journalism Atlas — Data Operations Protocol**
-*Current State | Last updated: June 2026*
+*Current State | Last updated: July 14, 2026 (Ryan) | Filed into repo July 17, 2026*
 *Owner: Ryan Kellett (ryan@journalismatlas.com)*
 
 ---
@@ -13,32 +13,40 @@ For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` 
 
 ---
 
-## Reference doc locations (updated July 7, 2026 — private repo setup)
+## Reference doc locations (updated July 17, 2026 — July 14 data/doc reconciliation)
 
-**Correction to the July 7 filesystem-audit note that used to live here:** these docs are no longer in `~/Downloads/`. They've moved into a new private repo, `journalism-atlas-private` (github.com/bankonjustin/journalism-atlas-private — access: Justin, Ryan, Liz, James). Rationale: real version history worth tracking, but content (named individuals, internal editorial judgment, private contact data) inappropriate for this public repo. Full context: `Atlas Spidering/sessions/PASSOFF_FILESYSTEM_AUDIT_JUL2026.md` and the private repo's own `README.md`.
+**This doc itself:** `journalism-atlas/DATA-OPS-PROTOCOL.md` (this repo, public, unversioned filename) — confirmed as the actual canonical location; it has never lived in the private repo. The private repo's own `README.md` points here.
 
 | Doc | Actual location |
 |---|---|
-| `ATLAS-EDITORIAL-STANDARDS.md` | `journalism-atlas-private/docs/ATLAS-EDITORIAL-STANDARDS-v1.4.md`. **Correction (July 7, 2026, later same day):** the maintained mirror this row used to describe at `~/Downloads/ATLAS-EDITORIAL-STANDARDS-v1_4.md` is retired. `liz-editorial.md` was rebuilt with full read access across all three locations (public repo, private repo, Atlas Spidering) instead of a narrow file scope, so it now reads this doc directly from the private repo — no mirror needed. |
+| `ATLAS-EDITORIAL-STANDARDS.md` | `journalism-atlas-private/docs/ATLAS-EDITORIAL-STANDARDS-v1.6.md` (bumped from v1.4 this session) |
 | `REJECTION_GUIDE.md` | `journalism-atlas-private/docs/REJECTION_GUIDE-v1.0.md` |
 | `DATA-ROADMAP.md` | `journalism-atlas-private/docs/DATA-ROADMAP-v1.0.md` |
-| `atlas-private-columns.csv` | `journalism-atlas-private/data/atlas-private-columns.csv` — **this is now the live file.** Ryan edits it there directly; see the private repo's `HANDOFF.md`. The old `~/Downloads/` copies are archived, not live. |
+| `atlas-private-columns.csv` | `journalism-atlas-private/data/atlas-private-columns.csv` — this is the live file Ryan edits directly. |
 
-**Naming convention (standing rule, adopted July 7, 2026):** `DOCNAME-vX.Y.md`, version bumps require a changelog entry inside the doc, and no parenthetical duplicate filenames (`(1)`, `(2)`) ever — archive or delete a duplicate on sight. This supersedes the unversioned-filename convention this section recommended earlier the same day; Justin's call, adopted going forward for all docs in the private repo.
+**Naming convention (standing rule, adopted July 7, 2026):** `DOCNAME-vX.Y.md` in the private repo, version bumps require a changelog entry inside the doc, no parenthetical duplicate filenames ever.
+
+**Correction re: this section's folder names below.** Ryan's "Current state" section below (and the "Pipeline scripts reference" section further down) refers to `Atlas Master/`, `Atlas Private Columns/`, and `Atlas Scripts/` as folder names with an `Atlas Master/CURRENT.txt` pointer file. **These are Ryan's own local workspace folder names — they do not exist in either `journalism-atlas` or `journalism-atlas-private`, and no `CURRENT.txt` pointer file exists in this repo structure.** The actual mapping, as of this reconciliation:
+- Live master the site reads from (via `node convert.js`): `journalism-atlas/assets/data/creators-master.csv`
+- Live private columns: `journalism-atlas-private/data/atlas-private-columns.csv`
+- Dated master snapshots (one per Final Clean, no separate pointer file — the snapshot filename itself is the record): `journalism-atlas-private/data/snapshots/creators-master-YYYYMMDD.csv`
+- `atlas_preflight.py` and `atlas_sync_check.py`, described below as real/wired-in scripts, **do not exist anywhere in this filesystem.** Only `atlas_normalize.py`, `atlas_groups.py`, `atlas_clean.py`, `atlas_append.py`, and `update_partner_totals.py` exist, all in `journalism-atlas/pipeline/`. This needs relaying back to Ryan — his protocol doc is describing tooling from his own local environment as if it's already shared infrastructure.
 
 ---
 
-## Current state (June 2026)
+## Current state (July 2026)
 
-- **Master CSV:** 1,718 rows, zero duplicate slugs (June 2026 — 24 creators appended from the June human review batch; bsky enrichment pass completed June 18)
-- **Schema:** 19 public columns (18 original + `partner_lists`, added May 2026). ⚠️ Note: the working master file in active use (`atlasmaster_june23_bsky_enriched.csv` lineage) is currently carrying 18 columns — `Partner Lists` is not yet present in that file. Re-add the column at the next Final Clean so the file matches the documented 19-column schema before sending to Justin.
-- **Private columns:** `atlas-private-columns.csv` at 1,602 rows after the June batch. Must be brought to parity with master (1,718) — see Step 4 private columns sync.
+- **Master CSV:** 1,999 rows, 19 columns, zero duplicate slugs (filed July 17 2026 from Ryan's July 14 drop, 1,806→1,999). Live at `journalism-atlas/assets/data/creators-master.csv`; dated snapshot at `journalism-atlas-private/data/snapshots/creators-master-20260714.csv`. No `CURRENT.txt` pointer in this repo — see correction above.
+- **Schema:** 19 public columns (18 original + `partner_lists`, added May 2026).
+- **Private columns:** 1,999 rows — verified at parity with master July 17 2026 (manual CSV-aware slug-set comparison; `atlas_sync_check.py` does not exist in this repo — see correction above). Live at `journalism-atlas-private/data/atlas-private-columns.csv`; dated snapshot at `journalism-atlas-private/data/snapshots/atlas-private-columns-20260714.csv`.
 - **Staging:** `proposals.csv` is retired — [Intake Queue Google Sheet](https://docs.google.com/spreadsheets/d/1Fve8IJp6jvilXNdcN2MOBrjmqTFMAvR3/edit?usp=sharing) is now the staging layer
 - **Rejections:** [Rejections Google Sheet](https://docs.google.com/spreadsheets/d/1tvoG2IXB9K07WYQpgmKYOlRFPwPq6I52/edit?usp=sharing) is canonical — replaces `pipeline/rejections.csv`
 - **Shadow Lists:** [Shadow Lists Google Sheet](https://docs.google.com/spreadsheets/d/1I9qKTGetIArHob_XGMweKn8rkFPBTm6c/edit?usp=sharing) — managed by Justin
 - **Live site:** journalismatlas.com
 
-> ⚠️ **Known script issue:** `atlas_groups.py` and `atlas_append.py` still use the old form `"Science, Health & Environment"` (with comma). The master CSV uses the correct form `"Science Health & Environment"` (no comma). Do NOT run group normalization until these scripts are updated. Justin owns this fix.
+> ✅ **Groups comma form — now handled durably by `atlas_normalize.py` (June 25 2026).** The normalize script corrects the legacy form `"Science, Health & Environment"` → `"Science Health & Environment"` (no comma) on every run and validates all Groups tokens against the 9-value controlled vocab. The comma fix collides with the comma delimiter, so it is applied as a literal substring before splitting — and it is idempotent (a second run makes no further change). The master Ryan produces is therefore always comma-clean, independent of Justin's scripts.
+>
+> ⚠️ Justin's `atlas_groups.py` and `atlas_append.py` *still* carry the old comma form internally. Do NOT run `atlas_groups.py` for group normalization — it would re-introduce the comma. `atlas_normalize.py` is now the canonical owner of Groups normalization. Justin owns fixing his own scripts if they are ever used on the master.
 
 ---
 
@@ -61,7 +69,7 @@ For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` 
 
 ```
 Pre-Intake Sources
-  Slack / Spidering (Justin) / Contact Form / Partner Lists
+  Slack / Spidering (Justin) / Contact Form / Newsletters / Partner Lists
           ↓
     Data Fill (Ryan + Claude Chat)
   Dedup · Light enrichment · Auto-reject obvious failures
@@ -88,13 +96,14 @@ Pre-Intake Sources
 
 ## Step 0: Pre-intake sources
 
-Names arrive from four channels. No vetting happens here — this is raw intake only.
+Names arrive from five channels. No vetting happens here — this is raw intake only.
 
 | Source | Format | Notes |
 |---|---|---|
 | **`#atlas-add-to-list` (Slack)** | URL, name + URL, screenshot, or name only | Dedicated drop channel. Team-only: Ryan, Liz, Justin, Anna. Pulled weekly by Claude. See subsection below. |
 | **Spidering (Justin)** | .xlsx or .csv | Structured batches with Name, URL, Beat, Verdict (YES/MAYBE/VERIFY), Source Anchor, Notes. Justin's `process_recs.py` pre-dedupes against master + rejections before delivery. |
 | **Contact form (journalismatlas.com)** | Google Sheet | Creator self-submission, third-party tip, correction request, or feedback. Lands in the [Contact Form Responses Sheet](https://docs.google.com/spreadsheets/d/1gG-2DgBeM8O8MWgQn1qeRi7PB25E-mHnJY-OJ4QmFTk/edit). Pulled by Claude on the same cadence as Slack. See subsection below. |
+| **Newsletters (email)** | Ryan's inbox | Creator-economy / media-trade newsletters. High noise — most named creators are not journalism-adjacent, so an extra filtering pass runs before candidates are presented. Pulled weekly by Claude. See subsection below. |
 | **Partner org / curator list** | Spreadsheet or CSV | External batch from a partner (e.g. ICFJ, ONA cohort). Non-standard columns likely. Treated as its own batch; origin tracked in `partner_lists` column. |
 
 **Key rule:** Nothing enters the intake queue without going through Data Fill first. No manual additions directly to the Google Sheet.
@@ -201,6 +210,41 @@ Proceed with Data Fill on the new candidates? Corrections and feedback are liste
 
 ---
 
+### Newsletters — email intake
+
+**Sources (as of July 2026):**
+
+| Newsletter | Sender | Cadence | Notes |
+|---|---|---|---|
+| **"Verified"** (Washington Post Creator) | `verified@wpcreator.washingtonpost.com` | Weekly | Hosted by Dylan Wells. Covers the creator economy broadly — not journalism-specific. |
+| **Creator Spotlight** | `creator-spotlight@mail.beehiiv.com` | TBD | Subscribed July 8 2026 — no content issues yet, only the welcome email. Confirm real cadence once the first issue lands. |
+| **Future Social** | `futuresocial@mail.beehiiv.com` | TBD | Subscribed July 8 2026 — no content issues yet, only the welcome email. Confirm real cadence once the first issue lands. |
+| **Axios Media Trends** | `sara@axios.com` | Weekly | Hosted by Sara Fischer. Media-industry trade news; creators are a minority of coverage, mostly named in passing. |
+
+**Purpose:** Passive intake from newsletters Ryan already reads. Same pipeline status as Slack and Contact Form — raw intake only. Nothing enters the Intake Queue without going through Data Fill first.
+
+**Extra filtering pass required (unique to this source):** Slack and Contact Form submissions carry an implicit signal — someone already thought the creator belonged. Newsletter mentions carry no such signal; these newsletters cover the general creator economy and most named creators are entertainment, lifestyle, beauty, gaming, or commerce — they will fail Atlas's journalism-adjacency test (criterion 4) before ever reaching qualification. Before presenting candidates, Claude pre-filters for a plausible news/information/journalism angle only: media criticism, politics, investigative work, explainer/educational content, documentary, local news, accountability reporting, or similar. Also exclude: the newsletter's own author/masthead (Dylan Wells, Sara Fischer), sources quoted from legacy outlets in their staff capacity, and executives/business figures named in deal or funding coverage.
+
+Excluded names are logged in the weekly output (name only, one line) so Ryan can sanity-check the filter — they are not carried into the candidate list and nothing is done with them beyond that log line.
+
+**Cadence:** Read weekly, same pull as Slack/Contact Form. Claude presents a parsed, pre-filtered candidate list before taking any action — same hard stop as the other sources.
+
+**Weekly pull output:**
+
+```
+Newsletters — week of [date]
+[N] candidates from [N] issues across [N] newsletters
+
+1. [Creator] — [platform/context] — from [Newsletter], [issue date]
+   Fit: [journalism-adjacency reasoning] | Confidence: [high/medium/low] | URL: [if given, else "none found"]
+
+Excluded as non-journalism-adjacent (logged for reference): [Name, Name, Name...]
+
+Proceed with Data Fill on all, some, or let me know which to skip.
+```
+
+---
+
 ## Step 1: Data Fill
 
 **Trigger:** On-demand, triggered by batch size or Ryan's availability. Not a fixed day. Future: cron automation.
@@ -249,6 +293,8 @@ Most creators point their social channels *toward* one of these owned spaces. Th
 
 **Activity threshold for listing a platform at all:** the creator must have posted on that platform within the **last four months**. A platform with no post in four months is not listed, even if the account exists and the link resolves. (This matches the `inactive` rejection threshold and keeps dead weight out of the card.)
 
+**Noosphere (`Video - Noosphere`):** Noosphere is a valid primary platform for creators who publish primarily there. Use the creator-specific profile URL (`noosphere.app/author/[handle]`) as Link Primary, not the root `noosphere.app`. Noosphere-primary creators with institutional bylines are evaluated under the standard supplementer rule (Rule 3) — the platform does not affect the independence analysis. Added to controlled vocab July 2026.
+
 ### Finding a creator's full platform footprint
 
 Rather than fetching each egress-blocked platform directly (Substack, Beehiiv, Instagram), resolve the creator's **link aggregator or profile bio**, which lists every place they publish:
@@ -276,6 +322,17 @@ Flag and remove — do not add to intake queue:
 | Already in rejections sheet | Skip — no new entry needed |
 | Already in a partner list CSV | Reject: `duplicate` |
 | Cannot identify who this creator is from others with same name | Reject: `insufficient` |
+
+### Slug generation at Data Fill
+
+Slugs are assigned during full schema fill at Step 3, but the right slug must be determined at Data Fill — while the creator's profile is open. The rule:
+
+- **Standard form:** `firstname-lastname` (e.g. `sara-petersen`). This is the default for any creator with a known full name.
+- **Single-name brands:** If the creator is known by only one name and it is a distinctive brand identity (e.g. `aella`, `popville`, `jxmyhighroller`), a single-token slug is acceptable. Document the reason in the Notes field of `atlas-private-columns.csv`.
+- **First name without last name:** If a creator uses only a first name but it is a common name (Sara, Sarah, Matt, Erin, Lauren, etc.), **do not assign a bare first-name slug**. Derive the second component from the URL handle or channel name at Data Fill, while the profile is open: e.g. `sara-longwalksdc`, `matt-remote-queer`. This avoids ambiguity and collision with other creators who share that first name.
+- **`atlas_slug.py generate`** will warn when the output would be single-token. Treat that warning as a prompt to check whether the second component is needed.
+
+Run `atlas_slug.py check` after every append to audit the master for unexpected single-token slugs.
 
 ### Output
 
@@ -436,7 +493,7 @@ When a human reviewer decision conflicts with Claude's original determination (C
 
 **Private data split:** Remove `contact_email`, `notes`, `origin_list` from the public output. Store separately, joined by slug.
 
-**Private columns sync (REQUIRED — never skip):** Any time a new master is printed, `atlas-private-columns.csv` must be updated in the same pass so the two files never diverge. The private file must have exactly one row per master slug. **As of July 7, 2026, this file lives in the `journalism-atlas-private` repo** (`data/atlas-private-columns.csv`) — edit and commit it there directly, not in a local Downloads copy. See that repo's `HANDOFF.md`.
+**Private columns sync (REQUIRED — never skip):** Any time a new master is printed, `atlas-private-columns.csv` must be updated in the same pass so the two files never diverge. The private file must have exactly one row per master slug.
 
 - For every newly appended creator, add a stub row to `atlas-private-columns.csv`: `slug | Creator Name | Special Lists | Notes | Contact | Origin List`.
 - `slug` is the join key and must match the master slug exactly.
@@ -446,7 +503,7 @@ When a human reviewer decision conflicts with Claude's original determination (C
 
 > This step is the most commonly forgotten one. If a master is sent to Justin without the matching private columns update, the private file silently falls behind and every future join breaks for the missing rows. Treat "print master → update private columns" as a single inseparable action.
 
-**Master-CSV snapshot (REQUIRED, added July 7, 2026):** Every time a new master CSV is printed for send-off, copy it — dated, unmodified — into `journalism-atlas-private/data/snapshots/creators-master-YYYYMMDD.csv` (private repo, same access as the private columns file above). This is the only version history the master CSV has; there was previously no formal mechanism for this, only ad hoc dated backup copies accumulating loose in `~/Downloads/` and in this repo's own `assets/data/` (`creators-master-backup-*.csv` — flagged separately, not yet cleaned up as of this writing). Trigger: same moment the private columns sync happens, so a Final Clean produces exactly one snapshot, one private-columns update, and one master send-off together.
+> ✅ **Automated check (July 2026):** `python3 "Atlas Scripts/atlas_sync_check.py" <master.csv> <private.csv>` verifies row-count parity, duplicate slugs, and orphans in both directions in one command. Add `--stubs` to generate a stub-proposal CSV for any master slugs missing from private — the proposal is a separate file; the script never writes to the private file itself. Run this at every Final Clean before sending to Justin.
 
 **Partner CSV generation:** For any creator flagged in `partner_lists`: generate a separate partner CSV matching the 19-column master schema. The creator appears in both master and the partner CSV.
 
@@ -455,12 +512,27 @@ When a human reviewer decision conflicts with Claude's original determination (C
 - All 19 public columns present and in correct order
 - No private columns in public output
 - No duplicate slugs
+- No new single-token slugs (no hyphen) unless documented as intentional mononyms — run `atlas_slug.py check` to surface any
 - Platform vocab is controlled (see SCHEMA-VOCAB.md)
 - Geo fields properly split (City / State / Country / Region)
-- Groups values use `Science Health & Environment` (no comma)
+- Groups values use `Science Health & Environment` (no comma) — auto-enforced by `atlas_normalize.py`; the normalize report flags any unrecognized Groups token
 - `partner_lists` values are pipe-delimited with consistent partner name spelling
 - Geo Country uses two-letter ISO codes; `US` not `USA`
 - `atlas-private-columns.csv` row count equals master row count; no duplicate or orphan slugs (private columns sync was completed)
+
+### Geography conformance audit (run BEFORE normalize)
+
+> ✅ **Automated (July 2026):** `atlas_preflight.py` runs this entire audit mechanically — stored-vs-derived diff, near-duplicate city detection, format conformance, empty-Geography list — plus the Group-vocab-in-Topic check, a normalize dry-run, and a slug check, in one command. The manual description below remains as the reference for *what* is being checked and how to fix findings. Human judgment is still required for the fixes themselves.
+
+`Geography` is the **source of truth**; the four `Geo *` columns (Geo City / State / Country / Region) are *derived* from it by `atlas_normalize.py` on every run. A correction made directly to a split column is silently overwritten the next time normalize runs. **Therefore: fix Geography, never the split columns.** A typo patched only at the split level (e.g. `Geo City` hand-set to `Seattle` while `Geography` still says `Seatlle, WA`) looks fixed but regresses on the next normalize.
+
+Run this audit on the master before normalizing, and correct issues in the `Geography` field:
+
+1. **Near-duplicate city spellings** — within each US state, flag any city spelling that appears once and is within ~1–2 edits of a more common spelling in the same state (catches `Tuscon` vs `Tucson`).
+2. **Stored-vs-derived mismatch** — re-derive the split from `Geography` and compare to the stored `Geo City`/`Geo State`. A disagreement means either a Geography typo that was patched downstream, or a deliberate finer-grained edit (e.g. `Brooklyn` vs `New York, NY`) that should be pushed back into `Geography`.
+3. **Format conformance** — every `Geography` value must match one of the standardized formats in the Geography section below. Flag values that don't resolve: bare US state names (must be `State Name - US`), punctuation errors (`Oakland. CA`), and country names missing from the script's `COUNTRY_TO_ISO` map.
+
+> The script's `COUNTRY_TO_ISO` list is not exhaustive. A correctly-spelled country that doesn't resolve (no Geo Country / Region) is a *script coverage gap*, not a data error — add the country to `atlas_normalize.py` rather than altering the data. (June 2026: Vietnam, Costa Rica, Scotland, Iraq, Lebanon, Sri Lanka, El Salvador, Syria, Jamaica, Tunisia added.) Sub-national or multi-region values (`Gaza`, `Appalachia`, `South Asia`, etc.) are genuinely nonstandard and need a human geography call.
 
 ### Output
 
@@ -480,7 +552,7 @@ normalize → groups → slug → verify → platform cleanup
 
 Justin checks for duplicate slugs and schema issues before deploy.
 
-> ⚠️ Justin must fix `atlas_groups.py` and `atlas_append.py` to use `"Science Health & Environment"` (no comma) before running group normalization on any append.
+> ⚠️ Group normalization is now handled upstream by `atlas_normalize.py` (run by Ryan), which emits a comma-clean master. Justin should NOT run `atlas_groups.py` on the master — it still carries the old comma form and would re-introduce it. If `atlas_append.py` is used for appends, Justin must fix its comma form first.
 
 **Justin → Ryan:** Confirmation `.md` back to Ryan after deploy:
 - Row count before and after
@@ -488,6 +560,8 @@ Justin checks for duplicate slugs and schema issues before deploy.
 - Live URL confirmed
 
 Ryan uses this confirmation to track what is actually live until GitHub access is set up.
+
+**Deploy-confirmation cross-check (standing step, added July 2026):** When Justin's confirmation `.md` arrives, don't just file it — feed it to Claude to cross-check against the local canonical master. Any issue Justin found downstream almost certainly exists in Ryan's local file too (his fixes never flow back upstream). For each flagged issue: (1) verify it in the local master, (2) prefer a *script* improvement to `atlas_normalize.py` over a one-off data patch, so the class of error is caught on every future run, (3) log any vocab additions in `SCHEMA-VOCAB.md`. Precedent: the July 7 2026 confirmation flagged 5 issues; all 5 existed locally and became permanent normalize checks (platform-spacing regex, `PLATFORM_VOCAB` validation, `TOPIC_TO_GROUP` backfill, new report sections).
 
 **Atlas Pulse:** New creators' RSS feeds are picked up automatically on the next Pulse run. No manual step required. Dark creator feed fixes (broken Link Primary URLs) are corrected by Ryan in the master CSV; Pulse picks up the fix on the next rebuild.
 
@@ -519,7 +593,7 @@ Newsletter - Substack          Video - YouTube
 Newsletter - Beehiiv           Video - Instagram
 Newsletter - Ghost             Video - TikTok
 Newsletter - Buttondown        Video - Twitch
-Newsletter - Other
+Newsletter - Other             Video - Noosphere
 Podcast                        Social - Twitter / X
 Website                        Social - BlueSky
 Patreon                        Social - LinkedIn
@@ -529,7 +603,7 @@ Chat - SMS                     Social - Facebook
                                Social - TikTok
 ```
 
-Common corrections: `Blog` → `Website` · `Substack` → `Newsletter - Substack` · `YouTube` → `Video - YouTube` · `X` → `Social - Twitter / X` · `Bluesky` → `Social - BlueSky`
+Common corrections: `Blog` → `Website` · `Substack` → `Newsletter - Substack` · `YouTube` → `Video - YouTube` · `X` → `Social - Twitter / X` · `Bluesky` → `Social - BlueSky` · `Noosphere` → `Video - Noosphere`
 
 ### Groups (9 values)
 
@@ -567,28 +641,40 @@ Geo Country: two-letter ISO codes. `US` not `USA`.
 
 ## Pipeline scripts reference
 
-All scripts live in `pipeline/`. Run from the repo root using `pipeline/atlas_*.py` except `atlas_append.py`, which must be run from inside `pipeline/`.
+**Ryan's scripts live in `Atlas Scripts/`** (this workspace). `atlas_append.py` is Justin's script and lives in his `pipeline/` repo — it does not exist in Ryan's workspace. Justin's quirk still applies on his side: `atlas_append.py` must be run from inside `pipeline/`.
+
+**Versioning is manual, not automatic.** Nothing calls `atlas_version.py` for you — snapshot before any write, or use the preflight below, which snapshots as its first step.
+
+**Canonical file pointer:** `Atlas Master/CURRENT.txt` holds the filename of the current canonical master (dated variants accumulate in that folder; the pointer is the single source of truth). Update it whenever a new master becomes canonical: `python3 "Atlas Scripts/atlas_preflight.py" --set-current <filename>`.
 
 ```bash
-# Append (dry-run first)
-python3 pipeline/atlas_append.py atlas-master.csv new_rows.csv --dry-run
-python3 pipeline/atlas_append.py atlas-master.csv new_rows.csv
+cd "Atlas Scripts"
 
-# Normalize
-python3 pipeline/atlas_normalize.py atlas-master.csv --dry-run
-python3 pipeline/atlas_normalize.py atlas-master.csv --output atlas-master.csv
+# PREFLIGHT — run this before every normalize/write pass. One command:
+# snapshot → geography conformance audit (stored-vs-derived diff, near-dup
+# cities, format check, empty geo) → Group-vocab-in-Topic check →
+# normalize dry-run + report → slug check. Read-only except the snapshot.
+python3 atlas_preflight.py                       # uses CURRENT.txt
+python3 atlas_preflight.py ../Atlas\ Master/atlasmaster_XXX.csv --report preflight.md
+
+# Normalize (topics, platforms, geography split, Groups comma form, vocab checks)
+python3 atlas_normalize.py <master.csv> --dry-run
+python3 atlas_normalize.py <master.csv> --output <master.csv>
 
 # Slugs
-python3 pipeline/atlas_slug.py generate "Creator Name"
-python3 pipeline/atlas_slug.py check atlas-master.csv
+python3 atlas_slug.py generate "Creator Name"
+python3 atlas_slug.py check <master.csv>
 
-# Versioning (auto-runs before any write step)
-python3 pipeline/atlas_version.py snapshot atlas-master.csv --label "label"
-python3 pipeline/atlas_version.py list atlas-master.csv
-python3 pipeline/atlas_version.py rollback atlas-master.csv
+# Versioning (MANUAL — snapshot before any write)
+python3 atlas_version.py snapshot <master.csv> --label "label"
+python3 atlas_version.py list <master.csv>
+python3 atlas_version.py rollback <master.csv>
+
+# Private-columns parity check + stub proposal (never merges; see Step 4)
+python3 atlas_sync_check.py <master.csv> <private.csv> --stubs
 ```
 
-Snapshots are stored in `.atlas_versions/` as timestamped CSVs. Always snapshot before any write operation.
+Snapshots are stored in `.atlas_versions/` as timestamped CSVs.
 
 ---
 
@@ -634,18 +720,24 @@ Private creator data lives in a local CSV file managed by Ryan. It is intentiona
 
 ## Known issues and standing reminders
 
+> **Note (July 17, 2026):** The table below is Ryan's original July 7 content, left as-is rather than silently rewritten. Several rows reference figures from the July 7 snapshot (master/private at 1,806, 21 empty-Geography rows, 39 single-token slugs) and `atlas_preflight.py` as an existing script. As of this session those are superseded — master/private are now 1,999 rows each, 64 empty-Geography rows and 42 single-token slugs (verified counts), and `atlas_preflight.py`/`atlas_sync_check.py` do not exist in this repo (see "Reference doc locations" above). See `RECONCILE-2026-07-14.md` in the private repo's `data/snapshots/` for current figures.
+
 | Issue | Status | Owner |
 |---|---|---|
-| `atlas_groups.py` and `atlas_append.py` use old comma form `"Science, Health & Environment"` | **Not fixed** — do NOT run group normalization until resolved | Justin |
+| Groups comma form (`"Science, Health & Environment"`) | **Resolved June 25 2026** — comma normalization built into `atlas_normalize.py` (idempotent, vocab-validated); master is comma-clean independent of Justin's scripts. Justin's `atlas_groups.py`/`atlas_append.py` still carry the old form internally — do NOT run `atlas_groups.py` on the master. | Ryan (normalize) / Justin (his own scripts) |
 | `atlas_append.py` must be run from inside `/pipeline/` directory | Standing quirk | — |
 | Substack / Beehiiv / Instagram egress-blocked in Cowork | Use web search snippets instead of web fetch for research on these platforms | — |
 | 164 dark creators in Atlas Pulse (broken feed URLs) | Primary URLs corrected in master CSV (May 2026). Feed resolution is Justin's Pulse task — not a Ryan pipeline item. | Justin (Pulse) |
 | Root-level `rejections.csv` in repo is an empty shell | Ignore — active rejections are in the Rejections Google Sheet | — |
 | `atlas_verify_state.json` link cache is currently empty | Will rebuild on first verify run | — |
-| Working master is 18 columns — `Partner Lists` (col 19) missing from current file | Re-add at next Final Clean before sending to Justin | Ryan |
-| `SCHEMA-VOCAB.md` (cited above under Final Clean schema validation) lives in `Atlas Spidering/core/SCHEMA-VOCAB.md`, a separate untracked workspace — not in this repo | Found during July 7, 2026 filesystem audit. Not fixed — flagging for Ryan/Justin to decide whether it should be copied into this repo or cited by absolute path | Ryan / Justin |
-| Private columns at 1,602 vs master 1,718 — sync incomplete | Bring to parity at next Final Clean (private columns sync step) | Ryan |
+| ~~Working master is 18 columns~~ | **Resolved** — canonical master (`atlasmaster_july07_2026.csv`) carries all 19 columns | — |
+| ~~Private columns behind master~~ | **Resolved July 7 2026** — both at 1,806, verified no dupes/orphans via `atlas_sync_check.py`. Run the check at every Final Clean. | — |
+| 21 rows with empty Geography (newest adds) | Need a Data Fill pass — flagged by `atlas_preflight.py` on every run | Ryan |
 | Human-review process change under consideration | Documented as a not-yet-active placeholder in Step 3; switch on only after team agrees | Ryan |
+| 39 single-token slugs in master (as of July 7 2026) | The June 24 audit confirmed the then-35 as legitimate mononyms/brands. A July 7 proposal drafted renames for ~20 bare-first-name slugs (Kim, Morgan, Tara, etc.) — **proposed only, not applied**; `april` and `brandy` explicitly stay. `atlas_slug.py check` lists all of them on every run; this is expected. | Ryan (decide on rename proposal) |
+| `Geography` source typos propagating to splits | Fixed June 25 2026 — 23 corrections applied at source (`Seatlle→Seattle` ×5, `Tuscon→Tucson`, `Oakland. CA→Oakland, CA` ×2, `Cincinatti OH→Cincinnati, OH`, 11 bare US states → `State - US`, Brooklyn). New Geography conformance audit added to Step 4. | Ryan |
+| `atlas_normalize.py` reordered columns — appended geo cols at end, pushing `Partner Lists` from col 19 to col 15 | **Resolved June 25 2026** — the geo split block is now spliced into its canonical position (immediately after `Groups`), so `Partner Lists` stays col 19. Output is schema-correct straight from the script; the manual post-run reorder is no longer needed. Verified idempotent and correct on 19-col, 18-col, and geo-less inputs. | Ryan |
+| 6 nonstandard `Geography` values | Resolved June 25 2026 — standardized to creator base: Gaza→`Gaza, Palestine` ×2, `Dubai, United Arab Emirates`, `Jakarta, Indonesia` (Erin Cook), `Wheeling, WV` (John Russell), `India` (Neelima Vallangi), `Kazakhstan` (Peter Leonard). UAE→AE and Kazakhstan→KZ added to `atlas_normalize.py`. | — |
 
 ---
 
