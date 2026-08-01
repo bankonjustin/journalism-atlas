@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Independent journalists surfaced through the IIJ partnership — Independent Journalism Atlas</title>
+<meta name="description" content="The Institute for Independent Journalists and the Independent Journalism Atlas present 122 creator-journalists identified through IIJ's conference-attendee community.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/variables.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap');
+
+:root {
+  --acid:       #ceff00;
+  --lime:       #97d600;
+  --olive:      #5d7400;
+  --page-bg:    #efeff2;
+  --border:     #d4d4d8;
+  --nav-height: 56px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Hanken Grotesk', sans-serif;
+  background: var(--page-bg);
+  color: #313131;
+  line-height: 1.5;
+  overflow-x: hidden;
+  padding-top: 72px;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+.container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+
+.hero { background: #000; padding: 48px 0 0; }
+.hero-eyebrow { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 14px; }
+.hero-h1 { font-size: 36px; font-weight: 700; line-height: 44px; letter-spacing: -0.5px; color: #fff; margin-bottom: 12px; }
+.hero-body { font-size: 15px; font-weight: 400; line-height: 26px; color: rgba(255,255,255,0.62); max-width: 620px; margin-bottom: 20px; }
+
+.curator-strip { background: #000; border-top: none; padding: 20px 0 28px; }
+.curator-strip-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; gap: 16px; }
+.curator-monogram { width: 56px; height: 56px; border-radius: 50%; background: #2a2a2a; border: 2px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.02em; flex-shrink: 0; }
+.curator-strip-text { flex: 1; }
+.curator-strip-name { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.2px; margin-bottom: 4px; }
+.curator-strip-meta { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
+.hero-collab { font-size: 13px; font-weight: 400; letter-spacing: 0.05em; color: rgba(255,255,255,0.3); margin-top: 12px; }
+
+.review-banner { background: #fff9d6; border-bottom: 1px solid #e8dfa0; padding: 12px 0; }
+.review-banner-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; font-size: 13px; font-weight: 500; color: #6b5c00; display: flex; align-items: center; gap: 8px; }
+.review-banner .material-symbols-outlined { font-size: 18px; color: #8a7500; }
+
+.filter-bar { position: sticky; top: var(--nav-height); z-index: 90; background: #fff; border-bottom: 0.5px solid var(--border); padding: 16px 0; }
+.filter-bar-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+.filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.filter-label { font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #888; white-space: nowrap; min-width: 100px; }
+.chip { display: inline-flex; align-items: center; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 400; background: var(--page-bg); border: 0.5px solid var(--border); color: #313131; cursor: pointer; transition: background 0.12s, border-color 0.12s, color 0.12s; user-select: none; }
+.chip:hover { background: #e4e4e9; border-color: #b0b0b8; }
+.chip.active { background: var(--lime); border-color: var(--olive); color: #313131; }
+.chip:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+.act-divider { background: #fff; height: 48px; padding: 0 40px; }
+.act-divider-inner { width: 100%; max-width: 1040px; margin: 0 auto; height: 100%; display: flex; align-items: center; }
+.act-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime); white-space: nowrap; }
+.act-rule { flex: 1; height: 1px; background: var(--border); margin: 0 24px; }
+.act-count-pill { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 400; background: #fff; border: 0.5px solid var(--border); color: #313131; white-space: nowrap; }
+
+.grid-section { background: var(--page-bg); padding: 48px 0 64px; }
+.creator-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+.creator-card { background: #fff; border: 0.5px solid var(--border); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; transition: background 0.15s, border-color 0.15s; }
+.creator-card:hover { background: #efeff2; border-color: #b0b0b8; }
+.creator-name { font-size: 18px; font-weight: 700; color: #000; line-height: 1.3; margin-bottom: 4px; }
+.creator-channel { font-size: 14px; font-weight: 400; color: var(--olive); margin-bottom: 10px; }
+.creator-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 400; background: #efeff2; border: 0.5px solid var(--border); color: #313131; }
+.card-divider { border: none; border-top: 0.5px solid var(--border); margin-bottom: 16px; }
+.card-link { font-size: 14px; font-weight: 400; color: var(--olive); margin-top: auto; display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 6px; margin-left: -12px; transition: color 0.15s, background 0.15s; min-height: 44px; }
+.card-link:hover { color: #313131; background: var(--lime); }
+.card-link:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+.card-status { font-size: 13px; font-weight: 400; color: #888; margin-top: auto; padding: 6px 0; }
+.card-status .material-symbols-outlined { font-size: 15px; vertical-align: -3px; margin-right: 4px; }
+
+.empty-state { grid-column: 1 / -1; padding: 64px 0; text-align: center; color: #888; font-size: 16px; }
+
+.atlas-attribution { background: #fff; border: 0.5px solid var(--border); border-radius: 6px; padding: 16px 20px; margin-top: 32px; display: flex; align-items: flex-start; gap: 14px; }
+.atlas-attribution-badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 100px; background: #000; color: var(--acid); font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+.atlas-attribution-body { font-size: 14px; font-weight: 400; color: #606068; line-height: 22px; }
+.atlas-attribution-body a { font-weight: 400; color: var(--olive); }
+.atlas-attribution-body a:hover { color: #000; }
+
+.curatorial-intro { padding: 32px 0 0; background: var(--page-bg); }
+.curatorial-text { max-width: 680px; font-size: 16px; font-weight: 400; color: #313131; line-height: 1.6; }
+
+.about-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
+.about-section { background: #fff; padding: 80px 0; }
+.about-inner { max-width: 640px; }
+.about-text-name { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; margin-bottom: 24px; line-height: 1.2; }
+.about-headline { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; margin-bottom: 16px; }
+.about-body { font-size: 16px; font-weight: 400; line-height: 26px; color: #444; margin-bottom: 20px; }
+.about-link { font-size: 14px; font-weight: 400; color: var(--olive); transition: color 0.15s; }
+.about-link:hover { color: #000; }
+
+.atlas-footer { background: #313131; padding: 80px 0; }
+.atlas-footer-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.atlas-footer-logo img { height: 20px; width: auto; }
+.atlas-footer-tagline { font-size: 16px; font-weight: 400; line-height: 26px; color: rgba(255,255,255,0.65); max-width: 480px; }
+.atlas-footer-btn { display: inline-flex; align-items: center; padding: 12px 24px; background: var(--acid); color: #000; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; font-weight: 700; border-radius: 6px; transition: opacity 0.15s; margin-top: 4px; }
+.atlas-footer-btn:hover { opacity: 0.88; }
+.atlas-footer-btn:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--page-bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+
+@media (max-width: 768px) {
+  .hero { padding: 36px 0 0; }
+  .hero-h1 { font-size: 28px; line-height: 36px; }
+  .hero-body { font-size: 14px; margin-bottom: 16px; }
+  .curator-strip { padding: 16px 0 20px; }
+  .creator-grid { grid-template-columns: 1fr; }
+  .filter-label { min-width: 80px; font-size: 10px; }
+  .act-divider { padding: 0 20px; }
+  .atlas-attribution { flex-direction: column; gap: 10px; }
+  .review-banner-inner { padding: 0 20px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 20px; }
+  .filter-bar-inner { padding: 0 20px; }
+  .curator-strip-inner { padding: 0 20px; }
+  .hero { padding: 28px 0 0; }
+  .hero-h1 { font-size: 24px; line-height: 32px; }
+  .grid-section { padding: 40px 0 56px; }
+  .about-section { padding: 56px 0; }
+  .atlas-footer { padding: 56px 0; }
+}
+</style>
+<link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<!-- DRAFT-ONLY NOTICE: remove this banner before publish. Flags open items from the build brief. -->
+<div class="review-banner">
+  <div class="review-banner-inner">
+    <span class="material-symbols-outlined">flag</span>
+    DRAFT FOR REVIEW — partner name/framing language, style choice (curator-list vs. ecosystem-lab), and the "99 pending Ryan's review" language below all need Justin + James sign-off before this goes live.
+  </div>
+</div>
+
+<section class="hero">
+  <div class="container" id="hero-content"></div>
+  <div class="curator-strip">
+    <div class="curator-strip-inner" id="curator-strip-content"></div>
+  </div>
+</section>
+
+<!-- CURATORIAL INTRO -->
+<section class="curatorial-intro">
+  <div class="container">
+    <p class="curatorial-text">The Institute for Independent Journalists (IIJ) brings together independent journalists through its annual conference community. This list surfaces 122 creator-journalists identified through that community — 23 already tracked in the Atlas, and 99 newly identified and awaiting review before they're added to the database.</p>
+  </div>
+</section>
+
+<div id="filter-bar-mount"></div>
+
+<div class="act-divider">
+  <div class="act-divider-inner">
+    <span class="act-label">The List</span>
+    <div class="act-rule"></div>
+    <span class="act-count-pill" id="act-count-pill"></span>
+  </div>
+</div>
+
+<section class="grid-section">
+  <div class="container">
+    <div class="creator-grid" id="creator-grid"></div>
+    <div class="atlas-attribution" id="atlas-attribution"></div>
+  </div>
+</section>
+
+<div class="about-rule"></div>
+<section class="about-section">
+  <div class="container">
+    <div class="about-inner" id="about-inner"></div>
+  </div>
+</section>
+
+<footer class="atlas-footer">
+  <div class="container">
+    <div class="atlas-footer-inner">
+      <div class="atlas-footer-logo">
+        <img src="/assets/images/logos/Journalism_Atlas_wordmark_stacked_white.png" alt="Independent Journalism Atlas" style="height:40px;width:auto;">
+      </div>
+      <p class="atlas-footer-tagline">Curated from <span class="js-creator-count">1,800+</span> creator-journalists — powered by Journalism Atlas data.</p>
+      <a href="https://journalismatlas.com" class="atlas-footer-btn">Explore the Atlas &rarr;</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// PLACEHOLDER — confirm exact partner name/framing with Justin before publish (brief item #4).
+const PARTNER_CONFIG = {
+  curatorName:    'IIJ',
+  curatorChannel: 'Institute for Independent Journalists',
+  curatorNote:    'The Institute for Independent Journalists convenes independent journalists through its annual conference. This list surfaces creator-journalists identified through that community — reporters and storytellers building their own platforms outside legacy newsrooms.',
+  pageTitle:      'Independent journalists surfaced through the IIJ partnership — Independent Journalism Atlas',
+  pageDescription:'The Institute for Independent Journalists and the Independent Journalism Atlas present 122 creator-journalists identified through IIJ\'s conference-attendee community.',
+  pageUrl:        'https://journalismatlas.com/partners/iij',
+  showFilters:    true,
+  aboutHeadline:   'About IIJ',
+  aboutParagraphs: [
+    'The Institute for Independent Journalists (IIJ) supports independent journalists working outside traditional newsroom structures, connecting them through its annual conference and ongoing community.', // PLACEHOLDER copy — confirm with Justin
+    'The creators on this list were identified through IIJ\'s conference-attendee community. Of the 122 unique names surfaced, 23 were already tracked in the Atlas and are linked below; the remaining 99 are newly identified and pending Ryan\'s intake review before they\'re added to the Atlas database.',
+    'This page is part of an ongoing collaboration between IIJ and the Independent Journalism Atlas. Atlas provides the infrastructure to surface and verify these creators; IIJ provides the community and conference network that made this discovery possible.',
+  ],
+  creators: [
+    { name: 'Ada Tseng', channel: 'Ada Tseng', geography: 'Los Angeles, CA', topic: 'Identity/Belonging, Culture, Food', inAtlas: true },
+    { name: 'Alexis Buchanan Thomas', channel: 'Black Girls Do Politics', geography: 'Atlanta, GA', topic: 'Politics, Identity/Belonging, Gender', inAtlas: true },
+    { name: 'Alicia Kennedy', channel: 'From the Desk of Alicia Kennedy', geography: 'Puerto Rico - US', topic: 'Culture', inAtlas: true },
+    { name: 'Alisha Miranda', channel: 'Alisha in the Biz', geography: 'Philadelphia, PA', topic: 'Restaurants and bars, Food, Culture, Local', inAtlas: true },
+    { name: 'Melissa Bunni Elian', channel: 'The Leveler News', geography: 'New York - US', topic: 'Local', inAtlas: true },
+    { name: 'Danielle Wallace', channel: 'The Virtuous Creative', geography: 'Alabama - US', topic: 'Faith/Religion, Business, Lifestyle', inAtlas: true },
+    { name: 'Dana Drugmand', channel: 'One Earth Now', geography: 'Boston, MA', topic: 'Climate/Environment', inAtlas: true },
+    { name: 'Yashica Dutt', channel: 'Yashica Dutt', geography: 'Brooklyn, NY', topic: 'Identity/Belonging', inAtlas: true },
+    { name: 'James Cave', channel: 'The Jiffy', geography: 'Hudson, NY', topic: 'Local', inAtlas: true },
+    { name: 'Jessica Nguyen', channel: 'Jessica Nguyen', geography: 'Washington, DC', topic: 'Things to Do', inAtlas: true },
+    { name: 'Joey Scott', channel: 'joeyscott.xyz', geography: 'Los Angeles, CA', topic: 'Crime', inAtlas: true },
+    { name: 'Julie Vick', channel: 'Humor Me', geography: 'Denver, CO', topic: 'Comedy, Books/Writing', inAtlas: true },
+    { name: 'Karen Attiah', channel: 'The Golden Hour by Karen Attiah', geography: 'Washington, DC', topic: 'Politics, Media/Power', inAtlas: true },
+    { name: 'Kate Morrissey', channel: 'Beyond the Border News', geography: 'San Diego, CA', topic: 'Immigration', inAtlas: true },
+    { name: 'Kelly Kimball', channel: 'Kelly Kimball', geography: 'New York, NY', topic: 'Human Rights, Politics', inAtlas: true },
+    { name: 'Lewis Raven Wallace', channel: 'The View from Somewhere', geography: 'Durham, NC', topic: 'Media/Power', inAtlas: true },
+    { name: 'Lex Roman', channel: 'Journalists Pay Themselves', geography: 'National - US', topic: 'Media/Power', inAtlas: true },
+    { name: 'Marianne Dhenin', channel: 'Marianne Dhenin', geography: 'National - US', topic: 'Activism, Labor/Workers Rights', inAtlas: true },
+    { name: 'Marisa Kabas', channel: 'The Handbasket', geography: 'National - US', topic: 'Government Accountability', inAtlas: true },
+    { name: 'Matt Kiser', channel: 'WTF Just Happened Today?', geography: 'National - US', topic: 'Government Accountability', inAtlas: true },
+    { name: 'Meena Thiruvengadam', channel: 'Travel with Meena', geography: 'Chicago, IL', topic: 'Travel', inAtlas: true },
+    { name: 'Maureen Kelleher', channel: 'Board Rule', geography: 'Chicago, IL', topic: 'Local, Government Accountability, Politics', inAtlas: true },
+    { name: 'Yuti Joshi', channel: 'Yuti Joshi', geography: 'Atlanta, GA', topic: 'World, Culture, Tech', inAtlas: true },
+    { name: 'Blane Bachelor', channel: null, geography: 'Amsterdam, Netherlands', topic: 'travel/adventure/aviation', inAtlas: false },
+    { name: 'Jen Zamzow', channel: null, geography: 'US', topic: 'mental health/wellbeing/parenting', inAtlas: false },
+    { name: 'Matt Peiken', channel: null, geography: 'Asheville, NC, US', topic: 'local arts/news podcast', inAtlas: false },
+    { name: 'Rudri Patel', channel: null, geography: 'US', topic: 'essays/literary journalism', inAtlas: false },
+    { name: 'Heidi Chang', channel: null, geography: 'Honolulu, HI, USA', topic: 'Hawaii/Pacific Rim stories', inAtlas: false },
+    { name: 'Anna Rollins', channel: null, geography: 'United States', topic: 'writing/personal essay/culture', inAtlas: false },
+    { name: 'Miguel de la Fuente-Lau', channel: null, geography: 'Singapore', topic: 'diaspora/migrant communities/belonging', inAtlas: false },
+    { name: 'Bec Roldan', channel: null, geography: 'Brooklyn, NY, USA', topic: 'science/health/climate journalism', inAtlas: false },
+    { name: 'Page Berger', channel: null, geography: 'Connecticut, USA', topic: 'food/books', inAtlas: false },
+    { name: 'Ruksana Hussain', channel: null, geography: 'Los Angeles, CA, USA', topic: 'travel/food journalism', inAtlas: false },
+    { name: 'Sarah Kwon', channel: null, geography: 'San Francisco Bay Area, USA', topic: 'health care journalism', inAtlas: false },
+    { name: 'Cassandra Brooklyn', channel: null, geography: 'New York City, USA', topic: 'travel journalism (sustainable/adventure)', inAtlas: false },
+    { name: 'Zanny Steffgen', channel: null, geography: 'Colorado, USA', topic: 'responsible/food travel journalism', inAtlas: false },
+    { name: 'Sarah Gilliland', channel: null, geography: 'United States', topic: 'family/travel journalism', inAtlas: false },
+    { name: 'Linnea Hoover', channel: null, geography: 'Indonesia', topic: 'photojournalism/foreign correspondence', inAtlas: false },
+    { name: 'Kelly DiNardo', channel: null, geography: 'Washington, DC, USA', topic: 'wellness/yoga/travel journalism', inAtlas: false },
+    { name: 'Abby Alten Schwartz', channel: null, geography: 'Philadelphia, USA', topic: 'health/culture/Gen X essays', inAtlas: false },
+    { name: 'Grace Benfell', channel: null, geography: 'United States', topic: 'video game/culture criticism', inAtlas: false },
+    { name: 'Sojourner White', channel: null, geography: 'United States', topic: 'travel journalism', inAtlas: false },
+    { name: 'Daniella Barreto', channel: null, geography: 'Canada', topic: 'public health journalism/podcast', inAtlas: false },
+    { name: 'Laura Lopez Gonzalez', channel: null, geography: 'Johannesburg, South Africa', topic: 'global health/HIV journalism', inAtlas: false },
+    { name: 'Elvia Diaz', channel: null, geography: 'Phoenix, AZ, USA', topic: 'politics/border/bilingual commentary', inAtlas: false },
+    { name: 'Ethan Brown', channel: null, geography: 'Bethel, CT, USA', topic: 'climate journalism/comedy', inAtlas: false },
+    { name: 'Cherith Fluker', channel: null, geography: 'Birmingham, AL, USA', topic: 'travel/lifestyle', inAtlas: false },
+    { name: 'Jiquanda Johnson', channel: null, geography: 'Flint, MI, USA', topic: 'local news/solutions journalism', inAtlas: false },
+    { name: 'Sarah Burchard', channel: null, geography: 'United States (Honolulu, HI)', topic: 'food/travel', inAtlas: false },
+    { name: 'Shayla Martin', channel: null, geography: 'United States (Washington DC)', topic: 'travel/Black culture', inAtlas: false },
+    { name: 'Sandi Schwartz', channel: null, geography: 'United States', topic: 'environment/sustainability/wellness', inAtlas: false },
+    { name: 'Mike De Socio', channel: null, geography: 'Upstate New York, USA', topic: 'cities/climate/LGBTQ+', inAtlas: false },
+    { name: 'Nancy Mueller', channel: null, geography: 'Seattle, WA, USA', topic: 'travel/lifestyle journalism', inAtlas: false },
+    { name: 'Lee Uehara', channel: null, geography: 'New York, USA', topic: 'AAPI podcast/features', inAtlas: false },
+    { name: 'Leo Aquino', channel: null, geography: 'Los Angeles, CA, USA', topic: 'personal finance, LGBTQ+/BIPOC issues', inAtlas: false },
+    { name: 'Elizabeth Alvarado', channel: null, geography: 'USA', topic: 'cultural criticism', inAtlas: false },
+    { name: 'L\'Oreal Payton', channel: null, geography: 'USA', topic: 'wellness/culture, Black women\'s issues', inAtlas: false },
+    { name: 'Mark DeNote', channel: null, geography: 'Florida, USA', topic: 'craft beer journalism', inAtlas: false },
+    { name: 'Barrett Walsh', channel: null, geography: 'USA', topic: 'unclear/general', inAtlas: false },
+    { name: 'Oona Hanson', channel: null, geography: 'United States', topic: 'parenting/diet culture/health journalism', inAtlas: false },
+    { name: 'Tania Marien', channel: null, geography: 'United States', topic: 'environmental education/journalism-adjacent podcasting', inAtlas: false },
+    { name: 'Tracy Pearson', channel: null, geography: 'Washington, DC, USA', topic: 'legal/political/cultural analysis & commentary', inAtlas: false },
+    { name: 'Raquelle Harris', channel: null, geography: 'Detroit, MI, USA', topic: 'culture/entertainment/relationships', inAtlas: false },
+    { name: 'Willow Belden', channel: null, geography: 'Wyoming/United States', topic: 'outdoors/nature narrative journalism', inAtlas: false },
+    { name: 'Cristian Salazar', channel: null, geography: 'Brooklyn, NY, USA', topic: 'mental health journalism', inAtlas: false },
+    { name: 'Anayo Awuzie', channel: null, geography: 'Bay Area/Oakland, US', topic: 'culture/Black women\'s storytelling', inAtlas: false },
+    { name: 'Amber Campbell', channel: null, geography: 'Seattle, US', topic: 'local news/lifestyle', inAtlas: false },
+    { name: 'Amy Bracken', channel: null, geography: 'Boston, US', topic: 'migration/Haiti/human rights', inAtlas: false },
+    { name: 'Andrea Cooper', channel: null, geography: 'North Carolina, US', topic: 'features/social issues/travel', inAtlas: false },
+    { name: 'Lara Angeli Eviota', channel: null, geography: 'Cebu, Philippines', topic: 'climate/sustainability journalism', inAtlas: false },
+    { name: 'Ankita M. Kumar', channel: null, geography: 'San Francisco, US', topic: 'India reporting/documentary', inAtlas: false },
+    { name: 'Anna Baydakova', channel: null, geography: 'United States', topic: 'crypto/surveillance journalism', inAtlas: false },
+    { name: 'BJ Ferguson', channel: null, geography: 'Oaxaca, Mexico', topic: 'LGBTQ+ health/science/identity', inAtlas: false },
+    { name: 'Angela Xu', channel: null, geography: 'United States', topic: 'food journalism', inAtlas: false },
+    { name: 'Christina Paschyn', channel: null, geography: 'Doha, Qatar', topic: 'Middle East/gender/human rights documentary', inAtlas: false },
+    { name: 'Connie Sommer', channel: null, geography: 'Los Angeles, CA', topic: 'higher education/politics/culture', inAtlas: false },
+    { name: 'Timothy Brien', channel: null, geography: 'United States, Fredericksburg VA', topic: 'arts/creativity podcast', inAtlas: false },
+    { name: 'Nandita Godbole', channel: null, geography: 'United States (Atlanta)', topic: 'food journalism/culture', inAtlas: false },
+    { name: 'David Wilson', channel: null, geography: 'United States (Hudson Valley, NY)', topic: 'public policy/investigative watchdog', inAtlas: false },
+    { name: 'Ophélie Dénommée-Marchand', channel: null, geography: 'Quebec, Canada', topic: 'fact-checking/disinformation', inAtlas: false },
+    { name: 'Ellen Kornmehl', channel: null, geography: 'Boston, MA, US', topic: 'food/nutrition/health science', inAtlas: false },
+    { name: 'Elizabeth Held', channel: null, geography: 'Washington, DC, US', topic: 'books/literary criticism', inAtlas: false },
+    { name: 'Emily McCrary-Ruiz-Esparza', channel: null, geography: 'Richmond, VA', topic: 'business/work journalism podcast', inAtlas: false },
+    { name: 'Eryn Gordon', channel: null, geography: 'Unclear/national', topic: 'travel journalism', inAtlas: false },
+    { name: 'Gray Chapman', channel: null, geography: 'United States', topic: 'health/spirits culture/maternal health', inAtlas: false },
+    { name: 'holly palker', channel: null, geography: 'United States', topic: 'parenting/comedy', inAtlas: false },
+    { name: 'Jazmine Becerra Green', channel: null, geography: 'United States', topic: 'personal essay/family', inAtlas: false },
+    { name: 'Jennifer Chen', channel: null, geography: 'United States', topic: 'lifestyle/culture', inAtlas: false },
+    { name: 'Jennifer Fink', channel: null, geography: 'United States', topic: 'parenting', inAtlas: false },
+    { name: 'Jeremy Fassler', channel: null, geography: 'United States', topic: 'politics/media', inAtlas: false },
+    { name: 'Jessica Baltzersen', channel: null, geography: 'Cincinnati OH United States', topic: 'nature/travel/climate', inAtlas: false },
+    { name: 'Julianna Forlano', channel: null, geography: 'United States', topic: 'progressive politics/political satire', inAtlas: false },
+    { name: 'Kateri Wozny', channel: null, geography: 'Pasadena CA United States', topic: 'lifestyle/travel/consumer', inAtlas: false },
+    { name: 'Katie Hill', channel: null, geography: 'Montana', topic: 'conservation/public lands', inAtlas: false },
+    { name: 'Kelly Allen', channel: null, geography: 'United States', topic: 'lifestyle/culture', inAtlas: false },
+    { name: 'KJ Dell\'Antonia', channel: null, geography: 'New Hampshire', topic: 'writing/parenting', inAtlas: false },
+    { name: 'Kristin Vartan', channel: null, geography: 'Sacramento CA United States', topic: 'fashion', inAtlas: false },
+    { name: 'Lisa Thalhamer', channel: null, geography: 'United States', topic: 'journalist wellbeing/local news innovation', inAtlas: false },
+    { name: 'Lynn Brown', channel: null, geography: 'United States', topic: 'travel/history', inAtlas: false },
+    { name: 'Magnolia McKay', channel: null, geography: 'United States', topic: 'religion/purity culture', inAtlas: false },
+    { name: 'Mahira Rivers', channel: null, geography: 'United States', topic: 'food/restaurants', inAtlas: false },
+    { name: 'Mara Einstein', channel: null, geography: 'United States', topic: 'marketing/media criticism', inAtlas: false },
+    { name: 'MaryRose Denton', channel: null, geography: 'United States', topic: 'travel', inAtlas: false },
+    { name: 'Mat Edelson', channel: null, geography: 'United States', topic: 'medical/science/sports', inAtlas: false },
+    { name: 'Minerva Canto', channel: null, geography: 'Southern California United States', topic: 'social issues/health/race/wealth', inAtlas: false },
+    { name: 'Mosi Secret', channel: null, geography: 'United States', topic: 'narrative nonfiction, criminal justice/podcast', inAtlas: false },
+    { name: 'Nicki Mayo', channel: null, geography: 'Baltimore MD US', topic: 'multimedia/civic journalism', inAtlas: false },
+    { name: 'Nicole DeCriscio', channel: null, geography: 'Owen County IN US', topic: 'local nonprofit news', inAtlas: false },
+    { name: 'Nancy Jainchill', channel: null, geography: 'Hudson Valley NY US', topic: 'feminism, sexuality, gender', inAtlas: false },
+    { name: 'Paul Lagasse', channel: null, geography: 'United States', topic: 'local government/planning', inAtlas: false },
+    { name: 'Pola Henderson', channel: null, geography: 'Paris France', topic: 'Travel', inAtlas: false },
+    { name: 'Rosalyn Page', channel: null, geography: 'Australia', topic: 'Technology, travel, digital lifestyle', inAtlas: false },
+    { name: 'Sandra Lamb', channel: null, geography: 'United States', topic: null, inAtlas: false },
+    { name: 'Michael Bradbury', channel: null, geography: 'United States', topic: 'science and climate journalism', inAtlas: false },
+    { name: 'Soleil Ho', channel: null, geography: 'United States', topic: 'food/culture', inAtlas: false },
+    { name: 'Tatiana Walk-Morris', channel: null, geography: 'United States', topic: 'Business/tech/health/social justice', inAtlas: false },
+    { name: 'Lee Batdorff', channel: null, geography: 'Cleveland Heights OH US', topic: 'Local community/civic affairs', inAtlas: false },
+    { name: 'Tim Trudell', channel: null, geography: 'Omaha NE US', topic: 'Travel/Midwest', inAtlas: false },
+    { name: 'Tyrese Alleyne-Davis', channel: null, geography: 'Brooklyn NY US', topic: 'Sports (adaptive athletes/NYC sports)', inAtlas: false },
+    { name: 'Heidi Wachter', channel: null, geography: 'United States', topic: 'Health/climate/travel', inAtlas: false },
+    { name: 'Yvonne Liu', channel: null, geography: 'United States', topic: 'Asian American experience/mental health', inAtlas: false },
+    { name: 'Yvonne Condes', channel: null, geography: 'Los Angeles CA', topic: 'parenting/family', inAtlas: false }
+  ],
+};
+
+function esc(str) {
+  return String(str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function getMonogramInitials(name) {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  return parts[0][0].toUpperCase();
+}
+
+function renderHero() {
+  const { curatorName, curatorNote, curatorChannel } = PARTNER_CONFIG;
+  document.getElementById('hero-content').innerHTML = `
+    <p class="hero-eyebrow">A Curated List</p>
+    <h1 class="hero-h1">${esc(PARTNER_CONFIG.pageTitle.replace(' — Independent Journalism Atlas', ''))}</h1>
+    <p class="hero-body">${esc(curatorNote)}</p>
+  `;
+  document.getElementById('curator-strip-content').innerHTML = `
+    <div class="curator-monogram">${esc(getMonogramInitials(curatorName))}</div>
+    <div class="curator-strip-text">
+      <p class="curator-strip-name">${esc(curatorName)}</p>
+      <p class="curator-strip-meta">${esc(curatorChannel)}</p>
+      <p class="hero-collab">Surfaced with ${esc(curatorName)} &times; Independent Journalism Atlas</p>
+    </div>
+  `;
+}
+
+function renderFilterBar() {
+  const el = document.createElement('div');
+  el.className = 'filter-bar';
+  el.innerHTML = `
+    <div class="filter-bar-inner">
+      <div class="filter-row">
+        <span class="filter-label">Atlas status</span>
+        <button class="chip active" data-value="">All</button>
+        <button class="chip" data-value="in">Already in the Atlas</button>
+        <button class="chip" data-value="pending">Newly surfaced</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('filter-bar-mount').appendChild(el);
+}
+
+function renderGrid() {
+  const { creators } = PARTNER_CONFIG;
+  document.getElementById('act-count-pill').textContent = `${creators.length} creators`;
+  document.getElementById('creator-grid').innerHTML = creators.map(c => {
+    const channelHTML = c.channel ? `<div class="creator-channel">${esc(c.channel)}</div>` : '';
+    const geoHTML   = c.geography ? `<span class="pill">${esc(c.geography)}</span>` : '';
+    const topicHTML = c.topic     ? `<span class="pill">${esc(c.topic)}</span>`     : '';
+    const footerHTML = c.inAtlas
+      ? `<hr class="card-divider"><a href="/search?q=${encodeURIComponent(c.name)}" class="card-link">View in Atlas &rarr;</a>`
+      : `<hr class="card-divider"><p class="card-status"><span class="material-symbols-outlined">hourglass_top</span>Pending Atlas review</p>`;
+    return `
+      <div class="creator-card" data-status="${c.inAtlas ? 'in' : 'pending'}">
+        <div class="creator-name">${esc(c.name)}</div>
+        ${channelHTML}
+        <div class="creator-pills">
+          ${geoHTML}
+          ${topicHTML}
+        </div>
+        ${footerHTML}
+      </div>
+    `;
+  }).join('');
+  document.getElementById('atlas-attribution').innerHTML = `
+    <span class="atlas-attribution-badge">Atlas Verified</span>
+    <p class="atlas-attribution-body">
+      23 creators on this list are already tracked in the
+      <a href="https://journalismatlas.com" target="_blank" rel="noopener">Independent Journalism Atlas</a>.
+      The remaining 99 were newly identified through the IIJ community and are pending review before being added.
+      <a href="https://journalismatlas.com/about-this-project" target="_blank" rel="noopener">How we verify &rarr;</a>
+    </p>
+  `;
+}
+
+function renderAbout() {
+  const { curatorName, aboutHeadline, aboutParagraphs } = PARTNER_CONFIG;
+  const parasHTML = aboutParagraphs.map(p => `<p class="about-body">${esc(p)}</p>`).join('');
+  document.getElementById('about-inner').innerHTML = `
+    <p class="about-text-name">${esc(curatorName)}</p>
+    <h2 class="about-headline">${esc(aboutHeadline)}</h2>
+    ${parasHTML}
+  `;
+}
+
+function initFilters() {
+  const cards   = Array.from(document.querySelectorAll('.creator-card'));
+  const countEl = document.getElementById('act-count-pill');
+  const total   = cards.length;
+  let activeStatus = null;
+
+  function applyFilters() {
+    let visible = 0;
+    cards.forEach(card => {
+      const show = !activeStatus || card.dataset.status === activeStatus;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countEl.textContent = `${visible} of ${total} creators`;
+    const emptyEl = document.getElementById('empty-state');
+    if (visible === 0) {
+      if (!emptyEl) {
+        const el = document.createElement('p');
+        el.id = 'empty-state'; el.className = 'empty-state';
+        el.textContent = 'No creators match this filter.';
+        document.getElementById('creator-grid').appendChild(el);
+      }
+    } else if (emptyEl) { emptyEl.remove(); }
+  }
+
+  document.getElementById('filter-bar-mount').addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    activeStatus = chip.dataset.value || null;
+    document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === chip));
+    applyFilters();
+  });
+
+  applyFilters();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = PARTNER_CONFIG.pageTitle;
+  document.querySelector('meta[name="description"]').setAttribute('content', PARTNER_CONFIG.pageDescription);
+  renderHero();
+  if (PARTNER_CONFIG.showFilters) renderFilterBar();
+  renderGrid();
+  renderAbout();
+  if (PARTNER_CONFIG.showFilters) initFilters();
+
+  fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
+    document.querySelectorAll('.js-creator-count').forEach(el => {
+      el.textContent = data.length.toLocaleString() + '+';
+    });
+  }).catch(() => {});
+});
+</script>
+</body>
+</html>
