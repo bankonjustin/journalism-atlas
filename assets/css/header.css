@@ -270,21 +270,28 @@ body {
 /* ── Shared site footer ── */
 .site-footer { background: #000; padding: 56px 40px 32px; }
 .footer-inner { max-width: 1440px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 200px 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-/* Footer logo img — height must be on the img element directly, not the container */
+/* Grid % are of footer-top's own width (== footer-inner, up to the 1440px max-width token) —
+   ratio ~1.4:1:1:1 (logo:Explore:About:Connect) per James's footer redesign spec, 2026-07-31.
+   Gutter is 2.6% (~32px at 1440px) — nearest spacing token to the spec's computed ~28% of a
+   nav column's width; open item for James to confirm exact value on staging. */
+.footer-top { display: grid; grid-template-columns: 13.2% 9.4% 9.4% 9.4%; column-gap: 2.6%; margin-bottom: 48px; }
+/* Footer logo — width matches the Explore column's width per spec (not the logo column's) */
 .footer-wordmark,
-.site-footer .footer-brand img { height: 40px; width: auto; display: block; border: none; outline: none; box-shadow: none; }
-/* Footer logo container — clears border-right that causes white vertical line artifact */
-.site-footer .footer-brand { border: none; border-right: none; border-left: none; padding-right: 0; margin-bottom: 16px; }
-.footer-tagline { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #bdbdbd; letter-spacing: 0.08em; line-height: 1.6; }
-.footer-col-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #bdbdbd; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 16px; }
-.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.site-footer .footer-brand img { width: 135px; height: auto; display: block; border: none; outline: none; box-shadow: none; margin-bottom: var(--space-sm); }
+.site-footer .footer-brand { border: none; border-left: none; padding-right: 0; }
+/* Dividers sit at the trailing edge of Logo/Explore/About (not Connect) — grid items stretch
+   to the tallest column's height by default, so no extra height rule is needed here. */
+.site-footer .footer-brand,
+.footer-col:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.15); }
+.footer-tagline { font-family: var(--font-mono); font-size: 10px; color: #bdbdbd; letter-spacing: 0.08em; line-height: 1.6; }
+.footer-col-title { font-family: var(--font-mono); font-size: 9px; color: #bdbdbd; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: var(--space-md); }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-md); }
 .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
 .footer-col ul li a:hover { color: #fff; }
 .footer-bottom { border-top: 1px solid #1f1f1f; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
-.footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #bdbdbd; letter-spacing: 0.06em; }
+.footer-copy { font-family: var(--font-mono); font-size: 9px; color: #bdbdbd; letter-spacing: 0.06em; }
 .footer-legal { display: flex; gap: 16px; }
-.footer-legal a { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #bdbdbd; letter-spacing: 0.06em; text-decoration: none; }
+.footer-legal a { font-family: var(--font-mono); font-size: 9px; color: #bdbdbd; letter-spacing: 0.06em; text-decoration: none; }
 .footer-legal a:hover { color: #fff; }
 
 /* ── Responsive ── */
@@ -330,6 +337,11 @@ body {
     .footer-top {
         grid-template-columns: 1fr 1fr;
         gap: 32px;
+    }
+
+    .site-footer .footer-brand,
+    .footer-col:not(:last-child) {
+        border-right: none;
     }
 
     .site-footer {

@@ -116,7 +116,7 @@ const ATLAS_VIZ_COLORS_ARRAY = [
 | Role | Family | Notes |
 |------|--------|-------|
 | Primary / UI | Hanken Grotesk | Google Fonts — confirmed |
-| Monospace | DM Mono | Google Fonts — confirmed, replaces JetBrains Mono |
+| Monospace | Source Code Pro | Google Fonts — confirmed for the footer component only (`--font-mono`, wired 2026-08-01). Every other hardcoded `'JetBrains Mono'` declaration sitewide (header.css `@import`, index.html, partners/index.html) is untouched pending a broader decision. The prior "DM Mono confirmed" entry below was never actually implemented anywhere — JetBrains Mono stayed live the whole time. |
 | Secondary serif | Merriweather | Retired from active use — reintroduce only if a specific serif use case arises |
 
 ### Type Scale
@@ -297,3 +297,6 @@ Per the 2026 Style Guide:
 | May 2026 | Focus ring locked: `2px solid #97d600`, offset `2px` | Lime green is on-system (matches hover token), WCAG AA compliant |
 | May 2026 | Footer white vertical line — `border-right` on logo container, not the img element | Previous fix only addressed img-level borders; container border must also be explicitly cleared |
 | May 2026 | Footer `height: 40px` must target the `img` element directly | Applied to container it does not scale the image — selector precision critical |
+| Aug 1, 2026 | Footer grid rebuilt to James's redesign spec: `13.2% 9.4% 9.4% 9.4%` columns (~1.4:1:1:1), 2.6% gutter, trailing-edge dividers on Logo/Explore/About (none after Connect) | `.footer-top` previously used a fixed `200px 1fr 1fr 1fr` with no dividers; new asset (`Journalism_Atlas_wordmark_stacked_white.svg`) is a taller icon+4-line stack (~2.5:1) vs. the old PNG, so logo sizing changed from a fixed 40px height to a 135px width (≈ Explore column width, per spec) |
+| Aug 1, 2026 | Header/footer logos swapped PNG → SVG: `Journalism_Atlas_wordmark_horizontal_lockup_black.svg` (header), `Journalism_Atlas_wordmark_stacked_white.svg` (footer) | Vector assets from James, named to match the existing PNG convention 1:1; old PNGs left in place, not referenced elsewhere |
+| Aug 1, 2026 | `--font-mono` repointed to Source Code Pro, scoped to the footer component only | Site's mono-font state was inconsistent: `--font-mono` pointed to DM Mono but nothing loaded it, and JetBrains Mono was hardcoded live everywhere. James asked to fix the footer now and not pre-negotiate a sitewide swap; flagged for further review on staging |

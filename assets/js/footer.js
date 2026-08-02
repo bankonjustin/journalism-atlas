@@ -5,6 +5,15 @@
    ===================================================== */
 
 (function () {
+    // Source Code Pro is scoped to the footer only for now — every other
+    // hardcoded 'JetBrains Mono' declaration on the site is untouched.
+    if (!document.querySelector('link[href*="Source+Code+Pro"]')) {
+        var monoLink = document.createElement('link');
+        monoLink.rel = 'stylesheet';
+        monoLink.href = 'https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap';
+        document.head.appendChild(monoLink);
+    }
+
     var email = ['hell', 'o', '@journalism', 'atlas.com'].join('');
 
     var html = [
@@ -12,7 +21,7 @@
         '  <div class="footer-inner">',
         '    <div class="footer-top">',
         '      <div class="footer-brand">',
-        '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_stacked_white.png" alt="Independent Journalism Atlas" class="footer-wordmark">',
+        '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_stacked_white.svg" alt="Independent Journalism Atlas" class="footer-wordmark">',
         '        <p class="footer-tagline">Independent journalism is moving. We\'re following it.</p>',
         '      </div>',
         '      <div class="footer-col">',

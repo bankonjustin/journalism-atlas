@@ -46,7 +46,7 @@ window.atlasTrack = function(eventName, params) {
         '    <div class="nav-logo-search">',
         '      <!-- FLAG FOR JAMES: logo wordmark length — consider icon-only treatment to free nav space -->',
         '      <a href="/" class="nav-logo">',
-        '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.png" alt="Independent Journalism Atlas">',
+        '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.svg" alt="Independent Journalism Atlas">',
         '      </a>',
         '      <div class="nav-search-container">',
         '        <input type="text" class="nav-search" placeholder="Search creators, topics, places..." id="navSearch" autocomplete="off">',
