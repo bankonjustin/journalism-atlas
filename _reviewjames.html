@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Page Review — internal, not public</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../assets/css/variables.css">
+<style>
+  :root{--acid:#ceff00;--lime:#97d600;--olive:#5d7400;--page-bg:#efeff2;--border:#d4d4d8;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{font-size:16px;}
+  body{font-family:'Hanken Grotesk',-apple-system,sans-serif;background:var(--page-bg);color:#313131;line-height:1.5;padding:40px 24px 80px;}
+  .wrap{max-width:920px;margin:0 auto;}
+  .flag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#000;color:var(--acid);padding:6px 12px;border-radius:6px;margin-bottom:16px;}
+  h1{font-size:28px;font-weight:700;margin-bottom:8px;color:#111;}
+  .subhead{font-size:15px;color:#555;margin-bottom:32px;}
+  h2{font-size:18px;font-weight:600;margin:36px 0 12px;color:#111;}
+  .questions{background:#fff;border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin-bottom:8px;}
+  .questions ol{margin-left:20px;}
+  .questions li{margin-bottom:14px;font-size:15px;}
+  .questions li:last-child{margin-bottom:0;}
+  .questions .label{font-weight:700;display:block;margin-bottom:4px;}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:6px;overflow:hidden;font-size:14px;}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+  th{background:#000;color:#fff;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
+  tr:last-child td{border-bottom:none;}
+  a.pagelink{color:var(--olive);text-decoration:underline;}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;white-space:nowrap;}
+  .pill-confirmed{background:rgba(151,214,0,0.18);color:var(--olive);}
+  .pill-unconfirmed{background:rgba(0,0,0,0.06);color:#666;}
+  .pill-new{background:#000;color:var(--acid);}
+  footer{margin-top:40px;font-size:12px;color:#888;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="flag">Internal — not linked from nav, index, redirects, or sitemap</span>
+  <h1>Partner Page Review — for James, Aug 2026</h1>
+  <p class="subhead">Working document for the Justin/James session. Not a shipped page — plain formatting on purpose. Sourced from the Aug 6, 2026 partner page audit.</p>
+
+  <div class="questions">
+    <ol>
+      <li>
+        <span class="label">1. The collapsed tier system</span>
+        <code>PARTNERS.md</code> used to describe a two-tier card system ("Minimal" vs. "Blurb"). On disk, every partner page — institutional or individual — uses the same <code>PARTNER_CONFIG</code> shape, including the same 3-paragraph <code>aboutParagraphs</code> block. There's no structural distinction left to point to.
+        Open question: is a real structural tier worth building, and for whom? Candidates discussed: relationship-only pages (name + light context, e.g. a curator with a short list), BD-showcase pages (fuller editorial narrative, meant to be shown to prospective partners), and a possible heavier tier for institutional partners (ICFJ, News Creator Corps, Knowledge Creators, NatGeo, IIJ) who bring their own audience and research to point to.
+      </li>
+      <li>
+        <span class="label">2. The nj-lab dead link / ccm.html as a concrete example</span>
+        <code>nj-lab.html</code>'s CTA footer linked live to <code>/partners/ccm</code>, which has never existed — a confirmed 404 on a page that <em>is</em> linked from nav. That link has been neutralized to plain text (see <code>nj-lab.html</code>, CTA footer) with a <code>TODO</code> comment pointing at <code>ccm-partner-page-brief.md</code>. <code>ccm.html</code> itself is still unbuilt — flagging it here as the concrete case to walk through when talking tiers: CCM is a research-institution partner with its own published study, which is exactly the kind of partner the "heavier institutional tier" question above is about.
+      </li>
+    </ol>
+  </div>
+
+  <h2>All partner pages (13)</h2>
+  <table>
+    <thead>
+      <tr><th>Partner</th><th>Page</th><th>Note</th><th>Consent</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Chris Cillizza</td><td><a class="pagelink" href="/partners/cillizza">/partners/cillizza</a></td><td>17 creators. No structural tier distinction (see Q1 above).</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>Anne Helen Petersen</td><td><a class="pagelink" href="/partners/ahp">/partners/ahp</a></td><td>17 creators. No structural tier distinction.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>ICFJ</td><td><a class="pagelink" href="/partners/icfj">/partners/icfj</a></td><td>21 creators, global (LatAm/Africa/MENA). Institutional — candidate for a heavier tier per Q1.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>Jessica Stahl</td><td><a class="pagelink" href="/partners/jessica-stahl">/partners/jessica-stahl</a></td><td>22 creators, climate.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>News Creator Corps</td><td><a class="pagelink" href="/partners/news-creator-corps">/partners/news-creator-corps</a></td><td>16 creators. Institutional — candidate for a heavier tier per Q1.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>Joon Lee</td><td><a class="pagelink" href="/partners/joon-lee">/partners/joon-lee</a></td><td>14 creators, sports/culture.</td><td><span class="pill pill-confirmed">Confirmed (Justin, outside file system)</span></td></tr>
+      <tr><td>Knowledge Creators</td><td><a class="pagelink" href="/partners/knowledge-creators">/partners/knowledge-creators</a></td><td>17 creators, edu-journalism. Institutional — candidate for a heavier tier per Q1.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>Emily Atkin</td><td><a class="pagelink" href="/partners/emily-atkin">/partners/emily-atkin</a></td><td>11 creators, climate.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>NatGeo</td><td><a class="pagelink" href="/partners/natgeo">/partners/natgeo</a></td><td>8 creators. Institutional — candidate for a heavier tier per Q1.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>Karen Attiah</td><td><a class="pagelink" href="/partners/karen-attiah">/partners/karen-attiah</a></td><td>8 creators.</td><td><span class="pill pill-confirmed">Confirmed (Justin, outside file system)</span></td></tr>
+      <tr><td>Rahim Jessani</td><td><a class="pagelink" href="/partners/rahim-jessani">/partners/rahim-jessani</a></td><td>7 creators, Bottom Up Media.</td><td><span class="pill pill-confirmed">Confirmed (Justin, outside file system)</span></td></tr>
+      <tr><td>Noah Smith</td><td><a class="pagelink" href="/partners/noah-smith">/partners/noah-smith</a></td><td>8 creators, economics.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+      <tr><td>IIJ (Institute for Independent Journalists)</td><td><a class="pagelink" href="/partners/iij">/partners/iij</a></td><td><span class="pill pill-new">Undocumented until this session</span> 122 creators. Built Aug 1, 2026. Not in PARTNERS.md or CLAUDE.md before today. Unlinked pending confirmation of partnership next steps — do not promote further without checking with Justin. Institutional — candidate for a heavier tier per Q1.</td><td><span class="pill pill-unconfirmed">Unconfirmed</span></td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    Consent column reflects only what's known as of Aug 6, 2026 — no consent markers exist in any partner HTML file itself (checked at file level, not inferred). "Confirmed" rows reflect what Justin has separately told Claude Code in chat, not a file-based record. Everything else is genuinely unconfirmed, not assumed-fine.
+    <br>Live-resolution of these URLs has not been verified from this session's sandbox — outbound requests to journalismatlas.com are blocked here (proxy-level 403 on CONNECT). Check directly in a browser.
+  </footer>
+
+</div>
+</body>
+</html>

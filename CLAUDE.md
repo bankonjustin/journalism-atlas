@@ -226,6 +226,7 @@ Four locations now exist. Don't assume file paths from older briefs still hold �
 | `partners/karen-attiah.html` | Karen Attiah picks | 8 | Inline `<style>` |
 | `partners/rahim-jessani.html` | Rahim Jessani / Bottom Up Media picks | 7 | Inline `<style>` |
 | `partners/noah-smith.html` | Noah Smith economics picks | 8 | Inline `<style>` |
+| `partners/iij.html` | Institute for Independent Journalists (IIJ) picks — built Aug 1, 2026. Published and reachable by direct URL; unlinked from nav/`partners/index.html`/`_redirects` pending confirmation of partnership next steps. Not yet documented elsewhere prior to this entry. | 122 | `variables.css` + inline `<style>` |
 | `city-lab-chicago.html` | Chicago journalism ecosystem | 245+ | Inline `<style>` + inlined data |
 | `city-lab-dc-v3.html` | DC/DMV journalism ecosystem — "Who Covers Washington Now" | ~350 | Inline `<style>` + inlined data |
 | `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |

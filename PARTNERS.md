@@ -1,6 +1,6 @@
 # Atlas Partner Pages — Directory
 *Source of truth for all partner page files, status, and metadata*
-*Last updated: June 24, 2026*
+*Last updated: August 6, 2026*
 
 ---
 
@@ -23,31 +23,31 @@
 
 ---
 
-## Live Pages (12 total)
+## Published Pages (13 total)
+
+Published and reachable by direct URL. Deliberately unlinked from nav / `partners/index.html` / `_redirects` / any sitemap while design direction is still being decided — "Live" implies discoverable, which these intentionally are not yet.
 
 | File | Partner | URL | Status |
 |------|---------|-----|--------|
-| `partners/cillizza.html` | Chris Cillizza | `/partners/cillizza` | Live |
-| `partners/icfj.html` | ICFJ | `/partners/icfj` | Live |
-| `partners/ahp.html` | Anne Helen Petersen | `/partners/ahp` | Live |
-| `partners/jessica-stahl.html` | Jessica Stahl | `/partners/jessica-stahl` | Live |
-| `partners/news-creator-corps.html` | News Creator Corps | `/partners/news-creator-corps` | Live |
-| `partners/joon-lee.html` | Joon Lee | `/partners/joon-lee` | Live |
-| `partners/knowledge-creators.html` | Knowledge Creators | `/partners/knowledge-creators` | Live |
-| `partners/emily-atkin.html` | Emily Atkin | `/partners/emily-atkin` | Live |
-| `partners/natgeo.html` | NatGeo | `/partners/natgeo` | Live |
-| `partners/karen-attiah.html` | Karen Attiah | `/partners/karen-attiah` | Live |
-| `partners/rahim-jessani.html` | Rahim Jessani | `/partners/rahim-jessani` | Live |
-| `partners/noah-smith.html` | Noah Smith | `/partners/noah-smith` | Live |
+| `partners/cillizza.html` | Chris Cillizza | `/partners/cillizza` | Published, unlinked |
+| `partners/icfj.html` | ICFJ | `/partners/icfj` | Published, unlinked |
+| `partners/ahp.html` | Anne Helen Petersen | `/partners/ahp` | Published, unlinked |
+| `partners/jessica-stahl.html` | Jessica Stahl | `/partners/jessica-stahl` | Published, unlinked |
+| `partners/news-creator-corps.html` | News Creator Corps | `/partners/news-creator-corps` | Published, unlinked |
+| `partners/joon-lee.html` | Joon Lee | `/partners/joon-lee` | Published, unlinked |
+| `partners/knowledge-creators.html` | Knowledge Creators | `/partners/knowledge-creators` | Published, unlinked |
+| `partners/emily-atkin.html` | Emily Atkin | `/partners/emily-atkin` | Published, unlinked |
+| `partners/natgeo.html` | NatGeo | `/partners/natgeo` | Published, unlinked |
+| `partners/karen-attiah.html` | Karen Attiah | `/partners/karen-attiah` | Published, unlinked |
+| `partners/rahim-jessani.html` | Rahim Jessani | `/partners/rahim-jessani` | Published, unlinked |
+| `partners/noah-smith.html` | Noah Smith | `/partners/noah-smith` | Published, unlinked |
+| `partners/iij.html` | Institute for Independent Journalists (IIJ) | `/partners/iij` | Published, unlinked — built Aug 1, 122 creators, pending confirmation of partnership next steps before any wider promotion |
 
 ---
 
-## Staging (V2 — not yet promoted)
+## Card structure — open question
 
-| File | Partner | Notes |
-|------|---------|-------|
-| `partner-list-cillizza-V2.html` | Chris Cillizza | Shell rebuild. Needs browser review before replacing V1. |
-| `partner-icfj-V2.html` | ICFJ | Shell rebuild. Needs browser review. |
+`PARTNERS.md` previously described a two-tier card system ("Minimal" vs. "Blurb"). As of the Aug 6 audit, no structural distinction exists across any of the 13 files above — every page uses the same `PARTNER_CONFIG` shape, including 3 `aboutParagraphs` entries regardless of partner type. Whether a real tier system (e.g. relationship-only vs. BD-showcase vs. a heavier institutional tier) is worth building is an open design question for James, not a settled system — do not assume a tier label on any page below reflects an actual structural difference.
 
 ---
 
@@ -62,6 +62,7 @@
 - CCM logo pending — placeholder comment in nj-lab.html
 - Paper URL placeholder — update `<a href>` in Section 2 and CTA when paper is published
 - `partners/ccm.html` needs to be built (separate session)
+- Aug 6, 2026: the `nj-lab.html` CTA that linked live to `/partners/ccm` (a 404, since the file doesn't exist) has been neutralized to plain text with a `TODO` comment — see `nj-lab.html` CTA footer. Re-link once `ccm.html` ships.
 
 ---
 
