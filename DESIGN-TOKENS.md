@@ -1,9 +1,11 @@
-# Atlas Design Tokens — v8
+# Atlas Design Tokens — v10 (merged)
 *Canonical design reference — committed to repo as source of truth for implementation*
 
-*Last updated: May 2026*
-*Previous version: v7 (May 2026)*
+*Last updated: August 24, 2026*
+*Previous version: v8 (May 2026, though it already contained Aug 1 2026 footer-rebuild entries not present in James's v9/v10 lineage)*
 *Owner: James (james@happicamp.com)*
+
+> **Version-numbering note (Aug 24, 2026):** James's `DESIGN-TOKENS-v10.md` (Aug 2026) was supplied to replace this file, but it is not a strict superset — this repo file (self-labeled "v8") already contained several Aug 1, 2026 decisions (footer grid rebuild, SVG logo swap, Source Code Pro scoping) that James's v9/v10 lineage doesn't reflect, most likely because it forked from an earlier snapshot. Rather than overwrite, this pass merges v10's actual new content — the Container Inner Padding value, the Max Content Width implementation note, and the Header Nav Spacing table — into this file, preserving the Aug 1 entries. Worth flagging to James so the two lineages get reconciled properly.
 
 > **How this file works:** This is the single source of truth for all visual decisions. When Justin implements design changes with Claude Code, he references this document. If it's not here, it doesn't get implemented. If it changes here, it changes everywhere.
 
@@ -161,6 +163,21 @@ xl:  32px
 2xl: 48px
 ```
 
+### Header Nav Spacing (Aug 2026)
+
+*Suggested respacing for the site header's internal content, once/if it needs it — see the implementation note under Max Content Width below. Built entirely from the existing spacing scale above, no new values.*
+
+| Gap | Token | Value |
+|---|---|---|
+| Logo → search bar | `2xl` | 48px |
+| Search bar → first nav link | `2xl` | 48px |
+| Between nav links (Pulse / For Brands / Research & Writing / Submit) | `xl` | 32px |
+| Last nav link → Partners badge | `lg` | 24px |
+
+Search bar should have a capped max-width (roughly 320–360px) rather than flexing to fill available space. If cramped once applied, fall back to `lg` (24px) uniformly between nav links. Confirm final values against the real rendered layout; "Research & Writing" is the longest label and the tightest fit.
+
+**Status as of Aug 24, 2026:** `.nav-search-container` is already capped at 340px (in range). The gap values above are not yet applied — current spacing is `.nav-logo-search { gap: 2rem }` (32px, not 48px) and `.nav-links { gap: 2.5rem }` (40px uniform, not the differentiated 32/24 above). Not changed in this pass — flagged for a follow-up since it's a pure spacing tweak, independent of the container-alignment fix below.
+
 ### Border Radius
 ```
 card:     6px
@@ -176,6 +193,20 @@ text column:  680px  — editorial/reading contexts; approx 70 characters at 16p
 ```
 
 **Reference points:** Bloomberg (~1280px) and Wired (~1440px) are the design benchmarks. The Atlas targets Wired's contained-but-generous feel. Content should never sprawl to screen edges on large monitors.
+
+### Container Inner Padding (Aug 2026)
+
+The container relies entirely on its auto-centering margin, with no `padding-inline` of its own in the general case — fine on wide monitors, but content can sit flush against the browser edge on a laptop at or near 1440px wide. Add **16px** (`md` token) as `padding-inline` wherever a container doesn't already have equivalent breathing room from its own section padding.
+
+**Status as of Aug 24, 2026:** Checked site-wide — `.nav-container`/`.footer-inner` (via `.top-nav`/`.site-footer` padding, 32–40px) and every card-grid `-inner` wrapper (via 40px section padding) already have generous inset well past the 16px floor. No page was found sitting flush to the edge. This token is documented as a floor for any new container usage, not applied as a change in this pass.
+
+**Implementation note (Aug 24, 2026 — hero/first-module container fix):** A staging review found the Home, Pulse, For Brands, Research & Writing, and Contact hero/first-module sections not using the locked `full layout` (1440px) container, while the card-grid sections beneath each one correctly were. On inspection against the actual repo (not the staging screenshots), most of these were already fixed prior to this session — Pulse's masthead, For Brands' hero, and For Brands'/Pulse's full-bleed ticker/marquee (both already have edge-fade masks, matching the "if intentional, fade the edges" treatment) were already correctly containerized. Two genuine bugs were found and fixed this session:
+- **Home:** `.hero` was a full-bleed, unconstrained grid — the "Verified Creators" stat badge (absolutely positioned within the right column) rendered flush to the true browser edge instead of the container edge. Fixed by wrapping the hero's two columns in a new `.hero-container { max-width: 1440px; margin: 0 auto }`, while `.hero` itself keeps the full-bleed black background (dark-stage treatment preserved, no letterboxing).
+- **Contact:** `.contact-hero-inner` was `max-width: 680px` with no `margin: auto` — left-aligned at the section's own 40px padding rather than the shared 1440px container edge. It read fine only because nothing competed for the right side. Fixed by changing it to `max-width: 1440px; margin: 0 auto`, matching the header/footer edge exactly (verified: both sit at the same computed left offset at 1920px viewport).
+
+Research & Writing's hero and ticker were **not** touched — its hero intentionally uses a narrower 1100px editorial container (not full-bleed, just a different width than 1440), and its "FROM PROJECT C" row is an auto-scrolling marquee with the same edge-fade treatment as Pulse/For Brands, not a static clipped carousel. Flagged for James rather than changed, since neither matches the "escaping the container" defect this fix targets.
+
+**The site header and footer** were also checked against the "header logo sits well left of the container edge, near the true browser edge" claim in the Aug 2026 staging review — this was **not reproducible** in the current repo. `.nav-container` and `.footer-inner` are both `max-width: 1440px; margin: 0 auto`, and at a 1920px viewport both compute to the identical left/right offset (240px/1680px). This was likely already fixed in an earlier session. No header/footer container change was made this pass — see the Header Nav Spacing status note above for the one header item still open (internal gap values).
 
 ---
 
@@ -300,3 +331,5 @@ Per the 2026 Style Guide:
 | Aug 1, 2026 | Footer grid rebuilt to James's redesign spec: `13.2% 9.4% 9.4% 9.4%` columns (~1.4:1:1:1), 2.6% gutter, trailing-edge dividers on Logo/Explore/About (none after Connect) | `.footer-top` previously used a fixed `200px 1fr 1fr 1fr` with no dividers; new asset (`Journalism_Atlas_wordmark_stacked_white.svg`) is a taller icon+4-line stack (~2.5:1) vs. the old PNG, so logo sizing changed from a fixed 40px height to a 135px width (≈ Explore column width, per spec) |
 | Aug 1, 2026 | Header/footer logos swapped PNG → SVG: `Journalism_Atlas_wordmark_horizontal_lockup_black.svg` (header), `Journalism_Atlas_wordmark_stacked_white.svg` (footer) | Vector assets from James, named to match the existing PNG convention 1:1; old PNGs left in place, not referenced elsewhere |
 | Aug 1, 2026 | `--font-mono` repointed to Source Code Pro, scoped to the footer component only | Site's mono-font state was inconsistent: `--font-mono` pointed to DM Mono but nothing loaded it, and JetBrains Mono was hardcoded live everywhere. James asked to fix the footer now and not pre-negotiate a sitewide swap; flagged for further review on staging |
+| Aug 24, 2026 | Home hero and Contact hero wrapped in the `full layout` (1440px) container; header/footer container found already correct, not changed | Staging review (James, Aug 2026) flagged 5 pages + header as escaping the container — on inspection only Home and Contact actually were. See implementation note under Max Content Width for full detail and what was deliberately left alone (Research & Writing's 1100px editorial width, Pulse/For Brands tickers, header nav internal spacing) |
+| Aug 24, 2026 | Merged James's `DESIGN-TOKENS-v10.md` into this file rather than replacing it | v10 was not a strict superset of what was already committed (missing the Aug 1 footer-rebuild/SVG-swap/Source-Code-Pro entries) — see version-numbering note at the top of this file |

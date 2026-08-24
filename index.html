@@ -54,7 +54,11 @@
     .btn-ghost-white:hover { border-color: #fff; }
 
     /* ── HERO (V4 SPLIT LAYOUT) ── */
-    .hero { display: grid; grid-template-columns: 52fr 48fr; min-height: 540px; position: relative; }
+    /* Full-bleed dark stage (Surface Hierarchy Principle) — background spans the viewport,
+       content is constrained to the full-layout container so it aligns with the header/footer
+       and card-grid sections beneath it. DESIGN-TOKENS.md § Max Content Width. */
+    .hero { background: #000; padding-inline: 16px; position: relative; }
+    .hero-container { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 52fr 48fr; min-height: 540px; }
     .hero-left {
       background: #000; padding: 64px 56px 56px;
       display: flex; flex-direction: column; justify-content: space-between;
@@ -503,7 +507,7 @@
 
     /* ── MOBILE ── */
     @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; }
+      .hero-container { grid-template-columns: 1fr; }
       .hero-left { padding: 40px 24px 36px; }
       .hero-right { min-height: 380px; }
       #cluster-panel { display: none !important; }
@@ -547,6 +551,7 @@
 <script src="/assets/js/header.js"></script>
 
 <section class="hero" style="position:relative;">
+ <div class="hero-container">
 
   <!-- LEFT: Copy + CTAs + Cluster Nav -->
   <div class="hero-left">
@@ -594,6 +599,7 @@
       <div class="hero-stat-badge-lbl">Verified creators</div>
     </div>
   </div>
+ </div>
 </section>
 
 <div id="creator-card"></div>
