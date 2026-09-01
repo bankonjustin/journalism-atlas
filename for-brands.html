@@ -721,11 +721,11 @@
       <div class="intel-layer-ctas">
         <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="intel-cta-link">
           <span class="material-symbols-outlined" style="font-size:16px;">rss_feed</span>
-          See what they're covering this week →
+          Explore Atlas Pulse →
         </a>
         <a href="#build-brief" class="intel-cta-link intel-cta-link--anchor">
           <span class="material-symbols-outlined" style="font-size:16px;">summarize</span>
-          Build a custom brief for your team →
+          Tell us what you're tracking →
         </a>
       </div>
     </div>
@@ -750,7 +750,7 @@
           <span id="brands-pulse-active">574</span> creators active this week
         </p>
       </div>
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta">See full digest →</a>
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta">Explore Atlas Pulse →</a>
     </div>
     <div class="pulse-intel-grid" id="pulse-intel-grid"></div>
     <div class="pulse-intel-follower-note">
@@ -761,7 +761,7 @@
     <div class="pulse-intel-footer">
       <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">lock_open</span>
       Atlas Pulse is always free. &nbsp;
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer">Explore the full digest →</a>
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer">Explore Atlas Pulse →</a>
       <span style="opacity:0.4;">&nbsp;·&nbsp;</span>
       <span style="opacity:0.5;">Powered by Journalism Atlas data</span>
     </div>
@@ -1197,14 +1197,14 @@ const PULSE_SNAPSHOT_BRANDS = {
 };
 
 function renderBrandsPulse() {
-  const grid = document.getElementById('pulse-intel-grid');
-  if (!grid) return;
-
   const dateEl = document.getElementById('brands-pulse-date');
   if (dateEl && PULSE_SNAPSHOT_BRANDS.generated_at) {
     const d = new Date(PULSE_SNAPSHOT_BRANDS.generated_at + 'T00:00:00');
     dateEl.textContent = 'Updated ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   }
+
+  const grid = document.getElementById('pulse-intel-grid');
+  if (!grid) return;
 
   grid.innerHTML = PULSE_SNAPSHOT_BRANDS.beats.map(beat => {
     const posts = beat.posts.map(p => {
