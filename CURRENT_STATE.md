@@ -1,5 +1,5 @@
 # Pulse — Current State
-*Last updated: July 7, 2026 (role-scoped subagents)*
+*Last updated: August 24, 2026 (hero/header container layout fix)*
 
 ## Role-scoped subagents (in progress)
 
@@ -13,6 +13,25 @@
   - **Shadow Lists AND rejection notes — both out of scope, confirmed as one blocker, not two.** Per `DATA-OPS-PROTOCOL.md`, rejection notes are also canonically a Google Sheet, not a local file — so this isn't just a Shadow Lists gap. No Sheets connector exists anywhere (registry search empty; Justin confirmed directly in claude.ai/Claude Code settings, July 7). No local file was invented as a workaround. Revisit `liz-editorial.md`'s tool scope once a Sheets connector path exists.
 
 ## Site maintenance
+
+### Hero/header container layout fix (Aug 24, 2026)
+
+James's Aug 2026 layout-fix brief + `DESIGN-TOKENS-v10.md` claimed 5 hero/first-module sections (Home, Pulse, For Brands, Research & Writing, Contact) plus the site header were escaping the locked `full layout` (1440px) container. Verified each against the actual repo (via local preview + computed `getBoundingClientRect()`, not just reading CSS) before touching anything, per the brief's own "confirm before trusting" instructions. Result: most of it was already fixed in an earlier session; only two real bugs found.
+
+**Fixed:**
+- `index.html` — `.hero` was a full-bleed, unconstrained `display:grid` (no max-width). The "Verified Creators" stat badge, absolutely positioned inside the right column, rendered flush to the true browser edge. Wrapped both columns in a new `.hero-container { max-width:1440px; margin:0 auto }`; `.hero` itself keeps its full-bleed black background so the dark-stage look is unchanged, just letterbox-free. Moved the `768px` mobile breakpoint's `grid-template-columns: 1fr` override from `.hero` to `.hero-container` to match.
+- `contact.html` — `.contact-hero-inner` was `max-width:680px` with no `margin:auto`, i.e. left-aligned at the section's own 40px padding, not the shared container edge. Read fine only because nothing competed for the right side (as the brief itself noted). Changed to `max-width:1440px; margin:0 auto` — now sits at the identical left offset as the header logo and footer at 1920px viewport (both 240px).
+
+**Found already correct, not touched:** Pulse's masthead (`.masthead-inner`), For Brands' hero (`.section-inner`), and both pages' full-bleed ticker/marquee (already have `mask-image` edge fades — the exact "if intentional, fade the edges" treatment the brief asked for). The site header/footer container claim ("logo sits well left of the container edge") was **not reproducible** — `.nav-container` and `.footer-inner` are both already `max-width:1440px; margin:0 auto` and compute to the same 240px/1680px offsets at 1920px viewport. Likely fixed in a prior session; the brief's screenshots may predate that fix.
+
+**Deliberately left alone (flagged, not fixed):**
+- `research.html`'s hero uses an intentional 1100px editorial container (not full-bleed, just narrower than 1440px) — doesn't match the "escaping the container" defect, and changing it would be a design call outside this brief's scope. Its "FROM PROJECT C" row is an auto-scrolling marquee with the same edge-fade pattern as Pulse/For Brands, not a static clipped carousel — not a bug.
+- Header's *internal* nav spacing (`DESIGN-TOKENS.md` § Header Nav Spacing) does not yet match the suggested 48/48/32/24px gaps — current values are 32px (logo→search) and a uniform 40px between all nav links. This is a pure spacing tweak independent of the container fix and wasn't applied this pass.
+- `bluesky-creator-intelligence.html` has the **same unconstrained full-bleed `.hero` grid bug** as index.html did (`display:grid; grid-template-columns:1fr 440px`, no max-width). Not in the brief's named page list, so not fixed — flagging since it's the same regression class.
+
+**Docs:** `DESIGN-TOKENS.md` was *not* overwritten with the supplied `DESIGN-TOKENS-v10.md` — the committed file (self-labeled v8) already contained Aug 1, 2026 entries (footer grid rebuild, SVG logo swap, Source Code Pro scoping) that v10's lineage doesn't have, so overwriting would have deleted real history. Merged v10's actual new content (Container Inner Padding, the Max Content Width implementation note, Header Nav Spacing table) into the existing file instead, plus a version-numbering note flagging the fork to James. `CLAUDE.md`'s "Non-negotiable rules" section (still says font weights 400/500/700, 100px pill radius) is out of sync with `DESIGN-TOKENS.md`/v10 (600/700/800, 9999px) — Justin's own brief flagged this as a separate follow-up, not done here.
+
+Not pushed — changes are local only, per usual (Justin pushes via GitHub Desktop).
 
 ### Stale creator-count cleanup + future-proofing (July 7, 2026)
 
