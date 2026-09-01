@@ -2545,14 +2545,14 @@ const PULSE_SNAPSHOT_INDEX = {
 };
 
 function renderPulseGrid() {
-  const grid = document.getElementById('pulse-grid');
-  if (!grid) return;
-
   const badgeEl = document.getElementById('pulse-badge-date');
   if (badgeEl && PULSE_SNAPSHOT_INDEX.generated_at) {
     const d = new Date(PULSE_SNAPSHOT_INDEX.generated_at + 'T00:00:00');
     badgeEl.textContent = 'Atlas Pulse · Updated ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   }
+
+  const grid = document.getElementById('pulse-grid');
+  if (!grid) return;
 
   grid.innerHTML = PULSE_SNAPSHOT_INDEX.beats.map(beat => {
     const items = beat.posts.map(p => {
