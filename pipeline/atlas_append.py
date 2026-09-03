@@ -31,6 +31,29 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from atlas_groups import normalize_topics, derive_groups, snapshot
 
+# atlas_slug.py lives in the private repo (Ryan's working tools), not this one.
+# Reuse its slug logic rather than reimplementing it here — see
+# runryan/Atlas Scripts/atlas_slug.py for the canonical implementation.
+_SLUG_SCRIPT_DIR = Path.home() / "Developer" / "journalism-atlas-private" / "runryan" / "Atlas Scripts"
+if str(_SLUG_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SLUG_SCRIPT_DIR))
+try:
+    from atlas_slug import make_unique_slug
+except ImportError:
+    make_unique_slug = None  # private repo not present on this machine — slug auto-gen disabled
+
+# core/creator_slug.py (Atlas Spidering repo) has a more thorough URL
+# normalizer than the one below — handles Substack/YouTube/common-suffix
+# cases this script's own version doesn't. Prefer it; fall back to the local
+# version (unchanged) if that repo isn't present on this machine.
+_SPIDERING_CORE_DIR = Path.home() / "Documents" / "Atlas Spidering" / "core"
+if str(_SPIDERING_CORE_DIR) not in sys.path:
+    sys.path.insert(0, str(_SPIDERING_CORE_DIR))
+try:
+    from creator_slug import normalize_url as _thorough_normalize_url
+except ImportError:
+    _thorough_normalize_url = None
+
 REPO_ROOT  = Path(__file__).parent.parent
 MASTER_CSV = REPO_ROOT / "assets" / "data" / "creators-master.csv"
 
@@ -54,11 +77,21 @@ MASTER_FIELDNAMES = [
 ]
 
 
-def normalize_url(url: str) -> str:
+def _basic_normalize_url(url: str) -> str:
     url = url.strip().lower().rstrip("/")
     url = re.sub(r"^https?://", "", url)
     url = re.sub(r"^www\.", "", url)
     return url
+
+
+def normalize_url(url: str) -> str:
+    """Normalize a URL for dedup matching. Prefers the more thorough
+    normalizer from core/_archive/creator_slug.py (handles Substack archive/
+    posts/etc. suffixes and YouTube channel-path variants); falls back to the
+    basic version above if that repo isn't available."""
+    if _thorough_normalize_url is not None:
+        return _thorough_normalize_url(url)
+    return _basic_normalize_url(url)
 
 
 def load_master(path: Path) -> tuple[list[dict], set[str], set[str]]:
@@ -134,8 +167,26 @@ def main():
     clean_rows: list[dict] = []
     skipped_dup: list[dict] = []
     skipped_err: list[tuple[dict, list[str]]] = []
+    auto_slugged: list[tuple[str, str]] = []  # (name, generated slug)
 
     for row in new_rows_raw:
+        # Auto-generate a slug if the batch didn't include one, instead of
+        # failing validation and waiting for someone to run a manual backfill.
+        if not row.get("slug", "").strip() and make_unique_slug is not None:
+            generated = make_unique_slug(
+                row.get("Creator Name", ""),
+                row.get("Geo City", ""),
+                existing_slugs,
+                channel=row.get("Creator Channel", ""),
+                link=row.get("Link Primary", ""),
+            )
+            if generated:
+                row["slug"] = generated
+                # Not added to existing_slugs here — validate_row checks the
+                # slug next and would flag it as a self-duplicate. It's added
+                # to the dedup index below, same as any other clean row's slug.
+                auto_slugged.append((row.get("Creator Name", "?"), generated))
+
         issues = validate_row(row, existing_urls, existing_slugs)
 
         dup_issues = [i for i in issues if "DUPLICATE" in i]
@@ -162,6 +213,14 @@ def main():
     print(f"  To append:      {len(clean_rows)}")
     print(f"  Skipped (dup):  {len(skipped_dup)}")
     print(f"  Warnings:       {len(skipped_err)}")
+    print(f"  Auto-slugged:   {len(auto_slugged)}" + ("" if make_unique_slug is not None else "  (disabled — atlas_slug.py not found)"))
+
+    if auto_slugged:
+        print(f"\nSlugs generated automatically (review before Ryan's Final Clean):")
+        for name, slug in auto_slugged[:15]:
+            print(f"  {name} → {slug}")
+        if len(auto_slugged) > 15:
+            print(f"  ... and {len(auto_slugged) - 15} more")
 
     if skipped_dup:
         print(f"\nDuplicates skipped:")

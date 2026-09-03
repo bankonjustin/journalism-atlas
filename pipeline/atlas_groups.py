@@ -249,6 +249,8 @@ def main():
     parser.add_argument("--output", type=Path, default=None, help="Write to this path instead of in-place")
     parser.add_argument("--topics-only", action="store_true", help="Only normalize topics, skip groups derivation")
     parser.add_argument("--groups-only", action="store_true", help="Only derive groups from current topics")
+    parser.add_argument("--show-changes", action="store_true",
+                         help="List every row whose Groups value would change, old vs new (for review before running for real)")
     args = parser.parse_args()
 
     if not MASTER_CSV.exists():
@@ -266,9 +268,11 @@ def main():
     group_changes = 0
     unmapped_topics: Counter = Counter()
     all_warnings: list[str] = []
+    group_diffs: list[tuple[str, str, str, str]] = []  # (slug, name, old_group, new_group)
 
     for row in rows:
         slug = row.get("slug", "")
+        name = row.get("Creator Name", "")
         original_topic = row.get("Topic/Category", "")
         original_group = row.get("Groups", "")
 
@@ -294,6 +298,7 @@ def main():
 
             if new_group != original_group:
                 group_changes += 1
+                group_diffs.append((slug, name, original_group, new_group))
 
             row["Groups"] = new_group
 
@@ -314,6 +319,38 @@ def main():
             print(f"  '{topic}' ({count} creators)")
         if len(unmapped_topics) > 20:
             print(f"  ... and {len(unmapped_topics) - 20} more")
+
+    if args.show_changes and group_diffs:
+        # Split into two categories: pure additions (derivation adds a bucket
+        # the stored value didn't have — usually a real correction) vs. rows
+        # that would LOSE a stored bucket derivation can't produce (likely a
+        # deliberate editorial addition that would be silently discarded —
+        # see runryan/Pipeline-Audit-for-Justin-Aug2026.md #3).
+        losses = []
+        additions_only = []
+        for slug, name, old, new in group_diffs:
+            old_set = {g.strip() for g in old.split(",") if g.strip()}
+            new_set = {g.strip() for g in new.split(",") if g.strip()}
+            if old_set - new_set:
+                losses.append((slug, name, old, new))
+            else:
+                additions_only.append((slug, name, old, new))
+
+        print(f"\n=== GROUPS WOULD CHANGE — {len(group_diffs)} rows ===")
+        print(f"  {len(losses)} would LOSE a stored bucket topic-derivation can't reproduce (review these)")
+        print(f"  {len(additions_only)} are pure additions/corrections (derivation adds, nothing lost)")
+
+        if losses:
+            print(f"\n--- LOSSES ({len(losses)}) — stored Groups value has a bucket the new derivation drops ---")
+            for slug, name, old, new in losses:
+                print(f"  {name} ({slug}): '{old}' → '{new}'")
+
+        if additions_only:
+            print(f"\n--- ADDITIONS ({len(additions_only)}) — derivation adds a bucket, nothing lost ---")
+            for slug, name, old, new in additions_only[:20]:
+                print(f"  {name} ({slug}): '{old}' → '{new}'")
+            if len(additions_only) > 20:
+                print(f"  ... and {len(additions_only) - 20} more")
 
     if args.dry_run:
         print("\n── DRY RUN — no files written ──")

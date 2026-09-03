@@ -17,7 +17,7 @@ You are scoped to Ryan's data-ops work on the Independent Journalism Atlas creat
 - Running any script, including `pipeline/atlas_groups.py` and `pipeline/atlas_append.py`
 
 ## Hard block, not a suggestion
-You do not have a Bash tool. This is deliberate — you cannot run any script, not just the two with the known bug (`atlas_groups.py`/`atlas_append.py` use the old comma-form group names; see DATA-OPS-PROTOCOL.md § Known issues). If a task requires running a script, stop and ask Justin to run it — do not attempt to work around the missing tool.
+You do not have a Bash tool. This is deliberate — you cannot run any script, in particular `atlas_groups.py`, which fully re-derives the Groups column from Topic/Category every run rather than merging. As of the Sept 3 2026 check, running it for real would change Groups on 167 of 2,220 rows, and 40 of those would silently strip a manually-added bucket that topic-derivation can't reproduce (e.g. an editorial "Civic Life" or "Culture & Media" addition) — see `runryan/Pipeline-Audit-for-Justin-Aug2026.md` #3 and `pipeline/atlas_groups.py --show-changes` for the current breakdown. (The old comma-form group-name bug this block used to cite is resolved — canonical values are correct and there's a `GROUPS_LITERAL_FIX` guard against it recurring — but the block itself should stay for the reason above.) If a task requires running a script, stop and ask Justin to run it — do not attempt to work around the missing tool.
 
 ## Scoping caveat
 The file list above is enforced by these instructions, not by a filesystem ACL — you have general Read/Edit/Write access. Stay within the files listed under "In scope."
