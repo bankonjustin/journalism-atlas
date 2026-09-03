@@ -27,7 +27,7 @@
 | `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
 | `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
 
-**Note (added July 7, 2026 — filesystem audit):** `CURRENT_STATE.md` in this repo covers site/deploy/subagent state only. Data-pipeline and spidering state lives in a *different* file with the same name: `Atlas Spidering/sessions/CURRENT_STATE.md` (a separate, untracked workspace — see "External file locations" below). Read whichever one matches the task; they are not duplicates of each other. A third file, `Atlas Spidering/core/CURRENT_STATE.md`, existed until this session — it was actually a single stale session log misnamed to look like a tracker, and has been archived as `Atlas Spidering/archive/SESSION_LOG_bsky_corpus_anchor_v1_20260626.md`.
+**Note (added July 7, 2026 — filesystem audit; path updated 2026-09-03):** `CURRENT_STATE.md` in this repo covers site/deploy/subagent state only. Data-pipeline and spidering state lives in a *different* file with the same name, now at `journalism-atlas-private/spidering/00-unsorted/CURRENT_STATE.md` (moved 2026-09-03 from the old untracked `~/Documents/Atlas Spidering/sessions/` location, which no longer exists — see "External file locations" below). Read whichever one matches the task; they are not duplicates of each other.
 
 ### Session close-out
 
@@ -37,7 +37,7 @@
 ### Role-scoped subagents
 
 - **`ryan-dataops`** (`.claude/agents/ryan-dataops.md`, this repo) — Ryan's data-ops lane: `creators-master.csv`, `atlas-private-columns.csv`, `DATA-OPS-PROTOCOL.md`. No Bash tool (hard block on running any script, including `atlas_groups.py`/`atlas_append.py`). No git push.
-- **`liz-editorial`** (`.claude/agents/liz-editorial.md`, Atlas Spidering workspace, not this repo) — rebuilt July 7, 2026 with full read access (Read/Grep/Glob) across all three non-Downloads locations: this repo, `journalism-atlas-private`, and the Atlas Spidering workspace. No Bash, Write, or Edit tool — read and analyze only. No Shadow Lists or rejection-notes access — both are canonical Google Sheets and no Sheets connector exists in this environment (see `CURRENT_STATE.md`).
+- **`liz-editorial`** (`.claude/agents/liz-editorial.md`, now inside `journalism-atlas-private/spidering/.claude/agents/`, not this repo) — rebuilt July 7, 2026 with full read access (Read/Grep/Glob) across this repo, `journalism-atlas-private`, and (as of 2026-09-03) the now-merged spidering content, all in one repo. No Bash, Write, or Edit tool — read and analyze only. No Shadow Lists or rejection-notes access — both are canonical Google Sheets and no Sheets connector exists in this environment (see `CURRENT_STATE.md`).
 - Scoping for these subagents is enforced by their prompt instructions and by which tools are granted (e.g. omitting Bash) — not by a filesystem ACL. Treat the "in scope" file lists as a convention the subagent is instructed to follow, not a hard sandbox.
 
 ---
@@ -172,15 +172,14 @@ Four locations now exist. Don't assume file paths from older briefs still hold �
 | Location | What lives there | Tracked? |
 |---|---|---|
 | `journalism-atlas/` (this repo) | Production site, deploy docs, pipeline scripts (`pipeline/`) | Git, deploys to Cloudflare (public) |
-| `journalism-atlas-private/` (github.com/bankonjustin/journalism-atlas-private) | Editorial/reference docs (`ATLAS-EDITORIAL-STANDARDS`, `REJECTION_GUIDE`, `DATA-ROADMAP`), the live `atlas-private-columns.csv`, dated master-CSV snapshots | Git (private) — access: Justin, Ryan, Liz, James |
-| `~/Documents/Atlas Spidering/` | Spidering scripts/output, pulse pipeline, `SCHEMA-VOCAB.md` | Not in Git — local only |
+| `journalism-atlas-private/` (github.com/bankonjustin/journalism-atlas-private) | Editorial/reference docs (`ATLAS-EDITORIAL-STANDARDS`, `REJECTION_GUIDE`, `DATA-ROADMAP`), the live `atlas-private-columns.csv`, dated master-CSV snapshots, Ryan's `runryan/`, and (as of 2026-09-03) `spidering/` — moved in from `~/Documents/Atlas Spidering/`, see below | Git (private) — access: Justin, Ryan, Liz, James |
 | `~/Downloads/` | Still holds a large accumulation of briefs, historical Mega-Database files, and design assets going back to January 2026 (categorized, not yet individually triaged — see open item below). A maintained *mirror* of `ATLAS-EDITORIAL-STANDARDS` also lives here (`ATLAS-EDITORIAL-STANDARDS-v1_4.md`) solely for `liz-editorial.md`'s hardcoded path — see `DATA-OPS-PROTOCOL.md` § "Reference doc locations." | Not tracked |
 
 **Corrections to prior claims:** (1) Earlier docs assumed `ATLAS-EDITORIAL-STANDARDS.md` lived in this repo's `_reference/` folder — it never has. (2) As of the July 7 filesystem audit, this doc said the private repo was "proposed, not yet built" — it's since been approved and built; that recommendation is superseded by the row above.
 
 **Still open:** `~/Downloads/` has 150+ Atlas-related files beyond what's been migrated so far, categorized at the bucket level but not individually triaged (Mega-Database, historical briefs, business/legal docs, older private-columns/master-CSV snapshots predating the private repo). A follow-up pass is expected.
 
-`journalism-atlas/spidering/` must stay empty — confirmed empty as of this audit. Nothing spidering-related belongs there; see `Atlas Spidering/SPIDERING_ALIGNMENT_GUIDE.md`.
+`journalism-atlas/spidering/` must stay empty — confirmed empty as of this audit. Nothing spidering-related belongs there; see `journalism-atlas-private/spidering/SPIDERING_ALIGNMENT_GUIDE.md` (path updated 2026-09-03 — spidering is no longer at `~/Documents/Atlas Spidering/`, and that location no longer exists on disk).
 
 ---
 
