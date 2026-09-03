@@ -46,7 +46,7 @@ except ImportError:
 # normalizer than the one below — handles Substack/YouTube/common-suffix
 # cases this script's own version doesn't. Prefer it; fall back to the local
 # version (unchanged) if that repo isn't present on this machine.
-_SPIDERING_CORE_DIR = Path.home() / "Documents" / "Atlas Spidering" / "core"
+_SPIDERING_CORE_DIR = Path.home() / "Developer" / "journalism-atlas-private" / "spidering" / "core"
 if str(_SPIDERING_CORE_DIR) not in sys.path:
     sys.path.insert(0, str(_SPIDERING_CORE_DIR))
 try:

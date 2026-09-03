@@ -3,7 +3,7 @@ atlas_wire_fetch.py
 Session 1 of Atlas Wire pipeline.
 
 Pulls last 24h of content from:
-  1. ~/Documents/Atlas Spidering/core/rss_pulse_v2_*.json  (most recent Pulse fetch)
+  1. ~/Developer/journalism-atlas-private/spidering/core/rss_pulse_v2_*.json  (most recent Pulse fetch)
   2. Bluesky public API             (for creators with bsky_handle in bluesky-creators.json)
 
 Writes: wire_queue_raw_YYYY-MM-DD.json
@@ -23,7 +23,7 @@ import requests
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-PULSE_SPIDERING_DIR = os.path.expanduser("~/Documents/Atlas Spidering/core")
+PULSE_SPIDERING_DIR = os.path.expanduser("~/Developer/journalism-atlas-private/spidering/core")
 BSKY_CREATORS_FILE = os.path.join(REPO_ROOT, "assets", "data", "bluesky-creators.json")
 
 BSKY_API_BASE = "https://public.api.bsky.app/xrpc"
