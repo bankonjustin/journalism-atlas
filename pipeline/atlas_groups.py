@@ -137,6 +137,8 @@ TAG_TO_GROUP: dict[str, str] = {
     "Dating/Romance":                "Lifestyle & Personal Life",
     "Things to Do":                  "Lifestyle & Personal Life",
     "Self-Help":                     "Lifestyle & Personal Life",
+    "Beauty":                        "Lifestyle & Personal Life",
+    "Automotive":                    "Lifestyle & Personal Life",
     # Civic Life
     "Local":                         "Civic Life",
     "Education":                     "Civic Life",
@@ -166,6 +168,10 @@ TAG_TO_GROUP: dict[str, str] = {
     "Data Visualization":            "Journalism Formats",
     "Solutions Journalism":          "Journalism Formats",
     "Day in a Life":                 "Journalism Formats",
+    "Data":                          "Journalism Formats",
+    "Visual Journalism":             "Journalism Formats",
+    # Social Issues (cont.)
+    "Indigenous":                    "Social Issues",
 }
 
 GROUP_PRIORITY = [
