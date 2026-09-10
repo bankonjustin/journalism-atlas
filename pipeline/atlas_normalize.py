@@ -40,7 +40,11 @@ from pathlib import Path
 
 REPO_ROOT   = Path(__file__).parent.parent
 MASTER_CSV  = REPO_ROOT / "assets" / "data" / "creators-master.csv"
-REPORT_ROOT = Path.home() / "Documents" / "Atlas Spidering" / "sessions"
+# Was Path.home() / "Documents" / "Atlas Spidering" / "sessions" — that folder was
+# retired by the 2026-09-03 migration (journalism-atlas-private commit f710799).
+# Reports now land next to the rest of the pulse-enrichment output, sibling-relative
+# so this survives a future repo move the same way MASTER_CSV already does.
+REPORT_ROOT = REPO_ROOT.parent / "journalism-atlas-private" / "spidering" / "03-pulse-enrichment"
 
 EXPECTED_COLUMNS = [
     "Creator Name", "slug", "Creator Channel", "Link Primary",
