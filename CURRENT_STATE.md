@@ -108,7 +108,7 @@ Three-layer layout:
 
 ## Pipeline state (pulse_digest.py)
 
-**Location:** `/Users/justinbank/Documents/Atlas Spidering/core/pulse_digest.py` (NOT in the repo)
+**Location:** `/Users/justinbank/Developer/journalism-atlas-private/pipelines/pulse/pulse_digest.py` (NOT in this repo — moved 2026-07-20 into the private repo's version-controlled pulse pipeline; the old `~/Documents/Atlas Spidering/` location no longer exists)
 
 ### Current output fields
 - `DIGEST_DATA.signal_stories` — top 20 ranked posts (cap pending raise to 30 — `// TODO` in py file)

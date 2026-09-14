@@ -42,7 +42,7 @@ try:
 except ImportError:
     make_unique_slug = None  # private repo not present on this machine — slug auto-gen disabled
 
-# core/creator_slug.py (Atlas Spidering repo) has a more thorough URL
+# spidering/core/creator_slug.py (journalism-atlas-private repo) has a more thorough URL
 # normalizer than the one below — handles Substack/YouTube/common-suffix
 # cases this script's own version doesn't. Prefer it; fall back to the local
 # version (unchanged) if that repo isn't present on this machine.

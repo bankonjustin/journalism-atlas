@@ -1,7 +1,14 @@
 # Atlas Intelligence System — State Map
-**Last updated:** 2026-06-22  
+**Last updated:** 2026-06-22 (paths corrected 2026-09-14 — see note below)
 **Author:** Claude Code (session audit)  
 **Purpose:** Design document for merging Pulse + Wire into a unified intelligence dashboard.
+
+**Note (2026-09-14):** The `Atlas Spidering/` workspace referenced throughout this doc was
+retired by the 2026-09-03 consolidation and no longer exists on disk — it's now `spidering/`
+inside the `journalism-atlas-private` repo. Paths below are corrected; the pipeline itself
+also gained a 5th step (`pulse_mining.py`, candidate-lead/geo-dateline mining) since this doc
+was last written — see `journalism-atlas-private/pipelines/pulse/README.md` for the current,
+maintained description of the full chain.
 
 ---
 
@@ -9,17 +16,18 @@
 
 ### Pulse Pipeline (Weekly — Scheduled Sunday 9am)
 
-**Entry point:** `/Users/justinbank/Documents/Atlas Spidering/core/refresh_pulse.sh`
+**Entry point:** `/Users/justinbank/Developer/journalism-atlas-private/spidering/core/refresh_pulse.sh`
 
 | Step | Script | Location | Input | Output |
 |------|--------|----------|-------|--------|
-| 1 — Scrape | `pulse_v2.py` | Spidering/core/ | RSS feeds (1,589 creators) | `rss_pulse_v2_YYYYMMDD.json` (core/) |
-| 2 — Update HTML | `update_pulse.py` | Spidering/core/ | `rss_pulse_v2_*.json` | Updates `pulse.html`, `index.html`, `for-brands.html` in journalism-atlas repo |
-| 3 — Digest | `pulse_digest.py` | Spidering/core/ | `rss_pulse_v2_*.json` | `pulse_digest_YYYYMMDD.json` (core/), injected into `pulse.html` |
-| 4 — Spidering brief | `pulse_spidering_brief.py` | Spidering/core/ | `rss_pulse_v2_*.json` | `sessions/SPIDERING_BRIEF_YYYYMMDD.md`, `beat_activity_log.csv` |
+| 1 — Scrape | `pulse_v2.py` | pipelines/pulse/ | RSS feeds (1,589 creators) | `rss_pulse_v2_YYYYMMDD.json` (spidering/core/) |
+| 2 — Update HTML | `update_pulse.py` | pipelines/pulse/ | `rss_pulse_v2_*.json` | Updates `pulse.html`, `index.html`, `for-brands.html` in journalism-atlas repo |
+| 3 — Digest | `pulse_digest.py` | pipelines/pulse/ | `rss_pulse_v2_*.json` | `pulse_digest_YYYYMMDD.json` (pipelines/pulse/), injected into `pulse.html` |
+| 4 — Spidering brief | `pulse_spidering_brief.py` | spidering/core/ | `rss_pulse_v2_*.json` | `sessions/SPIDERING_BRIEF_YYYYMMDD.md`, `beat_activity_log.csv` |
+| 5 — Pulse mining | `pulse_mining.py` | spidering/core/ | `rss_pulse_v2_*.json` | `sessions/pulse_mining_discovery_YYYYMMDD/` — unfiltered candidate-lead/geo-dateline hits, needs human triage before Slack |
 
-**Output files land in:** `/Users/justinbank/Documents/Atlas Spidering/core/`  
-**Public files updated in:** `/Users/justinbank/Documents/GitHub/journalism-atlas/`  
+**Output files land in:** `/Users/justinbank/Developer/journalism-atlas-private/spidering/core/` (steps 1, 4, 5) and `/Users/justinbank/Developer/journalism-atlas-private/pipelines/pulse/` (step 3's digest JSON)
+**Public files updated in:** `/Users/justinbank/Developer/journalism-atlas/`  
 **Steps 3 and 4 are non-fatal** (patched 2026-06-22 with `|| true`) — pipeline continues on digest or brief failure.  
 **Step 3 max_tokens:** bumped to 8192 (primary call) and 4096 (verification call) on 2026-06-22.
 

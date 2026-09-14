@@ -8,7 +8,7 @@ import json, re, time, sys
 import urllib.request, urllib.error
 
 # --- Extract CREATORS from HTML ---
-with open('/Users/justinbank/Documents/GitHub/journalism-atlas/bluesky-intelligence.html') as f:
+with open('/Users/justinbank/Developer/journalism-atlas/bluesky-intelligence.html') as f:
     content = f.read()
 
 m = re.search(r'const CREATORS = (\[.*?\]);', content, re.DOTALL)
@@ -48,7 +48,7 @@ for i, c in enumerate(creators):
     time.sleep(0.15)  # be polite
 
 # --- Write output ---
-out_path = '/Users/justinbank/Documents/GitHub/journalism-atlas/assets/data/bluesky-creators.json'
+out_path = '/Users/justinbank/Developer/journalism-atlas/assets/data/bluesky-creators.json'
 with open(out_path, 'w') as f:
     json.dump(results, f, indent=2)
 
