@@ -408,7 +408,7 @@
 
         // Draw message text
         ctx.fillStyle = state.textColor;
-        ctx.font = '600 36px Hanken Grotesk, sans-serif';
+        ctx.font = '600 36px Inter, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
 
@@ -419,7 +419,7 @@
         wrapText(ctx, message, centerX, textY, maxWidth, lineHeight);
 
         // Draw URL at bottom center
-        ctx.font = '400 20px Hanken Grotesk, sans-serif';
+        ctx.font = '400 20px Inter, sans-serif';
         ctx.fillStyle = state.textColor;
         ctx.globalAlpha = 0.8;
         ctx.fillText('journalismatlas.com', centerX, height - 50);
@@ -444,7 +444,7 @@
 
         // Draw message text (right side)
         ctx.fillStyle = state.textColor;
-        ctx.font = '600 32px Hanken Grotesk, sans-serif';
+        ctx.font = '600 32px Inter, sans-serif';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
 
@@ -456,7 +456,7 @@
         wrapText(ctx, message, textX, textY - 60, maxWidth, lineHeight, 'left');
 
         // Draw URL at bottom left
-        ctx.font = '400 18px Hanken Grotesk, sans-serif';
+        ctx.font = '400 18px Inter, sans-serif';
         ctx.fillStyle = state.textColor;
         ctx.globalAlpha = 0.8;
         ctx.textAlign = 'left';
@@ -643,7 +643,7 @@
         // Atlas "A" placeholder
         ctx.fillStyle = state.textColor;
         ctx.globalAlpha = 0.6;
-        ctx.font = `bold ${size * 0.6}px Hanken Grotesk, sans-serif`;
+        ctx.font = `bold ${size * 0.6}px Inter, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('A', x, y);

@@ -128,7 +128,7 @@
         // Legacy function kept for backward compatibility but uses abbreviateLabel
         function truncateToFit(text, availableWidth, fontSize) {
             fontSize = fontSize || 12;
-            const charWidth = fontSize * 0.6; // Approximate for Hanken Grotesk
+            const charWidth = fontSize * 0.6; // Approximate for Inter
             const maxChars = Math.max(3, Math.floor((availableWidth - 10) / charWidth));
             return abbreviateLabel(text, maxChars);
         }
@@ -2971,7 +2971,7 @@
 
         // ── Top label: INDEPENDENT JOURNALISM ATLAS
         ctx.fillStyle = 'rgba(255,255,255,0.35)';
-        ctx.font = '600 13px "Hanken Grotesk", sans-serif';
+        ctx.font = '600 13px "Inter", sans-serif';
         ctx.textAlign = 'center';
         ctx.letterSpacing = '3px';
         ctx.fillText('INDEPENDENT JOURNALISM ATLAS', W / 2, 76);
@@ -2985,7 +2985,7 @@
 
         // ── "A STARTER PACK" label
         ctx.fillStyle = '#ceff00';
-        ctx.font = '700 11px "Hanken Grotesk", sans-serif';
+        ctx.font = '700 11px "Inter", sans-serif';
         ctx.textAlign = 'left';
         ctx.fillText('A  S T A R T E R  P A C K', ruleX, 118);
 
@@ -2993,7 +2993,7 @@
         ctx.fillStyle = '#ffffff';
         ctx.textAlign = 'left';
         const nameFontSize = packName.length > 24 ? 52 : packName.length > 16 ? 62 : 72;
-        ctx.font = `800 ${nameFontSize}px "Hanken Grotesk", sans-serif`;
+        ctx.font = `800 ${nameFontSize}px "Inter", sans-serif`;
         _packDrawWrappedText(ctx, packName.toUpperCase(), ruleX, 190, ruleW, nameFontSize * 1.1, '#ffffff');
 
         // Figure out where name ends for creator list start
@@ -3020,13 +3020,13 @@
 
             // Creator name
             ctx.fillStyle = '#ffffff';
-            ctx.font = '700 24px "Hanken Grotesk", sans-serif';
+            ctx.font = '700 24px "Inter", sans-serif';
             ctx.textAlign = 'left';
             ctx.fillText(c.name, ruleX, y);
 
             // Channel · Platform in muted green
             ctx.fillStyle = 'rgba(206,255,0,0.65)';
-            ctx.font = '400 16px "Hanken Grotesk", sans-serif';
+            ctx.font = '400 16px "Inter", sans-serif';
             const sub = [c.channel, c.platform].filter(Boolean).join('  ·  ');
             ctx.fillText(sub, ruleX, y + 24);
 
@@ -3044,7 +3044,7 @@
             const moreY = listStartY + maxCreatorsToShow * lineH - 8;
             if (moreY < H - 130) {
                 ctx.fillStyle = 'rgba(255,255,255,0.35)';
-                ctx.font = '600 15px "Hanken Grotesk", sans-serif';
+                ctx.font = '600 15px "Inter", sans-serif';
                 ctx.textAlign = 'left';
                 ctx.fillText(`· · ·  and ${creators.length - maxCreatorsToShow} more`, ruleX, moreY);
             }
@@ -3059,7 +3059,7 @@
 
         // ── URL at bottom
         ctx.fillStyle = 'rgba(255,255,255,0.45)';
-        ctx.font = '500 15px "Hanken Grotesk", sans-serif';
+        ctx.font = '500 15px "Inter", sans-serif';
         ctx.textAlign = 'left';
         ctx.fillText('journalismatlas.com', ruleX, H - 88);
 
