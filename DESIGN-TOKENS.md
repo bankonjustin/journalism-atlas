@@ -1,11 +1,13 @@
-# Atlas Design Tokens — v10 (merged)
+# Atlas Design Tokens — v11 (merged)
 *Canonical design reference — committed to repo as source of truth for implementation*
 
-*Last updated: August 24, 2026*
-*Previous version: v8 (May 2026, though it already contained Aug 1 2026 footer-rebuild entries not present in James's v9/v10 lineage)*
+*Last updated: September 20, 2026*
+*Previous version: v10 (Aug 24, 2026, itself a merge of James's v10 lineage into this repo's Aug-1-forked "v8")*
 *Owner: James (james@happicamp.com)*
 
 > **Version-numbering note (Aug 24, 2026):** James's `DESIGN-TOKENS-v10.md` (Aug 2026) was supplied to replace this file, but it is not a strict superset — this repo file (self-labeled "v8") already contained several Aug 1, 2026 decisions (footer grid rebuild, SVG logo swap, Source Code Pro scoping) that James's v9/v10 lineage doesn't reflect, most likely because it forked from an earlier snapshot. Rather than overwrite, this pass merges v10's actual new content — the Container Inner Padding value, the Max Content Width implementation note, and the Header Nav Spacing table — into this file, preserving the Aug 1 entries. Worth flagging to James so the two lineages get reconciled properly.
+
+> **v11 delta (Sept 20, 2026):** Covers only three changes per James's Sept 2026 Slack handoff (`DESIGN-TOKENS-v11.md`): Primary/UI font Hanken Grotesk → Inter, Merriweather reactivated as paired editorial serif, and icon fill states scoped to toggle/action icons only (save/follow/bookmark/add-to-pack switch Outlined → Filled when active; persistent nav/section icons stay Outlined always). Color palette, viz colors, spacing, radius, max widths, component states, and all type-scale sizes/weights/line-heights are unchanged from v10.
 
 > **How this file works:** This is the single source of truth for all visual decisions. When Justin implements design changes with Claude Code, he references this document. If it's not here, it doesn't get implemented. If it changes here, it changes everywhere.
 
@@ -117,9 +119,9 @@ const ATLAS_VIZ_COLORS_ARRAY = [
 
 | Role | Family | Notes |
 |------|--------|-------|
-| Primary / UI | Hanken Grotesk | Google Fonts — confirmed |
-| Monospace | Source Code Pro | Google Fonts — confirmed for the footer component only (`--font-mono`, wired 2026-08-01). Every other hardcoded `'JetBrains Mono'` declaration sitewide (header.css `@import`, index.html, partners/index.html) is untouched pending a broader decision. The prior "DM Mono confirmed" entry below was never actually implemented anywhere — JetBrains Mono stayed live the whole time. |
-| Secondary serif | Merriweather | Retired from active use — reintroduce only if a specific serif use case arises |
+| Primary / UI | Inter | **Changed Sept 2026 (v11), was Hanken Grotesk.** Variable font (wght 100–900) — covers the full 400/500/600/700/800 scale natively, no substitutions needed. Closest Google Font to Neue Haas Grotesk. |
+| Monospace | Source Code Pro | Google Fonts — confirmed for the footer component only (`--font-mono`, wired 2026-08-01). Every other hardcoded `'JetBrains Mono'` declaration sitewide (header.css `@import`, index.html, partners/index.html) is untouched pending a broader decision. The prior "DM Mono confirmed" entry below was never actually implemented anywhere — JetBrains Mono stayed live the whole time. Unchanged by v11. |
+| Secondary serif | Merriweather | **Reactivated Sept 2026 (v11), was retired May 2026.** Use for long-form/editorial body copy, paired against Inter for UI. `--font-editorial` custom property already existed dormant in `variables.css` — no new token needed. **Open (Sept 20, 2026 session):** no existing CSS class or template actually consumes `--font-editorial` yet, and there's no established "editorial body copy" naming convention in the codebase to hang a broad rollout on. Not applied to any page this session — flagged back to Justin to confirm which templates (Research & Writing? partner pages? published-article template?) should get it before a broad pass.
 
 ### Type Scale
 
@@ -212,8 +214,9 @@ Research & Writing's hero and ticker were **not** touched — its hero intention
 
 ## Iconography
 
-- **Icon set:** Material Symbols Outlined — confirmed
-- **Icon weight/style variant:** Outlined only — never filled
+- **Icon set:** Material Symbols Outlined — confirmed, default everywhere
+- **Icon weight/style variant (changed Sept 2026, v11):** Outlined stays the default. **Toggle/action icons only** — save, follow, bookmark, "add to pack" (pack-builder) — switch Outlined → Filled when active; the shape change is the click-confirmation. **Persistent nav and section icons stay Outlined at every state** (default, hover, active, focus) — selection is carried by color (acid green) only, same as every other state in the system. Material Symbols Filled is loaded as a separate, scoped import for the toggle subset only — the whole icon set does not switch variant.
+- **Status as of Sept 20, 2026:** Rule documented, **not implemented**. Save/follow/bookmark don't exist anywhere on the live site yet. Add-to-pack exists but its active state is a CSS `::after` checkmark, not a Material Symbols icon — giving it Filled-on-active means adding new icon markup, which is new UI, not a token swap. Deferred pending Justin/James confirming scope; see Notes & Decisions Log.
 - **Icon size defaults:**
 
 | Context | Size |
@@ -333,3 +336,6 @@ Per the 2026 Style Guide:
 | Aug 1, 2026 | `--font-mono` repointed to Source Code Pro, scoped to the footer component only | Site's mono-font state was inconsistent: `--font-mono` pointed to DM Mono but nothing loaded it, and JetBrains Mono was hardcoded live everywhere. James asked to fix the footer now and not pre-negotiate a sitewide swap; flagged for further review on staging |
 | Aug 24, 2026 | Home hero and Contact hero wrapped in the `full layout` (1440px) container; header/footer container found already correct, not changed | Staging review (James, Aug 2026) flagged 5 pages + header as escaping the container — on inspection only Home and Contact actually were. See implementation note under Max Content Width for full detail and what was deliberately left alone (Research & Writing's 1100px editorial width, Pulse/For Brands tickers, header nav internal spacing) |
 | Aug 24, 2026 | Merged James's `DESIGN-TOKENS-v10.md` into this file rather than replacing it | v10 was not a strict superset of what was already committed (missing the Aug 1 footer-rebuild/SVG-swap/Source-Code-Pro entries) — see version-numbering note at the top of this file |
+| Sept 20, 2026 | Primary/UI font swapped Hanken Grotesk → Inter | Per James's v11 Slack handoff — legibility motivation cited for dense/data-heavy views (creator list/table, Pulse cards); Inter is the closest Google Font to Neue Haas Grotesk and covers 400–800 natively as a variable font, no substitutions needed |
+| Sept 20, 2026 | Merriweather reactivated as paired editorial serif | Reverses the May 2026 retirement; `--font-editorial` token already existed dormant in `variables.css` from that era. Rollout to specific templates deferred — no existing CSS convention for "editorial body copy" to attach it to; flagged to Justin rather than guessed |
+| Sept 20, 2026 | Icon fill-on-active rule documented for save/follow/bookmark/add-to-pack; **not yet implemented** | Investigated before touching anything, per the brief's own instruction. Save/follow/bookmark do not exist as features anywhere on the live site — no toggle icon, no state tracking. Add-to-pack (`_packEnableDrawerSelection()` in `main.js`, `.selected` state) doesn't use a Material Symbols icon at all — its "check" is a CSS `::after` pseudo-element with a literal `✓` character (`main.css` pack-drawer rules), not a font glyph. Retrofitting it to a real Filled/Outlined icon is new UI structure, not a variant swap, and out of this brief's stated scope (delta-only, "don't touch anything else") — flagged to Justin rather than built speculatively. Material Symbols Filled import deliberately not added yet since nothing would consume it |
