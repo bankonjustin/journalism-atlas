@@ -1,5 +1,30 @@
 # Pulse — Current State
-*Last updated: September 20, 2026 (Design Tokens v11 — font/icon brief)*
+*Last updated: September 23, 2026 (Nodes and Networks v938 copy-lock sync)*
+
+## Nodes and Networks preview: v938 copy-lock sync (Sept 23, 2026)
+
+- `research/nodes-and-networks.html`: **password gate removed** (Justin's call). The page loads for anyone with the URL. It's still `noindex, nofollow` and unlinked. The Executive Summary is gone because v938 has none.
+- The paper body is now **generated** from the copy-locked v938 docx by `journalism-atlas-private/research/nodes-and-networks/sync_paper.py`, between `<!-- PAPER:START/END -->`. The nav links are generated between `<!-- NAV:START/END -->`. `--verify` reports zero diff against v938.
+- Figure 7 was removed from the page; its file moved to the private repo's `figures-archive/`. The Figure 5 x-axis now shows plain years (`2011`, not `2,011`).
+- **Open (full list in the private repo's `SYNC-REPORT-v938.md`):**
+  - Number mismatches between the figures and the copy. Texas Tribune is $15.3M in Fig 3 vs $15.1M in the text; there are also Fig 5 Defector, Spotlight PA and Documented NYC points.
+  - An errata list for Andy.
+  - Fig 6 labels clip at 390px.
+  - Fixed iframe heights clip Fig 4's caption on mobile.
+- **Site-wide, found in passing:** `header.js` nav overflows at 1024px, and the search box widens the page to 570px at a 390px viewport. It happens on every page.
+- **Same day, second pass: James's "Long-Form Report Template v1" (Sept 18) applied.**
+  - The sub-nav moved to directly after the site header, so it's docked from first paint. It's black (`--color-black`), `z-index: 10`, and its `top` is measured live, not hardcoded to 64px.
+  - The one-off `.atlas-footer` was replaced by the shared `footer.js`. The "Discover 1,800+ / Explore the Atlas" line was dropped rather than kept above the footer.
+  - The prose column is the 680px text-column token.
+  - Type: Merriweather for article prose (scoped to `.masthead, .content` so the shared header and footer stay in Inter), Inter for UI. Libre Baskerville and DM Sans are gone, and so is the inline `--font-ui` override.
+  - v11 scale: H1 36/30, H2 28/24, Body 16/1.6. Sub-13px meta and sub-11px labels were raised to Small/Micro.
+  - **Left for James:**
+    - `.masthead-sub` (17.6px) and the intro lede (17.6px) have no matching type-scale level
+    - the page's own colour palette is still off-token
+    - the figures still load DM Sans and Libre Baskerville inside their iframes
+    - `footer.js` uses `Journalism_Atlas_wordmark_stacked_white.svg`, not the spec's `Atlas_logo_lockup_stacked_wht_web.svg` (that file isn't in the repo)
+    - `origin/dev` (staging) was last updated Mar 6 and doesn't have this page
+  - Paper sync is unaffected (`--verify` still reports zero diff).
 
 ## Design Tokens v11 — font/icon session (Sept 20, 2026)
 
