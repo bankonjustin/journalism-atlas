@@ -1,5 +1,13 @@
 # Pulse — Current State
-*Last updated: September 23, 2026 (Nodes and Networks v938 copy-lock sync)*
+*Last updated: September 24, 2026 (Nodes and Networks: WBEZ data-point fix in figures)*
+
+## Nodes and Networks figures: WBEZ data-point fix (Sept 24, 2026), **edited locally, not yet pushed**
+
+- `research/figures/figure_1`–`figure_6`: the shared embedded `figure5Data` array carried WBEZ / Chicago Public Media at WTTW's revenue (`y: 50.4117`, wrong EIN 36-2246703). Corrected to **35.6218** (Chicago Public Media Inc, EIN 36-3687394, FYE June 2025, $35,621,838), and the C5 rank offsets swapped (WBEZ x 0.1538→0.0923, LAist 0.0923→0.1538). 8 lines per file, nothing else.
+- Applied by `paper-one-band-dataset/patch_wbez_published_figures.py`, which is idempotent and asserts no other change. The full log is `paper-one-band-dataset/changelog_published_figures_wbez_fix.md`.
+- **No visible change on the page.** `figure5Data` only renders in Figure 7 (Durable Middle Zone), which was removed from the page on Sept 23. Figures 1–6 carry the array but don't draw it. Verified on a local server: all six render, the console is clean.
+- Before the edit, the live files matched this repo byte-for-byte (SHA-256, 2026-09-24).
+- **Open:** the archived `journalism-atlas-private/research/nodes-and-networks/figures-archive/figure_7_durable_middle_zone.html` still has `y: 50.4117`. Patch it with the same script if Figure 7 is ever restored.
 
 ## Nodes and Networks preview: v938 copy-lock sync (Sept 23, 2026)
 
