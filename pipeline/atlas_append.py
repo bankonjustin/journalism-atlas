@@ -28,13 +28,19 @@ import sys
 from pathlib import Path
 
 # Add pipeline dir to path so we can import atlas_groups
-sys.path.insert(0, str(Path(__file__).parent))
+_PIPELINE_DIR = Path(__file__).parent
+sys.path.insert(0, str(_PIPELINE_DIR))
 from atlas_groups import normalize_topics, derive_groups, snapshot
+
+# Sibling-repo root, resolved relative to this file's own location (not a
+# hardcoded home-directory path) so this survives a different machine/cloud
+# checkout the same way atlas_normalize.py's REPORT_ROOT already does.
+_PRIVATE_REPO_ROOT = _PIPELINE_DIR.parent.parent / "journalism-atlas-private"
 
 # atlas_slug.py lives in the private repo (Ryan's working tools), not this one.
 # Reuse its slug logic rather than reimplementing it here — see
 # runryan/Atlas Scripts/atlas_slug.py for the canonical implementation.
-_SLUG_SCRIPT_DIR = Path.home() / "Developer" / "journalism-atlas-private" / "runryan" / "Atlas Scripts"
+_SLUG_SCRIPT_DIR = _PRIVATE_REPO_ROOT / "runryan" / "Atlas Scripts"
 if str(_SLUG_SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(_SLUG_SCRIPT_DIR))
 try:
@@ -46,7 +52,7 @@ except ImportError:
 # normalizer than the one below — handles Substack/YouTube/common-suffix
 # cases this script's own version doesn't. Prefer it; fall back to the local
 # version (unchanged) if that repo isn't present on this machine.
-_SPIDERING_CORE_DIR = Path.home() / "Developer" / "journalism-atlas-private" / "spidering" / "core"
+_SPIDERING_CORE_DIR = _PRIVATE_REPO_ROOT / "spidering" / "core"
 if str(_SPIDERING_CORE_DIR) not in sys.path:
     sys.path.insert(0, str(_SPIDERING_CORE_DIR))
 try:
