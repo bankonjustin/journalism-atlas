@@ -1,7 +1,13 @@
 # DATA-OPS-PROTOCOL.md
 **Independent Journalism Atlas — Data Operations Protocol**
-*Current State | Last updated: July 14, 2026 (Ryan) | Filed into repo July 17, 2026*
+*Current State | Last updated: July 14, 2026 (Ryan) | Filed into repo July 17, 2026 | Sheets-references synced 2026-09-26*
 *Owner: Ryan Kellett (ryan@journalismatlas.com)*
+
+---
+
+## Changelog
+
+- **2026-09-26** — Sheets-to-CSV reference sync (Atlas backlog-clearing brief v1.0). All references to the retired Intake Queue, Rejections, and Shadow Lists Google Sheets updated to point at their actual current in-repo locations (migrated 2026-09-17 per `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md`, the doc this repo's copy had fallen behind). The Contact Form Responses Sheet is untouched — it's still genuinely Sheet-based, not part of the migration. Scope was references only; this pass did not touch the stale team roster (still lists Liz, who left in Sept 2026), the three-reviewer vote workflow (superseded by tiered review), or the `atlas_preflight.py`/`atlas_sync_check.py` non-existence notes — those are flagged, not fixed, in the sync report accompanying this change (out of scope for a mechanical reference sync).
 
 ---
 
@@ -39,9 +45,9 @@ For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` 
 - **Master CSV:** 1,999 rows, 19 columns, zero duplicate slugs (filed July 17 2026 from Ryan's July 14 drop, 1,806→1,999). Live at `journalism-atlas/assets/data/creators-master.csv`; dated snapshot at `journalism-atlas-private/data/snapshots/creators-master-20260714.csv`. No `CURRENT.txt` pointer in this repo — see correction above.
 - **Schema:** 19 public columns (18 original + `partner_lists`, added May 2026).
 - **Private columns:** 1,999 rows — verified at parity with master July 17 2026 (manual CSV-aware slug-set comparison; `atlas_sync_check.py` does not exist in this repo — see correction above). Live at `journalism-atlas-private/data/atlas-private-columns.csv`; dated snapshot at `journalism-atlas-private/data/snapshots/atlas-private-columns-20260714.csv`.
-- **Staging:** `proposals.csv` is retired — [Intake Queue Google Sheet](https://docs.google.com/spreadsheets/d/1Fve8IJp6jvilXNdcN2MOBrjmqTFMAvR3/edit?usp=sharing) is now the staging layer
-- **Rejections:** [Rejections Google Sheet](https://docs.google.com/spreadsheets/d/1tvoG2IXB9K07WYQpgmKYOlRFPwPq6I52/edit?usp=sharing) is canonical — replaces `pipeline/rejections.csv`
-- **Shadow Lists:** [Shadow Lists Google Sheet](https://docs.google.com/spreadsheets/d/1I9qKTGetIArHob_XGMweKn8rkFPBTm6c/edit?usp=sharing) — managed by Justin
+- **Staging:** `proposals.csv` and the Intake Queue Google Sheet are both retired (Sept 17 2026 migration to the tiered review process — see Step 2 below). No separate staging layer exists; MAYBE-tier candidates go straight to Ryan's review from the Data Fill output.
+- **Rejections:** `data/rejections.csv` (`journalism-atlas-private` repo) is canonical — replaces the Rejections Google Sheet, migrated 2026-09-17 with full history (546 rows) intact.
+- **Shadow Lists:** `data/shadow-lists.csv` (`journalism-atlas-private` repo) is canonical — replaces the Shadow Lists Google Sheet, migrated 2026-09-17 (24 rows carried forward; more added since).
 - **Live site:** journalismatlas.com
 
 > ✅ **Groups comma form — now handled durably by `atlas_normalize.py` (June 25 2026).** The normalize script corrects the legacy form `"Science, Health & Environment"` → `"Science Health & Environment"` (no comma) on every run and validates all Groups tokens against the 9-value controlled vocab. The comma fix collides with the comma delimiter, so it is applied as a literal substring before splitting — and it is idempotent (a second run makes no further change). The master Ryan produces is therefore always comma-clean, independent of Justin's scripts.
@@ -72,11 +78,11 @@ Pre-Intake Sources
   Slack / Spidering (Justin) / Contact Form / Newsletters / Partner Lists
           ↓
     Data Fill (Ryan + Claude Chat)
-  Dedup · Light enrichment · Auto-reject obvious failures
+  Dedup · Light enrichment · tier: auto-approve / auto-reject / MAYBE
           ↓
-    Intake Queue (Google Sheet)
-  Shared: Ryan, Liz, Anna, Justin
-  Decisions: Approved / Rejected / Shadow List / Hold
+    [Intake Queue Google Sheet — RETIRED 2026-09-17, see Step 2]
+  MAYBE-tier rows go straight to Ryan's review; auto-approve/auto-reject
+  need no staging step at all
           ↓
     Human Approval + Data Enrichment
   Three-question test · Full 19-column fill · Private data collected
@@ -256,7 +262,7 @@ Proceed with Data Fill on all, some, or let me know which to skip.
 ### Dedup check (run in this order)
 
 1. Check against master CSV by URL (normalized) and name
-2. Check against Rejections Google Sheet by name (case-insensitive)
+2. Check against `data/rejections.csv` (`journalism-atlas-private` repo) by name (case-insensitive)
 3. Check against partner list CSVs
 
 Redundancy is intentional — Justin pre-dedupes spidering output, but duplication is the most common error in the pipeline. Checking twice catches what slips through.
@@ -319,7 +325,7 @@ Flag and remove — do not add to intake queue:
 | Creator is active but their real home is a different platform than submitted | Re-assign per Platform Assignment Rules; submitted URL may become Platform 2+ or drop off entirely |
 | Obvious multi-staff org, no named individual creator | Reject: `scope` — note "org rule" |
 | Already in master CSV | Reject: `duplicate` |
-| Already in rejections sheet | Skip — no new entry needed |
+| Already in `data/rejections.csv` | Skip — no new entry needed |
 | Already in a partner list CSV | Reject: `duplicate` |
 | Cannot identify who this creator is from others with same name | Reject: `insufficient` |
 
@@ -336,13 +342,15 @@ Run `atlas_slug.py check` after every append to audit the master for unexpected 
 
 ### Output
 
-Cleaned rows added to the Intake Queue Google Sheet with: Name, URL, Platform, Beat/Topic, Geography (rough), one-sentence description, Source, Spidering Verdict (if from Justin).
+Cleaned rows tiered auto-approve / auto-reject / MAYBE (see Step 2 — the Intake Queue Google Sheet this used to describe is retired) with: Name, URL, Platform, Beat/Topic, Geography (rough), one-sentence description, Source, Spidering Verdict (if from Justin).
 
 ---
 
-## Step 2: Intake Queue (Google Sheet)
+## Step 2: Intake Queue (Google Sheet) — SUPERSEDED 2026-09-17
 
-The intake queue is a shared Google Sheet. It is the only staging layer between pre-intake and approval. `proposals.csv` is retired.
+**This entire step and the Sheet it describes are retired.** The Intake Queue Google Sheet was never actually used in real batches — every batch that's actually run went straight from Data Fill to Ryan — and the tiered review process adopted 2026-09-17 (auto-approve / auto-reject / MAYBE, see `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md`'s "Tiered review" section for the current process) makes a separate staging layer structurally unnecessary: auto-approve/auto-reject rows need no staging at all, and MAYBE-tier rows go directly into Ryan's review from the Data Fill output. Left below for historical reference only — do not create or use this Sheet.
+
+~~The intake queue is a shared Google Sheet. It is the only staging layer between pre-intake and approval. `proposals.csv` is retired.~~
 
 **Access:** Ryan, Liz, Anna, Justin — all with edit permissions.
 
@@ -425,7 +433,7 @@ The `partner_lists` column (column 19) is pipe-delimited. If a creator comes fro
 
 ### Rejection logging
 
-For rejected rows, add to the Rejections Google Sheet:
+For rejected rows, add to `data/rejections.csv` (`journalism-atlas-private` repo):
 
 | Field | Notes |
 |---|---|
@@ -453,7 +461,7 @@ For rejected rows, add to the Rejections Google Sheet:
 
 ### Shadow list routing
 
-Entries marked Shadow List go to the Shadow Lists Google Sheet, managed by Justin. Minimum fields: outlet name, named creator(s), URL, category, brief description.
+Entries marked Shadow List go to `data/shadow-lists.csv` (`journalism-atlas-private` repo). Minimum fields: outlet name, named creator(s), URL, category, brief description.
 
 Categories: `co-op` (worker-owned newsrooms) · `indie-outlet` (founder-led newsrooms with staff) · `named-founder-org` (org-rejections where founder may qualify individually).
 
@@ -678,17 +686,17 @@ Snapshots are stored in `.atlas_versions/` as timestamped CSVs.
 
 ---
 
-## Google Sheets structure
+## Canonical data files — SUPERSEDES "Google Sheets structure" (2026-09-17)
 
-Three Google Sheets replace the prior local CSV files:
+All three Google Sheets below are retired. Rejections and Shadow Lists are now plain CSVs in the private repo, migrated 2026-09-17 with full history intact; the Intake Queue has no replacement because the tiered review process (see Step 2 above) makes a separate staging layer unnecessary.
 
-| Sheet | URL | Replaces | Owner |
+| File | Path | Replaces | Notes |
 |---|---|---|---|
-| **Intake Queue** | https://docs.google.com/spreadsheets/d/1Fve8IJp6jvilXNdcN2MOBrjmqTFMAvR3/edit?usp=sharing | `proposals.csv` | Ryan (primary), shared with Liz/Anna/Justin |
-| **Rejections** | https://docs.google.com/spreadsheets/d/1tvoG2IXB9K07WYQpgmKYOlRFPwPq6I52/edit?usp=sharing | `pipeline/rejections.csv` | Ryan (primary); Justin's Claude reads from this sheet, not a local CSV |
-| **Shadow Lists** | https://docs.google.com/spreadsheets/d/1I9qKTGetIArHob_XGMweKn8rkFPBTm6c/edit?usp=sharing | No prior equivalent | Justin (primary) |
+| **Rejections** | `data/rejections.csv` (`journalism-atlas-private`) | Rejections Google Sheet (`1tvoG2IXB9K07WYQpgmKYOlRFPwPq6I52`) | 546 rows migrated. Schema: `date, slug, creator_name, url, reason_code, reason_description, note, batch, decided_by, status`. |
+| **Shadow Lists** | `data/shadow-lists.csv` (`journalism-atlas-private`) | Shadow Lists Google Sheet (`1I9qKTGetIArHob_XGMweKn8rkFPBTm6c`) | 24 rows migrated, more added since. Schema: `date_added, outlet_name, named_creators, url, category, brief_description, source, status, note`. |
+| **Data Fill evidence log** | `data/data-fill-log.jsonl` (`journalism-atlas-private`) | No prior equivalent | New 2026-09-17 — append-only record of every Data Fill decision, all tiers. |
 
-Justin: update `process_recs.py` and any spidering dedup logic to read from the Rejections Google Sheet URL above rather than a local `rejections.csv` path. The sheet ID is `1tvoG2IXB9K07WYQpgmKYOlRFPwPq6I52`.
+**Justin:** `process_recs.py` and any spidering dedup logic should read `data/rejections.csv` directly rather than the old Sheet URL — plain CSV, no API/auth needed. (This flips the direction of the note this section used to carry, which told Justin to point *at* the Sheet — that instruction is now backwards; the Sheet is gone.) Flagging as **not yet done**: `spidering/core/process_recs.py` (private repo) still hardcodes `Path.home() / "Downloads" / "rejections.csv"` — a manual, point-in-time export, not the live `data/rejections.csv` file — as of this sync. That script's own docstring already documents this as a known gap; this note doesn't fix it, just confirms it's still open.
 
 ---
 
@@ -728,7 +736,7 @@ Private creator data lives in a local CSV file managed by Ryan. It is intentiona
 | `atlas_append.py` must be run from inside `/pipeline/` directory | Standing quirk | — |
 | Substack / Beehiiv / Instagram egress-blocked in Cowork | Use web search snippets instead of web fetch for research on these platforms | — |
 | 164 dark creators in Atlas Pulse (broken feed URLs) | Primary URLs corrected in master CSV (May 2026). Feed resolution is Justin's Pulse task — not a Ryan pipeline item. | Justin (Pulse) |
-| Root-level `rejections.csv` in repo is an empty shell | Ignore — active rejections are in the Rejections Google Sheet | — |
+| ~~Root-level `rejections.csv` in repo is an empty shell~~ | **Resolved 2026-09-17** — `data/rejections.csv` (`journalism-atlas-private` repo) is now canonical, 546 rows, full history migrated from the old Sheet. | — |
 | `atlas_verify_state.json` link cache is currently empty | Will rebuild on first verify run | — |
 | ~~Working master is 18 columns~~ | **Resolved** — canonical master (`atlasmaster_july07_2026.csv`) carries all 19 columns | — |
 | ~~Private columns behind master~~ | **Resolved July 7 2026** — both at 1,806, verified no dupes/orphans via `atlas_sync_check.py`. Run the check at every Final Clean. | — |
