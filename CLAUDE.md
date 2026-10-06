@@ -14,7 +14,7 @@
 
 - No sycophantic openers ("Great question!", "I'd be happy to help with that!", "Absolutely!")
 - No restating the request back before answering
-- No hedging on calls already settled by this file, `DESIGN-TOKENS.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
+- No hedging on calls already settled by this file, `DESIGN-TOKENS-v12.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
 - Flag genuine ambiguity once, briefly, then proceed with the most reasonable interpretation rather than stalling
 
 ### Required reading order
@@ -22,7 +22,7 @@
 | File | When |
 |------|------|
 | `CLAUDE.md` (this file) | Always |
-| `DESIGN-TOKENS.md` | Before any CSS/styling work |
+| `DESIGN-TOKENS-v12.md` | Before any CSS/styling work |
 | `_reference/james-design-principles.md` | Before any visual/component decision |
 | `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
 | `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
@@ -54,7 +54,7 @@ A vanilla JS static HTML site. No build step, no npm, no React. All pages are si
 
 ## Design System
 
-All visual implementation references `DESIGN-TOKENS.md` at the project root as the single source of truth. Its CSS implementation lives in `assets/css/variables.css` — the canonical token file, loaded before all other stylesheets.
+All visual implementation references `DESIGN-TOKENS-v12.md` at the project root as the single source of truth. Its CSS implementation lives in `assets/css/variables.css` — the canonical token file, loaded before all other stylesheets.
 
 **Do not infer or improvise colors, type sizes, spacing, or component states — look them up.**
 
@@ -62,9 +62,9 @@ All visual implementation references `DESIGN-TOKENS.md` at the project root as t
 
 ### Non-negotiable rules (memorize these)
 
-- **Acid green `#ceff00` = dark backgrounds only** — never on light/white surfaces
-- **Lime green `#97d600` = light backgrounds only** — never on dark surfaces
-- **Header text = always `#000000`** regardless of mode or surface color
+- **Acid green `#ceff00` = dark backgrounds only** — never on light/white surfaces  ⚠ PENDING JAMES — v12 does not restate this rule (v12 describes acid as CTAs/active states, one per composition, no surface restriction)
+- **Lime green `#97d600` = light backgrounds only** — never on dark surfaces  ⚠ PENDING JAMES — v12 treats lime as hover-only (and focus ring); the site uses it as the primary accent on light
+- **Site header = `#000000` or `#ffffff`** (a per-design choice, v12). Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 6 or 8 on white, step 1 on black). Anything docked to the header uses the same background. The live site ships white. The black option is unwired until `Atlas_logo_lockup_horizontal_wht_web.svg` is in the repo
 - **Body copy minimum 16px** — Small (13px) is the floor for all UI text. Micro (11px) for all-caps labels only (weight 500 min, letter-spacing 0.08–0.1em). Never below 13px for any readable content.
 - **Material Symbols Outlined only** — no legacy Material Icons; Filled variant reserved for active states only
 - **4px base spacing unit** — spacing scale: xs 4px / sm 8px / md 16px / lg 24px / xl 32px / 2xl 48px
@@ -74,7 +74,7 @@ All visual implementation references `DESIGN-TOKENS.md` at the project root as t
 ### CSS token architecture
 
 ```
-assets/css/variables.css   ← THE canonical token file (implements DESIGN-TOKENS.md)
+assets/css/variables.css   ← THE canonical token file (implements DESIGN-TOKENS-v12.md)
 assets/css/header.css      ← Shared site header + footer wordmark styles (all pages)
 assets/css/main.css        ← Primary stylesheet for index.html only
 assets/css/animations.css  ← Standalone animation keyframes
@@ -93,18 +93,18 @@ assets/css/animations.css  ← Standalone animation keyframes
 The site header is injected via `assets/js/header.js` — a self-contained script that:
 - Inserts the `<nav class="top-nav">` HTML as the first element in `<body>`
 - Wires up mobile menu, scroll-shrink, and search navigation
-- Injects Hanken Grotesk + Material Symbols fonts if not already loaded
+- Injects Inter + Material Symbols fonts if not already loaded
 
 `header.js` is loaded as the **first** `<script>` tag in `<body>` on every page. Do not duplicate nav HTML manually — edit `header.js` to change nav content.
 
 Pages with inline `<style>` blocks (partners/*.html, city-lab-chicago.html, latin-america-lab.html) link variables.css before their inline block, and header.css after it (before `</head>`).
 
-### How to use DESIGN-TOKENS.md in a session
+### How to use DESIGN-TOKENS-v12.md in a session
 
-Before writing any CSS or styling-related code, read the relevant section of `DESIGN-TOKENS.md`. Reference it explicitly in comments when implementing tokens:
+Before writing any CSS or styling-related code, read the relevant section of `DESIGN-TOKENS-v12.md`. Reference it explicitly in comments when implementing tokens:
 
 ```css
-/* Primary accent — light mode only. DESIGN-TOKENS.md § Semantic Color Assignments */
+/* Primary accent — light mode only. DESIGN-TOKENS-v12.md § Semantic Color Assignments */
 --color-accent: #97d600;
 ```
 
@@ -258,7 +258,7 @@ All pages above have been swept to the design token system (variables.css linked
 
 | File | Use |
 |------|-----|
-| `Journalism_Atlas_wordmark_horizontal_lockup_black.png` | Site header (white background) |
+| `Journalism_Atlas_wordmark_horizontal_lockup_black.svg` | Site header (white background, current live asset; v12 specifies `Atlas_logo_lockup_horizontal_blk_web.svg`, not yet in repo; unverified whether it is the same file) |
 | `Journalism_Atlas_wordmark_horizontal_lockup_white.png` | Footer (black background) |
 | `Journalism_Atlas_wordmark_stacked_green_white (3).png` | Hero section on search.html |
 | `Journalism_Atlas_logo_acid_green.png` | Icon-only uses |
