@@ -48,32 +48,15 @@ Atlas.prototype/
 ├── who-we-are.html         # About us page
 ├── README.md               # This file
 │
-├── mobile/                 # Mobile experience (/mobile/)
-│   ├── index.html          # Mobile app entry point
-│   ├── README.md           # Mobile documentation
-│   ├── DEPLOYMENT.md       # Mobile deployment guide
-│   ├── QUICK_START.md      # Mobile quick start
-│   ├── css/                # Mobile stylesheets
-│   │   ├── variables.css
-│   │   ├── mobile.css
-│   │   └── animations.css
-│   ├── js/                 # Mobile JavaScript modules
-│   │   ├── mobile-main.js
-│   │   ├── bubble-viz.js
-│   │   ├── tag-cloud.js
-│   │   ├── swipe-cards.js
-│   │   ├── bottom-sheet.js
-│   │   └── data-loader.js
-│   └── data/
-│       └── creators-data.json
-│
 ├── assets/                 # Shared assets
 │   ├── css/                # Stylesheets
 │   │   ├── variables.css
 │   │   ├── animations.css
 │   │   └── atlas_color_palette.css
 │   ├── js/                 # JavaScript files
-│   │   └── data-loader.js
+│   │   ├── footer.js
+│   │   ├── header.js
+│   │   └── main.js
 │   ├── data/               # Data files
 │   │   ├── creators-data.json
 │   │   ├── creators-data-backup.json
@@ -264,9 +247,8 @@ img-src 'self' data: https:;
 ### Adding New Creators
 
 1. **Update Data File**
-   - Edit `assets/data/creators-data.json`
-   - Follow existing format
-   - Validate JSON syntax
+   - Edit `assets/data/creators-master.csv` (the source of truth), following the existing column format
+   - `assets/data/creators-data.json` is *generated* from the CSV by `node convert.js` — do not hand-edit it; edits are overwritten on the next convert. Run convert only with Ryan's go-ahead (see `WORKFLOW.md`)
 
 2. **Test Locally**
    - Refresh application

@@ -36,7 +36,7 @@ For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` 
 - Live master the site reads from (via `node convert.js`): `journalism-atlas/assets/data/creators-master.csv`
 - Live private columns: `journalism-atlas-private/data/atlas-private-columns.csv`
 - Dated master snapshots (one per Final Clean, no separate pointer file — the snapshot filename itself is the record): `journalism-atlas-private/data/snapshots/creators-master-YYYYMMDD.csv`
-- `atlas_preflight.py` and `atlas_sync_check.py`, described below as real/wired-in scripts, **do not exist anywhere in this filesystem.** Only `atlas_normalize.py`, `atlas_groups.py`, `atlas_clean.py`, `atlas_append.py`, and `update_partner_totals.py` exist, all in `journalism-atlas/pipeline/`. This needs relaying back to Ryan — his protocol doc is describing tooling from his own local environment as if it's already shared infrastructure.
+- `atlas_preflight.py` and `atlas_sync_check.py` (and `atlas_slug.py`, `atlas_version.py`) are real scripts, but they live in `journalism-atlas-private/runryan/Atlas Scripts/` (Ryan Kellett, 2026-08-25), not in this repo. This repo's `pipeline/` dir holds only `atlas_normalize.py`, `atlas_groups.py`, `atlas_clean.py`, `atlas_append.py`, and `update_partner_totals.py`. *(Corrected 2026-10-05: an earlier version of this note said the first two "do not exist anywhere in this filesystem"; that is true only of this repo.)*
 
 ---
 
@@ -44,7 +44,7 @@ For planned future expansions to the schema and pipeline, see `DATA-ROADMAP.md` 
 
 - **Master CSV:** 1,999 rows, 19 columns, zero duplicate slugs (filed July 17 2026 from Ryan's July 14 drop, 1,806→1,999). Live at `journalism-atlas/assets/data/creators-master.csv`; dated snapshot at `journalism-atlas-private/data/snapshots/creators-master-20260714.csv`. No `CURRENT.txt` pointer in this repo — see correction above.
 - **Schema:** 19 public columns (18 original + `partner_lists`, added May 2026).
-- **Private columns:** 1,999 rows — verified at parity with master July 17 2026 (manual CSV-aware slug-set comparison; `atlas_sync_check.py` does not exist in this repo — see correction above). Live at `journalism-atlas-private/data/atlas-private-columns.csv`; dated snapshot at `journalism-atlas-private/data/snapshots/atlas-private-columns-20260714.csv`.
+- **Private columns:** 1,999 rows — verified at parity with master July 17 2026 (manual CSV-aware slug-set comparison; `atlas_sync_check.py` lives in `journalism-atlas-private/runryan/Atlas Scripts/`, not in this repo — see correction above). Live at `journalism-atlas-private/data/atlas-private-columns.csv`; dated snapshot at `journalism-atlas-private/data/snapshots/atlas-private-columns-20260714.csv`.
 - **Staging:** `proposals.csv` and the Intake Queue Google Sheet are both retired (Sept 17 2026 migration to the tiered review process — see Step 2 below). No separate staging layer exists; MAYBE-tier candidates go straight to Ryan's review from the Data Fill output.
 - **Rejections:** `data/rejections.csv` (`journalism-atlas-private` repo) is canonical — replaces the Rejections Google Sheet, migrated 2026-09-17 with full history (546 rows) intact.
 - **Shadow Lists:** `data/shadow-lists.csv` (`journalism-atlas-private` repo) is canonical — replaces the Shadow Lists Google Sheet, migrated 2026-09-17 (24 rows carried forward; more added since).
