@@ -40,13 +40,25 @@ window.atlasTrack = function(eventName, params) {
     ensureFont('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     ensureFont('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0');
 
+    // Header theme: 'white' (default, live) or 'black'. Pages may request a theme with
+    // <html data-header-theme="...">; the CSS lives in header.css. The logo is chosen from the theme.
+    // 'black' is NOT wired: it needs Atlas_logo_lockup_horizontal_wht_web.svg, which is not in the
+    // repo yet. Do not recolor the black SVG. To enable, add the asset and uncomment the black entry.
+    var HEADER_THEMES = {
+        white: { logo: '/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.svg' }
+        // black: { logo: '/assets/images/logos/Atlas_logo_lockup_horizontal_wht_web.svg' }
+    };
+    var requestedTheme = document.documentElement.getAttribute('data-header-theme');
+    var headerTheme = HEADER_THEMES[requestedTheme] ? requestedTheme : 'white';
+    document.documentElement.setAttribute('data-header-theme', headerTheme);
+
     var html = [
-        '<nav class="top-nav" id="siteTopNav">',
+        '<nav class="top-nav" id="siteTopNav" data-header-theme="' + headerTheme + '">',
         '  <div class="nav-container">',
         '    <div class="nav-logo-search">',
         '      <!-- FLAG FOR JAMES: logo wordmark length — consider icon-only treatment to free nav space -->',
         '      <a href="/" class="nav-logo">',
-        '        <img src="/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.svg" alt="Independent Journalism Atlas">',
+        '        <img src="' + HEADER_THEMES[headerTheme].logo + '" alt="Independent Journalism Atlas">',
         '      </a>',
         '      <div class="nav-search-container">',
         '        <input type="text" class="nav-search" placeholder="Search creators, topics, places..." id="navSearch" autocomplete="off">',

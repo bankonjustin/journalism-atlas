@@ -12,10 +12,58 @@ body {
     line-height: 1.6;
 }
 
+/* ── Header theme (DESIGN-TOKENS-v13.md § Site Header) ──
+   The header is white or black. `assets/js/header.js` sets data-header-theme on <html>
+   (and on <nav>); WHITE is the default and the only live option.
+   Variables live on :root, not on the nav, so elements docked to the header (for example the
+   report "Jump to" sub-nav) can read the same value: custom properties only inherit downward.
+   --header-bg is THE shared variable for docked elements.
+   White values below are exactly the values the header used before this switch (no visible change). */
+:root {
+    --header-bg:               var(--white);
+    --header-border:           #ddd;
+    --header-border-scrolled:  #e5e5e5;
+    --header-fg:               var(--dark-gray);   /* nav links, hamburger, close */
+    --header-fg-hover:         var(--black);
+    --header-logo-fg:          var(--black);
+    --header-badge-fg:         rgba(48,48,54,0.4);
+    --header-badge-border:     rgba(48,48,54,0.18);
+    --header-menu-bg:          var(--white);
+    --header-menu-border:      #eee;
+    --header-menu-fg:          var(--black);
+    --header-menu-hover-bg:    var(--light-gray);
+}
+
+/* BLACK theme: defined and ready, but UNWIRED. header.js falls back to white because
+   Atlas_logo_lockup_horizontal_wht_web.svg is not in the repo. Values follow v12 (nav text step 1,
+   border step 5, hover lime) and have not been reviewed visually. */
+:root[data-header-theme="black"] {
+    --header-bg:               var(--gray-cool-8);
+    --header-border:           var(--gray-cool-6);
+    --header-border-scrolled:  var(--gray-cool-5);
+    --header-fg:               var(--gray-cool-1);
+    --header-fg-hover:         var(--color-hover);
+    --header-logo-fg:          var(--gray-cool-1);
+    --header-badge-fg:         var(--gray-cool-3);
+    --header-badge-border:     var(--gray-cool-5);
+    --header-menu-bg:          var(--gray-cool-8);
+    --header-menu-border:      var(--gray-cool-5);
+    --header-menu-fg:          var(--gray-cool-1);
+    --header-menu-hover-bg:    var(--gray-cool-7);
+}
+/* Properties the white header leaves at browser defaults are set only for black. */
+:root[data-header-theme="black"] .nav-search {
+    background-color: var(--gray-cool-7);
+    color: var(--gray-cool-1);
+    border-color: var(--gray-cool-5);
+}
+:root[data-header-theme="black"] .nav-search::placeholder { color: var(--gray-cool-3); }
+:root[data-header-theme="black"] .mobile-menu { color: var(--header-menu-fg); }
+
 /* ── Desktop nav ── */
 .top-nav {
-    background-color: var(--white);
-    border-bottom: 1px solid #ddd;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--header-border);
     padding: 1rem 2rem;
     position: sticky;
     top: 0;
@@ -28,7 +76,7 @@ body {
 .top-nav.scrolled {
     padding: 0.5rem 2rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    border-bottom-color: #e5e5e5;
+    border-bottom-color: var(--header-border-scrolled);
 }
 
 .nav-container {
@@ -51,7 +99,7 @@ body {
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
-    color: var(--black);
+    color: var(--header-logo-fg);
     transition: all 0.3s ease;
 }
 
@@ -101,7 +149,7 @@ body {
 }
 
 .nav-link {
-    color: var(--dark-gray);
+    color: var(--header-fg);
     text-decoration: none;
     font-size: 15px;
     font-weight: 400;
@@ -111,7 +159,7 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--black);
+    color: var(--header-fg-hover);
 }
 
 /* ── Search button ── */
@@ -158,8 +206,8 @@ body {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgba(48,48,54,0.4);
-    border: 1px solid rgba(48,48,54,0.18);
+    color: var(--header-badge-fg);
+    border: 1px solid var(--header-badge-border);
     border-radius: 100px;
     padding: 1px 6px;
     margin-left: 5px;
@@ -175,7 +223,7 @@ body {
     display: none;
     background: none;
     border: none;
-    color: var(--dark-gray);
+    color: var(--header-fg);
     cursor: pointer;
     padding: 0.5rem;
     line-height: 1;
@@ -211,7 +259,7 @@ body {
     width: 300px;
     max-width: 85vw;
     height: 100%;
-    background-color: var(--white);
+    background-color: var(--header-menu-bg);
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -225,7 +273,7 @@ body {
 
 .mobile-menu-header {
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--header-menu-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -234,7 +282,7 @@ body {
 .mobile-menu-close {
     background: none;
     border: none;
-    color: var(--dark-gray);
+    color: var(--header-fg);
     cursor: pointer;
     padding: 0.25rem;
     line-height: 1;
@@ -252,7 +300,7 @@ body {
     display: flex;
     align-items: center;
     padding: 1rem 1.5rem;
-    color: var(--black);
+    color: var(--header-menu-fg);
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
@@ -263,7 +311,7 @@ body {
 
 .mobile-menu-link:hover,
 .mobile-menu-link:active {
-    background-color: var(--light-gray);
+    background-color: var(--header-menu-hover-bg);
     border-left-color: var(--lime-green);
 }
 

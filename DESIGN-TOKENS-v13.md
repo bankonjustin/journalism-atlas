@@ -1,19 +1,22 @@
-# Atlas Design Tokens — v12
+# Atlas Design Tokens — v13
 *Canonical design reference — committed to repo as source of truth for implementation*
 
 *Last updated: October 2026*
-*Previous version: v11 (September 2026)*
+*Previous version: v12 (October 2026)*
 *Owner: James (james@happicamp.com)*
 
 > **How this file works:** This is the single source of truth for all visual decisions. When Justin implements design changes with Claude Code, he references this document. If it's not here, it doesn't get implemented. If it changes here, it changes everywhere.
 
-### What changed in v12
-- **New monotone palette.** Two interchangeable 8-step gray scales (Neutral and Cool) replace every previous gray: `#313131`, `#efeff2`, `#6b6b6b`, `#9e9e9e`, `#bdbdbd` and `#a8a8a8`. Each semantic role is remapped to a step — see Semantic Color Assignments. The site picks up the new grays in the next release.
-- **Five-tier color structure.** Core brand, Monotones, Brand secondary, Data categories, System. **Brand colors express; data colors encode.** Replaces the old rule that reserved the secondary palette for D3.
-- **Brand secondary palette added to this file** for the first time, with `#ffaa00` confirmed as the Atlas brand orange. It replaces `#ff9600` everywhere, including any D3 use.
-- **Dark Olive `#5d7400` retired from UI.** It stays in the brand palette for design elements (decks, print, graphics) only.
-- **Site header: black or white.** Replaces "always `#000000`." A white horizontal header logo (`Atlas_logo_lockup_horizontal_wht_web.svg`) is added for the black option.
-- **Unchanged:** typography, type scale, `ATLAS_VIZ_COLORS` values, spacing, widths, container padding, radius, icons and component structure.
+### What changed in v13
+- **Greens on light vs. dark surfaces.** Acid Green and Lime Green both fail the 3:1 UI minimum on light surfaces (1.2:1 and 1.8:1 on white). They're never used as text, icons or thin strokes on light surfaces — only as a fill, with black or step-6 text on top. On dark surfaces they're used freely within their existing roles. See Greens by Surface.
+- **Dark Olive `#5d7400` returns to the UI in one role:** the green for text, icons and thin strokes on light surfaces (5.3:1 on white, 4.6:1 on the page background). Everywhere else it stays a design-element color, as in v12.
+- **Focus ring follows the surface.** Lime Green on dark surfaces; Dark Olive on light surfaces.
+- **Site header: black is the default and the priority.** White is available when a page needs it.
+- **Retired-gray mapping clarified** for `#bdbdbd`, which v11 used as both text and border.
+- **Tier 2 contrast figures** now show both scales (Neutral / Cool).
+- **Unchanged from v12:** every other value — monotones, brand secondary, `ATLAS_VIZ_COLORS`, typography, spacing, layout, icons and logos.
+
+*v13 replaces v12 in full. v12's changes (new monotone scales, five-tier structure, `#ffaa00`, black-or-white header, white header logo) are recorded in the decisions log.*
 
 ---
 
@@ -41,20 +44,30 @@
 |------|-----|------|-----|
 | Acid Green | `#ceff00` | 206, 255, 0 | CTAs and active states only — one per screen composition maximum; never a success/go signal |
 | Lime Green | `#97d600` | 151, 214, 0 | Hover states only (also the focus ring, Tier 5) |
-| Dark Olive | `#5d7400` | 93, 116, 0 | **Design elements only — retired from UI (v12).** Do not use for any site component, state or text |
+| Dark Olive | `#5d7400` | 93, 116, 0 | **In UI, one role only (v13):** the green for text, icons and thin strokes on light surfaces — e.g. an active nav item, selected icon or link-style CTA on white. Never a fill, button background or hover. Otherwise design elements only (decks, print, graphics) |
+
+### Greens by Surface
+
+| | On dark surfaces (step 6–8, black header) | On light surfaces (step 1–2, white header) |
+|---|---|---|
+| **Acid Green `#ceff00`** | Text, icons, strokes and fills for CTAs and active states (17.9:1 on black) | **Fill only**, with black or step-6 text on top (17.9:1 / 11.2:1). Never text, icons or thin strokes (1.2:1 on white) |
+| **Lime Green `#97d600`** | Hover states; focus ring (11.9:1 on black) | **Fill only** (e.g. a hovered button), with black or step-6 text on top. Never text, icons or thin strokes (1.8:1 on white) |
+| **Dark Olive `#5d7400`** | Not used in UI (4.0:1 on black — use the brighter greens) | Text, icons and thin strokes where green carries meaning: active, selected, link-style CTA, hover text, focus ring (5.3:1 on white, 4.6:1 on step 2) |
+
+One composition still gets one acid-green moment at most; Dark Olive on a light surface counts as that moment when it marks the active state.
 
 ### Tier 2 — Monotones
 
 Two 8-step scales. They're interchangeable and neither is the brand default, but **use one scale consistently within a surface** — don't mix neutral and cool steps on the same page.
 
-| Step | Neutral | Cool | Contrast on white | Use |
+| Step | Neutral | Cool | Contrast on white (Neutral / Cool) | Use |
 |---|---|---|---|---|
 | 1 | `#FFFFFF` | `#FFFFFF` | — | Card backgrounds, reversed text, white header |
 | 2 | `#EFEFEF` | `#EFEFF4` | — | Page backgrounds, secondary surfaces |
-| 3 | `#C6C6C6` | `#C6C6CD` | 1.7:1 | Borders/dividers on light surfaces; secondary text on dark surfaces (12.3:1 on black) |
-| 4 | `#909090` | `#909097` | 3.2:1 | **Large text, UI elements and presentation backgrounds only** — never body or small text on white; muted/disabled |
-| 5 | `#5E5E5E` | `#5E5E64` | 6.5:1 | Secondary text on light surfaces — the lightest step safe for body text on white |
-| 6 | `#303030` | `#303036` | 13.2:1 | Primary text, UI workhorse |
+| 3 | `#C6C6C6` | `#C6C6CD` | 1.7 / 1.7:1 | Borders/dividers on light surfaces; secondary text on dark surfaces (12.3 / 12.4:1 on black) |
+| 4 | `#909090` | `#909097` | 3.2 / 3.2:1 | **Large text, UI elements and presentation backgrounds only** — never body or small text on white; muted/disabled |
+| 5 | `#5E5E5E` | `#5E5E64` | 6.5 / 6.4:1 | Secondary text on light surfaces — the lightest step safe for body text on white |
+| 6 | `#303030` | `#303036` | 13.2 / 13.1:1 | Primary text, UI workhorse |
 | 7 | `#121212` | `#121218` | — | Dark surfaces |
 | 8 | `#000000` | `#000000` | 21:1 | Headings, black header, strongest contrast |
 
@@ -110,7 +123,8 @@ See the D3 Visualization Color Array below. Values are unchanged from v11; what 
 |---|---|---|
 | Error state | `#f50000` | Validation, destructive actions, failed states |
 | On-error (text on error) | `#ffffff` | |
-| Focus ring | `2px solid #97d600`, offset `2px` | Keyboard navigation |
+| Focus ring (dark surfaces) | `2px solid #97d600`, offset `2px` | Keyboard navigation |
+| Focus ring (light surfaces) | `2px solid #5d7400`, offset `2px` | Lime fails 3:1 on light surfaces (v13) |
 | Dark-mode display accent | `#ffbc00` | Display use on dark surfaces (e.g. a large stat) |
 
 Never decorative, never a category.
@@ -130,10 +144,11 @@ All gray roles reference the Cool scale (see Site scale above).
 | Muted / disabled | `--gray-cool-4` | `#909097` | `#9e9e9e` | Disabled UI is exempt from WCAG contrast; never use for readable small text |
 | Border / divider (light surfaces) | `--gray-cool-3` | `#c6c6cd` | `#bdbdbd` | |
 | Border / divider (dark surfaces) | `--gray-cool-5` | `#5e5e64` | `#bdbdbd` | Footer dividers keep their existing low-opacity treatment per footer-redesign-spec.md |
-| Primary accent / CTA | — | `#ceff00` | | Acid Green — never a success/go signal |
-| Hover state | — | `#97d600` | | Lime Green — hover only |
+| Primary accent / CTA | — | `#ceff00` | | Acid Green — never a success/go signal. Fill only on light surfaces |
+| Accent on light (text, icons, strokes) | — | `#5d7400` | | Dark Olive — see Greens by Surface |
+| Hover state | — | `#97d600` | | Lime Green — hover only. Fill only on light surfaces |
 | Error state | — | `#f50000` | | |
-| Site header background | — | `#000000` or `#ffffff` | "always `#000000`" | See Site Header below |
+| Site header background | — | `#000000` (default) or `#ffffff` | "always `#000000`" | See Site Header below |
 
 ```css
 :root {
@@ -147,21 +162,32 @@ All gray roles reference the Cool scale (see Site scale above).
   --color-border:          var(--gray-cool-3);
   --color-border-on-dark:  var(--gray-cool-5);
 
-  --color-accent:          #ceff00;
-  --color-hover:           #97d600;
+  --color-accent:          #ceff00;  /* fill-only on light surfaces */
+  --color-hover:           #97d600;  /* fill-only on light surfaces */
+  --color-accent-on-light: #5d7400;  /* text, icons, strokes on light surfaces */
+  --color-focus:           #97d600;  /* dark surfaces */
+  --color-focus-on-light:  #5d7400;  /* light surfaces */
   --color-error:           #f50000;
   --color-on-error:        #ffffff;
   --color-display-dark:    #ffbc00;
 }
 ```
 
+**Mapping `#bdbdbd` (used for two roles in v11).** Decide by what the color is doing, not by its value:
+- **Text** (a `color` property) on a dark surface → step 3, `--color-text-on-dark-2`.
+- **Border** on a light surface → step 3, `--color-border`.
+- **Border** on a dark surface → step 5, `--color-border-on-dark`.
+- **Footer dividers** keep their existing low-opacity treatment.
+- `#a8a8a8` (minimum secondary text) → step 3 on dark, step 5 on light.
+
 **Implementation note:** after the swap, search the codebase for the six retired grays (`#313131`, `#efeff2`, `#6b6b6b`, `#9e9e9e`, `#bdbdbd`, `#a8a8a8`) and `#ff9600`. None should remain outside this file's history.
 
 ### Site Header
 
-- The header background is **black (`#000000`) or white (`#ffffff`)**. It's a deliberate choice per design, not a site-wide constant.
+- **Black (`#000000`) is the default and the priority.** White (`#ffffff`) is available when a page needs it, as a deliberate per-page choice.
 - Logo must match: `Atlas_logo_lockup_horizontal_blk_web.svg` on white, `Atlas_logo_lockup_horizontal_wht_web.svg` on black. The two files share identical geometry, so swapping them causes no layout shift.
-- Nav text follows the header: step 6 or 8 on white; step 1 on black.
+- Nav text follows the header: step 1 on black; step 6 or 8 on white.
+- Active nav state: acid green on black; Dark Olive on white (see Greens by Surface).
 - Anything docked to the header (e.g. the long-form report "Jump to" sub-nav) uses the same background as the header.
 
 ---
@@ -340,10 +366,10 @@ Apply consistently everywhere the container is used — hero, header, footer, ca
 
 ## Iconography
 
-*Unchanged from v11.*
+*Unchanged from v11, except the selected color on light surfaces (v13).*
 
 - **Icon set:** Material Symbols Outlined
-- **Fill states:** Outlined by default, everywhere. **Toggle/action icons only** — save, follow, bookmark, and similar binary-state affordances (e.g. "add to pack") — switch to **filled** when active. **Persistent navigation and section icons stay outlined at every state**, with selection carried by color only (acid green).
+- **Fill states:** Outlined by default, everywhere. **Toggle/action icons only** — save, follow, bookmark, and similar binary-state affordances (e.g. "add to pack") — switch to **filled** when active. **Persistent navigation and section icons stay outlined at every state**, with selection carried by color only (acid green on dark surfaces, Dark Olive on light).
 - **Touch targets:** 44×44px minimum.
 - **Icon size defaults:**
 
@@ -360,10 +386,10 @@ Apply consistently everywhere the container is used — hero, header, footer, ca
 
 ### Interactive States
 - Default
-- Hover — Lime Green `#97d600`
-- Active / Selected — Acid Green `#ceff00`
+- Hover — Lime Green `#97d600` (fill only on light surfaces; Dark Olive `#5d7400` where hover changes text or icon color on a light surface)
+- Active / Selected — Acid Green `#ceff00` (fill only on light surfaces; Dark Olive `#5d7400` for active text, icons or underlines on a light surface)
 - Disabled — `--color-muted` (`#909097`) *(was `#9e9e9e`)*
-- Focus (keyboard nav) — `2px solid #97d600`, offset `2px`
+- Focus (keyboard nav) — `2px solid #97d600`, offset `2px` on dark surfaces; `2px solid #5d7400`, offset `2px` on light surfaces
 
 ### Card States
 - Default
@@ -376,6 +402,7 @@ Apply consistently everywhere the container is used — hero, header, footer, ca
 
 Per the 2026 Style Guide (Atlas-Style_Guide_October_2026_v1.pdf):
 - Logo asset library: mirrored in Google Drive (folder `1BT48q5ng6FN0Y0e_XllWvNrI0LFmL_tN`) and Dropbox (linked from the style guide). Both hold the same files; one is a backup of the other.
+- **Web SVG logos** (header, footer and other `_web.svg` lockups): Google Drive folder https://drive.google.com/drive/folders/1p0i7PuLqrpOxcrHt0MEKGk1ghnzPXYgv. Pull SVGs for the site from here; the repo copy is what ships.
 - Transparent PNGs sized at 500×500px (icons) and 3000×3000px (full logos)
 - Contact james@happicamp.com for larger sizes or alternate formats
 
@@ -419,6 +446,7 @@ Both share an identical viewBox (1000 × 134.5) and path geometry. The white fil
 - WCAG 2.1 AA + Material Design 3. 4.5:1 for body text; 3:1 for large text and UI components.
 - 13px type floor (Micro all-caps labels at 11px / weight 500 excepted); 44×44px touch targets.
 - Gray step 5 is the lightest step for body or small text on white. Step 4 (3.2:1) is large text and UI only.
+- Acid Green and Lime Green are never text, icons or thin strokes on light surfaces. Use Dark Olive there (see Greens by Surface).
 - Atlas tokens don't apply to Project C — check projectc.biz/style-guide before flagging its brand choices.
 
 ---
@@ -474,3 +502,9 @@ Both share an identical viewBox (1000 × 134.5) and path geometry. The white fil
 | **Oct 2026** | **Site header: black or white** | The "always black" constant had become fluid in practice. Header color is now a design choice; logo and docked elements must match it. |
 | **Oct 2026** | **New asset: `Atlas_logo_lockup_horizontal_wht_web.svg`** | White header logo for the black-header option; identical geometry to the black version, so no layout shift on swap. |
 | **Oct 2026** | **Reserve slots A/B/C flagged as near-duplicates of brand secondary colors** | `#ea80fc`/`#ff66ff`, `#40c4ff`/`#00e5ff`, `#ffab40`/`#ffaa00`. Before activation, darken and either align with or clearly separate from the secondary color. No values changed in v12. |
+| **Oct 2026 (v13)** | **Greens by surface: Acid and Lime Green are fill-only on light surfaces** | Both fail the 3:1 non-text minimum on white (1.2:1 and 1.8:1). On light surfaces they work only as fills with black or step-6 text on top (17.9:1 / 11.2:1 for acid). On dark surfaces they keep their existing roles. A rumored "acid on dark only, lime on light only" rule was never canon and fails on contrast. |
+| **Oct 2026 (v13)** | **Dark Olive `#5d7400` returns to the UI as the green for text, icons and thin strokes on light surfaces** | The only existing brand green that passes on light surfaces (5.3:1 on white, 4.6:1 on step 2). Reuses a brand color rather than inventing one. Narrows, rather than reverses, v12's retirement: it's still never a fill, CTA background or hover fill. |
+| **Oct 2026 (v13)** | **Focus ring is Dark Olive on light surfaces** | The Lime Green ring fails 3:1 on white. Lime stays the focus ring on dark surfaces. |
+| **Oct 2026 (v13)** | **Site header: black is the default and the priority** | Matches the current look, so v12 ships with no visible header change. White remains available per page. |
+| **Oct 2026 (v13)** | **`#bdbdbd` mapping clarified by role** | v11 used it for text on dark and for borders on both surfaces. Text → step 3; border on light → step 3; border on dark → step 5. |
+| **Oct 2026 (v13)** | **Tier 2 contrast figures show both scales** | v12 listed the Neutral figures only; the site uses Cool. Both are now shown (e.g. 13.2 / 13.1:1). |

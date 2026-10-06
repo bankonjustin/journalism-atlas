@@ -14,7 +14,7 @@
 
 - No sycophantic openers ("Great question!", "I'd be happy to help with that!", "Absolutely!")
 - No restating the request back before answering
-- No hedging on calls already settled by this file, `DESIGN-TOKENS-v12.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
+- No hedging on calls already settled by this file, `DESIGN-TOKENS-v13.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
 - Flag genuine ambiguity once, briefly, then proceed with the most reasonable interpretation rather than stalling
 
 ### Required reading order
@@ -22,7 +22,7 @@
 | File | When |
 |------|------|
 | `CLAUDE.md` (this file) | Always |
-| `DESIGN-TOKENS-v12.md` | Before any CSS/styling work |
+| `DESIGN-TOKENS-v13.md` | Before any CSS/styling work |
 | `_reference/james-design-principles.md` | Before any visual/component decision |
 | `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
 | `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
@@ -54,7 +54,7 @@ A vanilla JS static HTML site. No build step, no npm, no React. All pages are si
 
 ## Design System
 
-All visual implementation references `DESIGN-TOKENS-v12.md` at the project root as the single source of truth. Its CSS implementation lives in `assets/css/variables.css` — the canonical token file, loaded before all other stylesheets.
+All visual implementation references `DESIGN-TOKENS-v13.md` at the project root as the single source of truth. Its CSS implementation lives in `assets/css/variables.css` — the canonical token file, loaded before all other stylesheets.
 
 **Do not infer or improvise colors, type sizes, spacing, or component states — look them up.**
 
@@ -62,9 +62,15 @@ All visual implementation references `DESIGN-TOKENS-v12.md` at the project root 
 
 ### Non-negotiable rules (memorize these)
 
-- **Acid green `#ceff00` = dark backgrounds only** — never on light/white surfaces  ⚠ PENDING JAMES — v12 does not restate this rule (v12 describes acid as CTAs/active states, one per composition, no surface restriction)
-- **Lime green `#97d600` = light backgrounds only** — never on dark surfaces  ⚠ PENDING JAMES — v12 treats lime as hover-only (and focus ring); the site uses it as the primary accent on light
-- **Site header = `#000000` or `#ffffff`** (a per-design choice, v12). Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 6 or 8 on white, step 1 on black). Anything docked to the header uses the same background. The live site ships white. The black option is unwired until `Atlas_logo_lockup_horizontal_wht_web.svg` is in the repo
+- **Greens by surface (DESIGN-TOKENS-v13.md § Greens by Surface):**
+  - **Acid `#ceff00` and Lime `#97d600` on LIGHT surfaces = fill only**, with black or step-6 text on top. Never text, icons or thin strokes on light (1.2:1 and 1.8:1 on white).
+  - **On DARK surfaces** acid and lime are free within their roles: acid for CTAs and active states (text, icons, strokes, fills), lime for hover and the focus ring.
+  - **Dark Olive `#5d7400` on LIGHT surfaces = the green for text, icons and thin strokes** (active nav item, selected icon, link-style CTA, hover *text*, focus ring). Never a fill, button background or hover fill. Not used on dark surfaces (4.0:1 on black).
+  - **Focus ring follows the surface:** lime on dark, Dark Olive on light.
+  - One acid moment per composition; olive marking the active state on a light surface counts as that moment.
+  - Not canon: the older "acid on dark only / lime on light only" rule. v13 replaces it.
+  - **Open (pending James):** the site's primary accent is lime on light surfaces (`--color-accent`, intentionally not redefined), which v13 does not allow as text, icon or stroke. See `docs/V13-GREENS-AUDIT-2026-10-06.md`.
+- **Site header = `#000000` or `#ffffff`.** v13 default is black; the live site is currently white — pending. Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 1 on black; step 6 or 8 on white); active nav is acid on black, Dark Olive on white. Anything docked to the header uses the same background. Black is unwired until `Atlas_logo_lockup_horizontal_wht_web.svg` is in the repo
 - **Body copy minimum 16px** — Small (13px) is the floor for all UI text. Micro (11px) for all-caps labels only (weight 500 min, letter-spacing 0.08–0.1em). Never below 13px for any readable content.
 - **Material Symbols Outlined only** — no legacy Material Icons; Filled variant reserved for active states only
 - **4px base spacing unit** — spacing scale: xs 4px / sm 8px / md 16px / lg 24px / xl 32px / 2xl 48px
@@ -74,7 +80,7 @@ All visual implementation references `DESIGN-TOKENS-v12.md` at the project root 
 ### CSS token architecture
 
 ```
-assets/css/variables.css   ← THE canonical token file (implements DESIGN-TOKENS-v12.md)
+assets/css/variables.css   ← THE canonical token file (implements DESIGN-TOKENS-v13.md)
 assets/css/header.css      ← Shared site header + footer wordmark styles (all pages)
 assets/css/main.css        ← Primary stylesheet for index.html only
 assets/css/animations.css  ← Standalone animation keyframes
@@ -99,12 +105,12 @@ The site header is injected via `assets/js/header.js` — a self-contained scrip
 
 Pages with inline `<style>` blocks (partners/*.html, city-lab-chicago.html, latin-america-lab.html) link variables.css before their inline block, and header.css after it (before `</head>`).
 
-### How to use DESIGN-TOKENS-v12.md in a session
+### How to use DESIGN-TOKENS-v13.md in a session
 
-Before writing any CSS or styling-related code, read the relevant section of `DESIGN-TOKENS-v12.md`. Reference it explicitly in comments when implementing tokens:
+Before writing any CSS or styling-related code, read the relevant section of `DESIGN-TOKENS-v13.md`. Reference it explicitly in comments when implementing tokens:
 
 ```css
-/* Primary accent — light mode only. DESIGN-TOKENS-v12.md § Semantic Color Assignments */
+/* Primary accent — light mode only. DESIGN-TOKENS-v13.md § Semantic Color Assignments */
 --color-accent: #97d600;
 ```
 
