@@ -21,16 +21,16 @@
   --color-acid-green:  #ceff00;   /* Dark backgrounds only — see semantic tokens */
   --color-lime-green:  #97d600;   /* Light backgrounds only — see semantic tokens */
   --color-dark-olive:  #5d7400;   /* Hover / deep accent */
-  --color-dark-gray:   #313131;
-  --color-light-gray:  #efeff2;
+  --color-dark-gray:   var(--gray-cool-6);
+  --color-light-gray:  var(--gray-cool-2);
   --color-black:       #000000;
   --color-white:       #ffffff;
 
   /* Legacy aliases — used throughout main.css; migrate over time */
   --black:       #000000;
   --white:       #ffffff;
-  --light-gray:  #efeff2;
-  --dark-gray:   #313131;
+  --light-gray:  var(--gray-cool-2);
+  --dark-gray:   var(--gray-cool-6);
   --medium-gray: #999999;
   --acid-green:  #ceff00;   /* NOTE: acid green = dark surfaces only per v3. See --color-accent for light mode CTA. */
   --lime-green:  #97d600;
@@ -77,13 +77,13 @@
      DESIGN-TOKENS-v12.md § Semantic Color Assignments
      Use these tokens in all light-surface contexts.
      ========================================= */
-  --color-bg:             #efeff2;   /* Primary page background */
+  --color-bg:             var(--gray-cool-2);   /* Primary page background */
   --color-bg-card:        #ffffff;   /* Card / panel background */
-  --color-text:           #313131;   /* Primary body text */
+  --color-text:           var(--gray-cool-6);   /* Primary body text */
   --color-text-header:    #000000;   /* Heading text — always black, any mode */
   --color-accent:         #97d600;   /* Primary accent / CTA — lime, light mode only.  PENDING JAMES — v12 treats lime as hover-only, site uses it as primary accent on light. v12 defines --color-accent as #ceff00; intentionally NOT redefined here. */
   --color-accent-hover:   #5d7400;   /* Hover / active state — dark olive */
-  --color-text-secondary: #6b6b6b;   /* Secondary text on light surfaces */
+  --color-text-secondary: var(--gray-cool-5);   /* Secondary text on light surfaces */
   --color-muted:          #9e9e9e;   /* Muted / disabled text and icons */
   --color-border:         #bdbdbd;   /* Default border */
   --color-border-hover:   #a8a8a8;   /* Border on hover */
@@ -94,9 +94,9 @@
      DARK MODE — Semantic Color Assignments
      Use on dark surfaces: dark footer, dark headers, dark cards
      ========================================= */
-  --color-bg-dark:            #313131;
+  --color-bg-dark:            var(--gray-cool-6);
   --color-bg-card-dark:       #000000;
-  --color-text-dark:          #efeff2;
+  --color-text-dark:          var(--gray-cool-2);
   --color-text-header-dark:   #000000;   /* Header text always black — mode-invariant */
   --color-accent-dark:        #ceff00;   /* Primary accent / CTA — acid green, dark mode only */
   --color-accent-dark-hover:  #97d600;   /* Hover on dark — lime */

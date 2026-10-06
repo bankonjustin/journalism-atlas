@@ -22,8 +22,8 @@
     /*
      * nj-lab.html — NJ State Lab
      * Scrolling page, 6 alternating sections: Dark → Light → Light → Dark → Light → Dark
-     * Dark surfaces (#313131): acid green (#ceff00) accents only
-     * Light surfaces (#efeff2/#ffffff): lime green (#97d600) accents only
+     * Dark surfaces (#303036): acid green (#ceff00) accents only
+     * Light surfaces (#efeff4/#ffffff): lime green (#97d600) accents only
      * DESIGN-TOKENS-v12.md is source of truth. variables.css loaded above.
      */
 
@@ -31,16 +31,16 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #efeff2;
-      color: #313131;
+      background: #efeff4;
+      color: #303036;
       font-size: 16px;
       line-height: 1.5;
       padding-top: 72px;
     }
 
     /* ── SECTION WRAPPERS ── */
-    .section-dark  { background: #313131; color: #efeff2; }
-    .section-light { background: #efeff2; color: #313131; }
+    .section-dark  { background: #303036; color: #efeff4; }
+    .section-light { background: #efeff4; color: #303036; }
 
     .section-inner {
       max-width: 1100px;
@@ -49,7 +49,7 @@
     }
 
     /* ── SECTION 1: HERO (DARK) ── */
-    .hero { background: #313131; padding: 80px 48px 72px; }
+    .hero { background: #303036; padding: 80px 48px 72px; }
     .hero-inner { max-width: 1100px; margin: 0 auto; }
 
     /* CCM logo placeholder — add assets/images/curators/ccm-logo.png when available */
@@ -59,11 +59,11 @@
     }
     .hero-title {
       font-size: 44px; font-weight: 700; line-height: 1.05;
-      letter-spacing: -0.02em; color: #efeff2; max-width: 720px;
+      letter-spacing: -0.02em; color: #efeff4; max-width: 720px;
       margin-bottom: 16px;
     }
     .hero-subtitle {
-      font-size: 16px; line-height: 1.6; color: rgba(239,239,242,0.65);
+      font-size: 16px; line-height: 1.6; color: rgba(239,239,244,0.65);
       max-width: 640px; margin-bottom: 48px;
     }
     .hero-stats {
@@ -76,12 +76,12 @@
       color: #ceff00; letter-spacing: -0.02em;
     }
     .hero-stat-label {
-      font-size: 12px; font-weight: 500; color: rgba(239,239,242,0.5);
+      font-size: 12px; font-weight: 500; color: rgba(239,239,244,0.5);
       text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px;
     }
 
     /* ── SECTION 2: RESEARCH CONTEXT (LIGHT) ── */
-    .research-context { background: #efeff2; }
+    .research-context { background: #efeff4; }
     .research-context .section-inner {
       display: grid;
       grid-template-columns: 3fr 2fr;
@@ -90,10 +90,10 @@
     }
     .rc-headline {
       font-size: 28px; font-weight: 700; line-height: 1.15;
-      letter-spacing: -0.01em; color: #313131; margin-bottom: 20px;
+      letter-spacing: -0.01em; color: #303036; margin-bottom: 20px;
     }
     .rc-body {
-      font-size: 16px; line-height: 1.7; color: #313131; margin-bottom: 24px;
+      font-size: 16px; line-height: 1.7; color: #303036; margin-bottom: 24px;
     }
     .rc-attribution {
       font-size: 13px; color: #606068; line-height: 1.6;
@@ -101,7 +101,7 @@
     .rc-attribution a {
       color: #5d7400; text-decoration: underline;
     }
-    .rc-attribution a:hover { color: #313131; }
+    .rc-attribution a:hover { color: #303036; }
 
     .rc-stat-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
@@ -112,19 +112,19 @@
     }
     .rc-stat-num {
       font-size: 30px; font-weight: 700; line-height: 1;
-      color: #313131; margin-bottom: 8px;
+      color: #303036; margin-bottom: 8px;
     }
     .rc-stat-label {
       font-size: 13px; color: #606068; line-height: 1.45;
     }
 
     /* ── SECTION 3: CREATOR ECOSYSTEM (LIGHT) ── */
-    .ecosystem { background: #efeff2; border-top: 1px solid #d4d4d8; }
+    .ecosystem { background: #efeff4; border-top: 1px solid #d4d4d8; }
     .ecosystem .section-inner { padding-top: 56px; }
 
     .eco-header { margin-bottom: 8px; }
     .eco-title {
-      font-size: 24px; font-weight: 700; color: #313131;
+      font-size: 24px; font-weight: 700; color: #303036;
       letter-spacing: -0.01em; margin-bottom: 6px;
     }
     .eco-subtitle { font-size: 14px; color: #606068; margin-bottom: 28px; }
@@ -138,15 +138,15 @@
       padding: 7px 14px; border-radius: 100px;
       font-family: inherit; font-size: 13px; font-weight: 500;
       border: 0.5px solid #d4d4d8; background: #ffffff;
-      color: #313131; cursor: pointer;
+      color: #303036; cursor: pointer;
       transition: background 0.12s, border-color 0.12s, color 0.12s;
       white-space: nowrap;
     }
     .filter-chip:hover {
-      background: #efeff2; border-color: #b0b0b8;
+      background: #efeff4; border-color: #b0b0b8;
     }
     .filter-chip.active {
-      background: #97d600; border-color: #5d7400; color: #313131;
+      background: #97d600; border-color: #5d7400; color: #303036;
     }
     .chip-count {
       font-size: 11px; font-weight: 700; opacity: 0.65;
@@ -164,10 +164,10 @@
       transition: background 0.12s, border-color 0.12s;
     }
     .creator-card:hover {
-      background: #efeff2; border-color: #b0b0b8;
+      background: #efeff4; border-color: #b0b0b8;
     }
     .card-name {
-      font-size: 15px; font-weight: 700; color: #313131;
+      font-size: 15px; font-weight: 700; color: #303036;
       margin-bottom: 3px; line-height: 1.3;
     }
     .card-handle {
@@ -182,7 +182,7 @@
       white-space: nowrap;
     }
     .plat-instagram { background: #fce4ec; color: #ad1457; }
-    .plat-tiktok    { background: #f0f0f0; color: #313131; }
+    .plat-tiktok    { background: #f0f0f0; color: #303036; }
     .plat-youtube   { background: #ffebee; color: #b71c1c; }
     .card-beat {
       font-size: 13px; color: #606068; line-height: 1.4;
@@ -195,10 +195,10 @@
       padding: 3px 10px; border-radius: 100px; line-height: 1.4;
     }
     .badge-verified {
-      background: #97d600; color: #313131;
+      background: #97d600; color: #303036;
     }
     .badge-inhouse {
-      background: #efeff2; color: #606068; border: 1px solid #d4d4d8;
+      background: #efeff4; color: #606068; border: 1px solid #d4d4d8;
     }
 
     .eco-count {
@@ -210,13 +210,13 @@
     }
 
     /* ── SECTION 4: RESEARCH FINDINGS (DARK) ── */
-    .findings { background: #313131; }
+    .findings { background: #303036; }
     .findings-title {
-      font-size: 24px; font-weight: 700; color: #efeff2;
+      font-size: 24px; font-weight: 700; color: #efeff4;
       letter-spacing: -0.01em; margin-bottom: 8px;
     }
     .findings-subtitle {
-      font-size: 14px; color: rgba(239,239,242,0.55);
+      font-size: 14px; color: rgba(239,239,244,0.55);
       margin-bottom: 48px;
     }
     .findings-vizzes {
@@ -225,7 +225,7 @@
     }
     .viz-title {
       font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(239,239,242,0.45);
+      text-transform: uppercase; color: rgba(239,239,244,0.45);
       margin-bottom: 20px;
     }
 
@@ -238,7 +238,7 @@
       align-items: center; gap: 10px;
     }
     .bar-label {
-      font-size: 13px; color: rgba(239,239,242,0.75);
+      font-size: 13px; color: rgba(239,239,244,0.75);
       text-align: right; white-space: nowrap;
     }
     .bar-track {
@@ -267,20 +267,20 @@
     .stacked-seg {
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 700;
-      color: #313131; white-space: nowrap; overflow: hidden;
+      color: #303036; white-space: nowrap; overflow: hidden;
       transition: width 0.3s;
     }
-    .stacked-seg.joy          { background: #ceff00; color: #313131; }
-    .stacked-seg.anticipation { background: #ffaa00; color: #313131; }
+    .stacked-seg.joy          { background: #ceff00; color: #303036; }
+    .stacked-seg.anticipation { background: #ffaa00; color: #303036; }
     .stacked-seg.neutral      { background: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
-    .stacked-seg.trust        { background: #00e5ff; color: #313131; }
+    .stacked-seg.trust        { background: #00e5ff; color: #303036; }
     .stacked-seg.negative     { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); }
     .stacked-legend {
       display: flex; flex-wrap: wrap; gap: 12px 20px;
     }
     .stacked-legend-item {
       display: flex; align-items: center; gap: 6px;
-      font-size: 12px; color: rgba(239,239,242,0.65);
+      font-size: 12px; color: rgba(239,239,244,0.65);
     }
     .legend-swatch {
       width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
@@ -290,41 +290,41 @@
     .swatch-neutral      { background: rgba(255,255,255,0.3); }
     .swatch-trust        { background: #00e5ff; }
     .swatch-negative     { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); }
-    .legend-pct { font-weight: 700; color: #efeff2; }
+    .legend-pct { font-weight: 700; color: #efeff4; }
 
     .findings-caption {
-      font-size: 14px; line-height: 1.6; color: rgba(239,239,242,0.55);
+      font-size: 14px; line-height: 1.6; color: rgba(239,239,244,0.55);
       border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px;
       font-style: italic;
     }
     .findings-caption strong {
       display: block; margin-top: 6px; font-style: normal;
-      font-size: 12px; color: rgba(239,239,242,0.35);
+      font-size: 12px; color: rgba(239,239,244,0.35);
     }
 
     /* ── SECTION 5: ABOUT THE PARTNERSHIP (LIGHT) ── */
-    .partnership { background: #efeff2; }
+    .partnership { background: #efeff4; }
     .partnership .section-inner {
       display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
       align-items: start;
     }
     .partner-col-name {
-      font-size: 18px; font-weight: 700; color: #313131; margin-bottom: 10px;
+      font-size: 18px; font-weight: 700; color: #303036; margin-bottom: 10px;
     }
     .partner-col-body {
-      font-size: 16px; line-height: 1.7; color: #313131; margin-bottom: 16px;
+      font-size: 16px; line-height: 1.7; color: #303036; margin-bottom: 16px;
     }
     .partner-col-link {
       font-size: 14px; font-weight: 700; color: #5d7400;
       text-decoration: none;
     }
-    .partner-col-link:hover { color: #313131; text-decoration: underline; }
+    .partner-col-link:hover { color: #303036; text-decoration: underline; }
     .partner-logo {
       display: block; height: 36px; width: auto; margin-bottom: 16px;
     }
 
     .pull-quote-strip {
-      background: #313131; text-align: center;
+      background: #303036; text-align: center;
       padding: 48px 48px;
     }
     .pull-quote-text {
@@ -332,11 +332,11 @@
       letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 12px;
     }
     .pull-quote-attr {
-      font-size: 14px; color: rgba(239,239,242,0.5);
+      font-size: 14px; color: rgba(239,239,244,0.5);
     }
 
     /* ── SECTION 6: CTA FOOTER (DARK) ── */
-    .cta-section { background: #313131; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-section { background: #303036; border-top: 1px solid rgba(255,255,255,0.08); }
     .cta-section .section-inner { padding-top: 56px; padding-bottom: 56px; }
     .cta-row {
       display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
@@ -350,7 +350,7 @@
       white-space: nowrap;
     }
     .cta-primary {
-      background: #ceff00; color: #313131; border: 1.5px solid #ceff00;
+      background: #ceff00; color: #303036; border: 1.5px solid #ceff00;
     }
     .cta-primary:hover { background: var(--color-lime-green); border-color: var(--color-lime-green); }
     .cta-ghost {
@@ -406,7 +406,7 @@
   <script src="/assets/js/header.js"></script>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 1: HERO — Dark (#313131)
+       SECTION 1: HERO — Dark (#303036)
   ══════════════════════════════════════════════════════ -->
   <section class="hero">
     <div class="hero-inner">
@@ -437,7 +437,7 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 2: RESEARCH CONTEXT — Light (#efeff2)
+       SECTION 2: RESEARCH CONTEXT — Light (#efeff4)
   ══════════════════════════════════════════════════════ -->
   <section class="research-context">
     <div class="section-inner">
@@ -470,7 +470,7 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 3: CREATOR ECOSYSTEM — Light (#efeff2)
+       SECTION 3: CREATOR ECOSYSTEM — Light (#efeff4)
   ══════════════════════════════════════════════════════ -->
   <section class="ecosystem">
     <div class="section-inner">
@@ -497,7 +497,7 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 4: RESEARCH FINDINGS — Dark (#313131)
+       SECTION 4: RESEARCH FINDINGS — Dark (#303036)
   ══════════════════════════════════════════════════════ -->
   <section class="findings section-dark">
     <div class="section-inner">
@@ -599,7 +599,7 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 5: ABOUT THE PARTNERSHIP — Light (#efeff2)
+       SECTION 5: ABOUT THE PARTNERSHIP — Light (#efeff4)
   ══════════════════════════════════════════════════════ -->
   <section class="partnership">
     <div class="section-inner">
@@ -624,7 +624,7 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════
-       SECTION 6: CTA FOOTER — Dark (#313131)
+       SECTION 6: CTA FOOTER — Dark (#303036)
   ══════════════════════════════════════════════════════ -->
   <section class="cta-section">
     <div class="section-inner">
