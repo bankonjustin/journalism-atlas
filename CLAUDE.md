@@ -72,7 +72,7 @@ All visual implementation references `DESIGN-TOKENS-v14.md` at the project root 
   - **Primary CTA (v14):** acid fill at rest and active, lime fill on hover, black text throughout; focus ring olive on light, lime on dark; disabled step 4 (light) / step 5 fill + step 3 text (dark).
   - **Inline links (v14):** olive + underlined on light (hover step 8); white + underlined on dark (hover lime). Variables `--color-link` / `--color-link-on-dark`.
   - **In migration:** the site's `--color-accent` is still lime (its live look). Do not repoint it in place; migrate each use by role to `--color-accent` (fill), `--color-hover` (hover fill), `--color-accent-on-light` (text/icons/strokes on light), `--color-focus*`. Primitives `--color-acid` / `--color-lime` / `--color-olive`. See `docs/V13-GREENS-AUDIT-2026-10-06.md`.
-- **Site header = `#ffffff` (default, matches the live site) or `#000000`** (a per-page choice, v14). Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 1 on black; step 6 or 8 on white); active nav is Dark Olive on white, acid on black. Anything docked to the header (the report "Jump to" sub-nav) uses the same background. Black is unwired until `Atlas_logo_lockup_horizontal_wht_web.svg` is in the repo
+- **Site header = `#ffffff` (default, matches the live site) or `#000000`** (a per-page choice, v14). Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 1 on black; step 6 or 8 on white); active nav is Dark Olive on white, acid on black. Anything docked to the header (the report "Jump to" sub-nav) uses the same background. The black theme is wired: `header.js` switches the logo with `<html data-header-theme="black">` (default white). Pages do not request it yet
 - **Body copy minimum 16px** — Small (13px) is the floor for all UI text. Micro (11px) for all-caps labels only (weight 500 min, letter-spacing 0.08–0.1em). Never below 13px for any readable content.
 - **Material Symbols Outlined only** — no legacy Material Icons; Filled variant reserved for active states only
 - **4px base spacing unit** — spacing scale: xs 4px / sm 8px / md 16px / lg 24px / xl 32px / 2xl 48px
@@ -266,7 +266,8 @@ All pages above have been swept to the design token system (variables.css linked
 
 | File | Use |
 |------|-----|
-| `Journalism_Atlas_wordmark_horizontal_lockup_black.svg` | Site header (white background, current live asset; v12 specifies `Atlas_logo_lockup_horizontal_blk_web.svg`, not yet in repo; unverified whether it is the same file) |
+| `Atlas_logo_lockup_horizontal_blk_web.svg` | Site header on a white header (default). Replaced `Journalism_Atlas_wordmark_horizontal_lockup_black.svg` (byte-identical artwork, left in the folder, now unreferenced) |
+| `Atlas_logo_lockup_horizontal_wht_web.svg` | Site header on a black header (`data-header-theme="black"`); same geometry, `fill="#fff"` |
 | `Journalism_Atlas_wordmark_horizontal_lockup_white.png` | Footer (black background) |
 | `Journalism_Atlas_wordmark_stacked_green_white (3).png` | Hero section on search.html |
 | `Journalism_Atlas_logo_acid_green.png` | Icon-only uses |

@@ -40,16 +40,15 @@ window.atlasTrack = function(eventName, params) {
     ensureFont('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     ensureFont('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0');
 
-    // Header theme: 'white' (default, live) or 'black'. Pages may request a theme with
-    // <html data-header-theme="...">; the CSS lives in header.css. The logo is chosen from the theme.
-    // 'black' is NOT wired: it needs Atlas_logo_lockup_horizontal_wht_web.svg, which is not in the
-    // repo yet. Do not recolor the black SVG. To enable, add the asset and uncomment the black entry.
+    // Header theme: 'white' (default, live) or 'black' (DESIGN-TOKENS-v14.md § Site Header). Pages may request a
+    // theme with <html data-header-theme="...">; the CSS lives in header.css. The logo is chosen from the theme:
+    // blk on a white header, wht on a black header. The two files share identical geometry, so swapping them
+    // causes no layout shift. Never recolor an SVG: swap the file.
     var HEADER_THEMES = {
-        white: { logo: '/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.svg' }
-        // black: { logo: '/assets/images/logos/Atlas_logo_lockup_horizontal_wht_web.svg' }
+        white: { logo: '/assets/images/logos/Atlas_logo_lockup_horizontal_blk_web.svg' },
+        black: { logo: '/assets/images/logos/Atlas_logo_lockup_horizontal_wht_web.svg' }
     };
-    // THE default. v13 says black is the default; the live site is white (since the first commit), so this stays 'white'
-    // until James/Justin decide. header.css :root holds the same default values for the first paint.
+    // THE default. v14: white (matches the live site since the first commit). Black is a per-page choice.
     var DEFAULT_HEADER_THEME = 'white';
     var requestedTheme = document.documentElement.getAttribute('data-header-theme');
     var headerTheme = HEADER_THEMES[requestedTheme] ? requestedTheme : DEFAULT_HEADER_THEME;

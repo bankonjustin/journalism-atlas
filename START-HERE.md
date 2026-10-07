@@ -13,7 +13,8 @@
 8. Tier 2 contrast column in v14: label it Neutral (the Cool figures are the semantic table's).
 
 ## For Justin
-- **Logos:** add the three `Atlas_logo_lockup_*_web.svg` files to `assets/images/logos/`. I checked geometry from the `~/Downloads` copies: identical viewBox and path data to the current header SVG, so the swap is a rename, and `horizontal_wht` wires to `data-header-theme="black"`. The footer still uses the older `Journalism_Atlas_wordmark_stacked_white.svg`; v14 specifies `Atlas_logo_lockup_stacked_wht_web.svg`.
+- **Logos:** header swap done (blk/wht wired, default white). Still needed: `Atlas_logo_lockup_stacked_wht_web.svg` (the footer still uses `Journalism_Atlas_wordmark_stacked_white.svg`). The old header SVG (`Journalism_Atlas_wordmark_horizontal_lockup_black.svg`) is now unreferenced and can be deleted.
+- **Partner pages have a 72px empty band above the header** (`body { padding-top: 72px }`, pre-existing; the nav is sticky now). Remove the padding?
 - **22 pages without `variables.css`** (14 hardcode a green). They were skipped everywhere. Fix = link `variables.css` (visible change) or hardcode v14 colors. Includes `partners/nj-lab.html` / `njlab.html`, whose link is a relative path that 404s. Lists: `docs/V14-STEP2I-2026-10-06.md`, `docs/V14-RESIDUAL-GREENS-2026-10-06.md`.
 - **~95 static greens could not be measured** (hover/active/JS-rendered/shared rules; listed with proposed fixes, group C of the residual TSV). Mostly on dark pages; probably compliant.
 - **27 JS-set greens** (chart palettes, canvas strokes): listed, not changed.
