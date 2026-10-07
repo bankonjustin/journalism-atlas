@@ -1057,9 +1057,12 @@
 
 <script>
 // ── Beat Explorer data ────────────────────────────────────────────────────────
+// Per-beat creator counts are computed at load from creators-data.json: distinct creators whose Topic list
+// contains any of the card's exact tags (comma-split, exact match, same rule as Pulse). `count` stays null
+// (count hidden) until that succeeds; nothing is hard-coded. Edit `tags` to change a card's grouping.
 const BEAT_EXPLORER_DATA = {
   business: {
-    label: "Business & Economy", count: "41+ creators",
+    label: "Business & Economy", tags: ["Finance/Economics", "Business"], count: null,
     creators: [
       { initials: "KS", name: "Kyla Scanlon", beat: "Economic Sentiment", platform: "Substack + YouTube", audience: "200K+ subscribers", note: "Coined 'vibecession.' Covers consumer confidence, inflation, and labor. Most-cited independent voice on economic mood." },
       { initials: "BD", name: "Brad DeLong", beat: "Economics & Policy", platform: "Substack", audience: "50K+ subscribers", note: "Former Clinton Treasury. Berkeley economics professor. Covers macro policy with the institutional depth of a think tank." },
@@ -1068,7 +1071,7 @@ const BEAT_EXPLORER_DATA = {
     ]
   },
   politics: {
-    label: "Politics & Government", count: "125+ creators",
+    label: "Politics & Government", tags: ["Politics", "Government Accountability"], count: null,
     creators: [
       { initials: "JL", name: "Judd Legum", beat: "Political Accountability", platform: "Substack", audience: "130K+ subscribers", note: "Popular Information. Covers corporate accountability and political money. One of Substack's largest political newsletters." },
       { initials: "MK", name: "Marisa Kabas", beat: "Politics & Power", platform: "Substack", audience: "60K+ subscribers", note: "The Handbasket. Covers authoritarian drift and democratic accountability. Has broken stories ahead of major outlets." },
@@ -1077,7 +1080,7 @@ const BEAT_EXPLORER_DATA = {
     ]
   },
   tech: {
-    label: "Technology", count: "74+ creators",
+    label: "Technology", tags: ["Tech"], count: null,
     creators: [
       { initials: "CN", name: "Casey Newton", beat: "Social Media & Tech Policy", platform: "Substack", audience: "150K+ subscribers", note: "Platformer. The definitive independent voice on social platform decisions and their consequences." },
       { initials: "MS", name: "M.G. Siegler", beat: "Tech & Venture", platform: "Substack", audience: "40K+ subscribers", note: "Former GV partner. Covers tech industry dynamics, venture, and product decisions from an insider's lens." },
@@ -1086,7 +1089,7 @@ const BEAT_EXPLORER_DATA = {
     ]
   },
   health: {
-    label: "Health & Science", count: "38+ creators",
+    label: "Health & Science", tags: ["Health/Wellness", "Science"], count: null,
     creators: [
       { initials: "EY", name: "Ed Yong", beat: "Public Health & Science", platform: "Newsletter", audience: "100K+ subscribers", note: "Pulitzer Prize winner. Former Atlantic. Now independent. Covers science and public health with unmatched depth." },
       { initials: "GM", name: "Gideon Meyerowitz-Katz", beat: "Epidemiology & Data", platform: "Substack", audience: "50K+ subscribers", note: "Data-first epidemiology and health policy coverage. Known for meticulous methodology breakdowns." },
@@ -1095,7 +1098,7 @@ const BEAT_EXPLORER_DATA = {
     ]
   },
   environment: {
-    label: "Environment & Climate", count: "32+ creators",
+    label: "Environment & Climate", tags: ["Climate/Environment"], count: null,
     creators: [
       { initials: "AR", name: "Andy Revkin", beat: "Climate & Conservation", platform: "Substack", audience: "35K+ subscribers", note: "Decades of NYT environmental reporting, now independent. Covers climate solutions and conservation with depth." },
       { initials: "JB2", name: "Jake Bittle", beat: "Climate & Infrastructure", platform: "Newsletter", audience: "20K+ subscribers", note: "Covers climate adaptation — floods, fire, heat — and the infrastructure decisions that shape risk." },
@@ -1104,7 +1107,7 @@ const BEAT_EXPLORER_DATA = {
     ]
   },
   local: {
-    label: "Local & Regional", count: "200+ creators",
+    label: "Local & Regional", tags: ["Local"], count: null,
     creators: [
       { initials: "DW", name: "David Wildstein", beat: "New Jersey Politics", platform: "Newsletter", audience: "30K+ subscribers", note: "The definitive source for New Jersey political intelligence. Heavily sourced, daily frequency." },
       { initials: "PC", name: "Patty Calhoun", beat: "Denver & Colorado", platform: "Newsletter", audience: "25K+ subscribers", note: "Long-form local journalism in Denver. Covers arts, politics, and culture with deep community roots." },
@@ -1113,7 +1116,7 @@ const BEAT_EXPLORER_DATA = {
     ]
   },
   culture: {
-    label: "Culture & Society", count: "46+ creators",
+    label: "Culture & Society", tags: ["Culture"], count: null,
     creators: [
       { initials: "JD", name: "Jerusalem Demsas", beat: "Policy & Culture", platform: "Substack", audience: "80K+ subscribers", note: "Covers housing, urban policy, and cultural politics. Sharp analytical voice on contested social questions." },
       { initials: "PW", name: "Patrick Wyman", beat: "History & Culture", platform: "Substack + Podcast", audience: "40K+ subscribers", note: "Tides of History. Deep historical context for contemporary events. Unusually loyal listener base." },
@@ -1131,7 +1134,10 @@ const BEAT_EXPLORER_DATA = {
   function renderBeat(beatKey) {
     const beat = BEAT_EXPLORER_DATA[beatKey];
     if (!beat || !panel) return;
-    if (countEl) countEl.textContent = beat.count + ' in the Atlas';
+    if (countEl) {
+      countEl.textContent = beat.count != null ? beat.count.toLocaleString() + ' creators in the Atlas' : '';
+      countEl.title = beat.count != null ? 'Creators tagged: ' + beat.tags.join(', ') : '';
+    }
     panel.innerHTML = beat.creators.map(c => `
       <div class="bx-creator-card">
         <div class="bx-creator-avatar">${c.initials}</div>
@@ -1154,6 +1160,21 @@ const BEAT_EXPLORER_DATA = {
   });
 
   renderBeat('business');
+
+  // Compute each card's count from the creator data; on any failure the counts simply stay hidden.
+  fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
+    Object.keys(BEAT_EXPLORER_DATA).forEach(key => {
+      const tags = BEAT_EXPLORER_DATA[key].tags;
+      const slugs = new Set();
+      data.forEach(c => {
+        const has = (c.topic || '').split(',').some(t => tags.indexOf(t.trim()) !== -1);
+        if (has) slugs.add(c.slug || c.name);
+      });
+      BEAT_EXPLORER_DATA[key].count = slugs.size;
+    });
+    const active = document.querySelector('.bx-chip--active');
+    renderBeat(active ? active.dataset.beat : 'business');
+  }).catch(() => {});
 })();
 
 // ── Atlas Pulse snapshot — regenerated by pipelines/pulse/update_pulse.py; every Pulse figure on this page renders from it ──

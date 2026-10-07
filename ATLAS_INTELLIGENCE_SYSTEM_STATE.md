@@ -1,5 +1,5 @@
 # Atlas Intelligence System — State Map
-**Last updated:** 2026-06-22 (paths corrected 2026-09-14 — see note below)
+**Last updated:** 2026-06-22 (paths corrected 2026-09-14; current-state figures refreshed 2026-10-06 — see notes below)
 **Author:** Claude Code (session audit)  
 **Purpose:** Design document for merging Pulse + Wire into a unified intelligence dashboard.
 
@@ -14,13 +14,13 @@ maintained description of the full chain.
 
 ## 1. Pipeline Inventory
 
-### Pulse Pipeline (Weekly — Scheduled Sunday 9am)
+### Pulse Pipeline (Weekly — run by hand or Routine; no scheduled task registered as of 2026-10-05)
 
 **Entry point:** `/Users/justinbank/Developer/journalism-atlas-private/spidering/core/refresh_pulse.sh`
 
 | Step | Script | Location | Input | Output |
 |------|--------|----------|-------|--------|
-| 1 — Scrape | `pulse_v2.py` | pipelines/pulse/ | RSS feeds (1,589 creators) | `rss_pulse_v2_YYYYMMDD.json` (spidering/core/) |
+| 1 — Scrape | `pulse_v2.py` | pipelines/pulse/ | RSS feeds (2,430 creators, 1,702 RSS-resolved as of the 2026-10-05 run) | `rss_pulse_v2_YYYYMMDD.json` (spidering/core/) |
 | 2 — Update HTML | `update_pulse.py` | pipelines/pulse/ | `rss_pulse_v2_*.json` | Updates `pulse.html`, `index.html`, `for-brands.html` in journalism-atlas repo |
 | 3 — Digest | `pulse_digest.py` | pipelines/pulse/ | `rss_pulse_v2_*.json` | `pulse_digest_YYYYMMDD.json` (pipelines/pulse/), injected into `pulse.html` |
 | 4 — Spidering brief | `pulse_spidering_brief.py` | spidering/core/ | `rss_pulse_v2_*.json` | `sessions/SPIDERING_BRIEF_YYYYMMDD.md`, `beat_activity_log.csv` |
@@ -29,7 +29,7 @@ maintained description of the full chain.
 **Output files land in:** `/Users/justinbank/Developer/journalism-atlas-private/spidering/core/` (steps 1, 4, 5) and `/Users/justinbank/Developer/journalism-atlas-private/pipelines/pulse/` (step 3's digest JSON)
 **Public files updated in:** `/Users/justinbank/Developer/journalism-atlas/`  
 **Steps 3 and 4 are non-fatal** (patched 2026-06-22 with `|| true`) — pipeline continues on digest or brief failure.  
-**Step 3 max_tokens:** bumped to 8192 (primary call) and 4096 (verification call) on 2026-06-22.
+**Step 3 max_tokens:** bumped to 8192 (primary call) and 4096 (verification call) on 2026-06-22; the verification call is now also 8192 (2026-10-05, after a truncated-JSON failure).
 
 ### Wire Pipeline (Manual — as needed)
 
@@ -189,13 +189,13 @@ The existing tool's HTML structure (three-panel layout, CSS custom properties, d
 ## 4. Cadence Feasibility
 
 ### Current state
-- Pulse: Weekly Sunday ~9am (scheduled task, automated)
+- Pulse: weekly; as of 2026-10-05 run by hand (the Sunday scheduled task / old Routine is off, none registered)
 - Wire: Manual (no schedule) — last run June 17, 2026
 
 ### Proposed cadence
 | Mode | Frequency | Command | Duration | Cost |
 |------|-----------|---------|----------|------|
-| Full | Sunday 9am | `./refresh_pulse.sh` | ~45 min | ~$0.20 |
+| Full | Weekly | `./refresh_pulse.sh` | ~15 min (scrape measured ~10 min on 2026-10-05) | ~$0.20 |
 | Wire | Tue + Thu 9am | `./refresh_pulse.sh --wire` | ~15 min | ~$0.15 |
 
 ### Wire mode sequence
@@ -227,3 +227,4 @@ Two new scheduled tasks needed (Tue + Thu 9am), matching the format of the exist
 | 2026-06-05 | 1,589 | 890 | 2,367 | — | — | Local posts broke |
 | 2026-06-14 | — | — | — | — | — | Run completed, stats not logged |
 | 2026-06-21 | 1,589 | 902 | 5,680 | 545 | 226 | Token fix applied; `\|\| true` patch on Steps 3–4 |
+| 2026-10-05 | 2,430 | 1,702 | 9,995 | 961 | 497 | Outcome buckets 1,628 ok · 51 empty · 23 fetch_error · 728 no_feed (= 413 social-only + 315 should-have-a-feed); completeness 98.7%. Source: `PULSE-HEALTH-2026-10-05.md` |
