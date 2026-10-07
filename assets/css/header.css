@@ -164,7 +164,7 @@ body {
 
 /* ── Search button ── */
 .nav-search-btn {
-    background: #97d600;
+    background: #ceff00;   /* acid: CTA rest (v14); hardcoded because header.css also loads on pages without variables.css */
     color: #303036;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
@@ -177,7 +177,11 @@ body {
     transition: background 0.15s;
     flex-shrink: 0;
 }
-.nav-search-btn:hover { background: #5d7400; color: #fff; }
+.nav-search-btn:hover { background: #97d600; color: #000; }   /* lime fill + black text (v14) */
+.nav-search-btn:active { background: #ceff00; color: #000; }
+.nav-search-btn:focus-visible { outline: 2px solid var(--color-focus-on-light, #5d7400); outline-offset: 2px; }
+.nav-search-btn:disabled { background: var(--gray-cool-4, #909097); color: var(--gray-cool-6, #303036); cursor: not-allowed; }
+:root[data-header-theme="black"] .nav-search-btn:focus-visible { outline-color: var(--color-focus, #97d600); }
 
 /* ── Pulse nav item ── */
 .nav-link--pulse {

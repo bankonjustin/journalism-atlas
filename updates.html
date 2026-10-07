@@ -197,10 +197,19 @@
 
         .submit-btn:active {
             transform: scale(0.99);
+            background-color: var(--color-accent);
+            color: var(--color-heading);
         }
 
-        .submit-btn:disabled {
-            opacity: 0.6;
+        .submit-btn:focus-visible {
+            outline: 2px solid var(--color-focus-on-light);
+            outline-offset: 2px;
+        }
+
+        .submit-btn:disabled,
+        .submit-btn[aria-disabled="true"] {
+            background-color: var(--gray-cool-4);
+            color: var(--gray-cool-6);
             cursor: not-allowed;
         }
 

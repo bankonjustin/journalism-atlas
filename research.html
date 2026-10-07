@@ -245,9 +245,10 @@
             transition: background 0.2s;
         }
 
-        .btn-lime:hover {
-            background: #8bc400;
-        }
+        .btn-lime:hover { background: var(--color-hover); color: var(--color-heading); }
+        .btn-lime:active { background: var(--color-accent); color: var(--color-heading); }
+        .btn-lime:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+        .btn-lime:disabled, .btn-lime[aria-disabled="true"] { background: var(--gray-cool-4); border-color: var(--gray-cool-4); color: var(--gray-cool-6); cursor: not-allowed; }
 
         /* ─── Section 3: Featured Research (Dark) ───────────────── */
         .research-section {
@@ -687,9 +688,10 @@
             transition: background 0.2s;
         }
 
-        .btn-acid:hover {
-            background: #d8ff33;
-        }
+        .btn-acid:hover { background: var(--color-hover); }
+        .btn-acid:active { background: var(--color-accent); color: var(--color-heading); }
+        .btn-acid:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+        .btn-acid:disabled, .btn-acid[aria-disabled="true"] { background: var(--gray-cool-5); border-color: var(--gray-cool-5); color: var(--gray-cool-3); cursor: not-allowed; }
 
         /* ─── Responsive ─────────────────────────────────────────── */
         @media (max-width: 768px) {

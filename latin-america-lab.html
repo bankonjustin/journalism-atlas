@@ -618,6 +618,8 @@ img { max-width: 100%; display: block; }
   align-self: flex-start;
 }
 .btn-primary:hover { background: var(--color-hover); opacity: 1; }
+.btn-primary:active { background: var(--color-accent); color: var(--color-heading); }
+.btn-primary:disabled, .btn-primary[aria-disabled="true"] { background: var(--gray-cool-5); border-color: var(--gray-cool-5); color: var(--gray-cool-3); cursor: not-allowed; }
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -647,7 +649,7 @@ img { max-width: 100%; display: block; }
 .btn-ghost:focus-visible,
 .card-link:focus-visible,
 .spotlight-cta:focus-visible {
-  outline: 2px solid var(--color-acid); /* acid green — dark surface focus ring */
+  outline: 2px solid var(--color-focus); /* lime — dark surface focus ring (v14) */
   outline-offset: 2px;
 }
 

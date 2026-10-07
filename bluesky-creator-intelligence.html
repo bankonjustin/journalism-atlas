@@ -54,7 +54,10 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
 .header-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; display: flex; align-items: center; gap: 24px; }
 .header-right em { color: var(--text-secondary); font-style: normal; }
 .header-cta { display: inline-block; background: var(--color-accent); color: #303036; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 10px 20px; border-radius: 2px; border: 1.5px solid var(--color-accent-on-light); transition: background 0.18s, color 0.18s; white-space: nowrap; flex-shrink: 0; }
-.header-cta:hover { background: var(--olive); color: #ffffff; }
+.header-cta:hover { background: var(--color-hover); color: var(--color-heading); }
+.header-cta:active { background: var(--color-accent); color: var(--color-heading); }
+.header-cta:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+.header-cta:disabled, .header-cta[aria-disabled="true"] { background: var(--gray-cool-4); border-color: var(--gray-cool-4); color: var(--gray-cool-6); cursor: not-allowed; }
 
 /* ── HERO ─────────────────────────────────────────────────── */
 .hero { display: grid; grid-template-columns: 1fr 440px; min-height: 460px; border-bottom: 1px solid var(--border); }

@@ -439,10 +439,13 @@
         }
 
         .clear-filters-top:hover {
-            background: var(--color-dark-olive);   /* Primary button hover — dark olive + white text */
-            border-color: var(--color-accent-on-light);
-            color: var(--white);
+        background: var(--color-hover);   /* v14: lime fill + black text on hover */
+        border-color: var(--color-accent-on-light);
+        color: var(--color-heading);
         }
+        .clear-filters-top:active { background: var(--color-accent); color: var(--color-heading); }
+        .clear-filters-top:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+        .clear-filters-top:disabled, .clear-filters-top[aria-disabled="true"] { background: var(--gray-cool-4); border-color: var(--gray-cool-4); color: var(--gray-cool-6); cursor: not-allowed; }
 
         .clear-filters-top .material-symbols-outlined {
             font-size: 18px;

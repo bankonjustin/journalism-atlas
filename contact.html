@@ -84,7 +84,10 @@
             text-decoration: none;
             transition: background 0.15s;
         }
-        .contact-email-btn:hover { background: #d4ff33; }
+        .contact-email-btn:hover { background: var(--color-hover); }
+        .contact-email-btn:active { background: var(--color-accent); color: var(--color-heading); }
+        .contact-email-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+        .contact-email-btn:disabled, .contact-email-btn[aria-disabled="true"] { background: var(--gray-cool-5); border-color: var(--gray-cool-5); color: var(--gray-cool-3); cursor: not-allowed; }
 
         /* ── Contribute section ── */
         .contribute-section {

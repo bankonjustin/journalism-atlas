@@ -120,8 +120,10 @@ img { max-width: 100%; display: block; }
 .atlas-footer-logo img { height: 40px; width: auto; }
 .atlas-footer-tagline { font-size: 16px; font-weight: 400; line-height: 26px; color: rgba(255,255,255,0.65); max-width: 480px; }
 .atlas-footer-btn { display: inline-flex; align-items: center; padding: 12px 24px; background: var(--color-acid); color: #000; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; border-radius: 6px; transition: opacity 0.15s; margin-top: 4px; }
-.atlas-footer-btn:hover { opacity: 0.88; }
-.atlas-footer-btn:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+.atlas-footer-btn:hover { background: var(--color-hover); opacity: 1; }
+.atlas-footer-btn:active { background: var(--color-accent); color: var(--color-heading); }
+.atlas-footer-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.atlas-footer-btn:disabled, .atlas-footer-btn[aria-disabled="true"] { background: var(--gray-cool-5); border-color: var(--gray-cool-5); color: var(--gray-cool-3); cursor: not-allowed; }
 
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--page-bg); }
