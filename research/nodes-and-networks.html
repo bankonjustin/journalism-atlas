@@ -49,15 +49,15 @@
   /* ── SECTION NAV (tool nav, sticky/shrinking) ──
      Sits directly after the site header in the markup so it's docked from first paint.
      top is measured live (--header-h) because the site header shrinks on scroll.
-     Stays black for now. v12 says docked elements use the header's background (var(--header-bg),
-     white by default), but this bar's active/hover states (acid, #fff) fail on white. PENDING JAMES.
-     Binding is one line: background: var(--header-bg). DESIGN-TOKENS-v14.md § Site Header */
+     v14: docked to the header, so it uses the header's background (var(--header-bg): white by default).
+     White header: step-3 bottom border, items step 6, hover step 8 + olive underline, active olive text + 2px olive underline.
+     Black header (unwired): black bg, items step 1, hover lime, active acid. DESIGN-TOKENS-v14.md § Site Header */
   .section-nav-wrap {
     position: sticky;
     top: var(--header-h);
     z-index: 10;
-    background: var(--color-black);
-    border-bottom: 1px solid #2a2a24;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--gray-cool-3);
     transition: padding 0.25s ease;
   }
   .section-nav-inner {
@@ -72,16 +72,22 @@
   }
   .section-nav-label {
     font-size: var(--text-micro); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-    color: #7a7a70; white-space: nowrap; transition: opacity 0.2s ease, width 0.2s ease, margin 0.2s ease;
+    color: var(--gray-cool-5); white-space: nowrap; transition: opacity 0.2s ease, width 0.2s ease, margin 0.2s ease;
   }
   .section-nav-links { display: flex; gap: 1.25rem; overflow-x: auto; scrollbar-width: none; flex: 1; }
   .section-nav-links::-webkit-scrollbar { display: none; }
   .section-nav-links a {
-    font-size: 13px; font-weight: 500; color: #c8c8bd; text-decoration: none; white-space: nowrap;
+    font-size: 13px; font-weight: 500; color: var(--gray-cool-6); text-decoration: none; white-space: nowrap;
     padding: 0.2rem 0; border-bottom: 2px solid transparent; transition: color 0.15s ease, border-color 0.15s ease;
   }
-  .section-nav-links a:hover { color: #fff; }
-  .section-nav-links a.active { color: var(--acid, var(--color-acid)); border-bottom-color: var(--acid, var(--color-acid)); }
+  .section-nav-links a:hover { color: var(--gray-cool-8); border-bottom-color: var(--color-accent-on-light); }
+  .section-nav-links a.active { color: var(--color-accent-on-light); border-bottom-color: var(--color-accent-on-light); }
+  /* Black header theme (unwired until Atlas_logo_lockup_horizontal_wht_web.svg is in the repo) */
+  :root[data-header-theme="black"] .section-nav-wrap { border-bottom-color: var(--gray-cool-5); }
+  :root[data-header-theme="black"] .section-nav-label { color: var(--gray-cool-3); }
+  :root[data-header-theme="black"] .section-nav-links a { color: var(--gray-cool-1); }
+  :root[data-header-theme="black"] .section-nav-links a:hover { color: var(--color-hover); border-bottom-color: var(--color-hover); }
+  :root[data-header-theme="black"] .section-nav-links a.active { color: var(--color-acid); border-bottom-color: var(--color-acid); }
   .section-nav-wrap.condensed .section-nav-inner { padding: 0.4rem 2rem; }
   .section-nav-wrap.condensed .section-nav-label { opacity: 0; width: 0; margin: 0; overflow: hidden; }
   .section-nav-mobile-trigger { display: none; }
@@ -95,17 +101,21 @@
     }
     .section-nav-mobile-trigger {
       display: flex; align-items: center; gap: 0.4rem; width: 100%;
-      background: none; border: none; color: #e8e8de; font-family: var(--font-ui);
+      background: none; border: none; color: var(--gray-cool-6); font-family: var(--font-ui);
       font-size: 13px; font-weight: 600; padding: 0.15rem 0; cursor: pointer;
     }
     .section-nav-mobile-trigger .caret { font-size: 10px; transition: transform 0.2s ease; }
     .section-nav-wrap.open .section-nav-mobile-trigger .caret { transform: rotate(180deg); }
     .section-nav-wrap.open .section-nav-links {
       display: flex; flex-direction: column; gap: 0; position: absolute; left: 0; right: 0; top: 100%;
-      background: var(--color-black); border-bottom: 1px solid #2a2a24; padding: 0.25rem 1rem 0.75rem;
+      background: var(--header-bg); border-bottom: 1px solid var(--gray-cool-3); padding: 0.25rem 1rem 0.75rem;
     }
-    .section-nav-wrap.open .section-nav-links a { padding: 0.6rem 0; border-bottom: 1px solid #23231d; }
-    .section-nav-wrap.open .section-nav-links a.active { border-bottom-color: #23231d; border-left: 2px solid var(--acid, var(--color-acid)); padding-left: 0.5rem; }
+    .section-nav-wrap.open .section-nav-links a { padding: 0.6rem 0; border-bottom: 1px solid var(--gray-cool-3); }
+    .section-nav-wrap.open .section-nav-links a.active { border-bottom-color: var(--gray-cool-3); border-left: 2px solid var(--color-accent-on-light); padding-left: 0.5rem; }
+    :root[data-header-theme="black"] .section-nav-mobile-trigger { color: var(--gray-cool-1); }
+    :root[data-header-theme="black"] .section-nav-wrap.open .section-nav-links { border-bottom-color: var(--gray-cool-5); }
+    :root[data-header-theme="black"] .section-nav-wrap.open .section-nav-links a { border-bottom-color: var(--gray-cool-5); }
+    :root[data-header-theme="black"] .section-nav-wrap.open .section-nav-links a.active { border-bottom-color: var(--gray-cool-5); border-left-color: var(--color-acid); }
   }
 
   .content { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 6rem; }
