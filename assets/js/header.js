@@ -48,8 +48,11 @@ window.atlasTrack = function(eventName, params) {
         white: { logo: '/assets/images/logos/Journalism_Atlas_wordmark_horizontal_lockup_black.svg' }
         // black: { logo: '/assets/images/logos/Atlas_logo_lockup_horizontal_wht_web.svg' }
     };
+    // THE default. v13 says black is the default; the live site is white (since the first commit), so this stays 'white'
+    // until James/Justin decide. header.css :root holds the same default values for the first paint.
+    var DEFAULT_HEADER_THEME = 'white';
     var requestedTheme = document.documentElement.getAttribute('data-header-theme');
-    var headerTheme = HEADER_THEMES[requestedTheme] ? requestedTheme : 'white';
+    var headerTheme = HEADER_THEMES[requestedTheme] ? requestedTheme : DEFAULT_HEADER_THEME;
     document.documentElement.setAttribute('data-header-theme', headerTheme);
 
     var html = [

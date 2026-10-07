@@ -1,22 +1,32 @@
-# Atlas Design Tokens — v13
+# Atlas Design Tokens — v14
 *Canonical design reference — committed to repo as source of truth for implementation*
 
 *Last updated: October 2026*
-*Previous version: v12 (October 2026)*
+*Previous version: v13 (October 2026)*
 *Owner: James (james@happicamp.com)*
 
 > **How this file works:** This is the single source of truth for all visual decisions. When Justin implements design changes with Claude Code, he references this document. If it's not here, it doesn't get implemented. If it changes here, it changes everywhere.
 
-### What changed in v13
-- **Greens on light vs. dark surfaces.** Acid Green and Lime Green both fail the 3:1 UI minimum on light surfaces (1.2:1 and 1.8:1 on white). They're never used as text, icons or thin strokes on light surfaces — only as a fill, with black or step-6 text on top. On dark surfaces they're used freely within their existing roles. See Greens by Surface.
-- **Dark Olive `#5d7400` returns to the UI in one role:** the green for text, icons and thin strokes on light surfaces (5.3:1 on white, 4.6:1 on the page background). Everywhere else it stays a design-element color, as in v12.
-- **Focus ring follows the surface.** Lime Green on dark surfaces; Dark Olive on light surfaces.
-- **Site header: black is the default and the priority.** White is available when a page needs it.
-- **Retired-gray mapping clarified** for `#bdbdbd`, which v11 used as both text and border.
-- **Tier 2 contrast figures** now show both scales (Neutral / Cool).
-- **Unchanged from v12:** every other value — monotones, brand secondary, `ATLAS_VIZ_COLORS`, typography, spacing, layout, icons and logos.
+### What changed in v14
+v14 replaces v13 in full. An earlier v13 was shared before Justin's staging questions were answered; v14 adds those answers.
 
-*v13 replaces v12 in full. v12's changes (new monotone scales, five-tier structure, `#ffaa00`, black-or-white header, white header logo) are recorded in the decisions log.*
+- **Site header: white is the default** (the live look); black when a page needs it. This reverses the earlier v13, which made black the default.
+- **Report "Jump to" sub-nav moves to white** to match the header, with Dark Olive hover and active states. See Site Header.
+- **Primary CTA button states** spelled out for both surfaces: acid fill at rest and active, lime fill on hover, black text throughout. This is a visible change from today's lime-at-rest buttons. See Component States.
+- **Inline text links:** Dark Olive, underlined, on light surfaces; white, underlined, on dark. New variables `--color-link` and `--color-link-on-dark`.
+- **CSS variable migration:** add `--color-acid`, `--color-lime` and `--color-olive`, then migrate each use by role. `--color-accent` is not repointed in place.
+- **Off-system grays:** any gray outside the two scales (including the warm-gray family) snaps to the Cool scale by role in a later release.
+- **Charts:** moving charts to `ATLAS_VIZ_COLORS` is a separate project, gated on Ryan's taxonomy mapping.
+- **Logos:** web SVG folder added; the live header file `Journalism_Atlas_wordmark_horizontal_lockup_black.svg` is flagged for replacement.
+
+### Carried over from v13
+- **Greens by surface.** Acid Green and Lime Green are fill-only on light surfaces; never text, icons or thin strokes there (1.2:1 and 1.8:1 on white). On dark surfaces they keep their roles.
+- **Dark Olive `#5d7400`** is the green for text, icons and thin strokes on light surfaces (5.3:1 on white).
+- **Focus ring follows the surface:** Lime Green on dark, Dark Olive on light.
+- **`#bdbdbd` mapping** clarified by role.
+- **Tier 2 contrast figures** show both scales (Neutral / Cool).
+
+*v12's changes (new monotone scales, five-tier structure, `#ffaa00`, black-or-white header, white header logo) are recorded in the decisions log.*
 
 ---
 
@@ -48,11 +58,20 @@
 
 ### Greens by Surface
 
-| | On dark surfaces (step 6–8, black header) | On light surfaces (step 1–2, white header) |
+| | On dark surfaces (step 6–8, black header) | On light surfaces (step 1–2, white header — the default) |
 |---|---|---|
 | **Acid Green `#ceff00`** | Text, icons, strokes and fills for CTAs and active states (17.9:1 on black) | **Fill only**, with black or step-6 text on top (17.9:1 / 11.2:1). Never text, icons or thin strokes (1.2:1 on white) |
 | **Lime Green `#97d600`** | Hover states; focus ring (11.9:1 on black) | **Fill only** (e.g. a hovered button), with black or step-6 text on top. Never text, icons or thin strokes (1.8:1 on white) |
 | **Dark Olive `#5d7400`** | Not used in UI (4.0:1 on black — use the brighter greens) | Text, icons and thin strokes where green carries meaning: active, selected, link-style CTA, hover text, focus ring (5.3:1 on white, 4.6:1 on step 2) |
+
+**Inline text links**
+
+| Surface | Rest | Hover |
+|---|---|---|
+| Light (step 1–2) | Dark Olive `#5d7400`, underlined (5.3:1 on white) | Step 8 `#000000`, underlined |
+| Dark (step 6–8) | Step 1 `#ffffff`, underlined | Lime Green `#97d600`, underlined (11.9:1 on black) |
+
+Links on dark surfaces aren't green at rest, because Acid Green is limited to one moment per composition and Lime Green is hover-only.
 
 One composition still gets one acid-green moment at most; Dark Olive on a light surface counts as that moment when it marks the active state.
 
@@ -148,7 +167,9 @@ All gray roles reference the Cool scale (see Site scale above).
 | Accent on light (text, icons, strokes) | — | `#5d7400` | | Dark Olive — see Greens by Surface |
 | Hover state | — | `#97d600` | | Lime Green — hover only. Fill only on light surfaces |
 | Error state | — | `#f50000` | | |
-| Site header background | — | `#000000` (default) or `#ffffff` | "always `#000000`" | See Site Header below |
+| Site header background | — | `#ffffff` (default) or `#000000` | "always `#000000`" | See Site Header below |
+| Inline link (light surfaces) | — | `#5d7400` | | Underlined; hover step 8 |
+| Inline link (dark surfaces) | — | `#ffffff` | | Underlined; hover `#97d600` |
 
 ```css
 :root {
@@ -167,6 +188,8 @@ All gray roles reference the Cool scale (see Site scale above).
   --color-accent-on-light: #5d7400;  /* text, icons, strokes on light surfaces */
   --color-focus:           #97d600;  /* dark surfaces */
   --color-focus-on-light:  #5d7400;  /* light surfaces */
+  --color-link:            #5d7400;  /* light surfaces, underlined */
+  --color-link-on-dark:    #ffffff;  /* dark surfaces, underlined */
   --color-error:           #f50000;
   --color-on-error:        #ffffff;
   --color-display-dark:    #ffbc00;
@@ -180,14 +203,22 @@ All gray roles reference the Cool scale (see Site scale above).
 - **Footer dividers** keep their existing low-opacity treatment.
 - `#a8a8a8` (minimum secondary text) → step 3 on dark, step 5 on light.
 
+**Migrating color variables.** The live site uses `--color-accent` for Lime Green; this file defines it as Acid Green. Don't repoint the existing name, because every current use would change at once. Instead:
+1. Add explicit color names: `--color-acid: #ceff00; --color-lime: #97d600; --color-olive: #5d7400;`
+2. Point each role variable above at them (e.g. `--color-accent: var(--color-acid);`).
+3. Migrate each existing use by what it does: at-rest or active fill → `--color-accent`; hover fill → `--color-hover`; green text, icons or strokes on light → `--color-accent-on-light`; inline links → `--color-link`. Existing Dark Olive text on light surfaces already passes and stays.
+
+**Off-system grays.** Only the values in the two scales are on-system. Any other gray in the codebase (e.g. `#d4d4d8`, `#b0b0b8`, and the warm family `#888880`, `#4a4a46`, `#ddddd8`) is off-system—the warm family isn't intentional. Snap them all to the Cool scale by role in a later release, using a by-role mapping reviewed on staging. The six named grays come first.
+
 **Implementation note:** after the swap, search the codebase for the six retired grays (`#313131`, `#efeff2`, `#6b6b6b`, `#9e9e9e`, `#bdbdbd`, `#a8a8a8`) and `#ff9600`. None should remain outside this file's history.
 
 ### Site Header
 
-- **Black (`#000000`) is the default and the priority.** White (`#ffffff`) is available when a page needs it, as a deliberate per-page choice.
+- **White (`#ffffff`) is the default** (the live look). Black (`#000000`) is available when a page needs it, as a deliberate per-page choice.
 - Logo must match: `Atlas_logo_lockup_horizontal_blk_web.svg` on white, `Atlas_logo_lockup_horizontal_wht_web.svg` on black. The two files share identical geometry, so swapping them causes no layout shift.
 - Nav text follows the header: step 1 on black; step 6 or 8 on white.
-- Active nav state: acid green on black; Dark Olive on white (see Greens by Surface).
+- Active nav state: Dark Olive on white; acid green on black (see Greens by Surface).
+- **Report "Jump to" sub-nav (long-form template):** matches the header. On the default white header: white background, step-3 bottom border, items in step 6; hover → step 8 with a Dark Olive underline; active → Dark Olive text with a 2px Dark Olive underline. On a black header: black background, items in step 1, hover Lime Green, active Acid Green. This supersedes the black sub-nav in `Atlas-Long-Form-Report-Template-2026-09.md`.
 - Anything docked to the header (e.g. the long-form report "Jump to" sub-nav) uses the same background as the header.
 
 ---
@@ -255,6 +286,8 @@ const ATLAS_VIZ_COLORS_ARRAY = [
   "#6a8d9b",  // Labor / Economy
 ];
 ```
+
+**Implementation status (Oct 2026):** none of these values are in live code yet. Charts currently use brand secondary colors as category colors, a known interim state. Moving them to this array is a separate project, gated on Ryan's taxonomy mapping.
 
 **Color assignment rules:**
 - Acid green `#ceff00` is excluded — reserved for CTAs and active states only
@@ -391,6 +424,18 @@ Apply consistently everywhere the container is used — hero, header, footer, ca
 - Disabled — `--color-muted` (`#909097`) *(was `#9e9e9e`)*
 - Focus (keyboard nav) — `2px solid #97d600`, offset `2px` on dark surfaces; `2px solid #5d7400`, offset `2px` on light surfaces
 
+### Primary CTA button
+
+| State | Light surfaces | Dark surfaces |
+|---|---|---|
+| Rest | Acid Green `#ceff00` fill, black text | Acid Green fill, black text |
+| Hover | Lime Green `#97d600` fill, black text | Lime Green fill, black text |
+| Active / pressed | Acid Green fill, black text | Acid Green fill, black text |
+| Focus | `2px solid #5d7400` ring, offset 2px | `2px solid #97d600` ring, offset 2px |
+| Disabled | Step 4 fill or outline, step 6 text | Step 5 fill, step 3 text |
+
+**Visible change:** the live site's primary CTAs currently rest in lime. Under this file they rest in acid and turn lime on hover. Dark Olive is never a CTA fill or hover fill; it's only the hover *text or icon* color for non-button elements on light surfaces.
+
 ### Card States
 - Default
 - Hover
@@ -407,6 +452,8 @@ Per the 2026 Style Guide (Atlas-Style_Guide_October_2026_v1.pdf):
 - Contact james@happicamp.com for larger sizes or alternate formats
 
 ### Header logo
+
+The live header currently uses `Journalism_Atlas_wordmark_horizontal_lockup_black.svg`, which isn't a listed asset. Replace it with `Atlas_logo_lockup_horizontal_blk_web.svg`.
 
 | Header background | Asset |
 |---|---|
@@ -505,6 +552,11 @@ Both share an identical viewBox (1000 × 134.5) and path geometry. The white fil
 | **Oct 2026 (v13)** | **Greens by surface: Acid and Lime Green are fill-only on light surfaces** | Both fail the 3:1 non-text minimum on white (1.2:1 and 1.8:1). On light surfaces they work only as fills with black or step-6 text on top (17.9:1 / 11.2:1 for acid). On dark surfaces they keep their existing roles. A rumored "acid on dark only, lime on light only" rule was never canon and fails on contrast. |
 | **Oct 2026 (v13)** | **Dark Olive `#5d7400` returns to the UI as the green for text, icons and thin strokes on light surfaces** | The only existing brand green that passes on light surfaces (5.3:1 on white, 4.6:1 on step 2). Reuses a brand color rather than inventing one. Narrows, rather than reverses, v12's retirement: it's still never a fill, CTA background or hover fill. |
 | **Oct 2026 (v13)** | **Focus ring is Dark Olive on light surfaces** | The Lime Green ring fails 3:1 on white. Lime stays the focus ring on dark surfaces. |
-| **Oct 2026 (v13)** | **Site header: black is the default and the priority** | Matches the current look, so v12 ships with no visible header change. White remains available per page. |
+| **Oct 2026 (v14)** | **Site header: white is the default; black when a page needs it** | White is the live look, so the default causes no visible change. Docked elements match the header, so the report sub-nav moves from black to white, with Dark Olive active and hover states (acid would be invisible on white). |
+| **Oct 2026 (v14)** | **Inline links: Dark Olive, underlined, on light surfaces; white, underlined, on dark** | Keeps green as the signal for "interactive" on light surfaces at a passing ratio (5.3:1). On dark surfaces, acid is reserved for one moment per composition and lime is hover-only, so links rest in white. |
+| **Oct 2026 (v14)** | **Color variables migrate by role; `--color-accent` isn't repointed in place** | The live site uses `--color-accent` for lime. Repointing it would change every use at once; explicit names plus a by-role migration keeps each change deliberate. |
+| **Oct 2026 (v14)** | **All grays outside the two scales are off-system** | A staging audit found ~107 other colors in use, including an unintended warm-gray family. They snap to the Cool scale by role in a later release. |
+| **Oct 2026 (v14)** | **Charts move to `ATLAS_VIZ_COLORS` as a separate project** | No category colors are in live code yet; charts currently use brand secondary colors, some too pale on white. The move needs Ryan's taxonomy mapping first. Until then this is a known interim state. |
 | **Oct 2026 (v13)** | **`#bdbdbd` mapping clarified by role** | v11 used it for text on dark and for borders on both surfaces. Text → step 3; border on light → step 3; border on dark → step 5. |
 | **Oct 2026 (v13)** | **Tier 2 contrast figures show both scales** | v12 listed the Neutral figures only; the site uses Cool. Both are now shown (e.g. 13.2 / 13.1:1). |
+| **Oct 2026 (v14)** | **Primary CTA: acid at rest and active, lime on hover, black text** | Restores Acid Green as the primary accent the brand defines, with lime as the hover response. Reviewed as a rendered comparison against today's lime-at-rest buttons before sign-off. |

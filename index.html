@@ -56,7 +56,7 @@
     /* ── HERO (V4 SPLIT LAYOUT) ── */
     /* Full-bleed dark stage (Surface Hierarchy Principle) — background spans the viewport,
        content is constrained to the full-layout container so it aligns with the header/footer
-       and card-grid sections beneath it. DESIGN-TOKENS-v13.md § Max Content Width. */
+       and card-grid sections beneath it. DESIGN-TOKENS-v14.md § Max Content Width. */
     .hero { background: #000; padding-inline: 16px; position: relative; }
     .hero-container { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 52fr 48fr; min-height: 540px; }
     .hero-left {
@@ -556,9 +556,9 @@
   <!-- LEFT: Copy + CTAs + Cluster Nav -->
   <div class="hero-left">
     <div>
-      <div class="hero-eyebrow-pill"><span class="js-creator-count">1,718</span> verified creator-journalists</div>
+      <div class="hero-eyebrow-pill"><span class="js-creator-count" data-pulse-fallback="creators">2,430</span> verified creator-journalists</div>
       <h1 class="hero-headline">Independent Journalism<br>Didn't Disappear.<br>It's <em>Moving.</em></h1>
-      <p class="hero-subhead">The Atlas maps it — <span class="js-creator-count">1,718</span> verified creator-journalists, organized by beat, platform, and geography.</p>
+      <p class="hero-subhead">The Atlas maps it — <span class="js-creator-count" data-pulse-fallback="creators">2,430</span> verified creator-journalists, organized by beat, platform, and geography.</p>
     </div>
     <div>
       <div class="hero-ctas">
@@ -584,7 +584,7 @@
 
   <!-- RIGHT: Viz Canvas -->
   <div class="hero-right">
-    <span class="viz-label"><span class="js-creator-count">1,718</span> verified creator-journalists · 9 beats · 4 platforms</span>
+    <span class="viz-label"><span class="js-creator-count" data-pulse-fallback="creators">2,430</span> verified creator-journalists · 9 beats · 4 platforms</span>
     <canvas id="hero-canvas"></canvas>
     <div id="cluster-panel"></div>
     <div id="hero-tooltip"></div>
@@ -595,7 +595,7 @@
       <span>■ Website</span>
     </div>
     <div class="hero-stat-badge">
-      <div class="hero-stat-badge-num js-creator-count">1,718</div>
+      <div class="hero-stat-badge-num js-creator-count" data-pulse-fallback="creators">2,430</div>
       <div class="hero-stat-badge-lbl">Verified creators</div>
     </div>
   </div>
@@ -1014,11 +1014,11 @@ const FEATURED_POOL = [
       <div class="pulse-header-left">
         <div class="pulse-live-badge">
           <span class="pulse-dot"></span>
-          <span id="pulse-badge-date">Atlas Pulse · Updated May 9, 2026</span>
+          <span id="pulse-badge-date" data-pulse-fallback="date_badge">Atlas Pulse · Updated October 5, 2026</span>
         </div>
         <div class="pulse-headline">What the Ecosystem Is Publishing.</div>
         <div class="pulse-sub">
-          882 creator feeds, monitored regularly. Summaries by beat.
+          <span class="js-pulse-feeds" data-pulse-fallback="feeds">1,702</span> creator feeds, monitored regularly. Summaries by beat.
         </div>
       </div>
       <a href="pulse.html" class="pulse-open-btn">Open full Pulse feed →</a>
@@ -1042,7 +1042,7 @@ const FEATURED_POOL = [
 <div class="stat-strip" style="position:relative;">
   <div class="stat-strip-inner">
     <div class="stat-cell">
-      <div class="stat-num green js-creator-count">1,718</div>
+      <div class="stat-num green js-creator-count" data-pulse-fallback="creators">2,430</div>
       <div class="stat-lbl">Verified creator-journalists</div>
     </div>
     <div class="stat-cell">
@@ -1054,7 +1054,7 @@ const FEATURED_POOL = [
       <div class="stat-lbl">Cities represented</div>
     </div>
     <a href="pulse.html" class="stat-cell stat-cell--linked">
-      <div class="stat-num green">882</div>
+      <div class="stat-num green js-pulse-feeds" data-pulse-fallback="feeds">1,702</div>
       <div class="stat-lbl">Creator RSS feeds</div>
       <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
     </a>
@@ -1384,7 +1384,7 @@ const FEATURED_POOL = [
   <div class="db-inner">
   <div class="db-header">
     <div>
-      <h2><span class="js-creator-count">1,718</span> creators. Free to explore. No account required.</h2>
+      <h2><span class="js-creator-count" data-pulse-fallback="creators">2,430</span> creators. Free to explore. No account required.</h2>
     </div>
   </div>
   <div class="db-filter-bar">
@@ -1453,7 +1453,7 @@ const FEATURED_POOL = [
     </div>
   </div>
   <div class="db-cta">
-    <a href="/search" class="btn-lime-lg">Explore all <span class="js-creator-count">1,718</span> creators →</a>
+    <a href="/search" class="btn-lime-lg">Explore all <span class="js-creator-count" data-pulse-fallback="creators">2,430</span> creators →</a>
   </div>
   </div>
 </section>
@@ -2507,9 +2507,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// ── Atlas Pulse snapshot — update generated_at + posts weekly ─────────────────
+// ── Atlas Pulse snapshot — regenerated by pipelines/pulse/update_pulse.py; feed count and date below render from it ──
 const PULSE_SNAPSHOT_INDEX = {
   generated_at: "2026-10-05",
+  total_creators: 2430,
+  total_rss_resolved: 1702,
   beats: [
     {
       name: "Tech",
@@ -2523,12 +2525,12 @@ const PULSE_SNAPSHOT_INDEX = {
     },
     {
       name: "Culture",
-      active_creators: 133,
+      active_creators: 115,
       posts: [
         // SWAP: replace these objects when running pulse weekly
-        { creator: "Delia Cai", title: "breaking: tech interests figure out how tech media works, sort of", url: "https://www.deezlinks.com/p/breaking-tech-interests-figure-out", platform: "Substack", published: "2026-10-05" },
-        { creator: "Lia Haberman", title: "B2B Summer Pop-Up Series with ICYMI + The Pollinatr", url: "https://liahaberman.substack.com/p/b2b-summer-pop-up-series-with-icymi-cb9", platform: "Substack", published: "2026-10-05" },
-        { creator: "Monique (Black Belt Babe)", title: "What to expect today.", url: "https://www.youtube.com/shorts/ox4S3PHX5JI", platform: "TikTok", published: "2026-10-05" }
+        { creator: "Monique (Black Belt Babe)", title: "What to expect today.", url: "https://www.youtube.com/shorts/ox4S3PHX5JI", platform: "TikTok", published: "2026-10-05" },
+        { creator: "Yasi Salek", title: "Monday Mixtape: Lennon Stella", url: "https://www.fast-loose.com/p/monday-mixtape-lennon-stella", platform: "Substack", published: "2026-10-05" },
+        { creator: "Adam Schrader", title: "Widow seeks Sandy Heller’s records on $29.6M drop in late husband’s art collection", url: "https://www.urgentmatter.press/widow-seeks-sandy-heller-records-on-29-6m-drop-in-late-husbands-art-collection/", platform: "Ghost", published: "2026-10-05" }
       ]
     },
     {
@@ -2545,6 +2547,9 @@ const PULSE_SNAPSHOT_INDEX = {
 };
 
 function renderPulseGrid() {
+  if (PULSE_SNAPSHOT_INDEX.total_rss_resolved) {
+    document.querySelectorAll('.js-pulse-feeds').forEach(el => { el.textContent = PULSE_SNAPSHOT_INDEX.total_rss_resolved.toLocaleString(); });
+  }
   const badgeEl = document.getElementById('pulse-badge-date');
   if (badgeEl && PULSE_SNAPSHOT_INDEX.generated_at) {
     const d = new Date(PULSE_SNAPSHOT_INDEX.generated_at + 'T00:00:00');

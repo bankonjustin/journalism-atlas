@@ -7,13 +7,13 @@
   <link rel="canonical" href="https://journalismatlas.com/pulse">
   <meta property="og:url" content="https://journalismatlas.com/pulse">
   <meta property="og:title" content="Atlas Pulse — What the Ecosystem Is Publishing">
-  <meta property="og:description" content="A live reading-intelligence surface showing what 1,800+ creator journalists are actively publishing, organized by beat.">
+  <meta property="og:description" content="A live reading-intelligence surface showing what creator journalists are publishing, organized by beat.">
   <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <meta property="og:type" content="website">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://journalismatlas.com/pulse">
   <meta property="twitter:title" content="Atlas Pulse — What the Ecosystem Is Publishing">
-  <meta property="twitter:description" content="A live reading-intelligence surface showing what 1,800+ creator journalists are actively publishing, organized by beat.">
+  <meta property="twitter:description" content="A live reading-intelligence surface showing what creator journalists are publishing, organized by beat.">
   <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <link rel="icon" type="image/png" href="assets/images/icons/Journalism_Atlas_favicon.png">
   <link rel="stylesheet" href="assets/css/variables.css">
@@ -2239,11 +2239,23 @@
 const PULSE_DATA = JSON.parse(document.getElementById('pulse-data').textContent);
 const DIGEST_DATA = JSON.parse(document.getElementById('digest-data').textContent);
 
-// ── Derived ecosystem stats — review after each pulse run ────────────────────
-// beats_active_7d: count of unique topic values across 7d posts
-// cities_covered: count of distinct geography values (non-national)
-const ECOSYSTEM_BEATS_7D = 81;
-const ECOSYSTEM_CITIES = 121;
+// ── Derived ecosystem stats — computed from PULSE_DATA at render time ────────
+// ECOSYSTEM_BEATS_7D: number of distinct exact topic tags across 7d posts. Tags are the
+// comma-separated values of each post's topic, trimmed (same split as pulse_v2.split_topics),
+// and the 7d window is published >= generated_at - 7 days (same rule as update_pulse.py and the
+// "Last 7 days" filter). Nothing here is hand-edited per run.
+// (The old hard-coded "cities and regions" figure was removed: it had no defined, reproducible rule.)
+const ECOSYSTEM_BEATS_7D = (() => {
+  const g = new Date(PULSE_DATA.generated_at + 'T00:00:00Z');
+  g.setUTCDate(g.getUTCDate() - 7);
+  const cutoff = g.toISOString().slice(0, 10);
+  const tags = new Set();
+  PULSE_DATA.posts.forEach(p => {
+    if ((p.published || '') < cutoff) return;
+    (p.topic || '').split(',').forEach(t => { t = t.trim(); if (t) tags.add(t); });
+  });
+  return tags.size;
+})();
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let activeRecency = '30d';
@@ -2407,7 +2419,6 @@ function renderStatStrip() {
   const stats = [
     PULSE_DATA.active_7d.toLocaleString() + ' creators published this week',
     PULSE_DATA.recency['7d'].toLocaleString() + ' pieces across ' + ECOSYSTEM_BEATS_7D + ' beats',
-    'Coverage from ' + ECOSYSTEM_CITIES + ' cities and regions',
     PULSE_DATA.total_rss_resolved.toLocaleString() + ' feeds monitored',
   ];
   const stripEl = document.getElementById('stat-strip');

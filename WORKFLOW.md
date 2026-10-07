@@ -8,7 +8,7 @@
 
 **Justin makes every decision.** No exceptions, no autonomous calls on structure, copy, or design.
 
-- **James Bareham** (james@happicamp.com) — design advisor. Consult before implementing any new component type, layout pattern, or color usage not already defined in `DESIGN-TOKENS-v13.md`. His principles live at `_reference/james-design-principles.md`.
+- **James Bareham** (james@happicamp.com) — design advisor. Consult before implementing any new component type, layout pattern, or color usage not already defined in `DESIGN-TOKENS-v14.md`. His principles live at `_reference/james-design-principles.md`.
 - **Ryan** — data advisor. Consult before modifying `creators-data.json`, `creators-master.csv`, or the data pipeline (`convert.js`, `DATA-OPS-PROTOCOL.md`).
 
 When in doubt: stop, surface the question, wait for Justin's call.
@@ -31,7 +31,7 @@ The CSS_AUDIT.md and JS_AUDIT.md files document the baseline. New work should no
 Before writing any code:
 
 - [ ] Read `CLAUDE.md` (page inventory, CSS architecture, key constraints)
-- [ ] Read `DESIGN-TOKENS-v13.md` if the session touches any styling
+- [ ] Read `DESIGN-TOKENS-v14.md` if the session touches any styling
 - [ ] Read `DATA-OPS-PROTOCOL.md` if the session touches any JSON or CSV data
 - [ ] If working from a Chat-originated brief: cross-reference file paths and page names against actual repo state — briefs can go stale
 
@@ -62,7 +62,7 @@ Claude Chat is good at briefs and strategy. Claude Code is authoritative on curr
 ## When to Stop and Ask
 
 Stop and surface to Justin when:
-- A decision requires a judgment call on design that isn't covered by `DESIGN-TOKENS-v13.md`
+- A decision requires a judgment call on design that isn't covered by `DESIGN-TOKENS-v14.md`
 - A brief conflicts with current repo state in a way that affects the build approach
 - A data operation would modify `creators-master.csv` or change the JSON schema
 - A new page, component type, or URL pattern is being introduced

@@ -1,7 +1,7 @@
 /* =============================================
    JOURNALISM ATLAS — CSS CUSTOM PROPERTIES
-   CSS implementation of DESIGN-TOKENS-v13.md
-   Last synced: October 2026 (DESIGN-TOKENS-v13.md; migration in progress, existing color roles are re-pointed in Phase 2)
+   CSS implementation of DESIGN-TOKENS-v14.md
+   Last synced: October 2026 (DESIGN-TOKENS-v14.md; migration in progress, existing color roles are re-pointed in Phase 2)
 
    HOW TO USE:
    Load this file FIRST in every page <head>,
@@ -9,7 +9,7 @@
      <link rel="stylesheet" href="assets/css/variables.css">
 
    Reference tokens by name — never hardcode hex values.
-   When in doubt, check DESIGN-TOKENS-v13.md for the canonical value.
+   When in doubt, check DESIGN-TOKENS-v14.md for the canonical value.
    ============================================= */
 
 :root {
@@ -38,7 +38,7 @@
 
   /* =========================================
      MONOTONE SCALES — v12 (Oct 2026)
-     DESIGN-TOKENS-v13.md § Tier 2 — Monotones
+     DESIGN-TOKENS-v14.md § Tier 2 — Monotones
      Site uses the Cool scale for semantic roles; don't mix scales on one surface.
      Step 4 is large text / UI / disabled only (3.2:1 on white), never body text.
      ========================================= */
@@ -61,30 +61,41 @@
   --gray-cool-8: #000000;
 
   /* v12 semantic names that do not collide with existing tokens.
-     DESIGN-TOKENS-v13.md § Semantic Color Assignments.
+     DESIGN-TOKENS-v14.md § Semantic Color Assignments.
      The existing --color-bg / -text / -text-secondary / -muted / -border / -error
      definitions below are re-pointed to these scales in Phase 2a/2b. */
   --color-surface:        var(--gray-cool-1);
   --color-heading:        var(--gray-cool-8);
   --color-text-on-dark-2: var(--gray-cool-3);   /* secondary text on dark surfaces */
   --color-border-on-dark: var(--gray-cool-5);
-  --color-hover:          #97d600;              /* Lime — hover. FILL ONLY on light surfaces (v13 § Greens by Surface) */
-  --color-accent-on-light: #5d7400;             /* Dark Olive — text, icons, thin strokes on light surfaces (v13) */
-  --color-focus:          #97d600;              /* focus ring on dark surfaces (v13) */
-  --color-focus-on-light: #5d7400;              /* focus ring on light surfaces (v13); lime fails 3:1 on white */
+  /* Green primitives (DESIGN-TOKENS-v14.md § Migrating color variables). Role variables point at these.
+     Brand-palette names --color-acid-green / --color-lime-green / --color-dark-olive above are older aliases of the same values. */
+  --color-acid:           #ceff00;
+  --color-lime:           #97d600;
+  --color-olive:          #5d7400;
+
+  /* Role variables (v14). Use by what the element does, not by color:
+     at-rest/active fill → --color-accent · hover fill → --color-hover · green text/icons/strokes on LIGHT → --color-accent-on-light
+     inline links → --color-link / --color-link-on-dark · focus ring → --color-focus (dark) / --color-focus-on-light (light) */
+  --color-hover:          var(--color-lime);    /* hover FILL (fill only on light surfaces) */
+  --color-accent-on-light: var(--color-olive);  /* text, icons, thin strokes on light surfaces */
+  --color-focus:          var(--color-lime);    /* focus ring on dark surfaces */
+  --color-focus-on-light: var(--color-olive);   /* focus ring on light surfaces (lime fails 3:1 on white) */
+  --color-link:           var(--color-olive);   /* inline link on light surfaces, underlined; hover step 8 */
+  --color-link-on-dark:   #ffffff;              /* inline link on dark surfaces, underlined; hover lime */
   --color-on-error:       #ffffff;
   --color-display-dark:   #ffbc00;              /* dark-mode display accent (v12 Tier 5) */
 
   /* =========================================
      LIGHT MODE — Semantic Color Assignments
-     DESIGN-TOKENS-v13.md § Semantic Color Assignments
+     DESIGN-TOKENS-v14.md § Semantic Color Assignments
      Use these tokens in all light-surface contexts.
      ========================================= */
   --color-bg:             var(--gray-cool-2);   /* Primary page background */
   --color-bg-card:        #ffffff;   /* Card / panel background */
   --color-text:           var(--gray-cool-6);   /* Primary body text */
   --color-text-header:    #000000;   /* Heading text — always black, any mode */
-  --color-accent:         #97d600;   /* Primary accent / CTA — lime, light mode only.  PENDING JAMES — v13 defines --color-accent as acid #ceff00 (fill only on light surfaces); the site uses lime as its primary accent on light. Intentionally NOT redefined here. */
+  --color-accent:         var(--color-lime);   /* Primary accent / CTA fill. Value is STILL lime (live look). v14: acid; repointed in the CTA-swap step, not here. */
   --color-accent-hover:   #5d7400;   /* Hover / active state — dark olive */
   --color-text-secondary: var(--gray-cool-5);   /* Secondary text on light surfaces */
   --color-muted:          #9e9e9e;   /* Muted / disabled text and icons */
@@ -128,7 +139,7 @@
      D3 only — never use in UI chrome.
      Category → color assignments are in the JS constant ATLAS_VIZ_COLORS (ATLAS_VIZ_COLORS.md).
      These legacy CSS vars are superseded — do not add new --viz-* properties here.
-     Reference: DESIGN-TOKENS-v13.md § D3 Visualization Color Array
+     Reference: DESIGN-TOKENS-v14.md § D3 Visualization Color Array
      ========================================= */
   --viz-yellow:   #fff700;
   --viz-orange:   #ffaa00;
@@ -144,14 +155,14 @@
 
   /* =========================================
      TYPOGRAPHY
-     DESIGN-TOKENS-v13.md § Typography — v7 May 2026
+     DESIGN-TOKENS-v14.md § Typography — v7 May 2026
      Weights: 400 / 500 (Micro only) / 600 (H3) / 700 / 800.
      ========================================= */
 
   /* Font families */
   --font-primary:   'Inter', sans-serif;
   --font-mono:      'Source Code Pro', monospace;
-  --font-editorial: 'Merriweather', serif;   /* reactivated Sept 2026 — DESIGN-TOKENS-v13.md v11 § Font Stack */
+  --font-editorial: 'Merriweather', serif;   /* reactivated Sept 2026 — DESIGN-TOKENS-v14.md v11 § Font Stack */
 
   /* Legacy alias */
   --font-ui: 'Inter', sans-serif;
@@ -207,7 +218,7 @@
 
   /* =========================================
      SPACING — 4px base unit
-     DESIGN-TOKENS-v13.md § Spacing & Layout
+     DESIGN-TOKENS-v14.md § Spacing & Layout
      ========================================= */
   --space-xs:   4px;    /* tight inline spacing, badge padding */
   --space-sm:   8px;
@@ -227,7 +238,7 @@
 
   /* =========================================
      BORDER RADIUS
-     DESIGN-TOKENS-v13.md § Spacing & Layout
+     DESIGN-TOKENS-v14.md § Spacing & Layout
      ========================================= */
   --radius-base:  6px;    /* Cards, buttons, inputs */
   --radius-modal: 8px;    /* Modals — slightly softer */
@@ -243,7 +254,7 @@
 
   /* =========================================
      LAYOUT
-     DESIGN-TOKENS-v13.md § Max Content Width
+     DESIGN-TOKENS-v14.md § Max Content Width
      ========================================= */
   --max-width-layout:    1440px;   /* outer container — all pages */
   --max-width-card-grid: 1200px;   /* card grids — sits inside layout with margin */
@@ -253,7 +264,7 @@
   /* =========================================
      ICON SIZES
      Material Symbols Outlined — opsz must match display size
-     DESIGN-TOKENS-v13.md § Iconography
+     DESIGN-TOKENS-v14.md § Iconography
      ========================================= */
   --icon-sm:  20px;   /* opsz=20 — inline, tight contexts, tags */
   --icon-md:  24px;   /* opsz=24 — standard UI: buttons, nav, filters */

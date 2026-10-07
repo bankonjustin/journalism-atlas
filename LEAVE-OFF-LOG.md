@@ -1,0 +1,6 @@
+# Leave-off log
+
+Newest last. One dated line per stop.
+
+- 2026-10-06 — Token migration, stops so far (all committed by Justin unless noted): Step 0 inventory and Gate A rulings; Phase 1 (variables.css scales + role names, v11 token file removed, CLAUDE.md rules); 2a (671 gray swaps: `#313131 #efeff2 #6b6b6b`, `#ff9600` comment); 3a (header theme switch, white default, no visible change); v13 token file and `CLAUDE.md` greens rules. Reports in `docs/V12-*` and `docs/V13-*`. Superseded by v14 the same day.
+- 2026-10-06 — **v14 stop 1 (primitives and role variables, no visual change):** `DESIGN-TOKENS-v13.md` removed, references now point at `DESIGN-TOKENS-v14.md`. `variables.css` gained `--color-acid/-lime/-olive`, `--color-link`, `--color-link-on-dark`; `--color-hover`, `--color-accent-on-light`, `--color-focus`, `--color-focus-on-light` now point at the primitives; `--color-accent` is `var(--color-lime)` (same value as before). Verified: resolved colour of 18,015 CSS declarations (incl. hover/focus rules) and 144,758 rendered elements are identical to HEAD across 52 pages; a negative control (lime set to red) was caught. Header default is now one JS constant, `DEFAULT_HEADER_THEME = 'white'` (uncommitted, separate from this stop). Next: stop 2 (role migration).

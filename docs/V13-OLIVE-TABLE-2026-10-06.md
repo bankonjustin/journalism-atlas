@@ -1,6 +1,6 @@
 # V13 Dark Olive `#5d7400` usage table (report only, nothing applied)
 
-*2026-10-06, redone against DESIGN-TOKENS-v13.md. Supersedes `V12-OLIVE-TABLE-2026-10-06.md`. **86 literal lines** (hex and `rgba(93,116,0,…)`) in 10 files, plus 82 uses through `var()`. By class: KEEP-AS-OLIVE 65, CHANGE 13, REVIEW 7, ON-DARK 1. Surface: measured from the DOM where the element rendered; 13 literal lines were not observed (hover/JS states) and are classified from role, assuming a light page; they are marked "(surface unverified)".*
+*2026-10-06, redone against DESIGN-TOKENS-v13.md. Supersedes `V12-OLIVE-TABLE-2026-10-06.md`. **86 literal lines** (hex and `rgba(93,116,0,…)`) in 10 files, plus 82 uses through `var()`. By class: KEEP-AS-OLIVE 65, CHANGE 13, REVIEW 7, ON-DARK 1. Surface: measured from the DOM where the element rendered; 10 literal lines were not observed (hover/JS states) and are classified from role, assuming a light page; they are marked "(surface unverified)".*
 
 **Classes.** KEEP-AS-OLIVE: text/icon/thin stroke on a light surface (becomes `var(--color-accent-on-light)`); olive *hover text/icon/stroke* on light is allowed. CHANGE: a fill, button background or hover fill (v13 forbids olive as a fill). ON-DARK: olive on a dark surface (use acid/lime). REVIEW: role unclear.
 
@@ -10,10 +10,10 @@
 | about-this-project.html:109 | `.about-read-more` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | about-this-project.html:146 | `.pillar-number` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | about-this-project.html:209 | `.team-title` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
-| about-this-project.html:230 | `.team-link:hover` | border-color | :hover | unobserved (unverified) | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
-| about-this-project.html:230 | `.team-link:hover` | color | :hover | unobserved (unverified) | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
+| about-this-project.html:230 | `.team-link:hover` | border-color | :hover | light | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
+| about-this-project.html:230 | `.team-link:hover` | color | :hover | light | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
 | about-this-project.html:346 | `.looking-item::before` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
-| about-this-project.html:440 | `.btn-lime-about:hover` | background | :hover | unobserved (unverified) | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
+| about-this-project.html:440 | `.btn-lime-about:hover` | background | :hover | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
 | about-this-project.html:528 | `<a.about-section> (inline)` | style | - | unobserved (unverified) | REVIEW | needs a human look |
 | assets/css/header.css:180 | `.nav-search-btn:hover` | background | :hover | mixed | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
 | city-lab-chicago.html:54 | `.two-layer-pill` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
@@ -32,7 +32,7 @@
 | city-lab-chicago.html:1129 | `(JS/other)` | style | - | unobserved (unverified) | REVIEW | needs a human look |
 | contact.html:116 | `.contribute-intro a` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | for-brands.html:132 | `.compare-th--right` | border-bottom | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
-| index.html:146 | `/ .btn-lime` | border | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
+| index.html:146 | `.btn-lime` | border | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | index.html:149 | `.btn-lime:hover` | background | :hover | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
 | index.html:152 | `.btn-lime-lg` | border | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | index.html:156 | `.btn-lime-lg:hover` | background | :hover | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
@@ -70,7 +70,7 @@
 | pulse.html:249 | `.archive-method a` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | pulse.html:455 | `.beat-tag` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | pulse.html:456 | `.beat-tag` | background | - | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
-| pulse.html:565 | `/ .pulse-dot-inline` | background | - | dark | ON-DARK | acid #ceff00 (active/CTA) or lime #97d600 (hover/focus) |
+| pulse.html:565 | `.pulse-dot-inline` | background | - | dark | ON-DARK | acid #ceff00 (active/CTA) or lime #97d600 (hover/focus) |
 | pulse.html:607 | `.creator-chip:hover` | border-color | :hover | light | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
 | pulse.html:608 | `.creator-chip:hover` | background | :hover | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
 | pulse.html:619 | `.creator-chip-count` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
@@ -80,7 +80,7 @@
 | pulse.html:870 | `.pulse-brands-cta-btn` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | pulse.html:871 | `.pulse-brands-cta-btn` | border | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | pulse.html:879 | `.pulse-brands-cta-btn:hover` | background | :hover | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
-| pulse.html:915 | `/ .intel-week-badge` | color | - | unknown(gradient) | KEEP-AS-OLIVE | var(--color-accent-on-light) |
+| pulse.html:915 | `.intel-week-badge` | color | - | unknown(gradient) | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | pulse.html:962 | `a.intel-post-link:hover` | color | :hover | light | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
 | pulse.html:1044 | `.city-spotlight-eyebrow` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | pulse.html:1047 | `.city-spotlight-cta` | color | - | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
@@ -97,13 +97,13 @@
 
 | file:line | element | property | via | surface | class | proposed |
 |---|---|---|---|---|---|---|
-| assets/css/main.css:428 | `/ .clear-filters-top` | border | `--color-dark-olive` | unobserved | KEEP-AS-OLIVE | var(--color-accent-on-light) |
+| assets/css/main.css:428 | `.clear-filters-top` | border | `--color-dark-olive` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | assets/css/main.css:442 | `.clear-filters-top:hover` | background | `--color-dark-olive` | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
 | assets/css/main.css:443 | `.clear-filters-top:hover` | border-color | `--color-dark-olive` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
 | assets/css/main.css:532 | `.view-btn:hover:not(.active)` | border-color | `--color-dark-olive` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) (hover text/icon/stroke on light: allowed) |
 | assets/css/main.css:1060 | `.sunburst-creator-avatar` | background | `--color-dark-olive` | unobserved | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
-| atlas-portal/index.html:512 | `.message.success` | color | `--olive-green` | unobserved | KEEP-AS-OLIVE | var(--color-accent-on-light) |
-| atlas-portal/index.html:605 | `.footer-section a` | color | `--olive-green` | unobserved | KEEP-AS-OLIVE | var(--color-accent-on-light) |
+| atlas-portal/index.html:512 | `.message.success` | color | `--olive-green` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
+| atlas-portal/index.html:605 | `.footer-section a` | color | `--olive-green` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | bluesky-creator-intelligence.html:52 | `.badge-atlas` | color | `--olive` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | bluesky-creator-intelligence.html:56 | `.header-cta` | border | `--olive` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | bluesky-creator-intelligence.html:57 | `.header-cta:hover` | background | `--olive` | light | CHANGE | fill: acid #ceff00 + black text (CTA/active) or lime #97d600 (hover); not olive. Tints: acid tint or step-2 gray (design call) |
@@ -179,3 +179,41 @@
 | partners/rahim-jessani.html:92 | `.about-link` | color | `--olive` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | wire.html:185 | `.wire-text a` | color | `--color-accent-hover` | unobserved | KEEP-AS-OLIVE | var(--color-accent-on-light) |
 | wire.html:247 | `.wire-footer-band a` | color | `--color-accent-hover` | light | KEEP-AS-OLIVE | var(--color-accent-on-light) |
+
+## Variable definitions holding olive (21) and comment lines (2)
+
+These are not rendered; they complete the original count. A definition is classified by what its consumers do (see the `var()` table above).
+
+| file:line | variable | consumers (class) | note |
+|---|---|---|---|
+| assets/css/variables.css:23 | `--color-dark-olive` | no consumers | brand palette name; fine as a definition (design-element color) |
+| assets/css/variables.css:72 | `--color-accent-on-light` | no consumers | v13 token (new in Phase 1) |
+| assets/css/variables.css:74 | `--color-focus-on-light` | no consumers |  |
+| assets/css/variables.css:88 | `--color-accent-hover` | no consumers | **hover fill today** (search button) and other hover backgrounds: v13 forbids an olive fill; the token itself should not be olive |
+| bluesky-creator-intelligence.html:32 | `--olive` | KEEP-AS-OLIVE 4, CHANGE 1 |  |
+| index.html:256 | `--linked` | no consumers |  |
+| partners/_reviewjames.html:10 | `--olive` | KEEP-AS-OLIVE 2 |  |
+| partners/_shell.html:40 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/ahp.html:20 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/cillizza.html:20 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/emily-atkin.html:20 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/icfj.html:20 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/iij.html:20 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/jessica-stahl.html:20 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/joon-lee.html:16 | `--olive` | KEEP-AS-OLIVE 4 |  |
+| partners/karen-attiah.html:16 | `--olive` | KEEP-AS-OLIVE 4 |  |
+| partners/knowledge-creators.html:16 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/natgeo.html:16 | `--olive` | KEEP-AS-OLIVE 4 |  |
+| partners/news-creator-corps.html:20 | `--olive` | KEEP-AS-OLIVE 5 |  |
+| partners/noah-smith.html:20 | `--olive` | KEEP-AS-OLIVE 4 |  |
+| partners/rahim-jessani.html:20 | `--olive` | KEEP-AS-OLIVE 4 |  |
+| atlas-portal/index.html:32 | (comment) | n/a | `/* DESIGN-TOKEN FIX: Dark olive variable removed — color retired from ` |
+| chicago-survey.html:16 | (comment) | n/a | `/* DESIGN-TOKEN FIX: --olive (#5d7400) removed — retired from palette ` |
+
+## Reconciliation with the original 113
+
+86 literal lines + 21 definitions + 2 comments = 109; the other 4 are lines in "… copy" files (`partners/njlab copy.html` ×3, `partners/_reviewjames copy.html` ×1) that duplicate `njlab.html` / `_reviewjames.html` and are classified the same as their originals. Total 113.
+
+## Notes
+- **The search button hover** (`header.css` `.nav-search-btn:hover`, olive background + white text) is a hover *fill*: CHANGE under v13 (lime hover fill with black text is the v13 hover).
+- v13 lets olive color hover *text/icon/stroke* on light; those rows are KEEP-AS-OLIVE.

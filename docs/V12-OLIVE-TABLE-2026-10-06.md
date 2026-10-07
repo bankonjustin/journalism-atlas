@@ -1,3 +1,4 @@
+> **Superseded by `V13-OLIVE-TABLE-2026-10-06.md` (v13 rules).**
 # V12 Dark Olive `#5d7400` — usage table (report only, nothing applied)
 
 *2026-10-06. Ruling 4: hover uses (`--color-accent-hover`, search-button hover) stay untouched; this table covers every live occurrence. Total lines: **113** in 32 files. By role: text 57, fill 24, hover 17, border 11, other 4.*
