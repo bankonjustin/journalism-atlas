@@ -18,9 +18,9 @@
      BRAND COLOR PALETTE
      Primary palette from Style Guide 2026
      ========================================= */
-  --color-acid-green:  #ceff00;   /* Dark backgrounds only — see semantic tokens */
-  --color-lime-green:  #97d600;   /* Light backgrounds only — see semantic tokens */
-  --color-dark-olive:  #5d7400;   /* Hover / deep accent */
+  --color-acid-green:  var(--color-acid);   /* Acid: CTA/active. Fill-only on light surfaces (v14 § Greens by Surface) */
+  --color-lime-green:  var(--color-lime);   /* Lime: hover/focus. Fill-only on light surfaces (v14) */
+  --color-dark-olive:  var(--color-olive);   /* Olive: text, icons, thin strokes on light surfaces (v14) */
   --color-dark-gray:   var(--gray-cool-6);
   --color-light-gray:  var(--gray-cool-2);
   --color-black:       #000000;
@@ -32,8 +32,8 @@
   --light-gray:  var(--gray-cool-2);
   --dark-gray:   var(--gray-cool-6);
   --medium-gray: #999999;
-  --acid-green:  #ceff00;   /* NOTE: acid green = dark surfaces only per v3. See --color-accent for light mode CTA. */
-  --lime-green:  #97d600;
+  --acid-green:  var(--color-acid);   /* Legacy alias of --color-acid. (The old "acid on dark only" rule was never canon; see v14.) */
+  --lime-green:  var(--color-lime);
 
 
   /* =========================================
@@ -112,8 +112,8 @@
   --color-bg-card-dark:       #000000;
   --color-text-dark:          var(--gray-cool-2);
   --color-text-header-dark:   #000000;   /* Header text always black — mode-invariant */
-  --color-accent-dark:        #ceff00;   /* Primary accent / CTA — acid green, dark mode only */
-  --color-accent-dark-hover:  #97d600;   /* Hover on dark — lime */
+  --color-accent-dark:        var(--color-acid);   /* Primary accent / CTA — acid green, dark mode only */
+  --color-accent-dark-hover:  var(--color-hover);   /* Hover on dark — lime */
   --color-muted-dark:         #bdbdbd;   /* Secondary text on dark surfaces — WCAG AA ~6.0:1 on #000 */
   --color-border-dark:        #48484f;
   --color-border-dark-hover:  #606068;
@@ -129,7 +129,7 @@
   --canvas-text-primary:   #ffffff;
   --canvas-text-secondary: rgba(255, 255, 255, 0.55);
   --canvas-text-muted:     rgba(255, 255, 255, 0.4);
-  --canvas-accent:         #ceff00;
+  --canvas-accent:         var(--color-acid);
   --canvas-divider:        rgba(255, 255, 255, 0.12);
   --canvas-border:         rgba(255, 255, 255, 0.08);
 
@@ -277,7 +277,7 @@
      Never remove focus styles.
      ========================================= */
   --focus-ring-light:  2px solid #97d600;
-  --focus-ring-dark:   2px solid #ceff00;
+  --focus-ring-dark:   2px solid var(--color-acid);
   --focus-ring-offset: 2px;
 
 
