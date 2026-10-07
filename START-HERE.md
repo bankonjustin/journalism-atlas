@@ -1,15 +1,22 @@
 # Start here — open decisions
 
-*Updated 2026-10-06. Delete an item when it is resolved.*
+*Updated 2026-10-06 after the autonomous v14 run. Delete an item when it is resolved.*
 
 ## For James
-1. **Retired-gray `#a8a8a8` as a hover border** (`--color-border-hover`): v14 maps `#a8a8a8` to step 5 on light, a rule written for secondary *text*. Applied to a hover border it darkens a lot (2.3:1 to 6.4:1). Step 5 as written, or step 3/4?
-2. **Five `wire.html` text lines use `#9e9e9e`** (timestamp, hashtag, empty and loading states, footer band) and will read step 4 (3.2:1 on white, 2.8:1 on the page background): below 4.5:1 for small text. Move them to step 5 (`--color-text-secondary`)?
-3. **Off-system grays** (about 107 colors, 1,444 uses, including the warm family): snap to Cool by role in a later release. A by-role proposal is in `docs/V12-UNMAPPED-GRAYS-PROPOSAL-2026-10-06.md`.
-4. **Sub-nav hover/active on white** is specified in v14 (olive underline, olive active); the long-form report template still describes a black sub-nav and must be updated (stop 6).
-5. **Charts** use brand-secondary colors as categories; moving to `ATLAS_VIZ_COLORS` needs Ryan's taxonomy mapping (not in this release).
+1. **Report article links.** `research/nodes-and-networks.html` styles body links with its own blue (`--blue: #185FA5`, underlined). v14 says olive + underlined on light. Skipped: the page is a copy-locked template with its own palette (warm off-system grays, `#faf9f5` background). Switch to olive?
+2. **CTA-style links inside sentences** (arrow links, e.g. "Submit here →" in `how-we-did-this.html`, "Switch to Journalism →" in `city-lab-dc-v3.html`) and the beat-name links in the Pulse masthead lede (`a.lede-beat`, white on dark, no underline). Inline-link rule or CTA/tag rule?
+3. **Focus ring on dark.** v14 says lime; `--focus-ring-dark` is still acid. Confirm and I will move it.
+4. **`#a8a8a8` → step 5.** `--color-border-hover` now jumps from a pale gray to `#5e5e64` (as ruled). Keep, or step 3/4?
+5. **Off-system grays** (~107 colors, 1,444 uses, incl. the warm family): by-role proposal in `docs/V12-UNMAPPED-GRAYS-PROPOSAL-2026-10-06.md`.
+6. **Charts** use brand-secondary colors as categories; `ATLAS_VIZ_COLORS` migration needs Ryan's taxonomy mapping.
+7. **Header search button** is now acid at rest on every page (it was lime). Confirm.
+8. Tier 2 contrast column in v14: label it Neutral (the Cool figures are the semantic table's).
 
 ## For Justin
-- Logos: add the three `Atlas_logo_lockup_*_web.svg` files to `assets/images/logos/` (they are in `~/Downloads` now). Header logo swap is stop 6.
+- **Logos:** add the three `Atlas_logo_lockup_*_web.svg` files to `assets/images/logos/`. I checked geometry from the `~/Downloads` copies: identical viewBox and path data to the current header SVG, so the swap is a rename, and `horizontal_wht` wires to `data-header-theme="black"`. The footer still uses the older `Journalism_Atlas_wordmark_stacked_white.svg`; v14 specifies `Atlas_logo_lockup_stacked_wht_web.svg`.
+- **22 pages without `variables.css`** (14 hardcode a green). They were skipped everywhere. Fix = link `variables.css` (visible change) or hardcode v14 colors. Includes `partners/nj-lab.html` / `njlab.html`, whose link is a relative path that 404s. Lists: `docs/V14-STEP2I-2026-10-06.md`, `docs/V14-RESIDUAL-GREENS-2026-10-06.md`.
+- **~95 static greens could not be measured** (hover/active/JS-rendered/shared rules; listed with proposed fixes, group C of the residual TSV). Mostly on dark pages; probably compliant.
+- **27 JS-set greens** (chart palettes, canvas strokes): listed, not changed.
+- `Atlas-Long-Form-Report-Template-2026-09.md` is not in this repo; it needs the white sub-nav spec.
 - `.DS_Store` is tracked and shows modified every time; untrack it separately.
-- Duplicate files in the repo that duplicate live pages: `CLAUDE copy.md`, `PARTNERS copy.md`, `partners/njlab copy.html`, `partners/_reviewjames copy.html`.
+- Six commits from this run are local; push when ready.
