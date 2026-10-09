@@ -1,5 +1,7 @@
 # Held-back duplicate slugs — status as of 2026-10-05
 
+> **RESOLVED — resolved by Justin 2026-10-07, applied 2026-10-08.** The 11 byte-identical second rows were deleted; `andrea-cooper` kept the live row (Mental Health, Travel) and `virginia-heffernan` kept the Omnishambles row. The two non-kept rows are archived in `data/archive/held-slug-alternates-2026-10-07.csv`. Master is now 2,432 rows / 2,432 unique slugs. The rest of this file is the historical record, as of 2026-10-05.
+
 **Updated 2026-10-05 by Justin's Claude (Claude Code).** This file originally (2026-09-26) said these 13 slugs were excluded from the regenerated `creators-data.json` and "not live on the site". **That is no longer true**, and the original "Groups reclassification conflict" label for 11 of them did not match the data.
 
 ## What is actually the case

@@ -80,6 +80,9 @@ const rows = parseCSV(raw);
 const headers = rows[0];
 
 const creators = [];
+const seenSlugs = new Map();   // slug -> first CSV row number
+const slugProblems = [];       // duplicate or empty slugs; fatal unless --allow-duplicates
+const ALLOW_DUPLICATES = process.argv.includes('--allow-duplicates');
 
 for (let i = 1; i < rows.length; i++) {
   const values = rows[i];
@@ -92,6 +95,15 @@ for (let i = 1; i < rows.length; i++) {
 
   // Skip rows with no creator name
   if (!row['Creator Name']) continue;
+
+  const slugKey = (row['slug'] || '').toLowerCase();
+  if (!slugKey) {
+    slugProblems.push(`empty slug at CSV row ${i + 1} (${row['Creator Name']})`);
+  } else if (seenSlugs.has(slugKey)) {
+    slugProblems.push(`duplicate slug "${slugKey}" at CSV row ${i + 1} (first seen at row ${seenSlugs.get(slugKey)})`);
+  } else {
+    seenSlugs.set(slugKey, i + 1);
+  }
 
   // Groups field: use the full value as parsed (CSV quoting already handled).
   // Treat spreadsheet formula errors (e.g. #N/A) as empty.
@@ -121,6 +133,16 @@ for (let i = 1; i < rows.length; i++) {
     group:              group,
     secondaryPlatforms: secondaryPlatforms,
   });
+}
+
+// Strict mode: refuse to write anything while duplicate/empty slugs exist, unless explicitly allowed.
+if (slugProblems.length) {
+  slugProblems.forEach(p => console.error(`${ALLOW_DUPLICATES ? 'WARNING' : 'ERROR'}: ${p}`));
+  if (!ALLOW_DUPLICATES) {
+    console.error(`FATAL: ${slugProblems.length} duplicate/empty slug(s) in creators-master.csv; nothing written. ` +
+                  `Fix the CSV, or re-run with --allow-duplicates to keep the first copy of each (current behaviour).`);
+    process.exit(1);
+  }
 }
 
 fs.writeFileSync(OUTPUT, JSON.stringify(creators, null, 2), 'utf8');
