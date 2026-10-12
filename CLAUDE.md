@@ -44,11 +44,11 @@
 
 ## Project Overview
 
-A vanilla JS static HTML site. No build step, no npm, no React. All pages are single HTML files deployed to Cloudflare Pages via GitHub auto-deploy. Data lives in `assets/data/` as JSON.
+A vanilla JS static HTML site. No npm, no React, no bundler. All pages are single HTML files deployed to Cloudflare Pages via GitHub auto-deploy. Data lives in `assets/data/` as JSON. The only build step is `build-dist.sh`, a copy-only allowlist that publishes just the site files (see Deploy).
 
 **Stack:** HTML + CSS + Vanilla JS. CSS custom properties for design tokens. No preprocessors. D3 v7 is present for specific visualizations but is not the general rendering approach — most page UI is vanilla JS.
 
-**Deploy:** Push to GitHub → Cloudflare auto-deploys. Justin pushes via GitHub Desktop (not CLI).
+**Deploy:** Push to GitHub → Cloudflare auto-deploys. Justin pushes via GitHub Desktop (not CLI). Cloudflare runs `sh build-dist.sh` and publishes only `dist/`. Anything not listed in `build-dist.sh` (docs, scripts, `pipeline/`, `.md`, `.py`, the master CSV, snapshots, `_deprecated/`) is never public. **If you add a new top-level folder, page type, or fetched data file, add it to `build-dist.sh` or it will 404 live.**
 
 ---
 
@@ -205,7 +205,7 @@ Four locations now exist. Don't assume file paths from older briefs still hold �
 
 ## Key Constraints
 
-- **Single deployable HTML file** — no build step, no external dependencies beyond CDNs
+- **Single deployable HTML file** — no bundler or npm, no external dependencies beyond CDNs (the only build step is the `build-dist.sh` copy allowlist)
 - **City Lab pages** — inline all data as JS constants (no fetch). Hard constraint.
 - **lists.html, mobile.html, search.html** — fetch() from `assets/data/creators-data.json`. Do NOT convert to inline constants (data is too large).
 - **Cloudflare intercepts plain-text email** — encode as HTML entities or use `[at]` notation
