@@ -121,6 +121,32 @@ Before writing any CSS or styling-related code, read the relevant section of `DE
 - Full card vs. small card definitions in the postcard system
 - Any new component type not already defined in the tokens doc
 
+## Design lane (James Bareham)
+
+James is design authority. His sign-off is required on any new visual pattern outside the token system. When a session is working for James, or on any `james/*` branch:
+
+**Sources of truth.** The current `DESIGN-TOKENS-v*.md` at repo root (exactly one should exist; if you find two, stop and ask). `ATLAS-BRAND-GUIDE-v3.md` covers brand and copy rules. If the live CSS and the token doc disagree, report it. Don't silently pick one.
+
+**In scope:** `variables.css` and other CSS, page templates/HTML structure, `header.js` and footer includes, `assets/` (logos, icons, SVGs), the token doc, the brand guide.
+
+**Out of scope, even on a james/ branch:** `creators-master.csv`, `assets/data/*.json`, `convert.js`, `convert_bluesky.py`, `pipeline/`, `_redirects`, and site copy (the copy-rules sweep is a separate, pending brief; flag copy issues, don't fix them).
+
+**Branch and git rules.**
+- All of James's work goes on a `james/<short-description>` branch, including token-doc and brand-guide edits. **Nothing from a James session touches `main`**: no commits, no merges, no deletions on `main`.
+- Claude Code in a James session may commit to `james/*` branches and may push `james/*` branches only. It never pushes `main` or any other branch, and never force-pushes.
+- Merging a `james/*` branch into `main`, and deleting or renaming any file on `main` (including superseded token-doc or brand-guide versions), is done by Justin in GitHub Desktop. A James session lists the files it thinks should go and leaves them in place.
+- *Deliberate change (Justin, 2026-10-11): this reverses the Oct 7 decision that token-doc and brand-guide edits go straight to `main`. One rule for everything a James session touches is simpler.*
+- If a token-doc or brand-guide change bumps the filename version, the new version is added on the `james/*` branch and the old version stays until Justin merges and removes it.
+
+**Before calling a change ready.**
+1. Run the color-resolution check. Renames and refactors must show **zero rendered change**; visible changes must show a diff confined to the intended elements.
+2. Split commits: variables/CSS, JS-injected markup (`header.js`), and assets each in their own commit.
+3. Check WCAG contrast for any new text/background pair and name the ratio. Flag any page where more than one acid fill appears together (brand guide: acid is one per composition).
+4. Produce before/after screenshots of every page touched, at desktop and mobile widths.
+5. Write a short PR description: what changed, why, which token-doc rule it implements, the preview URL, and anything Justin should look at closely.
+
+**Local viewing.** The site loads data via `fetch` and uses clean URLs, so `file://` won't work. Serve the repo root (e.g. `python3 -m http.server`) and give James the localhost address.
+
 ---
 
 ## URL Structure
@@ -209,7 +235,8 @@ Four locations now exist. Don't assume file paths from older briefs still hold �
 - **City Lab pages** — inline all data as JS constants (no fetch). Hard constraint.
 - **lists.html, mobile.html, search.html** — fetch() from `assets/data/creators-data.json`. Do NOT convert to inline constants (data is too large).
 - **Cloudflare intercepts plain-text email** — encode as HTML entities or use `[at]` notation
-- **Git push via GitHub Desktop** — never attempt `git push` from terminal
+- **Git push via GitHub Desktop** — never attempt `git push` from terminal, with one exception: a James-lane session may push `james/*` branches only (see Design lane). Nothing is ever pushed to `main` from a terminal.
+- **Never spoof headers or bypass bot protection** — no fake User-Agent or other header tricks to get past Cloudflare or any bot check, no CAPTCHA handling, no scraping workarounds. If a site blocks the request, stop and say so.
 - **Clean up dead code while working** — remove dead CSS, unused classes, stale placeholder comments as they become irrelevant
 
 ---
