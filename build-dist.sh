@@ -9,8 +9,12 @@ rm -rf dist
 mkdir -p dist/assets/data dist/data dist/atlas-portal
 
 # Pages and redirects
-cp ./*.html _redirects wire.json dist/
+cp ./*.html _redirects robots.txt wire.json dist/
 cp -R .well-known partners lab research teamdmv dist/
+
+# Unlisted previews: page HTML only (no docx/csv/json/notes ever sit under preview/)
+mkdir -p dist/preview
+(cd preview && find . -name index.html -exec sh -c 'mkdir -p "../dist/preview/$(dirname "$1")" && cp "$1" "../dist/preview/$1"' _ {} \;)
 cp atlas-portal/*.html atlas-portal/script.js dist/atlas-portal/
 
 # Assets
