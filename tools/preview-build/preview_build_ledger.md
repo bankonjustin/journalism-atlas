@@ -120,9 +120,12 @@ Word count scope: everything from the Introduction heading to the end, headings 
 
 9. **Caption checks (Justin's three, checked against the figure data):**
    - **Defector Year 3: the docx is wrong.** Defector's Year 3 letter says "the $4.5mm revenue Defector recognized this past year" (table: ~$4,500,000). The chart's $4.5M is right; the C7 paragraph's "$4.4 million" should become "$4.5 million". Not changed (prose comes from the docx).
-   - **Figure 3: the caption overstates the split.** The six after ProPublica total $112.5M, which is 1.75× ProPublica's $64.3M, so "about as much again" is off. "Nearly twice as much again" is closer, or cut the sentence. Also, ProPublica is 9.5% of the $675M midpoint, so "roughly 9%" understates it slightly; "nearly 10%" matches the "tenth of the sector" title. The caption is currently rendered verbatim.
+   - **Figure 3: resolved (2026-10-12).** The title is now "One newsroom, nearly a tenth of the sector". The second sentence is now "The next six largest members together bring in about $113 million." Notes on the numbers:
+     - The exact sum is $112,457,427, which rounds to $112M. "About $113 million" is fine as an approximation.
+     - "Roughly 9%" stays in the first sentence. The exact figure is 9.5% of the $675M midpoint.
+     - "Next six largest members" assumes these are INN's actual largest members after ProPublica. The figure names the seven organizations it labels; their rank among all ~500 members wasn't checked here.
    - **Figure 5's metric:** the chart plots `Grant_Dependency_Pct` = contributions ÷ total revenue, from ProPublica's 990 extract (data dictionary v22). That contributions figure is Part VIII line 1h, the total of lines 1a–1f, so it *includes* government grants (1e). "Grants and donations" is accurate; "contributions" is accurate in the 990 sense.
-   - **Figure 6 (not asked):** "Nearly every cohort leans hard toward one end" mirrors the paper's text, but Barbell Hybrids (38/25/38) and Philanthropic Networks (48/30/23) don't lean hard either way.
+   - **Figure 6: resolved (2026-10-12).** The second sentence is now "Most cohorts lean hard toward one end; Barbell Hybrids and Philanthropic Networks are the exceptions." That matches the data: Barbell Hybrids split 38/25/38 and Philanthropic Networks 48/30/23. The paper's own sentence ("Nearly every cohort leans hard…") is unchanged.
 
 ## Design notes
 
