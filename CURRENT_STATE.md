@@ -1,5 +1,11 @@
 # Pulse — Current State
-*Last updated: September 24, 2026 (Nodes and Networks: WBEZ data-point fix in figures)*
+*Last updated: October 15, 2026 (Nodes and Networks: old preview retired)*
+
+## Nodes and Networks: new preview live, old page retired (Oct 15, 2026)
+
+- **Current preview:** `/preview/nodes-and-networks-f348eb08/`, live since Oct 13. It's built from the docx by `tools/preview-build/`: run `make -C tools/preview-build preview DOCX=...`. See `tools/preview-build/preview_build_ledger.md`.
+- **Old page retired:** `research/nodes-and-networks.html` and `research/figures/` moved to `_deprecated/research-nodes-and-networks/`, which never deploys. `research` is out of `build-dist.sh`, and `_redirects` sends `/research/nodes-and-networks` (plus `.html` and trailing-slash variants) to the new preview with a 301. The Sept 23–24 sections below describe the retired page.
+- `journalism-atlas-private/research/nodes-and-networks/sync_paper.py` still targets the old path. Don't run it.
 
 ## Nodes and Networks figures: WBEZ data-point fix (Sept 24, 2026), **edited locally, not yet pushed**
 

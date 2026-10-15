@@ -10,7 +10,7 @@ mkdir -p dist/assets/data dist/data dist/atlas-portal
 
 # Pages and redirects
 cp ./*.html _redirects robots.txt wire.json dist/
-cp -R .well-known partners lab research teamdmv dist/
+cp -R .well-known partners lab teamdmv dist/
 
 # Unlisted previews: page HTML only (no docx/csv/json/notes ever sit under preview/)
 mkdir -p dist/preview

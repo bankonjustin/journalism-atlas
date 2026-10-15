@@ -115,7 +115,7 @@ Word count scope: everything from the Introduction heading to the end, headings 
    - ¶25 has a double space ("Development  journalism").
    - Several links include a leading space inside the link text, e.g. "; Penske Media Corp. took the rest…", so the underline starts on the space.
    - The title heading ends in a trailing space.
-7. **An older public preview is still live** at `/research/nodes-and-networks` (pandoc pipeline, `journalism-atlas-private/research/nodes-and-networks/sync_paper.py`, with iframes to the old ~300 KB figure wrappers). Once this page ships, the two will disagree. Consider retiring that page or redirecting it here. I didn't touch it.
+7. **Old preview: retired (2026-10-15).** `research/nodes-and-networks.html` and `research/figures/` moved to `_deprecated/research-nodes-and-networks/`. `research` is out of `build-dist.sh`, and `/research/nodes-and-networks` (plus `.html` and trailing-slash variants) 301s to this page via `_redirects`. `journalism-atlas-private/research/nodes-and-networks/sync_paper.py` still targets the old path, so don't run it.
 8. **robots.txt caveat (accepted):** disallowing `/preview/` stops crawlers fetching the page, so they never see the noindex tag. If someone posts the URL publicly, search engines can still list the bare URL. That's acceptable given you're fine with the page being live.
 
 9. **Caption checks (Justin's three, checked against the figure data):**
