@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!--
+  CO-OPS & COLLECTIVES — STAGING PAGE (org layer)
+  Base: partners/_shell.html (Partner Page Shell V3). Tokens: DESIGN-TOKENS-v14.md only.
+  STATUS: staging. noindex, not linked from nav or footer. Do not link or flip noindex until Justin + James sign off.
+  Data: assets/data/coops-data.json (staged from journalism-atlas-private/products/co-ops/; copied in by Justin after review).
+  Nothing here is hardcoded: counts, filters and member chips are all derived from the JSON.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Co-ops &amp; Collectives — Independent Journalism Atlas</title>
+<meta name="description" content="Worker-owned, reader-owned and collectively run newsrooms, with the public statement that verifies each one's ownership.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/variables.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --acid:    #ceff00;   /* dark surfaces only */
+  --lime:    #97d600;   /* light surfaces only */
+  --olive:   #5d7400;
+  --page-bg: #efeff4;
+  --border:  #d4d4d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--page-bg); color: #303036; line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+
+.container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+
+/* ── HERO — black ── */
+.hero { background: #000; padding: 88px 0 72px; }
+.hero-grid { display: flex; flex-direction: column; gap: 32px; }
+.hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-acid); margin-bottom: 20px; }
+.hero-h1 { font-size: 44px; font-weight: 700; line-height: 52px; letter-spacing: -0.5px; color: #fff; margin-bottom: 20px; }
+.hero-body { font-size: 17px; font-weight: 400; line-height: 28px; color: rgba(255,255,255,0.72); max-width: 600px; margin-bottom: 32px; }
+.hero-stats { display: flex; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; overflow: hidden; max-width: 640px; }
+.hero-stat { flex: 1; padding: 20px 24px; border-right: 1px solid rgba(255,255,255,0.15); }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-size: 36px; font-weight: 700; line-height: 1; color: var(--color-acid); margin-bottom: 6px; }
+.hero-stat-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+
+/* Inset card on black hero (same pattern as the partner identity card) */
+.partner-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 32px; }
+.partner-name { font-size: 22px; font-weight: 700; color: #000; line-height: 1.25; margin-bottom: 8px; }
+.partner-role { font-size: 14px; font-weight: 400; color: #606068; line-height: 1.55; margin-bottom: 12px; }
+.partner-url { font-size: 14px; font-weight: 500; color: var(--color-accent-on-light); transition: color 0.15s; }
+.partner-url:hover { color: #000; }
+
+/* ── FILTER BAR ── */
+.filter-section { background: var(--page-bg); padding: 40px 0 0; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+.filter-field { display: flex; flex-direction: column; gap: 6px; min-width: 200px; flex: 1 1 200px; max-width: 300px; }
+.filter-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #606068; }
+.filter-select {
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: #303036;
+  background: #fff; border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 12px; min-height: 44px; width: 100%;
+}
+.filter-select:focus-visible, .filter-reset:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+.filter-reset {
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--color-accent-on-light);
+  background: transparent; border: none; cursor: pointer; padding: 6px 12px; min-height: 44px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.filter-reset:hover { color: #303036; background: var(--color-hover); }
+
+/* ── ORG GRID ── */
+.grid-section { background: var(--page-bg); padding: 32px 0 64px; }
+.grid-header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+.grid-h2 { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; }
+.grid-context { font-size: 13px; font-weight: 500; color: #606068; letter-spacing: 0.04em; }
+.org-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; }
+.org-empty { grid-column: 1 / -1; background: #fff; border: 0.5px solid var(--border); border-radius: 6px; padding: 24px; font-size: 14px; color: #606068; }
+
+.org-card { background: #fff; border: 0.5px solid var(--border); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; transition: border-color 0.15s; }
+.org-card:hover { border-color: var(--color-accent-on-light); }
+.org-structure { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px; }
+.org-name { font-size: 18px; font-weight: 700; color: #000; line-height: 1.3; margin-bottom: 8px; }
+.org-origin { font-size: 14px; font-weight: 400; color: #606068; line-height: 22px; margin-bottom: 16px; }
+.org-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; background: #efeff4; border: 0.5px solid var(--border); color: #303036; }
+.org-members { margin-bottom: 16px; }
+.org-members-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #606068; margin-bottom: 6px; }
+.member-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill.member { background: transparent; border: 1px solid #d4d4d8; font-size: 13px; font-weight: 400; padding: 4px 10px; min-height: 28px; transition: background 0.15s, border-color 0.15s; }
+.pill.member:hover { background: var(--color-hover); border-color: var(--color-accent-on-light); }
+.pill.member:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+.card-divider { border: none; border-top: 0.5px solid var(--border); margin: auto 0 12px; }
+.card-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; }
+.card-link { font-size: 14px; font-weight: 500; color: var(--color-accent-on-light); display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 6px; margin-left: -12px; min-height: 44px; transition: color 0.15s, background 0.15s; }
+.card-link:hover { color: #303036; background: var(--color-hover); }
+.card-link:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+.card-verified { font-size: 12px; color: #606068; margin-top: -4px; padding-bottom: 2px; }
+
+/* ── METHODOLOGY — white ── */
+.about-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
+.about-section { background: #fff; padding: 80px 0; }
+.about-inner { max-width: 640px; }
+.about-headline { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.25px; margin-bottom: 16px; }
+.about-body { font-size: 16px; font-weight: 400; line-height: 26px; color: #444; margin-bottom: 20px; }
+.about-link { font-size: 14px; font-weight: 500; color: var(--color-accent-on-light); transition: color 0.15s; }
+.about-link:hover { color: #000; }
+
+/* ── ATLAS FOOTER — dark gray ── */
+.atlas-footer { background: #303036; padding: 80px 0; }
+.atlas-footer-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.atlas-footer-tagline { font-size: 16px; font-weight: 400; line-height: 26px; color: rgba(255,255,255,0.65); max-width: 480px; }
+.atlas-footer-btn { display: inline-flex; align-items: center; padding: 12px 24px; background: var(--color-acid); color: #000; font-size: 14px; font-weight: 700; border-radius: 6px; transition: opacity 0.15s; margin-top: 4px; }
+.atlas-footer-btn:hover { background: var(--color-hover); opacity: 1; }
+.atlas-footer-btn:active { background: var(--color-accent); color: var(--color-heading); }
+.atlas-footer-btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+@media (min-width: 1024px) { .hero-grid { display: grid; grid-template-columns: 55fr 45fr; gap: 48px; align-items: start; } }
+@media (max-width: 768px) {
+  .hero { padding: 56px 0 48px; }
+  .hero-h1 { font-size: 32px; line-height: 40px; }
+  .hero-body { font-size: 16px; }
+  .org-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 20px; }
+  .hero { padding: 48px 0 40px; }
+  .hero-h1 { font-size: 26px; line-height: 34px; }
+  .hero-stat { padding: 16px 18px; }
+  .hero-stat-num { font-size: 28px; }
+  .filter-field { max-width: none; }
+  .grid-section { padding: 24px 0 48px; }
+  .about-section { padding: 56px 0; }
+  .atlas-footer { padding: 56px 0; }
+}
+</style>
+<link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow">Organizations</p>
+        <h1 class="hero-h1">Co-ops &amp; Collectives</h1>
+        <p class="hero-body">Newsrooms owned by the people who work in them, by their readers, or by a collective. Each one is listed with the public statement that verifies how it is owned.</p>
+        <div class="hero-stats" id="hero-stats" aria-live="polite"></div>
+      </div>
+      <div>
+        <div class="partner-card">
+          <h2 class="partner-name">How this list works</h2>
+          <p class="partner-role">Ownership claims are public assertions, so every organization links to a dated source. Individual journalists at these organizations are evaluated separately for the main Atlas.</p>
+          <a href="#methodology" class="partner-url">Read the methodology ↓</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="filter-section" aria-label="Filters">
+  <div class="container">
+    <div class="filter-bar">
+      <div class="filter-field">
+        <label class="filter-label" for="f-structure">Structure</label>
+        <select class="filter-select" id="f-structure"><option value="">All structures</option></select>
+      </div>
+      <div class="filter-field">
+        <label class="filter-label" for="f-beat">Beat</label>
+        <select class="filter-select" id="f-beat"><option value="">All beats</option></select>
+      </div>
+      <div class="filter-field">
+        <label class="filter-label" for="f-geo">Geography</label>
+        <select class="filter-select" id="f-geo"><option value="">All locations</option></select>
+      </div>
+      <button type="button" class="filter-reset" id="f-reset">Reset filters</button>
+    </div>
+  </div>
+</section>
+
+<section class="grid-section">
+  <div class="container">
+    <div class="grid-header">
+      <h2 class="grid-h2">Organizations</h2>
+      <span class="grid-context" id="grid-context" aria-live="polite"></span>
+    </div>
+    <div class="org-grid" id="org-grid"></div>
+  </div>
+</section>
+
+<div class="about-rule"></div>
+<section class="about-section" id="methodology">
+  <div class="container">
+    <div class="about-inner">
+      <h2 class="about-headline">Methodology</h2>
+      <p class="about-body"><strong>Co-op</strong> here means a newsroom owned by its workers, its readers, or both: worker co-ops, worker-owned companies, reader co-ops and multi-stakeholder co-ops. <strong>Collective</strong> means a publication run as a collective by its members. Founder-owned outlets, nonprofits and outlets that only receive reader support are not listed on this page.</p>
+      <p class="about-body">Ownership is verified from public statements, usually the organization's own about page, and every listing links to its source with the date we last checked it. If we cannot find a public statement that says how the organization is owned, we do not list it. We also check that each organization has published within roughly the last four months.</p>
+      <p class="about-body">This page lists organizations. The main Atlas lists individual journalists, and journalists who work at these organizations are evaluated separately under the Atlas's editorial standards. Where a member of an organization is already in the Atlas, you can follow their name to find them.</p>
+      <a href="https://journalismatlas.com/about-this-project" class="about-link">About the Atlas ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer class="atlas-footer">
+  <div class="container">
+    <div class="atlas-footer-inner">
+      <div class="atlas-footer-logo">
+        <img src="/assets/images/logos/Journalism_Atlas_wordmark_stacked_white.png" alt="Independent Journalism Atlas" height="40" style="width: auto;">
+      </div>
+      <p class="atlas-footer-tagline">Discover independent creator-journalists across newsletters, video, podcasts, and social.</p>
+      <a href="https://journalismatlas.com" class="atlas-footer-btn">Explore the Atlas →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const DATA_URL = '/assets/data/coops-data.json';
+const CREATORS_URL = '/assets/data/creators-data.json';
+let ORGS = [];
+let NAMES = {};          // slug -> display name, filled lazily from the Atlas creator data
+const state = { structure: '', beat: '', geo: '' };
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function safeUrl(u) { return /^https?:\/\//i.test(u || '') ? u : '#'; }
+function fmtDate(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  return isNaN(d) ? iso : d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function geoLabel(o) {
+  // "national" alone is unhelpful on a card; pair it with the country
+  return o.geography && o.geography.toLowerCase() === 'national' ? 'National, ' + o.geography_group : o.geography;
+}
+function sortedUnique(list) { return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b)); }
+
+function fillSelect(id, options) {
+  const sel = document.getElementById(id);
+  options.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.value; opt.textContent = o.label;
+    sel.appendChild(opt);
+  });
+}
+
+function renderStats() {
+  const stats = [
+    { n: ORGS.length, l: 'Organizations' },
+    { n: new Set(ORGS.map(o => o.structure_tag)).size, l: 'Structure types' },
+    { n: new Set(ORGS.map(o => o.geography_group)).size, l: 'Countries & regions' },
+  ];
+  document.getElementById('hero-stats').innerHTML = stats.map(s =>
+    `<div class="hero-stat"><div class="hero-stat-num">${s.n}</div><div class="hero-stat-label">${esc(s.l)}</div></div>`).join('');
+}
+
+function matches(o) {
+  return (!state.structure || o.structure_tag === state.structure) &&
+         (!state.beat || o.beats.includes(state.beat)) &&
+         (!state.geo || o.geography_group === state.geo);
+}
+
+function memberChips(o) {
+  const chips = (o.member_slugs || []).filter(s => NAMES[s]).map(s =>
+    `<a class="pill member" href="/search?search=${encodeURIComponent(NAMES[s])}">${esc(NAMES[s])}</a>`);
+  return chips.length
+    ? `<div class="org-members"><p class="org-members-label">In the Atlas</p><div class="member-chips">${chips.join('')}</div></div>` : '';
+}
+
+function renderGrid() {
+  const list = matches ? ORGS.filter(matches) : ORGS;
+  document.getElementById('grid-context').textContent =
+    list.length === ORGS.length ? `${list.length} organizations` : `${list.length} of ${ORGS.length} organizations`;
+  const grid = document.getElementById('org-grid');
+  if (!list.length) { grid.innerHTML = '<p class="org-empty">No organizations match these filters.</p>'; return; }
+  grid.innerHTML = list.map(o => `
+    <article class="org-card">
+      <p class="org-structure">${esc(o.structure_label)}</p>
+      <h3 class="org-name">${esc(o.name)}</h3>
+      ${o.origin_note ? `<p class="org-origin">${esc(o.origin_note)}</p>` : ''}
+      <div class="org-pills">
+        ${o.beats.map(b => `<span class="pill">${esc(b)}</span>`).join('')}
+        <span class="pill">${esc(geoLabel(o))}</span>
+      </div>
+      ${memberChips(o)}
+      <hr class="card-divider">
+      <div class="card-links">
+        <a class="card-link" href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener">Visit &rarr;</a>
+        <a class="card-link" href="${esc(safeUrl(o.evidence_url))}" target="_blank" rel="noopener">Ownership statement &nearr;</a>
+      </div>
+      <p class="card-verified">Verified ${esc(fmtDate(o.verified_date))}</p>
+    </article>`).join('');
+}
+
+function bindFilters() {
+  [['f-structure', 'structure'], ['f-beat', 'beat'], ['f-geo', 'geo']].forEach(([id, key]) =>
+    document.getElementById(id).addEventListener('change', e => { state[key] = e.target.value; renderGrid(); }));
+  document.getElementById('f-reset').addEventListener('click', () => {
+    state.structure = state.beat = state.geo = '';
+    ['f-structure', 'f-beat', 'f-geo'].forEach(id => { document.getElementById(id).value = ''; });
+    renderGrid();
+  });
+}
+
+async function loadNames() {
+  if (!ORGS.some(o => (o.member_slugs || []).length)) return;
+  try {
+    const res = await fetch(CREATORS_URL);
+    if (!res.ok) return;
+    (await res.json()).forEach(c => { NAMES[c.slug] = c.name; });
+    renderGrid();
+  } catch (e) { /* chips are optional; the page works without them */ }
+}
+
+async function init() {
+  try {
+    const res = await fetch(DATA_URL);
+    if (!res.ok) throw new Error(res.status);
+    ORGS = (await res.json()).orgs || [];
+  } catch (e) {
+    document.getElementById('org-grid').innerHTML = '<p class="org-empty">The list could not be loaded. Please try again later.</p>';
+    return;
+  }
+  const structs = new Map(ORGS.map(o => [o.structure_tag, o.structure_label]));
+  fillSelect('f-structure', Array.from(structs, ([value, label]) => ({ value, label })).sort((a, b) => a.label.localeCompare(b.label)));
+  fillSelect('f-beat', sortedUnique(ORGS.flatMap(o => o.beats)).map(b => ({ value: b, label: b })));
+  fillSelect('f-geo', sortedUnique(ORGS.map(o => o.geography_group)).map(g => ({ value: g, label: g })));
+  bindFilters(); renderStats(); renderGrid(); loadNames();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
