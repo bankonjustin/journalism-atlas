@@ -1,6 +1,11 @@
 # Pulse — Current State
 *Last updated: October 15, 2026 (Nodes and Networks: old preview retired)*
 
+## Data fix: Ben Camacho link (Oct 19, 2026), **edited locally, not yet pushed**
+
+- `ben-camacho` had `Link Primary` = `inadvertent.substack.com` (no scheme, old domain), so the entry didn't link out. Set to `https://inadvertent.news/` (HTTP version redirects to https) in both `assets/data/creators-master.csv` and `assets/data/creators-data.json` (hand-edited, `convert.js` not run). Verified JSON still parses.
+- **Open:** the dated snapshot in `journalism-atlas-private/runryan/Atlas Master/` (`atlasmaster_october06_2026.csv`, per `CURRENT.txt`) and `creators-master-CONVERT-STAGING-20260926.csv` still carry the old link; the next master snapshot will pick up the fix. Same day: added `https://` to 23 other scheme-less link fields (22 `Link Primary`, plus `high-speed-dining` Platform 4 and `popville` Platform 2) in the CSV and JSON; diff touched exactly those 23 lines in each. **Still non-URLs, need Ryan:** `jonathan-miller` `(Substack/millersamuel)`, `michael-matusik` `(Substack/matusik.com.au)`, `melanie-mitchell` `(exact URL not confirmed)`, `seb-kennedy` `(Ghost platform)`.
+
 ## Nodes and Networks: new preview live, old page retired (Oct 15, 2026)
 
 - **Current preview:** `/preview/nodes-and-networks-f348eb08/`, live since Oct 13. It's built from the docx by `tools/preview-build/`: run `make -C tools/preview-build preview DOCX=...`. See `tools/preview-build/preview_build_ledger.md`.
