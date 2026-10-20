@@ -4,6 +4,44 @@ Built Oct 19, 2026 against `SMARTNEWS-PAGE-BRIEF-v1.0.md`. Everything is in the 
 
 **The page:** `preview/smartnews-d029dc36/index.html`, which serves at `/preview/smartnews-d029dc36/`. The page is not yet at `partners/smartnews.html` (see "Gate").
 
+## v1.1 revision (Oct 20, 2026)
+
+Built against `SMARTNEWS-PAGE-BRIEF-v1.1.md`. The v1.0 sections below still describe Step 0, the gate and the form; where they mention the routing row, the facts strip or the tracks section, v1.1 supersedes them. Screenshots from v1.0 are in `screenshots-v1.0-superseded/`; current ones are in `screenshots/`.
+
+**Step 0.** Working tree was clean (no uncommitted files at start). v14 font section, quoted: "Primary / UI: **Inter**. Google Fonts. Used everywhere: site, decks, Google Docs. Variable font (wght 100–900) covers the full 400/500/600/700/800 scale natively. Hanken Grotesk is retired from the brand entirely." And "Font Weights in Use: 400 (regular); 500 (medium), Micro labels only; 600 (semibold); 700 (bold); 800 (extrabold)." The brief's Hanken fallback (400/500/700) does not apply: v14 permits Inter at 400–800, so 600 and 800 stay. Weight 500, reserved for Micro labels, was used in nine non-Micro places in v1.0 and is now 600.
+
+**Sections, before and after**
+
+| v1.0 | v1.1 |
+|---|---|
+| Co-brand band | Co-brand band |
+| Hero (headline, deck, What/When/Who strip, 2 buttons) | Hero (kicker, headline, deck, 2 buttons) |
+| "Why are you here?" routing row | **Removed** |
+| Release | Release (heading now visually hidden; terms paragraph cut to one `[DRAFT]` sentence) |
+| Why SmartNews (4 cards + reader line + slot) | Why SmartNews (3 cards + reader line + slot; "Who SmartNews is" removed) |
+| Founding cohort | Founding cohort |
+| "Three ways in" tracks | **Removed** (options now live in the form, first) |
+| How it works for creators | How it works for creators |
+| Atlas story (2 paragraphs + stat + button) | Atlas story (one paragraph of two sentences + stat + button) |
+| Apply to join (mode toggle first) | Apply to join ("Interested in" first, then mode toggle) |
+| About / media | About / media |
+
+No orphaned code: the `.facts`, `.route*`, track-card CSS, `ROUTES` data, the routes and tracks-grid rendering and the `#routes`, `#tracks` markup are gone. `setMode()` and the `data-mode` handler remain; the join copy now has a "Recommend them instead" link using `data-mode="recommend"`, so the deep link is still exercised.
+
+**Type changes.** Page no longer loads Inter (header.js already loads Inter 400–800); its font link now loads Merriweather only. Weight 500 → 600 in nine rules. No family or other weight changes.
+
+**Copy changed beyond the brief (old → new)**
+- Why SmartNews intro: "Here is who it is and how…" → "Here is who reads it and how…" (the "who it is" card is gone).
+- Atlas story: two paragraphs → "The Atlas is a lab that maps independent journalism: a human-curated, verified database of independent creator-journalists, organized by beat, platform and geography. This pilot is the kind of platform partnership it exists to make possible. [CONFIRM ATLAS DESCRIPTION]" The old placeholder `[CONFIRM VERIFICATION SENTENCE]` is replaced; the "a person checks every creator against published standards" claim is dropped.
+- Join copy: "Tell us about your work and which opportunities you're interested in…" → "This is a standing sign-up, not a one-time call. Choose what fits your work, tell us about it, and we'll be in touch as spots open." The "Switch to Recommending someone" line is now a link: "Recommend them instead."
+- Track descriptions shortened to one line each (they were paragraphs). New text: pilot "For independent political writers, through the 2026 midterm elections and their aftermath."; future phases "For independent journalists and creators on other beats, as the program expands toward more topics."; other "Stay in the Atlas's pool for future platform partnerships and pilots beyond SmartNews."
+- Release: the long terms paragraph is replaced by your starting sentence, verbatim, with `[DRAFT]` after it.
+- Hero "Apply to join" and the sidebar apply button now pre-check "election pilot" (data-interest).
+
+**No-JS.** Verified on a copy with every script removed (screenshots `nojs-01` to `nojs-03`): the hero deck, cohort paragraph, "How it works" cards and the form's "Interested in" options all render. Without JS the cohort cards, the platform and beat selects, and the live count do not, and the form cannot submit. Fine for a news release; a form needs JS.
+
+**Checked at 390 px, dark scheme:** no horizontal scroll, no element past the viewport, all buttons, choices and inputs at least 44 px, fonts are Inter and Merriweather, weights 400/600/700/800. The deep links (hero apply and open-seat card pre-check election pilot; recommend link relabels fields) pass. Contrast was not run with a tool; the flag on error-text contrast (4.3:1) stands.
+
 ## Decisions made on your direction
 
 | Decision | Choice |
@@ -103,7 +141,8 @@ Per the brief, none of these were reconciled silently.
 | `[DRAFT—BERNIE TO APPROVE]` | Bernie quote (preview tag) | Bernie |
 | `[DRAFT—JUSTIN TO EDIT]` | Justin quote (preview tag) | Justin |
 | `[PRESS CONTACT]` | Sidebar and About, SmartNews | Bernie |
-| `[CONFIRM WITH SMARTNEWS]` | Why SmartNews and About SmartNews boilerplate (twice) | Bernie |
+| `[CONFIRM WITH SMARTNEWS]` | About SmartNews boilerplate (once) | Bernie |
+| `[DRAFT]` | Release terms sentence | Justin |
 | `[SMARTNEWS TO SUPPLY: reader profile]` | Why SmartNews | Bernie |
 | `[SMARTNEWS AUDIENCE FIGURE]` | Why SmartNews | Bernie |
 | `[SMARTNEWS TO SUPPLY: how the politics vertical works]` | Why SmartNews | Bernie |
@@ -114,7 +153,7 @@ Per the brief, none of these were reconciled silently.
 | `[DRAFT: ...]` descriptions | Bernstein, Cillizza, Legum (one line each) | Creators / Justin |
 | `[PUBLICATION LINK]` | All three cohort cards | Creators |
 | `[NEEDS CHRIS CILLIZZA PRIOR APPROVAL BEFORE NAMING]` | Cillizza card (preview tag) | Justin |
-| `[CONFIRM VERIFICATION SENTENCE]` | Atlas story: "a person checks every creator against the Atlas's published standards" | Justin / Liz |
+| `[CONFIRM ATLAS DESCRIPTION]` | Atlas story: "human-curated, verified database…" | Justin / Liz |
 | `[CONFIRM ABOUT-ATLAS BOILERPLATE]` | About the Atlas | Justin |
 
 Not on the page by design: the pilot fee, any posting cadence (Bernstein's monthly floor was cut to 16 because of holidays, so no cadence is promised), the GPBP expansion, any SmartNews audience number.
@@ -130,8 +169,9 @@ Not on the page by design: the pilot fee, any posting cadence (Bernstein's month
 7. `robots.txt`: nothing to change (the path leaves `/preview/` when it moves). No sitemap exists; if one is added later, include the page.
 8. Link it from where it should live (not linked anywhere today). The Partners index and header nav were not touched.
 9. Add `partners/smartnews.html` to the Page Inventory in `CLAUDE.md`.
-10. Confirm Cloudflare deploy: the logo is under `assets/images/` (already published); `build-dist.sh` copies `partners/` and `preview/**/index.html` already. No build change needed.
-11. Push via GitHub Desktop.
+10. Deploy the Apps Script, submit one real test application and confirm the row lands in the Sheet (the form posts with `no-cors` and shows success even when the endpoint is broken).
+11. Confirm Cloudflare deploy: the logo is under `assets/images/` (already published); `build-dist.sh` copies `partners/` and `preview/**/index.html` already. No build change needed.
+12. Push via GitHub Desktop.
 
 ## Recommendation: reusable template?
 

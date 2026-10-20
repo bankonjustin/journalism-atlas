@@ -11,6 +11,8 @@
     2. Delete the robots <meta> below and the referrer meta; set GATED = false in the script
     3. Replace every [BRACKETED] placeholder (search the file for "[")
     4. Link the page from wherever it should be linked; add a sitemap entry if a sitemap exists
+    5. Deploy the Apps Script, set FORM_ENDPOINT, submit one real test application and confirm the row lands in the Sheet.
+       The form posts with no-cors, so it shows "Application received" even when the endpoint is broken.
 -->
 <html lang="en">
 <head>
@@ -28,7 +30,7 @@
 <link rel="icon" type="image/png" href="/assets/images/icons/Journalism_Atlas_favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/variables.css">
 <style>
 /* Tokens come from variables.css (DESIGN-TOKENS-v14.md). Only page-local layout lives here. */
@@ -107,22 +109,6 @@ body.is-gated .shot-slot.gated-only { display: flex; }
 .kicker { margin-bottom: var(--space-lg); font-size: 14px; line-height: 20px; font-weight: 600; color: var(--color-acid); }
 .hero h1 { max-width: 30ch; margin-bottom: var(--space-lg); font-size: var(--text-display); line-height: 1.1; font-weight: 800; letter-spacing: -0.5px; }
 .deck { max-width: 760px; margin-bottom: var(--space-xl); font-size: 20px; line-height: 1.6; color: var(--color-text-dark); }
-.facts { list-style: none; margin: 0 0 var(--space-xl); padding: 0; display: grid; gap: 1px; background: var(--color-border-dark); border: 1px solid var(--color-border-dark); border-radius: 6px; overflow: hidden; max-width: 960px; }
-@media (min-width: 768px) { .facts { grid-template-columns: repeat(3, 1fr); } }
-.facts li { background: #000; padding: var(--space-md) var(--space-lg); }
-.facts b { display: block; margin-bottom: 4px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--color-muted-dark); }
-.facts span { font-size: 16px; line-height: 24px; color: #fff; }
-
-/* ---------- Mirror routing ---------- */
-.route-grid { display: grid; gap: var(--space-md); margin-top: var(--space-lg); }
-@media (min-width: 600px) { .route-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .route-grid { grid-template-columns: repeat(4, 1fr); } }
-.route { display: flex; flex-direction: column; gap: var(--space-sm); min-height: 120px; padding: var(--space-lg); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 6px; text-decoration: none; color: var(--color-text); }
-.route:hover { border-color: var(--gray-cool-8); color: var(--color-text); }
-.route .r-title { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); font-size: 16px; line-height: 1.3; font-weight: 600; color: var(--gray-cool-8); }
-.route .material-symbols-outlined { font-size: 24px; color: var(--color-accent-on-light); flex: none; }
-.route .r-line { font-size: 14px; line-height: 22px; color: var(--color-text-secondary); }
-
 /* ---------- Release ---------- */
 .release-grid { display: grid; gap: var(--space-2xl); }
 @media (min-width: 1024px) { .release-grid { grid-template-columns: minmax(0, var(--max-width-text)) 320px; justify-content: space-between; align-items: start; } }
@@ -164,16 +150,16 @@ body.is-gated .shot-slot.gated-only { display: flex; }
 .roster li.open { border-color: var(--color-acid); }
 .pill { align-self: flex-start; display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 13px; line-height: 20px; font-weight: 600; }
 .stage .pill { border: 1px solid var(--color-acid); color: var(--color-acid); }
+.choice .pill { margin-left: var(--space-sm); padding: 0 8px; border: 1px solid var(--color-accent-on-light); color: var(--color-accent-on-light); font-size: 13px; line-height: 20px; white-space: nowrap; }
+.choice .pill.quiet { border-color: var(--color-border-hover); color: var(--color-text-secondary); }
+.choice .ttl { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 0; font-weight: 600; color: var(--gray-cool-8); }
 
-/* ---------- Tracks and terms (render from data) ---------- */
+/* ---------- Terms (render from data) ---------- */
 .cards { display: grid; gap: var(--space-md); }
 @media (min-width: 768px) { .cards { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
 .card { display: flex; flex-direction: column; gap: var(--space-sm); padding: var(--space-lg); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 6px; }
 .ws-alt .card { border-color: transparent; }
 .card p { font-size: 16px; line-height: 1.6; }
-.card .pill { border: 1px solid var(--color-accent-on-light); color: var(--color-accent-on-light); }
-.card .pill.quiet { border-color: var(--color-border-hover); color: var(--color-text-secondary); }
-.card .card-link { margin-top: auto; padding-top: var(--space-sm); font-size: 14px; font-weight: 600; }
 .terms { grid-template-columns: 1fr; }
 @media (min-width: 768px) { .terms { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1200px) { .terms { grid-template-columns: repeat(4, 1fr); } }
@@ -258,34 +244,18 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
     <h1>SmartNews and the Independent Journalism Atlas bring independent journalists into the SmartNews app</h1>
     <!-- Plain HTML so the release reads without JS. The script re-renders these two from COHORT (confirmed creators only); keep the static names in sync at ungate. -->
     <p class="deck" id="deck">A new pilot puts independent journalists’ coverage of the 2026 midterm elections and their aftermath in front of SmartNews readers. It launches with Jonathan Bernstein, Chris Cillizza and Judd Legum, has room for a few more political writers, and is taking applications for future phases that expand toward other topics.</p>
-    <ul class="facts">
-      <li><b>What</b><span>Full-text pieces from independent journalists in SmartNews’s Independent Voices module on its politics vertical, alongside live election results</span></li>
-      <li><b>When</b><span>The 2026 midterm elections and their aftermath, with creator agreements running through Dec. 31, 2026. Both sides intend to expand in 2027</span></li>
-      <li><b>Who</b><span>Independent creators verified by the Atlas, starting with political writers</span></li>
-    </ul>
     <div class="btn-row">
-      <a class="btn btn-primary" href="#join">Apply to join</a>
+      <a class="btn btn-primary" href="#join" data-interest="election-pilot">Apply to join</a>
       <a class="btn btn-ghost" href="#release">Read the announcement</a>
     </div>
   </div>
 </header>
 
 <main>
-  <!-- Mirror routing (James: Mirror + Explanation principles) -->
-  <section class="ws-alt sec" style="padding-block: var(--space-2xl);" aria-labelledby="route-title">
-    <div class="container"><div class="grid-wrap">
-      <h2 id="route-title">Why are you here?</h2>
-      <p class="intro">Pick the one that fits and we’ll take you to the right place.</p>
-      <div class="route-grid" id="routes"></div>
-    </div></div>
-  </section>
-
   <!-- The release -->
   <article class="ws sec" id="release" aria-labelledby="release-title">
     <div class="container"><div class="grid-wrap">
-      <div class="sec-head">
-        <h2 id="release-title">The announcement</h2>
-      </div>
+      <h2 id="release-title" class="visually-hidden">The announcement</h2>
       <div class="release-grid">
         <div class="body">
           <p><span class="dateline">[DATELINE], [RELEASE DATE]—</span> SmartNews, a global news discovery company, and the Independent Journalism Atlas, a verified database of independent creator-journalists, today announced a pilot that brings independent journalists’ work into the SmartNews app for the 2026 midterm elections and their aftermath.</p>
@@ -297,7 +267,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
             <figcaption><b>Bernie Davis</b>Head of Media Partnerships, SmartNews <span class="gated-inline">[DRAFT—BERNIE TO APPROVE]</span></figcaption>
           </figure>
 
-          <p>The program is designed around the needs of independent publishers. Creators publish what they already publish: pieces flow in from their own newsletter feeds, with no extra production. Only free content runs unless a creator says otherwise. The program is non-exclusive, creators keep ownership of their work, and neither SmartNews nor the Atlas may use creators’ work to train AI. Each piece carries a call to action back to the creator’s own publication, and the Atlas passes along the performance data SmartNews shares, such as impressions and click-throughs. Creators are paid to take part.</p>
+          <p>The program is built around independent publishers: creators keep ownership and control, only free content runs, no one may train AI on their work, and every piece links back to the creator’s own publication. [DRAFT]</p>
 
           <figure class="quote">
             <blockquote>“Independent journalists are reaching audiences that rival legacy newsrooms, but most big news platforms still aren’t built to find them. This pilot tests something important: whether a large, mainstream news audience can become new readers and new subscribers for independents. We’re starting with the midterms, but we’re building for much more than that.”</blockquote>
@@ -312,7 +282,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
           <div class="panel">
             <h3>Apply to join</h3>
             <p>A few spots are open in the election pilot for independent political writers. Applications for future phases are open too.</p>
-            <a class="btn btn-primary" href="#join">Apply to join</a>
+            <a class="btn btn-primary" href="#join" data-interest="election-pilot">Apply to join</a>
           </div>
           <div class="panel" id="media">
             <h3>Media contacts</h3>
@@ -329,9 +299,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
     <div class="container"><div class="grid-wrap why-grid">
       <div>
         <h2 id="why-title">Why SmartNews</h2>
-        <p class="intro">SmartNews is the news app where this pilot runs. Here is who it is and how independent journalists show up in it.</p>
+        <p class="intro">SmartNews is the news app where this pilot runs. Here is who reads it and how independent journalists show up in it.</p>
         <div class="why-items">
-          <div><h3>Who SmartNews is</h3><p>Founded in 2012, SmartNews is a global news discovery company. It pairs machine learning with relationships with more than 3,000 publisher partners to bring news to millions of readers. [CONFIRM WITH SMARTNEWS]</p></div>
           <div><h3>Who reads it</h3><p>[SMARTNEWS TO SUPPLY: reader profile] [SMARTNEWS AUDIENCE FIGURE]</p></div>
           <div><h3>How the politics experience works</h3><p>Independent Voices sits on the politics vertical next to live election results. Pieces run in full text, and selected pieces may also appear in For You and in push notifications. [SMARTNEWS TO SUPPLY: how the politics vertical works]</p></div>
           <div><h3>Why it matters for independents</h3><p>Independent journalists have built loyal audiences on their own platforms. SmartNews puts their work in front of readers who come to a news app to see what matters, and every piece links back to the creator’s own publication.</p></div>
@@ -357,17 +326,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
     </div></div>
   </section>
 
-  <!-- Ways in (render from TRACKS) -->
-  <section class="ws sec" id="tracks" aria-labelledby="tracks-title">
-    <div class="container"><div class="grid-wrap">
-      <div class="sec-head">
-        <h2 id="tracks-title">Three ways in</h2>
-        <p class="intro">This is a standing sign-up, not a one-time call. Apply for the one that fits your work, or more than one.</p>
-      </div>
-      <div class="cards" id="tracks-grid"></div>
-    </div></div>
-  </section>
-
   <!-- How it works for creators -->
   <section class="ws-alt sec" id="how" aria-labelledby="how-title">
     <div class="container"><div class="grid-wrap">
@@ -375,7 +333,13 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
         <h2 id="how-title">How it works for creators</h2>
         <p class="intro">Creators keep doing what they already do. The Atlas sets up the feed and is each creator’s single contact with SmartNews.</p>
       </div>
-      <div class="cards terms" id="terms-grid"></div>
+      <!-- Static HTML so it reads without JS; the script re-renders from TERMS. Keep both in sync. -->
+      <div class="cards terms" id="terms-grid">
+        <div class="card"><h3>Your writing, as it is</h3><p>Pieces come straight from your existing newsletter feed, in full text. There’s no separate content to produce.</p></div>
+        <div class="card"><h3>You stay in control</h3><p>It’s non-exclusive and you own your work. Only free content runs, and nothing paywalled goes in without your OK.</p></div>
+        <div class="card"><h3>No AI training</h3><p>Neither SmartNews nor the Atlas may use your work to train AI.</p></div>
+        <div class="card"><h3>Built to grow your list</h3><p>Pieces carry a call to action back to your publication, and the Atlas passes along the performance data SmartNews shares. Creators are paid to take part.</p></div>
+      </div>
     </div></div>
   </section>
 
@@ -384,8 +348,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
     <div class="container"><div class="grid-wrap atlas-grid">
       <div class="atlas-copy">
         <h2 id="atlas-title" style="margin-bottom: var(--space-md)">The Independent Journalism Atlas</h2>
-        <p>The Atlas is a lab that maps independent journalism. Its human-curated, verified database lists independent creator-journalists by beat, platform and geography, and a person checks every creator against the Atlas’s published standards before they are listed. [CONFIRM VERIFICATION SENTENCE]</p>
-        <p>This pilot is one example of the platform partnerships the Atlas exists to make possible: we find and verify independent journalists so that platforms can work with them.</p>
+        <p>The Atlas is a lab that maps independent journalism: a human-curated, verified database of independent creator-journalists, organized by beat, platform and geography. This pilot is the kind of platform partnership it exists to make possible. [CONFIRM ATLAS DESCRIPTION]</p>
         <div class="btn-row"><a class="btn btn-ghost" href="/">Explore the Atlas</a></div>
       </div>
       <div class="stat">
@@ -400,25 +363,30 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
     <div class="container"><div class="grid-wrap join-grid">
       <div class="join-copy">
         <h2 id="join-title">Apply to join</h2>
-        <p style="margin-top: var(--space-md)">Tell us about your work and which opportunities you’re interested in. We’ll be in touch as spots open.</p>
+        <p style="margin-top: var(--space-md)">This is a standing sign-up, not a one-time call. Choose what fits your work, tell us about it, and we’ll be in touch as spots open.</p>
         <p>The Atlas reviews every application against its verification standards, so a link to your published work helps.</p>
-        <p>Know someone who should be here? Switch to “Recommending someone” and tell us about them.</p>
+        <p>Know someone who should be here? <a href="#join" data-mode="recommend">Recommend them instead</a>.</p>
       </div>
       <div>
         <form class="card" id="signup" novalidate>
           <div class="fields">
+            <fieldset class="field full" id="g-interest">
+              <legend>Interested in</legend>
+              <!-- Static HTML so the options read without JS; the script re-renders from TRACKS. Keep both in sync. -->
+              <div class="choices" id="interest-choices">
+                <label class="choice"><input type="checkbox" name="interested_in" value="election-pilot"><span><span class="ttl">The election pilot<span class="pill">Open now, a few spots left</span></span><small>For independent political writers, through the 2026 midterm elections and their aftermath.</small></span></label>
+                <label class="choice"><input type="checkbox" name="interested_in" value="future-phases"><span><span class="ttl">Future phases<span class="pill quiet">Taking applications for 2027</span></span><small>For independent journalists and creators on other beats, as the program expands toward more topics.</small></span></label>
+                <label class="choice"><input type="checkbox" name="interested_in" value="other-opportunities"><span><span class="ttl">Other opportunities<span class="pill quiet">Always open</span></span><small>Stay in the Atlas’s pool for future platform partnerships and pilots beyond SmartNews.</small></span></label>
+              </div>
+              <span class="err" id="e-interest">Choose at least one.</span>
+            </fieldset>
+
             <fieldset class="field full" id="g-mode">
               <legend>I’m…</legend>
               <div class="choices two">
                 <label class="choice"><input type="radio" name="mode" value="self" checked><span>Applying for myself</span></label>
                 <label class="choice"><input type="radio" name="mode" value="recommend"><span>Recommending someone</span></label>
               </div>
-            </fieldset>
-
-            <fieldset class="field full" id="g-interest">
-              <legend>Interested in</legend>
-              <div class="choices" id="interest-choices"></div>
-              <span class="err" id="e-interest">Choose at least one.</span>
             </fieldset>
 
             <div class="field" id="w-name"><label for="f-name" id="l-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name"><span class="err" id="e-name">Enter a name.</span></div>
@@ -509,7 +477,8 @@ const SPOTS_OPEN = true;
    DATA (the page renders from these; add a row, no layout change)
    ========================================================= */
 
-/* Founding cohort. Only status "confirmed" is shown. Sorted by sortKey (last name).
+/* Static deck and cohort paragraph in the HTML must be updated whenever a creator's status changes.
+   Founding cohort. Only status "confirmed" is shown. Sorted by sortKey (last name).
    publicity: "heads-up" = tell the creator before naming; "prior-approval" = do not name without written OK.
    descDraft is shown in brackets until confirmed. */
 const COHORT = [
@@ -525,19 +494,13 @@ const COHORT = [
     descDraft: "", url: "", status: "pending", publicity: "heads-up" }
 ];
 
-const ROUTES = [
-  { title: "I’m an independent journalist or creator", line: "Apply to the election pilot or a future phase.", href: "#join", mode: "self" },
-  { title: "I want to recommend someone", line: "Tell us about a journalist or creator who should be here.", href: "#join", mode: "recommend" },
-  { title: "I’m a reader", line: "Find Independent Voices in the SmartNews app.", href: "#readers" },
-  { title: "I’m press or a partner", line: "Get the announcement and the media contacts.", href: "#media" }
-];
 
-/* interest values map to the three intake tracks (also the form's "Interested in" options) */
+/* The form's "Interested in" options (single data source). One line each. Static HTML for these is in the form; keep both in sync. */
 const TRACKS = [
   { id: "election-pilot", status: "Open now, a few spots left", open: true, title: "The election pilot",
-    text: "For independent political writers. Coverage runs through the 2026 midterm elections and their aftermath, to the end of 2026." },
+    text: "For independent political writers, through the 2026 midterm elections and their aftermath." },
   { id: "future-phases", status: "Taking applications for 2027", open: false, title: "Future phases",
-    text: "For independent journalists and creators on other beats. We intend to expand toward more topics as the program grows, and we’ll reach out as each phase opens." },
+    text: "For independent journalists and creators on other beats, as the program expands toward more topics." },
   { id: "other-opportunities", status: "Always open", open: false, title: "Other opportunities",
     text: "Stay in the Atlas’s pool for future platform partnerships and pilots beyond SmartNews." }
 ];
@@ -621,23 +584,13 @@ function renderCohort() {
 }
 
 function renderStatic() {
-  const routes = $("routes");
-  ROUTES.forEach(r => {
-    const a = el("a", "route"); a.href = r.href; if (r.mode) a.dataset.mode = r.mode;
-    const t = el("span", "r-title"); t.append(el("span", null, r.title)); const i = el("span", "material-symbols-outlined", "arrow_forward"); i.setAttribute("aria-hidden", "true"); t.append(i);
-    a.append(t, el("span", "r-line", r.line)); routes.append(a);
-  });
-  const tg = $("tracks-grid");
-  TRACKS.forEach(t => {
-    const c = el("div", "card"); c.append(el("span", "pill" + (t.open ? "" : " quiet"), t.status), el("h3", null, t.title), el("p", null, t.text));
-    const a = el("a", "card-link", "Apply for this →"); a.href = "#join"; a.dataset.interest = t.id; c.append(a); tg.append(c);
-  });
-  const tm = $("terms-grid");
+  const tm = $("terms-grid"); tm.replaceChildren();
   TERMS.forEach(t => { const c = el("div", "card"); c.append(el("h3", null, t.title), el("p", null, t.text)); tm.append(c); });
-  const ic = $("interest-choices");
+  const ic = $("interest-choices"); ic.replaceChildren();
   TRACKS.forEach(t => {
     const l = el("label", "choice"), i = el("input"); i.type = "checkbox"; i.name = "interested_in"; i.value = t.id;
-    const s = el("span", null, t.title); s.append(el("small", null, t.status)); l.append(i, s); ic.append(l);
+    const s = el("span"), ttl = el("span", "ttl", t.title); ttl.append(el("span", "pill" + (t.open ? "" : " quiet"), t.status));
+    s.append(ttl, el("small", null, t.text)); l.append(i, s); ic.append(l);
   });
   const fill = (id, label, rows) => { const s = $(id); s.append(new Option(label, "")); rows.forEach(([text, value]) => s.append(new Option(text, value))); };
   fill("f-platform", "Choose one", PLATFORMS); fill("f-beat", "Choose one", BEATS);

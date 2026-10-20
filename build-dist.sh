@@ -10,7 +10,10 @@ mkdir -p dist/assets/data dist/data dist/atlas-portal
 
 # Pages and redirects
 cp ./*.html _redirects robots.txt wire.json dist/
-cp -R .well-known partners lab teamdmv dist/
+cp -R .well-known partners lab teamdmv watershed dist/
+
+# Password-gated preview (functions/_middleware.js): only /watershed* invokes the Function
+printf '%s\n' '{"version":1,"include":["/watershed","/watershed/*"],"exclude":[]}' > dist/_routes.json
 
 # Unlisted previews: page HTML only (no docx/csv/json/notes ever sit under preview/)
 mkdir -p dist/preview

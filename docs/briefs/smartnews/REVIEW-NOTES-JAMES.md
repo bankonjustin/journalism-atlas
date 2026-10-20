@@ -2,6 +2,10 @@
 
 Page: `preview/smartnews-d029dc36/index.html` (unlisted preview, `noindex`). Screenshots are in `screenshots/` next to this file. Everything below was built, not held back; each item is a question for you.
 
+v1.1 changes: the routing row, the What/When/Who strip and the tracks section were cut. **The Mirror Principle is now served by the form's toggle** ("Applying for myself" / "Recommending someone") and the form's "Interested in" options, not a routing row. Rows 3 and 4 below are superseded: the track descriptions now live inside the form as option cards with a status pill.
+
+Screenshot names in the table below refer to `screenshots-v1.0-superseded/`; current ones are in `screenshots/`.
+
 Principles used: Tool, Mirror, Explanation, Surface Hierarchy, Brevity, Scale, Template. Tokens: `variables.css` (v14). No token value is inlined; nothing was approximated.
 
 ## Needs your sign-off
