@@ -9,7 +9,7 @@ rm -rf dist
 mkdir -p dist/assets/data dist/data dist/atlas-portal
 
 # Pages and redirects
-cp ./*.html _redirects robots.txt wire.json dist/
+cp ./*.html _redirects robots.txt wire.json icon.svg apple-touch-icon.png favicon.ico dist/
 cp -R .well-known partners lab teamdmv watershed-preview-uhh7gdyn dist/
 
 # Unlisted previews: page HTML only (no docx/csv/json/notes ever sit under preview/)
