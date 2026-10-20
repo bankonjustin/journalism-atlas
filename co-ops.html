@@ -60,6 +60,7 @@ a { color: inherit; text-decoration: none; }
 .filter-section { background: var(--page-bg); padding: 40px 0 0; }
 .filter-bar { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
 .filter-field { display: flex; flex-direction: column; gap: 6px; min-width: 200px; flex: 1 1 200px; max-width: 300px; }
+.filter-field[hidden] { display: none; }
 .filter-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #606068; }
 .filter-select {
   font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: #303036;
@@ -171,7 +172,8 @@ a { color: inherit; text-decoration: none; }
         <label class="filter-label" for="f-structure">Structure</label>
         <select class="filter-select" id="f-structure"><option value="">All structures</option></select>
       </div>
-      <div class="filter-field">
+      <!-- Beat filter hidden for launch (beats stay in the JSON); remove `hidden` to restore. -->
+      <div class="filter-field" hidden>
         <label class="filter-label" for="f-beat">Beat</label>
         <select class="filter-select" id="f-beat"><option value="">All beats</option></select>
       </div>
@@ -238,6 +240,10 @@ function geoLabel(o) {
   // "national" alone is unhelpful on a card; pair it with the country
   return o.geography && o.geography.toLowerCase() === 'national' ? 'National, ' + o.geography_group : o.geography;
 }
+function evidenceLabel(o) {
+  // own-site statements read "Ownership statement"; anything else names its source
+  return !o.evidence_source || o.evidence_source === 'own site' ? 'Ownership statement' : 'Ownership source: ' + o.evidence_source;
+}
 function sortedUnique(list) { return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b)); }
 
 function fillSelect(id, options) {
@@ -291,7 +297,7 @@ function renderGrid() {
       <hr class="card-divider">
       <div class="card-links">
         <a class="card-link" href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener">Visit &rarr;</a>
-        <a class="card-link" href="${esc(safeUrl(o.evidence_url))}" target="_blank" rel="noopener">Ownership statement &nearr;</a>
+        <a class="card-link" href="${esc(safeUrl(o.evidence_url))}" target="_blank" rel="noopener">${esc(evidenceLabel(o))} &nearr;</a>
       </div>
       <p class="card-verified">Verified ${esc(fmtDate(o.verified_date))}</p>
     </article>`).join('');

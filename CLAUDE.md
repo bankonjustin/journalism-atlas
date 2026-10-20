@@ -23,6 +23,7 @@
 |------|------|
 | `CLAUDE.md` (this file) | Always |
 | `DESIGN-TOKENS-v14.md` | Before any CSS/styling work |
+| `ATLAS-BRAND-GUIDE-v3.md` | Before writing any user-facing copy (voice, self-description, em dash style, database-size wording). Hanken Grotesk is retired per this guide. |
 | `_reference/james-design-principles.md` | Before any visual/component decision |
 | `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
 | `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |

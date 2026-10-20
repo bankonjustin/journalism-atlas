@@ -21,3 +21,13 @@
 - `Atlas-Long-Form-Report-Template-2026-09.md` is not in this repo; it needs the white sub-nav spec.
 - `.DS_Store` is tracked and shows modified every time; untrack it separately.
 - Six commits from this run are local; push when ready.
+
+## SmartNews page (added 2026-10-19; see `docs/briefs/smartnews/SMARTNEWS-PAGE-REPORT-v1.0.md`)
+- **Form backend:** built for option A (Apps Script → Sheet). Deploy `docs/briefs/smartnews/intake-apps-script.gs`, paste the URL into `FORM_ENDPOINT`, submit one test row. B (Pages Function + D1/KV) and C (Tally/Typeform) were not built.
+- **Cohort order and status:** alphabetical. Fleisher's signature and Palmeri's two open questions (do paywalled pieces count toward five a month; what if she falls short) are open, so both are `pending` and hidden. **Cillizza needs prior approval before the page is ungated.**
+- **Bernstein's banner:** newsletter name and whether co-writers are named (`[NEWSLETTER NAME]`, `[CO-WRITERS?]`). Ask Ryan. GPBP is not expanded anywhere.
+- **Release date, dateline, launch date** are open.
+- **URL:** `partners/smartnews` (default on ungate, via `git mv`) vs `/smartnews` with a redirect.
+- **Template:** should this become the reusable "partner announcement" template? Recommendation: after the second partner.
+- **`ATLAS-BRAND-GUIDE-v3.md`** is not in the working tree. Restore it to the repo (it was added in `413e5a8`) or record where it lives.
+- **For James:** twelve items in `docs/briefs/smartnews/REVIEW-NOTES-JAMES.md`, including error-text contrast (4.3:1) and the header search field at 390 px.

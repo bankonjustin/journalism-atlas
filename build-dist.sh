@@ -21,7 +21,7 @@ cp atlas-portal/*.html atlas-portal/script.js dist/atlas-portal/
 cp -R assets/css assets/js assets/images dist/assets/
 
 # Data files that pages fetch
-cp assets/data/creators-data.json assets/data/bluesky-creators.json dist/assets/data/
+cp assets/data/creators-data.json assets/data/bluesky-creators.json assets/data/coops-data.json dist/assets/data/
 cp data/chicago-pulse.json dist/data/
 
 find dist -name .DS_Store -delete
