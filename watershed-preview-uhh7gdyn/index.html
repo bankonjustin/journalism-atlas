@@ -31,9 +31,10 @@ a:focus-visible{outline:2px solid var(--color-focus-on-light);outline-offset:2px
 .banner{background:var(--gray-cool-2);border-bottom:1px solid var(--gray-cool-3);color:var(--gray-cool-6);font-size:13px;line-height:1.4;padding:8px 16px;text-align:center}
 mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 [data-draft-copy]{background:rgba(255,247,0,.3);border-bottom:1px dashed var(--gray-cool-4)}
-.hero{padding:24px 16px 48px}.hero-in{max-width:760px;margin:0 auto}
-.wordmark{display:block;height:20px;width:auto;margin-bottom:56px}
-.hero h1{font-size:clamp(32px,9vw,52px);line-height:1.1;font-weight:700;margin:0 0 20px;letter-spacing:-.01em}
+.col{max-width:calc(68ch + 32px);margin:0 auto;padding:0 16px;font-family:var(--font-body);font-size:17px} /* same measure and left edge as .measure.prose */
+.hero{padding:24px 0 48px}.hero-in>*{font-family:var(--font-ui)}
+.wordmark{display:block;height:34px;width:auto;margin-bottom:56px}
+.hero h1{font-size:clamp(32px,9vw,52px);line-height:1.1;font-weight:700;margin:0 0 20px;letter-spacing:-.01em;max-width:13em}
 .dek{font-size:18px;line-height:1.5;color:var(--color-text-on-dark-2);margin:0 0 20px;max-width:34em}
 .byline{font-size:15px;margin:0;color:#fff}
 .light{background:#fff}
@@ -47,7 +48,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 .prose aside.pullquote p{font-family:var(--font-ui);font-size:22px;line-height:1.35;font-weight:700;color:#000;margin:0}
 .prose p.lede-end{font-weight:700;font-size:19px;color:#000;margin:1.5em 0 1em}
 .wide-wrap{max-width:1040px;margin:0 auto;padding:0 16px}.wide{max-width:1040px;margin:0 auto}
-.leader{margin:24px 0 0;padding:0}.leader-art{aspect-ratio:3/2;background:var(--gray-cool-2);display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;font-size:16px}
+.leader{margin:24px 0 0;padding:0}.leader-art{aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px}
 .leader-art img{width:100%;height:100%;object-fit:cover;display:block}
 .leader figcaption{font-size:13px;line-height:1.5;color:var(--gray-cool-5);margin-top:8px}
 /* Figures: black and white plus one accent; no fills, shadows or cards */
@@ -63,7 +64,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 .prose .legend-list li,.legend-list li{display:flex;align-items:center;gap:14px;padding:10px 0;font-family:var(--font-ui);font-size:16px;line-height:1.4;color:var(--gray-cool-6)}
 .legend-list li+li{border-top:1px solid var(--gray-cool-2)}
 .legend-list strong{color:#000;margin-right:4px}
-.ico{flex:none;color:#1e1e1e}.ico-spring{color:var(--color-olive)}
+.ico{flex:none;color:#1e1e1e}
 .si-grid{display:grid;grid-template-columns:1fr;gap:24px}
 .si-panel{max-width:480px}.si-cap{font-family:var(--font-ui);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-cool-5);margin:0 0 8px}
 .towns{display:grid;grid-template-columns:1fr;gap:28px}
@@ -79,14 +80,14 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 .price-v{font-family:var(--font-ui);font-size:26px;line-height:1.2;font-weight:700;color:#000;margin-top:2px!important}
 .price-d{font-family:var(--font-ui);font-size:14px;line-height:1.45;color:var(--gray-cool-6);margin:2px 0 8px!important;max-width:36em}
 .price-bar{width:100%;height:16px}
-.foot{background:var(--gray-cool-2);border-top:1px solid var(--gray-cool-3);padding:32px 16px;font-size:14px}
-.foot-in{max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center}
-.foot img{height:22px;width:auto}
+.foot{background:var(--gray-cool-2);border-top:1px solid var(--gray-cool-3);padding:32px 0;font-size:14px}
+.foot-in{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center}
+.foot img{display:block;height:34px;width:auto}
 @media(min-width:900px){
- .prose{font-size:18px}.hero{padding:32px 32px 80px}
+ .prose,.col{font-size:18px}.hero{padding:32px 0 80px}
  .prose aside.pullquote p{font-size:26px}
  .wide-wrap{padding:0 32px}.fig-h,.prose .fig-h{font-size:20px}
- .legend-list{grid-template-columns:1fr 1fr;column-gap:32px}
+ .legend-list{grid-template-columns:max-content max-content;column-gap:56px;justify-content:start}
  .legend-list li+li{border-top:0}.legend-list li:nth-child(n+3){border-top:1px solid var(--gray-cool-2)}
  .si-grid{grid-template-columns:1fr 1fr;gap:32px}.bar-grid{grid-template-columns:1fr 1fr;gap:32px}
  .towns{grid-template-columns:repeat(3,1fr);gap:32px}.town-c:empty{display:block}
@@ -102,7 +103,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 <symbol id="icon-surface" viewBox="0 0 1000 1000"><path fill="currentColor" d="M100 834v-78q29 0 49.5-9t41.5-19.5 46.5-19 63-8.5c37.5 0 45.667 2.833 62 8.5q24.5 8.5 45.5 19t42 19.5 50 9c29 0 36-3 50-9q21-9 42-19.5t46-19 62.5-8.5c37.5 0 45.833 2.833 62.5 8.5q25 8.5 46 19t42 19.5 49 9v78q-38 0-63.5-9T790 805.5t-41-19c-20-8.5-29.667-8.5-49-8.5q-28 0-48.5 8.5t-41 19-46 19.5-64.5 9c-39 0-47.5-3-64.5-9q-25.5-9-46-19.5t-40.5-19-48.5-8.5c-28.5 0-35.333 2.833-49 8.5q-20.5 8.5-41.5 19T163.5 825t-63.5 9m0-178v-78q29 0 49.5-9t41.5-19.5 46.5-19 63-8.5c37.5 0 45.667 2.833 62 8.5s31.5 12 45.5 19q21 10.5 42 19.5t50 9c29 0 36-3 50-9s28-12.5 42-19.5q21-10.5 46-19t62-8.5q38 0 63 8.5t46 19 42 19.5 49 9v78q-38 0-63.5-9T790 627.5t-41-19c-20-8.5-29.667-8.5-49-8.5s-35.833 2.833-49.5 8.5q-20.5 8.5-41 19T564 647t-64 9c-39 0-47.5-3-64.5-9q-25.5-9-46-19.5t-40.5-19-48.5-8.5c-28.5 0-35.333 2.833-49 8.5q-20.5 8.5-41.5 19T163.5 647t-63.5 9m0-178v-78q29 0 49.5-9t41.5-19.5 46.5-19 63-8.5c37.5 0 45.667 2.833 62 8.5q24.5 8.5 45.5 19t42 19.5 50 9c29 0 36-3 50-9q21-9 42-19.5t46-19 62-8.5q38 0 63 8.5c25 8.5 32 12 46 19q21 10.5 42 19.5t49 9v78q-38 0-63.5-9T790 449.5t-41-19-49-8.5q-28 0-48.5 8.5t-41 19-46 19.5c-25.5 9-38.5 9-64.5 9s-47.5-3-64.5-9q-25.5-9-46-19.5t-40.5-19c-20-8.5-29.5-8.5-48.5-8.5s-35.333 2.833-49 8.5q-20.5 8.5-41.5 19T163.5 469t-63.5 9m0-178v-78q29 0 49.5-9t41.5-19.5 46.5-19 63-8.5c37.5 0 45.667 2.833 62 8.5q24.5 8.5 45.5 19t42 19.5 50 9c29 0 36-3 50-9q21-9 42-19.5t46-19c25-8.5 37.333-8.5 62-8.5q38 0 63 8.5t46 19 42 19.5 49 9v78q-38 0-63.5-9T790 271.5t-41-19c-20-8.5-29.667-8.5-49-8.5q-28 0-48.5 8.5t-41 19-46 19.5c-25.5 9-38.5 9-64.5 9s-47.5-3-64.5-9q-25.5-9-46-19.5t-40.5-19-48.5-8.5c-28.5 0-35.333 2.833-49 8.5q-20.5 8.5-41.5 19T163.5 291t-63.5 9"/></symbol>
 </svg>
 <div class="banner" role="note">Draft for review. Not for distribution. Highlighted text is unconfirmed.</div>
-<header class="dark hero"><div class="hero-in">
+<header class="dark hero"><div class="hero-in col">
 <img class="wordmark" src="assets/Atlas_logo_lockup_horizontal_wht_web.svg" alt="Independent Journalism Atlas">
 <h1>A Watershed Moment for News Deserts</h1>
 <p class="dek">Medill&#39;s map shows where local news has dried up. Look closer and it&#39;s still moving — across county lines, through people no count yet sees. Finding them takes a new kind of map.</p>
@@ -258,6 +259,6 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 
 <p class="lede-end">There&#39;s so much more to find.</p></div></section>
 </main>
-<footer class="foot"><div class="foot-in"><a href="https://journalismatlas.com"><img src="assets/Atlas_logo_lockup_horizontal_blk_web.svg" alt="Independent Journalism Atlas"></a></div></footer>
+<footer class="foot"><div class="foot-in col"><a href="https://journalismatlas.com"><img src="assets/Atlas_logo_lockup_horizontal_blk_web.svg" alt="Independent Journalism Atlas"></a></div></footer>
 </body>
 </html>
