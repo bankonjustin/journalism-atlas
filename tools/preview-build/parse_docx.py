@@ -99,10 +99,10 @@ class Parser:
             if tag in (q('del'), q('moveFrom')):
                 key = 'del' if tag == q('del') else 'moveFrom'
                 self.stats[key] += 1
-                text = ''.join(t.text or '' for t in child.iter(q('delText')))
+                # Deleted text is never recorded: counts, authors and position only.
                 drawings = sum(1 for _ in child.iter(q('drawing')))
                 self.tracked.append({'type': key, 'para': para_idx,
-                                     'author': child.get(q('author')), 'text': text,
+                                     'author': child.get(q('author')),
                                      'drawings': drawings})
                 # A figure image caught inside a tracked deletion is kept only when
                 # config says so; the ledger flags it either way.
@@ -112,9 +112,8 @@ class Parser:
             if tag in (q('ins'), q('moveTo')):
                 key = 'ins' if tag == q('ins') else 'moveTo'
                 self.stats[key] += 1
-                text = ''.join(t.text or '' for t in child.iter(q('t')))
                 self.tracked.append({'type': key, 'para': para_idx,
-                                     'author': child.get(q('author')), 'text': text})
+                                     'author': child.get(q('author'))})
                 self._walk(child, out, href, para_idx)
                 continue
             if tag in (q('commentRangeStart'), q('commentRangeEnd')):

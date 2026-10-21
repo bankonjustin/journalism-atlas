@@ -67,6 +67,17 @@ def docx_comments():
     return out
 
 
+def docx_deleted_phrases():
+    z = zipfile.ZipFile(Path(CFG['docx']).expanduser())
+    xml = z.read('word/document.xml').decode()
+    out = []
+    for body in re.findall(r'<w:del [^>]*>(.*?)</w:del>', xml, re.S):
+        t = ' '.join(''.join(re.findall(r'<w:delText[^>]*>([^<]*)</w:delText>', body)).split())
+        if len(t) >= 30:
+            out.append(t)
+    return out
+
+
 def served_path_checks():
     slug_dir = DIST / 'preview' / CFG['slug']
     check('served: page exists in dist/', (slug_dir / 'index.html').exists(), str(slug_dir.relative_to(REPO)))
@@ -104,6 +115,27 @@ def main():
         src = page.content()
 
         # -- structure
+        # -- title, labels, freshness, lint gate (Oct 20 refresh)
+        h1 = page.inner_text('header.masthead h1').strip()
+        ttl = page.title().strip()
+        og = page.get_attribute('meta[property="og:title"]', 'content') or ''
+        check('page title, H1 and OG title match', h1 == ttl == og.strip() and bool(h1), f'<title> {ttl!r} | H1 {h1!r} | og {og!r}')
+        check('title is the new docx title; old title nowhere on the page',
+              h1 == 'Nodes and Networks: The Reorganization of American Journalism'
+              and 'Understanding How American Journalism' not in src, h1)
+        labels = page.eval_on_selector_all('figure[data-figure] .viz-title', 'els => els.map(e => e.textContent.trim())')
+        want_labels = [f['label'] for f in CFG['figures']]
+        check('figure labels exactly as manifest, sequential 1–5',
+              labels == want_labels and [int(re.match(r'Figure (\d)', l).group(1)) for l in labels] == [1, 2, 3, 4, 5],
+              ' | '.join(l[:40] for l in labels))
+        upd = page.inner_text('.draft-updated').strip()
+        import datetime
+        check('"Draft updated" line shows the build date',
+              upd == 'Draft updated ' + datetime.date.today().strftime('%B %-d, %Y'), upd)
+        check('INN treemap not on the page', 'INN concentration' not in src and 'One newsroom, nearly a tenth' not in src)
+        import lint as lintmod
+        lint_hits = lintmod.lint()
+        check('lint gate: no prose findings', not lint_hits, '; '.join(f"¶{h['para']} {h['rule']}" for h in lint_hits[:5]))
         check('1 title block', page.locator('header.masthead h1').count() == 1 and page.locator('h1').count() == 1)
         n_sec = page.locator('section.section[data-section]').count()
         check('5 sections (Intro + I–IV)', n_sec == EXP['sections'], f'{n_sec}: ' + ','.join(
@@ -118,7 +150,7 @@ def main():
             const r = f.querySelector('.viz-container').getBoundingClientRect();
             return {n: f.dataset.figure, h: Math.round(r.height), w: Math.round(r.width), visible_svgs: vis.length};
         })''')
-        check('6 rendered figures', len(figs) == EXP['figures'], str(len(figs)))
+        check('5 rendered figures', len(figs) == EXP['figures'], str(len(figs)))
         empty = [f for f in figs if f['h'] < 50 or f['visible_svgs'] != 1]
         check('no empty or zero-height figure container (1280px)', not empty, json.dumps(empty) if empty else
               ', '.join(f"F{f['n']} {f['h']}px" for f in figs))
@@ -160,6 +192,14 @@ def main():
         comments = docx_comments()
         leaked = [c[:60] for c in comments if any(len(s) > 25 and s in src for s in re.split(r'(?<=[.?!])\s+', c))]
         check(f'no comment text in page ({len(comments)} docx comments checked)', not leaked, ' | '.join(leaked))
+        deleted = docx_deleted_phrases()
+        scan = [p for d in (REPO / 'preview' / CFG['slug'], HERE) for p in d.rglob('*')
+                if p.is_file() and p.suffix in ('.html', '.json', '.md') and 'screenshots' not in p.parts
+                and p.name != 'validation.json' and '__pycache__' not in p.parts]
+        scan.append(DIST / 'preview' / CFG['slug'] / 'index.html')
+        found = [(d[:40], p.name) for p in scan for d in deleted if d in ' '.join(p.read_text(errors='ignore').split())]
+        check(f'no tracked-deletion text in any preview file ({len(deleted)} deleted phrases, {len(scan)} files)',
+              not found, '; '.join(f'“{d}” in {n}' for d, n in found[:5]))
         placeholders = src.count('[CAPTION NEEDED]')
         check('every [CAPTION NEEDED] is flagged in the build report',
               placeholders == len(REPORT['captions_needed']),
@@ -189,7 +229,7 @@ def main():
             check(f'Fig 2 card-grid n match expected and sum to {EXP["cohort_total"]} ({variant})',
                   card_n == exp_n and sum(card_n.values()) == EXP['cohort_total'],
                   f'{card_n} sum={sum(card_n.values())}')
-            titles = page.eval_on_selector_all(f'#figure-6 .{variant} svg title', 'els => els.map(e => e.textContent)')
+            titles = page.eval_on_selector_all(f'#figure-5 .{variant} svg title', 'els => els.map(e => e.textContent)')
             rows = {c: (int(a), int(b), int(d)) for c, a, b, d in
                     (re.match(r'(C\d)[^:]*: (\d+) below, (\d+) in, (\d+) above', t).groups()
                      for t in titles if re.match(r'(C\d)[^:]*: \d+ below', t))}
@@ -197,7 +237,7 @@ def main():
                 # Narrow variant has no per-segment titles: row titles give cohort order, and the
                 # labels run "n=18", then (count, "NN%") pairs for each non-empty segment.
                 order = [re.match(r'(C\d)', t).group(1) for t in titles if re.match(r'C\d ', t)]
-                texts = page.eval_on_selector_all(f'#figure-6 .{variant} svg text', 'els => els.map(e => e.textContent.trim())')
+                texts = page.eval_on_selector_all(f'#figure-5 .{variant} svg text', 'els => els.map(e => e.textContent.trim())')
                 segs, cur = [], None
                 for k, tx in enumerate(texts):
                     if re.fullmatch(r'n=\d+', tx):
@@ -209,10 +249,10 @@ def main():
                 rows = dict(zip(order, (tuple(s) for s in segs)))
             bad = {c: (sum(v), exp_n.get(c)) for c, v in rows.items() if sum(v) != exp_n.get(c)}
             total = sum(sum(v) for v in rows.values())
-            check(f'Fig 6 stacked-bar rows equal cohort n, total {EXP["cohort_total"]} ({variant})',
+            check(f'Fig 5 stacked-bar rows equal cohort n, total {EXP["cohort_total"]} ({variant})',
                   len(rows) == 9 and not bad and total == EXP['cohort_total'],
                   f'{len(rows)} rows, total {total}' + (f', mismatches {bad}' if bad else ''))
-            data.setdefault('fig6_rows', {})[variant] = rows
+            data.setdefault('fig5_rows', {})[variant] = rows
             data.setdefault('fig2_n', {})[variant] = card_n
 
         # -- $268M open item (report only)
@@ -224,6 +264,32 @@ def main():
         data['usaid'] = {'graphic': g, 'text': t}
         print('INFO  USAID figure — graphic:', g, '| text:', t)
 
+        # -- Figure 3 (Defector) data report: what the chart shows vs. the paper text (report only)
+        f3 = page.eval_on_selector_all('#figure-3 .fig-wide svg text', 'els => els.map(e => e.textContent.trim())')
+        rows = page.eval_on_selector_all('#figure-3 .viz-data tbody tr', 'els => els.map(r => [...r.children].map(c => c.textContent.trim()))')
+        text_expect = {1: (3.2, 36000), 3: (4.5, 42102), 4: (4.6, 42500), 5: (4.65, None)}
+        d3, mism = {}, []
+        for r in rows:
+            y = int(r[0]); rev = float(r[2]) / 1e6; subs = int(r[3]) if r[3].isdigit() else None
+            rps = r[5] if len(r) > 5 else ''
+            d3[y] = {'revenue_m': rev, 'subs': subs, 'rev_per_sub': rps}
+            if y in text_expect:
+                er, es = text_expect[y]
+                if abs(rev - er) > 1e-9:
+                    mism.append(f'Y{y} revenue chart ${rev}M vs text ${er}M')
+                if es and subs != es:
+                    mism.append(f'Y{y} subscribers chart {subs:,} vs text {es:,}')
+        y3 = d3.get(3)
+        math3 = round(4_500_000 / y3['subs']) if y3 and y3['subs'] else None
+        data['fig3'] = {'chart_labels': f3, 'table': d3, 'year3_math_rev_per_sub': math3, 'mismatches': mism,
+                        'year4_present': 4 in d3}
+        print('INFO  Fig 3 chart:', {y: (v['revenue_m'], v['subs'], v['rev_per_sub']) for y, v in d3.items()})
+        print('INFO  Fig 3 Year 3 rev/sub = $4.5M /', y3 and y3['subs'], '=', math3, '(chart shows', y3 and y3['rev_per_sub'] + ')')
+        print('INFO  Fig 3 mismatches vs text:', mism or 'none')
+        t5 = [sum(v[i] for v in data['fig5_rows']['fig-wide'].values()) for i in range(3)]
+        data['fig5_band_totals'] = t5
+        print('INFO  Fig 5 band totals (below / mid / above):', t5)
+
         # -- rendering
         for w in (375, 768, 1280):
             page.set_viewport_size({'width': w, 'height': 900})
@@ -234,16 +300,39 @@ def main():
                 const vis = [...f.querySelectorAll('svg')].filter(s => s.getBoundingClientRect().height > 0);
                 return {n: f.dataset.figure, h: Math.round(f.getBoundingClientRect().height), vis: vis.length};})''')
             bad = [f for f in figs_w if f['h'] < 50 or f['vis'] != 1]
-            check(f'all 6 figures render at {w}px', len(figs_w) == 6 and not bad, json.dumps(bad) if bad else '')
+            check(f'all 5 figures render at {w}px', len(figs_w) == 5 and not bad, json.dumps(bad) if bad else '')
             page.evaluate('window.scrollTo(0,0)')
             page.screenshot(path=str(SHOTS / f'{w}-top.png'))
             page.screenshot(path=str(SHOTS / f'{w}-full.jpg'), full_page=True, type='jpeg', quality=55)
             if w == 375:
-                for f in range(1, 7):
+                for f in range(1, 6):
                     page.locator(f'#figure-{f}').screenshot(path=str(SHOTS / f'375-figure-{f}.png'))
                 page.locator('section#ii').scroll_into_view_if_needed()
                 page.evaluate("document.querySelector('#ii .cohort-strip').scrollIntoView({block:'center'})")
                 page.screenshot(path=str(SHOTS / '375-cohort-strip.png'))
+        # -- light and dark colour schemes at desktop and 390px (the page itself is light-only;
+        # this checks every figure still renders and is not blank or clipped in a dark-preferring browser)
+        for scheme in ('light', 'dark'):
+            for w in (1280, 390):
+                ctxt = browser.new_context(viewport={'width': w, 'height': 900}, color_scheme=scheme)
+                pg = ctxt.new_page()
+                pg.goto(base + url_path, wait_until='networkidle')
+                res = pg.eval_on_selector_all('figure[data-figure]', '''els => els.map(f => {
+                    const vis = [...f.querySelectorAll('svg')].filter(s => s.getBoundingClientRect().height > 0);
+                    const c = f.querySelector('.viz-container');
+                    return {n: f.dataset.figure, h: Math.round(f.getBoundingClientRect().height), vis: vis.length,
+                            clipped: c.scrollWidth > c.clientWidth + 1};})''')
+                bad = [r for r in res if r['h'] < 50 or r['vis'] != 1 or r['clipped']]
+                sw = pg.evaluate('document.documentElement.scrollWidth')
+                check(f'Playwright {scheme} {w}px: 5 figures render, none empty or clipped, no page scroll',
+                      len(res) == 5 and not bad and sw <= w, json.dumps(bad) if bad else f'scrollWidth {sw}')
+                if w == 390:
+                    for f in range(1, 6):
+                        pg.locator(f'#figure-{f}').screenshot(path=str(SHOTS / f'390-{scheme}-figure-{f}.png'))
+                else:
+                    for f in range(1, 6):
+                        pg.locator(f'#figure-{f}').screenshot(path=str(SHOTS / f'1280-{scheme}-figure-{f}.png'))
+                ctxt.close()
         browser.close()
     srv.shutdown()
     failed = [r for r in results if not r['pass']]

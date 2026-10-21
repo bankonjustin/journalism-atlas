@@ -9,6 +9,7 @@ they can't collide with the page's own. Figure data is not touched.
 
 Writes build_report.json (figure mapping, warnings) for the ledger.
 """
+import datetime
 import hashlib
 import html
 import json
@@ -98,9 +99,8 @@ def render_figure(n, fig, fc, caption_runs, with_table):
         caption = render_runs(caption_runs)
     else:
         caption = f'<span class="caption-needed">{CAPTION_PLACEHOLDER}</span>'
-    title = fc.get('title') or fig['title']
-    heading = (f'<div class="viz-label">Figure {n}</div>\n'
-               + (f'<div class="viz-title">{esc(title)}</div>\n' if title else ''))
+    # The label (config "label") is the only heading; it is used exactly as written.
+    heading = f'<div class="viz-title">{esc(fc["label"])}</div>\n'
     return (f'<figure class="viz-wrap" id="figure-{n}" data-figure="{n}">\n'
             f'{heading}'
             f'<div class="viz-container"><div class="fig-wide">{fig["wide"]}</div>'
@@ -138,6 +138,9 @@ def build(cfg, content):
     fig_fonts = ''.join(sorted(font_sets))
 
     # title block: H1s and anything before the first H2
+    n_docx_figs = sum(1 for b in blocks if b['type'] == 'figure')
+    if n_docx_figs != len(figs_cfg):
+        sys.exit(f'STOP: docx has {n_docx_figs} images, manifest has {len(figs_cfg)}. Report to Justin.')
     first_h2 = next(i for i, b in enumerate(blocks) if b['type'] == 'h2')
     head = blocks[:first_h2]
     h1s = [b for b in head if b['type'] == 'h1']
@@ -205,6 +208,10 @@ def build(cfg, content):
             if caption is None and not fc.get('caption'):
                 report['captions_needed'].append(n)
             following = text_of(nxt['runs']).strip() if nxt and 'runs' in nxt else ''
+            prev = next((x for x in reversed(blocks[:i]) if 'runs' in x), None)
+            prev_text = text_of(prev['runs']).strip() if prev else ''
+            if not prev_text.startswith(fc['follows']):
+                sys.exit(f'STOP: Figure {n} follows "{prev_text[:70]}", manifest anchor is "{fc["follows"]}".')
             ok = following.startswith(fc['precedes'])
             if not ok:
                 report['warnings'].append(
@@ -214,7 +221,7 @@ def build(cfg, content):
                 'n': n, 'name': fc['name'], 'embed': fc['file'], 'embed_title': fig['title'],
                 'embed_sha256': fig['sha256'][:12], 'docx_para': b['para'],
                 'in_tracked_deletion': bool(b.get('in_deletion')),
-                'precedes': following[:70], 'anchor_ok': ok, 'dropped': fig['dropped'],
+                'follows': prev_text[:70], 'precedes': following[:70], 'anchor_ok': ok, 'label': fc['label'], 'dropped': fig['dropped'],
                 'caption': 'config' if fc.get('caption') else ('docx' if caption else 'placeholder'),
                 'docx_caption_ignored': bool(caption and fc.get('caption')),
                 'data_table': bool(fc.get('data_table') and fig['table']),
@@ -266,6 +273,7 @@ def build(cfg, content):
         '%%SOURCE%%': esc(content['source']['file']),
         '%%SOURCE_SHA%%': content['source']['sha256'][:12],
         '%%PARSED%%': content['source']['parsed'],
+        '%%UPDATED%%': datetime.date.today().strftime('%B %-d, %Y'),
     }.items():
         page = page.replace(k, v)
     report['nav'] = [s for s, _, _ in nav]
@@ -280,7 +288,9 @@ TEMPLATE = r'''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<title>%%TITLE%% — Pre-publication draft</title>
+<title>%%TITLE%%</title>
+<meta property="og:title" content="%%TITLE%%">
+<meta property="og:type" content="article">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -313,6 +323,8 @@ TEMPLATE = r'''<!DOCTYPE html>
   .draft-banner { background: var(--ink); color: var(--bg); font-family: var(--font-ui); font-size: 13px; line-height: 1.45; text-align: center; padding: 8px 16px; }
   .draft-banner strong { font-weight: 600; }
   .draft-banner span { display: block; color: #c9c9c2; }
+
+  .draft-updated { font-family: var(--font-ui); font-size: 13px; color: var(--ink-faint); text-align: center; padding: 6px 16px; border-bottom: 1px solid var(--rule-light); }
 
   .masthead { border-bottom: 2px solid var(--ink); padding: 2.5rem 2rem 1.5rem; max-width: var(--max-w); margin: 0 auto; }
   .masthead h1 { font-size: 2.4rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.5rem; overflow-wrap: break-word; }
@@ -387,6 +399,7 @@ TEMPLATE = r'''<!DOCTYPE html>
 
 <div class="draft-banner" role="note"><strong>Pre-publication draft. Please don't share or cite.</strong>
 <span>Forthcoming from the Knight Center for the Future of News at ASU's Cronkite School.</span></div>
+<div class="draft-updated">Draft updated %%UPDATED%%</div>
 
 <header class="masthead">
   <h1>%%TITLE%%</h1>
