@@ -213,6 +213,7 @@
     .pulse-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
     .pulse-header-left {}
     .pulse-open-btn { white-space: nowrap; }
+    @media (max-width: 480px) { .pulse-open-btn { white-space: normal; } }
     .pulse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
     .pulse-col { background: #fff; border-radius: 6px; padding: 20px; }
     .pulse-col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e8e8eb; }
@@ -315,6 +316,7 @@
     .db-filter-input { flex: 1; min-width: 160px; font-family: var(--font-primary, 'Inter', sans-serif); font-size: 13px; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; transition: border-color 0.15s; }
     .db-filter-input:focus { border-color: var(--color-focus-on-light); }
     .db-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    @media (max-width: 599px) { .db-cards { grid-template-columns: minmax(0, 1fr); } }
     .db-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 18px 16px; display: flex; flex-direction: column; transition: border-color 0.15s; }
     .db-card:hover { border-color: #b0b0b8; }
     .db-card-name { font-size: 14px; font-weight: 700; color: #000; letter-spacing: -0.01em; }
