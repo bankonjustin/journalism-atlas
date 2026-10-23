@@ -139,6 +139,13 @@
     .stat-live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #5d7400; margin-right: 3px; vertical-align: middle; animation: pulseDot 1.8s ease-in-out infinite; }
     .stat-cell--linked { text-decoration: none; color: inherit; cursor: pointer; transition: opacity 0.15s; display: block; }
     .stat-cell--linked:hover { opacity: 0.75; }
+    /* Five columns need 775px; below 800px use two, with the fifth cell across the bottom. */
+    @media (max-width: 799px) {
+      .stat-strip-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stat-cell { min-width: 0; padding: 20px 16px 16px; border-bottom: 1px solid #d4d4d8; }
+      .stat-cell:nth-child(2n) { border-right: none; }
+      .stat-cell:last-child { grid-column: 1 / -1; border-bottom: none; }
+    }
 
     /* ── FEATURED CREATORS ── */
     .featured-section { background: #000; padding: 64px 0 64px 40px; position: relative; overflow: hidden; }
