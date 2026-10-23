@@ -54,7 +54,7 @@ Earlier in Session 2 (see HANDOFF.md): F1–F4, C1–C5.
 | `:active` at 390 (touch emulation, forced pseudo-state) | primary, secondary, search button, secondary toggle, `.btn-icon`, instruction link, footer link, body link (light and dark): all change to the hover colours; `.nav-link` is hidden at 390 (hamburger) and covered by the mobile-menu rule |
 | Body links underlined at rest everywhere | yes (every `.link-body`, all 13 partner pages, contact, submit, who-we-are, bluesky, chicago, wire) |
 | Page heights vs Session 2 "before" | 38 of 40 pages changed height at 1440, as expected from the button/link restyle: partner and co-op cards are shorter (card "Visit →" is a text link, not a 44px chip: -100 to -440px), filter chips and toggles are taller (`city-lab-dc-v3` +198, `pulse` +141, `for-brands` +41). Pixel diff is not meaningful across height changes; the `domdiff` computed-style check (earlier) covers the rest. `search` (0.3% changed) and `bluesky`, `wire` carry animation noise |
-| Horizontal overflow at 390 | 25 pages are wider than the viewport (577px before, 601px after). All of it is the shared header (item 17). Not caused by this session except the +24px from the 44px Search button |
+| Horizontal overflow at 390 | the shared header was wider than the viewport on ~20 pages (577px before this session, 601px after the 44px Search button). Fixed by C10a; three pages still overflow for other reasons (`index` 775px, `bluesky-creator-intelligence` 708px, `about-this-project` 447px) |
 | Dead CSS (static, by file) | `docs/design/v15-session-2/DEAD-CSS.txt`: 15 files, ~60 selectors with no markup. Not deleted, to keep this a no-surprise diff. One orphan I created (`.stat-sub` in `index`) was removed |
 
 ## Expected visible changes (summary for review)
@@ -67,6 +67,6 @@ Earlier in Session 2 (see HANDOFF.md): F1–F4, C1–C5.
 
 ## Not done
 
-- C10 (header overflow below ~1100px and the 390px hamburger issue): skipped, per the brief. It is not clean: see JAMES-OPEN-ITEMS #17.
+- C10 (phone header overflow and mid-width nav overflow): done afterwards, see `C10-REPORT.md` (`31f0ff9` phones, `f17b9af` below 1280px, review before push).
 - Eyebrows (non-clickable, no arrow), type sizes below 13px and DM/JetBrains Mono leftovers: Session 3.
 - nj-lab / njlab, `teamdmv`: untouched (item 3).
