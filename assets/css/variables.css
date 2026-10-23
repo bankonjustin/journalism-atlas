@@ -77,12 +77,12 @@
   /* Role variables (v14). Use by what the element does, not by color:
      at-rest/active fill → --color-accent · hover fill → --color-hover · green text/icons/strokes on LIGHT → --color-accent-on-light
      inline links → --color-link / --color-link-on-dark · focus ring → --color-focus (dark) / --color-focus-on-light (light) */
-  --color-hover:          var(--color-lime);    /* hover FILL (fill only on light surfaces) */
+  --color-hover:          var(--color-accent);  /* v15: hover/press, an alias of Acid (fill only on light surfaces; was Lime) */
   --color-accent-on-light: var(--color-olive);  /* text, icons, thin strokes on light surfaces */
   --color-focus:          var(--color-lime);    /* focus ring on dark surfaces */
   --color-focus-on-light: var(--color-olive);   /* focus ring on light surfaces (lime fails 3:1 on white) */
   --color-link:           var(--color-olive);   /* inline link on light surfaces, underlined; hover step 8 */
-  --color-link-on-dark:   #ffffff;              /* inline link on dark surfaces, underlined; hover lime */
+  --color-link-on-dark:   #ffffff;              /* inline link on dark surfaces, underlined; hover Acid (v15) */
   /* Added for v15 (DESIGN-TOKENS-v15.md § Semantic Color Assignments). Defined only; nothing uses them yet.
      Dark surface (panels, inputs, cards on dark sections) and the two button styles. */
   --color-surface-dark:           var(--gray-neutral-7);   /* step 7 */
@@ -120,7 +120,7 @@
   --color-text-dark:          var(--gray-neutral-2);
   --color-text-header-dark:   #000000;   /* Header text always black — mode-invariant */
   --color-accent-dark:        var(--color-acid);   /* Primary accent / CTA — acid green, dark mode only */
-  --color-accent-dark-hover:  var(--color-hover);   /* Hover on dark — lime */
+  --color-accent-dark-hover:  var(--color-hover);   /* Hover on dark — Acid (v15) */
   --color-muted-dark:         var(--gray-neutral-3);   /* Secondary text on dark surfaces (step 3: 12.3:1 on black) */
   --color-border-dark:        #48484f;
   --color-border-dark-hover:  #606068;
