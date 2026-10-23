@@ -381,7 +381,18 @@ body {
 .footer-legal a:active { color: var(--color-accent, #ceff00); text-decoration-line: underline; }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+/* ── Mid widths: tighter nav links, then the hamburger ──
+   At 1280px and up the desktop nav fits with 40px between links (container 1248px = logo 297 + search 304 + links 581).
+   v15 § Header Nav Spacing: "if cramped, fall back to lg (24px) between nav links". With 24px the links take 517px
+   and the nav fits down to a 1215px viewport; at 1214px and below the hamburger takes over (the menu already exists
+   at 768px, so only the switch moves). Before this the nav ran past the container from 769px to 1279px. */
+@media (max-width: 1279px) {
+    .nav-links {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 1214px) {
     .nav-links {
         display: none;
     }
@@ -394,7 +405,9 @@ body {
     .mobile-menu {
         display: block;
     }
+}
 
+@media (max-width: 768px) {
     .top-nav {
         padding: 0.75rem 1rem;
     }
