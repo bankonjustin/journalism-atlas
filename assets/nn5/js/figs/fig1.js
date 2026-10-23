@@ -21,6 +21,39 @@ function layout(data) {
   });
   return pos;
 }
+// Events the paper's prose names get a visible label in the static state (labels are the published event text).
+const KEY = ['Meta announces end of Facebook News tab', 'Google launches AI Overviews', 'USAID freezes', 'Congress rescinds CPB',
+  'CPB board votes to dissolve', 'Washington Post cuts', 'Center for Public Integrity'];
+export const isKey = e => KEY.some(k => e.label.startsWith(k));
+const LS = 13, LH = 16, CH = LS * 0.56, WRAP = 17;   // label size, line height, est. char width, wrap width in chars
+const wrap = t => { const out = []; let cur = ''; t.split(' ').forEach(w => { if (cur && (cur + ' ' + w).length > WRAP) { out.push(cur); cur = w; } else cur = cur ? cur + ' ' + w : w; }); out.push(cur); return out; };
+// Edge-aware, collision-aware placement: try below/above and left/right of the dot, flip the anchor before a label would
+// leave the viewBox, and skip any candidate that overlaps a dot, a lane title, another label or the year axis.
+function placeLabels(pos, lanes) {
+  const base = [];
+  pos.forEach(p => base.push([p.x - 16, p.y - 16, p.x + 16, p.y + 16]));
+  lanes.forEach((ln, li) => base.push([X0, Y0 + li * LANE_GAP - 44, X0 + ln.length * 8.2 + 8, Y0 + li * LANE_GAP - 12]));
+  base.push([0, 0, W, 32]);
+  const hit = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+  const keys = pos.filter(p => isKey(p.e));
+  const opts = keys.map(p => {
+    const lines = wrap(p.e.label), w = Math.max(...lines.map(l => l.length)) * CH, h = lines.length * LH;
+    return [['start', 'below'], ['end', 'below'], ['start', 'above'], ['end', 'above']].map(([anchor, side]) => {
+      const x0 = anchor === 'start' ? p.x - 10 : p.x + 10 - w, y0 = side === 'below' ? p.y + 20 : p.y - 20 - h;
+      return { lines, anchor, x: anchor === 'start' ? p.x - 10 : p.x + 10, y: y0 + LS, box: [x0 - 2, y0 - 2, x0 + w + 2, y0 + h + 2] };
+    }).filter(c => c.box[0] >= 4 && c.box[2] <= W - 4 && c.box[1] >= 32 && c.box[3] <= H - 4 && !base.some(b => hit(c.box, b)));
+  });
+  // small exhaustive search: place as many labels as possible without overlap (first-found wins ties)
+  let best = [], bestN = -1;
+  const go = (i, chosen, boxes) => {
+    if (bestN === keys.length) return;
+    if (i === keys.length) { const n = chosen.filter(Boolean).length; if (n > bestN) { bestN = n; best = chosen.slice(); } return; }
+    for (const c of opts[i]) if (!boxes.some(b => hit(c.box, b))) { chosen.push(c); go(i + 1, chosen, boxes.concat([c.box])); chosen.pop(); if (bestN === keys.length) return; }
+    chosen.push(null); go(i + 1, chosen, boxes); chosen.pop();   // no free slot: the detail panel and data table still carry it
+  };
+  go(0, [], []);
+  return new Map(keys.map((p, i) => [p.e, best[i] || null]));
+}
 const chip = t => {
   const m = /^C(\d)/.exec(t), g = m ? GROUP['C' + m[1]] : '';
   return `<span class="tag${g ? ' g-' + g : ''}"><i></i>${esc(t)}</span>`;
@@ -31,7 +64,7 @@ export function detail(e) {
 }
 
 export function html(data, { alt }) {
-  const { lanes, events } = data, pos = layout(data), first = events[0];
+  const { lanes, events } = data, pos = layout(data), first = events[0], lbl = placeLabels(pos, lanes);
   let s = `<svg class="tl-svg" viewBox="0 0 ${W} ${H}" role="group" aria-label="${esc(alt)}">`;
   for (let y = 2018; y <= 2026; y++) {
     const x = X(y);
@@ -45,7 +78,9 @@ export function html(data, { alt }) {
   pos.forEach(({ e, x, y, li }, i) => {
     const idx = events.indexOf(e);
     s += `<g class="tl-node lit${idx === 0 ? ' on' : ''}" tabindex="0" role="button" aria-pressed="${idx === 0}" data-i="${idx}" data-x="${((x - X0) / (X1 - X0)).toFixed(4)}" aria-label="${esc(e.date + ': ' + e.label)}">`
-      + `<circle class="hit" cx="${x}" cy="${y}" r="22" fill="transparent"/><circle class="halo" cx="${x}" cy="${y}" r="20"/><circle class="dot" cx="${x}" cy="${y}" r="10"/></g>`;
+      + `<circle class="hit" cx="${x}" cy="${y}" r="22" fill="transparent"/><circle class="halo" cx="${x}" cy="${y}" r="20"/><circle class="dot" cx="${x}" cy="${y}" r="10"/>`
+      + (lbl.get(e) ? `<text class="tl-lab" x="${lbl.get(e).x}" y="${lbl.get(e).y}" text-anchor="${lbl.get(e).anchor}" font-size="${LS}">`
+        + lbl.get(e).lines.map((l, k) => `<tspan x="${lbl.get(e).x}" dy="${k ? LH : 0}">${esc(l)}</tspan>`).join('') + '</text>' : '') + '</g>';
   });
   s += '</svg>';
   const list = lanes.map(ln => `<section class="tl-lane" aria-label="${esc(ln)}"><p class="tl-lane-h">${esc(ln)}</p><ol>`

@@ -2,7 +2,7 @@
 """Apply patches.json to content/content.json (parse-time mechanical fixes, logged).
 
 Every edit must match exactly once at its (para, run); otherwise exit 1 and nothing is written.
-'at': 'start' means the find string must be the run's prefix. Rewrites content/content.json (and content.md) in place and writes patches_log.json. The docx is never modified.
+'at': 'start' means the find string must be the run's prefix. An edit with href_find/href_replace changes a link target instead of text (the run's href must equal href_find). Rewrites content/content.json (and content.md) in place and writes patches_log.json. The docx is never modified.
 Run it right after parse_docx.py (make parse does); a second run without a re-parse fails, by design.
 """
 import json
@@ -22,6 +22,14 @@ for p in spec['patches']:
         runs = blocks[0]['runs']
         if e['run'] >= len(runs) or 't' not in runs[e['run']]:
             errors.append(f"{p['id']}: para {e['para']} run {e['run']} has no text")
+            continue
+        if 'href_find' in e:  # link-target edit: the run's href must equal href_find exactly (once, by construction)
+            if runs[e['run']].get('href') != e['href_find']:
+                errors.append(f"{p['id']}: para {e['para']} run {e['run']} href does not match href_find")
+                continue
+            runs[e['run']]['href'] = e['href_replace']
+            log.append({'id': p['id'], 'reason': p['reason'], 'para': e['para'], 'run': e['run'],
+                        'find': e['href_find'], 'replace': e['href_replace']})
             continue
         t = runs[e['run']]['t']
         n = t.count(e['find'])
