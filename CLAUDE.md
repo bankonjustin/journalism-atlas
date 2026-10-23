@@ -59,6 +59,8 @@ All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` as the s
 
 **v15 rollout status.** v15 is being applied in stages, scoped in `docs/design/v15-discovery/V15-SCOPE-BUCKETS.md`. The rules below describe the target. Until a stage has shipped, live pages can still show the old look (for example Acid-at-rest buttons, pill tags and DM Mono/JetBrains Mono labels). When a rule and a page disagree, the rule wins for new work; don't "fix" old pages outside the stage being worked.
 
+**Shipped so far:** Neutral gray scale on the public pages (role variables repointed; Cool hexes in page chrome replaced by role variables; Cool kept in graphics).
+
 **Do not infer or improvise colors, type sizes, spacing, or component states — look them up.**
 
 **Designer's principles:** James Bareham's 15 web design principles live at `_reference/james-design-principles.md`. Read this before making any structural or layout decisions. Key principles that come up constantly: The Explanation Principle (every module needs a narrative entry point), The Surface Hierarchy Principle (dark = stage, light = workspace), The Placeholder Principle (no empty states in public-facing design), and The Tool Principle (every element must serve the user's task).

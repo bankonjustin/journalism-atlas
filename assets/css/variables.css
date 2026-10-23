@@ -21,16 +21,16 @@
   --color-acid-green:  var(--color-acid);   /* Acid: CTA/active. Fill-only on light surfaces (v14 § Greens by Surface) */
   --color-lime-green:  var(--color-lime);   /* Lime: hover/focus. Fill-only on light surfaces (v14) */
   --color-dark-olive:  var(--color-olive);   /* Olive: text, icons, thin strokes on light surfaces (v14) */
-  --color-dark-gray:   var(--gray-cool-6);
-  --color-light-gray:  var(--gray-cool-2);
+  --color-dark-gray:   var(--gray-neutral-6);
+  --color-light-gray:  var(--gray-neutral-2);
   --color-black:       #000000;
   --color-white:       #ffffff;
 
   /* Legacy aliases — used throughout main.css; migrate over time */
   --black:       #000000;
   --white:       #ffffff;
-  --light-gray:  var(--gray-cool-2);
-  --dark-gray:   var(--gray-cool-6);
+  --light-gray:  var(--gray-neutral-2);
+  --dark-gray:   var(--gray-neutral-6);
   --medium-gray: #999999;
   --acid-green:  var(--color-acid);   /* Legacy alias of --color-acid. (The old "acid on dark only" rule was never canon; see v14.) */
   --lime-green:  var(--color-lime);
@@ -39,7 +39,7 @@
   /* =========================================
      MONOTONE SCALES — v12 (Oct 2026)
      DESIGN-TOKENS-v15.md § Tier 2 — Monotones
-     Site uses the Cool scale for semantic roles; don't mix scales on one surface.
+     v15: the site uses the Neutral scale for semantic roles; Cool is the graphics scale. Don't mix scales on one surface.
      Step 4 is large text / UI / disabled only (3.2:1 on white), never body text.
      ========================================= */
   --gray-neutral-1: #ffffff;
@@ -64,10 +64,10 @@
      DESIGN-TOKENS-v15.md § Semantic Color Assignments.
      The existing --color-bg / -text / -text-secondary / -muted / -border / -error
      definitions below are re-pointed to these scales in Phase 2a/2b. */
-  --color-surface:        var(--gray-cool-1);
-  --color-heading:        var(--gray-cool-8);
-  --color-text-on-dark-2: var(--gray-cool-3);   /* secondary text on dark surfaces */
-  --color-border-on-dark: var(--gray-cool-5);
+  --color-surface:        var(--gray-neutral-1);
+  --color-heading:        var(--gray-neutral-8);
+  --color-text-on-dark-2: var(--gray-neutral-3);   /* secondary text on dark surfaces */
+  --color-border-on-dark: var(--gray-neutral-5);
   /* Green primitives (DESIGN-TOKENS-v15.md § Migrating color variables). Role variables point at these.
      Brand-palette names --color-acid-green / --color-lime-green / --color-dark-olive above are older aliases of the same values. */
   --color-acid:           #ceff00;
@@ -98,16 +98,16 @@
      DESIGN-TOKENS-v15.md § Semantic Color Assignments
      Use these tokens in all light-surface contexts.
      ========================================= */
-  --color-bg:             var(--gray-cool-2);   /* Primary page background */
+  --color-bg:             var(--gray-neutral-2);   /* Primary page background */
   --color-bg-card:        #ffffff;   /* Card / panel background */
-  --color-text:           var(--gray-cool-6);   /* Primary body text */
+  --color-text:           var(--gray-neutral-6);   /* Primary body text */
   --color-text-header:    #000000;   /* Heading text — always black, any mode */
   --color-accent:         var(--color-acid);   /* Primary accent / CTA fill (v14): acid, fill only on light surfaces. Text/icons/strokes on light use --color-accent-on-light. */
   --color-accent-hover:   #5d7400;   /* Hover / active state — dark olive */
-  --color-text-secondary: var(--gray-cool-5);   /* Secondary text on light surfaces */
-  --color-muted:          var(--gray-cool-4);   /* Muted / disabled text and icons */
-  --color-border:         var(--gray-cool-3);   /* Default border */
-  --color-border-hover:   var(--gray-cool-5);   /* Border on hover */
+  --color-text-secondary: var(--gray-neutral-5);   /* Secondary text on light surfaces */
+  --color-muted:          var(--gray-neutral-4);   /* Muted / disabled text and icons */
+  --color-border:         var(--gray-neutral-3);   /* Default border */
+  --color-border-hover:   var(--gray-neutral-5);   /* Border on hover */
   --color-error:          #f50000;   /* Error state — near-pure red */
 
 
@@ -115,13 +115,13 @@
      DARK MODE — Semantic Color Assignments
      Use on dark surfaces: dark footer, dark headers, dark cards
      ========================================= */
-  --color-bg-dark:            var(--gray-cool-6);
+  --color-bg-dark:            var(--gray-neutral-6);
   --color-bg-card-dark:       #000000;
-  --color-text-dark:          var(--gray-cool-2);
+  --color-text-dark:          var(--gray-neutral-2);
   --color-text-header-dark:   #000000;   /* Header text always black — mode-invariant */
   --color-accent-dark:        var(--color-acid);   /* Primary accent / CTA — acid green, dark mode only */
   --color-accent-dark-hover:  var(--color-hover);   /* Hover on dark — lime */
-  --color-muted-dark:         var(--gray-cool-3);   /* Secondary text on dark surfaces (step 3: 12.4:1 on black) */
+  --color-muted-dark:         var(--gray-neutral-3);   /* Secondary text on dark surfaces (step 3: 12.3:1 on black) */
   --color-border-dark:        #48484f;
   --color-border-dark-hover:  #606068;
   --color-error-dark:         #ff4422;

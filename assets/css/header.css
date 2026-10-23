@@ -26,8 +26,8 @@ body {
     --header-fg:               var(--dark-gray);   /* nav links, hamburger, close */
     --header-fg-hover:         var(--black);
     --header-logo-fg:          var(--black);
-    --header-badge-fg:         rgba(48,48,54,0.4);
-    --header-badge-border:     rgba(48,48,54,0.18);
+    --header-badge-fg:         color-mix(in srgb, var(--color-text, #303030) 40%, transparent);
+    --header-badge-border:     color-mix(in srgb, var(--color-text, #303030) 18%, transparent);
     --header-menu-bg:          var(--white);
     --header-menu-border:      #eee;
     --header-menu-fg:          var(--black);
@@ -38,26 +38,26 @@ body {
    Atlas_logo_lockup_horizontal_wht_web.svg is not in the repo. Values follow v12 (nav text step 1,
    border step 5, hover lime) and have not been reviewed visually. */
 :root[data-header-theme="black"] {
-    --header-bg:               var(--gray-cool-8);
-    --header-border:           var(--gray-cool-6);
-    --header-border-scrolled:  var(--gray-cool-5);
-    --header-fg:               var(--gray-cool-1);
+    --header-bg:               var(--gray-neutral-8);
+    --header-border:           var(--gray-neutral-6);
+    --header-border-scrolled:  var(--gray-neutral-5);
+    --header-fg:               var(--gray-neutral-1);
     --header-fg-hover:         var(--color-hover);
-    --header-logo-fg:          var(--gray-cool-1);
-    --header-badge-fg:         var(--gray-cool-3);
-    --header-badge-border:     var(--gray-cool-5);
-    --header-menu-bg:          var(--gray-cool-8);
-    --header-menu-border:      var(--gray-cool-5);
-    --header-menu-fg:          var(--gray-cool-1);
-    --header-menu-hover-bg:    var(--gray-cool-7);
+    --header-logo-fg:          var(--gray-neutral-1);
+    --header-badge-fg:         var(--gray-neutral-3);
+    --header-badge-border:     var(--gray-neutral-5);
+    --header-menu-bg:          var(--gray-neutral-8);
+    --header-menu-border:      var(--gray-neutral-5);
+    --header-menu-fg:          var(--gray-neutral-1);
+    --header-menu-hover-bg:    var(--gray-neutral-7);
 }
 /* Properties the white header leaves at browser defaults are set only for black. */
 :root[data-header-theme="black"] .nav-search {
-    background-color: var(--gray-cool-7);
-    color: var(--gray-cool-1);
-    border-color: var(--gray-cool-5);
+    background-color: var(--gray-neutral-7);
+    color: var(--gray-neutral-1);
+    border-color: var(--gray-neutral-5);
 }
-:root[data-header-theme="black"] .nav-search::placeholder { color: var(--gray-cool-3); }
+:root[data-header-theme="black"] .nav-search::placeholder { color: var(--gray-neutral-3); }
 :root[data-header-theme="black"] .mobile-menu { color: var(--header-menu-fg); }
 
 /* ── Desktop nav ── */
@@ -165,7 +165,7 @@ body {
 /* ── Search button ── */
 .nav-search-btn {
     background: #ceff00;   /* acid: CTA rest (v14); hardcoded because header.css also loads on pages without variables.css */
-    color: #303036;
+    color: var(--color-text, #303030);
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: 12px;
@@ -180,7 +180,7 @@ body {
 .nav-search-btn:hover { background: #97d600; color: #000; }   /* lime fill + black text (v14) */
 .nav-search-btn:active { background: #ceff00; color: #000; }
 .nav-search-btn:focus-visible { outline: 2px solid var(--color-focus-on-light, #5d7400); outline-offset: 2px; }
-.nav-search-btn:disabled { background: var(--gray-cool-4, #909097); color: var(--gray-cool-6, #303036); cursor: not-allowed; }
+.nav-search-btn:disabled { background: var(--gray-neutral-4, #909090); color: var(--gray-neutral-6, #303030); cursor: not-allowed; }
 :root[data-header-theme="black"] .nav-search-btn:focus-visible { outline-color: var(--color-focus, #97d600); }
 
 /* ── Pulse nav item ── */
@@ -335,15 +335,15 @@ body {
    to the tallest column's height by default, so no extra height rule is needed here. */
 .site-footer .footer-brand,
 .footer-col:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.15); }
-.footer-tagline { font-family: var(--font-mono); font-size: 10px; color: #c6c6cd; letter-spacing: 0.08em; line-height: 1.6; }
-.footer-col-title { font-family: var(--font-mono); font-size: 9px; color: #c6c6cd; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: var(--space-md); }
+.footer-tagline { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-on-dark-2, #c6c6c6); letter-spacing: 0.08em; line-height: 1.6; }
+.footer-col-title { font-family: var(--font-mono); font-size: 9px; color: var(--color-text-on-dark-2, #c6c6c6); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: var(--space-md); }
 .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-md); }
 .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
 .footer-col ul li a:hover { color: #fff; }
 .footer-bottom { border-top: 1px solid #1f1f1f; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
-.footer-copy { font-family: var(--font-mono); font-size: 9px; color: #c6c6cd; letter-spacing: 0.06em; }
+.footer-copy { font-family: var(--font-mono); font-size: 9px; color: var(--color-text-on-dark-2, #c6c6c6); letter-spacing: 0.06em; }
 .footer-legal { display: flex; gap: 16px; }
-.footer-legal a { font-family: var(--font-mono); font-size: 9px; color: #c6c6cd; letter-spacing: 0.06em; text-decoration: none; }
+.footer-legal a { font-family: var(--font-mono); font-size: 9px; color: var(--color-text-on-dark-2, #c6c6c6); letter-spacing: 0.06em; text-decoration: none; }
 .footer-legal a:hover { color: #fff; }
 
 /* ── Responsive ── */
