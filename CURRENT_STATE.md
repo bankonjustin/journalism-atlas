@@ -1,5 +1,14 @@
 # Pulse — Current State
-*Last updated: October 15, 2026 (Nodes and Networks: old preview retired)*
+*Last updated: October 23, 2026 (Nodes and Networks interactive edition staged, **not yet pushed**)*
+
+## Nodes and Networks interactive edition: staged locally, **not yet pushed** (Oct 23, 2026)
+
+- **New unlisted edition:** `preview/nodes-and-networks-edition-e852c5c5/` (story + `embed/fig-N/` pages + `og/` share cards), assets in `assets/nn5/`. `noindex` in the page and via `_headers` (`X-Robots-Tag`); embeds allow framing (`frame-ancestors *`). Built by `nodes-networks-v5/edition/tools/build_edition.py` (outside this repo), staged here by `tools/stage.py`. Static files + ES modules, no bundler; self-hosted fonts (Inter Tight, Source Serif 4, OFL, ~86 KB).
+- **`build-dist.sh`** gained the nn5 allowlist block (assets + `preview/*/og/*.png`) and now copies `_headers`. New root file `_headers`.
+- **`tools/preview-build/` changes** (old preview pipeline): `patches.json` + `patches.py` apply the four logged mechanical copy fixes at parse time (docx unchanged; each patch must match exactly once); `lint.py` now treats docx caption lines that differ from the manifest as warnings; `config.json` points at `figures_v938_final/html`, docx (8), v4 final captions, byline "By Justin Bank. Edited by Andy Pergam…"; `changes.py` / `validate.py` updated for the new figure set (Fig 3 is checked against the v4 table).
+- **Old preview rebuilt** (`preview/nodes-and-networks-f348eb08/index.html`) with the v4 figures (Meta Feb 2024, Defector stacked bars, final captions). Lint 0 findings.
+- **Open:** `validate.py` check "slug not referenced by any other served file" fails on `preview/smartnews-d029dc36/index.html`, whose header comment names the old slug (not part of this work). `/research/nodes-and-networks*` still 301s to the old preview; the edition takes over that URL on launch (Oct 28) with `build_edition.py --launch`, which also drops noindex.
+- QA: `edition/tools/qa.py` (43 checks against `dist/`) all pass; Lighthouse mobile 99/100/100, desktop 100/100/100.
 
 ## Data fix: Ben Camacho link (Oct 19, 2026), **edited locally, not yet pushed**
 

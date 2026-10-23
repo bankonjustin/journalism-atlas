@@ -6,7 +6,7 @@
    "detail": "dist/preview/nodes-and-networks-f348eb08"
   },
   {
-   "check": "served: only index.html under /preview/",
+   "check": "served: only index.html in this preview folder",
    "pass": true,
    "detail": "1 file(s)"
   },
@@ -22,8 +22,8 @@
   },
   {
    "check": "slug not referenced by any other served file (sitemap/RSS/index/nav)",
-   "pass": true,
-   "detail": ""
+   "pass": false,
+   "detail": "preview/smartnews-d029dc36/index.html"
   },
   {
    "check": "no sitemap/RSS in dist that could list the page",
@@ -34,6 +34,36 @@
    "check": "page loads over HTTP at the clean slug path",
    "pass": true,
    "detail": "/preview/nodes-and-networks-f348eb08/"
+  },
+  {
+   "check": "page title, H1 and OG title match",
+   "pass": true,
+   "detail": "<title> 'Nodes and Networks: The Reorganization of American Journalism' | H1 'Nodes and Networks: The Reorganization of American Journalism' | og 'Nodes and Networks: The Reorganization of American Journalism'"
+  },
+  {
+   "check": "title is the new docx title; old title nowhere on the page",
+   "pass": true,
+   "detail": "Nodes and Networks: The Reorganization of American Journalism"
+  },
+  {
+   "check": "figure labels exactly as manifest, sequential 1–5",
+   "pass": true,
+   "detail": "Figure 1: Funding and organization timel | Figure 2: The nine cohorts | Figure 3: Defector revenue, Years 1–5 | Figure 4: Share of revenue from grants a | Figure 5: Revenue band distribution by c"
+  },
+  {
+   "check": "\"Draft updated\" line shows the build date",
+   "pass": true,
+   "detail": "Draft updated October 23, 2026"
+  },
+  {
+   "check": "INN treemap not on the page",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "lint gate: no prose findings",
+   "pass": true,
+   "detail": ""
   },
   {
    "check": "1 title block",
@@ -56,19 +86,19 @@
    "detail": "C1 C2 C3 C4 C5 C6 C7 C8 C9"
   },
   {
-   "check": "6 rendered figures",
+   "check": "5 rendered figures",
    "pass": true,
-   "detail": "6"
+   "detail": "5"
   },
   {
    "check": "no empty or zero-height figure container (1280px)",
    "pass": true,
-   "detail": "F1 760px, F2 772px, F3 406px, F4 397px, F5 484px, F6 429px"
+   "detail": "F1 760px, F2 772px, F3 396px, F4 484px, F5 429px"
   },
   {
    "check": "body word count within 1% of docx",
    "pass": true,
-   "detail": "docx 7,927 · page 7,927 · +0.00% (docx total incl. title block: 7,963)"
+   "detail": "docx 7,992 · page 7,992 · +0.00% (docx total incl. title block: 8,060)"
   },
   {
    "check": "no paragraphs dropped",
@@ -96,7 +126,12 @@
    "detail": ""
   },
   {
-   "check": "no comment text in page (8 docx comments checked)",
+   "check": "no comment text in page (0 docx comments checked)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "no tracked-deletion text in any preview file (0 deleted phrases, 11 files)",
    "pass": true,
    "detail": ""
   },
@@ -113,7 +148,7 @@
   {
    "check": "data tables present only on approved figures",
    "pass": true,
-   "detail": "tables on [1, 2, 4, 6]; approved [1, 2, 4, 6]"
+   "detail": "tables on [1, 2, 3, 5]; approved [1, 2, 3, 5]"
   },
   {
    "check": "no \"Download CSV\" text anywhere",
@@ -123,7 +158,7 @@
   {
    "check": "byline renders as configured",
    "pass": true,
-   "detail": "Justin Bank"
+   "detail": "By Justin Bank. Edited by Andy Pergam, Knight Center for the Future of News"
   },
   {
    "check": "meta robots noindex, nofollow",
@@ -141,7 +176,7 @@
    "detail": "{'C1': 18, 'C2': 26, 'C3': 8, 'C4': 44, 'C5': 14, 'C6': 8, 'C7': 7, 'C8': 27, 'C9': 17} sum=169"
   },
   {
-   "check": "Fig 6 stacked-bar rows equal cohort n, total 169 (fig-wide)",
+   "check": "Fig 5 stacked-bar rows equal cohort n, total 169 (fig-wide)",
    "pass": true,
    "detail": "9 rows, total 169"
   },
@@ -151,9 +186,19 @@
    "detail": "{'C1': 18, 'C2': 26, 'C3': 8, 'C4': 44, 'C5': 14, 'C6': 8, 'C7': 7, 'C8': 27, 'C9': 17} sum=169"
   },
   {
-   "check": "Fig 6 stacked-bar rows equal cohort n, total 169 (fig-narrow)",
+   "check": "Fig 5 stacked-bar rows equal cohort n, total 169 (fig-narrow)",
    "pass": true,
    "detail": "9 rows, total 169"
+  },
+  {
+   "check": "Fig 3 data table equals the v4 table (total, subscription, other)",
+   "pass": true,
+   "detail": "5 years match"
+  },
+  {
+   "check": "Fig 3 has no revenue-per-subscriber panel",
+   "pass": true,
+   "detail": ""
   },
   {
    "check": "no horizontal page scroll at 375px",
@@ -161,7 +206,7 @@
    "detail": "scrollWidth 375"
   },
   {
-   "check": "all 6 figures render at 375px",
+   "check": "all 5 figures render at 375px",
    "pass": true,
    "detail": ""
   },
@@ -171,7 +216,7 @@
    "detail": "scrollWidth 768"
   },
   {
-   "check": "all 6 figures render at 768px",
+   "check": "all 5 figures render at 768px",
    "pass": true,
    "detail": ""
   },
@@ -181,13 +226,33 @@
    "detail": "scrollWidth 1280"
   },
   {
-   "check": "all 6 figures render at 1280px",
+   "check": "all 5 figures render at 1280px",
    "pass": true,
    "detail": ""
+  },
+  {
+   "check": "Playwright light 1280px: 5 figures render, none empty or clipped, no page scroll",
+   "pass": true,
+   "detail": "scrollWidth 1280"
+  },
+  {
+   "check": "Playwright light 390px: 5 figures render, none empty or clipped, no page scroll",
+   "pass": true,
+   "detail": "scrollWidth 390"
+  },
+  {
+   "check": "Playwright dark 1280px: 5 figures render, none empty or clipped, no page scroll",
+   "pass": true,
+   "detail": "scrollWidth 1280"
+  },
+  {
+   "check": "Playwright dark 390px: 5 figures render, none empty or clipped, no page scroll",
+   "pass": true,
+   "detail": "scrollWidth 390"
   }
  ],
  "data": {
-  "fig6_rows": {
+  "fig5_rows": {
    "fig-wide": {
     "C1": [
      0,
@@ -308,8 +373,70 @@
     "USAID freezes media-support funding ($268M"
    ],
    "text": [
-    " government froze $271.5 million in U.S. Agency for International Development  journalism funding on Jan"
+    " government froze $268 million in U.S. Agency for International Development  journalism funding on Jan"
    ]
-  }
+  },
+  "fig3": {
+   "chart_labels": [
+    "Revenue (millions of dollars), by September-to-August year",
+    "Subscription revenue",
+    "All other revenue",
+    "$0",
+    "$1M",
+    "$2M",
+    "$3M",
+    "$4M",
+    "$5M",
+    "$3.0M",
+    "$3.2M",
+    "2020–21",
+    "$3.6M",
+    "$3.8M",
+    "2021–22",
+    "$3.75M",
+    "$4.5M",
+    "2022–23",
+    "$3.8M",
+    "$4.6M",
+    "2023–24",
+    "$3.8M",
+    "$4.65M",
+    "2024–25",
+    "Source: Defector annual reports, Years 1–5. Defector describes its figures as stylized approximations of its P&L."
+   ],
+   "table": {
+    "1": [
+     3.2,
+     3.0,
+     0.2
+    ],
+    "2": [
+     3.8,
+     3.6,
+     0.2
+    ],
+    "3": [
+     4.5,
+     3.75,
+     0.75
+    ],
+    "4": [
+     4.6,
+     3.8,
+     0.8
+    ],
+    "5": [
+     4.65,
+     3.8,
+     0.85
+    ]
+   },
+   "mismatches": []
+  },
+  "fig5_band_totals": [
+   80,
+   34,
+   55
+  ]
  }
 }

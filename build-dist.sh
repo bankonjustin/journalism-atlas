@@ -9,7 +9,7 @@ rm -rf dist
 mkdir -p dist/assets/data dist/data dist/atlas-portal
 
 # Pages and redirects
-cp ./*.html _redirects robots.txt wire.json favicon.ico apple-touch-icon.png dist/
+cp ./*.html _redirects _headers robots.txt wire.json favicon.ico apple-touch-icon.png dist/
 cp -R .well-known partners lab teamdmv watershed-preview-uhh7gdyn dist/
 
 # Unlisted previews: page HTML only (no docx/csv/json/notes ever sit under preview/)
@@ -19,6 +19,10 @@ cp atlas-portal/*.html atlas-portal/script.js dist/atlas-portal/
 
 # Assets
 cp -R assets/css assets/js assets/images assets/img dist/assets/
+
+# Nodes and Networks interactive edition (unlisted until launch): assets and share images
+cp -R assets/nn5 dist/assets/
+for d in preview/*/og; do [ -d "$d" ] && mkdir -p "dist/$d" && cp "$d"/*.png "dist/$d/"; done
 
 # Data files that pages fetch
 cp assets/data/creators-data.json assets/data/bluesky-creators.json assets/data/coops-data.json dist/assets/data/

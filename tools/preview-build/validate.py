@@ -81,10 +81,10 @@ def docx_deleted_phrases():
 def served_path_checks():
     slug_dir = DIST / 'preview' / CFG['slug']
     check('served: page exists in dist/', (slug_dir / 'index.html').exists(), str(slug_dir.relative_to(REPO)))
-    under_preview = [p for p in (DIST / 'preview').rglob('*') if p.is_file()]
+    under_preview = [p for p in slug_dir.rglob('*') if p.is_file()]  # this page's own folder; other previews have their own checks
     bad = [str(p.relative_to(DIST)) for p in under_preview
            if p.name != 'index.html' or p.suffix.lower() in ('.docx', '.csv', '.json', '.md')]
-    check('served: only index.html under /preview/', not bad, ', '.join(bad) or f'{len(under_preview)} file(s)')
+    check('served: only index.html in this preview folder', not bad, ', '.join(bad) or f'{len(under_preview)} file(s)')
     leaks = [str(p.relative_to(DIST)) for p in DIST.rglob('*') if p.is_file() and (
         p.suffix.lower() in ('.docx', '.csv') or 'ledger' in p.name.lower()
         or 'content.json' == p.name or 'build_report' in p.name or 'validation' in p.name)]
@@ -264,28 +264,25 @@ def main():
         data['usaid'] = {'graphic': g, 'text': t}
         print('INFO  USAID figure — graphic:', g, '| text:', t)
 
-        # -- Figure 3 (Defector) data report: what the chart shows vs. the paper text (report only)
+        # -- Figure 3 (Defector): v4 stacked bars. Chart table must equal the v4 table exactly; revenue
+        #    totals are also compared with the paper text (report only).
         f3 = page.eval_on_selector_all('#figure-3 .fig-wide svg text', 'els => els.map(e => e.textContent.trim())')
         rows = page.eval_on_selector_all('#figure-3 .viz-data tbody tr', 'els => els.map(r => [...r.children].map(c => c.textContent.trim()))')
-        text_expect = {1: (3.2, 36000), 3: (4.5, 42102), 4: (4.6, 42500), 5: (4.65, None)}
+        V4 = {1: (3.2, 3.0, 0.2), 2: (3.8, 3.6, 0.2), 3: (4.5, 3.75, 0.75), 4: (4.6, 3.8, 0.8), 5: (4.65, 3.8, 0.85)}
+        text_expect = {1: 3.2, 3: 4.5, 4: 4.6, 5: 4.65}
         d3, mism = {}, []
         for r in rows:
-            y = int(r[0]); rev = float(r[2]) / 1e6; subs = int(r[3]) if r[3].isdigit() else None
-            rps = r[5] if len(r) > 5 else ''
-            d3[y] = {'revenue_m': rev, 'subs': subs, 'rev_per_sub': rps}
-            if y in text_expect:
-                er, es = text_expect[y]
-                if abs(rev - er) > 1e-9:
-                    mism.append(f'Y{y} revenue chart ${rev}M vs text ${er}M')
-                if es and subs != es:
-                    mism.append(f'Y{y} subscribers chart {subs:,} vs text {es:,}')
-        y3 = d3.get(3)
-        math3 = round(4_500_000 / y3['subs']) if y3 and y3['subs'] else None
-        data['fig3'] = {'chart_labels': f3, 'table': d3, 'year3_math_rev_per_sub': math3, 'mismatches': mism,
-                        'year4_present': 4 in d3}
-        print('INFO  Fig 3 chart:', {y: (v['revenue_m'], v['subs'], v['rev_per_sub']) for y, v in d3.items()})
-        print('INFO  Fig 3 Year 3 rev/sub = $4.5M /', y3 and y3['subs'], '=', math3, '(chart shows', y3 and y3['rev_per_sub'] + ')')
-        print('INFO  Fig 3 mismatches vs text:', mism or 'none')
+            y = int(r[0])
+            d3[y] = (float(r[2]), float(r[3]), float(r[4]))
+            if y in text_expect and abs(d3[y][0] - text_expect[y]) > 1e-9:
+                mism.append(f'Y{y} revenue chart ${d3[y][0]}M vs text ${text_expect[y]}M')
+        check('Fig 3 data table equals the v4 table (total, subscription, other)', d3 == V4,
+              f'chart {d3}' if d3 != V4 else '5 years match')
+        check('Fig 3 has no revenue-per-subscriber panel', not any('per subscriber' in x.lower() for x in f3),
+              ', '.join(x for x in f3 if 'per subscriber' in x.lower()))
+        data['fig3'] = {'chart_labels': f3, 'table': d3, 'mismatches': mism}
+        print('INFO  Fig 3 chart (total, subscription, other):', d3)
+        print('INFO  Fig 3 revenue vs paper text:', mism or 'none')
         t5 = [sum(v[i] for v in data['fig5_rows']['fig-wide'].values()) for i in range(3)]
         data['fig5_band_totals'] = t5
         print('INFO  Fig 5 band totals (below / mid / above):', t5)

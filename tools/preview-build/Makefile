@@ -16,6 +16,7 @@ ifdef DOCX
 	$(PY) -c "import json,sys; p=\"config.json\"; c=json.load(open(p)); c[\"docx\"]=sys.argv[1]; open(p,\"w\").write(json.dumps(c,indent=2,ensure_ascii=False)+\"\\n\")" "$(DOCX)"
 endif
 	$(PY) parse_docx.py
+	$(PY) patches.py
 
 lint:
 	$(PY) lint.py

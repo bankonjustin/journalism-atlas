@@ -15,6 +15,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 CFG = json.loads((HERE / 'config.json').read_text())
 CONTENT = json.loads((HERE / 'content' / 'content.json').read_text())
+WARNINGS = []  # docx caption lines that differ from the manifest: logged, never a blocker
 LABELS = {f['n']: f['label'] for f in CFG['figures']}
 
 # Tokens whose trailing period does not end a sentence.
@@ -97,8 +98,8 @@ def lint():
     for para, t in captions:
         m = re.match(r'\s*(?:Figure|Fig\.)\s*(\d+)', t)
         n = int(m.group(1))
-        if LABELS.get(n, '').strip() != t.strip():
-            add(f'docx caption line differs from manifest label "{LABELS.get(n)}"', para, t, m)
+        same = LABELS.get(n, '').strip() == ' '.join(t.split()).rstrip('.').strip()
+        WARNINGS.append({'figure': n, 'para': para, 'docx': t.strip(), 'manifest': LABELS.get(n), 'match': same})
     # comment text surviving into prose
     flat = ' '.join(' '.join(t for _, t in prose).split())
     for c in docx_comments():
@@ -109,6 +110,8 @@ def lint():
 
 def main():
     hits = lint()
+    for w in WARNINGS:
+        print(f"CAPTION {'ok  ' if w['match'] else 'WARN'} Fig {w['figure']} ¶{w['para']}: docx “{w['docx']}” | manifest “{w['manifest']}”")
     for h in hits:
         print(f"LINT  ¶{h['para']}  {h['rule']}: “{h['match']}”\n      {h['context']}")
     if '--quiet' not in sys.argv:

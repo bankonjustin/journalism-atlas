@@ -136,9 +136,10 @@ def main():
         lines.append(f"- **Byline:** {ocfg.get('byline')}  →  {cfg.get('byline')}")
     lines.append('- **Added:** a "Draft updated [date]" line under the banner.')
     for f in ocfg['figures']:
-        lines.append(f"- Old Figure {f['n']} ({f['title']}): " + (
+        new_n = next((g['n'] for g in cfg['figures'] if g['name'] == f.get('name')), None)
+        lines.append(f"- Old Figure {f['n']} ({f.get('title') or f.get('name')}): " + (
             'removed (INN treemap)' if f['file'] == 'fig_inn_concentration.html' else
-            'now Figure ' + str(next(g['n'] for g in cfg['figures'] if g['file'] == f['file']))))
+            f'now Figure {new_n}' if new_n else 'replaced'))
     for f in cfg['figures']:
         lines.append(f"- **{f['label']}**")
     lines.append('')

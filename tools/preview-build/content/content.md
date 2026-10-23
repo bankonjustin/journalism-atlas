@@ -1,4 +1,4 @@
-<!-- generated from FINAL FINAL v938 - Networks and nodes (4).docx sha256 43aa786b7c18 -->
+<!-- generated from FINAL FINAL v938 - Networks and nodes (8).docx sha256 6cf735ded475 -->
 
 # **Nodes and Networks: The Reorganization of American Journalism **
 
@@ -10,11 +10,11 @@ Knight Center for the Future of News · ASU Cronkite School · Justin Bank (Inde
 
 No single event marked the moment American journalism stopped operating as a collection of institutions and started operating as a layered field. It happened incrementally — through layoffs and launches, platform withdrawals and newsletter migrations; through the quiet proliferation of nonprofit wires, civic documentation networks and creator brands built by former institutional journalists who took their audiences with them.
 
-By 2026, the reorganization is quite legible, if imperfect and incomplete. Between this report’s first draft and final publication, CBS changed hands and its new owner, Paramount Skydance, bought CNN's parent company. Vox Media split into two buyers about a month apart — [Vox.com, New York Magazine and the podcast network](https://www.niemanlab.org/2026/05/james-murdoch-buys-up-half-of-vox-media-grabbing-new-york-and-podcasts-but-leaving-the-verge-and-sb-nation/) went to James Murdoch;[ Penske Media Corp. took the rest, including The Verge and SB Nation, in June](https://variety.com/2026/biz/news/pmc-vox-media-ryan-pauley-verge-eater-1236784682/).[ Byron Allen closed his own $120 million deal for BuzzFeed and HuffPost](https://www.buzzfeed.com/buzzfeedpress/buzzfeed-inc-completes-majority-stake-investment-by-byron) a week after the Murdoch sale.
+By late 2026, the reorganization is quite legible, if imperfect and incomplete. Between this report’s first draft and final publication, CBS changed hands and its new owner, Paramount Skydance, bought CNN's parent company. Vox Media split into two buyers about a month apart — [Vox.com, New York Magazine and the podcast network](https://www.niemanlab.org/2026/05/james-murdoch-buys-up-half-of-vox-media-grabbing-new-york-and-podcasts-but-leaving-the-verge-and-sb-nation/) went to James Murdoch; [Penske Media Corp. took the rest, including The Verge and SB Nation](https://variety.com/2026/biz/news/pmc-vox-media-ryan-pauley-verge-eater-1236784682/) in June. [Byron Allen closed his own $120 million deal for BuzzFeed and HuffPost](https://www.buzzfeed.com/buzzfeedpress/buzzfeed-inc-completes-majority-stake-investment-by-byron) a week after the Murdoch sale. And countless independent publishers, on Substack or newsletters or elsewhere, likely came and went without much fanfare.
 
-We set out to study the current landscape of the media business. *What we found is a field sorted into nine cohorts — not by beat, platform or size, but by governance: who owns the organization, who makes the decisions, and how the money comes in. Governance turns out to predict something none of the other variables do: not just how an organization survives, but what it's structurally capable of becoming.* 
+We set out to study the current landscape of the media business. What we found, as we sorted through these headlines and deal terms, is a field best understood by governance models not by beat, platform or size. By governance, we mean who owns the organization, who makes the decisions and how the money comes in. We identified and named nine cohorts and found that governance turns out to best predict how an organization survives and what it's structurally capable of becoming. 
 
-We also discovered a trend linked to these cohorts that we’ll explore in future work — that these cohorts can tell a story about organization size, financial success and the conditions that tend to lead to sustainability. 
+We also discovered a trend linked to these cohorts that we’ll explore in future work about organization size, financial success and certain conditions that tend to lead to sustainability. 
 
 ## I. But first, some economic context
 
@@ -24,13 +24,13 @@ For most of that time, journalism’s economics were inherited. An outlet was bo
 
 Stated plainly: *The size of journalism organizations is trending smaller as publishers go niche to serve more narrowly scoped missions and audiences. *
 
-Sort the field by when an organization came into existence, and the picture sharpens: Organizations that predate this era — meaning that they were founded before 1995 when the internet began reshaping print and broadcast distribution — are overwhelmingly operations with over $10 million in revenue. Organizations native to the current era are the mirror opposite: Most sit below $3.5 million in revenue, and only a small share ever cross $10 million at all.
+Sort the field by when an organization came into existence, and the picture sharpens: Organizations that predate this era — meaning that they were founded before 1995 when the internet began reshaping print and broadcast distribution — are overwhelmingly operations with over $10 million in revenue. Organizations native to the current era are the mirror opposite. Most sit below $3.5 million in revenue, and only a small share ever crosses $10 million at all.
 
 Those that excel, such as ProPublica, Politico Pro and Semafor, got there through specific types and patterns of capital infusion, not organic growth alone. According to our research, organizations don’t just grow into big companies anymore. They inherit it, or they build a specific machine that targets a specific collection of escalators to get there. And these numbers and patterns* probably under-sell the dynamic* because there’s a bias for survivorship and no accounting for the countless efforts that failed and folded.
 
-For this report, we pulled together a dataset of 169 organizations, based on their public filings, news or industry coverage, and their own announcements. The data is current as of October 2026 and is available on request.
+For this report, we pulled together a dataset of 169 organizations, based on their public filings, news or industry coverage and their own announcements. The data is current as of October 2026 and is available on request.
 
-The paper began by tracking these deals, launches and shutdowns as they happened throughout 2026: [Axios's $525 million sale to Cox Enterprises](https://www.axios.com/2022/08/08/axios-agrees-to-sell-to-cox-enterprises-for-525-million), [Vice's Chapter 11 filing and $350 million sale to its lender consortium](https://www.hollywoodreporter.com/business/business-news/vice-media-bankruptcy-sale-1235487717/), [Semafor's pivot to an events-first model that now generates more than half its revenue](https://www.niemanlab.org/reading/semafor-makes-more-than-50-of-its-revenue-off-events-and-wants-to-be-the-new-davos/), [Byron Allen's $120 million deal for BuzzFeed and HuffPost](https://www.buzzfeed.com/buzzfeedpress/buzzfeed-inc-completes-majority-stake-investment-by-byron) — and the dataset grew out of what that coverage kept showing us, including the patterns among governance types. It is imperfect, in part because of the nature of the changing field, but it gives us confidence in the reorganization we’ve observed. 
+The paper began by tracking these deals, launches and shutdowns as they happened throughout 2026:[ the Corporation for Public Broadcasting’s board voting to dissolve in January](https://www.foxnews.com/media/corporation-public-broadcasting-board-votes-dissolve-organization-after-congress-defunds-npr-pbs),[ The Washington Post cutting a third of its staff in February](https://abc7news.com/post/washington-post-cuts-third-staff-blow-legendary-news-brand/18541922/),[ OpenAI buying the tech talk show TBPN in April](https://openai.com/index/openai-acquires-tbpn/),[ Penske Media absorbing what was left of Vox Media in June](https://www.axios.com/2026/06/22/penske-vox-media), and[ Kevin Roose and Casey Newton launching Machine Gods with NPR in September](https://www.npr.org/2026/09/16/g-s1-143481/casey-newton-and-kevin-roose-partner-with-npr-to-launch-machine-gods). The dataset grew out of the coverage, as it happened, and what that coverage kept showing us, including the patterns among governance types. It is imperfect, in part because of the nature of the changing field, but it gives us confidence in the reorganization we’ve observed. 
 
 At this moment, we also have AI tools powerful enough to help make sense of the data. We’ve used Claude to challenge our assumptions and to craft the direction of the narrative — but have used human involvement in every step of the rigorous writing and editing process.
 
@@ -46,13 +46,15 @@ At the same time, American journalism in 2026 is navigating a multiyear funding 
 
 - Meta ended per-publisher Facebook News tab payments in 2024; referral traffic sits at 32% of its March 2020 peak.
 - Google’s AI Overviews drove a 33% global decline in search referrals to publishers. Through November 2025, the drop was 60% for small publishers that year.
-- The U.S. government froze $271.5 million in U.S. Agency for International Development  journalism funding on Jan. 20, 2025. 
+- The U.S. government froze $268 million in U.S. Agency for International Development  journalism funding on Jan. 20, 2025. 
 - The Organized Crime and Corruption Reporting Project lost 52% of its budget in a week.
 - Congress rescinded $1.07 billion in Corporation for Public Broadcasting funding; the CPB board voted to dissolve on Jan. 5, 2026, jeopardizing funding for public broadcasters, which reach 46% of all 213 news desert counties.
 - The Washington Post lost $177 million over two years and cut roughly 300 newsroom staff members in February 2026. 
 - The Center for Public Integrity closed in March 2025 after 36 years.
 - More than 136 newspapers closed in 2025 — over two a week, which leaves fewer than 1,000 daily newspapers publishing in the U.S. today. That is the lowest number since researchers at the Medill Center’s Local News Initiative [started tracking local news publishers](https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2025/report/) in 2005. In the 21st century, they report that 3,500 weekly and national newspapers have closed.  
 [[FIGURE 1]]
+
+*Figure 1: Funding and organization timeline*
 
 The pattern is the same across every failure: concentrated dependency. Each organization had over-indexed on a single source — one platform, one funder, one owner — and when that source moved, nothing caught the fall. 
 
@@ -62,7 +64,7 @@ The ways in which journalism is constructed, distributed and paid for are changi
 
 - **A new model of civic coverage infrastructure is operating at scale:** City Bureau’s Documenters Network paid community members $369,000 in stipends to cover 3,253 public meetings in 2025, at $113 per meeting, across more than 20 sites in 14 states.  
 
-- **Sometimes one journalist breaks out with multiple institutional relationships (and no single revenue line): **Casey Newton is in his fifth year publishing the Platformer newsletter, now on Ghost. For three years, he was co-host of the New York Times podcast Hard Fork with Kevin Roose, though [Roose announced he was leaving the Times after nine years](https://talkingbiznews.com/media-news/tech-columnist-roose-departing-ny-times/), telling colleagues he and Newton wanted to “build something we would own.” Hard Fork's final Times episode aired in August. In September,[ NPR announced it was licensing the resulting show, Machine Gods](https://www.npr.org/2026/09/16/g-s1-143481/casey-newton-and-kevin-roose-partner-with-npr-to-launch-machine-gods), so Newton and Roose maintain ownership of the show.  
+- **Sometimes one journalist breaks out with multiple institutional relationships (and no single revenue line): **Casey Newton is in his fifth year publishing the Platformer newsletter, now on Ghost (an open-source blogging and newsletter tool). For three years, he was co-host of the New York Times podcast Hard Fork with Kevin Roose, though [Roose announced he was leaving the Times after nine years](https://talkingbiznews.com/media-news/tech-columnist-roose-departing-ny-times/), telling colleagues he and Newton wanted to “build something we would own.” Hard Fork's final Times episode aired in August. In September,[ NPR announced it was licensing the resulting show, Machine Gods](https://www.npr.org/2026/09/16/g-s1-143481/casey-newton-and-kevin-roose-partner-with-npr-to-launch-machine-gods), so Newton and Roose maintain ownership of the show.  
 
 - **And yet, what’s old is new again: **The Associated Press was founded in 1846 as a member-owned cooperative. Today it is publishing personality-driven vertical video on social platforms, [signing](https://www.ap.org/media-center/ap-in-the-news/2023/chatgpt-maker-openai-signs-deal-with-ap-to-license-news-stories/?utm_source=gemini) AI licensing agreements with OpenAI and Google, and developing consumer products, while still running the commercial wire service that has served newsrooms for 180 years.  
 
@@ -72,11 +74,11 @@ Making sense of this requires a map.
 
 ## II. The cohorts and why a governance taxonomy
 
-It’s worth explaining why this taxonomy is organized by governance — where power rests and how decisions get made — rather than by beat, geography, platform or revenue model. The question comes up every time we present this framework to people who know the field, partly because governance means different things to different people. We mean it as shorthand for an organization’s operating structure: who owns it, who makes the decisions and how it’s funded. That amalgam is the variable that allowed us to look at the landscape and see clearer distinctions that explain the patterns we were seeing within cohorts because:  
+It’s worth explaining why this taxonomy is organized by governance rather than by beat, geography, platform or revenue model. The question comes up every time we present this framework to people who know the field, partly because governance means different things to different people. We mean it as shorthand for an organization’s operating structure: *who owns it, who makes the decisions and how it’s funded.* That amalgam is the variable that allowed us to look at the landscape and see clearer distinctions that explain the patterns we were seeing within cohorts because:  
 
 **Governance determines so much.**
 
-A solo journalist publishing on Substack, Bloomberg sending from their enterprise software, and a worker-owned newsroom publishing on Ghost (an open-source blogging and newsletter tool) look identical from the outside. They all land in your inbox on a regular basis, generate revenue through their audience’s subscription and could all cover similar beats. 
+A solo journalist publishing on Substack, Bloomberg sending from their enterprise software and a worker-owned newsroom publishing on Ghost look identical from the outside. They all land in your inbox on a regular basis, generate revenue through their audience’s subscription and could all cover similar beats. 
 
 But they are solving different organizational problems. The solo journalist’s ceiling is their own capacity. The co-op’s ceiling is its collective brand-name awareness and group decision-making. One can pivot on a single editorial call; the other requires a vote. One closes when the journalist burns out; the other can outlast any individual member. This juxtaposition of external appearances and operational function led us to examine other modes of categorization.
 
@@ -92,6 +94,8 @@ Nine cohorts capture the range of journalism operators currently producing in th
 - **Philanthropic Mesh Networks, Public Media Networks and Collaboration Layers** are the infrastructure through which public-minded funding becomes public-interest reporting, and the cohorts most exposed to the funding collapse discussed below.
 - **Worker-Owned Co-ops, Emerging Civic Actors and B2B/Professional Services** are the clearest evidence that audiences and the market are finding new ways to fund journalism directly.
 [[FIGURE 2]]
+
+*Figure 2: The nine cohorts*
 
 Nine cohorts, one axis. An expanding array of nodes along a growing series of networks. All starting from …
 
@@ -131,7 +135,7 @@ Distribution → multi-channel; the larger own it, the smaller borrow it
 
 **Governance:** Individual journalists or small teams who own their editorial operation outright, distribute across platforms and earn primarily from direct reader relationships.
 
-**What it is.** The headline numbers are real — Heather Cox Richardson’s Letters from an American has over 2.9 million subscribers and an estimated revenue of over $5 million. The numbers beneath them are also real: 40% of creator journalists make no money from self-publishing, and only 6% call it full-time income. This is the survivorship-bias cohort. The visible outlets are the ones that survived.
+**What it is.** Entrepreneurs building personality-led businesses, like Heather Cox Richardson’s Letters from an American with over 2.9 million subscribers and an estimated revenue of over $5 million. But the cohort is very uneven. Nearly 40% of creator journalists make no money from self-publishing, and only 6% call it full-time income, [according to Muck Rack’s “The State of Creator Journalism 2025” survey](https://www.netinfluencer.com/creator-journalism-matures-as-one-third-of-journalists-publish-independently-study-shows/). This cohort is filled with survivorship-bias. It’s the visible outlets are the ones that survived.
 
 **How it works.** Isaac Saul built the Tangle newsletter from $850,000 in revenue to $4.15 million with a nonpartisan model producing a 16% conversion rate and 99% retention. But Tangle sits near the top of a steep curve: The median Substack creator earns about $4,000 annually, nearly half earn under $500, and the top 10% capture more than 60% of all subscription revenue on the platform. Platform-level growth tells the same story from the other direction: Substack’s paid-publication count roughly doubled in under a year (50,000 in May 2025 to nearly 100,000 by April 2026), while Beehiiv reported roughly $19 million in 2025 revenue (about $35 million projected for 2026), but Beehiiv’s own first-party data put median free-to-paid conversion at just 0.62% platform-wide. The layer is growing; the median creator inside it isn’t. For every Tangle, there are hundreds who stall, and hundreds more who never reach sustainability.
 
@@ -153,7 +157,7 @@ Distribution → email owned, social for discovery, platform migration as resili
 
 **Sub-variant — the lifeboat creator.** Charlie Warzel built Galaxy Brain on Substack, then joined The Atlantic. The platform was a bridge, not a destination — a pattern CJR’s research on “the Substackerati” found underreported.
 
-**Edge case — philanthropy finds the boundary.** The Lenfest Institute’s News Creator Collaborative — $818,000 across 10 news organizations selected from more than 120 applicants, part of a larger $1.5 million investment, including a Google-Lenfest News Creator Summit Series — funds partnerships between newsrooms and independent creators rather than either alone: Spotlight PA is building creator-led coverage of the 2026 Pennsylvania governor’s race, and a Lexington, Kentucky, publisher is training beat reporters to become short-form creators. The dollar figure is small next to the American Journalism Project or Press Forward elsewhere in this paper, but it may be the single most on-thesis funding decision in the field right now — a funder writing a check at exactly the newsroom/creator boundary this taxonomy maps, rather than at either node alone.
+**Edge case — philanthropy finds the boundary.** The Lenfest Institute’s News Creator Collaborative — $818,000 across 10 news organizations selected from more than 120 applicants, part of a larger $1.5 million investment, including a Google-Lenfest News Creator Summit Series — funds partnerships between newsrooms and independent creators rather than either alone: Spotlight PA is building creator-led coverage of the 2026 Pennsylvania governor’s race, and a Lexington, Kentucky publisher is training beat reporters to become short-form creators. The dollar figure is small next to the American Journalism Project or Press Forward elsewhere in this paper, but it may be the single most on-thesis funding decision in the field right now — a funder writing a check at exactly the newsroom/creator boundary this taxonomy maps, rather than at either node alone.
 
 ### **C3 — Barbell Hybrids**
 
@@ -161,7 +165,7 @@ Distribution → email owned, social for discovery, platform migration as resili
 
 **What it is.** The barbell is hardest to categorize because it’s often in motion — some resolve toward independence, some back toward institutions, some stay genuinely dual for years.
 
-**How it works.** Casey Newton has run the most examined dual position in journalism: Platformer on Ghost, a Verge license, an NYT podcast, a jointly built federated experiment (The Forkiverse) — roughly $900,000 in subscription revenue plus a six-figure ad stream. The product argument illuminates what makes this cohort work: Hard Fork exists because Newton is independent enough to bring a distinct voice and institutionally connected enough for the Times to want it in its feed — a barbell product neither side could make alone. 
+**How it works.** Casey Newton has run the most examined dual position in journalism: Platformer on Ghost, a Verge license, a NYT podcast, a jointly built federated experiment (The Forkiverse) — roughly $900,000 in subscription revenue plus a six-figure ad stream. The product argument illuminates what makes this cohort work: Hard Fork exists because Newton is independent enough to bring a distinct voice and institutionally connected enough for the Times to want it in its feed — a barbell product neither side could make alone. 
 
 Mehdi Hasan ran in the opposite direction, departing MSNBC for Zeteo (about $3.9 million annualized, over 50,000 paid). Ben Smith left the Times to found Semafor, which has since become a $40 million institution. Puck’s writer-equity model tests whether an institution can retain talent with portable audiences — a test it failed when Tara Palmeri left for her own channel in March 2025, taking her audience with her.
 
@@ -179,7 +183,7 @@ Vulnerability → employer can change terms; direct audience can atrophy; double
 
 **Edge case — the mainstream talent diaspora.** Joy Reid, Jim Acosta, Jennifer Rubin, Don Lemon and Mehdi Hasan all departed major organizations within months of each other in 2023–25, entering the barbell cohort from the top rather than climbing into it — arriving with the brand capital most C2 creators never get.
 
-**Sub-variant — Morning Brew.** Now fully Axel Springer-owned, projecting over $70 million in revenue in 2025, Morning Brew built its model around big-named staff writers whose voices are the product — the barbell dynamic operating *inside* an institution rather than between one and independence.
+**Sub-variant — Morning Brew.** Now fully Axel Springer owned, projecting over $70 million in revenue in 2025, Morning Brew built its model around big-named staff writers whose voices are the product — the barbell dynamic operating *inside* an institution rather than between one and independence.
 
 ### **C4 — Philanthropic Mesh Networks**
 
@@ -188,8 +192,6 @@ Vulnerability → employer can change terms; direct audience can atrophy; double
 **What it is.** This is the field’s public-interest infrastructure, the layer most explicitly committed to covering what markets won’t fund. The Institute for Nonprofit News now counts 500 member organizations; sector revenue reached $650 million–$700 million in 2024, up 14%. Press Forward has committed $500 million from over 100 funders. Yet the entire sector total equals roughly 1% of newspaper ad-and-circulation revenue from 20 years earlier — the sector has grown while the gap it’s filling has grown faster. A [2026 analysis](https://www.niemanlab.org/2026/03/a-new-report-looks-at-559-funding-proposals-to-determine-local-journalisms-biggest-problems/) of 559 funding proposals concluded philanthropic grants “function as life support rather than as capital for transformation.”
 
 **How it works.** ProPublica’s innovation was financial, not journalistic. It proved impact drives repeat foundation funding. Its most recent IRS Form 990 shows $64.3 million in revenue — roughly 9% of *all* Institute for Nonprofit News member revenue, up from 7% two years earlier. One organization, and its share is growing. 
-
-[[FIGURE 3]]
 
 Texas Tribune is the more replicable counter-case: revenue split nearly evenly across foundations, donors, sponsorships and events, with no source above 25% and an annual festival generating about $2 million from 8,000 attendees that functions as both revenue and editorial product. Its most recent Form 990 shows $15.3 million — *proof that diversification alone, done early and evenly, can carry a nonprofit newsroom well past where governance alone would predict. *That’s the tension this cohort holds better than any other: Concentrated philanthropic scale and even diversification are opposite theories of resilience, and both work, but they are not the same bet.
 
@@ -207,7 +209,7 @@ Advantage → insulation from advertising, editorial independence, covers what m
 
 ### **C5 — Public Media Networks**
 
-**Governance:** Federally chartered broadcasting, historically funded by the Corporation for Public Broadcasting through federal appropriations; member donations; foundation grants; and underwriting.
+**Governance:** Independent stations operated by nonprofit entities, often educational institutions with governing boards. Federally chartered broadcasting, historically funded by the Corporation for Public Broadcasting through federal appropriations; member donations; foundation grants; and underwriting.
 
 **What it is.** Public media built 50 years of infrastructure no other cohort has: Local editorial products, produced simultaneously nationwide, trusted enough that audiences renew with a credit card every year. The regional collaborative newsrooms built this decade — the Gulf States Newsroom, the New England News Collaborative, the Texas Newsroom — are a genuinely new production model that proved itself just as the funding making it possible was eliminated.
 
@@ -237,7 +239,7 @@ URL Media (over 50 outlets and reaching over 27 million people, profitable four 
 
 **How they’re organized.** 
 
-Primary revenue → philanthropy (nearly all); collectively sold advertising (URL Media, Word In Black, BOMESI — the only exceptions we found) · Secondary revenue → membership dues and per-project sponsorships within tracked networks (Center for Cooperative Media); most permanent collaboratives have no secondary revenue line at all
+Primary revenue → philanthropy (nearly all); collectively sold advertising (URL Media, Word In Black, BOMESI — the only exceptions we found) · Secondary revenue → membership dues and per-project sponsorships within tracked networks (Center for Cooperative Media); most permanent collaboratives have no secondary revenue line at all 
 
 Advantage → combined expertise and reach no single organization has alone, cost-sharing on investigations otherwise unaffordable solo, distribution multiplied across every participating masthead simultaneously
 
@@ -251,11 +253,11 @@ Vulnerability → Nearly all permanent collaboratives are philanthropy-dependent
 
 **What it is.** The co-op is a vehicle for porting a product out of an institution that could no longer sustain it. Defector’s readers were Deadspin’s; 404 Media’s were Motherboard’s; Hell Gate’s were Gothamist’s. In each case, the audience followed a specific cultural sensibility the corporate parent had shown it couldn’t sustain. As Defector’s Jasper Wang has put it, in effect: Worker ownership is a governance model, not a revenue model — revenue still comes from subscriptions, same as before.
 
-**How it works**. Defector is the most fully documented co-op in American history because it publishes annual financials: Year 1, $3.2 million and 36,000 subscribers (10,000 from Day 1, inherited from Deadspin); Year 3, $4.4 million and an all-time-high 42,102 subscribers; Year 5, $4.65 million* with revenue nearly flat, prompting the launch of limited display advertising. The five-year arc is the clearest data available on what the model produces: rapid scaling off an inherited audience, then a plateau. For now, Defector is the single most fully documented proof that worker ownership is a governance model, not a growth strategy — the audience it inherited from Deadspin set its ceiling on Day 1, and five years of careful publishing hasn't moved it.*
+**How it works**. Defector is the most fully documented co-op in American history because it publishes annual financials: Year 1, $3.2 million and 36,000 subscribers (10,000 from Day 1, inherited from Deadspin); Year 3, $4.5 million and 42,102 subscribers; Year 4, $4.6 million and a 42,500 subscribers; Year 5, $4.65 million* *with revenue nearly flat, prompting the launch of limited display advertising. The five-year arc is the clearest data available on what the model produces: rapid scaling off an inherited audience, then a plateau. For now, Defector is the single most fully documented proof that worker ownership is a governance model, not a growth strategy — the audience it inherited from Deadspin set its ceiling on Day 1, and five years of careful publishing hasn't moved it.
 
-[[FIGURE 4]]
+[[FIGURE 3]]
 
-*Figure 4: Defector Media Timeline*
+*Figure 3: Defector Media Timeline*
 
 404 Media launched on $4,000 in startup capital and was profitable within six months — a figure only possible because the product and its audience already existed at Motherboard. Hell Gate reached profitability in November 2025 (about $850,000 in revenue, over 9,000 paid subscribers, +69% growth in paid subscribers year over year), with co-founder Nick Pinto naming the model’s built-in constraint: “We’re an ice cream stand. We’ve always sold ice cream.” No systematic registry of failed co-ops exists — like the creator dataset, this one reflects survivorship bias.
 
@@ -311,17 +313,15 @@ Vulnerability → smaller addressable market; must prove professional utility to
 
 **Sub-variant — Consumer Reports.** About $200 million in revenue, nonprofit, ad-free since 1936 — the longest-running, largest proof case for fully reader-funded journalism at scale, and one that gets almost no attention in sustainability discussions precisely because it doesn’t call itself journalism
 
-//////
-
 The cohorts aren’t nine separate industries. They all include organizations that produce and distribute journalism while reaching audiences and convening communities in various forms. They also can blend between classifications. And we’ve now seen them change over time. 
 
 The same disruptions have impacted everyone across the board and led to movement in various directions. 
 
-Worker cooperatives in this dataset launched with inherited audiences from a series of institutional failures. Defector’s readers were Deadspin’s. 404 Media’s were Motherboard’s. Hell Gate inherited its staff from several mastheads that folded within the same stretch of years, and Aftermath’s from Kotaku. 
+Worker cooperatives in this dataset launched with inherited audiences from a series of institutional failures. Some examples: Defector’s readers were Deadspin’s. 404 Media’s were Motherboard’s. Hell Gate inherited its staff from several mastheads that folded within the same stretch of years, and Aftermath’s from Kotaku. 
 
 Bari Weiss went from being a New York Times opinion columnist to writing an independent Substack newsletter called The Free Press to having $20 million in annual recurring revenue to a $150 million Paramount acquisition to becoming editor-in-chief of CBS News – from institutional journalist to independent creator to acquired brand to institutional executive in about five years. Independence, flowing back up into institutional power.
 
-When transitions come in bunches, they usually reflect audience/platform migration as well. Earlier this year, The Contrarian, Mehdi Hasan’s Zeteo, and network stars Joy Reid, Jim Acosta and Don Lemon all nearly simultaneously departed to establish themselves on newsletter and vertical video platforms. It added up to the largest single wave of institutional-to-independent migration in the history of American broadcast journalism — a sentence that would have been unfathomable to consider before the market conditions of this current era made it feasible. 
+When transitions come in bunches, they usually reflect audience/platform migration as well. Earlier this year, other big names made moves for independence: The Contrarian, Mehdi Hasan’s Zeteo and network stars Joy Reid, Jim Acosta and Don Lemon all nearly simultaneously departed to establish themselves on newsletter and vertical video platforms. It added up to the largest single wave of institutional-to-independent migration in the history of American broadcast journalism — a sentence that would have been unfathomable to consider before the market conditions of this current era made it feasible. 
 
 ## III. Paths to Sustainability 
 
@@ -337,13 +337,17 @@ There’s one thing that governance can’t fully explain: Organizations that br
 
 No organization in this dataset sits above $10 million in revenue without having done one of those six things. Getting bigger, on its own, was never one of them. It’s fair to ask whether governance also explains who scales or even survives. 
 
-[[FIGURE 5]]
+[[FIGURE 4]]
+
+*Figure 4: Percent of funding from grants and donations in nonprofit news organizations*
 
 Track the same organizations for three years or more and the pattern holds: Some hold their ground, some cross into real scale for good. Look closely at the middle of the map and the dependence comes into focus. Of the 17 nonprofits between $3.5 million and $10 million in revenue whose filings we could break down, 15 get more than 80% of their revenue from grants and donations. Almost everyone in that range is waiting, to some degree, on someone else's decision.
 
 That’s a story about fragility in one part of the map. The next one is about the map itself.
 
-[[FIGURE 6]]
+[[FIGURE 5]]
+
+*Figure 5: Percent of cohorts in revenue bands.*
 
 Line up all nine cohorts and something jumps out that the six mechanisms alone don't explain: Nearly every cohort leans hard toward one end of the revenue distribution. 
 
@@ -355,7 +359,7 @@ That’s the limit of this taxonomy. It’s helpful looking backward. The last 3
 
 Tom Rosenstiel’s new book, “[The Next Journalism](https://www.amazon.com/Next-Journalism-Press-Change-Democracy/dp/0593800192?tag=smgglusdsadts-20&ref=&adgrpid=195855865645&hvpone=&hvptwo=&hvadid=812901959445&hvpos=&hvnetw=g&hvrand=5245606421907413901&hvqmt=a&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9007769&hvtargid=kwl-2484167636399&hvext=374088829493&hvcampaign=23946688261&hydadcr=18419_13883012_2506334&mcid=&hvocijid=5245606421907413901--&hvexpln=0&language=en_US),” argues that the era is ending on the production side. Rosenstiel argues that journalism has to stop thinking of a story as a fixed product and start thinking of it as a service built around what a reader actually needs. 
 
-The evidence we found in researching this paper says the same fracture is happening on the distribution side, and more violently. Reuters Institute researchers [describe](https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2026) it as a shift from “news finders,’’ — people who go looking for journalism from a brand they trust — to “news conveyors,” people who encounter journalism secondhand, carried to them by a creator, a group chat or an algorithm. Pew [found](https://www.pewresearch.org/journalism/2024/06/12/how-americans-get-news-on-tiktok-x-facebook-and-instagram/) 84 percent of TikTok’s news consumers get news from people they’ve never heard of, chosen for them by an algorithm neither of them controls. 
+The evidence we found in researching this paper says the same fracture is happening on the distribution side, and more violently. Reuters Institute researchers [describe](https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2026) it as a shift from “news finders,” people who go looking for journalism from a brand they trust, to “news conveyors,” people who encounter journalism secondhand, carried to them by a creator, a group chat or an algorithm. Pew [found](https://www.pewresearch.org/journalism/2024/06/12/how-americans-get-news-on-tiktok-x-facebook-and-instagram/) 84 percent of TikTok’s news consumers get news from people they’ve never heard of, chosen for them by an algorithm neither of them controls. 
 
 Governance told us who owns the newsroom, who crosses into real scale, and, mostly, *how they’re doing it.* It’s telling us less and less about whose economics can sustain them once they’ve arrived or why the capital that lifts an organization sometimes disappears as fast as it came. 
 
@@ -372,7 +376,7 @@ This paper followed the money to make sense of the current landscape. It found a
 
 Some of that is no longer hypothetical.[ Cloudflare](https://www.cjr.org/analysis/cloudflare-blocks-ai-bots-from-scraping-web-content-without-permission.php) started letting publishers charge AI crawlers for access in July 2025. The AP, Time, The Atlantic and Reddit were among the first to sign on, and by July 2026, Cloudflare [announced its first](https://techcrunch.com/2026/07/01/cloudflares-new-policy-pushes-ai-companies-to-pay-for-publishers-content/) “pay per use” model that compensates publishers when their work actually shows up inside an AI-generated answer with two pilot LLM companies. There are also a handful of open standards —[ RSL](https://rslstandard.org/),[ Free Our Feeds](https://techcrunch.com/2025/01/13/free-our-feeds-campaign-aims-to-billionaire-proof-blueskys-tech/) and the AT Protocol — competing to become the licensing and identity layer the next version of the web gets built on. 
 
-And funders are already writing checks at exactly the independent-institution boundary this paper keeps finding: The[ Lenfest Institute](https://www.lenfestinstitute.org/institute-news/lenfest-institute-awards-800k-to-support-publisher-creator-partnerships/) is backing 10 newsrooms this year, chosen from more than 120 applicants, to test creator partnerships rather than pick a side — including a Lexington, Kentucky, publisher training its own beat reporters to work as short-form video and audio journalists.
+And funders are already writing checks at exactly the independent-institution boundary this paper keeps finding: The[ Lenfest Institute](https://www.lenfestinstitute.org/institute-news/lenfest-institute-awards-800k-to-support-publisher-creator-partnerships/) is backing 10 newsrooms this year, chosen from more than 120 applicants, to test creator partnerships rather than pick a side — including a Lexington, Kentucky publisher training its own beat reporters to work as short-form video and audio journalists.
 
 We hope future convenings and scholarship can continue to look into this dynamism with a blend of healthy skepticism and clear-eyed hope. The economics are clearly changing as are the practical realities on the ground where the audience is constantly moving — agentic interfaces already summarizing journalism before a reader sees it, various versions of protocol-and-payments layers being trialed, a fast-growing stack of AI licensing deals, and different visions of community engagement and stewardship.
 

@@ -1,29 +1,31 @@
 # Changes since the deployed preview
 
-**Draft: generated from a dry run. The lint gate currently fails on this docx, so no new page has been built.** Old: FINAL FINAL v938 - Networks and nodes (4).docx (the text now live). New: FINAL FINAL v938 - Networks and nodes (7).docx. Generated 2026-10-20. Accepted text only; figure labels, captions and the byline are listed at the end.
+**Draft: generated from a dry run. The lint gate currently fails on this docx, so no new page has been built.** Old: FINAL FINAL v938 - Networks and nodes (4).docx (the text now live). New: FINAL FINAL v938 - Networks and nodes (8).docx. Generated 2026-10-23. Accepted text only; figure labels, captions and the byline are listed at the end.
 
 ## Introduction: The Reorganization No One Announced
 
 - **Changed:** By 2026, the reorganization is quite legible, if imperfect and incomplete. Between this report’s first draft and final publication, CBS changed hands and its new owner, Paramount Skydance, bought CNN's parent company. Vox Media split into two buyers about a month apart — Vox.com, New York Magazine and the podcast netwo …  →  By late 2026, the reorganization is quite legible, if imperfect and incomplete. Between this report’s first draft and final publication, CBS changed hands and its new owner, Paramount Skydance, bought CNN's parent company. Vox Media split into two buyers about a month apart — Vox.com, New York Magazine and the podcast …
-- **Changed:** … of the media business. What we found is a field sorted into nine cohorts — not by beat, platform or size, but by governance: who owns the organization, who makes the decisions, and how the money comes in. Governance turns out to predict [text deleted in the doc] how an organization survives, but what it's structurall …  →  … of the media business. What we found, as we sorted through these headlines and deal terms,is a field best understood by governance models. Not by beat, platform or size. But governance: who owns the organization, who makes the decisions and how the money comes in. We identified and named 9 cohorts and found that gove …
-- **Changed:** … that we’ll explore in future work [text deleted in the doc] about organization size, financial success and the conditions that tend to lead to …  →  … that we’ll explore in future work about organization size, financial success and certain conditions that tend to lead to …
+- **Changed:** … of the media business. What we found is a field sorted into nine cohorts — not by beat, platform or size, but by governance: who owns the organization, who makes the decisions, and how the money comes in. Governance turns out to predict something none of the other variables do: not just how an organization survives, …  →  … of the media business. What we found, as we sorted through these headlines and deal terms, is a field best understood by governance models not by beat, platform or size. By governance, we mean who owns the organization, who makes the decisions and how the money comes in. We identified and named nine cohorts and found …
+- **Changed:** … that we’ll explore in future work — that these cohorts can tell a story about organization size, financial success and the conditions that tend to lead to …  →  … that we’ll explore in future work about organization size, financial success and certain conditions that tend to lead to …
 
 ## I. But first, some economic context
 
 - **Changed:** … the current era are the mirror opposite: Most sit below $3.5 million in revenue, and only a small share ever cross $10 million at all.  →  … the current era are the mirror opposite. Most sit below $3.5 million in revenue, and only a small share ever crosses $10 million at all.
 - **Changed:** … their public filings, news or industry coverage, and their own announcements. The data …  →  … their public filings, news or industry coverage and their own announcements. The data …
-- **Changed:** … and shutdowns as they happened throughout 2026: [text deleted in the doc] and the dataset grew out of …  →  … and shutdowns as they happened throughout 2026:: the Corporation for Public Broadcasting’s board voting to dissolve in January, The Washington Post cutting a third of its staff in February, OpenAI buying the tech talk show TBPN in April, Penske Media absorbing what was left of Vox Media in June, and Kevin Roose and C …
+- **Changed:** … shutdowns as they happened throughout 2026: Axios's $525 million sale to Cox Enterprises, Vice's Chapter 11 filing and $350 million sale to its lender consortium, Semafor's pivot to an events-first model that now generates more than half its revenue, Byron Allen's $120 million deal for BuzzFeed and HuffPost — and the …  →  … shutdowns as they happened throughout 2026: the Corporation for Public Broadcasting’s board voting to dissolve in January, The Washington Post cutting a third of its staff in February, OpenAI buying the tech talk show TBPN in April, Penske Media absorbing what was left of Vox Media in June, and Kevin Roose and Casey …
 - **Changed:** The U.S. government froze $271.5 million in U.S. Agency for International …  →  The U.S. government froze $268 million in U.S. Agency for International …
+- **Added:** Figure 1: Funding and organization timeline
 - **Changed:** … publishing the Platformer newsletter, now on Ghost. For three years, he was co-host …  →  … publishing the Platformer newsletter, now on Ghost (an open-source blogging and newsletter tool). For three years, he was co-host …
 
 ## II. The cohorts and why a governance taxonomy
 
 - **Changed:** … this taxonomy is organized by governance — where power rests and how decisions get made — rather than by beat, geography, platform …  →  … this taxonomy is organized by governance rather than by beat, geography, platform …
 - **Changed:** … Substack, Bloomberg sending from their enterprise software, and a worker-owned newsroom publishing on Ghost (an open-source blogging and newsletter tool) look identical from the outside. They …  →  … Substack, Bloomberg sending from their enterprise software and a worker-owned newsroom publishing on Ghost look identical from the outside. They …
+- **Added:** Figure 2: The nine cohorts
 
 ## II. The cohorts and why a governance taxonomy › C2 — Poly-Platform Creator Brands
 
-- **Changed:** What it is. The headline numbers are real — Heather Cox Richardson’s Letters from an American has over 2.9 million subscribers and an estimated revenue of over $5 million. The numbers beneath them are also real: 40% of creator journalists make no money from self-publishing, and only 6% call it full-time income. This is …  →  What it is. Entrepreneurs building personality-led businesses, like Heather Cox Richardson’s Letters from an American with over 2.9 million subscribers and an estimated revenue of over $5 million. BUt the cohort is very uneven. Nearly 40% of creator journalists make no money from self-publishing, and only 6% call it fu …
+- **Changed:** What it is. The headline numbers are real — Heather Cox Richardson’s Letters from an American has over 2.9 million subscribers and an estimated revenue of over $5 million. The numbers beneath them are also real: 40% of creator journalists make no money from self-publishing, and only 6% call it full-time income. This is …  →  What it is. Entrepreneurs building personality-led businesses, like Heather Cox Richardson’s Letters from an American with over 2.9 million subscribers and an estimated revenue of over $5 million. But the cohort is very uneven. Nearly 40% of creator journalists make no money from self-publishing, and only 6% call it fu …
 - **Changed:** … Pennsylvania governor’s race, and a Lexington, Kentucky, publisher is training beat reporters to …  →  … Pennsylvania governor’s race, and a Lexington, Kentucky publisher is training beat reporters to …
 
 ## II. The cohorts and why a governance taxonomy › C3 — Barbell Hybrids
@@ -48,7 +50,9 @@
 
 ## III. Paths to Sustainability
 
-- **Changed:** … as a shift from “news finders,’’ — people who go looking for journalism from a brand they trust — to “news conveyors,” people who encounter …  →  … as a shift from “news finders,’’ people who go looking for journalism from a brand they trust, to “news conveyors,” people who encounter …
+- **Added:** Figure 4: Percent of funding from grants and donations in nonprofit news organizations
+- **Added:** Figure 5: Percent of cohorts in revenue bands.
+- **Changed:** … it as a shift from “news finders,’’ — people who go looking for journalism from a brand they trust — to “news conveyors,” people who encounter …  →  … it as a shift from “news finders,” people who go looking for journalism from a brand they trust, to “news conveyors,” people who encounter …
 
 ## IV. What Comes Next
 
@@ -56,18 +60,17 @@
 
 ## Title, byline and figures
 
-- **Byline:** Justin Bank  →  Justin Bank and Andy Pergam
+- **Byline:** Justin Bank and Andy Pergam  →  By Justin Bank. Edited by Andy Pergam, Knight Center for the Future of News
 - **Added:** a "Draft updated [date]" line under the banner.
-- Old Figure 1 (Four pressures, eight years): now Figure 1
-- Old Figure 2 (Nine cohorts, organized by governance): now Figure 2
-- Old Figure 3 (One newsroom, nearly a tenth of the sector): removed (INN treemap)
-- Old Figure 4 (Defector's five-year arc): now Figure 3
-- Old Figure 5 (The middle runs on grants): now Figure 4
-- Old Figure 6 (Where governance lands): now Figure 5
-- **Figure 1: Funding and organization timeline**
-- **Figure 2: The Nine Cohorts**
-- **Figure 3: Defector Media Timeline**
-- **Figure 4: Percent of funding from grants and donations in nonprofit news organizations**
-- **Figure 5: Percent of cohorts in revenue bands**
+- Old Figure 1 (Pressures timeline): now Figure 1
+- Old Figure 2 (Nine-cohort card grid): now Figure 2
+- Old Figure 3 (Defector revenue and revenue per subscriber): now Figure 3
+- Old Figure 4 (Grant dependency lollipop): now Figure 4
+- Old Figure 5 (Band position by cohort (stacked bar)): now Figure 5
+- **Figure 1: Funding and organization timeline, 2018–2026**
+- **Figure 2: The nine cohorts**
+- **Figure 3: Defector revenue, Years 1–5**
+- **Figure 4: Share of revenue from grants and donations, nonprofit newsrooms with $3.5M–$10M in revenue (17 organizations)**
+- **Figure 5: Revenue band distribution by cohort (n=169)**
 
-_22 changed paragraph(s)._
+_26 changed paragraph(s)._
