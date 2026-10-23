@@ -115,6 +115,17 @@ window.atlasTrack = function(eventName, params) {
         ? document.currentScript.insertAdjacentHTML('beforebegin', html)
         : document.body.insertAdjacentHTML('afterbegin', html);
 
+    // Mark the current page in the nav (aria-current="page"); header.css styles it. Exact page match, ".html" and trailing slash ignored.
+    (function () {
+        function norm(p) { return (p || '/').replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/(.)\/$/, '$1') || '/'; }
+        var here = norm(window.location.pathname);
+        var links = document.querySelectorAll('#siteTopNav .nav-link, #mobileMenu .mobile-menu-link');
+        for (var i = 0; i < links.length; i++) {
+            var a = document.createElement('a'); a.href = links[i].getAttribute('href');
+            if (norm(a.pathname) === here) links[i].setAttribute('aria-current', 'page');
+        }
+    }());
+
     // Wire up behaviors after DOM is ready
     document.addEventListener('DOMContentLoaded', function () {
         _initScroll();

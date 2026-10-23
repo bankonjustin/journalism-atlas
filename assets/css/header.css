@@ -24,7 +24,7 @@ body {
     --header-border:           #ddd;
     --header-border-scrolled:  #e5e5e5;
     --header-fg:               var(--dark-gray);   /* nav links, hamburger, close */
-    --header-fg-hover:         var(--black);
+    --header-link-hover:       var(--color-accent-on-light, #5d7400);   /* hover, press and selected: Dark Olive on white (v15 § Nav) */
     --header-logo-fg:          var(--black);
     --header-badge-fg:         color-mix(in srgb, var(--color-text, #303030) 40%, transparent);
     --header-badge-border:     color-mix(in srgb, var(--color-text, #303030) 18%, transparent);
@@ -42,7 +42,7 @@ body {
     --header-border:           var(--gray-neutral-6);
     --header-border-scrolled:  var(--gray-neutral-5);
     --header-fg:               var(--gray-neutral-1);
-    --header-fg-hover:         var(--color-hover);
+    --header-link-hover:       var(--color-accent, #ceff00);            /* Acid on black */
     --header-logo-fg:          var(--gray-neutral-1);
     --header-badge-fg:         var(--gray-neutral-3);
     --header-badge-border:     var(--gray-neutral-5);
@@ -158,8 +158,19 @@ body {
     letter-spacing: 0.01em;
 }
 
-.nav-link:hover {
-    color: var(--header-fg-hover);
+/* Nav states (docs/design/DESIGN-TOKENS-v15.md § Nav): rest step 6; hover and press Dark Olive (Acid on black), underlined;
+   selected (aria-current, set by header.js) same colour with a 2px underline, offset 8px. Typeface, size and spacing unchanged. */
+.nav-link { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.nav-link:hover,
+.nav-link:active {
+    color: var(--header-link-hover);
+    text-decoration-line: underline;
+}
+.nav-link[aria-current="page"] {
+    color: var(--header-link-hover);
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
 }
 
 /* ── Search button: the v15 primary button (docs/design/DESIGN-TOKENS-v15.md § Buttons) ──
@@ -327,7 +338,12 @@ body {
 .mobile-menu-link:hover,
 .mobile-menu-link:active {
     background-color: var(--header-menu-hover-bg);
-    border-left-color: var(--lime-green);
+    border-left-color: var(--header-link-hover);
+    color: var(--header-link-hover);
+}
+.mobile-menu-link[aria-current="page"] {
+    border-left-color: var(--header-link-hover);
+    color: var(--header-link-hover);
 }
 
 /* ── Shared site footer ── */
@@ -352,13 +368,13 @@ body {
 /* Footer links (v15 § Links): white at rest, Acid + underline on hover and press. Typeface and size unchanged. */
 .footer-col ul li a { font-size: 13px; color: var(--color-link-on-dark, #fff); text-decoration: none; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.15s; }
 .footer-col ul li a:hover,
-.footer-col ul li a:active { color: var(--color-accent, #ceff00); text-decoration: underline; }
+.footer-col ul li a:active { color: var(--color-accent, #ceff00); text-decoration-line: underline; }
 .footer-bottom { border-top: 1px solid #1f1f1f; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
 .footer-copy { font-family: var(--font-mono); font-size: 9px; color: var(--color-text-on-dark-2, #c6c6c6); letter-spacing: 0.06em; }
 .footer-legal { display: flex; gap: 16px; }
 .footer-legal a { font-family: var(--font-mono); font-size: 9px; color: var(--color-link-on-dark, #fff); letter-spacing: 0.06em; text-decoration: none; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .footer-legal a:hover,
-.footer-legal a:active { color: var(--color-accent, #ceff00); text-decoration: underline; }
+.footer-legal a:active { color: var(--color-accent, #ceff00); text-decoration-line: underline; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
