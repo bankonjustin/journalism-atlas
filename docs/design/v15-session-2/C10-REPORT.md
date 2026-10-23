@@ -1,6 +1,6 @@
 # C10 report: mobile header overflow
 
-*Oct 23, 2026. Two local commits, nothing pushed. C10a fixes phones; C10b (hamburger below 1280px) is marked "review before push".*
+*Oct 23, 2026. C10a fixes phones; C10b (hamburger below 1280px) is marked "review before push". Status when written: Justin pushed Session 2 and C10a (through `62bbcb6`); C10b (`f17b9af`) and this report are the only local commits.*
 
 | Commit | What |
 |---|---|
@@ -127,4 +127,4 @@ Verified: the hamburger opens the menu by touch at 1024px with `scrollWidth` 102
 
 - C10a committed; header overflow gone at 320–768; hamburger and menu work by touch and keyboard; desktop 1280+ identical. ✔
 - C10b committed and marked. ✔
-- Nothing pushed. `git status` clean. ✔
+- C10b not pushed (held for review). `git status` clean. ✔
