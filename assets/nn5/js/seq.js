@@ -10,6 +10,7 @@ export function mount(root, { data }) {
   const stage = $('.seq-stage', root), steps = $$('[data-step]', root);
   if (!stage || steps.length < 3) return null;
   root.classList.add('seq-on');
+  $$('.seq-state', root).forEach(e => e.remove());   // the stacked copies are for phones and no-JS; drop 500+ nodes on desktop
   let userLock = false;
   const inst = f5.mount(stage, { data, state: 'pooled', onChange: (s, user) => { if (user) userLock = true; } });
   const frac = (el, line) => { const r = el.getBoundingClientRect(); return clamp((line - r.top) / Math.max(1, r.height)); };

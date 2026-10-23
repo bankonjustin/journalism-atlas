@@ -74,17 +74,20 @@ export function mount(el, { data, state = 'pooled', onChange, animate = true } =
       const holder = document.createElement('div'); holder.innerHTML = gridHtml(rows, next);
       const pool = new Map(); dots.forEach(d => { const k = d.dataset.c + '|' + d.dataset.b; (pool.get(k) || pool.set(k, []).get(k)).push(d); });
       $$('.df-dots', holder).forEach(c => {
+        c.innerHTML = '';
         if (c.dataset.c === 'all') { // pooled: every cohort's dots for this band, in cohort order
           rows.forEach(r => (pool.get(r.code + '|' + c.dataset.b) || []).forEach(d => c.appendChild(d)));
-        } else { c.innerHTML = ''; (pool.get(c.dataset.c + '|' + c.dataset.b) || []).forEach(d => c.appendChild(d)); }
+        } else { (pool.get(c.dataset.c + '|' + c.dataset.b) || []).forEach(d => c.appendChild(d)); }
       });
       grid.replaceChildren(...holder.childNodes);
       grid.classList.toggle('df-pooled', b === 'pooled');
       if (anim && !reduced()) {
-        dotEls().forEach((d, i) => { const f = first.get(d), l = d.getBoundingClientRect(); if (!f) return;
-          d.style.transition = 'none'; d.style.transform = `translate(${f.left - l.left}px,${f.top - l.top}px)`; });
+        grid.classList.add('flip'); setTimeout(() => grid.classList.remove('flip'), 1250);
+        const now = dotEls(), last = now.map(d => d.getBoundingClientRect());           // all reads first
+        now.forEach((d, i) => { const f = first.get(d); if (!f) return;                    // then all writes
+          d.style.transition = 'none'; d.style.transform = `translate(${f.left - last[i].left}px,${f.top - last[i].top}px)`; });
         grid.offsetHeight;
-        dotEls().forEach((d, i) => { d.style.transition = `transform 900ms cubic-bezier(.65,0,.35,1) ${Math.round(i * 2)}ms`; d.style.transform = 'none'; });
+        now.forEach((d, i) => { d.style.transition = `transform 900ms cubic-bezier(.65,0,.35,1) ${Math.round(i * 2)}ms`; d.style.transform = 'none'; });
       }
     } else {
       const hi = HI[next];

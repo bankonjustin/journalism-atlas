@@ -45,7 +45,7 @@ export function html(data, { alt }) {
   pos.forEach(({ e, x, y, li }, i) => {
     const idx = events.indexOf(e);
     s += `<g class="tl-node lit${idx === 0 ? ' on' : ''}" tabindex="0" role="button" aria-pressed="${idx === 0}" data-i="${idx}" data-x="${((x - X0) / (X1 - X0)).toFixed(4)}" aria-label="${esc(e.date + ': ' + e.label)}">`
-      + `<circle class="halo" cx="${x}" cy="${y}" r="20"/><circle class="dot" cx="${x}" cy="${y}" r="10"/></g>`;
+      + `<circle class="hit" cx="${x}" cy="${y}" r="22" fill="transparent"/><circle class="halo" cx="${x}" cy="${y}" r="20"/><circle class="dot" cx="${x}" cy="${y}" r="10"/></g>`;
   });
   s += '</svg>';
   const list = lanes.map(ln => `<section class="tl-lane" aria-label="${esc(ln)}"><p class="tl-lane-h">${esc(ln)}</p><ol>`
@@ -74,13 +74,18 @@ export function mount(el, { data, scrub = true } = {}) {
   nodes.forEach(g => {
     const go = () => select(+g.dataset.i, true);
     g.addEventListener('click', go); g.addEventListener('focus', go);
-    g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); go(); } });
+    g.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); go(); }
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[ev.key];
+      if (step) { ev.preventDefault(); const t = nodes.find(n => +n.dataset.i === +g.dataset.i + step); if (t) t.focus(); }
+    });
   });
   let curP = 1;
   const host = el.closest('.tl-scene');
-  if (!scrub || !host || reduced() || innerWidth < 700) return;
+  if (!scrub || !host || reduced() || innerWidth < 900) return;
   host.classList.add('scrub-on');
-  const mq = matchMedia('(max-width: 699px)');
+  const hint = $('.tl-hint', el); if (hint) hint.textContent = 'Scroll to light the stations, or select any one to see the event and the cohorts it hit.';
+  const mq = matchMedia('(max-width: 899px)');
   scene(host, (r, vh) => {
     if (mq.matches) { host.classList.remove('scrub-on'); svg.style.removeProperty('--p'); nodes.forEach(n => n.classList.add('lit')); return; }
     host.classList.add('scrub-on');

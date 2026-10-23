@@ -27,7 +27,9 @@ export function mount() {
   btn.addEventListener('click', () => { last = 'btn'; setOpen(!open); });
   scrim.addEventListener('click', () => setOpen(false));
   $('.dock-x', dock).addEventListener('click', () => setOpen(false));
-  dock.addEventListener('click', e => { if (e.target.closest('a') && !wide.matches) setOpen(false, false); });
+  dock.addEventListener('click', e => { const a = e.target.closest('a'); if (a && !wide.matches) setOpen(false, false);
+    const t = a && a.getAttribute('href').startsWith('#') && document.getElementById(a.getAttribute('href').slice(1)); const h = t && t.querySelector('h3');
+    if (h) { h.setAttribute('tabindex', '-1'); setTimeout(() => h.focus({ preventScroll: true }), 60); } });
   addEventListener('keydown', e => {
     if (!open || wide.matches) return;
     if (e.key === 'Escape') { setOpen(false); return; }
@@ -46,6 +48,7 @@ export function mount() {
     if (!inside) return;
     let cur = null;
     cohorts.forEach(c => { if (c.getBoundingClientRect().top < vh * .45) cur = c.id.toUpperCase(); });
+    btn.textContent = cur ? 'Map · ' + cur : 'Map';
     links.forEach(a => { const on = a.dataset.c === cur; a.classList.toggle('cur', on); if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
   });
 }

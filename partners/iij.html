@@ -60,10 +60,7 @@ img { max-width: 100%; display: block; }
 .filter-bar-inner { max-width: 1040px; margin: 0 auto; padding: 0 40px; }
 .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .filter-label { font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #888; white-space: nowrap; min-width: 100px; }
-.chip { display: inline-flex; align-items: center; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 400; background: var(--page-bg); border: 0.5px solid var(--border); color: var(--color-text); cursor: pointer; transition: background 0.12s, border-color 0.12s, color 0.12s; user-select: none; }
-.chip:hover { background: #e4e4e9; border-color: #b0b0b8; }
-.chip.active { background: var(--color-accent); border-color: var(--color-accent-on-light); color: var(--color-text); }
-.chip:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+.chip { align-items: center; user-select: none; }
 
 .act-divider { background: #fff; height: 48px; padding: 0 40px; }
 .act-divider-inner { width: 100%; max-width: 1040px; margin: 0 auto; height: 100%; display: flex; align-items: center; }
@@ -383,9 +380,9 @@ function renderFilterBar() {
     <div class="filter-bar-inner">
       <div class="filter-row">
         <span class="filter-label">Atlas status</span>
-        <button class="chip active" data-value="">All</button>
-        <button class="chip" data-value="in">Already in the Atlas</button>
-        <button class="chip" data-value="pending">Newly surfaced</button>
+        <button class="chip active btn btn--secondary" data-value="">All</button>
+        <button class="chip btn btn--secondary" data-value="in">Already in the Atlas</button>
+        <button class="chip btn btn--secondary" data-value="pending">Newly surfaced</button>
       </div>
     </div>
   `;

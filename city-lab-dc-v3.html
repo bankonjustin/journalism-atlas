@@ -292,24 +292,7 @@ img { max-width: 100%; }
 }
 .filter-bar + .filter-bar { margin-top: -16px; }
 .pill {
-  font-family: var(--ff-head);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: 100px;
-  border: 1.5px solid var(--dark);
-  background: transparent;
-  color: var(--dark);
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.pill:hover { background: var(--dark); color: var(--white); }
-.pill.active { background: var(--dark); color: var(--color-acid); border-color: var(--dark); }
-.pill.green { border-color: var(--olive); color: var(--olive); }
-.pill.green:hover, .pill.green.active { background: var(--olive); color: var(--white); }
+  white-space: nowrap; }
 
 /* =========================================
    OUTLET CARDS
@@ -855,9 +838,9 @@ img { max-width: 100%; }
     <p class="section-sub">Tap any row for context. Toggle between what legacy institutions cover and what independent creators are doing.</p>
 
     <div class="beat-toggle-bar">
-      <button class="pill active" data-beatview="both">Both</button>
-      <button class="pill" data-beatview="institutional">Institutional Only</button>
-      <button class="pill" data-beatview="independent">Independent Only</button>
+      <button class="pill active btn btn--secondary" data-beatview="both">Both</button>
+      <button class="pill btn btn--secondary" data-beatview="institutional">Institutional Only</button>
+      <button class="pill btn btn--secondary" data-beatview="independent">Independent Only</button>
     </div>
 
     <div class="beat-table-wrap">
@@ -895,9 +878,9 @@ img { max-width: 100%; }
 
     <div class="creator-controls">
       <div class="creator-filter-group" id="creator-layer-filters">
-        <button class="pill" data-layer="all">All (<span class="all-count"></span>)</button>
-        <button class="pill" data-layer="journalism">Journalism (<span class="j-count"></span>)</button>
-        <button class="pill active" data-layer="lifestyle">Lifestyle (<span class="l-count"></span>)</button>
+        <button class="pill btn btn--secondary" data-layer="all">All (<span class="all-count"></span>)</button>
+        <button class="pill btn btn--secondary" data-layer="journalism">Journalism (<span class="j-count"></span>)</button>
+        <button class="pill active btn btn--secondary" data-layer="lifestyle">Lifestyle (<span class="l-count"></span>)</button>
       </div>
     </div>
     <div class="creator-controls" style="margin-bottom:20px;">
@@ -978,10 +961,10 @@ img { max-width: 100%; }
     <p class="section-sub">The institutional landscape that predates the collapse — and how each is faring.</p>
 
     <div class="filter-bar" id="legacy-status-filters">
-      <button class="pill active" data-filter="legacy-status" data-val="all">All</button>
-      <button class="pill" data-filter="legacy-status" data-val="expanding">🟢 Expanding</button>
-      <button class="pill" data-filter="legacy-status" data-val="stable">🟡 Stable</button>
-      <button class="pill" data-filter="legacy-status" data-val="contracting">🔴 Contracting</button>
+      <button class="pill active btn btn--secondary" data-filter="legacy-status" data-val="all">All</button>
+      <button class="pill btn btn--secondary" data-filter="legacy-status" data-val="expanding">🟢 Expanding</button>
+      <button class="pill btn btn--secondary" data-filter="legacy-status" data-val="stable">🟡 Stable</button>
+      <button class="pill btn btn--secondary" data-filter="legacy-status" data-val="contracting">🔴 Contracting</button>
     </div>
 
     <div class="legacy-grid" id="legacy-grid"></div>
@@ -1194,8 +1177,8 @@ function getFilteredCreators() {
 function buildTopicFilters() {
   const topics = [...new Set(DC_ALL.flatMap(c => c.topic.split(',').map(t=>t.trim())))].sort();
   const bar = document.getElementById('creator-topic-filters');
-  bar.innerHTML = '<button class="pill active" data-topic="all">All Topics</button>' +
-    topics.map(t => `<button class="pill green" data-topic="${t}">${t}</button>`).join('');
+  bar.innerHTML = '<button class="pill active btn btn--secondary" data-topic="all">All Topics</button>' +
+    topics.map(t => `<button class="pill green btn btn--secondary" data-topic="${t}">${t}</button>`).join('');
   bar.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
       bar.querySelectorAll('button').forEach(b=>b.classList.remove('active'));

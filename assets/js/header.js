@@ -43,6 +43,14 @@ window.atlasTrack = function(eventName, params) {
     // available site-wide; nothing switches to it yet (DM Mono / JetBrains Mono are still in use).
     ensureFont('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap');
 
+    // Shared component behaviour (keeps aria-pressed / aria-selected in step with the selected class). See components.js.
+    if (!document.querySelector('script[src*="/assets/js/components.js"]')) {
+        var cs = document.createElement('script');
+        cs.src = '/assets/js/components.js';
+        cs.defer = true;
+        document.head.appendChild(cs);
+    }
+
     // Header theme: 'white' (default, live) or 'black' (DESIGN-TOKENS-v15.md § Site Header). Pages may request a
     // theme with <html data-header-theme="...">; the CSS lives in header.css. The logo is chosen from the theme:
     // blk on a white header, wht on a black header. The two files share identical geometry, so swapping them

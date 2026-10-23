@@ -61,10 +61,7 @@ img { max-width: 100%; display: block; }
 .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .filter-row + .filter-row { margin-top: 10px; }
 .filter-label { font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #888; white-space: nowrap; min-width: 100px; }
-.chip { display: inline-flex; align-items: center; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 400; background: var(--page-bg); border: 0.5px solid var(--border); color: var(--color-text); cursor: pointer; transition: background 0.12s, border-color 0.12s, color 0.12s; user-select: none; }
-.chip:hover { background: #e4e4e9; border-color: #b0b0b8; }
-.chip.active { background: var(--color-accent); border-color: var(--color-accent-on-light); color: var(--color-text); }
-.chip:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+.chip { align-items: center; user-select: none; }
 
 /* ── ACT DIVIDER ── */
 .act-divider { background: #fff; height: 48px; padding: 0 40px; }
@@ -307,8 +304,8 @@ function renderFilterBar() {
   const topics    = [...new Set(creators.map(c => c.topic))].sort();
   const platforms = [...new Set(creators.map(c => c.platform))].sort();
   function chipsHTML(values, dimension) {
-    const allChip = `<button class="chip active" data-dimension="${esc(dimension)}" data-value="">All</button>`;
-    const rest = values.map(v => `<button class="chip" data-dimension="${esc(dimension)}" data-value="${esc(v)}">${esc(v)}</button>`).join('');
+    const allChip = `<button class="chip active btn btn--secondary" data-dimension="${esc(dimension)}" data-value="">All</button>`;
+    const rest = values.map(v => `<button class="chip btn btn--secondary" data-dimension="${esc(dimension)}" data-value="${esc(v)}">${esc(v)}</button>`).join('');
     return allChip + rest;
   }
   const el = document.createElement('div');

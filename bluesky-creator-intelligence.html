@@ -169,17 +169,13 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
 /* sort bar */
 .sort-bar { display: flex; align-items: center; gap: 6px; }
 .sort-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; flex-shrink: 0; }
-.sort-btn { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: none; border: 1px solid transparent; padding: 5px 12px; border-radius: 9999px; cursor: pointer; letter-spacing: 0.04em; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
-.sort-btn:hover { color: var(--text-primary); border-color: var(--border); }
-.sort-btn.active { color: var(--color-accent-on-light); border-color: var(--color-accent-on-light); background: rgba(151,214,0,0.08); font-weight: 600; }
+.sort-btn { white-space: nowrap; }
 
 /* filter row */
 .filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .filter-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; flex-shrink: 0; }
 .filter-pills { display: flex; gap: 5px; flex-wrap: wrap; }
-.filter-pill { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 12px; border-radius: 9999px; border: 1px solid var(--border); color: var(--text-muted); background: transparent; cursor: pointer; transition: all 0.15s; white-space: nowrap; letter-spacing: 0.03em; }
-.filter-pill:hover { border-color: var(--color-accent-on-light); color: var(--text-primary); }
-.filter-pill.active { background: var(--color-accent); color: #000; border-color: var(--color-accent-on-light); font-weight: 600; }
+.filter-pill { white-space: nowrap; }
 .filter-divider { width: 1px; height: 18px; background: var(--border); margin: 0 4px; flex-shrink: 0; }
 
 /* status count */
@@ -417,9 +413,9 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
     <div class="sort-bar">
       <span class="sort-label">Sort:</span>
       <div class="filter-pills">
-        <button class="sort-btn active" data-sort="followers">Bluesky Followers</button>
-        <button class="sort-btn" data-sort="name">Name A→Z</button>
-        <button class="sort-btn" data-sort="beat">Beat A→Z</button>
+        <button class="sort-btn active btn btn--secondary" data-sort="followers">Bluesky Followers</button>
+        <button class="sort-btn btn btn--secondary" data-sort="name">Name A→Z</button>
+        <button class="sort-btn btn btn--secondary" data-sort="beat">Beat A→Z</button>
       </div>
     </div>
 
@@ -435,10 +431,10 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
     <div class="filter-row">
       <span class="filter-label">Platform:</span>
       <div class="filter-pills">
-        <button class="filter-pill" data-platform="newsletter">Newsletter</button>
-        <button class="filter-pill" data-platform="video">Video</button>
-        <button class="filter-pill" data-platform="podcast">Podcast</button>
-        <button class="filter-pill" data-platform="cross">Cross-platform</button>
+        <button class="filter-pill btn btn--secondary" data-platform="newsletter">Newsletter</button>
+        <button class="filter-pill btn btn--secondary" data-platform="video">Video</button>
+        <button class="filter-pill btn btn--secondary" data-platform="podcast">Podcast</button>
+        <button class="filter-pill btn btn--secondary" data-platform="cross">Cross-platform</button>
       </div>
     </div>
 
@@ -862,7 +858,7 @@ function initBeatPills(creators) {
     .filter(name => (beatCounts[name] || 0) >= 5)
     .forEach(name => {
       const pill = document.createElement('button');
-      pill.className = 'filter-pill';
+      pill.className = 'filter-pill btn btn--secondary';
       pill.dataset.beat = name;
       pill.textContent = name;
       pill.addEventListener('click', () => {
@@ -1352,7 +1348,7 @@ function initGeoPills(creators) {
 
   regions.forEach(region => {
     const pill = document.createElement('button');
-    pill.className = 'filter-pill';
+    pill.className = 'filter-pill btn btn--secondary';
     pill.dataset.geo = region;
     pill.textContent = region;
     pill.addEventListener('click', () => {

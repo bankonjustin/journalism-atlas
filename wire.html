@@ -99,17 +99,6 @@
       display: flex; gap: 8px; flex-wrap: wrap;
       margin-bottom: 32px;
     }
-    .beat-tab {
-      padding: 7px 16px; border-radius: 9999px;
-      font-family: inherit; font-size: 13px; font-weight: 500;
-      cursor: pointer; border: 1.5px solid var(--color-border, #c6c6c6);
-      background: transparent; color: var(--color-text-secondary, #5e5e5e);
-      transition: all 0.15s;
-    }
-    .beat-tab:hover { border-color: #000; color: #000; }
-    .beat-tab.active {
-      background: #000; color: #fff; border-color: #000;
-    }
 
     /* ── Feed stack ── */
     .feed-stack {
@@ -300,7 +289,7 @@
 
     <!-- Beat filter tabs, populated by JS -->
     <div class="beat-filters" id="beat-filters">
-      <button class="beat-tab active" data-beat="">All</button>
+      <button class="beat-tab active btn btn--secondary" data-beat="">All</button>
     </div>
 
     <!-- Feed -->
@@ -389,7 +378,7 @@ function buildBeatTabs() {
   const container = document.getElementById('beat-filters');
   beats.forEach(beat => {
     const btn = document.createElement('button');
-    btn.className = 'beat-tab';
+    btn.className = 'beat-tab btn btn--secondary';
     btn.dataset.beat = beat;
     btn.textContent = beat;
     btn.onclick = () => applyFilter(beat);

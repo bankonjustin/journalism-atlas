@@ -7,7 +7,7 @@ export const id = 'fig-0-scale';
 const N = Math.ceil(100000000 / 8800); // derived, internal only
 
 export const LEGEND = [
-  ['sw-one', '$8,800', 'Roger Sollenberger’s GoFundMe, as of this writing. One square.'],
+  ['sw-one', '$8,800', 'Roger Sollenberger’s GoFundMe has raised over $8,800, as of this writing. One square is that amount.'],
   ['sw-many', 'One square = $8,800.', 'The field is drawn at $100 million, the bottom of “the low hundreds of millions” reported for OpenAI’s TBPN purchase.'],
 ];
 export const NOTE = 'The reported TBPN price was not disclosed precisely; this view uses the lowest figure consistent with the reporting, so the real gap is likely larger.';
@@ -30,7 +30,9 @@ export function mount(el, { scrub = true } = {}) {
   const wrap = $('.scale-wrap', el), cv = $('.s1-canvas', el), label = $('.scale-pin-label', el), box = el.closest('.s1') || el;
   if (!cv || reduced() || !scrub) return;
   const ctx = cv.getContext('2d');
-  let W = 0, H = 0, dpr = 1, geom = null;
+  let W = 0, H = 0, dpr = 1, geom = null, ink = css('--ink'), bg = css('--bg');
+  const recolor = () => { ink = css('--ink'); bg = css('--bg'); };
+  if (matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change', recolor);
   function size() {
     const r = wrap.getBoundingClientRect(); W = Math.round(r.width); H = Math.round(r.height); dpr = Math.min(devicePixelRatio || 1, 2);
     cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
@@ -43,7 +45,7 @@ export function mount(el, { scrub = true } = {}) {
     const S = Math.exp(lerp(Math.log(s0), Math.log(sF), e));
     const ox = lerp((W - S) / 2, (W - cols * sF) / 2, e), oy = lerp((H - S) / 2, (H - rows * sF) / 2, e);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-    const ink = css('--ink'), g = Math.max(1, S * (1 - 1 / 7));
+    const g = Math.max(1, S * (1 - 1 / 7));
     const a = clamp((e - .06) * 4) * .28;
     if (a > 0) {
       ctx.fillStyle = ink; ctx.globalAlpha = a;
@@ -53,7 +55,7 @@ export function mount(el, { scrub = true } = {}) {
       ctx.globalAlpha = 1;
     }
     ctx.fillStyle = ink; ctx.fillRect(ox, oy, g, g);
-    ctx.strokeStyle = css('--bg'); ctx.lineWidth = 1; ctx.strokeRect(ox - .5, oy - .5, g + 1, g + 1);
+    ctx.strokeStyle = bg; ctx.lineWidth = 1; ctx.strokeRect(ox - .5, oy - .5, g + 1, g + 1);
     label.style.transform = `translate(${Math.round(ox + g + 10)}px,${Math.round(oy + Math.min(g * .5, 18))}px)`;
   }
   wrap.classList.add('canvas-on'); cv.hidden = false; box.classList.add('s1-on');

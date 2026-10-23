@@ -28,7 +28,7 @@ export function html(rows, { alt, threshold = PAPER, controls = true }) {
     + `<span class="lp-val">${r.pct}%</span></div>`).join('');
   return `${ctl}<p class="lp-readout" id="lpOut" aria-live="polite">${readout(rows, t)}</p>`
     + `<div class="lp" role="img" aria-label="${esc(alt)}"><div class="lp-plot" style="--t:${t}">${plot}<div class="lp-th"><span>${t}%</span></div></div></div>`
-    + `<p class="lp-key" aria-hidden="true"><span class="k-over"></span>more than the threshold <span class="k-under"></span>at or below it</p>`;
+    + `<p class="lp-key" aria-hidden="true"><span class="k-over"></span>more than the threshold <span class="k-under"></span>at or below it<span class="lp-round">Percentages are rounded to whole numbers; counts use the rounded values.</span></p>`;
 }
 
 export function tableHtml(rows) {
@@ -52,7 +52,7 @@ export function mount(el, { data, state } = {}) {
   }
   rng.addEventListener('input', () => place(true));
   reset.addEventListener('click', () => { rng.value = PAPER; place(true); rng.focus(); });
-  const m = /^fig-4-(\d\d)$/.exec(state || '');
-  if (m && +m[1] >= 40 && +m[1] <= 99) rng.value = m[1];
-  place(false);
+  const apply = tk => { const m = /^fig-4-(\d\d)$/.exec(tk || ''); if (tk === 'fig-4-threshold') rng.value = PAPER; else if (m && +m[1] >= 40 && +m[1] <= 99) rng.value = m[1]; else return false; place(false); return true; };
+  apply(state);
+  return { apply };
 }

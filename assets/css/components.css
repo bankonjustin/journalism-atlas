@@ -84,7 +84,8 @@
 :is(.btn--primary)[aria-current]:not([aria-current="false"]),
 .btn--primary.is-selected,
 .btn--primary.selected,
-.btn--primary.active {
+.btn--primary.active,
+.btn--primary[class*="--active"] {
   --btn-bg: var(--color-surface);
   --btn-fg: var(--color-heading);
   --btn-line: var(--color-heading);
@@ -94,7 +95,8 @@
 :where(.on-dark, [data-surface="dark"]) .btn--primary[aria-current]:not([aria-current="false"]),
 :where(.on-dark, [data-surface="dark"]) .btn--primary.is-selected,
 :where(.on-dark, [data-surface="dark"]) .btn--primary.selected,
-:where(.on-dark, [data-surface="dark"]) .btn--primary.active {
+:where(.on-dark, [data-surface="dark"]) .btn--primary.active,
+:where(.on-dark, [data-surface="dark"]) .btn--primary[class*="--active"] {
   --btn-line: var(--color-surface);
 }
 /* Secondary, light: inverted, black fill and border, white text. Dark: white fill and border, black text. */
@@ -103,7 +105,8 @@
 .btn--secondary[aria-current]:not([aria-current="false"]),
 .btn--secondary.is-selected,
 .btn--secondary.selected,
-.btn--secondary.active {
+.btn--secondary.active,
+.btn--secondary[class*="--active"] {
   --btn-bg: var(--color-heading);
   --btn-fg: var(--color-surface);
   --btn-line: var(--color-heading);
@@ -113,7 +116,8 @@
 :where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-current]:not([aria-current="false"]),
 :where(.on-dark, [data-surface="dark"]) .btn--secondary.is-selected,
 :where(.on-dark, [data-surface="dark"]) .btn--secondary.selected,
-:where(.on-dark, [data-surface="dark"]) .btn--secondary.active {
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.active,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[class*="--active"] {
   --btn-bg: var(--color-surface);
   --btn-fg: var(--color-heading);
   --btn-line: var(--color-surface);
@@ -136,12 +140,14 @@
 .btn--primary.is-selected:hover,
 .btn--primary.selected:hover,
 .btn--primary.active:hover,
+.btn--primary[class*="--active"]:hover,
 .btn--secondary[aria-pressed="true"]:hover,
 .btn--secondary[aria-selected="true"]:hover,
 .btn--secondary[aria-current]:not([aria-current="false"]):hover,
 .btn--secondary.is-selected:hover,
 .btn--secondary.selected:hover,
 .btn--secondary.active:hover,
+.btn--secondary[class*="--active"]:hover,
 .btn--primary[aria-pressed="true"]:active,
 .btn--primary[aria-selected="true"]:active,
 .btn--secondary[aria-pressed="true"]:active,
@@ -156,12 +162,14 @@
 :where(.on-dark, [data-surface="dark"]) .btn--primary.is-selected:hover,
 :where(.on-dark, [data-surface="dark"]) .btn--primary.selected:hover,
 :where(.on-dark, [data-surface="dark"]) .btn--primary.active:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--primary[class*="--active"]:hover,
 :where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-pressed="true"]:hover,
 :where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-selected="true"]:hover,
 :where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-current]:not([aria-current="false"]):hover,
 :where(.on-dark, [data-surface="dark"]) .btn--secondary.is-selected:hover,
 :where(.on-dark, [data-surface="dark"]) .btn--secondary.selected:hover,
-:where(.on-dark, [data-surface="dark"]) .btn--secondary.active:hover {
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.active:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[class*="--active"]:hover {
   --btn-bg: var(--color-accent);
   --btn-fg: var(--color-heading);
   --btn-line: var(--color-accent);

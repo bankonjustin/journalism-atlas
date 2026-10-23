@@ -422,9 +422,7 @@
     .beat-explorer-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
     .beat-explorer-intro { font-size: 14px; color: rgba(255,255,255,0.45); margin: 0 0 16px; line-height: 1.5; }
     .beat-explorer-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    .bx-chip { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 7px 16px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-    .bx-chip:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
-    .bx-chip--active { color: #111; background: var(--color-acid); border-color: #ceff00; font-weight: 700; box-shadow: 0 0 12px rgba(206,255,0,0.25); }
+    .bx-chip { white-space: nowrap; }
     .bx-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; min-height: 120px; }
     @media (max-width: 768px) { .bx-panel { grid-template-columns: 1fr; } }
     .bx-creator-card { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 16px 18px; transition: border-color 0.15s; }
@@ -687,13 +685,13 @@
       <div class="beat-explorer-label">Explore by beat</div>
       <p class="beat-explorer-intro">Click any beat to see who's covering it.</p>
       <div class="beat-explorer-chips" role="tablist">
-        <button class="bx-chip bx-chip--active" data-beat="business" role="tab" aria-selected="true">Business &amp; Economy</button>
-        <button class="bx-chip" data-beat="politics" role="tab" aria-selected="false">Politics &amp; Government</button>
-        <button class="bx-chip" data-beat="tech" role="tab" aria-selected="false">Technology</button>
-        <button class="bx-chip" data-beat="health" role="tab" aria-selected="false">Health &amp; Science</button>
-        <button class="bx-chip" data-beat="environment" role="tab" aria-selected="false">Environment &amp; Climate</button>
-        <button class="bx-chip" data-beat="local" role="tab" aria-selected="false">Local &amp; Regional</button>
-        <button class="bx-chip" data-beat="culture" role="tab" aria-selected="false">Culture &amp; Society</button>
+        <button class="bx-chip bx-chip--active btn btn--secondary" data-beat="business" role="tab" aria-selected="true">Business &amp; Economy</button>
+        <button class="bx-chip btn btn--secondary" data-beat="politics" role="tab" aria-selected="false">Politics &amp; Government</button>
+        <button class="bx-chip btn btn--secondary" data-beat="tech" role="tab" aria-selected="false">Technology</button>
+        <button class="bx-chip btn btn--secondary" data-beat="health" role="tab" aria-selected="false">Health &amp; Science</button>
+        <button class="bx-chip btn btn--secondary" data-beat="environment" role="tab" aria-selected="false">Environment &amp; Climate</button>
+        <button class="bx-chip btn btn--secondary" data-beat="local" role="tab" aria-selected="false">Local &amp; Regional</button>
+        <button class="bx-chip btn btn--secondary" data-beat="culture" role="tab" aria-selected="false">Culture &amp; Society</button>
       </div>
       <div class="bx-panel" id="bx-panel"></div>
       <div class="bx-footer">

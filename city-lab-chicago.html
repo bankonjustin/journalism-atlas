@@ -146,16 +146,13 @@
     .layer-stat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #b0b0b8; margin-top: 2px; }
     .layer-stat-divider { font-size: 20px; color: #d4d4d8; }
     .creators-view-toggle { display: flex; gap: 4px; }
-    .view-btn { background: none; border: 1px solid #d4d4d8; border-radius: 6px; padding: 6px 8px; cursor: pointer; color: #b0b0b8; display: flex; align-items: center; }
-    .view-btn.active { background: var(--color-bg); color: var(--color-text); border-color: #b0b0b8; }
+    .view-btn { display: flex; align-items: center; }
     .creators-filter-bar { position: sticky; top: 120px; background: #fff; z-index: 10; padding: 10px 0; border-bottom: 1px solid #e8e8e8; margin-bottom: 20px; }
     .creators-filter-row { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
     .creators-filter-row::-webkit-scrollbar { display: none; }
     .creators-filter-row + .creators-filter-row { margin-top: 6px; }
     .filter-row-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #b0b0b8; align-self: center; white-space: nowrap; margin-right: 4px; flex-shrink: 0; }
-    .beat-chip, .plat-chip { display: inline-block; padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; cursor: pointer; border: 0.5px solid #d4d4d8; background: #fff; color: var(--color-text); white-space: nowrap; flex-shrink: 0; }
-    .beat-chip.active, .plat-chip.active { background: var(--color-accent); border-color: var(--color-accent-on-light); }
-    .beat-chip:hover:not(.active), .plat-chip:hover:not(.active) { background: #f4f4f6; }
+    .beat-chip, .plat-chip { white-space: nowrap; flex-shrink: 0; }
     .creators-count { font-size: 13px; color: #888; margin-bottom: 16px; }
     .creator-row { border-bottom: 0.5px solid #f0f0f0; }
     .creator-row-head { display: flex; align-items: center; gap: 10px; padding: 12px 0; cursor: pointer; user-select: none; }
@@ -191,9 +188,6 @@
     .empty-state a { color: #5d7400; font-weight: 500; cursor: pointer; }
     .full-eco-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:8px; }
     .full-eco-filters { display:flex; flex-wrap:wrap; gap:6px; }
-    .feco-btn { background:#fff; border:0.5px solid #d4d4d8; border-radius:100px; font-family:inherit; font-size:11px; font-weight:500; padding:4px 12px; cursor:pointer; color:#606068; transition:background 0.12s,color 0.12s,border-color 0.12s; }
-    .feco-btn.active { background:var(--color-bg-dark); color:#fff; border-color:var(--color-text); }
-    .feco-btn:hover:not(.active) { border-color:#b0b0b8; color:var(--color-text); }
     .full-eco-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:8px; }
     .feco-item { padding:10px 12px; border:0.5px solid #e8e8e8; border-radius:6px; display:flex; flex-direction:column; gap:4px; }
     .feco-item:hover { border-color:#b0b0b8; background:#fafafa; }
@@ -202,9 +196,6 @@
     .feco-name-plain { font-size:13px; font-weight:500; color:var(--color-text); }
     .feco-sub { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:#b0b0b8; }
     .coverage-layer-toggle { display: flex; gap: 4px; background: #f4f4f6; border-radius: 6px; padding: 3px; }
-    .cov-layer-btn { background: none; border: none; font-family: inherit; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 5px 12px; border-radius: 4px; cursor: pointer; color: #b0b0b8; transition: background 0.12s, color 0.12s; }
-    .cov-layer-btn.active { background: #fff; color: var(--color-text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .cov-layer-btn:hover:not(.active) { color: var(--color-text); }
     .coverage-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
     .coverage-sort-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #b0b0b8; }
     .cov-sort-btn { background: none; border: 0.5px solid #d4d4d8; border-radius: 100px; font-family: inherit; font-size: 11px; font-weight: 500; padding: 4px 12px; cursor: pointer; color: #606068; }
@@ -232,7 +223,7 @@
     .coverage-beat-nav::-webkit-scrollbar { display: none; }
     .cov-beat-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; border: 1.5px solid transparent; cursor: pointer; white-space: nowrap; transition: opacity 0.12s; flex-shrink: 0; }
     .cov-beat-pill:hover { opacity: 0.8; }
-    .tab-btn:focus-visible, .beats-toggle-btn:focus-visible, .beat-chip:focus-visible, .plat-chip:focus-visible, .layer-stat-btn:focus-visible, .view-btn:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+    .tab-btn:focus-visible, .beats-toggle-btn:focus-visible, .layer-stat-btn:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
     @media (max-width: 1023px) { .card-grid { grid-template-columns: repeat(2,1fr); } .eco-split { grid-template-columns: 1fr; } .anchor-grid { grid-template-columns: 1fr; } }
     @media (max-width: 767px) { .hero { padding: 56px 0 0; } .hero-inner { padding: 0 20px 48px; } .hero-title { font-size: 32px; } .hero-stat-num-large { font-size: 40px; } .hero-stat-breakdown { gap: 20px; } .hero-stat-num-child { font-size: 22px; } .tab-nav { padding: 0 16px; } .tab-btn { padding: 14px 12px; font-size: 10px; } .main { padding: 24px 20px 60px; } .card-grid { grid-template-columns: 1fr; } .creators-filter-bar { top: 110px; } }
   </style>
@@ -351,12 +342,12 @@
           <p style="font-size:13px;color:#606068;margin-bottom:16px">All 245 outlets tracked in the 2026 Medill Local News Initiative study. Filter by category to explore.</p>
         </div>
         <div class="full-eco-filters" id="full-eco-filters">
-          <button class="feco-btn active" data-feco="all" onclick="setFullEcoFilter('all')">All 245</button>
-          <button class="feco-btn" data-feco="For-Profit" onclick="setFullEcoFilter('For-Profit')">For-Profit</button>
-          <button class="feco-btn" data-feco="Nonprofit" onclick="setFullEcoFilter('Nonprofit')">Nonprofit</button>
-          <button class="feco-btn" data-feco="Solopreneur" onclick="setFullEcoFilter('Solopreneur')">Solopreneur</button>
-          <button class="feco-btn" data-feco="Collective" onclick="setFullEcoFilter('Collective')">Collective</button>
-          <button class="feco-btn" data-feco="Other" onclick="setFullEcoFilter('Other')">Other</button>
+          <button class="feco-btn active btn btn--secondary" data-feco="all" onclick="setFullEcoFilter('all')">All 245</button>
+          <button class="feco-btn btn btn--secondary" data-feco="For-Profit" onclick="setFullEcoFilter('For-Profit')">For-Profit</button>
+          <button class="feco-btn btn btn--secondary" data-feco="Nonprofit" onclick="setFullEcoFilter('Nonprofit')">Nonprofit</button>
+          <button class="feco-btn btn btn--secondary" data-feco="Solopreneur" onclick="setFullEcoFilter('Solopreneur')">Solopreneur</button>
+          <button class="feco-btn btn btn--secondary" data-feco="Collective" onclick="setFullEcoFilter('Collective')">Collective</button>
+          <button class="feco-btn btn btn--secondary" data-feco="Other" onclick="setFullEcoFilter('Other')">Other</button>
         </div>
       </div>
       <div id="full-eco-count" style="font-size:11px;color:#b0b0b8;margin-bottom:12px"></div>
@@ -459,61 +450,61 @@
       <span style="font-size:12px;color:#b0b0b8">Think we&rsquo;re missing someone? <a href="mailto:hello@journalismatlas.com?subject=Chicago Creator Suggestion" style="color:#5d7400;font-weight:600">Tell us &rarr;</a></span>
     </div>
     <div class="creators-view-toggle">
-      <button class="view-btn active" data-view="list" title="List view" onclick="setView('list')"><span class="material-symbols-outlined" style="font-size:20px">view_list</span></button>
-      <button class="view-btn" data-view="grid" title="Grid view" onclick="setView('grid')"><span class="material-symbols-outlined" style="font-size:20px">grid_view</span></button>
+      <button class="view-btn active btn btn--secondary" data-view="list" title="List view" onclick="setView('list')"><span class="material-symbols-outlined" style="font-size:20px">view_list</span></button>
+      <button class="view-btn btn btn--secondary" data-view="grid" title="Grid view" onclick="setView('grid')"><span class="material-symbols-outlined" style="font-size:20px">grid_view</span></button>
     </div>
   </div>
   <div class="creators-filter-bar" id="creators-filter-bar">
     <div class="creators-filter-row" id="beat-filter-row">
       <span class="filter-row-label">Beat</span>
-      <button class="beat-chip active" data-beat="">All</button>
-      <button class="beat-chip" data-beat="City Hall &amp; Politics">City Hall &amp; Politics</button>
-      <button class="beat-chip" data-beat="Black Chicago">Black Chicago</button>
-      <button class="beat-chip" data-beat="Sports">Sports</button>
-      <button class="beat-chip" data-beat="Arts &amp; Culture">Arts &amp; Culture</button>
-      <button class="beat-chip" data-beat="Health &amp; Science">Health &amp; Science</button>
-      <button class="beat-chip" data-beat="Media &amp; Press Freedom">Media &amp; Press Freedom</button>
-      <button class="beat-chip" data-beat="Criminal Justice">Criminal Justice</button>
-      <button class="beat-chip" data-beat="LGBTQ+">LGBTQ+</button>
-      <button class="beat-chip" data-beat="Immigration">Immigration</button>
-      <button class="beat-chip" data-beat="Labor">Labor</button>
-      <button class="beat-chip" data-beat="Housing &amp; Neighborhood">Housing &amp; Neighborhood</button>
-      <button class="beat-chip" data-beat="Education / CPS">Education / CPS</button>
-      <button class="beat-chip" data-beat="Investigative">Investigative</button>
+      <button class="beat-chip active btn btn--secondary" data-beat="">All</button>
+      <button class="beat-chip btn btn--secondary" data-beat="City Hall &amp; Politics">City Hall &amp; Politics</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Black Chicago">Black Chicago</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Sports">Sports</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Arts &amp; Culture">Arts &amp; Culture</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Health &amp; Science">Health &amp; Science</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Media &amp; Press Freedom">Media &amp; Press Freedom</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Criminal Justice">Criminal Justice</button>
+      <button class="beat-chip btn btn--secondary" data-beat="LGBTQ+">LGBTQ+</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Immigration">Immigration</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Labor">Labor</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Housing &amp; Neighborhood">Housing &amp; Neighborhood</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Education / CPS">Education / CPS</button>
+      <button class="beat-chip btn btn--secondary" data-beat="Investigative">Investigative</button>
     </div>
     <div class="creators-filter-row" id="plat-filter-row" style="margin-top:6px">
       <span class="filter-row-label">Platform</span>
-      <button class="plat-chip active" data-plat="">All</button>
-      <button class="plat-chip" data-plat="Newsletter">Newsletter</button>
-      <button class="plat-chip" data-plat="Podcast">Podcast</button>
-      <button class="plat-chip" data-plat="TikTok / Video">TikTok / Video</button>
-      <button class="plat-chip" data-plat="Website">Website</button>
+      <button class="plat-chip active btn btn--secondary" data-plat="">All</button>
+      <button class="plat-chip btn btn--secondary" data-plat="Newsletter">Newsletter</button>
+      <button class="plat-chip btn btn--secondary" data-plat="Podcast">Podcast</button>
+      <button class="plat-chip btn btn--secondary" data-plat="TikTok / Video">TikTok / Video</button>
+      <button class="plat-chip btn btn--secondary" data-plat="Website">Website</button>
     </div>
     <div class="creators-filter-row" id="lifestyle-type-filter-row" style="display:none;margin-top:0">
       <span class="filter-row-label">Category</span>
-      <button class="beat-chip active" data-ltype="">All</button>
-      <button class="beat-chip" data-ltype="food">Food &amp; Restaurants</button>
-      <button class="beat-chip" data-ltype="things to do">Things To Do</button>
-      <button class="beat-chip" data-ltype="lifestyle">Lifestyle</button>
-      <button class="beat-chip" data-ltype="travel">Travel</button>
-      <button class="beat-chip" data-ltype="comedy">Comedy</button>
+      <button class="beat-chip active btn btn--secondary" data-ltype="">All</button>
+      <button class="beat-chip btn btn--secondary" data-ltype="food">Food &amp; Restaurants</button>
+      <button class="beat-chip btn btn--secondary" data-ltype="things to do">Things To Do</button>
+      <button class="beat-chip btn btn--secondary" data-ltype="lifestyle">Lifestyle</button>
+      <button class="beat-chip btn btn--secondary" data-ltype="travel">Travel</button>
+      <button class="beat-chip btn btn--secondary" data-ltype="comedy">Comedy</button>
     </div>
     <div class="creators-filter-row" id="lifestyle-plat-filter-row" style="display:none;margin-top:6px">
       <span class="filter-row-label">Platform</span>
-      <button class="plat-chip active" data-lplat="">All</button>
-      <button class="plat-chip" data-lplat="TikTok">TikTok</button>
-      <button class="plat-chip" data-lplat="Instagram">Instagram</button>
-      <button class="plat-chip" data-lplat="Newsletter">Newsletter</button>
-      <button class="plat-chip" data-lplat="Podcast">Podcast</button>
-      <button class="plat-chip" data-lplat="Website">Website</button>
+      <button class="plat-chip active btn btn--secondary" data-lplat="">All</button>
+      <button class="plat-chip btn btn--secondary" data-lplat="TikTok">TikTok</button>
+      <button class="plat-chip btn btn--secondary" data-lplat="Instagram">Instagram</button>
+      <button class="plat-chip btn btn--secondary" data-lplat="Newsletter">Newsletter</button>
+      <button class="plat-chip btn btn--secondary" data-lplat="Podcast">Podcast</button>
+      <button class="plat-chip btn btn--secondary" data-lplat="Website">Website</button>
     </div>
     <div class="creators-filter-row" id="institutions-filter-row" style="display:none;margin-top:0">
       <span class="filter-row-label">Type</span>
-      <button class="beat-chip active" data-itype="">All</button>
-      <button class="beat-chip" data-itype="nonprofit">Nonprofit</button>
-      <button class="beat-chip" data-itype="outlet">Outlet</button>
-      <button class="beat-chip" data-itype="collective">Collective</button>
-      <button class="beat-chip" data-itype="legacy">Legacy</button>
+      <button class="beat-chip active btn btn--secondary" data-itype="">All</button>
+      <button class="beat-chip btn btn--secondary" data-itype="nonprofit">Nonprofit</button>
+      <button class="beat-chip btn btn--secondary" data-itype="outlet">Outlet</button>
+      <button class="beat-chip btn btn--secondary" data-itype="collective">Collective</button>
+      <button class="beat-chip btn btn--secondary" data-itype="legacy">Legacy</button>
     </div>
   </div>
   <p class="creators-count" id="creators-count"></p>
@@ -528,9 +519,9 @@
     <div><h2 class="coverage-title">What Chicago Is Covering</h2><p class="coverage-sub">Live RSS feeds from across the Chicago media ecosystem — independent creators, nonprofit newsrooms, and legacy outlets — grouped by beat.</p></div>
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <div class="coverage-layer-toggle" id="coverage-layer-toggle">
-        <button class="cov-layer-btn active" data-clayer="all" onclick="setCoverageLayer('all')">All</button>
-        <button class="cov-layer-btn" data-clayer="creator" onclick="setCoverageLayer('creator')">Independent Creators</button>
-        <button class="cov-layer-btn" data-clayer="institution" onclick="setCoverageLayer('institution')">Newsrooms &amp; Institutions</button>
+        <button class="cov-layer-btn active btn btn--secondary" data-clayer="all" onclick="setCoverageLayer('all')">All</button>
+        <button class="cov-layer-btn btn btn--secondary" data-clayer="creator" onclick="setCoverageLayer('creator')">Independent Creators</button>
+        <button class="cov-layer-btn btn btn--secondary" data-clayer="institution" onclick="setCoverageLayer('institution')">Newsrooms &amp; Institutions</button>
       </div>
       <a href="/pulse" class="pulse-badge" style="text-decoration:none"><span class="pulse-badge-dot">&#9679;</span><span class="pulse-badge-text">Powered by Atlas Pulse</span></a>
     </div>
