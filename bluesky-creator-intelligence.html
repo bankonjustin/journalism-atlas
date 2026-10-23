@@ -81,6 +81,13 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
 .stat-strip { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; border-bottom: 1px solid var(--border); background: var(--card-bg); }
 .stat-cell { padding: 26px 28px 22px; border-right: 1px solid var(--border); }
 .stat-cell:last-child { border-right: none; }
+/* Five columns need 708px; below 768px use two, with the fifth cell across the bottom. */
+@media (max-width: 767px) {
+  .stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat-cell { min-width: 0; padding: 20px 16px 16px; border-bottom: 1px solid var(--border); }
+  .stat-cell:nth-child(2n) { border-right: none; }
+  .stat-cell:last-child { grid-column: 1 / -1; border-bottom: none; }
+}
 .stat-num { font-size: 40px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; color: var(--color-accent-on-light); margin-bottom: 7px; }
 .stat-num.gray { color: var(--text-primary); }
 .stat-num.orange { color: var(--watch); }
