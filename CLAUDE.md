@@ -105,7 +105,7 @@ assets/css/animations.css  ← Standalone animation keyframes
 The site header is injected via `assets/js/header.js` — a self-contained script that:
 - Inserts the `<nav class="top-nav">` HTML as the first element in `<body>`
 - Wires up mobile menu, scroll-shrink, and search navigation
-- Injects Inter + Material Symbols fonts if not already loaded
+- Injects Inter, Source Code Pro 500 (v15 labels; not used yet) and Material Symbols fonts if not already loaded
 
 `header.js` is loaded as the **first** `<script>` tag in `<body>` on every page. Do not duplicate nav HTML manually — edit `header.js` to change nav content.
 

@@ -7,7 +7,8 @@
 (function () {
     // Source Code Pro is scoped to the footer only for now — every other
     // hardcoded 'JetBrains Mono' declaration on the site is untouched.
-    if (!document.querySelector('link[href*="Source+Code+Pro"]')) {
+    // Match the 400 request specifically: header.js also loads Source Code Pro (500).
+    if (!document.querySelector('link[href*="Source+Code+Pro:wght@400"]')) {
         var monoLink = document.createElement('link');
         monoLink.rel = 'stylesheet';
         monoLink.href = 'https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap';
