@@ -1,0 +1,237 @@
+/* =============================================
+   JOURNALISM ATLAS — SHARED COMPONENTS (v15)
+   docs/design/DESIGN-TOKENS-v15.md § Component States
+
+   Load right after variables.css on every page that loads it:
+     <link rel="stylesheet" href="/assets/css/variables.css">
+     <link rel="stylesheet" href="/assets/css/components.css">
+
+   Green means interaction: these components rest in monotones and turn
+   Acid on hover and press. State names follow v15's Interactive States
+   table: Rest, Hover/press, Selected, Focus, Disabled. ("Selected" is the
+   current page, tab or filter; never call it "active".)
+
+   SURFACES. Light is the default. Put `.on-dark` (or data-surface="dark")
+   on a dark section container to get the dark-surface variants of
+   everything below. The surface rules only change custom properties, and
+   they use :where() so they add no specificity: the state rules below
+   them win, in source order. Keep this order: rest, dark rest, selected,
+   hover/press, disabled. (Hover sits after selected, so "selected + hover"
+   is Acid, as v15 requires. Disabled sits last so it never hovers.)
+
+   SELECTED is styled from the ARIA attributes v15 names AND from the
+   selected classes the existing page JS already toggles (.active,
+   .is-selected, .selected), so components work before markup carries ARIA.
+   ============================================= */
+
+/* ---------- Buttons: shared base (v15 § Buttons) ---------- */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-heading);
+  --btn-line: var(--color-button-2-outline);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm, 8px);
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--btn-line);
+  border-radius: var(--radius-base, 6px);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-transform: none;           /* sentence case, always */
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 150ms ease), border-color var(--transition-fast, 150ms ease), color var(--transition-fast, 150ms ease);
+}
+
+/* ---------- Primary button: the main action in a group ---------- */
+/* Rest, light: step-6 fill, white text, step-5 outline */
+.btn--primary {
+  --btn-bg: var(--color-button);
+  --btn-fg: var(--color-surface);
+  --btn-line: var(--color-button-outline);
+}
+/* Rest, dark: same fill, step-4 outline */
+:where(.on-dark, [data-surface="dark"]) .btn--primary {
+  --btn-line: var(--color-button-outline-on-dark);
+}
+
+/* ---------- Secondary button: filters and other repeated options ---------- */
+/* Rest, light: no fill, black text, step-6 outline */
+.btn--secondary {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-heading);
+  --btn-line: var(--color-button-2-outline);
+}
+/* Rest, dark: white text, step-4 outline */
+:where(.on-dark, [data-surface="dark"]) .btn--secondary {
+  --btn-fg: var(--color-surface);
+  --btn-line: var(--color-button-outline-on-dark);
+}
+
+/* ---------- Selected ---------- */
+/* Primary, light: white fill, black text, black outline. Dark: white outline. */
+:is(.btn--primary)[aria-pressed="true"],
+:is(.btn--primary)[aria-selected="true"],
+:is(.btn--primary)[aria-current]:not([aria-current="false"]),
+.btn--primary.is-selected,
+.btn--primary.selected,
+.btn--primary.active {
+  --btn-bg: var(--color-surface);
+  --btn-fg: var(--color-heading);
+  --btn-line: var(--color-heading);
+}
+:where(.on-dark, [data-surface="dark"]) .btn--primary[aria-pressed="true"],
+:where(.on-dark, [data-surface="dark"]) .btn--primary[aria-selected="true"],
+:where(.on-dark, [data-surface="dark"]) .btn--primary[aria-current]:not([aria-current="false"]),
+:where(.on-dark, [data-surface="dark"]) .btn--primary.is-selected,
+:where(.on-dark, [data-surface="dark"]) .btn--primary.selected,
+:where(.on-dark, [data-surface="dark"]) .btn--primary.active {
+  --btn-line: var(--color-surface);
+}
+/* Secondary, light: inverted, black fill and border, white text. Dark: white fill and border, black text. */
+.btn--secondary[aria-pressed="true"],
+.btn--secondary[aria-selected="true"],
+.btn--secondary[aria-current]:not([aria-current="false"]),
+.btn--secondary.is-selected,
+.btn--secondary.selected,
+.btn--secondary.active {
+  --btn-bg: var(--color-heading);
+  --btn-fg: var(--color-surface);
+  --btn-line: var(--color-heading);
+}
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-pressed="true"],
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-selected="true"],
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-current]:not([aria-current="false"]),
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.is-selected,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.selected,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.active {
+  --btn-bg: var(--color-surface);
+  --btn-fg: var(--color-heading);
+  --btn-line: var(--color-surface);
+}
+
+/* ---------- Hover / press (treated identically; also selected + hover) ---------- */
+/* Acid fill and border, black text, on both styles and both surfaces. */
+.btn--primary:hover,
+.btn--primary:active,
+.btn--secondary:hover,
+.btn--secondary:active {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-heading);
+  --btn-line: var(--color-accent);
+}
+/* Raise the specificity of hover over the selected/dark selectors above (which carry attribute selectors) */
+.btn--primary[aria-pressed="true"]:hover,
+.btn--primary[aria-selected="true"]:hover,
+.btn--primary[aria-current]:not([aria-current="false"]):hover,
+.btn--primary.is-selected:hover,
+.btn--primary.selected:hover,
+.btn--primary.active:hover,
+.btn--secondary[aria-pressed="true"]:hover,
+.btn--secondary[aria-selected="true"]:hover,
+.btn--secondary[aria-current]:not([aria-current="false"]):hover,
+.btn--secondary.is-selected:hover,
+.btn--secondary.selected:hover,
+.btn--secondary.active:hover,
+.btn--primary[aria-pressed="true"]:active,
+.btn--primary[aria-selected="true"]:active,
+.btn--secondary[aria-pressed="true"]:active,
+.btn--secondary[aria-selected="true"]:active {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-heading);
+  --btn-line: var(--color-accent);
+}
+:where(.on-dark, [data-surface="dark"]) .btn--primary[aria-pressed="true"]:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--primary[aria-selected="true"]:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--primary[aria-current]:not([aria-current="false"]):hover,
+:where(.on-dark, [data-surface="dark"]) .btn--primary.is-selected:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--primary.selected:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--primary.active:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-pressed="true"]:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-selected="true"]:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary[aria-current]:not([aria-current="false"]):hover,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.is-selected:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.selected:hover,
+:where(.on-dark, [data-surface="dark"]) .btn--secondary.active:hover {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-heading);
+  --btn-line: var(--color-accent);
+}
+
+/* ---------- Disabled: no fill, step-4 text, step-3 outline (dark: step-5 text, step-6 outline) ---------- */
+.btn:disabled,
+.btn[aria-disabled="true"],
+.btn:disabled:hover,
+.btn[aria-disabled="true"]:hover {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-muted);
+  --btn-line: var(--color-border);
+  cursor: not-allowed;
+}
+:where(.on-dark, [data-surface="dark"]) .btn:disabled,
+:where(.on-dark, [data-surface="dark"]) .btn[aria-disabled="true"],
+:where(.on-dark, [data-surface="dark"]) .btn:disabled:hover,
+:where(.on-dark, [data-surface="dark"]) .btn[aria-disabled="true"]:hover {
+  --btn-fg: var(--gray-neutral-5);
+  --btn-line: var(--gray-neutral-6);
+}
+
+/* ---------- Instruction link (MORE TECH →, VIEW IN ATLAS →) ---------- */
+/* Source Code Pro 500, 13px, caps, always ends in " →". The words are written in the markup. */
+.link-instruction {
+  --link-fg: var(--color-text);                 /* rest, light: step 6 */
+  --link-hover: var(--color-accent-on-light);   /* hover/press, light: Dark Olive, underlined */
+  font-family: var(--font-mono, 'Source Code Pro', monospace);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--link-fg);
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+:where(.on-dark, [data-surface="dark"]) .link-instruction {
+  --link-fg: var(--color-link-on-dark);         /* rest, dark: white */
+  --link-hover: var(--color-accent);            /* hover/press, dark: Acid, underlined */
+}
+.link-instruction:hover,
+.link-instruction:active,
+.link-instruction[aria-current]:not([aria-current="false"]),
+.link-instruction.is-selected,
+.link-instruction.selected,
+.link-instruction.active {
+  color: var(--link-hover);                     /* selected uses the hover colour, underline kept on */
+  text-decoration: underline;
+}
+
+/* ---------- Body link (a link inside a sentence) ---------- */
+/* Underlined at rest so it never relies on colour alone (WCAG 1.4.1). */
+.link-body {
+  --link-fg: var(--color-link);                 /* Dark Olive on light */
+  --link-hover: var(--color-heading);           /* black on hover/press */
+  color: var(--link-fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+:where(.on-dark, [data-surface="dark"]) .link-body {
+  --link-fg: var(--color-link-on-dark);         /* white on dark */
+  --link-hover: var(--color-accent);            /* Acid on hover/press */
+}
+.link-body:hover,
+.link-body:active {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
