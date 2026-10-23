@@ -146,8 +146,7 @@
     .audience-bridge-divider { width: 1px; background: #d4d4d8; margin: 0 24px; flex-shrink: 0; }
     .audience-bridge-label { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #888; }
     .audience-bridge-sub { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--color-text); line-height: 1.4; }
-    .audience-bridge-link { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; color: var(--color-accent-on-light); text-decoration: none; margin-top: 2px; }
-    .audience-bridge-link:hover { color: var(--color-accent-on-light); }
+    .audience-bridge-link { margin-top: 2px; }
     .beat-trend-grid { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
     .beat-trend-row { display: flex; align-items: center; gap: 8px; }
     .beat-trend-name { font-family: 'DM Mono', monospace; font-size: 10px; color: #555; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -247,8 +246,6 @@
     .archive-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text); font-weight: 500; margin-bottom: 20px; }
     .archive-method { font-family: 'DM Mono', monospace; font-size: 12px; color: #888; line-height: 1.7; letter-spacing: 0.02em; margin-bottom: 20px; max-width: 760px; }
     .archive-method strong { color: #555; font-weight: 700; }
-    .archive-method a { color: var(--color-accent-on-light); text-decoration: none; }
-    .archive-method a:hover { color: var(--color-accent-on-light); }
 
     @media (max-width: 700px) {
       .audience-bridge-v2 { flex-direction: column; padding: 16px 20px; gap: 16px; }
@@ -828,20 +825,8 @@
       max-width: 320px;
     }
     .pulse-brands-cta-btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-accent-on-light);
-      border: 1px solid rgba(93,116,0,0.35);
-      padding: 8px 16px;
-      border-radius: 4px;
-      text-decoration: none;
       white-space: nowrap;
-      flex-shrink: 0;
-      transition: background 0.15s;
-    }
-    .pulse-brands-cta-btn:hover { background: rgba(93,116,0,0.06); }
+      flex-shrink: 0; }
 
     @media (max-width: 767px) {
       .page-header { padding: 32px 20px 28px; }
@@ -983,18 +968,8 @@
       line-height: 1.55;
     }
     .header-intel-cta {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #ceff00;
-      text-decoration: none;
       margin-top: 4px;
-      margin-bottom: 24px;
-      display: inline-block;
-      transition: opacity 0.15s;
-    }
-    .header-intel-cta:hover { opacity: 0.7; }
+      margin-bottom: 24px; }
     .header-intel-brands { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
     .header-intel-brands-label {
       font-family: 'DM Mono', monospace;
@@ -1009,8 +984,7 @@
     .city-spotlight-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent-on-light); margin-bottom: 10px; display: flex; align-items: center; }
     .city-spotlight-title { font-size: 22px; font-weight: 700; color: #000; margin-bottom: 10px; line-height: 1.2; }
     .city-spotlight-body { font-size: 15px; color: #444; line-height: 1.6; margin-bottom: 16px; max-width: 640px; }
-    .city-spotlight-cta { display: inline-block; font-size: 13px; font-weight: 700; color: var(--color-accent-on-light); text-decoration: none; margin-bottom: 20px; }
-    .city-spotlight-cta:hover { text-decoration: underline; }
+    .city-spotlight-cta { margin-bottom: 20px; }
     .city-spotlight-stats { display: flex; gap: 24px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid #e0e0e0; }
     .city-spotlight-stat { font-size: 13px; color: #666; }
     .city-spotlight-stat strong { color: #000; font-weight: 700; margin-right: 4px; }
@@ -1049,24 +1023,24 @@
   <div class="archive-header-inner">
     <!-- TODO-LIZ: confirm archive section copy -->
     <div class="archive-eyebrow">The Full Digest</div>
-    <p class="archive-method">Pulse monitors newsletters, video, podcasts and websites. Updated weekly. <span id="archive-no-feed-count"><strong id="archive-feed-count">—</strong> feeds monitored.</span> <a href="about-this-project.html">Learn how the Atlas works →</a></p>
+    <p class="archive-method">Pulse monitors newsletters, video, podcasts and websites. Updated weekly. <span id="archive-no-feed-count"><strong id="archive-feed-count">—</strong> feeds monitored.</span> <a href="about-this-project.html" class="link-instruction">Learn how the Atlas works →</a></p>
     <div class="audience-bridge-v2">
       <div class="audience-bridge-item">
         <span class="audience-bridge-label">For journalists &amp; researchers</span>
         <span class="audience-bridge-sub">See who's covering your beat.</span>
-        <a href="/index.html" class="audience-bridge-link">Search the database →</a>
+        <a href="/index.html" class="audience-bridge-link link-instruction">Search the database →</a>
       </div>
       <div class="audience-bridge-divider"></div>
       <div class="audience-bridge-item">
         <span class="audience-bridge-label">For brands &amp; comms teams</span>
         <span class="audience-bridge-sub">Turn this into a weekly brief for your team.</span>
-        <a href="/for-brands.html" class="audience-bridge-link">How it works for brands →</a>
+        <a href="/for-brands.html" class="audience-bridge-link link-instruction">How it works for brands →</a>
       </div>
       <div class="audience-bridge-divider"></div>
       <div class="audience-bridge-item">
         <span class="audience-bridge-label">For funders &amp; partners</span>
         <span class="audience-bridge-sub">This is the infrastructure at work.</span>
-        <a href="/about-this-project.html" class="audience-bridge-link">About the Atlas →</a>
+        <a href="/about-this-project.html" class="audience-bridge-link link-instruction">About the Atlas →</a>
       </div>
     </div>
   </div>
@@ -1116,7 +1090,7 @@
           <div class="pulse-brands-cta-label">Turn this into a brief for your team.</div>
           <div class="pulse-brands-cta-sub">The Atlas packages this intelligence into custom weekly briefs for communications and research teams — curated by beat, geography, or partner.</div>
         </div>
-        <a href="for-brands.html" class="pulse-brands-cta-btn">Learn more →</a>
+        <a href="for-brands.html" class="pulse-brands-cta-btn link-instruction">Learn more →</a>
       </div>
     </div>
   </div>
@@ -2193,7 +2167,7 @@
     </div>
     <h2 class="city-spotlight-title">Chicago Media Ecosystem</h2>
     <p class="city-spotlight-body">76 independent creators. 245 outlets across all models. The Atlas has mapped who's covering Chicago — beat by beat, neighborhood by neighborhood.</p>
-    <a href="/city-lab-chicago" class="city-spotlight-cta">Explore the Chicago City Lab →</a>
+    <a href="/city-lab-chicago" class="city-spotlight-cta link-instruction">Explore the Chicago City Lab →</a>
     <div class="city-spotlight-stats">
       <span class="city-spotlight-stat"><strong>39</strong> Journalism creators</span>
       <span class="city-spotlight-stat"><strong>37</strong> Lifestyle &amp; culture</span>
@@ -2345,7 +2319,7 @@ function populateHeaderPosts() {
       </div>
       <p class="header-intel-framing">The three topics independent journalists are covering most actively this week, by post volume.</p>
       <div id="header-intel-topics">${topicsHtml}</div>
-      <a class="header-intel-cta" href="#" id="header-intel-cta-link">Full intel brief →</a>
+      <a class="header-intel-cta link-instruction" href="#" id="header-intel-cta-link">Full intel brief →</a>
       <div class="header-intel-brands">
         <div class="header-intel-brands-label">For teams</div>
         <a href="for-brands.html" style="font-size:12px; color:rgba(255,255,255,0.7); text-decoration:none; line-height:1.5; display:block;">

@@ -65,13 +65,7 @@
     .hero-subhead { font-size: 18px; color: var(--color-text-on-dark-2); line-height: 1.7; max-width: 440px; margin-top: 20px; }
     .hero-ctas { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
     .hero-small-note { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 12px; margin-bottom: 0; }
-    .hero-tertiary-link {
-      display: inline-block; margin-top: 8px;
-      font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      color: rgba(255,255,255,0.4); letter-spacing: 0.08em;
-      transition: color 0.15s;
-    }
-    .hero-tertiary-link:hover { color: rgba(255,255,255,0.7); }
+    .hero-tertiary-link { margin-top: 8px; }
 
     /* ── CLUSTER NAV PILLS ── */
     .hero-cluster-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 24px; }
@@ -140,12 +134,12 @@
     .stat-num.green { color: var(--color-accent-on-light); }
     .stat-num.dark  { color: #000; }
     .stat-lbl { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #888; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.55; }
+    .stat-sub-link { margin-top: 3px; }
     .stat-sub { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--color-accent-on-light); font-weight: 400; margin-top: 3px; letter-spacing: 0.04em; }
     @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
     .stat-live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #5d7400; margin-right: 3px; vertical-align: middle; animation: pulseDot 1.8s ease-in-out infinite; }
     .stat-cell--linked { text-decoration: none; color: inherit; cursor: pointer; transition: opacity 0.15s; display: block; }
     .stat-cell--linked:hover { opacity: 0.75; }
-    .stat-cell--linked .stat-sub { color: var(--color-accent-on-light); }
 
     /* ── FEATURED CREATORS ── */
     .featured-section { background: #000; padding: 64px 0 64px 40px; position: relative; overflow: hidden; }
@@ -154,7 +148,7 @@
     .featured-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px; }
     .featured-title { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 36px; }
     .featured-sub { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 480px; margin-top: 8px; }
-    .featured-view-all { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--color-acid); letter-spacing: 0.08em; white-space: nowrap; }
+    .featured-view-all { white-space: nowrap; }
     .featured-grid-wrap { position: relative; }
     .featured-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; position: relative; transition: opacity 0.3s ease; }
     .featured-card { padding: 32px 28px; border: 1px solid #1f1f1f; border-left: 1px solid #1f1f1f; display: flex; flex-direction: column; gap: 12px; min-height: 0; transition: opacity 0.3s ease; }
@@ -174,8 +168,7 @@
     .featured-beat { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--color-acid); background: rgba(206,255,0,0.1); border: 1px solid rgba(206,255,0,0.2); padding: 2px 8px; border-radius: 100px; display: inline-block; text-transform: uppercase; letter-spacing: 0.1em; }
     .featured-editorial { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-top: 10px; flex: 1; }
     .featured-quote { font-size: 14px; font-style: italic; color: var(--color-text-on-dark-2); line-height: 1.6; }
-    .featured-link { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; transition: color 0.15s; margin-top: auto; }
-    .featured-link:hover { color: var(--color-acid); }
+    .featured-link { margin-top: auto; }
 
     /* ── CREDENTIALS STRIP ── */
     .credentials-strip {
@@ -203,14 +196,7 @@
       letter-spacing: 0.06em;
     }
     .credentials-link {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--color-acid);
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-      transition: opacity 0.15s;
-    }
-    .credentials-link:hover { opacity: 0.7; }
+      white-space: nowrap; }
 
     /* ── PULSE MODULE ── */
     .pulse-section { background: var(--color-bg); padding: 64px 40px; position: relative; }
@@ -221,8 +207,7 @@
     .pulse-sub { font-size: 14px; color: #666; max-width: 520px; line-height: 1.7; margin-bottom: 24px; }
     .pulse-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
     .pulse-header-left {}
-    .pulse-open-btn { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--color-accent-on-light); border: 1px solid rgba(93,116,0,0.3); padding: 6px 14px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; transition: background 0.15s; }
-    .pulse-open-btn:hover { background: rgba(93,116,0,0.06); }
+    .pulse-open-btn { white-space: nowrap; }
     .pulse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
     .pulse-col { background: #fff; border-radius: 6px; padding: 20px; }
     .pulse-col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e8e8eb; }
@@ -237,8 +222,11 @@
     .pulse-item-creator { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
     .pulse-item-headline { display: block; font-size: 13px; color: var(--color-text); line-height: 1.45; margin-bottom: 4px; text-decoration: none; }
     .pulse-item-headline:hover { color: var(--color-accent-on-light); }
-    .pulse-col-more { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--color-accent-on-light); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; text-decoration: none; }
-    .pulse-col-more:hover { text-decoration: underline; }
+    .pulse-col-more { display: block; margin-top: 12px; }
+    @media (max-width: 480px) {
+      .pulse-grid { grid-template-columns: 1fr; }
+      .pulse-free-notice { flex-wrap: wrap; }
+    }
     .pulse-item-meta { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #aaa; }
     .pulse-free-notice { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #888; font-weight: 400; margin-top: 8px; }
 
@@ -268,10 +256,9 @@
     .fp-swatch { width: 6px; height: 6px; border-radius: 1px; flex-shrink: 0; }
     .cluster-creators { border-top: 1px solid #e8e8eb; padding-top: 10px; display: flex; flex-direction: column; gap: 3px; height: 68px; overflow: hidden; }
     .cluster-creator-name { font-size: 13px; color: #555; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .cluster-explore-link { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--color-accent-on-light); letter-spacing: 0.08em; text-transform: uppercase; margin-top: auto; padding-top: 10px; opacity: 0; transition: opacity 0.2s; }
+    .cluster-explore-link { display: block; margin-top: auto; padding-top: 10px; opacity: 0; transition: opacity 0.2s; }
     .cluster-card:hover .cluster-explore-link { opacity: 1; }
     .intel-footer { margin-top: 16px; font-size: 13px; color: #888; font-weight: 400; }
-    .intel-footer a { color: var(--color-accent-on-light); font-weight: 400; }
 
     /* ── RESEARCH MODULE ── */
     .research-section { background: #fff; padding: 72px 40px; position: relative; }
@@ -294,7 +281,6 @@
     .research-card-title-text { font-size: 16px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; position: relative; z-index: 1; }
     .research-card-body { padding: 20px 24px; }
     .research-card-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 12px; }
-    .research-card-link { font-size: 12px; color: var(--color-accent-on-light); font-weight: 400; }
     .research-card--feature-link { text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
     .research-card--feature-link:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
     .research-card-header--photo { position: relative; display: flex; align-items: flex-end; padding: 16px 24px; min-height: 160px; background-size: cover; background-position: center top; }
@@ -400,12 +386,7 @@
     #cluster-drawer-search:focus {
       border-color: rgba(255,255,255,0.32); background: rgba(255,255,255,0.09);
     }
-    #cluster-drawer-atlas-link {
-      font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      color: var(--color-acid); text-decoration: none; letter-spacing: 0.06em;
-      white-space: nowrap; transition: opacity 0.15s;
-    }
-    #cluster-drawer-atlas-link:hover { opacity: 0.7; }
+    #cluster-drawer-atlas-link { white-space: nowrap; }
     #cluster-drawer-close {
       width: 28px; height: 28px;
       background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
@@ -465,12 +446,6 @@
       font-family: 'JetBrains Mono', monospace; font-size: 10px;
       color: rgba(255,255,255,0.25); letter-spacing: 0.08em;
     }
-    #cluster-drawer-full-link {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      color: var(--color-acid); text-decoration: none; letter-spacing: 0.06em;
-      transition: opacity 0.15s;
-    }
-    #cluster-drawer-full-link:hover { opacity: 0.7; }
 
     /* Backdrop — mobile only */
     #cluster-drawer-backdrop {
@@ -540,7 +515,7 @@
         <a href="/pulse.html" class="btn-ghost-white btn btn--secondary">View Pulse →</a>
       </div>
       <p class="hero-small-note">Free to explore. No account required.</p>
-      <a href="about-this-project.html" class="hero-tertiary-link">How we built this →</a>
+      <a href="about-this-project.html" class="hero-tertiary-link link-instruction">How we built this →</a>
 
       <nav class="hero-cluster-nav" aria-label="Explore by beat cluster">
         <button class="hcn-pill" data-cluster="Politics">Politics</button>
@@ -592,7 +567,7 @@
         </div>
         <div id="cluster-drawer-controls">
           <input id="cluster-drawer-search" type="text" placeholder="Filter creators…" autocomplete="off" spellcheck="false" />
-          <a id="cluster-drawer-atlas-link" href="#" target="_blank">Open in Atlas →</a>
+          <a id="cluster-drawer-atlas-link" class="link-instruction" href="#" target="_blank">Open in Atlas →</a>
           <button id="cluster-drawer-close" aria-label="Close"><span>×</span></button>
         </div>
       </div>
@@ -602,7 +577,7 @@
       <div id="cluster-drawer-footer">
         <span id="cluster-drawer-showing"></span>
         <div style="display:flex;align-items:center;gap:16px;">
-          <a id="cluster-drawer-full-link" href="#">See all in full Atlas →</a>
+          <a id="cluster-drawer-full-link" class="link-instruction" href="#">See all in full Atlas →</a>
         </div>
       </div>
     </div>
@@ -625,7 +600,7 @@
         <button class="featured-pause-btn" id="featured-pause-btn" aria-label="Pause rotation">
           <span class="material-symbols-outlined">pause_circle</span>
         </button>
-        <a href="search.html" class="featured-view-all">View all →</a>
+        <a href="search.html" class="featured-view-all link-instruction">View all →</a>
       </div>
     </div>
 
@@ -905,7 +880,7 @@ const FEATURED_POOL = [
           '<div class="featured-pub">' + c.pub + '</div>',
           '<span class="featured-beat">' + c.beat + '</span>',
           '<div class="featured-editorial">' + c.editorial + '</div>',
-          '<a href="' + c.searchUrl + '" class="featured-link">View in Atlas →</a>',
+          '<a href="' + c.searchUrl + '" class="featured-link link-instruction">View in Atlas →</a>',
         '</div>'
       ].join('');
     }).join('');
@@ -975,7 +950,7 @@ const FEATURED_POOL = [
     <span class="credentials-orgs">The Washington Post · The New York Times · NPR · Axios · Vox · USA Today</span>
     — because the map didn't exist.
   </p>
-  <a href="about-this-project.html#who-we-are" class="credentials-link">Meet the team →</a>
+  <a href="about-this-project.html#who-we-are" class="credentials-link link-instruction">Meet the team →</a>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -995,7 +970,7 @@ const FEATURED_POOL = [
           <span class="js-pulse-feeds" data-pulse-fallback="feeds">1,756</span> creator feeds, monitored regularly. Summaries by beat.
         </div>
       </div>
-      <a href="pulse.html" class="pulse-open-btn">Open full Pulse feed →</a>
+      <a href="pulse.html" class="pulse-open-btn link-instruction">Open full Pulse feed →</a>
     </div>
 
     <div class="pulse-grid" id="pulse-grid"></div>
@@ -1003,7 +978,7 @@ const FEATURED_POOL = [
     <div class="pulse-free-notice">
       <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
       Atlas Pulse is always free. No account required. &nbsp;
-      <a href="pulse.html" style="color:#5d7400; font-size:13px;">Explore the full digest →</a>
+      <a href="pulse.html" class="link-instruction">Explore the full digest →</a>
     </div>
 
   </div>
@@ -1030,7 +1005,7 @@ const FEATURED_POOL = [
     <a href="pulse.html" class="stat-cell stat-cell--linked">
       <div class="stat-num green js-pulse-feeds" data-pulse-fallback="feeds">1,756</div>
       <div class="stat-lbl">Creator RSS feeds</div>
-      <div class="stat-sub"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
+      <div class="stat-sub-link link-instruction"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
     </a>
     <div class="stat-cell">
       <div class="stat-num dark">12</div>
@@ -1066,7 +1041,7 @@ const FEATURED_POOL = [
         <div class="research-card-body">
           <div class="research-card-status">Center for News, Technology &amp; Innovation · April 2026</div>
           <p class="research-card-desc">26 independent info providers interviewed. 1 in 5 Americans now get news from individuals, not institutions. Very few are making a full income from the work.</p>
-          <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-card-link">Read the report →</a>
+          <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-card-link link-instruction">Read the report →</a>
         </div>
       </div>
 
@@ -1078,7 +1053,7 @@ const FEATURED_POOL = [
         <div class="research-card-body">
           <div class="research-card-status">Atlas Methodology Brief · May 2026</div>
           <p class="research-card-desc">How we spidered 500+ creator-journalists across the AT Protocol — starter packs, curator networks, and the structure of the independent journalism graph on Bluesky.</p>
-          <a href="bluesky-creator-intelligence.html" class="research-card-link">Read the brief →</a>
+          <a href="bluesky-creator-intelligence.html" class="research-card-link link-instruction">Read the brief →</a>
         </div>
       </div>
 
@@ -1090,7 +1065,7 @@ const FEATURED_POOL = [
         <div class="research-card-body">
           <div class="research-card-status">Knight Foundation · Arizona State University · Coming June 2026</div>
           <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem.</p>
-          <span class="research-card-link" style="color:#bbb;cursor:default;">Coming June 2026</span>
+          <span class="research-card-link" style="font-size:12px;font-weight:400;color:#bbb;cursor:default;">Coming June 2026</span>
         </div>
       </div>
 
@@ -1107,7 +1082,7 @@ const FEATURED_POOL = [
           <div class="research-card-status">Liz Kelly Nelson &amp; Justin Bank · April 2026</div>
           <p class="research-card-title-body">The reporting is moving. The credit isn't.</p>
           <p class="research-card-desc">Marisa Kabas spent a year in federal court to get the footage. Then a TV station called with three hours notice. A story about accountability journalism outside the institution — and who gets credit for it.</p>
-          <span class="research-card-link">Read on Project C →</span>
+          <span class="research-card-link link-instruction">Read on Project C →</span>
         </div>
       </a>
 
@@ -1154,7 +1129,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Ben Thompson</span>
         <span class="cluster-creator-name">Kara Swisher</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="/search?group=Power+%26+Politics" class="cluster-card">
@@ -1176,7 +1151,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Jessica Huseman</span>
         <span class="cluster-creator-name">Greg Sargent</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="/search?group=Science%2C+Health+%26+Environment" class="cluster-card">
@@ -1198,7 +1173,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Emily Atkin</span>
         <span class="cluster-creator-name">Robinson Meyer</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="/search?search=local" class="cluster-card">
@@ -1220,7 +1195,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">The Oaklandside</span>
         <span class="cluster-creator-name">Signal Cleveland</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="/search?group=Money+%26+Work" class="cluster-card">
@@ -1241,7 +1216,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Byrne Hobart</span>
         <span class="cluster-creator-name">Bryce Covert</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="/search?group=Science%2C+Health+%26+Environment" class="cluster-card">
@@ -1263,7 +1238,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Zeynep Tufekci</span>
         <span class="cluster-creator-name">Ed Yong</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="/search?group=Culture+%26+Media" class="cluster-card">
@@ -1285,7 +1260,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Ryan Broderick</span>
         <span class="cluster-creator-name">Kate Lindsay</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="/search?search=international" class="cluster-card">
@@ -1307,7 +1282,7 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Bill Bishop</span>
         <span class="cluster-creator-name">Tim Mak</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
     <a href="lists.html" class="cluster-card">
@@ -1329,12 +1304,12 @@ const FEATURED_POOL = [
         <span class="cluster-creator-name">Pablo Torre</span>
         <span class="cluster-creator-name">Richard Deitsch</span>
       </div>
-      <span class="cluster-explore-link">Explore cluster →</span>
+      <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
   </div>
   <div class="intel-footer">
-    <a href="search.html">Filter by topic in the full database →</a>
+    <a href="search.html" class="link-instruction">Filter by topic in the full database →</a>
   </div>
   </div>
 </section>
@@ -2549,7 +2524,7 @@ function renderPulseGrid() {
           <span class="pulse-beat-count">${beat.active_creators} active ↗</span>
         </a>
         ${items}
-        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pulse-col-more">More ${beat.name} →</a>
+        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pulse-col-more link-instruction">More ${beat.name} →</a>
       </div>`;
   }).join('');
 }

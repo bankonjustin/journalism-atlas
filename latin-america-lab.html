@@ -399,16 +399,8 @@ img { max-width: 100%; display: block; }
   margin-top: auto;
 }
 .card-link {
-  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.32);
-  letter-spacing: 0.04em;
-  transition: color 0.15s;
-}
-.card-link:hover { color: var(--color-acid); }
+  gap: 4px; }
 
 /* =========================================
    SPOTLIGHT — TOP 3
@@ -482,16 +474,9 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
 }
 .spotlight-cta {
-  display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: auto;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-acid);
-  transition: opacity 0.15s;
-}
-.spotlight-cta:hover { color: rgba(206,255,0,0.85); }
+  margin-top: auto; }
 
 /* =========================================
    METHODOLOGY
@@ -602,11 +587,6 @@ img { max-width: 100%; display: block; }
 /* =========================================
    FOCUS RINGS
    ========================================= */
-.card-link:focus-visible,
-.spotlight-cta:focus-visible {
-  outline: 2px solid var(--color-focus); /* lime — dark surface focus ring (v14) */
-  outline-offset: 2px;
-}
 
 /* =========================================
    RESPONSIVE
@@ -774,7 +754,7 @@ img { max-width: 100%; display: block; }
         <div class="spotlight-badges">
           <span class="spotlight-trust"><span class="trust-dot"></span> Green rated</span>
         </div>
-        <a href="https://instagram.com/biancagraulau" target="_blank" rel="noopener" class="spotlight-cta">Explore →</a>
+        <a href="https://instagram.com/biancagraulau" target="_blank" rel="noopener" class="spotlight-cta link-instruction">Explore →</a>
       </div>
       <div class="spotlight-card">
         <div class="spotlight-name">Yuri Fernandes / Colabora</div>
@@ -788,7 +768,7 @@ img { max-width: 100%; display: block; }
           <span class="spotlight-trust"><span class="trust-dot"></span> Green rated</span>
           <span class="icfj-badge">ICFJ Award 2025</span>
         </div>
-        <a href="https://youtube.com/@colaborajornalismo" target="_blank" rel="noopener" class="spotlight-cta">Explore →</a>
+        <a href="https://youtube.com/@colaborajornalismo" target="_blank" rel="noopener" class="spotlight-cta link-instruction">Explore →</a>
       </div>
       <div class="spotlight-card">
         <div class="spotlight-name">Marcela Trejo / Focos</div>
@@ -802,7 +782,7 @@ img { max-width: 100%; display: block; }
           <span class="spotlight-trust"><span class="trust-dot"></span> Green rated</span>
           <span class="icfj-badge">ICFJ Award 2025</span>
         </div>
-        <a href="https://youtube.com/@focostv" target="_blank" rel="noopener" class="spotlight-cta">Explore →</a>
+        <a href="https://youtube.com/@focostv" target="_blank" rel="noopener" class="spotlight-cta link-instruction">Explore →</a>
       </div>
     </div>
   </div>
@@ -1146,7 +1126,7 @@ function renderCard(creator) {
       ${audienceHtml}
       <div class="card-footer">
         ${icfjHtml}
-        <a href="${creator.link}" target="_blank" rel="noopener" class="card-link">View →</a>
+        <a href="${creator.link}" target="_blank" rel="noopener" class="card-link link-instruction">View →</a>
       </div>
     </div>
   `;

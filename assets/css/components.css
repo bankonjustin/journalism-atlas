@@ -204,6 +204,7 @@
   line-height: 1.4;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-style: normal;
   color: var(--link-fg);
   text-decoration: none;
   text-decoration-thickness: 1px;
@@ -221,6 +222,14 @@
 .link-instruction.selected,
 .link-instruction.active {
   color: var(--link-hover);                     /* selected uses the hover colour, underline kept on */
+  text-decoration: underline;
+}
+
+/* A "… →" line inside a whole-card link (the card is the <a>; the line is a <span>/<div>).
+   The card is not restyled; the line takes the hover/press colour when the card is hovered or pressed. */
+a:hover .link-instruction:not(a),
+a:active .link-instruction:not(a) {
+  color: var(--link-hover);
   text-decoration: underline;
 }
 

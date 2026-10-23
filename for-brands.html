@@ -179,8 +179,7 @@
     }
     .good-news-headline { position: relative; display: inline-block; }
     .good-news-headline::after { content: ''; display: block; height: 4px; width: 48px; background: var(--color-accent); border-radius: 2px; margin-top: 12px; }
-    .trust-cite-view-all { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: var(--color-accent-on-light); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: opacity 0.15s; margin-left: 8px; }
-    .trust-cite-view-all:hover { opacity: 0.7; }
+    .trust-cite-view-all { white-space: nowrap; margin-left: 8px; }
     .good-news-label { font-size: 18px; color: var(--color-text); margin-top: 16px; line-height: 1.5; max-width: 320px; }
     .good-news-followup {
       font-size: 18px; color: rgba(17,17,17,0.65); line-height: 1.75; max-width: 680px;
@@ -192,9 +191,7 @@
     .atlas-does-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
     .atlas-does-intro { font-size: 17px; color: var(--color-text-on-dark-2); line-height: 1.7; max-width: 600px; margin: 0 0 32px; }
     .intel-layer-ctas { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .intel-cta-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: var(--color-acid); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: opacity 0.15s; }
-    .intel-cta-link:hover { opacity: 0.7; }
-    .intel-cta-link--anchor { color: rgba(206,255,0,0.7); }
+    .intel-cta-link { align-items: center; gap: 8px; }
 
     /* ═══════════════════════════════════════════════════════════
        GALLERY + GALLERY MINI PREVIEWS
@@ -216,13 +213,7 @@
     }
     .gallery-card-name { font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 12px; letter-spacing: -0.01em; }
     .gallery-card-desc { font-size: 15px; color: var(--color-text-on-dark-2); line-height: 1.65; flex: 1; margin: 0 0 20px; }
-    .gallery-card-link {
-      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
-      color: var(--color-acid); letter-spacing: 0.08em; text-transform: uppercase;
-      display: inline-flex; align-items: center; gap: 6px;
-      transition: opacity 0.15s;
-    }
-    .gallery-card-link:hover { opacity: 0.7; }
+    .gallery-card-link { display: inline-flex; align-items: center; gap: 6px; }
     /* ── Gallery mini previews (CSS-drawn ornamental) ── */
     .gallery-mini-pulse { display: flex; align-items: flex-end; gap: 6px; height: 48px; margin-bottom: 16px; }
     .gmp-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
@@ -329,8 +320,6 @@
     .brief-section .eyebrow { display: inline-flex; align-items: center; gap: 8px; }
     .brief-section .eyebrow::before { content: ''; display: inline-block; width: 16px; height: 2px; background: var(--color-acid); border-radius: 1px; }
     .bf-secondary-path { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .bf-hello-trigger { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: color 0.15s; cursor: pointer; }
-    .bf-hello-trigger:hover { color: rgba(255,255,255,0.65); }
     .brief-confirm-icon { margin-bottom: 16px; }
     .brief-confirm-next { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 16px 0 0; }
     .bf-submit-row { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
@@ -346,8 +335,7 @@
     .pulse-intel-section { background: #1a1a1a; padding: 72px 40px; }
     .pulse-intel-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; gap: 24px; }
     .pulse-intel-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; }
-    .pulse-intel-cta { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--color-acid); border: 1px solid rgba(206,255,0,0.3); padding: 8px 16px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; flex-shrink: 0; align-self: flex-start; text-decoration: none; transition: background 0.15s; }
-    .pulse-intel-cta:hover { background: rgba(206,255,0,0.06); }
+    .pulse-intel-cta { white-space: nowrap; flex-shrink: 0; align-self: flex-start; }
     .pulse-intel-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-bottom: 32px; }
     @media (max-width: 900px) { .pulse-intel-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 540px) { .pulse-intel-grid { grid-template-columns: 1fr; } }
@@ -379,11 +367,8 @@
     .pi-post-title { display: block; font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 4px; text-decoration: none; }
     .pi-post-title:hover { color: var(--color-acid); }
     .pi-post-meta { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.05em; }
-    .pi-beat-more { display: block; font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(206,255,0,0.5); text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none; margin-top: 4px; }
-    .pi-beat-more:hover { color: var(--color-acid); }
+    .pi-beat-more { display: block; margin-top: 4px; }
     .pulse-intel-footer { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.08em; }
-    .pulse-intel-footer a { color: rgba(206,255,0,0.5); text-decoration: none; }
-    .pulse-intel-footer a:hover { color: var(--color-acid); }
 
     /* ── Hero Ticker ── */
     .hero-ticker-wrap { margin-top: 64px; overflow: hidden; width: 100vw; position: relative; left: 50%; transform: translateX(-50%); mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); }
@@ -427,8 +412,7 @@
     .bx-creator-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; line-height: 1.5; }
     .bx-creator-note { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
     .bx-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 8px; }
-    .bx-search-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--color-acid); text-decoration: none; transition: opacity 0.15s; }
-    .bx-search-cta:hover { opacity: 0.75; }
+    .bx-search-cta { align-items: center; gap: 8px; }
     .bx-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
 
     /* ── Gallery Offer Grid (Free + Paid two-column) ── */
@@ -452,6 +436,9 @@
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
       .hero-ctas { flex-direction: column; }
+      /* instruction links (13px caps) are wider than the old 9px labels: let their rows wrap */
+      .pulse-intel-header, .pulse-intel-follower-note, .pulse-intel-footer { flex-wrap: wrap; }
+      .pulse-intel-follower-note a { flex-basis: 100%; }
       .btn-ghost { text-align: center; }
 
       .stat-strip { grid-template-columns: 1fr; gap: 32px; }
@@ -611,7 +598,7 @@
          target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
         Video Consortium
       </a>
-      <a href="/research" class="trust-cite-view-all">View all research →</a>
+      <a href="/research" class="trust-cite-view-all link-instruction">View all research →</a>
     </div>
   </div>
 </section>
@@ -689,18 +676,18 @@
       </div>
       <div class="bx-panel" id="bx-panel"></div>
       <div class="bx-footer">
-        <a href="/search" class="bx-search-cta" id="bx-search-link">
+        <a href="/search" class="bx-search-cta link-instruction" id="bx-search-link">
           <span class="material-symbols-outlined" style="font-size:18px;">search</span>
           Search all creators in this beat →
         </a>
         <span class="bx-count" id="bx-count"></span>
       </div>
       <div class="intel-layer-ctas">
-        <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="intel-cta-link">
+        <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="intel-cta-link link-instruction">
           <span class="material-symbols-outlined" style="font-size:16px;">rss_feed</span>
           Explore Atlas Pulse →
         </a>
-        <a href="#build-brief" class="intel-cta-link intel-cta-link--anchor">
+        <a href="#build-brief" class="intel-cta-link intel-cta-link--anchor link-instruction">
           <span class="material-symbols-outlined" style="font-size:16px;">summarize</span>
           Tell us what you're tracking →
         </a>
@@ -727,18 +714,18 @@
           <span id="brands-pulse-active" data-pulse-fallback="active_7d">984</span> creators active this week
         </p>
       </div>
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta">Explore Atlas Pulse →</a>
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta link-instruction">Explore Atlas Pulse →</a>
     </div>
     <div class="pulse-intel-grid" id="pulse-intel-grid"></div>
     <div class="pulse-intel-follower-note">
       <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">info</span>
       Follower counts, platform reach, and audience size data are available for every verified creator in the Atlas database.
-      <a href="index.html" style="color:rgba(206,255,0,0.7);">Search the full Atlas →</a>
+      <a href="index.html" class="link-instruction">Search the full Atlas →</a>
     </div>
     <div class="pulse-intel-footer">
       <span class="material-symbols-outlined" style="font-size:16px;color:rgba(206,255,0,0.5);">lock_open</span>
       Atlas Pulse is always free. &nbsp;
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer">Explore Atlas Pulse →</a>
+      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="link-instruction">Explore Atlas Pulse →</a>
       <span style="opacity:0.4;">&nbsp;·&nbsp;</span>
       <span style="opacity:0.5;">Powered by Journalism Atlas data</span>
     </div>
@@ -767,7 +754,7 @@
           <div class="gallery-card-eyebrow">Atlas Pulse · Always Free</div>
           <div class="gallery-card-name">What the ecosystem is covering this week.</div>
           <p class="gallery-card-desc"><span class="js-pulse-feeds" data-pulse-fallback="feeds">1,756</span> creator feeds, monitored weekly. Beat-filtered. See what independent journalists are publishing across your issues — before your morning briefing.</p>
-          <span class="gallery-card-link">View the live digest →</span>
+          <span class="gallery-card-link link-instruction">View the live digest →</span>
         </a>
 
         <a href="index.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
@@ -779,7 +766,7 @@
           <div class="gallery-card-eyebrow">Atlas Search · Always Free</div>
           <div class="gallery-card-name">Find the journalists covering your beat.</div>
           <p class="gallery-card-desc"><span class="js-creator-count" data-pulse-fallback="creators">2,432</span> verified creator-journalists, filterable by topic, platform, and geography. Every entry human-verified. No algorithmic noise.</p>
-          <span class="gallery-card-link">Search the Atlas →</span>
+          <span class="gallery-card-link link-instruction">Search the Atlas →</span>
         </a>
       </div>
 
@@ -969,13 +956,13 @@
           </p>
           <p class="brief-confirm-next">
             In the meantime, see what's being covered across beats this week in
-            <a href="pulse.html" style="color:#ceff00;">Atlas Pulse →</a>
+            <a href="pulse.html" class="link-instruction">Atlas Pulse →</a>
           </p>
         </div>
       </div>
 
       <div class="bf-secondary-path" id="bf-hello-trigger-wrap">
-        <a href="#capture-form" class="bf-hello-trigger" id="bf-hello-trigger">
+        <a href="#capture-form" class="bf-hello-trigger link-instruction" id="bf-hello-trigger">
           Or just say hello →
         </a>
       </div>
@@ -1238,7 +1225,7 @@ function renderBrandsPulse() {
         <div class="pi-bar-label">Coverage volume</div>
         <div class="pi-beat-bar-track"><div class="pi-beat-bar-fill" style="width:${beat.bar_pct}%"></div></div>
         <div class="pi-posts">${posts}</div>
-        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more">View creators with audience data →</a>
+        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more link-instruction">View creators with audience data →</a>
       </div>`;
   }).join('');
 }

@@ -51,8 +51,7 @@ a{color:inherit;text-decoration:none;}img{max-width:100%;display:block;}
 .pill.platform:hover{background:var(--color-hover);border-color:var(--color-accent-on-light);color:var(--color-text);}
 .pill .material-symbols-outlined{font-size:14px;line-height:1;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 14;}
 .card-divider{border:none;border-top:0.5px solid var(--border);margin-bottom:16px;}
-.card-link{font-size:14px;font-weight:400;color:var(--color-accent-on-light);margin-top:auto;display:inline-flex;align-items:center;padding:6px 12px;border-radius:6px;margin-left:-12px;transition:color 0.15s,background 0.15s;min-height:44px;}
-.card-link:hover{color:var(--color-text);background:var(--color-hover);}
+.card-link {margin-top:auto;align-items:center }
 .atlas-attribution{background:#fff;border:0.5px solid var(--border);border-radius:6px;padding:16px 20px;margin-top:32px;display:flex;align-items:flex-start;gap:14px;}
 .atlas-attribution-badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:100px;background:#000;color:var(--color-acid);font-size:11px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
 .atlas-attribution-body{font-size:14px;font-weight:400;color:#606068;line-height:22px;}
@@ -164,9 +163,9 @@ function renderGrid(){
     const{icon,name:platformName}=getPlatformInfo(c.platform);
     const topicHTML=c.topic?`<span class="pill">${esc(c.topic)}</span>`:'';
     const descriptorHTML=c.descriptor?`<p class="creator-descriptor">${esc(c.descriptor)}</p>`:'';
-    return `<div class="creator-card" data-topic="${esc(c.topic)}" data-platform="${esc(c.platform)}"><div class="creator-name">${esc(c.name)}</div><div class="creator-channel">${esc(c.channel)}</div>${descriptorHTML}<div class="creator-pills">${topicHTML}<span class="pill platform"><span class="material-symbols-outlined">${icon}</span>${esc(platformName)}</span></div><hr class="card-divider"><a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link">Visit &rarr;</a></div>`;
+    return `<div class="creator-card" data-topic="${esc(c.topic)}" data-platform="${esc(c.platform)}"><div class="creator-name">${esc(c.name)}</div><div class="creator-channel">${esc(c.channel)}</div>${descriptorHTML}<div class="creator-pills">${topicHTML}<span class="pill platform"><span class="material-symbols-outlined">${icon}</span>${esc(platformName)}</span></div><hr class="card-divider"><a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link link-instruction">Visit &rarr;</a></div>`;
   }).join('');
-  document.getElementById('atlas-attribution').innerHTML=`<span class="atlas-attribution-badge">Atlas Verified</span><p class="atlas-attribution-body">Creators on this list are independently verified by the <a href="https://journalismatlas.com" target="_blank" rel="noopener" class="link-body">Independent Journalism Atlas</a> &mdash; a human-curated database of 1,800+ creator-journalists. <a href="https://journalismatlas.com/about-this-project" target="_blank" rel="noopener">How we verify &rarr;</a></p>`;
+  document.getElementById('atlas-attribution').innerHTML=`<span class="atlas-attribution-badge">Atlas Verified</span><p class="atlas-attribution-body">Creators on this list are independently verified by the <a href="https://journalismatlas.com" target="_blank" rel="noopener" class="link-body">Independent Journalism Atlas</a> &mdash; a human-curated database of 1,800+ creator-journalists. <a href="https://journalismatlas.com/about-this-project" target="_blank" rel="noopener" class="link-instruction">How we verify &rarr;</a></p>`;
 }
 function renderAbout(){
   const{curatorName,logoColor,aboutHeadline,aboutParagraphs,aboutLinkText,aboutLinkUrl}=PARTNER_CONFIG;

@@ -160,15 +160,7 @@ img { max-width: 100%; display: block; }
 }
 .card-divider { border: none; border-top: 0.5px solid var(--border); margin-bottom: 16px; }
 .card-link {
-  font-size: 14px; font-weight: 400; color: var(--color-accent-on-light);
-  margin-top: auto;
-  display: inline-flex; align-items: center;
-  min-height: 44px;
-  padding: 6px 12px; border-radius: 6px; margin-left: -12px;
-  transition: color 0.15s, background 0.15s;
-}
-.card-link:hover { color: var(--color-text); background: var(--color-hover); }
-.card-link:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+  margin-top: auto; align-items: center }
 
 /* ── CURATORIAL INTRO ── */
 .curatorial-intro { padding: 32px 0 0; background: var(--page-bg); }
@@ -476,7 +468,7 @@ function renderGrid() {
           </span>
         </div>
         <hr class="card-divider">
-        <a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link">Visit &rarr;</a>
+        <a href="${esc(c.link)}" target="_blank" rel="noopener" class="card-link link-instruction">Visit &rarr;</a>
       </div>
     `;
   }).join('');
@@ -487,7 +479,7 @@ function renderGrid() {
       Creators on this list are independently verified by the
       <a href="https://journalismatlas.com" target="_blank" rel="noopener" class="link-body">Independent Journalism Atlas</a> &mdash;
       a human-curated database of 1,800+ creator-journalists.
-      <a href="https://journalismatlas.com/about-this-project" target="_blank" rel="noopener">How we verify &rarr;</a>
+      <a href="https://journalismatlas.com/about-this-project" target="_blank" rel="noopener" class="link-instruction">How we verify &rarr;</a>
     </p>
   `;
 }
