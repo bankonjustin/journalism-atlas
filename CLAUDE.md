@@ -90,7 +90,7 @@ All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` as the s
 ```
 assets/css/variables.css   ← THE canonical token file (implements docs/design/DESIGN-TOKENS-v15.md)
 assets/css/header.css      ← Shared site header + footer wordmark styles (all pages)
-assets/css/main.css        ← Used by search.html (and the archived index-pre-homepage.html)
+assets/css/main.css        ← Used by search.html
 assets/css/animations.css  ← Standalone animation keyframes
 ```
 
@@ -264,7 +264,6 @@ Pages should link `variables.css` first and avoid redefining canonical tokens in
 | `chicago-analysis.html`, `chicago-survey.html` | Internal research — not public |
 | `atlas-signal-brief.html` | Internal brief — not public |
 | `_deprecated/knight-brief.html` | **Retired July 2026** — internal Knight Foundation pitch brief. Not linked from anywhere live; `/knight-brief` and `/knight-brief.html` now redirect to `/`. |
-| `index-pre-homepage.html` | Pre-homepage-launch archive — do not delete until homepage is confirmed stable |
 | `partners/_shell.html` | Partner page template — not public |
 
 ### Logo files (assets/images/logos/)
