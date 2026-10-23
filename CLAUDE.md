@@ -1,8 +1,8 @@
 # Atlas — Claude Code Session Guide
 
 *Project: Independent Journalism Atlas (journalismatlas.com)*
-*Owner: Justin | Design system: James (james@happicamp.com)*
-*Last updated: October 6, 2026 (design tokens now v14)*
+*Owner: Justin | Design system: James (james@journalismatlas.com)*
+*Last updated: October 22, 2026 (design tokens now v15, brand guide v4; v15 is rolling out in stages, see "v15 rollout status")*
 
 **Read at session start:** This file + `WORKFLOW.md` (decision authority, "done" definition, Chat→Code handoff protocol, deploy process).
 
@@ -55,7 +55,9 @@ A vanilla JS static HTML site. No npm, no React, no bundler. All pages are singl
 
 ## Design System
 
-All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` at the project root as the single source of truth. Its CSS implementation lives in `assets/css/variables.css` — the canonical token file, loaded before all other stylesheets.
+All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` as the single source of truth (v14 is archived in `docs/design/archive/`). Brand voice and strategy: `docs/design/ATLAS-BRAND-GUIDE-v4.md`. The CSS implementation of the tokens lives in `assets/css/variables.css`, the canonical token file, loaded before all other stylesheets.
+
+**v15 rollout status.** v15 is being applied in stages, scoped in `docs/design/v15-discovery/V15-SCOPE-BUCKETS.md`. The rules below describe the target. Until a stage has shipped, live pages can still show the old look (for example Acid-at-rest buttons, pill tags and DM Mono/JetBrains Mono labels). When a rule and a page disagree, the rule wins for new work; don't "fix" old pages outside the stage being worked.
 
 **Do not infer or improvise colors, type sizes, spacing, or component states — look them up.**
 
@@ -63,29 +65,30 @@ All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` at the p
 
 ### Non-negotiable rules (memorize these)
 
-- **Greens by surface (docs/design/DESIGN-TOKENS-v15.md § Greens by Surface):**
-  - **Acid `#ceff00` and Lime `#97d600` on LIGHT surfaces = fill only**, with black or step-6 text on top. Never text, icons or thin strokes on light (1.2:1 and 1.8:1 on white).
-  - **On DARK surfaces** acid and lime are free within their roles: acid for CTAs and active states (text, icons, strokes, fills), lime for hover and the focus ring.
-  - **Dark Olive `#5d7400` on LIGHT surfaces = the green for text, icons and thin strokes** (active nav item, selected icon, link-style CTA, hover *text*, focus ring). Never a fill, button background or hover fill. Not used on dark surfaces (4.0:1 on black).
-  - **Focus ring follows the surface:** lime on dark, Dark Olive on light.
-  - One acid moment per composition; olive marking the active state on a light surface counts as that moment.
-  - Not canon: the older "acid on dark only / lime on light only" rule. v13 replaces it.
-  - **Primary CTA (v14):** acid fill at rest and active, lime fill on hover, black text throughout; focus ring olive on light, lime on dark; disabled step 4 (light) / step 5 fill + step 3 text (dark).
-  - **Inline links (v14):** olive + underlined on light (hover step 8); white + underlined on dark (hover lime). Variables `--color-link` / `--color-link-on-dark`.
-  - **In migration:** the site's `--color-accent` is still lime (its live look). Do not repoint it in place; migrate each use by role to `--color-accent` (fill), `--color-hover` (hover fill), `--color-accent-on-light` (text/icons/strokes on light), `--color-focus*`. Primitives `--color-acid` / `--color-lime` / `--color-olive`. See `docs/V13-GREENS-AUDIT-2026-10-06.md`.
-- **Site header = `#ffffff` (default, matches the live site) or `#000000`** (a per-page choice, v14). Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 1 on black; step 6 or 8 on white); active nav is Dark Olive on white, acid on black. Anything docked to the header (the report "Jump to" sub-nav) uses the same background. The black theme is wired: `header.js` switches the logo with `<html data-header-theme="black">` (default white). Pages do not request it yet
-- **Body copy minimum 16px** — Small (13px) is the floor for all UI text. Micro (11px) for all-caps labels only (weight 500 min, letter-spacing 0.08–0.1em). Never below 13px for any readable content.
-- **Material Symbols Outlined only** — no legacy Material Icons; Filled variant reserved for active states only
-- **4px base spacing unit** — spacing scale: xs 4px / sm 8px / md 16px / lg 24px / xl 32px / 2xl 48px
-- **Font weights: 400 / 500 / 600 / 700 / 800** — 500 for Micro labels only; 600 for H3/card titles; do not introduce 900 or other weights
-- **Border radius: 6px for cards/buttons/inputs; 9999px for pills/tags**
+- **Green means interaction (docs/design/DESIGN-TOKENS-v15.md § Component States).** Buttons, tags, instruction links and nav rest in monotones. Green appears on hover, press and selected. The only things that rest in green are body links on light surfaces (Dark Olive, underlined) and eyebrows on dark surfaces (Acid allowed).
+  - **Acid `#ceff00`:** hover, press and selected. **Fill only on light surfaces** (black text on top); fills, text, underlines and icons on dark. Never a success signal. No per-composition limit.
+  - **Lime `#97d600`:** keyboard focus ring on dark surfaces only. Not a hover color. Not used on light.
+  - **Dark Olive `#5d7400`:** the green for text, icons, underlines and thin strokes on light surfaces (hover and selected text, current nav item, body links, focus ring). Never a fill, button background or hover fill. Not used on dark (4.0:1 on black).
+  - **Focus ring follows the surface:** Lime on dark, Dark Olive on light; `2px`, offset `2px`.
+  - **Buttons:** two styles, both 44px, 6px radius, Inter 600 15px, sentence case. Primary: step-6 fill, white text, step-5 outline (step-4 on dark); selected = white. Secondary (filters, repeated options): outline only; selected = black (white on dark). Both turn Acid on hover and press.
+  - **Links:** instruction links are Source Code Pro 500 13px caps ending in ` →` (step 6 → Dark Olive underlined; white → Acid underlined). Body links are Dark Olive underlined on light (hover black) and white underlined on dark (hover Acid). Variables `--color-link` / `--color-link-on-dark`.
+  - **Tags:** Source Code Pro 500 12px caps, 0.08em, fill or outline never both, never clickable, no hover. Beat tags carry color only on an 8px dot from `ATLAS_VIZ_COLORS`.
+  - **No color coding by section or content type.**
+  - **Migration state:** primitives `--color-acid` / `--color-lime` / `--color-olive` exist and role variables point at them. `--color-hover` still resolves to Lime until the green-model stage; v15 makes it an alias of Acid. Migrate each use by role; never repoint `--color-accent` in place without checking its uses.
+- **Gray scales (v15):** the website uses the **Neutral** scale (`--gray-neutral-*`) for every semantic gray role, through the role variables (`--color-bg`, `--color-text`, `--color-text-secondary`, `--color-muted`, `--color-border`, `--color-text-on-dark-2`, `--color-border-on-dark`, `--color-surface`, `--color-surface-dark`, `--color-heading`). Use the role variable, not a hex. **Cool** (`--gray-cool-*`) is for graphics only (charts, infographics, illustrations); an embedded graphic counts as its own surface. Don't mix scales on one surface.
+- **Site header = `#ffffff` (default, matches the live site) or `#000000`** (a per-page choice). Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 1 on black; step 6 or 8 on white); hover is underlined; selected (current page) is Dark Olive on white or Acid on black with a 2px underline, offset 8px. Anything docked to the header (the report "Jump to" sub-nav) uses the same background. The black theme is wired: `header.js` switches the logo with `<html data-header-theme="black">` (default white). Pages do not request it yet.
+- **Body copy minimum 16px.** Small (13px) is the floor for UI text. All-caps UI labels are Source Code Pro 500: **Label 13px** (eyebrows, instruction links, 0.08–0.12em) and **Tag 12px** (tags, badges, card meta lines, 0.08em). 12px Source Code Pro is the only size allowed below 13px.
+- **Material Symbols Outlined only.** Filled only for active toggle/action icons (save, follow, bookmark). Navigation and section icons stay outlined at every state.
+- **4px base spacing unit:** xs 4 / sm 8 / md 16 / lg 24 / xl 32 / 2xl 48 / 3xl 96.
+- **Font weights: 400 / 500 / 600 / 700.** 500 is for Source Code Pro labels and tags only; 600 for H3/card titles and buttons. 800 and 900 are retired.
+- **Border radius: 6px for everything rectangular** (cards, buttons, inputs, tags, badges). Pills are retired. `50%` only for photos, avatars and status dots.
 
 ### CSS token architecture
 
 ```
 assets/css/variables.css   ← THE canonical token file (implements docs/design/DESIGN-TOKENS-v15.md)
 assets/css/header.css      ← Shared site header + footer wordmark styles (all pages)
-assets/css/main.css        ← Primary stylesheet for index.html only
+assets/css/main.css        ← Used by search.html (and the archived index-pre-homepage.html)
 assets/css/animations.css  ← Standalone animation keyframes
 ```
 
@@ -113,8 +116,8 @@ Pages with inline `<style>` blocks (partners/*.html, city-lab-chicago.html, lati
 Before writing any CSS or styling-related code, read the relevant section of `docs/design/DESIGN-TOKENS-v15.md`. Reference it explicitly in comments when implementing tokens:
 
 ```css
-/* Primary accent — light mode only. docs/design/DESIGN-TOKENS-v15.md § Semantic Color Assignments */
---color-accent: #97d600;
+/* Interaction fill: hover, press, selected (fill only on light surfaces). docs/design/DESIGN-TOKENS-v15.md § Semantic Color Assignments */
+--color-accent: var(--color-acid);
 ```
 
 ### What requires James's sign-off before implementing
@@ -239,10 +242,10 @@ Four locations now exist. Don't assume file paths from older briefs still hold �
 | `preview/nodes-and-networks-f348eb08/index.html` | Preview of the ASU/Knight paper "Nodes and Networks" (v938). Unlisted, `noindex`, `/preview/` disallowed in `robots.txt`. **Generated. Don't hand-edit it.** Rebuild it with `make -C tools/preview-build preview DOCX=...` (see `tools/preview-build/preview_build_ledger.md`). Figures are inlined SVG from `paper-one-band-dataset/figures_v22/html/`. Replaced `research/nodes-and-networks.html` (retired Oct 15, 2026, now in `_deprecated/`; the old URL 301s here). | — | Inline `<style>` (v16 chrome) |
 | `city-lab-dc-v3.html` | DC/DMV journalism ecosystem — "Who Covers Washington Now" | ~350 | Inline `<style>` + inlined data |
 | `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |
-| `nj-lab.html` | NJ State Lab — CCM partnership. 51 creators (CCM NJ Influencer Study), 6 sections, filterable grid, CSS vizzes. | 51 | Inline `<style>` + inlined data |
+| `partners/nj-lab.html` (a near-identical duplicate, `partners/njlab.html`, is also live) | NJ State Lab — CCM partnership. 51 creators (CCM NJ Influencer Study), 6 sections, filterable grid, CSS vizzes. | 51 | Inline `<style>` + inlined data |
 | `bluesky-creator-intelligence.html` | Bluesky Creator Intelligence — AT Protocol ecosystem map. 552+ creators (live from `assets/data/bluesky-creators.json`). Beat cluster map (live-computed), creator index, methodology band, coverage gaps + suggest-a-creator. Canonical URL: `/bluesky-creator-intelligence`. **Nav inclusion: flag for James — not added to header.js this session.** | 552+ (live JSON) | `variables.css` + inline `<style>` + `header.css` |
 
-All pages above have been swept to the design token system (variables.css linked first, slim `:root` alias block, no canonical token redefinitions inline). Design sweep completed April 2026.
+Pages should link `variables.css` first and avoid redefining canonical tokens inline. As of Oct 22, 2026 a few pages still carry an inline `:root` alias block, and some pages (`teamdmv`, `watershed-preview`, the nodes-and-networks preview) have their own palette; see `docs/design/v15-discovery/V15-DISCOVERY-REPORT.md` Track B.
 
 ### Internal / dev-only pages (not public-facing — skip OG tags, skip in bulk operations)
 
@@ -259,7 +262,6 @@ All pages above have been swept to the design token system (variables.css linked
 | `chicago-analysis.html`, `chicago-survey.html` | Internal research — not public |
 | `atlas-signal-brief.html` | Internal brief — not public |
 | `_deprecated/knight-brief.html` | **Retired July 2026** — internal Knight Foundation pitch brief. Not linked from anywhere live; `/knight-brief` and `/knight-brief.html` now redirect to `/`. |
-| `index-exploration-V1.html` | Dev experiment — not public |
 | `index-pre-homepage.html` | Pre-homepage-launch archive — do not delete until homepage is confirmed stable |
 | `partners/_shell.html` | Partner page template — not public |
 
