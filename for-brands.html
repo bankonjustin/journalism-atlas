@@ -57,16 +57,7 @@
     .source-attr--light { font-size: 11px; color: rgba(0,0,0,0.35); margin-top: 4px; }
 
     /* ── BUTTONS ── */
-    .btn-primary {
-      display: inline-block; background: var(--color-acid); color: #111111;
-      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 15px;
-      padding: 13px 28px; border-radius: 6px; border: none; cursor: pointer;
-      transition: background 0.15s; white-space: nowrap;
-    }
-    .btn-primary:hover { background: var(--color-hover); }
-    .btn-primary:active { background: var(--color-accent); color: var(--color-heading); }
-    .btn-primary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
-    .btn-primary:disabled, .btn-primary[aria-disabled="true"] { background: var(--gray-neutral-5); border-color: var(--gray-neutral-5); color: var(--gray-neutral-3); cursor: not-allowed; }
+    .btn-primary { white-space: nowrap; }
     .btn-ghost {
       display: inline-block;
       border: 1.5px solid rgba(255,255,255,0.35); color: #fff;
@@ -282,18 +273,8 @@
       box-shadow: 0 0 0 2px rgba(151,214,0,0.15);
     }
     .form-textarea { resize: vertical; min-height: 96px; }
-    .form-submit {
-      background: var(--color-accent); color: #111111;
-      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 16px;
-      padding: 15px 32px; border-radius: 6px; border: none; cursor: pointer;
-      transition: background 0.15s; align-self: flex-start; margin-top: 8px;
-    }
-    .form-submit:hover { background: var(--color-hover); color: var(--color-heading); }
-    .form-submit:active { background: var(--color-accent); color: var(--color-heading); }
-    .form-submit:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
-    .form-submit:disabled, .form-submit[aria-disabled="true"] { background: var(--gray-neutral-4); border-color: var(--gray-neutral-4); color: var(--gray-neutral-6); cursor: not-allowed; }
+    .form-submit { align-self: flex-start; margin-top: 8px; }
     .form-disclaimer { font-size: 13px; color: rgba(0,0,0,0.35); text-align: center; margin-top: 20px; line-height: 1.6; }
-
 
     /* ═══════════════════════════════════════════════════════════
        MOBILE RESPONSIVE — 375px
@@ -341,16 +322,7 @@
     }
 
     /* Submit */
-    .bf-submit {
-      background: var(--color-acid); color: #111111;
-      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 16px;
-      padding: 15px 32px; border-radius: 6px; border: none; cursor: pointer;
-      transition: background 0.15s; align-self: flex-start; margin-top: 8px;
-    }
-    .bf-submit:hover { background: var(--color-hover); }
-    .bf-submit:active { background: var(--color-accent); color: var(--color-heading); }
-    .bf-submit:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
-    .bf-submit:disabled, .bf-submit[aria-disabled="true"] { background: var(--gray-neutral-5); border-color: var(--gray-neutral-5); color: var(--gray-neutral-3); cursor: not-allowed; }
+    .bf-submit { align-self: flex-start; margin-top: 8px; }
 
     /* Confirmation state */
     .brief-confirm {
@@ -488,7 +460,7 @@
 
       .hero-section { padding-top: 56px; padding-bottom: 56px; }
       .hero-ctas { flex-direction: column; }
-      .btn-primary, .btn-ghost { text-align: center; }
+      .btn-ghost { text-align: center; }
 
       .stat-strip { grid-template-columns: 1fr; gap: 32px; }
       .compare-section { padding-top: 56px; padding-bottom: 56px; }
@@ -519,7 +491,7 @@
     <h1 class="hero-h1">The journalists covering your<br>issues aren't in your media list.</h1>
     <p class="hero-sub">Independent creator journalists have built loyal, paying audiences around the exact topics you care about. They're not hard to find. They're just not in the places you're looking.</p>
     <div class="hero-ctas">
-      <a href="#intelligence-layer" class="btn-primary">See the intelligence layer</a>
+      <a href="#intelligence-layer" class="btn-primary btn btn--primary">See the intelligence layer</a>
       <a href="#build-brief" class="btn-ghost">Tell us what you're tracking</a>
     </div>
 
@@ -829,7 +801,7 @@
           <li><span class="material-symbols-outlined">monitor</span><div><strong style="color:#fff;">Ongoing monitoring</strong><span style="color:var(--color-text-on-dark-2);"> — weekly or monthly coverage alerts tuned to your issues and timeline.</span></div></li>
           <li><span class="material-symbols-outlined">group</span><div><strong style="color:#fff;">Discovery consulting</strong><span style="color:var(--color-text-on-dark-2);"> — we map the creator landscape for a campaign, a beat, or a market.</span></div></li>
         </ul>
-        <a href="#build-brief" class="btn-primary">Tell us what you're tracking</a>
+        <a href="#build-brief" class="btn-primary btn btn--primary">Tell us what you're tracking</a>
       </div>
 
     </div>
@@ -972,7 +944,7 @@
           </div>
 
           <div class="bf-submit-row">
-            <button type="submit" class="bf-submit">Build my brief</button>
+            <button type="submit" class="bf-submit btn btn--primary">Build my brief</button>
             <button type="button" class="bf-soft-cta" id="bf-soft-toggle">
               Not ready? Send us a question instead →
             </button>
@@ -1050,7 +1022,7 @@
         <label class="form-label" for="f-challenge">What communications challenge are you trying to solve? <span style="color:rgba(0,0,0,0.3);font-size:9px;letter-spacing:0.05em;">OPTIONAL</span></label>
         <textarea class="form-textarea" id="f-challenge" name="challenge" rows="3" placeholder="Tell us what you're working on…"></textarea>
       </div>
-      <button type="submit" class="form-submit">Request a discovery call</button>
+      <button type="submit" class="form-submit btn btn--primary">Request a discovery call</button>
     </form>
     <p class="form-disclaimer">We'll be in touch. No spam. No sales pressure. We're mapping the market.</p>
   </div>

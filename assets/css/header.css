@@ -162,26 +162,37 @@ body {
     color: var(--header-fg-hover);
 }
 
-/* ── Search button ── */
+/* ── Search button: the v15 primary button (docs/design/DESIGN-TOKENS-v15.md § Buttons) ──
+   Same spec as .btn .btn--primary in components.css, written out here with literal fallbacks because header.css also
+   loads on pages that don't load variables.css or components.css. Rest: step-6 fill, white text, step-5 outline
+   (step-4 on a black header). Hover/press: Acid fill and border, black text. Disabled: no fill, step-4 text, step-3 outline. */
 .nav-search-btn {
-    background: #ceff00;   /* acid: CTA rest (v14); hardcoded because header.css also loads on pages without variables.css */
-    color: var(--color-text, #303030);
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 6px 14px;
+    --nsb-bg: var(--color-button, #303030);
+    --nsb-fg: var(--color-surface, #ffffff);
+    --nsb-line: var(--color-button-outline, #5e5e5e);
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 0 20px;
+    background: var(--nsb-bg);
+    color: var(--nsb-fg);
+    border: 1px solid var(--nsb-line);
     border-radius: 6px;
-    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.15s;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
     flex-shrink: 0;
 }
-.nav-search-btn:hover { background: #97d600; color: #000; }   /* lime fill + black text (v14) */
-.nav-search-btn:active { background: #ceff00; color: #000; }
+:root[data-header-theme="black"] .nav-search-btn { --nsb-line: var(--color-button-outline-on-dark, #909090); }
+.nav-search-btn:hover,
+.nav-search-btn:active { --nsb-bg: var(--color-accent, #ceff00); --nsb-line: var(--color-accent, #ceff00); --nsb-fg: var(--color-heading, #000000); }
 .nav-search-btn:focus-visible { outline: 2px solid var(--color-focus-on-light, #5d7400); outline-offset: 2px; }
-.nav-search-btn:disabled { background: var(--gray-neutral-4, #909090); color: var(--gray-neutral-6, #303030); cursor: not-allowed; }
 :root[data-header-theme="black"] .nav-search-btn:focus-visible { outline-color: var(--color-focus, #97d600); }
+.nav-search-btn:disabled,
+.nav-search-btn:disabled:hover { --nsb-bg: transparent; --nsb-fg: var(--color-muted, #909090); --nsb-line: var(--color-border, #c6c6c6); cursor: not-allowed; }
 
 /* ── Pulse nav item ── */
 .nav-link--pulse {

@@ -54,11 +54,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
 .badge-bsky { color: var(--blue); border: 1px solid rgba(0,94,163,0.3); }
 .header-right { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; display: flex; align-items: center; gap: 24px; }
 .header-right em { color: var(--text-secondary); font-style: normal; }
-.header-cta { display: inline-block; background: var(--color-accent); color: var(--color-text); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 10px 20px; border-radius: 2px; border: 1.5px solid var(--color-accent-on-light); transition: background 0.18s, color 0.18s; white-space: nowrap; flex-shrink: 0; }
-.header-cta:hover { background: var(--color-hover); color: var(--color-heading); }
-.header-cta:active { background: var(--color-accent); color: var(--color-heading); }
-.header-cta:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
-.header-cta:disabled, .header-cta[aria-disabled="true"] { background: var(--gray-neutral-4); border-color: var(--gray-neutral-4); color: var(--gray-neutral-6); cursor: not-allowed; }
+.header-cta { white-space: nowrap; flex-shrink: 0; }
 
 /* ── HERO ─────────────────────────────────────────────────── */
 .hero { display: grid; grid-template-columns: 1fr 440px; min-height: 460px; border-bottom: 1px solid var(--border); }
@@ -246,7 +242,6 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
 .partner-headline { font-size: clamp(22px, 2.8vw, 36px); font-weight: 700; letter-spacing: -0.03em; color: var(--color-acid); line-height: 1.1; margin-bottom: 14px; }
 .partner-sub { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 500px; margin-bottom: 32px; }
 
-
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--page-bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); }
@@ -268,7 +263,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
   </div>
   <div class="header-right">
     <span id="header-count">Loading…</span>
-    <a href="/for-brands" class="header-cta">Request a brief →</a>
+    <a href="/for-brands" class="header-cta btn btn--primary">Request a brief →</a>
   </div>
 </header>
 
@@ -482,7 +477,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
   </div>
   <div class="suggest-band">
     <p class="section-subtitle">Know a creator, a community, or a Bluesky starter pack we should be looking at? Every suggestion goes through the same multi-reviewer human approval as every other entry in the database — we don't auto-add.</p>
-    <a href="mailto:justin&#64;journalismatlas.com" class="header-cta" style="display:inline-block;text-decoration:none;">Suggest a creator or flag a correction →</a>
+    <a href="mailto:justin&#64;journalismatlas.com" class="header-cta btn btn--primary" style="display:inline-block;text-decoration:none;">Suggest a creator or flag a correction →</a>
   </div>
 </section>
 
