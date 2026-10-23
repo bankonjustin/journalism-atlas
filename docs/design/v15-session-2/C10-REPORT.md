@@ -105,26 +105,55 @@ How it works:
 
 Screenshots (gitignored): `screenshots/c10/c10_phone_sheet.png` (320 and 390, `index`, `pulse`, `partners/ahp`, before | after), `ahp_sheet.png`, and `desk_*` / `mid_*` pairs.
 
-## C10b: mid-width desktop overflow
+## C10b: mid-width desktop overflow (replaced; **review before push**)
 
-**Where it starts and stops.** The desktop nav (logo 297 + search ≥304 + five links 581 = 1182, plus gaps) needs a 1246px container, so it fits from **exactly 1280px** up (links end at 1248, container right edge 1248). From **769 to 1279px** the links ran past the container and the page scrolled sideways by `1280 − viewport` px (for example 280px at 1000px). It is not only "below 1100px".
+The first version (`f17b9af`, hamburger at 1279px) was dropped before pushing and replaced with this one commit.
 
-**Change:** the three hamburger rules (hide `.nav-links`, show hamburger, show `.mobile-menu`) move from the 768px query to a **1279px** query. The rest of the 768px block (padding, logo size, search font, footer) stays at 768px.
+**Measured.** With 40px gaps the desktop nav needs a 1246px container and fits from exactly 1280px; from 769 to 1279px it ran past the container. With v15's `lg` 24px gap (Header Nav Spacing: "if cramped, fall back to lg") the links take 517px instead of 581px, and the nav **fits down to a 1215px viewport** (links end at 1183, container right edge 1183; at 1214px it overflows by 0.1px).
 
-| Viewport | Before | After |
+**Change** (`header.css`):
+- `max-width: 1279px`: `.nav-links { gap: 1.5rem }`
+- `max-width: 1214px`: hide `.nav-links`, show the hamburger and `.mobile-menu` (the three rules moved up from the 768px query; everything else in that query stays at 768px)
+
+**Final breakpoint: the hamburger takes over at 1214px and below.** The desktop nav shows from 1215px up; 1215–1279px with 24px gaps, 1280px and up as before.
+
+| Viewport | Result |
+|---|---|
+| 900, 1024, 1100, 1190 | logo + search + hamburger, no overflow (before: nav clipped at "Research & W…", "Submit", "Partne…") |
+| 1214 | hamburger |
+| 1215, 1250, 1279 | desktop nav, 24px gaps, fits exactly at 1215, no overflow |
+| 1280, 1366, 1440 | desktop nav, **pixel-identical to `origin/main`**: header strip on `index`, `pulse`, `research`, `contact`, `for-brands`, `partners/ahp`, 18 of 18 |
+
+Screenshots (gitignored): `screenshots/c10/c10b2_sheet.png` (1024, 1100, 1190, 1250, 1280, 1366; before above, after below).
+
+Review question: viewports 769–1214px now use the hamburger (small laptops at 1024–1200, landscape tablets). That is as narrow a range as the spec's 24px gap allows without making the search field smaller.
+
+## Non-header overflow fixes (separate commits)
+
+| Page | Cause | Fix | Result |
+|---|---|---|---|
+| `index.html` (`905ac98`) | stats strip: five columns need 775px | below 800px, two columns with the fifth cell across the bottom | strip fits; 800px and wider identical |
+| `bluesky-creator-intelligence.html` (`7f3da41`) | same stats strip, 708px | below 768px, same two-column layout | strip fits; the page still overflows (below) |
+| `about-this-project.html` (`64fd970`) | **an image, not a text link**: the Project Oasis logo is 427px wide at 36px high | `max-width: 100%` on the logo row (the `overflow-wrap` fix would not have helped) | 320–1440px fit; desktop identical |
+| `index.html` (`6151a43`) | two more causes behind the strip: the database cards (3 columns) and my own `white-space: nowrap` on "Open full Pulse feed →" from C6 | cards stack below 600px; the link may wrap at 480px and below | **homepage fits at 320, 360, 375, 390, 414, 600, 768, 1024, 1440** |
+| partner pages (`partners:` commit) | grey band: `body { padding-top: 72px }` | removed on 13 pages | header at the top of the page; hero directly below |
+
+The 800px, 1440px strip captures and the about logo row are pixel-identical to `origin/main`; the 390px captures are in `screenshots/c10/strips390_sheet.png` (before | after).
+
+**Grey band diagnosis.** The partner pages kept `padding-top: 72px` on `body` from when their nav was `position: fixed`. The shared header is `position: sticky` and in flow, so the padding left a 72px empty strip above it. One declaration, partner pages only. Not changed: `nj-lab.html` and `njlab.html` (same declaration, pending F2).
+
+## Still overflowing for non-header reasons (reported, not fixed)
+
+| Page | Width | Cause |
 |---|---|---|
-| 900, 1024, 1100 | nav clipped ("Research & W…", "Submit"), page scrolls sideways | logo + search + hamburger, no overflow |
-| 1200, 1279 | links past the container | hamburger, no overflow |
-| 1280 and up | desktop nav | desktop nav, **pixel-identical** (12 of 12 guard checks) |
-
-Verified: the hamburger opens the menu by touch at 1024px with `scrollWidth` 1024. Screenshots: `screenshots/c10/c10b_sheet.png` (900, 1024, 1100, 1280; before above, after below), `c10b_menu_open_1024.png`.
-
-**Why this is held for review (a real product call):**
-- Anyone with a viewport under 1280px sees the hamburger. That includes laptops with a visible scrollbar at a 1280px screen width (viewport 1265px), small laptops, and landscape tablets.
-- **Alternative, if the hamburger range is too wide:** v15's Header Nav Spacing table allows the `lg` (24px) gap between nav links "if cramped". That removes 64px, so the desktop nav would fit from about 1190px, and the hamburger would only be needed from about 1189px down. It needs the same breakpoint move (to about 1189) and shifts link positions between 1190 and 1279px. I did not do this; say if you want it.
+| `bluesky-creator-intelligence.html` | 705px at 320–600px | no mobile layout: hero is `1fr 440px`, header row and section meta, the "Request a brief" button. Needs a real mobile pass, not a one-line fix |
+| `for-brands.html` (320px only) | 367px | `div.gallery-offer-col` |
+| `partners/njlab.html` (320 and 360px) | 368px | `a.cta-btn.cta-primary` (nj-lab, F2) |
+| `teamdmv/index.html` (320px only) | 324px | `a.feed-card` (left alone) |
+| `preview/smartnews-d029dc36/index.html` (320px only) | 341px | `div.body` (left alone) |
 
 ## Done when
 
 - C10a committed; header overflow gone at 320–768; hamburger and menu work by touch and keyboard; desktop 1280+ identical. ✔
-- C10b committed and marked. ✔
+- C10b (replacement) committed and marked. ✔
 - C10b not pushed (held for review). `git status` clean. ✔

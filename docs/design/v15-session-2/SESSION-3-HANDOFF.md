@@ -8,7 +8,7 @@ Branch `main`, 13 local commits ahead of `origin/main` (`b8fc045` was the last p
 
 ## What Session 3 should pick up
 
-1. **Homepage stats strip overflows at 390px (775px wide)**, so phones zoom the page out; also the Bluesky page (708px) and a long link on `about-this-project` (447px). Not header causes; found in C10. Fix `div.stat-cell` layout at phone width first: it is the biggest remaining phone bug. (C10 itself is done; see `C10-REPORT.md`. C10b, the 1280px hamburger breakpoint, needs a decision before push.)
+1. **Bluesky page mobile layout** (705px at phone width: hero `1fr 440px`, header row, section meta, CTA). Also 320px-only: `for-brands` gallery column (367px) and `partners/njlab` CTA (368px). C10 is done (`C10-REPORT.md`); C10b (hamburger at 1214px, 24px gap from 1215–1279px) needs a decision before push.
 2. **Eyebrows.** Non-clickable caps labels without arrows (v15: Source Code Pro 500, 13px, 0.12em, step 5 on light; step 3 or Acid on dark). Many are still DM Mono / JetBrains Mono at 8–11px (`index`, `for-brands`, `pulse`, `research`). The `link-instruction` work did not touch them.
 3. **Tags** (12px Source Code Pro caps, 6px radius, no pills, no hover): not started.
 4. **nj-lab / njlab** (F2): no `components.css`, broken `variables.css` link, `.cta-ghost`, `.cta-primary` with Lime hover. Needs James's answer on item 3 in open items first.
