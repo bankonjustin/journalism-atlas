@@ -48,12 +48,16 @@
   .masthead-sub { font-size: 1.1rem; font-style: italic; color: var(--ink-light); margin-bottom: 1.25rem; }
   .masthead-meta { font-family: var(--font-ui); font-size: 13px; color: var(--ink-faint); }
 
-  .section-nav { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--rule); }
+  /* "Jump to" sub-nav: v15 white-header spec (docs/design/DESIGN-TOKENS-v15.md § Site Header, § Nav).
+     White background, step-3 bottom border, items step 6; hover and press Dark Olive underlined;
+     selected Dark Olive with a 2px underline. Typeface stays the page's own (DM Sans). */
+  .section-nav { position: sticky; top: 0; z-index: 10; background: #ffffff; border-bottom: 1px solid #c6c6c6; }
   .section-nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; height: var(--nav-h); align-items: center; }
   .section-nav-inner::-webkit-scrollbar { display: none; }
-  .section-nav a { font-family: var(--font-ui); font-size: 13px; font-weight: 600; color: var(--ink-light); text-decoration: none; padding: 6px 12px; border-radius: 6px; white-space: nowrap; }
-  .section-nav a:hover { background: var(--bg-warm); color: var(--ink); }
-  .section-nav a.active { color: var(--ink); background: var(--bg-warm); box-shadow: inset 0 -2px 0 var(--blue); }
+  .section-nav a, .cohort-strip a { font-family: var(--font-ui); font-size: 13px; font-weight: 600; color: #303030; text-decoration: none; text-decoration-thickness: 1px; text-underline-offset: 4px; padding: 6px 12px; white-space: nowrap; }
+  .section-nav a:hover, .section-nav a:active, .cohort-strip a:hover, .cohort-strip a:active { color: #5d7400; text-decoration-line: underline; }
+  .section-nav a.active { color: #5d7400; text-decoration-line: underline; text-decoration-thickness: 2px; text-underline-offset: 8px; }
+  .section-nav a:focus-visible, .cohort-strip a:focus-visible { outline: 2px solid #5d7400; outline-offset: 2px; }
 
   .content { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 6rem; }
   .section { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
@@ -61,10 +65,8 @@
   .section-num { font-family: var(--font-ui); font-size: 0.85em; color: var(--ink-faint); font-weight: 600; }
   h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 1.25rem; }
 
-  .cohort-strip { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 2rem; padding: 10px 12px; background: var(--bg-warm); border: 1px solid var(--rule); border-radius: 6px; }
+  .cohort-strip { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; margin: 0 0 2rem; padding: 6px 8px; background: #ffffff; border: 1px solid #c6c6c6; border-radius: 6px; }
   .strip-label { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-right: 4px; white-space: nowrap; }
-  .cohort-strip a { font-family: var(--font-ui); font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none; padding: 4px 10px; border: 1px solid var(--rule); border-radius: 9999px; background: var(--bg); white-space: nowrap; }
-  .cohort-strip a:hover { border-color: var(--blue); }
 
   .cohort-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--rule); }
   .cohort-title { font-family: var(--font-ui); font-size: 1.15rem; font-weight: 600; line-height: 1.35; margin-bottom: 1rem; }
@@ -406,9 +408,9 @@
     var line = nav.getBoundingClientRect().bottom + 24, idx = -1;
     sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) idx = i; });
     if (idx === current) return;
-    if (current >= 0) links[current].classList.remove('active');
+    if (current >= 0) { links[current].classList.remove('active'); links[current].removeAttribute('aria-current'); }
     current = idx;
-    if (idx >= 0) links[idx].classList.add('active');
+    if (idx >= 0) { links[idx].classList.add('active'); links[idx].setAttribute('aria-current', 'true'); }
   }
   window.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
   update();
