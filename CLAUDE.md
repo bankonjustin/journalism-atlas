@@ -59,7 +59,7 @@ All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` as the s
 
 **v15 rollout status.** v15 is being applied in stages, scoped in `docs/design/v15-discovery/V15-SCOPE-BUCKETS.md`. The rules below describe the target. Until a stage has shipped, live pages can still show the old look (for example Acid-at-rest buttons, pill tags and DM Mono/JetBrains Mono labels). When a rule and a page disagree, the rule wins for new work; don't "fix" old pages outside the stage being worked.
 
-**Shipped so far:** Neutral gray scale on the public pages (role variables repointed; Cool hexes in page chrome replaced by role variables; Cool kept in graphics).
+**Shipped so far:** Neutral gray scale on the public pages (role variables repointed; Cool hexes in page chrome replaced by role variables; Cool kept in graphics). Weights 800 and 900 retired on the public pages (700 instead; the D3 text in `assets/js/main.js` and the self-contained `teamdmv` page still use them).
 
 **Do not infer or improvise colors, type sizes, spacing, or component states — look them up.**
 

@@ -37,7 +37,7 @@ window.atlasTrack = function(eventName, params) {
             document.head.appendChild(link);
         }
     }
-    ensureFont('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    ensureFont('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     ensureFont('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0');
     // Source Code Pro 500 for v15 Label/Tag/eyebrow/link styles (DESIGN-TOKENS-v15.md § Font Stack). Loaded now so it is
     // available site-wide; nothing switches to it yet (DM Mono / JetBrains Mono are still in use).
