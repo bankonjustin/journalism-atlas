@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>V15 Session 2 Review Sheet</title>
+<style>
+:root{--bg:#fff;--fg:#303030;--muted:#5e5e5e;--line:#c6c6c6;--accent:#5d7400;--surface:#efefef}
+@media (prefers-color-scheme:dark){:root{--bg:#121212;--fg:#fff;--muted:#c6c6c6;--line:#5e5e5e;--accent:#ceff00;--surface:#000}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Inter,system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 64px}h1{font-size:28px;margin:0 0 4px}h2{font-size:20px;margin:40px 0 8px;border-top:1px solid var(--line);padding-top:24px}
+p{margin:0 0 12px}.sub{color:var(--muted)}table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 16px}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-weight:600}
+td.n{white-space:nowrap}td.ok{font-weight:600;color:var(--accent)}code{font:13px "Source Code Pro",monospace;background:var(--surface);padding:1px 5px;border-radius:4px}
+label{display:flex;gap:10px;align-items:flex-start;padding:6px 0}input{margin-top:6px}a{color:var(--accent);text-underline-offset:3px}.flag{font-weight:600}
+@media (max-width:640px){table{display:block;overflow-x:auto}}
+</style></head><body><main>
+<h1>V15 Session 2: review sheet</h1>
+<p class="sub">Oct 23, 2026. 13 local commits on <code>main</code>, not pushed. Serve the repo (<code>python3 -m http.server</code>) and open each page. Details: <code>V15-SESSION-2-REPORT.md</code>; decisions: <code>JAMES-OPEN-ITEMS.md</code>.</p>
+
+<h2>Review before push</h2>
+<label><input type="checkbox"> <span><span class="flag">Homepage Pulse grid</span> is one column at 390px (<code>index.html</code>). Layout change.</span></label>
+<label><input type="checkbox"> <span><span class="flag">Header is 3px taller</span> everywhere (44px Search button). <code>/</code>, any page.</span></label>
+<label><input type="checkbox"> <span><span class="flag">Hamburger is off-screen at 390px</span> (pre-existing; 577px before, 601px now). Any page at phone width. C10 not done.</span></label>
+<label><input type="checkbox"> <span>Partner cards (13 pages) and <code>co-ops</code>: "Visit →" is now a text link; cards are shorter.</span></label>
+<label><input type="checkbox"> <span>Hero buttons on black are gray at rest (<code>/</code>, <code>/research</code>, <code>/for-brands</code>).</span></label>
+
+<h2>Walk-through by page group</h2>
+<table><tr><th>Group</th><th>Pages</th><th>Look for</th></tr>
+<tr><td>Home</td><td><code>index</code></td><td>Primary "Explore the Atlas →" gray; "View Pulse →" outlined; instruction links caps; cluster cards show "Explore cluster →" on touch; drawer links white/Acid; Pulse grid stacks at ≤480px</td></tr>
+<tr><td>Brands and research</td><td><code>for-brands</code>, <code>research</code>, <code>about-this-project</code></td><td>Ghost buttons now outlined secondaries; dark-surface links white then Acid; pulse intel rows wrap at 390</td></tr>
+<tr><td>Pulse and search</td><td><code>pulse</code>, <code>search</code>, <code>wire</code></td><td>"Load 50 more", "more topics", "Clear all filters" are secondaries; "Search the database →" goes to <code>/search</code>; pack share primary</td></tr>
+<tr><td>Partners</td><td>13 partner pages, <code>partners/index</code></td><td>Attribution link olive underlined; "How we verify →" 12px after the sentence; Partners nav item selected (Dark Olive, 2px underline); "Visit →" text links</td></tr>
+<tr><td>Labs</td><td><code>city-lab-chicago</code>, <code>city-lab-dc-v3</code>, <code>latin-america-lab</code>, <code>co-ops</code>, <code>bluesky-creator-intelligence</code></td><td>"Tell us who we missed →" primary; "Show all" and "Reset filters" secondaries; Bluesky "Get in touch →" primary with "For brands →" secondary; disclosure toggles outlined</td></tr>
+<tr><td>Forms and info</td><td><code>contact</code>, <code>submit</code>, <code>submit-thanks</code>, <code>who-we-are</code>, <code>how-we-did-this</code>, <code>advisory</code>, <code>updates</code></td><td>Body links olive underlined (white on dark); who-we-are Email/LinkedIn olive; About items marked in the mobile menu</td></tr>
+<tr><td>Report</td><td><code>preview/nodes-and-networks-f348eb08/</code></td><td>Jump-to bar white with olive hover and a 2px selected underline; cohort strip has no pills</td></tr>
+<tr><td>Everywhere</td><td>footer</td><td>White links; Acid + underline on hover</td></tr></table>
+
+<h2>Contrast (WCAG 2.x)</h2>
+<table><tr><th>Pair</th><th>Colors</th><th>Ratio</th><th>Needs</th><th>Result</th></tr><tr><td>Primary rest (light/dark)</td><td>#ffffff on #303030</td><td class="n">13.2:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Primary rest outline, light</td><td>#5e5e5e on #ffffff (non-text)</td><td class="n">6.5:1</td><td class="n">3:1</td><td class="ok">pass</td></tr><tr><td>Primary rest outline, dark</td><td>#909090 on #000000 (non-text)</td><td class="n">6.6:1</td><td class="n">3:1</td><td class="ok">pass</td></tr><tr><td>Hover / press (all buttons)</td><td>#000000 on #ceff00</td><td class="n">17.9:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Secondary rest, light</td><td>#000000 on #ffffff</td><td class="n">21.0:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Secondary outline, light</td><td>#303030 on #ffffff (non-text)</td><td class="n">13.2:1</td><td class="n">3:1</td><td class="ok">pass</td></tr><tr><td>Secondary rest, dark</td><td>#ffffff on #000000</td><td class="n">21.0:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Secondary selected, light</td><td>#ffffff on #000000</td><td class="n">21.0:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Instruction link rest, light</td><td>#303030 on #ffffff</td><td class="n">13.2:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Instruction link rest, light gray page</td><td>#303030 on #efefef</td><td class="n">11.5:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Instruction link hover, light</td><td>#5d7400 on #ffffff</td><td class="n">5.3:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Instruction link hover, light gray page</td><td>#5d7400 on #efefef</td><td class="n">4.6:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Instruction link hover, dark</td><td>#ceff00 on #000000</td><td class="n">17.9:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Instruction link rest, dark</td><td>#ffffff on #121212</td><td class="n">18.7:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Body link, light</td><td>#5d7400 on #ffffff</td><td class="n">5.3:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Body link, gray surface</td><td>#5d7400 on #efefef</td><td class="n">4.6:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Body link hover, light</td><td>#000000 on #ffffff</td><td class="n">21.0:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Nav rest / footer rest</td><td>#303030 on #ffffff / #ffffff on #000000</td><td class="n">13.2:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Nav selected, white header</td><td>#5d7400 on #ffffff</td><td class="n">5.3:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Nav selected, black header</td><td>#ceff00 on #000000</td><td class="n">17.9:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr><tr><td>Focus ring, light</td><td>#5d7400 on #ffffff (non-text)</td><td class="n">5.3:1</td><td class="n">3:1</td><td class="ok">pass</td></tr><tr><td>Focus ring, dark</td><td>#97d600 on #000000 (non-text)</td><td class="n">11.9:1</td><td class="n">3:1</td><td class="ok">pass</td></tr><tr><td>Disabled text</td><td>#909090 on #ffffff (exempt, informational)</td><td class="n">3.2:1</td><td class="n">3:1</td><td class="ok">pass</td></tr><tr><td>Jump-to nav hover (report)</td><td>#5d7400 on #ffffff</td><td class="n">5.3:1</td><td class="n">4.5:1</td><td class="ok">pass</td></tr></table>
+
+<h2>Verification summary</h2>
+<table><tr><th>Check</th><th>Result</th></tr>
+<tr><td>Button spec at rest and hover</td><td>All migrated buttons match (44px, 6px radius, Inter 600 15px)</td></tr>
+<tr><td>Green at rest</td><td>Zero green buttons; remaining items listed in the report and open items</td></tr>
+<tr><td>Lime</td><td>Only the Pulse dot (approved) and the hero "LOCAL" pill; no Lime hovers</td></tr>
+<tr><td><code>:active</code> at 390 (touch)</td><td>All component types change state</td></tr>
+<tr><td>Body links underlined at rest</td><td>Everywhere</td></tr>
+<tr><td>Instruction links wrapping at 390</td><td>Squeezes fixed; long phrases wrap to two lines by design</td></tr></table>
+</main></body></html>
