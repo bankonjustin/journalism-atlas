@@ -61,7 +61,7 @@
     .tab-nav::-webkit-scrollbar { display: none; }
     .tab-btn { padding: 16px 20px; font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; color: #888; transition: color 0.15s; white-space: nowrap; flex-shrink: 0; }
     .tab-btn:hover { color: #111; background: rgba(0,0,0,0.03); }
-    .tab-btn.active { color: #000; border-bottom-color: var(--color-accent-on-light); background: rgba(151,214,0,0.08); font-weight: 700; }
+    .tab-btn.active { color: #000; border-bottom-color: var(--color-accent-on-light); background: rgba(0,0,0,0.03); font-weight: 700; }
     .tab-btn .tab-badge { display: inline-block; font-size: 9px; font-weight: 700; background: var(--color-accent); color: #000; padding: 1px 5px; border-radius: 100px; margin-left: 6px; vertical-align: middle; }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
@@ -113,7 +113,7 @@
     .anchor-note { font-size: 13px; color: #606068; margin-top: 2px; line-height: 1.5; }
     .context-collapse { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
     .context-collapse.open { max-height: 2000px; }
-    .context-toggle { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; color: var(--color-accent-on-light); padding: 16px 0; display: flex; align-items: center; gap: 8px; }
+    .context-toggle { display: flex; align-items: center; gap: 8px; }
     .context-card { border: 1px solid #e0e0e0; border-radius: 6px; padding: 22px; margin-bottom: 12px; }
     .context-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #666; margin-bottom: 10px; }
     .context-card p { font-size: 16px; line-height: 1.625; color: #333; }
@@ -355,7 +355,7 @@
     <div class="anchor-grid" id="ecosystem-orgs-list"><div style="padding:20px;color:#999;font-style:italic">Loading&hellip;</div></div>
   </section>
   <section class="section" style="border-bottom:none">
-    <button class="context-toggle" id="context-toggle-btn" onclick="toggleContext()"><span id="context-icon">+</span> Ecosystem context &amp; methodology</button>
+    <button class="context-toggle btn btn--secondary" id="context-toggle-btn" onclick="toggleContext()"><span id="context-icon">+</span> Ecosystem context &amp; methodology</button>
     <div class="context-collapse" id="context-collapse">
       <div class="context-card"><h3>Institutional Collapse Context</h3><p>The Chicago Tribune was decimated under Alden Global Capital. The Chicago Sun-Times merged with WBEZ. The Chicago Reader moved to a monthly print schedule. Of the 245 outlets tracked by Medill&rsquo;s Local News Initiative, the majority of total audience reach is concentrated in a handful of legacy broadcast and digital outlets. The independent creator layer has not filled the accountability void.</p></div>
       <div class="context-card"><h3>The Anchor Institutions</h3><p><strong>Block Club Chicago</strong> (480K social following) and <strong>City Bureau</strong> (27K) are the backbone of independent Chicago journalism. <strong>South Side Weekly</strong> (45K) and <strong>Injustice Watch</strong> (25K) fill adjacent gaps.</p></div>
@@ -410,7 +410,7 @@
       </div>
       <a href="https://journalismatlas.com/contact" target="_blank" rel="noopener" class="btn btn--primary" style="flex-shrink:0;white-space:nowrap">Tell us who we missed &rarr;</a>
     </div>
-    <button class="context-toggle" id="vacuum-toggle-btn" onclick="toggleVacuums()"><span id="vacuum-icon">+</span> Where coverage is thin</button>
+    <button class="context-toggle btn btn--secondary" id="vacuum-toggle-btn" onclick="toggleVacuums()"><span id="vacuum-icon">+</span> Where coverage is thin</button>
     <div class="context-collapse" id="vacuum-collapse">
       <div class="vacuum-grid" style="margin-top:16px">
         <div class="vacuum-card partial"><h3>Labor &amp; Workers <span class="vacuum-severity sev-gap">Emerging</span></h3><p>Chicago is one of the most union-dense cities in America. One creator now covers this beat.</p><p style="margin-top:8px;font-size:14px;color:#7a4f00"><strong>Now tracked:</strong> Jerry Mead-Lucero / Labor Express Radio &mdash; Chicago&rsquo;s only English-language labor news program, WLPN 105.5 FM since 2004.</p></div>

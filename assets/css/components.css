@@ -233,6 +233,37 @@ a:active .link-instruction:not(a) {
   text-decoration-line: underline;
 }
 
+/* ---------- Icon-only button (close, pause, menu): a 44px target, no outline at rest ---------- */
+/* Rest: transparent, icon in the surrounding text colour. Hover/press: Acid fill, black icon (same as buttons). */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-base, 6px);
+  background: transparent;
+  color: var(--color-heading);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 150ms ease), border-color var(--transition-fast, 150ms ease), color var(--transition-fast, 150ms ease);
+}
+:where(.on-dark, [data-surface="dark"]) .btn-icon { color: var(--color-surface); }
+.btn-icon:hover,
+.btn-icon:active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-heading);
+}
+.btn-icon:disabled,
+.btn-icon[aria-disabled="true"] { background: transparent; border-color: transparent; color: var(--color-muted); cursor: not-allowed; }
+
+/* A <button> that acts as an instruction link (reveals more, no button chrome) */
+button.link-instruction { background: none; border: 0; padding: 0; text-align: left; }
+
 /* ---------- Body link (a link inside a sentence) ---------- */
 /* Underlined at rest so it never relies on colour alone (WCAG 1.4.1). */
 .link-body {

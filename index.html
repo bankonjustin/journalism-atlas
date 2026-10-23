@@ -153,8 +153,7 @@
     .featured-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; position: relative; transition: opacity 0.3s ease; }
     .featured-card { padding: 32px 28px; border: 1px solid #1f1f1f; border-left: 1px solid #1f1f1f; display: flex; flex-direction: column; gap: 12px; min-height: 0; transition: opacity 0.3s ease; }
     .featured-header-right { display: flex; align-items: center; gap: 16px; padding-right: 40px; }
-    .featured-pause-btn { background: none; border: none; cursor: pointer; padding: 0; color: rgba(255,255,255,0.25); display: flex; align-items: center; transition: color 0.15s; line-height: 1; }
-    .featured-pause-btn:hover { color: rgba(255,255,255,0.6); }
+    .featured-pause-btn { display: flex; align-items: center; }
     .featured-pause-btn .material-symbols-outlined { font-size: 20px; }
     .featured-progress { display: flex; gap: 6px; justify-content: center; margin-top: 24px; padding-right: 40px; }
     .featured-progress-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: background 0.3s ease; cursor: pointer; border: none; padding: 0; }
@@ -598,7 +597,7 @@
         <div class="featured-sub">A rotating selection from our verified creator pool, updated weekly. Each pick reflects the depth of the ecosystem — <strong>not just its most familiar names.</strong></div>
       </div>
       <div class="featured-header-right">
-        <button class="featured-pause-btn" id="featured-pause-btn" aria-label="Pause rotation">
+        <button class="featured-pause-btn btn-icon" id="featured-pause-btn" aria-label="Pause rotation">
           <span class="material-symbols-outlined">pause_circle</span>
         </button>
         <a href="search.html" class="featured-view-all link-instruction">View all →</a>
