@@ -14,7 +14,7 @@
 
 - No sycophantic openers ("Great question!", "I'd be happy to help with that!", "Absolutely!")
 - No restating the request back before answering
-- No hedging on calls already settled by this file, `DESIGN-TOKENS-v14.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
+- No hedging on calls already settled by this file, `docs/design/DESIGN-TOKENS-v15.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
 - Flag genuine ambiguity once, briefly, then proceed with the most reasonable interpretation rather than stalling
 
 ### Required reading order
@@ -22,8 +22,8 @@
 | File | When |
 |------|------|
 | `CLAUDE.md` (this file) | Always |
-| `DESIGN-TOKENS-v14.md` | Before any CSS/styling work |
-| `ATLAS-BRAND-GUIDE-v3.md` | Before writing any user-facing copy (voice, self-description, em dash style, database-size wording). Hanken Grotesk is retired per this guide. |
+| `docs/design/DESIGN-TOKENS-v15.md` | Before any CSS/styling work |
+| `docs/design/ATLAS-BRAND-GUIDE-v4.md` | Before writing any user-facing copy (voice, self-description, em dash style, database-size wording). Hanken Grotesk is retired per this guide. |
 | `_reference/james-design-principles.md` | Before any visual/component decision |
 | `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
 | `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
@@ -55,7 +55,7 @@ A vanilla JS static HTML site. No npm, no React, no bundler. All pages are singl
 
 ## Design System
 
-All visual implementation references `DESIGN-TOKENS-v14.md` at the project root as the single source of truth. Its CSS implementation lives in `assets/css/variables.css` — the canonical token file, loaded before all other stylesheets.
+All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` at the project root as the single source of truth. Its CSS implementation lives in `assets/css/variables.css` — the canonical token file, loaded before all other stylesheets.
 
 **Do not infer or improvise colors, type sizes, spacing, or component states — look them up.**
 
@@ -63,7 +63,7 @@ All visual implementation references `DESIGN-TOKENS-v14.md` at the project root 
 
 ### Non-negotiable rules (memorize these)
 
-- **Greens by surface (DESIGN-TOKENS-v14.md § Greens by Surface):**
+- **Greens by surface (docs/design/DESIGN-TOKENS-v15.md § Greens by Surface):**
   - **Acid `#ceff00` and Lime `#97d600` on LIGHT surfaces = fill only**, with black or step-6 text on top. Never text, icons or thin strokes on light (1.2:1 and 1.8:1 on white).
   - **On DARK surfaces** acid and lime are free within their roles: acid for CTAs and active states (text, icons, strokes, fills), lime for hover and the focus ring.
   - **Dark Olive `#5d7400` on LIGHT surfaces = the green for text, icons and thin strokes** (active nav item, selected icon, link-style CTA, hover *text*, focus ring). Never a fill, button background or hover fill. Not used on dark surfaces (4.0:1 on black).
@@ -83,7 +83,7 @@ All visual implementation references `DESIGN-TOKENS-v14.md` at the project root 
 ### CSS token architecture
 
 ```
-assets/css/variables.css   ← THE canonical token file (implements DESIGN-TOKENS-v14.md)
+assets/css/variables.css   ← THE canonical token file (implements docs/design/DESIGN-TOKENS-v15.md)
 assets/css/header.css      ← Shared site header + footer wordmark styles (all pages)
 assets/css/main.css        ← Primary stylesheet for index.html only
 assets/css/animations.css  ← Standalone animation keyframes
@@ -108,12 +108,12 @@ The site header is injected via `assets/js/header.js` — a self-contained scrip
 
 Pages with inline `<style>` blocks (partners/*.html, city-lab-chicago.html, latin-america-lab.html) link variables.css before their inline block, and header.css after it (before `</head>`).
 
-### How to use DESIGN-TOKENS-v14.md in a session
+### How to use docs/design/DESIGN-TOKENS-v15.md in a session
 
-Before writing any CSS or styling-related code, read the relevant section of `DESIGN-TOKENS-v14.md`. Reference it explicitly in comments when implementing tokens:
+Before writing any CSS or styling-related code, read the relevant section of `docs/design/DESIGN-TOKENS-v15.md`. Reference it explicitly in comments when implementing tokens:
 
 ```css
-/* Primary accent — light mode only. DESIGN-TOKENS-v14.md § Semantic Color Assignments */
+/* Primary accent — light mode only. docs/design/DESIGN-TOKENS-v15.md § Semantic Color Assignments */
 --color-accent: #97d600;
 ```
 

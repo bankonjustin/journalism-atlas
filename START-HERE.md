@@ -29,6 +29,6 @@
 - **Release date, dateline, launch date** are open.
 - **URL:** `partners/smartnews` (default on ungate, via `git mv`) vs `/smartnews` with a redirect.
 - **Template:** should this become the reusable "partner announcement" template? Recommendation: after the second partner.
-- **`ATLAS-BRAND-GUIDE-v3.md`** is not in the working tree. Restore it to the repo (it was added in `413e5a8`) or record where it lives.
+- **Brand guide:** resolved. `ATLAS-BRAND-GUIDE-v4.md` and `DESIGN-TOKENS-v15.md` live in `docs/design/` (v14 tokens in `docs/design/archive/`). `ATLAS-BRAND-GUIDE-v3.md` is still at the repo root, superseded; archive it when convenient.
 - **Before ungating:** deploy the Apps Script, submit one real test application and confirm the row lands in the Sheet (the form posts with `no-cors` and shows success even when the endpoint is broken).
 - **For James:** twelve items in `docs/briefs/smartnews/REVIEW-NOTES-JAMES.md`, including error-text contrast (4.3:1) and the header search field at 390 px.

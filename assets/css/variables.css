@@ -1,7 +1,7 @@
 /* =============================================
    JOURNALISM ATLAS — CSS CUSTOM PROPERTIES
-   CSS implementation of DESIGN-TOKENS-v14.md
-   Last synced: October 2026 (DESIGN-TOKENS-v14.md; migration in progress, existing color roles are re-pointed in Phase 2)
+   CSS implementation of DESIGN-TOKENS-v15.md
+   Last synced: October 2026 (DESIGN-TOKENS-v15.md; migration in progress, existing color roles are re-pointed in Phase 2)
 
    HOW TO USE:
    Load this file FIRST in every page <head>,
@@ -9,7 +9,7 @@
      <link rel="stylesheet" href="assets/css/variables.css">
 
    Reference tokens by name — never hardcode hex values.
-   When in doubt, check DESIGN-TOKENS-v14.md for the canonical value.
+   When in doubt, check DESIGN-TOKENS-v15.md for the canonical value.
    ============================================= */
 
 :root {
@@ -38,7 +38,7 @@
 
   /* =========================================
      MONOTONE SCALES — v12 (Oct 2026)
-     DESIGN-TOKENS-v14.md § Tier 2 — Monotones
+     DESIGN-TOKENS-v15.md § Tier 2 — Monotones
      Site uses the Cool scale for semantic roles; don't mix scales on one surface.
      Step 4 is large text / UI / disabled only (3.2:1 on white), never body text.
      ========================================= */
@@ -61,14 +61,14 @@
   --gray-cool-8: #000000;
 
   /* v12 semantic names that do not collide with existing tokens.
-     DESIGN-TOKENS-v14.md § Semantic Color Assignments.
+     DESIGN-TOKENS-v15.md § Semantic Color Assignments.
      The existing --color-bg / -text / -text-secondary / -muted / -border / -error
      definitions below are re-pointed to these scales in Phase 2a/2b. */
   --color-surface:        var(--gray-cool-1);
   --color-heading:        var(--gray-cool-8);
   --color-text-on-dark-2: var(--gray-cool-3);   /* secondary text on dark surfaces */
   --color-border-on-dark: var(--gray-cool-5);
-  /* Green primitives (DESIGN-TOKENS-v14.md § Migrating color variables). Role variables point at these.
+  /* Green primitives (DESIGN-TOKENS-v15.md § Migrating color variables). Role variables point at these.
      Brand-palette names --color-acid-green / --color-lime-green / --color-dark-olive above are older aliases of the same values. */
   --color-acid:           #ceff00;
   --color-lime:           #97d600;
@@ -88,7 +88,7 @@
 
   /* =========================================
      LIGHT MODE — Semantic Color Assignments
-     DESIGN-TOKENS-v14.md § Semantic Color Assignments
+     DESIGN-TOKENS-v15.md § Semantic Color Assignments
      Use these tokens in all light-surface contexts.
      ========================================= */
   --color-bg:             var(--gray-cool-2);   /* Primary page background */
@@ -139,7 +139,7 @@
      D3 only — never use in UI chrome.
      Category → color assignments are in the JS constant ATLAS_VIZ_COLORS (ATLAS_VIZ_COLORS.md).
      These legacy CSS vars are superseded — do not add new --viz-* properties here.
-     Reference: DESIGN-TOKENS-v14.md § D3 Visualization Color Array
+     Reference: DESIGN-TOKENS-v15.md § D3 Visualization Color Array
      ========================================= */
   --viz-yellow:   #fff700;
   --viz-orange:   #ffaa00;
@@ -155,14 +155,14 @@
 
   /* =========================================
      TYPOGRAPHY
-     DESIGN-TOKENS-v14.md § Typography — v7 May 2026
+     DESIGN-TOKENS-v15.md § Typography — v7 May 2026
      Weights: 400 / 500 (Micro only) / 600 (H3) / 700 / 800.
      ========================================= */
 
   /* Font families */
   --font-primary:   'Inter', sans-serif;
   --font-mono:      'Source Code Pro', monospace;
-  --font-editorial: 'Merriweather', serif;   /* reactivated Sept 2026 — DESIGN-TOKENS-v14.md v11 § Font Stack */
+  --font-editorial: 'Merriweather', serif;   /* reactivated Sept 2026 — DESIGN-TOKENS-v15.md v11 § Font Stack */
 
   /* Legacy alias */
   --font-ui: 'Inter', sans-serif;
@@ -218,7 +218,7 @@
 
   /* =========================================
      SPACING — 4px base unit
-     DESIGN-TOKENS-v14.md § Spacing & Layout
+     DESIGN-TOKENS-v15.md § Spacing & Layout
      ========================================= */
   --space-xs:   4px;    /* tight inline spacing, badge padding */
   --space-sm:   8px;
@@ -238,7 +238,7 @@
 
   /* =========================================
      BORDER RADIUS
-     DESIGN-TOKENS-v14.md § Spacing & Layout
+     DESIGN-TOKENS-v15.md § Spacing & Layout
      ========================================= */
   --radius-base:  6px;    /* Cards, buttons, inputs */
   --radius-modal: 8px;    /* Modals — slightly softer */
@@ -254,7 +254,7 @@
 
   /* =========================================
      LAYOUT
-     DESIGN-TOKENS-v14.md § Max Content Width
+     DESIGN-TOKENS-v15.md § Max Content Width
      ========================================= */
   --max-width-layout:    1440px;   /* outer container — all pages */
   --max-width-card-grid: 1200px;   /* card grids — sits inside layout with margin */
@@ -264,7 +264,7 @@
   /* =========================================
      ICON SIZES
      Material Symbols Outlined — opsz must match display size
-     DESIGN-TOKENS-v14.md § Iconography
+     DESIGN-TOKENS-v15.md § Iconography
      ========================================= */
   --icon-sm:  20px;   /* opsz=20 — inline, tight contexts, tags */
   --icon-md:  24px;   /* opsz=24 — standard UI: buttons, nav, filters */

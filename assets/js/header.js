@@ -40,7 +40,7 @@ window.atlasTrack = function(eventName, params) {
     ensureFont('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     ensureFont('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0');
 
-    // Header theme: 'white' (default, live) or 'black' (DESIGN-TOKENS-v14.md § Site Header). Pages may request a
+    // Header theme: 'white' (default, live) or 'black' (DESIGN-TOKENS-v15.md § Site Header). Pages may request a
     // theme with <html data-header-theme="...">; the CSS lives in header.css. The logo is chosen from the theme:
     // blk on a white header, wht on a black header. The two files share identical geometry, so swapping them
     // causes no layout shift. Never recolor an SVG: swap the file.

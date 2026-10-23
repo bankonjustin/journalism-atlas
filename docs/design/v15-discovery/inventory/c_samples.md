@@ -1,0 +1,1356 @@
+# Track C samples — up to 5 lines per file per search
+
+Full rows (every hit) are in `inventory/c_*.csv`. Format: `L<line> selector | property: value | role`. Hanken and `#ff9600` have zero live hits, so they have no sample section.
+
+## Cool hexes (chrome vs graphics) — 879 hits in 50 files
+- **beat-tech.html** (161)
+  - L43 `.platform-bar` | background: `#efeff4` | chrome
+  - L102 `.gap-list` | color: `#303036` | chrome
+  - L119 `.td-rss` | color: `#303036` | chrome
+  - L198 `<span class="legend-dot" style>` | background: `#efeff4` | graphics
+  - L204 `<span class="pill" style>` | background: `#efeff4` | chrome
+- **beat-climate.html** (105)
+  - L43 `.platform-bar` | background: `#efeff4` | chrome
+  - L102 `.gap-list` | color: `#303036` | chrome
+  - L119 `.td-rss` | color: `#303036` | chrome
+  - L198 `<span class="legend-dot" style>` | background: `#efeff4` | graphics
+  - L203 `<span class="pill" style>` | background: `#efeff4` | chrome
+- **beat-finance.html** (81)
+  - L43 `.platform-bar` | background: `#efeff4` | chrome
+  - L102 `.gap-list` | color: `#303036` | chrome
+  - L119 `.td-rss` | color: `#303036` | chrome
+  - L198 `<span class="legend-dot" style>` | background: `#efeff4` | graphics
+  - L203 `<span class="pill" style>` | background: `#efeff4` | chrome
+- **partners/nj-lab.html** (52)
+  - L34 `body` | background: `#efeff4` | chrome
+  - L35 `body` | color: `#303036` | chrome
+  - L42 `.section-dark` | background: `#303036` | chrome
+  - L42 `.section-dark` | color: `#efeff4` | chrome
+  - L43 `.section-light` | background: `#efeff4` | chrome
+- **partners/njlab copy.html** (52)
+  - L34 `body` | background: `#efeff4` | chrome
+  - L35 `body` | color: `#303036` | chrome
+  - L42 `.section-dark` | background: `#303036` | chrome
+  - L42 `.section-dark` | color: `#efeff4` | chrome
+  - L43 `.section-light` | background: `#efeff4` | chrome
+- **partners/njlab.html** (52)
+  - L34 `body` | background: `#efeff4` | chrome
+  - L35 `body` | color: `#303036` | chrome
+  - L42 `.section-dark` | background: `#303036` | chrome
+  - L42 `.section-dark` | color: `#efeff4` | chrome
+  - L43 `.section-light` | background: `#efeff4` | chrome
+- **city-lab-chicago.html** (24)
+  - L26 `:root` | --tab-active-text: `#303036` | chrome
+  - L45 `.hero-stat-num-child` | color: `#efeff4` | chrome
+  - L141 `.layer-stat-btn:hover` | background: `#efeff4` | chrome
+  - L149 `.view-btn.active` | background: `#efeff4` | chrome
+  - L149 `.view-btn.active` | color: `#303036` | chrome
+- **pulse.html** (21)
+  - L27 `body` | background: `#efeff4` | chrome
+  - L28 `body` | color: `#303036` | chrome
+  - L108 `.pulse-thesis-band` | background: `#efeff4` | chrome
+  - L122 `.pulse-thesis-band strong` | color: `#303036` | chrome
+  - L140 `.field-summary-text` | color: `#303036` | chrome
+- **wire.html** (18)
+  - L36 `body` | background: `var(--color-bg, #efeff4)` | chrome
+  - L37 `body` | color: `var(--color-text, #303036)` | chrome
+  - L75 `.wire-hero-sub` | color: `#c6c6cd` | chrome
+  - L91 `.wire-feed-section` | background: `var(--color-bg, #efeff4)` | chrome
+  - L104 `.beat-tab` | border: `1.5px solid var(--color-border, #c6c6cd)` | chrome
+- **for-brands.html** (16)
+  - L95 `.hero-sub` | color: `#c6c6cd` | chrome
+  - L177 `.way-card-body` | color: `#c6c6cd` | chrome
+  - L187 `.good-news-section` | background: `#efeff4` | chrome
+  - L198 `.good-news-label` | color: `#303036` | chrome
+  - L207 `.atlas-does-intro` | color: `#c6c6cd` | chrome
+- **research.html** (16)
+  - L36 `body` | background: `#efeff4` | chrome
+  - L37 `body` | color: `#303036` | chrome
+  - L115 `.ticker-section` | background: `#efeff4` | chrome
+  - L132 `.ticker-intro` | color: `#303036` | chrome
+  - L157 `.ticker-viewport::before` | background: `linear-gradient(to right, #efeff4, transparent)` | chrome
+- **index.html** (15)
+  - L39 `body` | background: `#efeff4` | chrome
+  - L39 `body` | color: `#efeff4` | chrome
+  - L81 `.hero-subhead` | color: `#c6c6cd` | chrome
+  - L149 `.btn-lime` | color: `#303036` | chrome
+  - L159 `.btn-lime-lg` | color: `#303036` | chrome
+- **about-this-project.html** (13)
+  - L40 `:root` | --light-gray: `#efeff4` | chrome
+  - L41 `:root` | --dark-gray: `#303036` | chrome
+  - L67 `.about-subnav-link:hover` | color: `#303036` | chrome
+  - L69 `.about-subnav-link--active` | color: `#303036` | chrome
+  - L75 `.about-section--gray` | background: `#efeff4` | chrome
+- **partners/ahp.html** (13)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L31 `body` | color: `#303036` | chrome
+  - L88 `.curatorial-text` | color: `#303036` | chrome
+  - L110 `.chip` | color: `#303036` | chrome
+  - L115 `.chip.active` | color: `#303036` | chrome
+- **partners/cillizza.html** (13)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L31 `body` | color: `#303036` | chrome
+  - L106 `.chip` | color: `#303036` | chrome
+  - L111 `.chip.active` | color: `#303036` | chrome
+  - L134 `.act-count-pill` | color: `#303036` | chrome
+- **partners/emily-atkin.html** (13)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L31 `body` | color: `#303036` | chrome
+  - L92 `.chip` | color: `#303036` | chrome
+  - L97 `.chip.active` | color: `#303036` | chrome
+  - L108 `.act-count-pill` | color: `#303036` | chrome
+- **partners/icfj.html** (13)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L31 `body` | color: `#303036` | chrome
+  - L67 `.chip` | color: `#303036` | chrome
+  - L69 `.chip.active` | color: `#303036` | chrome
+  - L76 `.act-count-pill` | color: `#303036` | chrome
+- **partners/jessica-stahl.html** (13)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L28 `body` | color: `#303036` | chrome
+  - L56 `.chip` | color: `#303036` | chrome
+  - L58 `.chip.active` | color: `#303036` | chrome
+  - L65 `.act-count-pill` | color: `#303036` | chrome
+- **partners/knowledge-creators.html** (13)
+  - L16 `:root` | --page-bg: `#efeff4` | chrome
+  - L19 `body` | color: `#303036` | chrome
+  - L40 `.chip` | color: `#303036` | chrome
+  - L42 `.chip.active` | color: `#303036` | chrome
+  - L48 `.act-count-pill` | color: `#303036` | chrome
+- **partners/news-creator-corps.html** (13)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L28 `body` | color: `#303036` | chrome
+  - L55 `.curatorial-text` | color: `#303036` | chrome
+  - L63 `.chip` | color: `#303036` | chrome
+  - L65 `.chip.active` | color: `#303036` | chrome
+- **partners/_shell.html** (12)
+  - L41 `:root` | --page-bg: `#efeff4` | chrome
+  - L47 `body` | color: `#303036` | chrome
+  - L57 `.site-nav-link` | color: `#303036` | chrome
+  - L121 `.pill` | background: `#efeff4` | chrome
+  - L121 `.pill` | color: `#303036` | chrome
+- **watershed-preview-uhh7gdyn/index.html** (12)
+  - L18 `:root` | --gray-cool-2: `#efeff4` | chrome
+  - L18 `:root` | --gray-cool-3: `#c6c6cd` | chrome
+  - L18 `:root` | --gray-cool-4: `#909097` | chrome
+  - L18 `:root` | --gray-cool-5: `#5e5e64` | chrome
+  - L18 `:root` | --gray-cool-6: `#303036` | chrome
+- **partners/iij.html** (11)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L31 `body` | color: `#303036` | chrome
+  - L62 `.chip` | color: `#303036` | chrome
+  - L64 `.chip.active` | color: `#303036` | chrome
+  - L71 `.act-count-pill` | color: `#303036` | chrome
+- **partners/joon-lee.html** (11)
+  - L16 `:root` | --page-bg: `#efeff4` | chrome
+  - L19 `body` | color: `#303036` | chrome
+  - L40 `.act-count-pill` | color: `#303036` | chrome
+  - L44 `.creator-card:hover` | background: `#efeff4` | chrome
+  - L49 `.pill` | background: `#efeff4` | chrome
+- **partners/karen-attiah.html** (11)
+  - L16 `:root` | --page-bg: `#efeff4` | chrome
+  - L19 `body` | color: `#303036` | chrome
+  - L39 `.act-count-pill` | color: `#303036` | chrome
+  - L43 `.creator-card:hover` | background: `#efeff4` | chrome
+  - L48 `.pill` | background: `#efeff4` | chrome
+- **partners/natgeo.html** (11)
+  - L16 `:root` | --page-bg: `#efeff4` | chrome
+  - L19 `body` | color: `#303036` | chrome
+  - L39 `.act-count-pill` | color: `#303036` | chrome
+  - L43 `.creator-card:hover` | background: `#efeff4` | chrome
+  - L48 `.pill` | background: `#efeff4` | chrome
+- **partners/noah-smith.html** (11)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L28 `body` | color: `#303036` | chrome
+  - L56 `.act-count-pill` | color: `#303036` | chrome
+  - L64 `.creator-card:hover` | background: `#efeff4` | chrome
+  - L69 `.pill` | background: `#efeff4` | chrome
+- **partners/rahim-jessani.html** (11)
+  - L21 `:root` | --page-bg: `#efeff4` | chrome
+  - L28 `body` | color: `#303036` | chrome
+  - L56 `.act-count-pill` | color: `#303036` | chrome
+  - L64 `.creator-card:hover` | background: `#efeff4` | chrome
+  - L69 `.pill` | background: `#efeff4` | chrome
+- **assets/css/header.css** (9)
+  - L29 `:root` | --header-badge-fg: `rgba(48,48,54,0.4)` | chrome
+  - L30 `:root` | --header-badge-border: `rgba(48,48,54,0.18)` | chrome
+  - L168 `.nav-search-btn` | color: `#303036` | chrome
+  - L183 `.nav-search-btn:disabled` | background: `var(--gray-cool-4, #909097)` | chrome
+  - L183 `.nav-search-btn:disabled` | color: `var(--gray-cool-6, #303036)` | chrome
+- **co-ops.html** (8)
+  - L29 `:root` | --page-bg: `#efeff4` | chrome
+  - L35 `body` | color: `#303036` | chrome
+  - L66 `.filter-select` | color: `#303036` | chrome
+  - L76 `.filter-reset:hover` | color: `#303036` | chrome
+  - L92 `.pill` | background: `#efeff4` | chrome
+- **assets/css/variables.css** (6)
+  - L55 `:root` | --gray-cool-2: `#efeff4` | chrome
+  - L56 `:root` | --gray-cool-3: `#c6c6cd` | chrome
+  - L57 `:root` | --gray-cool-4: `#909097` | chrome
+  - L58 `:root` | --gray-cool-5: `#5e5e64` | chrome
+  - L59 `:root` | --gray-cool-6: `#303036` | chrome
+- **atlas-portal/index.html** (6)
+  - L29 `:root` | --light-gray: `#efeff4` | chrome
+  - L30 `:root` | --dark-gray: `#303036` | chrome
+  - L770 `<div class="color-option" style>` | background-color: `#303036` | chrome
+  - L774 `<div class="color-option" style>` | background-color: `#303036` | chrome
+  - L770 `html` | markup: `<div class="color-option" data-color="#303036" style="background-color` | chrome
+- **bluesky-creator-intelligence.html** (6)
+  - L35 `:root` | --page-bg: `#efeff4` | chrome
+  - L38 `:root` | --text-primary: `#303036` | chrome
+  - L56 `.header-cta` | color: `#303036` | chrome
+  - L202 `.ci-beat` | background-color: `#efeff4` | chrome
+  - L202 `.ci-beat` | color: `#303036` | chrome
+- **atlas-signal-brief.html** (5)
+  - L71 `.bar-fill` | background: `#303036` | graphics
+  - L82 `.cat-world` | background: `#303036` | chrome
+  - L110 `.callout-box.poly` | border-left-color: `#303036` | chrome
+  - L171 `.pch-label` | color: `#303036` | chrome
+  - L175 `.footer` | background: `#303036` | chrome
+- **advisory.html** (4)
+  - L41 `:root` | --light-gray: `#efeff4` | chrome
+  - L44 `:root` | --dark-gray: `#303036` | chrome
+  - L250 `.about-subnav-link:hover` | color: `#303036` | chrome
+  - L252 `.about-subnav-link--active` | color: `#303036` | chrome
+- **how-we-did-this.html** (4)
+  - L41 `:root` | --light-gray: `#efeff4` | chrome
+  - L42 `:root` | --dark-gray: `#303036` | chrome
+  - L183 `.about-subnav-link:hover` | color: `#303036` | chrome
+  - L185 `.about-subnav-link--active` | color: `#303036` | chrome
+- **who-we-are.html** (4)
+  - L39 `:root` | --light-gray: `#efeff4` | chrome
+  - L40 `:root` | --dark-gray: `#303036` | chrome
+  - L200 `.about-subnav-link:hover` | color: `#303036` | chrome
+  - L202 `.about-subnav-link--active` | color: `#303036` | chrome
+- **city-lab-dc-v3.html** (3)
+  - L28 `:root` | --dark: `#303036` | chrome
+  - L29 `:root` | --light: `#efeff4` | chrome
+  - L31 `:root` | --olive: `#303036` | chrome
+- **chicago-survey.html** (2)
+  - L13 `:root` | --dark: `#303036` | chrome
+  - L17 `:root` | --light: `#efeff4` | chrome
+- **mobile.html** (2)
+  - L37 `:root` | --light-gray: `#efeff4` | chrome
+  - L38 `:root` | --dark-gray: `#303036` | chrome
+- **partners/_reviewjames copy.html** (2)
+  - L10 `:root` | --page-bg: `#efeff4` | chrome
+  - L13 `body` | color: `#303036` | chrome
+- **partners/_reviewjames.html** (2)
+  - L10 `:root` | --page-bg: `#efeff4` | chrome
+  - L13 `body` | color: `#303036` | chrome
+- **search.html** (2)
+  - L934 `js` | js: `// TODO-JAMES: light-surface palette needed — canvas renders on #efeff` | graphics
+  - L941 `js` | js: `"_default":                      "#909098"    // legibility fix: was #` | chrome
+- **atlas_pulse_intelligence.html** (1)
+  - L27 `:root` | --text: `#efeff4` | chrome
+- **atlas_wire_intelligence.html** (1)
+  - L15 `:root` | --text: `#efeff4` | chrome
+- **atlas_wire_review.html** (1)
+  - L19 `:root` | --text: `#efeff4` | chrome
+- **chicago-analysis.html** (1)
+  - L20 `:root` | --text: `#efeff4` | chrome
+- **lab/health-field-finder/funder.html** (1)
+  - L106 `.staticrypt-content` | background: `#efeff2` | chrome
+- **lab/health-field-finder/review.html** (1)
+  - L106 `.staticrypt-content` | background: `#efeff2` | chrome
+- **lists.html** (1)
+  - L32 `:root` | --dark-gray: `#303036` | chrome
+
+## Retired grays — 4 hits in 2 files
+- **lab/health-field-finder/funder.html** (2)
+  - L78 `.staticrypt-form .staticrypt-decrypt-button` | background: `#313131` | fill
+  - L90 `.staticrypt-form .staticrypt-decrypt-button:hover,` | background: `#313131` | fill
+- **lab/health-field-finder/review.html** (2)
+  - L78 `.staticrypt-form .staticrypt-decrypt-button` | background: `#313131` | fill
+  - L90 `.staticrypt-form .staticrypt-decrypt-button:hover,` | background: `#313131` | fill
+
+## Weight 800/900 — 82 hits in 23 files
+- **city-lab-dc-v3.html** (14)
+  - L68 `.section-title` | font-weight: `900` | weight
+  - L113 `.hero-title` | font-weight: `900` | weight
+  - L270 `.stat-card .num` | font-weight: `900` | weight
+  - L350 `.card-name` | font-weight: `800` | weight
+  - L466 `.geo-label` | font-weight: `800` | weight
+- **atlas-signal-brief.html** (13)
+  - L16 `.header-title` | font-weight: `800` | weight
+  - L20 `.header-stat-num` | font-weight: `800` | weight
+  - L28 `.tab-badge` | font-weight: `800` | weight
+  - L44 `.stat-card-num` | font-weight: `800` | weight
+  - L58 `.lb-views` | font-weight: `800` | weight
+- **mobile.html** (7)
+  - L120 `.logo` | font-weight: `800` | weight
+  - L206 `.creator-count` | font-weight: `800` | weight
+  - L396 `.footer-logo` | font-weight: `800` | weight
+  - L450 `.nav-logo` | font-weight: `800` | weight
+  - L634 `.sunburst-count` | font-weight: `800` | weight
+- **beat-climate.html** (5)
+  - L27 `.header-title` | font-weight: `800` | weight
+  - L34 `.header-stat-num` | font-weight: `800` | weight
+  - L52 `.stat-num` | font-weight: `800` | weight
+  - L74 `.pill-count` | font-weight: `800` | weight
+  - L8 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **beat-finance.html** (5)
+  - L27 `.header-title` | font-weight: `800` | weight
+  - L34 `.header-stat-num` | font-weight: `800` | weight
+  - L52 `.stat-num` | font-weight: `800` | weight
+  - L74 `.pill-count` | font-weight: `800` | weight
+  - L8 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **beat-tech.html** (5)
+  - L27 `.header-title` | font-weight: `800` | weight
+  - L34 `.header-stat-num` | font-weight: `800` | weight
+  - L52 `.stat-num` | font-weight: `800` | weight
+  - L74 `.pill-count` | font-weight: `800` | weight
+  - L8 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **bluesky-creator-intelligence.html** (5)
+  - L66 `.hero-title` | font-weight: `900` | weight
+  - L89 `.stat-num` | font-weight: `900` | weight
+  - L101 `.section-title` | font-weight: `800` | weight
+  - L111 `.cluster-name` | font-weight: `800` | weight
+  - L148 `.gap-stat` | font-weight: `800` | weight
+- **chicago-analysis.html** (5)
+  - L39 `.header h1` | font-weight: `900` | weight
+  - L48 `.nav button.active` | font-weight: `800` | weight
+  - L56 `.stat-value` | font-weight: `900` | weight
+  - L60 `h2` | font-weight: `800` | weight
+  - L7 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **teamdmv/index.html** (4)
+  - L94 `.hero h1` | font-weight: `900` | weight
+  - L107 `.stat-number` | font-weight: `900` | weight
+  - L285 `.sponsor-title` | font-weight: `900` | weight
+  - L9 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:` | weight
+- **lists.html** (3)
+  - L87 `.hero h1` | font-weight: `800` | weight
+  - L446 `.teaser-section h2` | font-weight: `800` | weight
+  - L22 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **assets/js/main.js** (2)
+  - L1542 `js` | js: `.style('font-weight', '900')` | weight
+  - L1873 `js` | js: `.style('font-weight', '800')` | weight
+- **atlas-portal/index.html** (2)
+  - L138 `.header-section h1` | font-weight: `800` | weight
+  - L17 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **preview/smartnews-d029dc36/index.html** (2)
+  - L112 `.hero h1` | font-weight: `800` | weight
+  - L176 `.stat .n` | font-weight: `800` | weight
+- **assets/js/header.js** (1)
+  - L40 `js` | js: `ensureFont('https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **atlas_pulse_intelligence.html** (1)
+  - L21 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **atlas_wire_intelligence.html** (1)
+  - L9 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **atlas_wire_review.html** (1)
+  - L9 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **city-lab-chicago.html** (1)
+  - L21 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **for-brands.html** (1)
+  - L22 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **index-pre-homepage.html** (1)
+  - L36 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **latin-america-lab.html** (1)
+  - L22 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **search.html** (1)
+  - L36 `html` | markup: `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;50` | weight
+- **wire.html** (1)
+  - L273 `html` | markup: `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=` | weight
+
+## Inter 500 (and mono 500) — 161 hits in 31 files
+- **city-lab-chicago.html** (21)
+  - L47 `.hero-stat-nudge` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L110 `.anchor-name` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L112 `.anchor-badge` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L117 `.context-toggle` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L122 `.pill` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **partners/_shell.html** (14)
+  - L57 `.site-nav-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L65 `.hero-eyebrow` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L80 `.hero-stat-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L82 `.hero-collab` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L90 `.partner-url` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **search.html** (14)
+  - L58 `.search-orientation-eyebrow` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L73 `.search-orientation-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L86 `.search-beat-entry-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L96 `.sbc-chip` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L135 `.search-secondary-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **research.html** (13)
+  - L49 `.eyebrow` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L103 `.btn-ghost` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L195 `.ticker-card-byline` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L220 `.ticker-card-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L245 `.btn-lime` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **co-ops.html** (12)
+  - L43 `.hero-eyebrow` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L50 `.hero-stat-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L56 `.partner-url` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L64 `.filter-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L66 `.filter-select` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **pulse.html** (10)
+  - L146 `.audience-bridge-label` | font-weight: `500` | mono 500
+  - L194 `.corpus-cluster-names a` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L215 `.pulse-ticker-item` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L248 `.archive-eyebrow` | font-weight: `500` | mono 500
+  - L325 `.beat-name` | font-weight: `500` | mono 500
+- **for-brands.html** (8)
+  - L44 `.eyebrow` | font-weight: `500` | mono 500
+  - L106 `.landscape-strip-stat` | font-weight: `500` | mono 500
+  - L196 `.trust-cite-view-all` | font-weight: `500` | mono 500
+  - L209 `.intel-cta-link` | font-weight: `500` | mono 500
+  - L227 `.gallery-card-eyebrow` | font-weight: `500` | mono 500
+- **latin-america-lab.html** (8)
+  - L80 `.nav-breadcrumb` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L275 `.count-bar` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L369 `.card-country` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L382 `.card-channel` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L507 `.spotlight-cta` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **wire.html** (7)
+  - L53 `.wire-eyebrow` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L81 `.wire-bsky-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L103 `.beat-tab` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L132 `.cluster-header .cluster-count` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L172 `.card-beat` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **atlas_pulse_intelligence.html** (5)
+  - L93 `.beat-name` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L112 `.cv-name` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L136 `.day-btn` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L166 `.col-creator` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L207 `.det-tag` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **atlas_wire_intelligence.html** (5)
+  - L32 `.hd-pill` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L71 `.load-screen-title` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L92 `.beat-name` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L99 `.creator-name` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L109 `.gap-pill` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **atlas_wire_review.html** (5)
+  - L72 `.btn` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L97 `.control-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L106 `.sort-tab` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L172 `.beat-tag` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L221 `.sub-score span` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **about-this-project.html** (4)
+  - L57 `.about-subnav-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L83 `.about-eyebrow` | font-weight: `500` | mono 500
+  - L147 `.pillar-number` | font-weight: `500` | mono 500
+  - L210 `.team-title` | font-weight: `500` | mono 500
+- **bluesky-creator-intelligence.html** (4)
+  - L83 `#viz-tooltip .tt-cluster` | font-weight: `500` | mono 500
+  - L92 `.stat-label` | font-weight: `500` | mono 500
+  - L93 `.stat-sub` | font-weight: `500` | mono 500
+  - L112 `.cluster-count` | font-weight: `500` | mono 500
+- **mobile.html** (3)
+  - L128 `.domain` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L313 `.wheel-hint` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L604 `.empty-state-text` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **partners/nj-lab.html** (3)
+  - L79 `.hero-stat-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L139 `.filter-chip` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L194 `.card-badge` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **partners/njlab copy.html** (3)
+  - L79 `.hero-stat-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L139 `.filter-chip` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L194 `.card-badge` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **partners/njlab.html** (3)
+  - L79 `.hero-stat-label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L139 `.filter-chip` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L194 `.card-badge` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **teamdmv/index.html** (3)
+  - L71 `.nav-links a` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L142 `.filter-btn` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L250 `.commons-type-btn` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **assets/css/header.css** (2)
+  - L210 `.nav-soon-badge` | font-weight: `500` | mono 500
+  - L310 `.mobile-menu-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **atlas-portal/google-form-template.html** (2)
+  - L108 `.file-upload-button` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L131 `.submit-button` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **chicago-survey.html** (2)
+  - L130 `.partner-logos span` | font-weight: `500` | INTER 500 (inherits/declares non-m
+  - L215 `.field label` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **partners/index.html** (2)
+  - L45 `.partners-eyebrow` | font-weight: `500` | mono 500
+  - L74 `.partners-cta` | font-weight: `500` | mono 500
+- **atlas-portal/index.html** (1)
+  - L333 `.text-color-option` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **chicago-analysis.html** (1)
+  - L40 `.header .subtitle` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **city-lab-dc-v3.html** (1)
+  - L159 `.hero-meta` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **how-we-did-this.html** (1)
+  - L173 `.about-subnav-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **lists.html** (1)
+  - L471 `.teaser-tag` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **partners/iij.html** (1)
+  - L55 `.review-banner-inner` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **watershed-preview-uhh7gdyn/index.html** (1)
+  - L81 `.price-k` | font-weight: `500` | INTER 500 (inherits/declares non-m
+- **who-we-are.html** (1)
+  - L190 `.about-subnav-link` | font-weight: `500` | INTER 500 (inherits/declares non-m
+
+## Radius (pills/circles/other) — 755 hits in 59 files
+- **assets/css/main.css** (60)
+  - L86 `.nav-search` | border-radius: `8px` | other: 8px
+  - L208 `.read-more-btn` | border-radius: `6px` | 6px OK
+  - L283 `.sidebar` | border-radius: `12px` | other: 12px
+  - L302 `.filter-accordion` | border-radius: `6px` | 6px OK
+  - L362 `.filter-search` | border-radius: `6px` | 6px OK
+- **index.html** (48)
+  - L46 `.btn-acid` | border-radius: `6px` | 6px OK
+  - L56 `.btn-ghost-white` | border-radius: `6px` | 6px OK
+  - L75 `.hero-eyebrow-pill` | border-radius: `100px` | pill
+  - L96 `.hcn-pill` | border-radius: `100px` | pill
+  - L116 `#cluster-panel` | border-radius: `6px` | 6px OK
+- **atlas_wire_intelligence.html** (43)
+  - L32 `.hd-pill` | border-radius: `9999px` | pill
+  - L41 `.btn-export` | border-radius: `var(--r)` | other: var(--r)
+  - L47 `.btn-load-new` | border-radius: `var(--r)` | other: var(--r)
+  - L65 `.panel-body::-webkit-scrollbar-thumb` | border-radius: `2px` | other: 2px
+  - L73 `.load-screen-sub code` | border-radius: `4px` | other: 4px
+- **pulse.html** (40)
+  - L56 `.live-badge` | border-radius: `100px` | pill
+  - L61 `.live-dot` | border-radius: `50%` | circle
+  - L86 `.header-intel-eyebrow .live-dot::after` | border-radius: `50%` | circle
+  - L128 `.signal-card` | border-radius: `6px` | 6px OK
+  - L131 `.signal-beat-tag` | border-radius: `9999px` | pill
+- **city-lab-chicago.html** (35)
+  - L48 `.hero-stat-child[data-layer]` | border-radius: `6px` | 6px OK
+  - L53 `.two-layer-note` | border-radius: `6px` | 6px OK
+  - L54 `.two-layer-pill` | border-radius: `100px` | pill
+  - L59 `.hero-partner-name` | border-radius: `100px` | pill
+  - L66 `.tab-btn .tab-badge` | border-radius: `100px` | pill
+- **teamdmv/index.html** (35)
+  - L73 `.nav-links a` | border-radius: `var(--radius-sm)` | 6px OK
+  - L77 `.nav-cta` | border-radius: `20px !important` | other: 20px !important
+  - L98 `.btn-primary` | border-radius: `24px` | pill
+  - L100 `.btn-ghost` | border-radius: `24px` | pill
+  - L119 `.carousel-btn` | border-radius: `50%` | circle
+- **atlas_pulse_intelligence.html** (29)
+  - L46 `.stat-pill` | border-radius: `9999px` | pill
+  - L55 `.btn-load` | border-radius: `var(--r)` | other: var(--r)
+  - L76 `.panel-body::-webkit-scrollbar-thumb` | border-radius: `2px` | other: 2px
+  - L85 `.signal-box` | border-radius: `var(--r)` | other: var(--r)
+  - L90 `.beat-row` | border-radius: `4px` | other: 4px
+- **for-brands.html** (22)
+  - L62 `.btn-primary` | border-radius: `6px` | 6px OK
+  - L73 `.btn-ghost` | border-radius: `6px` | 6px OK
+  - L85 `.hero-eyebrow-pill` | border-radius: `100px` | pill
+  - L107 `.landscape-strip-dot` | border-radius: `50%` | circle
+  - L123 `.compare-grid` | border-radius: `6px` | 6px OK
+- **atlas-signal-brief.html** (21)
+  - L28 `.tab-badge` | border-radius: `4px` | other: 4px
+  - L41 `.stat-strip` | border-radius: `10px` | other: 10px
+  - L61 `.plat-dot` | border-radius: `50%` | circle
+  - L70 `.bar-track` | border-radius: `4px` | other: 4px
+  - L71 `.bar-fill` | border-radius: `4px` | other: 4px
+- **city-lab-dc-v3.html** (20)
+  - L98 `.hero::before` | border-radius: `50%` | circle
+  - L131 `.hero-stat-block` | border-radius: `var(--radius)` | other: var(--radius)
+  - L228 `.timeline-item::before` | border-radius: `50%` | circle
+  - L263 `.stat-card` | border-radius: `var(--radius)` | other: var(--radius)
+  - L300 `.pill` | border-radius: `100px` | pill
+- **bluesky-creator-intelligence.html** (19)
+  - L51 `.badge` | border-radius: `2px` | other: 2px
+  - L56 `.header-cta` | border-radius: `2px` | other: 2px
+  - L78 `#viz-tooltip` | border-radius: `4px` | other: 4px
+  - L107 `.cluster-card` | border-radius: `3px` | other: 3px
+  - L115 `.fp-bar` | border-radius: `3px` | other: 3px
+- **chicago-survey.html** (16)
+  - L63 `.header-badge` | border-radius: `100px` | pill
+  - L76 `.header-badge .dot` | border-radius: `50%` | circle
+  - L161 `.progress-bar` | border-radius: `10px` | other: 10px
+  - L168 `.progress-fill` | border-radius: `10px` | other: 10px
+  - L240 `input[type="text"], input[type="email"], textarea,` | border-radius: `12px` | other: 12px
+- **latin-america-lab.html** (15)
+  - L138 `.hero-stat-card` | border-radius: `6px` | 6px OK
+  - L194 `.ecosystem-card` | border-radius: `6px` | 6px OK
+  - L252 `.filter-pill` | border-radius: `100px` | pill
+  - L289 `.creator-card` | border-radius: `6px` | 6px OK
+  - L309 `.trust-badge` | border-radius: `50%` | circle
+- **atlas-portal/index.html** (13)
+  - L176 `.section` | border-radius: `12px` | other: 12px
+  - L217 `input[type="file"], input[type="text"], input[type` | border-radius: `8px` | other: 8px
+  - L254 `.radio-option` | border-radius: `8px` | other: 8px
+  - L293 `.color-option` | border-radius: `8px` | other: 8px
+  - L330 `.text-color-option` | border-radius: `8px` | other: 8px
+- **wire.html** (13)
+  - L56 `.wire-eyebrow` | border-radius: `9999px` | pill
+  - L60 `.wire-eyebrow .dot` | border-radius: `50%` | circle
+  - L83 `.wire-bsky-link` | border-radius: `6px` | 6px OK
+  - L102 `.beat-tab` | border-radius: `9999px` | pill
+  - L124 `.cluster-header` | border-radius: `6px 6px 0 0` | other: 6px 6px 0 0
+- **about-this-project.html** (12)
+  - L122 `.overview-intro` | border-radius: `12px` | other: 12px
+  - L140 `.pillar-card` | border-radius: `8px` | other: 8px
+  - L174 `.project-card` | border-radius: `8px` | other: 8px
+  - L198 `.team-card` | border-radius: `8px` | other: 8px
+  - L263 `.funding-box` | border-radius: `8px` | other: 8px
+- **atlas_wire_review.html** (12)
+  - L71 `.btn` | border-radius: `var(--radius)` | other: var(--radius)
+  - L100 `select, input[type=range]` | border-radius: `var(--radius)` | other: var(--radius)
+  - L106 `.sort-tab` | border-radius: `var(--radius)` | other: var(--radius)
+  - L128 `.cluster-banner` | border-radius: `var(--radius)` | other: var(--radius)
+  - L139 `.card` | border-radius: `var(--radius)` | other: var(--radius)
+- **partners/nj-lab.html** (12)
+  - L111 `.rc-stat-card` | border-radius: `6px` | 6px OK
+  - L138 `.filter-chip` | border-radius: `100px` | pill
+  - L163 `.creator-card` | border-radius: `6px` | 6px OK
+  - L181 `.plat-pill` | border-radius: `100px` | pill
+  - L195 `.card-badge` | border-radius: `100px` | pill
+- **partners/njlab copy.html** (12)
+  - L111 `.rc-stat-card` | border-radius: `6px` | 6px OK
+  - L138 `.filter-chip` | border-radius: `100px` | pill
+  - L163 `.creator-card` | border-radius: `6px` | 6px OK
+  - L181 `.plat-pill` | border-radius: `100px` | pill
+  - L195 `.card-badge` | border-radius: `100px` | pill
+- **partners/njlab.html** (12)
+  - L111 `.rc-stat-card` | border-radius: `6px` | 6px OK
+  - L138 `.filter-chip` | border-radius: `100px` | pill
+  - L163 `.creator-card` | border-radius: `6px` | 6px OK
+  - L181 `.plat-pill` | border-radius: `100px` | pill
+  - L195 `.card-badge` | border-radius: `100px` | pill
+- **preview/smartnews-d029dc36/index.html** (12)
+  - L74 `.btn` | border-radius: `6px` | 6px OK
+  - L85 `.bracket` | border-radius: `3px` | other: 3px
+  - L128 `.panel` | border-radius: `6px` | 6px OK
+  - L140 `.readers` | border-radius: `6px` | 6px OK
+  - L141 `.shot` | border-radius: `6px` | 6px OK
+- **research.html** (12)
+  - L100 `.btn-ghost` | border-radius: `6px` | 6px OK
+  - L185 `.ticker-card` | border-radius: `6px` | 6px OK
+  - L242 `.btn-lime` | border-radius: `6px` | 6px OK
+  - L284 `.research-anchor` | border-radius: `6px` | 6px OK
+  - L299 `.research-card` | border-radius: `6px` | 6px OK
+- **chicago-analysis.html** (11)
+  - L42 `.header .neon-line` | border-radius: `2px` | other: 2px
+  - L46 `.nav button` | border-radius: `24px` | pill
+  - L55 `.stat-card` | border-radius: `12px` | other: 12px
+  - L64 `.chart-container` | border-radius: `12px` | other: 12px
+  - L67 `.insight` | border-radius: `0 8px 8px 0` | other: 0 8px 8px 0
+- **lists.html** (11)
+  - L81 `.hero-label` | border-radius: `2px` | other: 2px
+  - L154 `.collection-card` | border-radius: `12px` | other: 12px
+  - L216 `.card-count` | border-radius: `20px` | pill
+  - L226 `.card-count-dot` | border-radius: `50%` | circle
+  - L275 `.creator-list-search` | border-radius: `6px` | 6px OK
+- **partners/icfj.html** (11)
+  - L53 `.curator-photo` | border-radius: `50%` | circle
+  - L54 `.curator-monogram` | border-radius: `50%` | circle
+  - L67 `.chip` | border-radius: `100px` | pill
+  - L76 `.act-count-pill` | border-radius: `100px` | pill
+  - L81 `.creator-card` | border-radius: `6px` | 6px OK
+- **search.html** (11)
+  - L100 `.sbc-chip` | border-radius: `100px` | pill
+  - L152 `.sfc-chip` | border-radius: `100px` | pill
+  - L213 `.search-orientation-action` | border-radius: `100px` | pill
+  - L239 `.pulse-dot-sm` | border-radius: `50%` | circle
+  - L307 `.pulse-dot` | border-radius: `50%` | circle
+- **mobile.html** (10)
+  - L75 `.spinner` | border-radius: `50%` | circle
+  - L155 `.search-input` | border-radius: `18px` | other: 18px
+  - L215 `.creator-count span` | border-radius: `6px` | 6px OK
+  - L257 `.breadcrumb-item` | border-radius: `6px` | 6px OK
+  - L340 `.creator-card` | border-radius: `12px` | other: 12px
+- **partners/ahp.html** (10)
+  - L68 `.curator-photo` | border-radius: `50%` | circle
+  - L73 `.curator-monogram` | border-radius: `50%` | circle
+  - L108 `.chip` | border-radius: `100px` | pill
+  - L136 `.act-count-pill` | border-radius: `100px` | pill
+  - L150 `.creator-card` | border-radius: `6px` | 6px OK
+- **partners/cillizza.html** (10)
+  - L68 `.curator-photo` | border-radius: `50%` | circle
+  - L73 `.curator-monogram` | border-radius: `50%` | circle
+  - L104 `.chip` | border-radius: `100px` | pill
+  - L132 `.act-count-pill` | border-radius: `100px` | pill
+  - L146 `.creator-card` | border-radius: `6px` | 6px OK
+- **partners/emily-atkin.html** (10)
+  - L62 `.curator-photo` | border-radius: `50%` | circle
+  - L67 `.curator-monogram` | border-radius: `50%` | circle
+  - L90 `.chip` | border-radius: `100px` | pill
+  - L106 `.act-count-pill` | border-radius: `100px` | pill
+  - L116 `.creator-card` | border-radius: `6px` | 6px OK
+- **partners/news-creator-corps.html** (10)
+  - L44 `.curator-photo` | border-radius: `50%` | circle
+  - L45 `.curator-monogram` | border-radius: `50%` | circle
+  - L63 `.chip` | border-radius: `100px` | pill
+  - L73 `.act-count-pill` | border-radius: `100px` | pill
+  - L80 `.creator-card` | border-radius: `6px` | 6px OK
+- **co-ops.html** (9)
+  - L46 `.hero-stats` | border-radius: `6px` | 6px OK
+  - L53 `.partner-card` | border-radius: `6px` | 6px OK
+  - L67 `.filter-select` | border-radius: `6px` | 6px OK
+  - L73 `.filter-reset` | border-radius: `6px` | 6px OK
+  - L84 `.org-empty` | border-radius: `6px` | 6px OK
+- **partners/iij.html** (9)
+  - L48 `.curator-monogram` | border-radius: `50%` | circle
+  - L62 `.chip` | border-radius: `100px` | pill
+  - L71 `.act-count-pill` | border-radius: `100px` | pill
+  - L76 `.creator-card` | border-radius: `6px` | 6px OK
+  - L81 `.pill` | border-radius: `100px` | pill
+- **partners/jessica-stahl.html** (9)
+  - L43 `.curator-monogram` | border-radius: `50%` | circle
+  - L56 `.chip` | border-radius: `100px` | pill
+  - L65 `.act-count-pill` | border-radius: `100px` | pill
+  - L69 `.creator-card` | border-radius: `6px` | 6px OK
+  - L75 `.pill` | border-radius: `100px` | pill
+- **partners/knowledge-creators.html** (9)
+  - L28 `.curator-monogram` | border-radius: `50%` | circle
+  - L40 `.chip` | border-radius: `100px` | pill
+  - L48 `.act-count-pill` | border-radius: `100px` | pill
+  - L51 `.creator-card` | border-radius: `6px` | 6px OK
+  - L57 `.pill` | border-radius: `100px` | pill
+- **atlas-portal/google-form-template.html** (8)
+  - L25 `.container` | border-radius: `8px` | other: 8px
+  - L34 `.form-header` | border-radius: `8px 8px 0 0` | other: 8px 8px 0 0
+  - L106 `.file-upload-button` | border-radius: `4px` | other: 4px
+  - L129 `.submit-button` | border-radius: `4px` | other: 4px
+  - L146 `.note-box` | border-radius: `4px` | other: 4px
+- **partners/_shell.html** (8)
+  - L72 `.hero-stats` | border-radius: `6px` | 6px OK
+  - L85 `.partner-card` | border-radius: `6px` | 6px OK
+  - L106 `.creator-card` | border-radius: `6px` | 6px OK
+  - L119 `.pill` | border-radius: `100px` | pill
+  - L127 `.pill.platform` | border-radius: `9999px` | pill
+- **partners/joon-lee.html** (8)
+  - L29 `.curator-monogram` | border-radius: `50%` | circle
+  - L40 `.act-count-pill` | border-radius: `100px` | pill
+  - L43 `.creator-card` | border-radius: `6px` | 6px OK
+  - L49 `.pill` | border-radius: `100px` | pill
+  - L54 `.card-link` | border-radius: `6px` | 6px OK
+- **partners/karen-attiah.html** (8)
+  - L28 `.curator-monogram` | border-radius: `50%` | circle
+  - L39 `.act-count-pill` | border-radius: `100px` | pill
+  - L42 `.creator-card` | border-radius: `6px` | 6px OK
+  - L48 `.pill` | border-radius: `100px` | pill
+  - L53 `.card-link` | border-radius: `6px` | 6px OK
+- **partners/natgeo.html** (8)
+  - L28 `.curator-monogram` | border-radius: `50%` | circle
+  - L39 `.act-count-pill` | border-radius: `100px` | pill
+  - L42 `.creator-card` | border-radius: `6px` | 6px OK
+  - L48 `.pill` | border-radius: `100px` | pill
+  - L53 `.card-link` | border-radius: `6px` | 6px OK
+- **partners/noah-smith.html** (8)
+  - L43 `.curator-monogram` | border-radius: `50%` | circle
+  - L56 `.act-count-pill` | border-radius: `100px` | pill
+  - L63 `.creator-card` | border-radius: `6px` | 6px OK
+  - L69 `.pill` | border-radius: `100px` | pill
+  - L74 `.card-link` | border-radius: `6px` | 6px OK
+- **partners/rahim-jessani.html** (8)
+  - L43 `.curator-monogram` | border-radius: `50%` | circle
+  - L56 `.act-count-pill` | border-radius: `100px` | pill
+  - L63 `.creator-card` | border-radius: `6px` | 6px OK
+  - L69 `.pill` | border-radius: `100px` | pill
+  - L74 `.card-link` | border-radius: `6px` | 6px OK
+- **updates.html** (7)
+  - L88 `.benefits-section` | border-radius: `12px` | other: 12px
+  - L120 `.benefits-list li:before` | border-radius: `2px` | other: 2px
+  - L131 `.signup-form-section` | border-radius: `12px` | other: 12px
+  - L165 `.form-group input` | border-radius: `6px` | 6px OK
+  - L189 `.submit-btn` | border-radius: `6px` | 6px OK
+- **advisory.html** (5)
+  - L98 `.intro-text` | border-radius: `12px` | other: 12px
+  - L112 `.board-section` | border-radius: `12px` | other: 12px
+  - L125 `.coming-soon-badge` | border-radius: `20px` | pill
+  - L173 `.governance-box` | border-radius: `12px` | other: 12px
+  - L202 `.board-member img` | border-radius: `8px` | other: 8px
+- **submit.html** (5)
+  - L88 `.form-section` | border-radius: `12px` | other: 12px
+  - L120 `.contact-info` | border-radius: `12px` | other: 12px
+  - L152 `.updates-cta` | border-radius: `12px` | other: 12px
+  - L181 `.updates-cta-btn` | border-radius: `6px` | 6px OK
+  - L210 `.team-section` | border-radius: `12px` | other: 12px
+- **assets/css/header.css** (4)
+  - L131 `.nav-search` | border-radius: `8px` | other: 8px
+  - L173 `.nav-search-btn` | border-radius: `6px` | 6px OK
+  - L195 `.nav-pulse-dot` | border-radius: `50%` | circle
+  - L215 `.nav-soon-badge` | border-radius: `100px` | pill
+- **beat-climate.html** (4)
+  - L71 `.pill` | border-radius: `100px` | pill
+  - L77 `.legend-dot` | border-radius: `50%` | circle
+  - L85 `.story-card` | border-radius: `10px` | other: 10px
+  - L106 `.table-wrap` | border-radius: `10px` | other: 10px
+- **beat-finance.html** (4)
+  - L71 `.pill` | border-radius: `100px` | pill
+  - L77 `.legend-dot` | border-radius: `50%` | circle
+  - L85 `.story-card` | border-radius: `10px` | other: 10px
+  - L106 `.table-wrap` | border-radius: `10px` | other: 10px
+- **beat-tech.html** (4)
+  - L71 `.pill` | border-radius: `100px` | pill
+  - L77 `.legend-dot` | border-radius: `50%` | circle
+  - L85 `.story-card` | border-radius: `10px` | other: 10px
+  - L106 `.table-wrap` | border-radius: `10px` | other: 10px
+- **partners/_reviewjames copy.html** (4)
+  - L15 `.flag` | border-radius: `6px` | 6px OK
+  - L19 `.questions` | border-radius: `6px` | 6px OK
+  - L24 `table` | border-radius: `6px` | 6px OK
+  - L29 `.pill` | border-radius: `100px` | pill
+- **partners/_reviewjames.html** (4)
+  - L15 `.flag` | border-radius: `6px` | 6px OK
+  - L19 `.questions` | border-radius: `6px` | 6px OK
+  - L24 `table` | border-radius: `6px` | 6px OK
+  - L29 `.pill` | border-radius: `100px` | pill
+- **preview/nodes-and-networks-f348eb08/index.html** (4)
+  - L50 `.section-nav a` | border-radius: `6px` | 6px OK
+  - L60 `.cohort-strip` | border-radius: `6px` | 6px OK
+  - L62 `.cohort-strip a` | border-radius: `9999px` | pill
+  - L93 `.caption-needed` | border-radius: `6px` | 6px OK
+- **submit-thanks.html** (3)
+  - L72 `.success-icon` | border-radius: `50%` | circle
+  - L101 `.next-steps` | border-radius: `12px` | other: 12px
+  - L156 `.btn` | border-radius: `6px` | 6px OK
+- **who-we-are.html** (3)
+  - L95 `.mission-content` | border-radius: `12px` | other: 12px
+  - L230 `<img class="" style>` | border-radius: `8px` | other: 8px
+  - L254 `<img class="" style>` | border-radius: `8px` | other: 8px
+- **contact.html** (1)
+  - L85 `.contact-email-btn` | border-radius: `6px` | 6px OK
+- **how-we-did-this.html** (1)
+  - L158 `.version-info` | border-radius: `8px` | other: 8px
+- **lab/health-field-finder/funder.html** (1)
+  - L150 `.staticrypt-spinner` | border-radius: `50%` | circle
+- **lab/health-field-finder/review.html** (1)
+  - L150 `.staticrypt-spinner` | border-radius: `50%` | circle
+- **watershed-preview-uhh7gdyn/index.html** (1)
+  - L34 `mark.ph` | border-radius: `2px` | other: 2px
+
+## Font sizes below 13px — 842 hits in 50 files
+- **atlas_wire_intelligence.html** (70)
+  - L29 `.hd-title` | font-size: `12px` | size=12.0px
+  - L30 `.hd-date` | font-size: `12px` | size=12.0px
+  - L32 `.hd-pill` | font-size: `11px` | size=11.0px
+  - L41 `.btn-export` | font-size: `12px` | size=12.0px
+  - L47 `.btn-load-new` | font-size: `12px` | size=12.0px
+- **index.html** (66)
+  - L74 `.hero-eyebrow-pill` | font-size: `9px` | size=9.0px
+  - L83 `.hero-small-note` | font-size: `12px` | size=12.0px
+  - L86 `.hero-tertiary-link` | font-size: `11px` | size=11.0px
+  - L95 `.hcn-pill` | font-size: `8px` | size=8.0px
+  - L105 `.viz-label` | font-size: `9px` | size=9.0px
+- **pulse.html** (66)
+  - L50 `.live-badge` | font-size: `10px` | size=10.0px
+  - L105 `.page-subhead-method` | font-size: `12px` | size=12.0px
+  - L125 `.signal-band-eyebrow` | font-size: `9px` | size=9.0px
+  - L131 `.signal-beat-tag` | font-size: `9px` | size=9.0px
+  - L132 `.signal-reason-tag` | font-size: `9px` | size=9.0px
+- **city-lab-chicago.html** (60)
+  - L34 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L46 `.hero-stat-label-child` | font-size: `11px` | size=11.0px
+  - L47 `.hero-stat-nudge` | font-size: `11px` | size=11.0px
+  - L54 `.two-layer-pill` | font-size: `10px` | size=10.0px
+  - L58 `.hero-partner-label` | font-size: `11px` | size=11.0px
+- **atlas_pulse_intelligence.html** (50)
+  - L42 `.hd-title` | font-size: `11px` | size=11.0px
+  - L46 `.stat-pill` | font-size: `11px` | size=11.0px
+  - L55 `.btn-load` | font-size: `12px` | size=12.0px
+  - L61 `.tb-status` | font-size: `11px` | size=11.0px
+  - L71 `.panel-head-title` | font-size: `11px` | size=11.0px
+- **bluesky-creator-intelligence.html** (44)
+  - L51 `.badge` | font-size: `10px` | size=10.0px
+  - L54 `.header-right` | font-size: `10px` | size=10.0px
+  - L56 `.header-cta` | font-size: `11px` | size=11.0px
+  - L65 `.hero-eyebrow` | font-size: `10px` | size=10.0px
+  - L74 `.viz-label` | font-size: `9px` | size=9.0px
+- **atlas-signal-brief.html** (38)
+  - L15 `.header-eyebrow` | font-size: `11px` | size=11.0px
+  - L21 `.header-stat-label` | font-size: `11px` | size=11.0px
+  - L28 `.tab-badge` | font-size: `9px` | size=9.0px
+  - L38 `.section-title` | font-size: `12px` | size=12.0px
+  - L45 `.stat-card-label` | font-size: `11px` | size=11.0px
+- **city-lab-dc-v3.html** (30)
+  - L58 `.section-label` | font-size: `11px` | size=11.0px
+  - L103 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L138 `.hero-stat-label` | font-size: `12px` | size=12.0px
+  - L158 `.hero-meta` | font-size: `12px` | size=12.0px
+  - L185 `.section-nav a` | font-size: `12px` | size=12.0px
+- **for-brands.html** (30)
+  - L44 `.eyebrow` | font-size: `10px` | size=10.0px
+  - L55 `.source-attr` | font-size: `11px` | size=11.0px
+  - L56 `.source-attr--light` | font-size: `11px` | size=11.0px
+  - L83 `.hero-eyebrow-pill` | font-size: `12px` | size=12.0px
+  - L106 `.landscape-strip-stat` | font-size: `11px` | size=11.0px
+- **teamdmv/index.html** (30)
+  - L71 `.nav-links a` | font-size: `0.8rem` | size=12.8px
+  - L93 `.hero-eyebrow` | font-size: `0.7rem` | size=11.2px
+  - L108 `.stat-label` | font-size: `0.72rem` | size=11.5px
+  - L111 `.section-eyebrow` | font-size: `0.68rem` | size=10.9px
+  - L129 `.featured-role` | font-size: `0.62rem` | size=9.9px
+- **assets/css/main.css** (24)
+  - L397 `.filter-count` | font-size: `12px` | size=12.0px
+  - L472 `.filter-badge` | font-size: `11px` | size=11.0px
+  - L646 `.creator-tag` | font-size: `12px` | size=12.0px
+  - L664 `.suggest-edits-btn` | font-size: `12px` | size=12.0px
+  - L739 `.sort-icon` | font-size: `12px` | size=12.0px
+- **latin-america-lab.html** (23)
+  - L79 `.nav-breadcrumb` | font-size: `11px` | size=11.0px
+  - L106 `.hero-label` | font-size: `11px` | size=11.0px
+  - L128 `.hero-attribution` | font-size: `12px` | size=12.0px
+  - L204 `.ecosystem-card-title` | font-size: `11px` | size=11.0px
+  - L222 `.lab-eyebrow` | font-size: `11px` | size=11.0px
+- **search.html** (21)
+  - L58 `.search-orientation-eyebrow` | font-size: `10px` | size=10.0px
+  - L86 `.search-beat-entry-label` | font-size: `10px` | size=10.0px
+  - L135 `.search-secondary-label` | font-size: `10px` | size=10.0px
+  - L148 `.sfc-chip` | font-size: `12px` | size=12.0px
+  - L181 `.native-social-note` | font-size: `12px` | size=12.0px
+- **atlas_wire_review.html** (17)
+  - L57 `.header-meta` | font-size: `12px` | size=12.0px
+  - L83 `.btn-approve` | font-size: `12px` | size=12.0px
+  - L84 `.btn-kill` | font-size: `12px` | size=12.0px
+  - L85 `.btn-edit` | font-size: `12px` | size=12.0px
+  - L86 `.btn-undo` | font-size: `12px` | size=12.0px
+- **assets/js/main.js** (15)
+  - L1065 `js` | js: `.style('font-size', '12px')` | size=12px (js/svg)
+  - L1165 `js` | js: `.style('font-size', '12px')` | size=12px (js/svg)
+  - L1190 `js` | js: `.style('font-size', '11px')` | size=11px (js/svg)
+  - L1201 `js` | js: `.style('font-size', '12px')` | size=12px (js/svg)
+  - L1223 `js` | js: `.style('font-size', '11px')` | size=11px (js/svg)
+- **chicago-survey.html** (14)
+  - L65 `.header-badge` | font-size: `11px` | size=11.0px
+  - L124 `.partner-logos` | font-size: `11px` | size=11.0px
+  - L147 `.progress-step` | font-size: `12px` | size=12.0px
+  - L154 `.progress-time` | font-size: `11px` | size=11.0px
+  - L189 `.section-label` | font-size: `11px` | size=11.0px
+- **mobile.html** (14)
+  - L126 `.domain` | font-size: `11px` | size=11.0px
+  - L372 `.creator-tag` | font-size: `11px` | size=11.0px
+  - L563 `.topic-header` | font-size: `12px` | size=12.0px
+  - L912 `<div class="" style>` | font-size: `12px` | size=12.0px
+  - L1438 `<div class="" style>` | font-size: `12px` | size=12.0px
+- **partners/nj-lab.html** (13)
+  - L57 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L79 `.hero-stat-label` | font-size: `12px` | size=12.0px
+  - L152 `.chip-count` | font-size: `11px` | size=11.0px
+  - L180 `.plat-pill` | font-size: `10px` | size=10.0px
+  - L194 `.card-badge` | font-size: `12px` | size=12.0px
+- **partners/njlab copy.html** (13)
+  - L57 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L79 `.hero-stat-label` | font-size: `12px` | size=12.0px
+  - L152 `.chip-count` | font-size: `11px` | size=11.0px
+  - L180 `.plat-pill` | font-size: `10px` | size=10.0px
+  - L194 `.card-badge` | font-size: `12px` | size=12.0px
+- **partners/njlab.html** (13)
+  - L57 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L79 `.hero-stat-label` | font-size: `12px` | size=12.0px
+  - L152 `.chip-count` | font-size: `11px` | size=11.0px
+  - L180 `.plat-pill` | font-size: `10px` | size=10.0px
+  - L194 `.card-badge` | font-size: `12px` | size=12.0px
+- **beat-climate.html** (11)
+  - L23 `.header-eyebrow` | font-size: `11px` | size=11.0px
+  - L37 `.header-stat-label` | font-size: `12px` | size=12.0px
+  - L48 `.platform-label` | font-size: `11px` | size=11.0px
+  - L54 `.stat-label` | font-size: `11px` | size=11.0px
+  - L74 `.pill-count` | font-size: `11px` | size=11.0px
+- **beat-finance.html** (11)
+  - L23 `.header-eyebrow` | font-size: `11px` | size=11.0px
+  - L37 `.header-stat-label` | font-size: `12px` | size=12.0px
+  - L48 `.platform-label` | font-size: `11px` | size=11.0px
+  - L54 `.stat-label` | font-size: `11px` | size=11.0px
+  - L74 `.pill-count` | font-size: `11px` | size=11.0px
+- **beat-tech.html** (11)
+  - L23 `.header-eyebrow` | font-size: `11px` | size=11.0px
+  - L37 `.header-stat-label` | font-size: `12px` | size=12.0px
+  - L48 `.platform-label` | font-size: `11px` | size=11.0px
+  - L54 `.stat-label` | font-size: `11px` | size=11.0px
+  - L74 `.pill-count` | font-size: `11px` | size=11.0px
+- **chicago-analysis.html** (10)
+  - L38 `.header .brand` | font-size: `0.75rem` | size=12.0px
+  - L58 `.stat-sub` | font-size: `0.75rem` | size=12.0px
+  - L81 `.badge` | font-size: `0.75rem` | size=12.0px
+  - L95 `.footer` | font-size: `0.8rem` | size=12.8px
+  - L100 `.nav button` | font-size: `0.78rem` | size=12.5px
+- **research.html** (10)
+  - L48 `.eyebrow` | font-size: `11px` | size=11.0px
+  - L194 `.ticker-card-byline` | font-size: `11px` | size=11.0px
+  - L311 `.badge-pill` | font-size: `11px` | size=11.0px
+  - L356 `.stat-item .stat-label` | font-size: `12px` | size=12.0px
+  - L435 `.outlet-pill` | font-size: `11px` | size=11.0px
+- **partners/ahp.html** (8)
+  - L43 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L103 `.filter-label` | font-size: `11px` | size=11.0px
+  - L109 `.chip` | font-size: `12px` | size=12.0px
+  - L130 `.act-label` | font-size: `11px` | size=11.0px
+  - L137 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **partners/cillizza.html** (8)
+  - L43 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L99 `.filter-label` | font-size: `11px` | size=11.0px
+  - L105 `.chip` | font-size: `12px` | size=12.0px
+  - L126 `.act-label` | font-size: `11px` | size=11.0px
+  - L133 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **partners/emily-atkin.html** (8)
+  - L43 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L87 `.filter-label` | font-size: `11px` | size=11.0px
+  - L91 `.chip` | font-size: `12px` | size=12.0px
+  - L102 `.act-label` | font-size: `11px` | size=11.0px
+  - L107 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **partners/icfj.html** (8)
+  - L42 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L66 `.filter-label` | font-size: `11px` | size=11.0px
+  - L67 `.chip` | font-size: `12px` | size=12.0px
+  - L74 `.act-label` | font-size: `11px` | size=11.0px
+  - L76 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **partners/iij.html** (8)
+  - L42 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L61 `.filter-label` | font-size: `11px` | size=11.0px
+  - L62 `.chip` | font-size: `12px` | size=12.0px
+  - L69 `.act-label` | font-size: `11px` | size=11.0px
+  - L71 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **partners/jessica-stahl.html** (8)
+  - L34 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L55 `.filter-label` | font-size: `11px` | size=11.0px
+  - L56 `.chip` | font-size: `12px` | size=12.0px
+  - L63 `.act-label` | font-size: `11px` | size=11.0px
+  - L65 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **partners/knowledge-creators.html** (8)
+  - L23 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L39 `.filter-label` | font-size: `11px` | size=11.0px
+  - L40 `.chip` | font-size: `12px` | size=12.0px
+  - L46 `.act-label` | font-size: `11px` | size=11.0px
+  - L48 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **partners/news-creator-corps.html** (8)
+  - L36 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L62 `.filter-label` | font-size: `11px` | size=11.0px
+  - L63 `.chip` | font-size: `12px` | size=12.0px
+  - L71 `.act-label` | font-size: `11px` | size=11.0px
+  - L73 `.act-count-pill` | font-size: `12px` | size=12.0px
+- **co-ops.html** (7)
+  - L43 `.hero-eyebrow` | font-size: `12px` | size=12.0px
+  - L50 `.hero-stat-label` | font-size: `11px` | size=11.0px
+  - L64 `.filter-label` | font-size: `12px` | size=12.0px
+  - L88 `.org-structure` | font-size: `12px` | size=12.0px
+  - L92 `.pill` | font-size: `12px` | size=12.0px
+- **assets/css/header.css** (6)
+  - L171 `.nav-search-btn` | font-size: `12px` | size=12.0px
+  - L209 `.nav-soon-badge` | font-size: `8px` | size=8.0px
+  - L338 `.footer-tagline` | font-size: `10px` | size=10.0px
+  - L339 `.footer-col-title` | font-size: `9px` | size=9.0px
+  - L344 `.footer-copy` | font-size: `9px` | size=9.0px
+- **lists.html** (6)
+  - L76 `.hero-label` | font-size: `11px` | size=11.0px
+  - L339 `.creator-row.header-row` | font-size: `11px` | size=11.0px
+  - L371 `.creator-platform` | font-size: `12px` | size=12.0px
+  - L379 `.creator-geo` | font-size: `12px` | size=12.0px
+  - L435 `.teaser-label` | font-size: `11px` | size=11.0px
+- **about-this-project.html** (5)
+  - L82 `.about-eyebrow` | font-size: `10px` | size=10.0px
+  - L146 `.pillar-number` | font-size: `11px` | size=11.0px
+  - L209 `.team-title` | font-size: `12px` | size=12.0px
+  - L225 `.team-link` | font-size: `12px` | size=12.0px
+  - L388 `.board-member-org` | font-size: `12px` | size=12.0px
+- **partners/_shell.html** (5)
+  - L65 `.hero-eyebrow` | font-size: `12px` | size=12.0px
+  - L80 `.hero-stat-label` | font-size: `11px` | size=11.0px
+  - L120 `.pill` | font-size: `12px` | size=12.0px
+  - L172 `.creator-count-pill` | font-size: `12px` | size=12.0px
+  - L180 `.card-rank` | font-size: `11px` | size=11.0px
+- **partners/joon-lee.html** (5)
+  - L24 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L38 `.act-label` | font-size: `11px` | size=11.0px
+  - L40 `.act-count-pill` | font-size: `12px` | size=12.0px
+  - L49 `.pill` | font-size: `12px` | size=12.0px
+  - L57 `.atlas-attribution-badge` | font-size: `11px` | size=11.0px
+- **partners/karen-attiah.html** (5)
+  - L23 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L37 `.act-label` | font-size: `11px` | size=11.0px
+  - L39 `.act-count-pill` | font-size: `12px` | size=12.0px
+  - L48 `.pill` | font-size: `12px` | size=12.0px
+  - L56 `.atlas-attribution-badge` | font-size: `11px` | size=11.0px
+- **partners/natgeo.html** (5)
+  - L23 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L37 `.act-label` | font-size: `11px` | size=11.0px
+  - L39 `.act-count-pill` | font-size: `12px` | size=12.0px
+  - L48 `.pill` | font-size: `12px` | size=12.0px
+  - L56 `.atlas-attribution-badge` | font-size: `11px` | size=11.0px
+- **partners/noah-smith.html** (5)
+  - L36 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L54 `.act-label` | font-size: `11px` | size=11.0px
+  - L56 `.act-count-pill` | font-size: `12px` | size=12.0px
+  - L69 `.pill` | font-size: `12px` | size=12.0px
+  - L80 `.atlas-attribution-badge` | font-size: `11px` | size=11.0px
+- **partners/rahim-jessani.html** (5)
+  - L36 `.hero-eyebrow` | font-size: `11px` | size=11.0px
+  - L54 `.act-label` | font-size: `11px` | size=11.0px
+  - L56 `.act-count-pill` | font-size: `12px` | size=12.0px
+  - L69 `.pill` | font-size: `12px` | size=12.0px
+  - L80 `.atlas-attribution-badge` | font-size: `11px` | size=11.0px
+- **partners/_reviewjames copy.html** (4)
+  - L15 `.flag` | font-size: `11px` | size=11.0px
+  - L26 `th` | font-size: `12px` | size=12.0px
+  - L29 `.pill` | font-size: `11px` | size=11.0px
+  - L33 `footer` | font-size: `12px` | size=12.0px
+- **partners/_reviewjames.html** (4)
+  - L15 `.flag` | font-size: `11px` | size=11.0px
+  - L26 `th` | font-size: `12px` | size=12.0px
+  - L29 `.pill` | font-size: `11px` | size=11.0px
+  - L33 `footer` | font-size: `12px` | size=12.0px
+- **wire.html** (4)
+  - L53 `.wire-eyebrow` | font-size: `11px` | size=11.0px
+  - L132 `.cluster-header .cluster-count` | font-size: `11px` | size=11.0px
+  - L172 `.card-beat` | font-size: `11px` | size=11.0px
+  - L179 `.card-timestamp` | font-size: `11px` | size=11.0px
+- **preview/nodes-and-networks-f348eb08/index.html** (3)
+  - L61 `.strip-label` | font-size: `11px` | size=11.0px
+  - L78 `.viz-label` | font-size: `11px` | size=11.0px
+  - L96 `.note-ref a` | font-size: `0.75em` | size=12.0px
+- **contact.html** (2)
+  - L51 `.contact-eyebrow` | font-size: `10px` | size=10.0px
+  - L102 `.contribute-eyebrow` | font-size: `10px` | size=10.0px
+- **partners/index.html** (2)
+  - L44 `.partners-eyebrow` | font-size: `9px` | size=9.0px
+  - L73 `.partners-cta` | font-size: `11px` | size=11.0px
+- **watershed-preview-uhh7gdyn/index.html** (1)
+  - L81 `.price-k` | font-size: `12px` | size=12.0px
+
+## Uppercase — 362 hits in 52 files
+- **pulse.html** (40)
+  - L52 `.live-badge` | text-transform: `uppercase` | uppercase rule
+  - L125 `.signal-band-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L131 `.signal-beat-tag` | text-transform: `uppercase` | uppercase rule
+  - L132 `.signal-reason-tag` | text-transform: `uppercase` | uppercase rule
+  - L138 `.field-summary-eyebrow` | text-transform: `uppercase` | uppercase rule
+- **city-lab-chicago.html** (32)
+  - L34 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L46 `.hero-stat-label-child` | text-transform: `uppercase` | uppercase rule
+  - L47 `.hero-stat-nudge` | text-transform: `uppercase` | uppercase rule
+  - L54 `.two-layer-pill` | text-transform: `uppercase` | uppercase rule
+  - L58 `.hero-partner-label` | text-transform: `uppercase` | uppercase rule
+- **index.html** (31)
+  - L76 `.hero-eyebrow-pill` | text-transform: `uppercase` | uppercase rule
+  - L95 `.hcn-pill` | text-transform: `uppercase` | uppercase rule
+  - L106 `.viz-label` | text-transform: `uppercase` | uppercase rule
+  - L145 `.hero-stat-badge-lbl` | text-transform: `uppercase` | uppercase rule
+  - L178 `.stat-lbl` | text-transform: `uppercase` | uppercase rule
+- **bluesky-creator-intelligence.html** (18)
+  - L51 `.badge` | text-transform: `uppercase` | uppercase rule
+  - L56 `.header-cta` | text-transform: `uppercase` | uppercase rule
+  - L65 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L74 `.viz-label` | text-transform: `uppercase` | uppercase rule
+  - L83 `#viz-tooltip .tt-cluster` | text-transform: `uppercase` | uppercase rule
+- **city-lab-dc-v3.html** (16)
+  - L61 `.section-label` | text-transform: `uppercase` | uppercase rule
+  - L106 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L141 `.hero-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L188 `.section-nav a` | text-transform: `uppercase` | uppercase rule
+  - L235 `.timeline-date` | text-transform: `uppercase` | uppercase rule
+- **for-brands.html** (13)
+  - L45 `.eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L86 `.hero-eyebrow-pill` | text-transform: `uppercase` | uppercase rule
+  - L131 `.compare-th` | text-transform: `uppercase` | uppercase rule
+  - L196 `.trust-cite-view-all` | text-transform: `uppercase` | uppercase rule
+  - L209 `.intel-cta-link` | text-transform: `uppercase` | uppercase rule
+- **atlas-signal-brief.html** (11)
+  - L15 `.header-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L21 `.header-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L25 `.tab-btn` | text-transform: `uppercase` | uppercase rule
+  - L38 `.section-title` | text-transform: `uppercase` | uppercase rule
+  - L45 `.stat-card-label` | text-transform: `uppercase` | uppercase rule
+- **search.html** (11)
+  - L60 `.search-orientation-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L88 `.search-beat-entry-label` | text-transform: `uppercase` | uppercase rule
+  - L137 `.search-secondary-label` | text-transform: `uppercase` | uppercase rule
+  - L209 `.search-orientation-action` | text-transform: `uppercase` | uppercase rule
+  - L260 `.search-pulse-link` | text-transform: `uppercase` | uppercase rule
+- **atlas_wire_intelligence.html** (9)
+  - L29 `.hd-title` | text-transform: `uppercase` | uppercase rule
+  - L60 `.panel-head-title` | text-transform: `uppercase` | uppercase rule
+  - L81 `.intel-label` | text-transform: `uppercase` | uppercase rule
+  - L134 `.tray-label` | text-transform: `uppercase` | uppercase rule
+  - L156 `.q-beat-pill` | text-transform: `uppercase` | uppercase rule
+- **beat-tech.html** (9)
+  - L24 `.header-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L37 `.header-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L49 `.platform-label` | text-transform: `uppercase` | uppercase rule
+  - L54 `.stat-label` | text-transform: `uppercase` | uppercase rule
+  - L64 `.section-title` | text-transform: `uppercase` | uppercase rule
+- **latin-america-lab.html** (9)
+  - L109 `.hero-label` | text-transform: `uppercase` | uppercase rule
+  - L203 `.ecosystem-card-title` | text-transform: `uppercase` | uppercase rule
+  - L225 `.lab-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L244 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L341 `.featured-badge` | text-transform: `uppercase` | uppercase rule
+- **teamdmv/index.html** (9)
+  - L72 `.nav-links a` | text-transform: `uppercase` | uppercase rule
+  - L93 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L108 `.stat-label` | text-transform: `uppercase` | uppercase rule
+  - L111 `.section-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L129 `.featured-role` | text-transform: `uppercase` | uppercase rule
+- **beat-climate.html** (8)
+  - L24 `.header-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L37 `.header-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L49 `.platform-label` | text-transform: `uppercase` | uppercase rule
+  - L54 `.stat-label` | text-transform: `uppercase` | uppercase rule
+  - L64 `.section-title` | text-transform: `uppercase` | uppercase rule
+- **assets/css/main.css** (7)
+  - L209 `.read-more-btn` | text-transform: `uppercase` | uppercase rule
+  - L265 `.database-intro-text` | text-transform: `uppercase` | uppercase rule
+  - L324 `.filter-accordion-header h3` | text-transform: `uppercase` | uppercase rule
+  - L1126 `.viz-creators-table th` | text-transform: `uppercase` | uppercase rule
+  - L1956 `.pack-name-label` | text-transform: `uppercase` | uppercase rule
+- **beat-finance.html** (7)
+  - L24 `.header-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L37 `.header-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L49 `.platform-label` | text-transform: `uppercase` | uppercase rule
+  - L54 `.stat-label` | text-transform: `uppercase` | uppercase rule
+  - L64 `.section-title` | text-transform: `uppercase` | uppercase rule
+- **atlas_pulse_intelligence.html** (6)
+  - L42 `.hd-title` | text-transform: `uppercase` | uppercase rule
+  - L72 `.panel-head-title` | text-transform: `uppercase` | uppercase rule
+  - L80 `.sig-label` | text-transform: `uppercase` | uppercase rule
+  - L155 `table.ptbl thead th` | text-transform: `uppercase` | uppercase rule
+  - L212 `.det-sec` | text-transform: `uppercase` | uppercase rule
+- **research.html** (6)
+  - L51 `.eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L197 `.ticker-card-byline` | text-transform: `uppercase` | uppercase rule
+  - L313 `.badge-pill` | text-transform: `uppercase` | uppercase rule
+  - L437 `.outlet-pill` | text-transform: `uppercase` | uppercase rule
+  - L599 `.appearance-role` | text-transform: `uppercase` | uppercase rule
+- **chicago-survey.html** (5)
+  - L68 `.header-badge` | text-transform: `uppercase` | uppercase rule
+  - L90 `.logo-text` | text-transform: `uppercase` | uppercase rule
+  - L192 `.section-label` | text-transform: `uppercase` | uppercase rule
+  - L492 `.code-label` | text-transform: `uppercase` | uppercase rule
+  - L732 `.atlas-site-footer-col h4` | text-transform: `uppercase` | uppercase rule
+- **co-ops.html** (5)
+  - L43 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L50 `.hero-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L64 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L88 `.org-structure` | text-transform: `uppercase` | uppercase rule
+  - L94 `.org-members-label` | text-transform: `uppercase` | uppercase rule
+- **mobile.html** (5)
+  - L376 `.creator-tag` | text-transform: `uppercase` | uppercase rule
+  - L567 `.topic-header` | text-transform: `uppercase` | uppercase rule
+  - L716 `html` | hardcoded-caps-text: `ATLAS` | typed in caps
+  - L772 `html` | hardcoded-caps-text: `ATLAS` | typed in caps
+  - L781 `html` | hardcoded-caps-text: `ATLAS` | typed in caps
+- **partners/nj-lab.html** (5)
+  - L58 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L80 `.hero-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L181 `.plat-pill` | text-transform: `uppercase` | uppercase rule
+  - L228 `.viz-title` | text-transform: `uppercase` | uppercase rule
+  - L645 `<span class="" style>` | text-transform: `uppercase` | uppercase rule
+- **partners/njlab copy.html** (5)
+  - L58 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L80 `.hero-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L181 `.plat-pill` | text-transform: `uppercase` | uppercase rule
+  - L228 `.viz-title` | text-transform: `uppercase` | uppercase rule
+  - L646 `<span class="" style>` | text-transform: `uppercase` | uppercase rule
+- **partners/njlab.html** (5)
+  - L58 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L80 `.hero-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L181 `.plat-pill` | text-transform: `uppercase` | uppercase rule
+  - L228 `.viz-title` | text-transform: `uppercase` | uppercase rule
+  - L646 `<span class="" style>` | text-transform: `uppercase` | uppercase rule
+- **atlas_wire_review.html** (4)
+  - L53 `.header-title` | text-transform: `uppercase` | uppercase rule
+  - L97 `.control-label` | text-transform: `uppercase` | uppercase rule
+  - L173 `.beat-tag` | text-transform: `uppercase` | uppercase rule
+  - L260 `.cluster-thread-card .thread-label` | text-transform: `uppercase` | uppercase rule
+- **chicago-analysis.html** (4)
+  - L38 `.header .brand` | text-transform: `uppercase` | uppercase rule
+  - L77 `thead th` | text-transform: `uppercase` | uppercase rule
+  - L157 `.atlas-site-footer-col h4` | text-transform: `uppercase` | uppercase rule
+  - L256 `html` | hardcoded-caps-text: `LGBTQIA+` | typed in caps
+- **partners/_reviewjames copy.html** (4)
+  - L15 `.flag` | text-transform: `uppercase` | uppercase rule
+  - L26 `th` | text-transform: `uppercase` | uppercase rule
+  - L55 `html` | hardcoded-caps-text: `TODO` | typed in caps
+  - L68 `html` | hardcoded-caps-text: `ICFJ` | typed in caps
+- **partners/_reviewjames.html** (4)
+  - L15 `.flag` | text-transform: `uppercase` | uppercase rule
+  - L26 `th` | text-transform: `uppercase` | uppercase rule
+  - L55 `html` | hardcoded-caps-text: `TODO` | typed in caps
+  - L68 `html` | hardcoded-caps-text: `ICFJ` | typed in caps
+- **partners/ahp.html** (4)
+  - L43 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L104 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L131 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L212 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/cillizza.html** (4)
+  - L43 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L100 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L127 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L204 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/emily-atkin.html** (4)
+  - L43 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L87 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L102 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L156 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/icfj.html** (4)
+  - L42 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L66 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L74 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L99 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/iij.html** (4)
+  - L42 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L61 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L69 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L92 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/jessica-stahl.html** (4)
+  - L34 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L55 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L63 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L86 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/knowledge-creators.html** (4)
+  - L23 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L39 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L46 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L68 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/news-creator-corps.html** (4)
+  - L36 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L62 `.filter-label` | text-transform: `uppercase` | uppercase rule
+  - L71 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L100 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **watershed-preview-uhh7gdyn/index.html** (4)
+  - L71 `.si-cap` | text-transform: `uppercase` | uppercase rule
+  - L81 `.price-k` | text-transform: `uppercase` | uppercase rule
+  - L179 `html` | hardcoded-caps-text: `WRUL` | typed in caps
+  - L216 `html` | hardcoded-caps-text: `WRUL` | typed in caps
+- **about-this-project.html** (3)
+  - L85 `.about-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L212 `.team-title` | text-transform: `uppercase` | uppercase rule
+  - L239 `.partners-strip h3` | text-transform: `uppercase` | uppercase rule
+- **lists.html** (3)
+  - L79 `.hero-label` | text-transform: `uppercase` | uppercase rule
+  - L342 `.creator-row.header-row` | text-transform: `uppercase` | uppercase rule
+  - L438 `.teaser-label` | text-transform: `uppercase` | uppercase rule
+- **partners/_shell.html** (3)
+  - L65 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L80 `.hero-stat-label` | text-transform: `uppercase` | uppercase rule
+  - L171 `.region-label` | text-transform: `uppercase` | uppercase rule
+- **partners/joon-lee.html** (3)
+  - L24 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L38 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L57 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/karen-attiah.html** (3)
+  - L23 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L37 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L56 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/natgeo.html** (3)
+  - L23 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L37 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L56 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/noah-smith.html** (3)
+  - L36 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L54 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L80 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **partners/rahim-jessani.html** (3)
+  - L36 `.hero-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L54 `.act-label` | text-transform: `uppercase` | uppercase rule
+  - L80 `.atlas-attribution-badge` | text-transform: `uppercase` | uppercase rule
+- **preview/nodes-and-networks-f348eb08/index.html** (3)
+  - L61 `.strip-label` | text-transform: `uppercase` | uppercase rule
+  - L78 `.viz-label` | text-transform: `uppercase` | uppercase rule
+  - L351 `html` | hardcoded-caps-text: `III.` | typed in caps
+- **assets/css/header.css** (2)
+  - L211 `.nav-soon-badge` | text-transform: `uppercase` | uppercase rule
+  - L339 `.footer-col-title` | text-transform: `uppercase` | uppercase rule
+- **contact.html** (2)
+  - L53 `.contact-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L104 `.contribute-eyebrow` | text-transform: `uppercase` | uppercase rule
+- **partners/index.html** (2)
+  - L46 `.partners-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L75 `.partners-cta` | text-transform: `uppercase` | uppercase rule
+- **wire.html** (2)
+  - L53 `.wire-eyebrow` | text-transform: `uppercase` | uppercase rule
+  - L172 `.card-beat` | text-transform: `uppercase` | uppercase rule
+- **advisory.html** (1)
+  - L128 `.coming-soon-badge` | text-transform: `uppercase` | uppercase rule
+- **lab/health-field-finder/funder.html** (1)
+  - L76 `.staticrypt-form .staticrypt-decrypt-button` | text-transform: `uppercase` | uppercase rule
+- **lab/health-field-finder/review.html** (1)
+  - L76 `.staticrypt-form .staticrypt-decrypt-button` | text-transform: `uppercase` | uppercase rule
