@@ -115,14 +115,29 @@ window.atlasTrack = function(eventName, params) {
         ? document.currentScript.insertAdjacentHTML('beforebegin', html)
         : document.body.insertAdjacentHTML('afterbegin', html);
 
-    // Mark the current page in the nav (aria-current="page"); header.css styles it. Exact page match, ".html" and trailing slash ignored.
+    // Mark the current page in the nav. header.css styles both values as "selected".
+    //   aria-current="page": the nav item's own page (exact match; ".html" and trailing slash ignored)
+    //   aria-current="true": a page inside that nav item's section (sub-pages)
+    // SECTIONS lists the sub-pages per nav item. Add new sub-pages here.
+    var SECTIONS = {
+        '/research':            { prefixes: ['/research/'] },
+        '/submit':              { pages: ['/submit-thanks'] },
+        '/partners':            { prefixes: ['/partners/'] },
+        '/about-this-project':  { pages: ['/who-we-are', '/how-we-did-this', '/advisory'] }
+    };
     (function () {
         function norm(p) { return (p || '/').replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/(.)\/$/, '$1') || '/'; }
         var here = norm(window.location.pathname);
         var links = document.querySelectorAll('#siteTopNav .nav-link, #mobileMenu .mobile-menu-link');
         for (var i = 0; i < links.length; i++) {
             var a = document.createElement('a'); a.href = links[i].getAttribute('href');
-            if (norm(a.pathname) === here) links[i].setAttribute('aria-current', 'page');
+            var target = norm(a.pathname);
+            if (target === here) { links[i].setAttribute('aria-current', 'page'); continue; }
+            var sec = SECTIONS[target];
+            if (!sec) continue;
+            var inSection = (sec.pages && sec.pages.indexOf(here) !== -1) ||
+                (sec.prefixes && sec.prefixes.some(function (p) { return here.indexOf(p) === 0; }));
+            if (inSection) links[i].setAttribute('aria-current', 'true');
         }
     }());
 
