@@ -74,7 +74,7 @@ window.atlasTrack = function(eventName, params) {
         '        <img src="' + HEADER_THEMES[headerTheme].logo + '" alt="Independent Journalism Atlas">',
         '      </a>',
         '      <div class="nav-search-container">',
-        '        <input type="text" class="nav-search" placeholder="Search creators, topics, places..." id="navSearch" autocomplete="off">',
+        '        <input type="text" class="nav-search" placeholder="Search creators, topics, places..." id="navSearch" autocomplete="off" aria-label="Search creators, topics, places">',
         '        <button class="nav-search-btn" id="nav-search-btn" type="button">Search</button>',
         '      </div>',
         '    </div>',
@@ -114,6 +114,23 @@ window.atlasTrack = function(eventName, params) {
     document.currentScript
         ? document.currentScript.insertAdjacentHTML('beforebegin', html)
         : document.body.insertAdjacentHTML('afterbegin', html);
+
+    // Phones (≤640px): the search box does not fit in the header, so move the same node into the mobile menu
+    // (ids and event handlers stay as they are) and put it back above 640px. header.css has the matching styles.
+    (function () {
+        var mq = window.matchMedia('(max-width: 640px)');
+        function placeSearch() {
+            var box = document.querySelector('.nav-search-container');
+            var menu = document.getElementById('mobileMenu');
+            var home = document.querySelector('.nav-logo-search');
+            var links = menu && menu.querySelector('.mobile-menu-links');
+            if (!box || !home || !links) return;
+            if (mq.matches) { if (box.parentNode !== menu) menu.insertBefore(box, links); }
+            else if (box.parentNode !== home) home.appendChild(box);
+        }
+        placeSearch();
+        if (mq.addEventListener) mq.addEventListener('change', placeSearch); else mq.addListener(placeSearch);
+    }());
 
     // Mark the current page in the nav. header.css styles both values as "selected".
     //   aria-current="page": the nav item's own page (exact match; ".html" and trailing slash ignored)

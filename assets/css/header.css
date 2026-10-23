@@ -288,13 +288,17 @@ body {
     background-color: var(--header-menu-bg);
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
     z-index: 1000;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Closed: off-screen AND out of the tab order (visibility flips after the slide-out, immediately on open) */
+    visibility: hidden;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.3s;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
 .mobile-menu.active {
     right: 0;
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .mobile-menu-header {
@@ -428,6 +432,27 @@ body {
 
     .site-footer {
         padding: 40px 20px 24px;
+    }
+}
+
+/* ── Phones (≤640px): Search moves from the header into the mobile menu ──
+   The header needs ~617px for logo (238) + search (291) + hamburger (44) + gaps and padding, so below 640px the search
+   box does not fit. header.js moves the same .nav-search-container node into #mobileMenu at this width (ids and handlers
+   are unchanged) and back above it. Above 640px nothing here applies. */
+@media (max-width: 640px) {
+    .nav-logo { flex-shrink: 0; }   /* never let the logo collapse */
+    .mobile-menu .nav-search-container {
+        display: flex;
+        flex: none;
+        max-width: none;
+        gap: 8px;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--header-menu-border);
+    }
+    .mobile-menu .nav-search {
+        max-width: none;
+        min-height: 44px;
+        box-sizing: border-box;
     }
 }
 
