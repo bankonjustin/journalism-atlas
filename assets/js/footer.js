@@ -18,7 +18,7 @@
     var email = ['hell', 'o', '@journalism', 'atlas.com'].join('');
 
     var html = [
-        '<footer class="site-footer">',
+        '<footer class="site-footer on-dark">',
         '  <div class="footer-inner">',
         '    <div class="footer-top">',
         '      <div class="footer-brand">',

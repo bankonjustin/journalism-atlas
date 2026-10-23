@@ -235,3 +235,15 @@
   color: var(--link-hover);
   text-decoration: underline;
 }
+
+/* ---------- Focus (v15 § Interactive States): reached by keyboard ---------- */
+/* 2px ring, offset 2px: Dark Olive on light surfaces, Lime on dark surfaces and the black header.
+   Lime's only job in the UI. Never remove a focus style without replacing it with this. */
+:focus-visible {
+  outline: 2px solid var(--color-focus-on-light);
+  outline-offset: 2px;
+}
+:where(.on-dark, [data-surface="dark"]) :focus-visible,
+:root[data-header-theme="black"] :where(.top-nav, .mobile-menu) :focus-visible {
+  outline-color: var(--color-focus);
+}

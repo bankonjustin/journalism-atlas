@@ -357,7 +357,7 @@
     .db-header-note { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5d7400; text-transform: uppercase; letter-spacing: 0.08em; align-self: flex-start; padding-top: 4px; }
     .db-filter-bar { background: #fff; border: 1px solid #d4d4d8; border-radius: 6px; padding: 16px 20px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
     .db-filter-select { font-family: var(--font-primary, 'Inter', sans-serif); font-size: 13px; color: #555; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; background: #fff; cursor: pointer; }
-    .db-filter-input { flex: 1; min-width: 160px; font-family: var(--font-primary, 'Inter', sans-serif); font-size: 13px; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; outline: none; transition: border-color 0.15s; }
+    .db-filter-input { flex: 1; min-width: 160px; font-family: var(--font-primary, 'Inter', sans-serif); font-size: 13px; border: 1px solid #d4d4d8; border-radius: 4px; padding: 6px 10px; transition: border-color 0.15s; }
     .db-filter-input:focus { border-color: var(--color-focus-on-light); }
     .db-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .db-card { background: #fff; border: 0.5px solid #d4d4d8; border-radius: 6px; padding: 18px 16px; display: flex; flex-direction: column; transition: border-color 0.15s; }
@@ -432,7 +432,7 @@
       background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
       border-radius: 6px;
       font-family: 'Inter', sans-serif; font-size: 13px; color: #fff;
-      outline: none; transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.15s, background 0.15s;
     }
     #cluster-drawer-search::placeholder { color: rgba(255,255,255,0.28); }
     #cluster-drawer-search:focus {
@@ -562,7 +562,7 @@
 <body>
 <script src="/assets/js/header.js"></script>
 
-<section class="hero" style="position:relative;">
+<section class="hero on-dark" style="position:relative;">
  <div class="hero-container">
 
   <!-- LEFT: Copy + CTAs + Cluster Nav -->
@@ -619,7 +619,7 @@
 <!-- ══════════════════════════════════════════════════════════
      CLUSTER DRAWER
      ══════════════════════════════════════════════════════════ -->
-<div id="cluster-drawer" aria-hidden="true">
+<div id="cluster-drawer" class="on-dark" aria-hidden="true">
   <div id="cluster-drawer-inner">
     <div id="cluster-drawer-content">
       <div id="cluster-drawer-header">
@@ -651,7 +651,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SECTION 5: FEATURED CREATORS
      ══════════════════════════════════════════════════════════ -->
-<section class="featured-section">
+<section class="featured-section on-dark">
   <div class="featured-inner">
     <div class="featured-header-row">
       <div class="featured-header-left">
@@ -1007,7 +1007,7 @@ const FEATURED_POOL = [
 <!-- ══════════════════════════════════════════════════════════
      CREDENTIALS STRIP
      ══════════════════════════════════════════════════════════ -->
-<div class="credentials-strip">
+<div class="credentials-strip on-dark">
   <p class="credentials-text">
     Built by journalists who have worked at
     <span class="credentials-orgs">The Washington Post · The New York Times · NPR · Axios · Vox · USA Today</span>
@@ -1156,7 +1156,7 @@ const FEATURED_POOL = [
 <!-- ══════════════════════════════════════════════════════════
      SECTION 8: INTELLIGENCE CLUSTER GRID
      ══════════════════════════════════════════════════════════ -->
-<div class="intel-thesis-band">
+<div class="intel-thesis-band on-dark">
   <div class="intel-thesis-band-inner">
     <div class="intel-thesis">
       <p>Independent journalism didn't collapse.</p>
