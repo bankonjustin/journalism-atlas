@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-header-theme="black">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,6 +11,11 @@
 <meta property="og:type" content="article"><meta property="og:title" content="A Watershed Moment for News Deserts"><meta property="og:description" content="Medill&#39;s map shows where local news has dried up. Look closer and it&#39;s still moving — across county lines, through people no count yet sees. Finding them takes a new kind of map."><meta property="og:image" content="https://journalismatlas.com/watershed/assets/social-16x9.jpg"><meta property="og:image:alt" content="A desert of rippled sand dunes under a turquoise sky. A narrow dark shaft rises from the horizon into a wedge of dark red ground heaped with paper strips, each printed with a word or name from local news: independent, journalism, planning board, Brandon Reporter, livestream, who's funding state rep.">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="A Watershed Moment for News Deserts"><meta name="twitter:description" content="Medill&#39;s map shows where local news has dried up. Look closer and it&#39;s still moving — across county lines, through people no count yet sees. Finding them takes a new kind of map."><meta name="twitter:image" content="https://journalismatlas.com/watershed/assets/social-16x9.jpg"><meta name="twitter:image:alt" content="A desert of rippled sand dunes under a turquoise sky. A narrow dark shaft rises from the horizon into a wedge of dark red ground heaped with paper strips, each printed with a word or name from local news: independent, journalism, planning board, Brandon Reporter, livestream, who's funding state rep.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
+<!-- ATLAS CHROME: site stylesheets (header, footer, strip, endcap). Keep above the essay <style>. -->
+<link rel="stylesheet" href="/assets/css/variables.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/header.css">
+<!-- /ATLAS CHROME -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -100,8 +105,17 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
  .towns{grid-template-columns:repeat(3,1fr);gap:32px}.town-c:empty{display:block}
 }
 </style>
+<!-- ATLAS CHROME: page-level chrome styles (hero spacing now that the wordmark is gone; endcap styles are added below by Step 6) -->
+<style id="atlas-chrome-css">
+.hero{padding-top:48px}
+@media(min-width:900px){.hero{padding-top:64px}}
+</style>
+<!-- /ATLAS CHROME -->
 </head>
 <body>
+<!-- ATLAS CHROME: site header (and strip) -->
+<script src="/assets/js/header.js"></script>
+<!-- /ATLAS CHROME -->
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
 
 <symbol id="icon-well" viewBox="0 0 1000 1000"><path fill="currentColor" d="M100 766.667h800V900H100zM841.348 100H174.685L100 233.333h66.669V700h84.554V233.333H480v200H366.667l44.444 200h177.777l44.446-200H520v-200h228.876V700h84.456V233.333H900z"/></symbol>
@@ -111,7 +125,6 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 </svg>
 <div class="banner" role="note">Draft for review. Not for distribution. Highlighted text is unconfirmed.</div>
 <header class="dark hero"><div class="hero-in col">
-<img class="wordmark" src="assets/Atlas_logo_lockup_horizontal_wht_web.svg" alt="Independent Journalism Atlas">
 <h1>A Watershed Moment for News Deserts</h1>
 <p class="dek">Medill&#39;s map shows where local news has dried up. Look closer and it&#39;s still moving — across county lines, through people no count yet sees. Finding them takes a new kind of map.</p>
 <p class="byline">By Justin Bank</p>
@@ -121,6 +134,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 <figcaption>Art by James Bareham.</figcaption>
 </figure></div></section>
 <main>
+<!-- PROSE START: replace only between these markers -->
 <section class="light"><div class="measure prose"><p>I&#39;ve never been to Harrisburg, Illinois. But from a laptop, you can learn a fair amount about Saline County. <a href="https://www.facebook.com/people/Sheriffs-Office-at-Saline-County/100064563351651/">The sheriff posts</a>. <a href="https://forecast.weather.gov/MapClick.php?lat=37.7384&lon=-88.5406">The weather service pushes heat advisories</a>. <a href="https://www.echovita.com/us/funeral-homes/il/harrisburg/reed-funeral-chapel-24164">The funeral home puts up the obituaries</a>. What you can&#39;t learn is why — why the county board voted the way it did, what the school budget means, whether anyone is even asking. Harrisburg&#39;s paper, the Daily Register, printed its last edition in June, one of <a href="https://localnewsinitiative.northwestern.edu/posts/2026/06/12/paddock-publications-closes-downstate-newspapers-daily-herald/">at least 13 Illinois papers Paddock Publications closed</a>. Medill&#39;s researchers did go, in September. They found an April edition still sitting in the box outside the office.</p>
 
 <p><a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2026/report/">Medill&#39;s State of Local News report</a> counts 238 counties like Saline, with &quot;no locally based source of news&quot; — <a href="https://www.niemanlab.org/2026/10/from-bad-to-worse-2026-is-shaping-up-to-be-a-super-el-nino-year-for-local-news/">26 more than a year ago</a>, and <a href="https://localnewsinitiative.northwestern.edu/posts/2026/06/12/paddock-publications-closes-downstate-newspapers-daily-herald/">five of them in southern Illinois</a> after Paddock&#39;s closures alone. That count should worry anyone who cares about self-government. It worries me.</p>
@@ -280,7 +294,10 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 <li><a href="https://localnewsinitiative.northwestern.edu/">Local News Initiative</a>: Medill keeps the count that started this conversation.</li>
 <li><mark class="ph">[TK: one or two more]</mark></li>
 </ul></aside></div></section>
+<!-- PROSE END -->
 </main>
-<footer class="foot"><div class="foot-in col"><a href="https://journalismatlas.com"><img src="assets/Atlas_logo_lockup_horizontal_blk_web.svg" alt="Independent Journalism Atlas"></a></div></footer>
+<!-- ATLAS CHROME: site footer -->
+<script src="/assets/js/footer.js"></script>
+<!-- /ATLAS CHROME -->
 </body>
 </html>
