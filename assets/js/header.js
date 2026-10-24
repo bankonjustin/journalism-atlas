@@ -82,8 +82,7 @@ window.atlasTrack = function(eventName, params) {
         '      <a href="/pulse.html" class="nav-link nav-link--pulse"><span class="nav-pulse-dot"></span>Pulse</a>',
         '      <a href="/for-brands.html" class="nav-link">For Brands</a>',
         '      <a href="/research" class="nav-link">Research &amp; Writing</a>',
-        '      <a href="/submit" class="nav-link">Submit</a>',
-        '      <a href="/partners" class="nav-link nav-link--partners">Partners<span class="nav-soon-badge">Soon</span></a>',
+        '      <a href="/how-we-did-this.html" class="nav-link">How it works</a>',
         '    </div>',
         '    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Open menu">',
         '      <span class="material-symbols-outlined">menu</span>',
@@ -102,6 +101,7 @@ window.atlasTrack = function(eventName, params) {
         '    <a href="/pulse.html" class="mobile-menu-link">Pulse</a>',
         '    <a href="/for-brands.html" class="mobile-menu-link">For Brands</a>',
         '    <a href="/research" class="mobile-menu-link">Research &amp; Writing</a>',
+        '    <a href="/how-we-did-this.html" class="mobile-menu-link">How it works</a>',
         '    <a href="/submit" class="mobile-menu-link">Submit</a>',
         '    <a href="/partners" class="mobile-menu-link">Partners</a>',
         '    <a href="/about-this-project.html" class="mobile-menu-link">About</a>',
@@ -140,7 +140,7 @@ window.atlasTrack = function(eventName, params) {
         '/research':            { prefixes: ['/research/'] },
         '/submit':              { pages: ['/submit-thanks'] },
         '/partners':            { prefixes: ['/partners/'] },
-        '/about-this-project':  { pages: ['/who-we-are', '/how-we-did-this', '/advisory'] }
+        '/about-this-project':  { pages: ['/who-we-are', '/advisory'] }
     };
     (function () {
         function norm(p) { return (p || '/').replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/(.)\/$/, '$1') || '/'; }
