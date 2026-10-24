@@ -1,8 +1,8 @@
 // Scene S9: Figure 5 as a sticky sequence, driven by the locked sentences already in Section III.
 // Wide screens only. Below 1100px, or with reduced motion, the same four states play as stacked figures in the
 // prose (rendered at build time), not pinned. After the last step the free toggle returns.
-import { $, $$, clamp, reduced, scene } from './lib.js';
-import * as f5 from './figs/fig5.js';
+import { $, $$, clamp, reduced, scene } from './lib.js?v=a7031425';
+import * as f5 from './figs/fig5.js?v=a7031425';
 
 export function mount(root, { data }) {
   const mq = matchMedia('(min-width: 1100px)');

@@ -1,6 +1,6 @@
 // Scene S4: a band strip for each cohort header, built from Figure 5's counts only. Neutral tints: group colour is
 // already carried by the cohort line above it. No mechanism counts.
-import { BANDS, esc } from '../lib.js';
+import { BANDS, esc } from '../lib.js?v=a7031425';
 
 export const id = 'band-strips';
 

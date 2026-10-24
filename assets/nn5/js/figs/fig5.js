@@ -1,6 +1,6 @@
 // Figure 5: revenue band distribution by cohort (n=169). Rows in the paper's order (sorted by share above $10M).
 // States: pooled | split | hi-ends | hi-phil. Pooled dots are neutral: group colour (plus a shape) appears only when split.
-import { esc, GROUP, BANDS, pct, $, $$, reduced, setHash } from '../lib.js';
+import { esc, GROUP, BANDS, pct, $, $$, reduced, setHash } from '../lib.js?v=a7031425';
 
 export const id = 'fig-5-bands';
 export const STATES = ['pooled', 'split', 'hi-ends', 'hi-phil'];

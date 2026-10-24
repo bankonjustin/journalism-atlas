@@ -1,10 +1,10 @@
 // Figure 6 (explorer): the same 169 marks re-sorted by lens; distance from the center is revenue band (shaded zones), or founding year.
 // The layouts are the reference engine's, precomputed in tools/build_nodes169.py. The opening (the turn) lives in kaleido-intro.js and loads on demand.
-import { esc, $, $$, reduced, css, setHash, GROUP_LABEL } from '../lib.js';
+import { esc, $, $$, reduced, css, setHash, GROUP_LABEL } from '../lib.js?v=a7031425';
 
 export const id = 'fig-6-kaleidoscope';
-export const STATES = ['field', 'gov', 'mech', 'origin', 'born'];
-export const LENSES = [['field', 'The field'], ['gov', 'Governance'], ['mech', 'Six ways past $10M'], ['origin', 'How they got past $10M'], ['born', 'When they started']];
+export const STATES = ['field', 'gov', 'origin', 'mech', 'born'];   // button order: whether, then how
+export const LENSES = [['field', 'The field'], ['gov', 'Governance'], ['origin', 'Who got past $10M'], ['mech', 'Six ways past $10M'], ['born', 'When they started']];
 const DEFAULT = 'gov', SIZE = [.0095, .014, .0195], TH = [.465, .66], ZONE = [[.1, TH[0]], [TH[0], TH[1]], [TH[1], .97]], TINT = [.02, .04, .065];
 const STATUS = { CLOSED: 'closed', ACQUIRED: 'acquired', ABSORBED: 'absorbed' };
 const lensOf = t => { const m = /^(?:fig-6-)?(field|gov|mech|origin|born)$/.exec(t || ''); return m ? m[1] : ''; };
@@ -19,7 +19,7 @@ export function caption(lens, data) {
     field: ['The field.', `All ${m.n}, unsorted. From here it looks like the trends you already know.`],
     gov: ['Governance.', `Nine wedges, one per cohort: who owns it, who decides, how it is funded. ${c1.name}: ${c1.above} of ${c1.n} over $10M. ${c8.name}: ${c8.above} of ${c8.n}.`],
     mech: ['Six ways past $10M.', 'Wedges are the paper’s six mechanisms. Organizations already above $10M at launch sit in their own wedge.'],
-    origin: ['How they got past $10M.', `${cnt(d => d.orig === 'INHERITED')} started above it, ${cnt(d => d.orig === 'CROSSED')} grew past it, ${cnt(d => d.orig === 'NEVER_CROSSED')} are still under. Colour shows which governance groups do the growing.`],
+    origin: ['Who got past $10M.', `${cnt(d => d.orig === 'INHERITED')} started above it, ${cnt(d => d.orig === 'CROSSED')} grew past it, ${cnt(d => d.orig === 'NEVER_CROSSED')} are still under. Colour shows which governance groups do the growing.`],
     born: ['When they started.', `Distance from the center now means founding year, oldest inside. ${cnt(d => d.fy >= 2008)} of ${m.n} started in 2008 or later.`],
   }[lens];
 }
@@ -29,13 +29,15 @@ const wedgeList = (data, lens) => data.lenses[lens].geo.length
 
 export function html(data, { alt, state = DEFAULT, still = '', page = false }) {
   const [h, t] = caption(state, data);
-  return `<div class="kl${page ? ' kl--page' : ''}" data-state="${state}"><div class="kl-lenses" role="group" aria-label="Lens: how the ${data.meta.n} organizations are sorted">`
+  return `<div class="kl${page ? ' kl--page' : ''}" data-state="${state}">`
+    + (page ? '<div class="kl-intro"><div class="label">Nodes and Networks · Explorer</div><h1>Turn the lens.</h1><p class="lede">169 U.S. journalism organizations. From a distance they look like the trends you already know. <em>Sort them by governance and nine different patterns appear.</em></p></div>' : '')
+    + `<div class="kl-lenses" role="group" aria-label="Lens: how the ${data.meta.n} organizations are sorted">`
     + LENSES.map(([k, l]) => `<button type="button" class="kl-btn" data-lens="${k}" aria-pressed="${k === state}">${esc(l)}</button>`).join('') + '</div>'
     + '<div class="kl-hint" aria-hidden="true"><span class="arr"></span>Try another lens</div>'
     + `<div class="kl-panel"><div class="kl-stage"><canvas class="kl-cv" role="img" aria-label="${esc(alt)}"></canvas>`
     + (still ? `<img class="kl-still" src="${esc(still)}" alt="${esc(alt)}" width="1200" height="1344">` : '')
-    + '<div class="kl-over" aria-hidden="true"></div><button type="button" class="kl-btn kl-ghost kl-skip" hidden>Skip</button><div class="kl-tip" role="status" hidden></div></div></div>'
-    + `<p class="kl-cap" aria-live="polite"><b>${esc(h)}</b> ${esc(t)}</p><button type="button" class="kl-btn kl-ghost kl-replay" hidden>Replay the turn</button>`
+    + '<div class="kl-over" aria-hidden="true"></div><button type="button" class="kl-btn kl-ghost kl-skip" hidden>Skip</button><button type="button" class="kl-play" hidden>Watch it sort <span aria-hidden="true">▶</span></button><div class="kl-tip" role="status" hidden></div></div></div>'
+    + `<p class="kl-cap" aria-live="polite"><b>${esc(h)}</b> ${esc(t)}</p><button type="button" class="kl-btn kl-ghost kl-replay" hidden>Watch it sort again</button>`
     + `<div class="kl-legend">${['a', 'b', 'c'].map(k => `<span><i class="${k}"></i>${esc(GROUP_LABEL[k])}</span>`).join('')}<span><i class="x"></i>Closed</span>`
     + '<span class="zones">Closer to the center, smaller budget: under $3.5M, $3.5M–$10M, over $10M. Bigger marks are in bigger bands.</span></div>'
     + `<ul class="kl-wedges" aria-label="Wedges in this lens, with counts">${wedgeList(data, state)}</ul></div>`;
@@ -54,7 +56,7 @@ export function mount(el, { data, state = '', onChange, animate = true, intro = 
   const root = $('.kl', el), cv = $('.kl-cv', root);
   if (!root || !cv) return;
   const stage = $('.kl-stage', root), tip = $('.kl-tip', root), capEl = $('.kl-cap', root), listEl = $('.kl-wedges', root), btns = $$('.kl-btn[data-lens]', root);
-  const over = $('.kl-over', root), skipB = $('.kl-skip', root), hint = $('.kl-hint', root), replay = $('.kl-replay', root);
+  const over = $('.kl-over', root), skipB = $('.kl-skip', root), hint = $('.kl-hint', root), replay = $('.kl-replay', root), playB = $('.kl-play', root);
   const N = data.nodes, m = data.meta, ctx = cv.getContext('2d'), baseAlt = cv.getAttribute('aria-label'), BANDS = m.bands, YEARS = m.years;
   const T = { a: css('--kl-a') || '#F6C84E', b: css('--kl-b') || '#B23A5E', c: css('--kl-c') || '#A8A8A8', neutral: css('--kl-neutral') || '#7C7C7C', bg: css('--kl-bg') || '#000',
     ink: css('--kl-ink') || '#fff', ink2: css('--kl-ink-2') || '#bdbdbd', ink3: css('--kl-ink-3') || '#8a8a8a', grid: css('--kl-grid') || '#262626' };
@@ -149,7 +151,7 @@ export function mount(el, { data, state = '', onChange, animate = true, intro = 
   }
   function go(name, user) {
     if (!LENS[name] || (name === cur && mode !== 'intro')) return;
-    if (onAct) onAct(); if (mode === 'intro') ctl.end(false);
+    if (onAct) onAct(); playB.hidden = true; if (mode === 'intro') ctl.end(false);
     const from = cur, fromPos = P.map(p => ({ ...p })), Lf = LENS[from], Lt = LENS[name]; cur = name; tip.hidden = true; ui();
     if (user) setHash('fig-6-' + name);
     if (onChange) onChange(name, !!user);
@@ -189,20 +191,23 @@ export function mount(el, { data, state = '', onChange, animate = true, intro = 
   const ctl = {
     N, LENS, T, mix, sz, shape, yearR, cohorts: m.cohorts, over, skipB, hint, btns, blend, ss, eio, cl, draw,
     get G() { geom(); return G; }, set onAct(f) { onAct = f; }, get mode() { return mode; },
-    begin() { cancelAnimationFrame(raf); cur = 'gov'; mode = 'intro'; intros++; root.dataset.intros = intros; ui(); capEl.innerHTML = '<b>Watch the turn.</b> The same marks, sorted by governance.'; skipB.hidden = false; tip.hidden = true; root.dataset.mode = 'intro'; },
+    begin() { cancelAnimationFrame(raf); cur = 'gov'; mode = 'intro'; intros++; root.dataset.intros = intros; ui(); btns.forEach(b => b.setAttribute('aria-pressed', 'false')); root.dataset.state = ''; capEl.innerHTML = '<b>Watching it sort.</b> The same 169 marks, sorted by who owns them, who decides and how they are funded.'; skipB.hidden = false; playB.hidden = true; tip.hidden = true; root.dataset.mode = 'intro'; },
+    press() { btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.lens === 'gov')); root.dataset.state = 'gov'; },
     end(cue) { cancelAnimationFrame(raf); mode = 'idle'; skipB.hidden = true; over.innerHTML = ''; over.dataset.h = ''; P = LENS[cur].pos.map(p => ({ ...p })); ui(); draw(idleSt()); settled(); if (cue && ctl.cue) ctl.cue(); },
     raf: f => { raf = requestAnimationFrame(f); },
   };
-  const play = () => import('./kaleido-intro.js').then(M => M.play(ctl));
+  const play = () => import('./kaleido-intro.js?v=a7031425').then(M => M.play(ctl));
   skipB.addEventListener('click', () => ctl.end(true));
   if (intro) replay.hidden = false;
-  replay.addEventListener('click', () => { if (reduced()) { cur = 'gov'; P = LENS.gov.pos.map(p => ({ ...p })); ui(); draw(idleSt()); settled(); } else play(); });
+  replay.addEventListener('click', play);                                     // reader-initiated, so it plays even with reduced motion
+  playB.addEventListener('click', play);
   function start() {
     geom(); ui(); fitCap(); draw(idleSt()); settled();                        // first paint is always the finished Governance (or the linked lens)
     if (!intro) return;
-    if (reduced()) { hint.classList.add('on'); return; }                       // reduced motion: no opening, hint only
+    if (reduced()) { playB.hidden = false; hint.classList.add('on'); return; }  // reduced motion: never autoplay; offer it
     if (given) return;                                                          // a lens link skips the opening
-    const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); play(); } }, { threshold: .4 }); io.observe(cv);
+    // start as soon as a fifth of the stage, or its top half, is on screen, so small laptop windows start it without scrolling
+    const io = new IntersectionObserver(es => { const e = es[0]; if (e.intersectionRatio >= .2 || (e.isIntersecting && e.boundingClientRect.top < innerHeight * .5)) { io.disconnect(); play(); } }, { threshold: [0, .1, .2, .3] }); io.observe(cv);
   }
   if (typeof ResizeObserver === 'function') new ResizeObserver(() => { if (mode === 'idle') { draw(idleSt()); settled(); } }).observe(stage);
   start();

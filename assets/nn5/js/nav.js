@@ -1,8 +1,8 @@
 // Scene S3: Section II navigation. Desktop (>= 1180px): a compact dock down the left edge. Below that: a "Map" button
 // that opens the same list as a bottom sheet. Shown only while the reader is inside Section II; it highlights the
 // current cohort's station. Replaces the old dot rail.
-import { esc, GROUP, GROUP_LABEL, $, $$, scene, onVisible } from './lib.js';
-import { LINES } from './figs/fig2.js';
+import { esc, GROUP, GROUP_LABEL, $, $$, scene, onVisible } from './lib.js?v=a7031425';
+import { LINES } from './figs/fig2.js?v=a7031425';
 
 export function dockHtml(cards) {
   const by = Object.fromEntries(cards.map(c => [c.code, c]));

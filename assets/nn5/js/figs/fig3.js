@@ -1,6 +1,6 @@
 // Figure 3: Defector revenue, Years 1-5. Static stacked bars (subscription, then all other). No animation.
 // Two SVG variants (wide / narrow) switched by CSS, so there is no JS and no layout shift.
-import { esc, fmtM } from '../lib.js';
+import { esc, fmtM } from '../lib.js?v=a7031425';
 
 export const id = 'fig-3-defector';
 

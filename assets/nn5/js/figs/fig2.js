@@ -1,5 +1,5 @@
 // Figure 2: the nine cohorts as a transit map. Three lines (the three groups), nine stations sized by n.
-import { esc, GROUP, GROUP_LABEL, $, $$, setHash } from '../lib.js';
+import { esc, GROUP, GROUP_LABEL, $, $$, setHash } from '../lib.js?v=a7031425';
 
 export const id = 'fig-2-map';
 export const LINES = [['a', ['C1', 'C2', 'C3']], ['b', ['C4', 'C5', 'C6']], ['c', ['C7', 'C8', 'C9']]];

@@ -1,7 +1,7 @@
 // Scene S1: two numbers. One square = $8,800. The field is drawn at $100 million, the bottom of "the low hundreds of
 // millions" (the copy's words for the TBPN price). The count of squares is deliberately never shown.
 // Static render: an SVG pattern field. With a scroll engine: a canvas that scrubs from one big square out to the field.
-import { esc, clamp, lerp, $, css, reduced, scene, pinProgress } from '../lib.js';
+import { esc, clamp, lerp, $, css, reduced, scene, pinProgress } from '../lib.js?v=a7031425';
 
 export const id = 'fig-0-scale';
 const N = Math.ceil(100000000 / 8800); // derived, internal only

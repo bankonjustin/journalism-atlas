@@ -1,7 +1,7 @@
 // Figure 4: share of revenue from grants and donations, 17 nonprofit newsrooms with $3.5M-$10M revenue.
 // Static apart from the slider. 80% is the paper's threshold and the default; Reset returns to it.
 // Counts compare the displayed (rounded) percentages with a strict ">", so the sentence is honest at every value.
-import { esc, $, $$, setHash } from '../lib.js';
+import { esc, $, $$, setHash } from '../lib.js?v=a7031425';
 
 export const id = 'fig-4-threshold';
 export const PAPER = 80;

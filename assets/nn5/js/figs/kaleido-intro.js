@@ -30,8 +30,8 @@ export function play(c) {
   function overlay(t) {
     let h = '';
     if (t < 1400) h = `<p class="big">${n} organizations.</p>`;
-    else if (t < 4600) h = '<p class="small">From far away, the field looks like the trends you already know.</p>';
-    else if (t < 7700) h = '<p class="big">Turn the lens to governance.</p>';
+    else if (t < 4600) h = '<p class="small">Seen from far away.</p>';
+    else if (t < 7700) h = '<p class="big">Now sort by governance.</p>';
     else if (t < SWEEP0) h = '<p class="small">Closer to the center, smaller budgets.</p>';
     else { const k = sweepAt(t); if (k >= 0) h = `<p class="coh ${grp(k)}">${cohorts[k].code}<span>${cohorts[k].name.replace(/&/g, '&amp;')}</span></p>`; }
     if (over.dataset.h !== h) { over.innerHTML = h; over.dataset.h = h; }
@@ -46,9 +46,10 @@ export function play(c) {
   c.onAct = () => stopCue();
   stopCue(); c.begin();
   const t0 = performance.now();
+  let lit = false;
   const step = now => {
     if (c.mode !== 'intro') return;
-    const t = now - t0; c.draw(turnState(Math.min(t, SWEEP1))); overlay(t);
+    const t = now - t0; if (!lit && t >= 7000) { lit = true; c.press(); }                 // Governance is pressed when the marks land, not before c.draw(turnState(Math.min(t, SWEEP1))); overlay(t);
     if (t < END) c.raf(step); else c.end(true);
   };
   c.raf(step);
