@@ -10,7 +10,7 @@ mkdir -p dist/assets/data dist/data dist/atlas-portal
 
 # Pages and redirects
 cp ./*.html _redirects _headers robots.txt wire.json favicon.ico apple-touch-icon.png dist/
-cp -R .well-known partners lab teamdmv watershed watershed-preview-uhh7gdyn dist/
+cp -R .well-known partners lab teamdmv watershed dist/
 
 # Unlisted previews: page HTML only (no docx/csv/json/notes ever sit under preview/)
 mkdir -p dist/preview
