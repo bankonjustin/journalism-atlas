@@ -4,6 +4,26 @@
    CSS: assets/css/header.css (must be linked in <head>)
    ===================================================== */
 
+/* =====================================================
+   SITE STRIP CONFIG (one component, two modes). CSS: assets/css/header.css ("Site strip").
+   Rendered above the header, not sticky (it scrolls away). Change this object to retire or swap the strip.
+     id        dismissals are stored in localStorage under this id; a new id re-shows the strip
+     expires   auto-hides after this date (end of day, local time)
+     selfPath  on this path the strip shows `welcome`; everywhere else it shows `announce`
+     hideOn    paths with no strip (the homepage has the porch instead)
+     {count}   welcome mode only: filled from creators-data.json after page load (see _initStripCount)
+   ===================================================== */
+var ATLAS_STRIP = {
+  id: 'watershed-2026-10',
+  enabled: true,
+  expires: '2026-11-15',
+  selfPath: '/watershed/',
+  hideOn: ['/'],
+  announce: { label: 'New from the Atlas', text: 'A Watershed Moment for News Deserts', linkText: 'Read the essay', href: '/watershed/' },
+  welcome:  { text: 'You\u2019re reading the Independent Journalism Atlas. We map {count} independent journalists by beat and place.',
+              links: [ { text: 'Explore the Atlas', href: '/search' }, { text: 'How we find them', href: '/how-we-did-this.html' } ] }
+};
+
 // ── GA4 Analytics ────────────────────────────────────────────────────────────
 (function() {
     var script = document.createElement('script');
@@ -65,7 +85,50 @@ window.atlasTrack = function(eventName, params) {
     var headerTheme = HEADER_THEMES[requestedTheme] ? requestedTheme : DEFAULT_HEADER_THEME;
     document.documentElement.setAttribute('data-header-theme', headerTheme);
 
-    var html = [
+    // ── Site strip (config: ATLAS_STRIP at the top of this file) ──
+    function stripNorm(p) { return (p || '/').replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/(.)\/$/, '$1') || '/'; }
+    function stripEsc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function buildStrip() {
+        var c = ATLAS_STRIP;
+        if (!c || !c.enabled) return '';
+        if (c.expires && new Date() > new Date(c.expires + 'T23:59:59')) return '';
+        var here = stripNorm(window.location.pathname);
+        for (var i = 0; i < (c.hideOn || []).length; i++) if (stripNorm(c.hideOn[i]) === here) return '';
+        try { if (window.localStorage.getItem(c.id)) return ''; } catch (e) { /* storage blocked: just show the strip */ }
+        var welcome = stripNorm(c.selfPath) === here;
+        var body;
+        if (welcome) {
+            var w = c.welcome;
+            var parts = w.text.split('{count}');
+            var plain = stripEsc(parts.join('').replace(/\s{2,}/g, ' '));
+            var msg;
+            if (parts.length === 2) {
+                // Two stacked versions share one grid cell, so the cell is as tall as the taller one and filling in
+                // the count later cannot shift the layout. The no-number sentence shows until the count arrives.
+                msg = '<span class="atlas-strip__msg"><span class="atlas-strip__v atlas-strip__v--plain">' + plain + '</span>' +
+                      '<span class="atlas-strip__v atlas-strip__v--count" aria-hidden="true">' + stripEsc(parts[0]) +
+                      '<span class="js-strip-count">0,000</span> ' + stripEsc(parts[1].replace(/^\s+/, '')) + '</span></span>';
+            } else {
+                msg = '<span class="atlas-strip__msg"><span class="atlas-strip__v">' + plain + '</span></span>';
+            }
+            var links = (w.links || []).map(function (l) {
+                return '<a class="link-instruction" href="' + stripEsc(l.href) + '">' + stripEsc(l.text) + ' \u2192</a>';
+            }).join('');
+            body = msg + '<span class="atlas-strip__links">' + links + '</span>';
+        } else {
+            var a = c.announce;
+            body = '<span class="atlas-strip__label">' + stripEsc(a.label) + '</span>' +
+                   '<span class="atlas-strip__text">' + stripEsc(a.text) + '</span>' +
+                   '<span class="atlas-strip__links"><a class="link-instruction" href="' + stripEsc(a.href) + '">' + stripEsc(a.linkText) + ' \u2192</a></span>';
+        }
+        return '<div class="atlas-strip" id="atlasStrip" role="region" aria-label="' + (welcome ? 'Welcome to the Atlas' : 'New from the Atlas') + '" data-strip-mode="' + (welcome ? 'welcome' : 'announce') + '">' +
+               '<div class="atlas-strip__in"><div class="atlas-strip__body">' + body + '</div>' +
+               '<button type="button" class="btn-icon atlas-strip__dismiss" id="atlasStripDismiss" aria-label="Dismiss"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>' +
+               '</div></div>';
+    }
+    var stripHtml = buildStrip();
+
+    var html = stripHtml + [
         '<nav class="top-nav" id="siteTopNav" data-header-theme="' + headerTheme + '">',
         '  <div class="nav-container">',
         '    <div class="nav-logo-search">',
@@ -114,6 +177,34 @@ window.atlasTrack = function(eventName, params) {
     document.currentScript
         ? document.currentScript.insertAdjacentHTML('beforebegin', html)
         : document.body.insertAdjacentHTML('afterbegin', html);
+
+    if (stripHtml) {
+        document.getElementById('atlasStripDismiss').addEventListener('click', function () {
+            try { window.localStorage.setItem(ATLAS_STRIP.id, '1'); } catch (e) { /* ignore */ }
+            var el = document.getElementById('atlasStrip');
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        });
+        _initStripCount();
+    }
+
+    // Welcome mode only: fetch the creator count after the page has loaded and fill it in. Announce mode never fetches.
+    // If the fetch fails the no-number sentence stays.
+    function _initStripCount() {
+        var strip = document.getElementById('atlasStrip');
+        if (!strip || strip.getAttribute('data-strip-mode') !== 'welcome' || !strip.querySelector('.js-strip-count')) return;
+        function run() {
+            fetch('/assets/data/creators-data.json').then(function (r) { return r.json(); }).then(function (data) {
+                if (!data || !data.length) return;
+                var span = strip.querySelector('.js-strip-count');
+                if (!span) return;
+                span.textContent = data.length.toLocaleString();
+                strip.setAttribute('data-count-ready', '');
+                var v = strip.querySelector('.atlas-strip__v--count');
+                if (v) v.removeAttribute('aria-hidden');
+            }).catch(function () {});
+        }
+        if (document.readyState === 'complete') run(); else window.addEventListener('load', run);
+    }
 
     // Phones (≤640px): the search box does not fit in the header, so move the same node into the mobile menu
     // (ids and event handlers stay as they are) and put it back above 640px. header.css has the matching styles.
