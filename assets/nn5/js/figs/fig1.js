@@ -2,7 +2,7 @@
 // Static render: a horizontal SVG (>= 700px) and a vertical list (< 700px). Static default selection is the
 // earliest event. With a scroll engine (wide screens, no reduced motion) the lines draw left to right as the reader
 // scrolls and selection follows the latest lit station.
-import { esc, GROUP, clamp, $, $$, reduced, scene, pinProgress } from '../lib.js';
+import { esc, GROUP, clamp, $, $$, reduced, scene, pinProgress } from '../lib.js?v=a7031425';
 
 export const id = 'fig-1-timeline';
 const W = 900, X0 = 40, X1 = W - 30, LANE_GAP = 104, Y0 = 92, H = 456;

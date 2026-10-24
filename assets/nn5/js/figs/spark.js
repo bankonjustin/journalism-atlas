@@ -2,7 +2,7 @@
 // direction. Every label is the copy's own wording of the value; unreported years stay blank (no interpolation).
 // "series" connects only consecutive reported years. "arrow" draws two points joined by a direction arrow, no line
 // through the unreported years between them. A range end ("$6M-$8M") is drawn as a band, not a point.
-import { esc } from '../lib.js';
+import { esc } from '../lib.js?v=a7031425';
 
 export const id = 'sparks';
 const W = 300, H = 112, PL = 14, PR = 14, PT = 30, PB = 34;

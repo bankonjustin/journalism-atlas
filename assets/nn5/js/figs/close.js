@@ -1,7 +1,7 @@
 // Scene S10: "Stations under construction." Dashed neutral lines extend off the network for each item Section IV
 // names, labelled with the copy's own nouns and dates. Neutral ink only (group colours are data, not decoration).
 // Draws once, when it scrolls into view; reduced motion shows the final state.
-import { esc, $$, onVisible, reduced } from '../lib.js';
+import { esc, $$, onVisible, reduced } from '../lib.js?v=a7031425';
 
 export const id = 'close';
 export const ITEMS = [

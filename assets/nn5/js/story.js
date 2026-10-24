@@ -1,13 +1,13 @@
 // Story page bootstrap. Everything is server-rendered; this only adds interaction and motion.
-import { $, $$, parseHash, setHash, scene } from './lib.js';
-import * as fig1 from './figs/fig1.js';
-import * as fig2 from './figs/fig2.js';
-import * as fig4 from './figs/fig4.js';
-import * as fig5 from './figs/fig5.js';
-import * as scale from './figs/scale.js';
-import * as close from './figs/close.js';
-import * as nav from './nav.js';
-import * as seq from './seq.js';
+import { $, $$, parseHash, setHash, scene } from './lib.js?v=a7031425';
+import * as fig1 from './figs/fig1.js?v=a7031425';
+import * as fig2 from './figs/fig2.js?v=a7031425';
+import * as fig4 from './figs/fig4.js?v=a7031425';
+import * as fig5 from './figs/fig5.js?v=a7031425';
+import * as scale from './figs/scale.js?v=a7031425';
+import * as close from './figs/close.js?v=a7031425';
+import * as nav from './nav.js?v=a7031425';
+import * as seq from './seq.js?v=a7031425';
 
 const D = JSON.parse($('#nn-data').textContent);
 const tok = parseHash();
