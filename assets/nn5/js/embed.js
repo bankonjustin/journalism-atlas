@@ -7,6 +7,7 @@ const body = $('.fig-body');
 const th = qs.get('theme'); if (th === 'light' || th === 'dark') document.documentElement.dataset.theme = th;
 const state = qs.get('state') || parseHash();
 const LOAD = {
+  'fig-6-kaleidoscope': async () => (await import('./figs/kaleido.js')).mount(body, { data: D.nodes169, state }),
   'fig-0-scale': async () => (await import('./figs/scale.js')).mount(body, { scrub: false }),
   'fig-1-timeline': async () => (await import('./figs/fig1.js')).mount(body, { data: D.fig1, scrub: false }),
   'fig-2-map': async () => (await import('./figs/fig2.js')).mount(body, { data: D.fig2, state, embed: true }),
