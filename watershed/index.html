@@ -105,10 +105,36 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
  .towns{grid-template-columns:repeat(3,1fr);gap:32px}.town-c:empty{display:block}
 }
 </style>
-<!-- ATLAS CHROME: page-level chrome styles (hero spacing now that the wordmark is gone; endcap styles are added below by Step 6) -->
+<!-- ATLAS CHROME: page-level chrome styles (hero spacing now that the wordmark is gone; endcap styles) -->
 <style id="atlas-chrome-css">
 .hero{padding-top:48px}
 @media(min-width:900px){.hero{padding-top:64px}}
+/* Endcap (Step 6). NEW PATTERN: needs James's sign-off. Three parts: Tell us (dark stage), Keep going (cards), Follow the lab (signup). */
+.endcap{font-family:var(--font-ui)}
+.endcap-in{max-width:1040px;margin:0 auto;padding:0 16px}
+@media(min-width:900px){.endcap-in{padding:0 32px}}
+.endcap-tell{background:var(--gray-neutral-7,#121212);color:#fff;padding:56px 0}
+.endcap-tell h2{font-size:clamp(26px,5vw,36px);line-height:1.15;font-weight:700;letter-spacing:-.01em;margin:0 0 16px;max-width:20em;color:#fff}
+.endcap-tell p{font-size:18px;line-height:1.55;color:var(--color-text-on-dark-2);margin:0 0 28px;max-width:34em}
+.endcap-keep{background:#fff;padding:56px 0 32px}
+.endcap-h{font-family:var(--font-mono,'Source Code Pro',monospace);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-cool-5);margin:0 0 20px}
+.endcap-cards{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:760px){.endcap-cards{grid-template-columns:repeat(3,1fr)}}
+.endcap-card{display:flex;flex-direction:column;gap:12px;justify-content:space-between;background:#fff;border:1px solid var(--gray-cool-3);border-radius:6px;padding:20px 20px 18px;text-decoration:none;color:var(--color-text);transition:border-color .15s}
+.endcap-card:hover{border-color:var(--color-olive);color:var(--color-text)}
+.endcap-card-t{font-size:18px;line-height:1.3;font-weight:700;color:#000}
+.endcap-follow{background:#fff;padding:24px 0 64px}
+.endcap-follow-box{border-top:1px solid var(--gray-cool-3);padding-top:32px;max-width:34em}
+.endcap-follow h2{font-size:22px;line-height:1.25;font-weight:700;color:#000;margin:0 0 8px}
+.endcap-follow p{font-size:15px;line-height:1.5;color:var(--gray-cool-6);margin:0 0 20px}
+.endcap-field{margin:0 0 14px}
+.endcap-field label{display:block;font-size:14px;font-weight:600;color:#000;margin-bottom:6px}
+.endcap-field input{width:100%;min-height:44px;border:1px solid var(--gray-cool-4);border-radius:6px;padding:0 12px;font:inherit;font-size:16px;color:var(--gray-cool-6);background:#fff}
+.endcap-field input:focus-visible{outline:2px solid var(--color-focus-on-light);outline-offset:2px}
+.endcap-err{display:none;font-size:14px;color:#b00020;margin-top:12px}
+.endcap-ok{display:none}
+.endcap-ok p{margin:0}.endcap-ok .endcap-ok-t{font-size:18px;font-weight:700;color:#000;margin-bottom:4px}
+.endcap-fallback{font-size:14px;margin:0}
 </style>
 <!-- /ATLAS CHROME -->
 </head>
@@ -296,6 +322,46 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 </ul></aside></div></section>
 <!-- PROSE END -->
 </main>
+<!-- ATLAS CHROME: endcap (outside the prose region; do not paste prose here) -->
+<div class="endcap">
+<section class="endcap-tell on-dark" aria-labelledby="endcap-tell-h"><div class="endcap-in">
+<h2 id="endcap-tell-h">Doing this work where there&#39;s no newsroom? Tell us.</h2>
+<p>Reporting, documenting or explaining what&#39;s happening in your county, on any platform. Or point us to someone who is. A person on our team reads every one.</p>
+<a href="/contact" class="btn btn--primary">Tell us →</a>
+</div></section>
+<section class="endcap-keep" aria-labelledby="endcap-keep-h"><div class="endcap-in">
+<h2 class="endcap-h" id="endcap-keep-h">Keep going</h2>
+<div class="endcap-cards">
+<a class="endcap-card" href="/how-we-did-this.html"><span class="endcap-card-t">How we find these people</span><span class="link-instruction">Read how →</span></a>
+<a class="endcap-card" href="/search"><span class="endcap-card-t">Explore the Atlas</span><span class="link-instruction">Search the map →</span></a>
+<a class="endcap-card" href="/research"><span class="endcap-card-t">More research</span><span class="link-instruction">See all research →</span></a>
+</div>
+</div></section>
+<section class="endcap-follow" aria-labelledby="endcap-follow-h"><div class="endcap-in"><div class="endcap-follow-box">
+<h2 id="endcap-follow-h">Follow the lab</h2>
+<p>Get the next piece when it&#39;s out.</p>
+<div id="wsl-form-container">
+<form id="wsl-form" action="https://formspree.io/f/xzznlvgj" method="POST">
+<div class="endcap-field"><label for="wsl-name">Name</label><input type="text" id="wsl-name" name="name" autocomplete="name" required></div>
+<div class="endcap-field"><label for="wsl-email">Email address</label><input type="email" id="wsl-email" name="email" autocomplete="email" required></div>
+<input type="hidden" name="_subject" value="New Atlas Updates Signup">
+<input type="hidden" name="source" value="watershed">
+<button type="submit" class="btn btn--secondary" id="wsl-submit">Sign me up</button>
+<div class="endcap-err" id="wsl-error" role="alert">Something went wrong. Please try again, or sign up at <a href="/updates">journalismatlas.com/updates</a>.</div>
+</form>
+</div>
+<div class="endcap-ok" id="wsl-ok" role="status"><p class="endcap-ok-t">You&#39;re on the list!</p><p>Thanks for signing up. We&#39;ll be in touch when there&#39;s news worth sharing.</p></div>
+<noscript><p class="endcap-fallback"><a href="/updates">Get the next piece when it&#39;s out →</a></p></noscript>
+</div></div></section>
+</div>
+<script>
+(function(){var f=document.getElementById('wsl-form');if(!f)return;var b=document.getElementById('wsl-submit'),e=document.getElementById('wsl-error');
+f.addEventListener('submit',function(ev){ev.preventDefault();b.disabled=true;b.textContent='Signing up...';e.style.display='none';
+fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}}).then(function(r){
+if(!r.ok)throw new Error('fail');document.getElementById('wsl-form-container').style.display='none';document.getElementById('wsl-ok').style.display='block';
+}).catch(function(){b.disabled=false;b.textContent='Sign me up';e.style.display='block';});});})();
+</script>
+<!-- /ATLAS CHROME -->
 <!-- ATLAS CHROME: site footer -->
 <script src="/assets/js/footer.js"></script>
 <!-- /ATLAS CHROME -->
