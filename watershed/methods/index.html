@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How we did this | A Watershed Moment for News Deserts</title>
+<meta name="description" content="How we reported &quot;A Watershed Moment for News Deserts&quot;: Medill&#39;s data, how we searched, what we couldn&#39;t see and how we used AI.">
+<link rel="canonical" href="https://journalismatlas.com/watershed/methods/">
+<meta property="og:url" content="https://journalismatlas.com/watershed/methods/">
+<meta property="og:type" content="article"><meta property="og:title" content="How we did this"><meta property="og:description" content="How we reported &quot;A Watershed Moment for News Deserts&quot;: Medill&#39;s data, how we searched, what we couldn&#39;t see and how we used AI."><meta property="og:image" content="https://journalismatlas.com/watershed/assets/social-16x9.jpg"><meta property="og:image:alt" content="A desert of rippled sand dunes under a turquoise sky. A narrow dark shaft rises from the horizon into a wedge of dark red ground heaped with paper strips, each printed with a word or name from local news: independent, journalism, planning board, Brandon Reporter, livestream, who&#39;s funding state rep.">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How we did this"><meta name="twitter:description" content="How we reported &quot;A Watershed Moment for News Deserts&quot;: Medill&#39;s data, how we searched, what we couldn&#39;t see and how we used AI."><meta name="twitter:image" content="https://journalismatlas.com/watershed/assets/social-16x9.jpg">
+<link rel="icon" type="image/png" href="/watershed/assets/favicon.png">
+<!-- ATLAS CHROME: site stylesheets, header and footer -->
+<link rel="stylesheet" href="/assets/css/variables.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/header.css">
+<!-- /ATLAS CHROME -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+ --gray-cool-1:#fff;--gray-cool-2:#efeff4;--gray-cool-3:#c6c6cd;--gray-cool-4:#909097;--gray-cool-5:#5e5e64;--gray-cool-6:#303036;--gray-cool-7:#121218;--gray-cool-8:#000;
+ --color-acid:#ceff00;--color-lime:#97d600;--color-olive:#5d7400;
+ --color-text:var(--gray-cool-6);--color-heading:var(--gray-cool-8);--color-text-secondary:var(--gray-cool-5);--color-text-on-dark-2:var(--gray-cool-3);--color-border:var(--gray-cool-3);
+ --color-link:var(--color-olive);--color-link-on-dark:#fff;--color-focus:var(--color-lime);--color-focus-on-light:var(--color-olive);
+ --font-ui:'Inter','Helvetica Neue',Arial,sans-serif;--font-body:'Merriweather',Georgia,serif;
+ --draft-hl:#fff700;
+}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--color-text);font-family:var(--font-ui);font-size:16px;line-height:1.6}
+img,svg{max-width:100%;height:auto}svg{display:block}
+a{color:var(--color-link);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}a:hover{color:#000}
+a:focus-visible{outline:2px solid var(--color-focus-on-light);outline-offset:2px}
+.dark a:focus-visible{outline-color:var(--color-focus)}
+.dark{background:var(--gray-cool-7);color:#fff}.dark a{color:var(--color-link-on-dark)}.dark a:hover{color:var(--color-lime)}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.banner{background:var(--gray-cool-2);border-bottom:1px solid var(--gray-cool-3);color:var(--gray-cool-6);font-size:13px;line-height:1.4;padding:8px 16px;text-align:center}
+mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
+[data-draft-copy]{background:rgba(255,247,0,.3);border-bottom:1px dashed var(--gray-cool-4)}
+.col{max-width:calc(68ch + 32px);margin:0 auto;padding:0 16px;font-family:var(--font-body);font-size:17px} /* same measure and left edge as .measure.prose */
+.hero{padding:24px 0 48px}.hero-in>*{font-family:var(--font-ui)}
+.wordmark{display:block;height:34px;width:auto;margin-bottom:56px}
+.hero h1{font-size:clamp(32px,9vw,52px);line-height:1.1;font-weight:700;margin:0 0 20px;letter-spacing:-.01em;max-width:13em}
+.dek{font-size:18px;line-height:1.5;color:var(--color-text-on-dark-2);margin:0 0 20px;max-width:34em}
+.byline{font-size:15px;margin:0;color:#fff}
+.light{background:#fff}
+.measure{max-width:calc(68ch + 32px);margin:0 auto;padding:0 16px}
+.prose{font-family:var(--font-body);font-size:17px;line-height:1.75;color:var(--gray-cool-6)}
+.prose p{margin:0 0 1.25em}.prose h2{font-family:var(--font-ui);font-weight:700;font-size:26px;line-height:1.25;color:#000;margin:2em 0 .6em}
+.prose>p:first-child{margin-top:40px}.prose>:last-child{margin-bottom:32px}
+.prose h2:first-child{margin-top:40px}
+.prose em{font-style:italic}.prose strong{font-weight:700}
+.prose aside.pullquote{margin:2em 0;padding:2px 0 2px 20px;border-left:4px solid #000}
+.prose aside.pullquote p{font-family:var(--font-ui);font-size:22px;line-height:1.35;font-weight:700;color:#000;margin:0}
+.prose p.lede-end{font-weight:700;font-size:19px;color:#000;margin:1.5em 0 1em}
+.wide-wrap{max-width:1040px;margin:0 auto;padding:0 16px}.wide{max-width:1040px;margin:0 auto}
+.leader{margin:24px 0 0;padding:0}.leader-art{aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px}
+.leader-art img{width:100%;height:100%;object-fit:cover;display:block}
+.leader figcaption{font-size:13px;line-height:1.5;color:var(--gray-cool-5);margin-top:8px}
+/* Figures: black and white plus one accent; no fills, shadows or cards */
+.fig{margin:0;padding:32px 0;font-family:var(--font-ui)}
+.measure>.fig,.measure .fig{margin-left:0;margin-right:0}
+.prose .fig-h,.fig-h{font-family:var(--font-ui);font-size:18px;line-height:1.3;font-weight:700;margin:0 0 16px;color:#000}
+.fig-src,.prose .fig-src{font-family:var(--font-ui);font-size:13px;line-height:1.5;color:var(--gray-cool-5);margin:14px 0 0;max-width:52em}
+.prose .fig-note{font-family:var(--font-ui);font-size:14px;line-height:1.45;color:var(--gray-cool-6);margin:16px 0 0;padding-top:10px;border-top:1px solid var(--gray-cool-3);max-width:30em}
+.fig-svg{width:100%;max-width:440px;height:auto}.fig-svg-wide{max-width:520px}
+.bar-grid{display:grid;grid-template-columns:1fr;gap:24px}.bar-panel{max-width:440px}.fig-svg a:focus-visible rect{outline:2px solid var(--color-olive);outline-offset:2px}
+.fig-legend{border-top:1px solid var(--gray-cool-3);border-bottom:1px solid var(--gray-cool-3);padding:8px 0;margin:0 0 1.75em}
+.legend-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:0}
+.prose .legend-list li,.legend-list li{display:flex;align-items:flex-start;gap:16px;padding:14px 0;font-family:var(--font-ui);font-size:17px;line-height:1.4;color:var(--gray-cool-6)}
+.legend-list li+li{border-top:1px solid var(--gray-cool-2)}
+.legend-list strong{color:#000;display:block;font-size:18px;margin-bottom:2px}.legend-list .ico{margin-top:2px}
+.ico{flex:none;color:#1e1e1e}
+.si-grid{display:grid;grid-template-columns:1fr;gap:24px}
+.si-panel{max-width:480px}.si-cap{font-family:var(--font-ui);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-cool-5);margin:0 0 8px}
+.towns{display:grid;grid-template-columns:1fr;gap:28px}
+.town h4{font-family:var(--font-ui);font-size:18px;line-height:1.3;font-weight:700;margin:0;color:#000;padding-top:10px;border-top:2px solid #000}
+.town-c{font-family:var(--font-ui);font-size:13px;line-height:1.4;color:var(--gray-cool-5);margin:2px 0 12px;min-height:1.4em}
+.town-c:empty{display:none}
+.town ol{list-style:none;margin:0;padding:0}
+.town li{font-family:var(--font-ui);font-size:15px;line-height:1.4;color:var(--gray-cool-6)}
+.town li .step-arrow{color:var(--gray-cool-4);margin:6px 0}
+.price-scale{max-width:680px}.price-axis{width:100%;height:1px;margin-bottom:20px}
+.price-row{margin:0 0 24px}.price-row p{margin:0}
+.price-k{font-family:var(--font-ui);font-size:12px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-cool-5)}
+.price-v{font-family:var(--font-ui);font-size:26px;line-height:1.2;font-weight:700;color:#000;margin-top:2px!important}
+.price-d{font-family:var(--font-ui);font-size:14px;line-height:1.45;color:var(--gray-cool-6);margin:2px 0 8px!important;max-width:36em}
+.price-bar{width:100%;height:16px}
+.seb-grid{display:grid;grid-template-columns:1fr;gap:28px}.seb-col{max-width:420px}.seb-bars{max-width:400px}.seb-grid-svg{max-width:320px}
+.prose aside.bridge,aside.bridge{margin:2.25em 0 1em;padding:14px 0 6px;border-top:2px solid #000;border-bottom:1px solid var(--gray-cool-3);font-family:var(--font-ui)}
+.bridge-h{font-family:var(--font-ui);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#000;margin:0 0 6px}
+.bridge-g{font-family:var(--font-ui);font-size:12px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-cool-5);margin:16px 0 0;padding-top:10px;border-top:1px solid var(--gray-cool-3)}.bridge-h+.bridge-g{border-top:0;margin-top:8px;padding-top:0}
+.bridge ol{margin:0;padding-left:1.5em}.bridge .bridge-h a{color:#000}
+.bridge ul{list-style:none;margin:0;padding:0}.bridge li{font-family:var(--font-ui);font-size:15px;line-height:1.5;color:var(--gray-cool-6);padding:9px 0;margin:0}
+.bridge li+li{border-top:1px solid var(--gray-cool-2)}
+.foot{background:var(--gray-cool-2);border-top:1px solid var(--gray-cool-3);padding:32px 0;font-size:14px}
+.foot-in{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center}
+.foot img{display:block;height:34px;width:auto}
+@media(min-width:900px){
+ .prose,.col{font-size:18px}.hero{padding:32px 0 80px}
+ .prose aside.pullquote p{font-size:26px}
+ .wide-wrap{padding:0 32px}.fig-h,.prose .fig-h{font-size:20px}
+ .legend-list{grid-template-columns:1fr 1fr;column-gap:48px}
+ .legend-list li+li{border-top:0}.legend-list li:nth-child(n+3){border-top:1px solid var(--gray-cool-2)}
+ .si-grid{grid-template-columns:1fr 1fr;gap:32px}.seb-grid{grid-template-columns:1fr 1fr;gap:40px}.bar-grid{grid-template-columns:1fr 1fr;gap:32px}
+ .towns{grid-template-columns:repeat(3,1fr);gap:32px}.town-c:empty{display:block}
+}
+
+.methods .m-back{font-family:var(--font-ui);font-size:15px;margin:0 0 20px}
+.methods h1{font-family:var(--font-ui);font-weight:700;font-size:clamp(30px,7vw,40px);line-height:1.15;color:#000;margin:0 0 24px;letter-spacing:-.01em}
+.methods.prose{padding-bottom:40px}.methods.prose>p:first-child{margin-top:32px}
+</style>
+</head>
+<body>
+<!-- ATLAS CHROME: site header -->
+<script src="/assets/js/header.js"></script>
+<!-- /ATLAS CHROME -->
+<main>
+<section class="light"><div class="measure prose methods">
+<p class="m-back"><a href="/watershed/">← Back to the essay</a></p>
+<h1>How we did this</h1>
+<p><strong>What this is.</strong> &quot;A Watershed Moment for News Deserts&quot; is a reported essay, not a census. It names places and people to show a pattern we keep seeing. It doesn&#39;t claim to measure how common that pattern is. We&#39;re working on that, and we&#39;ll publish it when we can stand behind a number.</p>
+<p><strong>Medill&#39;s data.</strong> On Oct. 13, 2026, we pulled the county-level data behind Medill&#39;s State of Local News 2026 explorer and reproduced its count of 238 counties with no locally based source of news. When the essay says a place is or isn&#39;t in Medill&#39;s count, that&#39;s from this data. We didn&#39;t change or correct Medill&#39;s figures. Where something puzzled us, we&#39;ve shared it with Medill&#39;s team rather than guess.</p>
+<p><strong>The Independent Journalism Atlas.</strong> The Atlas maps independent creators doing journalism&#39;s work: reporting, analysis, curation and explanation, on channels they own. To be included, a creator has to be independent and identifiable, have a real publication or channel, show sustained, recent work, and serve an audience&#39;s need to know. Entries are reviewed against our <a href="https://journalismatlas.com/how-we-did-this">editorial standards</a>. As of October 2026, the Atlas holds more than 2,400 creators.</p>
+<p><strong>How we looked.</strong> Between Oct. 13 and Oct. 22, we searched in and around the places in this essay and dozens of other counties on Medill&#39;s list. We started from people instead of outlets: who posts about the county board, who covers the high school, who records the meetings, who people in neighboring towns follow. We searched public websites and newsletter platforms, and we read social platforms the way a resident would. When we used a signed-in account, a person watched the session, and nothing was posted, liked or followed.</p>
+<p><strong>What we couldn&#39;t see.</strong> Much of the local conversation in these places happens in private Facebook groups, in print and on the radio. We didn&#39;t join private groups or read their posts. &quot;We didn&#39;t find it&quot; means our methods didn&#39;t find it, not that it isn&#39;t there.</p>
+<p><strong>The figures.</strong> County counts come from Medill&#39;s 2026 data. Atlas totals are as of the dates shown. The surface chart counts automated local-news items and pieces of local journalism about each county from Sept. 1 to mid-October 2026; those counts are lower bounds. The grid of 40 squares shows the desert counties our national sweep checked. The price chart draws on the <a href="https://newscreatorcorps.org/classes/summer-2026-rural-creator-fellows/">News Creator Corps fellowship terms</a>, <a href="https://newsletter.projectc.biz/p/a-data-rich-view-of-how-and-what-local-news-is-working-on-substack">Project C&#39;s analysis of the Sebastopol Times</a> and Gao, Lee and Murphy in the Journal of Financial Economics (2020), <a href="https://www.brookings.edu/articles/financing-dies-in-darkness-the-impact-of-newspaper-closures/">via Brookings</a>.</p>
+<p><strong>How we used AI.</strong> AI research agents did much of the searching and sorting: running searches, logging what they found and when it was posted, and flagging candidates. People decided who counts, opened every source the essay relies on, and checked every fact. We also used AI tools for editing help and to prepare fact checks. The reporting choices, the arguments and the words are ours.</p>
+<p><strong>The art.</strong> Illustrations are by James Bareham, drawn by hand.</p>
+<p><strong>Corrections and tips.</strong> If we got something wrong, or you know someone digging a well in one of the 238 counties, tell us at <a href="mailto:<a href="mailto:hello@journalismatlas.com">hello@journalismatlas.com</a>"><a href="mailto:hello@journalismatlas.com">hello@journalismatlas.com</a></a>.</p>
+<p><strong>What we&#39;re building.</strong> Behind the Atlas is a set of tools for keeping this map current: discovery that starts from the people a place already trusts, a review queue where every addition is checked against our standards, and a regular re-count of the same places so we can see change as it happens. We&#39;ll share more as Atlas Labs. Researchers who want to compare methods can reach us at <a href="mailto:<a href="mailto:hello@journalismatlas.com">hello@journalismatlas.com</a>"><a href="mailto:hello@journalismatlas.com">hello@journalismatlas.com</a></a>.</p>
+</div></section>
+</main>
+<!-- ATLAS CHROME: site footer -->
+<script src="/assets/js/footer.js"></script>
+<!-- /ATLAS CHROME -->
+</body>
+</html>
