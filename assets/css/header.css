@@ -474,3 +474,55 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ── Site strip (config and logic: ATLAS_STRIP in assets/js/header.js) ─────────────────────────────────────────────
+   NEW PATTERN: needs James's sign-off (see watershed-launch-review.html). Light surface (Neutral step 2), Source Code Pro
+   eyebrow label, instruction links, 44px icon dismiss. Not sticky: it scrolls away above the sticky header. */
+.atlas-strip {
+    background: var(--gray-neutral-2);
+    border-bottom: 1px solid var(--gray-neutral-3);
+    color: var(--color-text);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+}
+.atlas-strip__in {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 8px 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.atlas-strip__body {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 16px;
+    padding: 8px 0;
+}
+.atlas-strip__label {
+    font-family: var(--font-mono, 'Source Code Pro', monospace);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+}
+.atlas-strip__text { font-weight: 600; color: var(--color-heading, #000); }
+.atlas-strip__links { display: inline-flex; flex-wrap: wrap; gap: 2px 16px; }
+.atlas-strip__msg { display: inline-grid; max-width: 100%; }
+.atlas-strip__v { grid-area: 1 / 1; }
+.atlas-strip__v--count { visibility: hidden; }
+.atlas-strip[data-count-ready] .atlas-strip__v--plain { visibility: hidden; }
+.atlas-strip[data-count-ready] .atlas-strip__v--count { visibility: visible; }
+.atlas-strip__dismiss { flex: none; }
+.atlas-strip .link-instruction:focus-visible,
+.atlas-strip .atlas-strip__dismiss:focus-visible { outline: 2px solid var(--color-focus-on-light, #5d7400); outline-offset: 2px; }
+@media (max-width: 640px) {
+    .atlas-strip__in { padding-left: 16px; }
+    .atlas-strip__body { gap: 2px 12px; }
+}

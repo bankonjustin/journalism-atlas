@@ -249,6 +249,8 @@
             gap: 16px;
         }
 
+        /* Odd card count: the last card spans the row (added with the Watershed card, Oct 2026) */
+        .research-grid > .research-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
         .research-card {
             background: #1a1a1a;
             border: 0.5px solid rgba(255,255,255,0.1);
@@ -712,6 +714,13 @@
 
             <!-- 2-col row: Chicago Toolkit + News Ecosystem Map -->
             <div class="research-grid">
+                <!-- Watershed essay (Oct 2026). Newest first. -->
+                <div class="research-card research-card--watershed">
+                    <span class="badge-pill">October 2026 · Independent Journalism Atlas</span>
+                    <h3 class="research-card-headline">A Watershed Moment for News Deserts</h3>
+                    <p class="research-card-body">Medill's map shows where local news has dried up. Look closer and it's still moving — across county lines, through people no count yet sees. Finding them takes a new kind of map.</p>
+                    <a href="/watershed/" class="research-link link-instruction">Read the essay →</a>
+                </div>
                 <div class="research-card">
                     <span class="badge-pill">June 2026 · Press Forward Chicago</span>
                     <h3 class="research-card-headline">Creator Journalism Toolkit</h3>

@@ -42,6 +42,25 @@
 
     /* ── BUTTONS ── */
 
+    /* ══ PORCH (reusable feature block): dark stage above the hero. NEW PATTERN, needs James's sign-off.
+       To feature the next piece, swap only the text and image in the PORCH HTML block (search "PORCH BLOCK").
+       Surface Hierarchy: dark = stage. Two columns on desktop; stacked on mobile with the art below the text.
+       Tokens only: Neutral 7 surface, Acid eyebrow (allowed on dark), one primary button, 6px radius. ══ */
+    .porch { background: var(--gray-neutral-7, #121212); color: #fff; padding-inline: 16px; border-bottom: 1px solid var(--gray-neutral-6, #303030); }
+    .porch-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: 5fr 7fr; gap: 48px; align-items: center; padding: 56px 56px; }
+    .porch-eyebrow { font-family: var(--font-mono, 'Source Code Pro', monospace); font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-acid, #ceff00); margin: 0 0 16px; }
+    .porch-title { font-size: clamp(32px, 3.6vw, 52px); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; color: #fff; margin: 0 0 20px; }
+    .porch-dek { font-size: 18px; line-height: 1.55; color: var(--color-text-on-dark-2, #c6c6c6); margin: 0 0 16px; max-width: 34em; }
+    .porch-byline { font-size: 15px; color: #fff; margin: 0 0 28px; }
+    .porch-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+    .porch-art { margin: 0; }
+    .porch-art img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 6px; }
+    .porch-art figcaption { font-size: 13px; line-height: 1.5; color: var(--color-text-on-dark-2, #c6c6c6); margin-top: 8px; }
+    @media (max-width: 900px) {
+      .porch-inner { grid-template-columns: 1fr; gap: 32px; padding: 40px 8px; }
+    }
+    /* ══ /PORCH ══ */
+
     /* ── HERO (V4 SPLIT LAYOUT) ── */
     /* Full-bleed dark stage (Surface Hierarchy Principle) — background spans the viewport,
        content is constrained to the full-layout container so it aligns with the header/footer
@@ -506,6 +525,27 @@
 </head>
 <body>
 <script src="/assets/js/header.js"></script>
+
+<!-- ══ PORCH BLOCK (reusable): swap only the text and image for the next piece. CSS: ".porch" block in the <style> above. ══ -->
+<section class="porch on-dark" aria-labelledby="porch-title">
+  <div class="porch-inner">
+    <div class="porch-copy">
+      <p class="porch-eyebrow">New from the Atlas · Essay</p>
+      <h2 class="porch-title" id="porch-title">A Watershed Moment for News Deserts</h2>
+      <p class="porch-dek">Medill&#39;s map shows where local news has dried up. Look closer and information is still moving — across county lines, and through platforms, beats and forms the count doesn&#39;t see.</p>
+      <p class="porch-byline">By Justin Bank · October 25, 2026</p>
+      <div class="porch-actions">
+        <a href="/watershed/" class="btn btn--primary">Read the essay →</a>
+        <a href="/how-we-did-this.html" class="link-instruction">How the Atlas finds these people →</a>
+      </div>
+    </div>
+    <figure class="porch-art">
+      <img src="/assets/images/watershed-leader-3x2.jpg" width="1800" height="1200" alt="A desert of rippled sand dunes under a turquoise sky. A narrow dark shaft rises from the horizon into a wedge of dark red ground heaped with paper strips, each printed with a word or name from local news: independent, journalism, planning board, Brandon Reporter, livestream, who&#39;s funding state rep.">
+      <figcaption>Art by James Bareham.</figcaption>
+    </figure>
+  </div>
+</section>
+<!-- ══ /PORCH BLOCK ══ -->
 
 <section class="hero on-dark" style="position:relative;">
  <div class="hero-container">
@@ -1040,6 +1080,21 @@ const FEATURED_POOL = [
 
     <!-- 2×2 card grid -->
     <div class="research-cards-grid">
+
+      <!-- Card 0: Watershed essay: newest first -->
+      <a href="/watershed/" class="research-card research-card--feature-link">
+        <div class="research-card-header research-card-header--photo"
+             style="background-image: url('/assets/images/watershed-leader-3x2.jpg');">
+          <div class="research-card-photo-overlay"></div>
+          <span class="research-card-source-pill">Atlas essay</span>
+        </div>
+        <div class="research-card-body">
+          <div class="research-card-status">Justin Bank · October 2026</div>
+          <p class="research-card-title-body">A Watershed Moment for News Deserts</p>
+          <p class="research-card-desc">Medill&#39;s map shows where local news has dried up. Look closer and it&#39;s still moving — across county lines, through people no count yet sees.</p>
+          <span class="research-card-link link-instruction">Read the essay →</span>
+        </div>
+      </a>
 
       <!-- Card 1: CNTI — live -->
       <div class="research-card">
