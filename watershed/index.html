@@ -108,6 +108,17 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
  .si-grid{grid-template-columns:1fr 1fr;gap:32px}.seb-grid{grid-template-columns:1fr 1fr;gap:40px}.bar-grid{grid-template-columns:1fr 1fr;gap:32px}
  .towns{grid-template-columns:repeat(3,1fr);gap:32px}.town-c:empty{display:block}
 }
+.prose aside.pullquote p.pq-by{font-family:var(--font-ui);font-size:14px;line-height:1.4;font-weight:400;color:var(--gray-cool-5);margin:8px 0 0}
+.rail{position:sticky;top:var(--rail-top,64px);z-index:90;background:#fff;border-bottom:1px solid var(--gray-cool-3)}
+.rail[hidden]{display:none}
+.rail ul{position:relative;list-style:none;margin:0 auto;padding:0 16px;max-width:1040px;display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.rail ul::-webkit-scrollbar{display:none}
+.rail a{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;font-family:var(--font-ui);font-size:14px;font-weight:500;color:#000;text-decoration:none;white-space:nowrap;border-bottom:3px solid transparent}
+.rail a[aria-current="true"]{font-weight:700;border-bottom-color:var(--color-olive)}
+.rail a:focus-visible{outline:2px solid #000;outline-offset:-2px}
+.rail .ico{width:20px;height:20px;color:#1e1e1e}
+@media(min-width:1280px){.rail.rail-side{position:fixed;top:50%;left:16px;transform:translateY(-50%);border:0;background:transparent;width:168px}.rail.rail-side ul{flex-direction:column;overflow:visible;padding:0}.rail.rail-side a{border-bottom:0;border-left:3px solid transparent}.rail.rail-side a[aria-current="true"]{border-left-color:var(--color-olive)}}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 <!-- ATLAS CHROME: page-level chrome styles (hero spacing now that the wordmark is gone; endcap styles) -->
 <style id="atlas-chrome-css">
@@ -163,6 +174,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 <figcaption>Art by James Bareham.</figcaption>
 </figure></div></section>
 <main>
+<nav class="rail" id="section-rail" aria-label="Sections" hidden><ul><li><a href="#hand-dug-wells"><svg class="ico" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><use href="#icon-well"/></svg>Hand-Dug Wells</a></li><li><a href="#springs"><svg class="ico" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><use href="#icon-spring"/></svg>Springs</a></li><li><a href="#confluence"><svg class="ico" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><use href="#icon-flow"/></svg>Confluence</a></li><li><a href="#picks-and-shovels">Picks and Shovels</a></li><li><a href="#mapping-the-watershed">Mapping the Watershed</a></li></ul></nav>
 <!-- PROSE START: replace only between these markers -->
 <section class="light"><div class="measure prose"><p>I&#39;ve never been to Harrisburg, Illinois. But from a laptop, you can learn a fair amount about Saline County. <a href="https://www.facebook.com/people/Sheriffs-Office-at-Saline-County/100064563351651/">The sheriff posts</a>. <a href="https://forecast.weather.gov/MapClick.php?lat=37.7384&lon=-88.5406">The weather service pushes heat advisories</a>. <a href="https://www.echovita.com/us/funeral-homes/il/harrisburg/reed-funeral-chapel-24164">The funeral home puts up the obituaries</a>. What you can&#39;t learn is why — why the county board voted the way it did, what the school budget means, whether anyone is even asking. Harrisburg&#39;s paper, the Daily Register, printed its last edition in June, one of <a href="https://localnewsinitiative.northwestern.edu/posts/2026/06/12/paddock-publications-closes-downstate-newspapers-daily-herald/">at least 13 Illinois papers Paddock Publications closed</a>.&#32;</p>
 
@@ -172,23 +184,22 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 
 <p>This year, for the first time, Medill also looked at independent creators, and to find them its researchers turned to the <a href="https://journalismatlas.com">Independent Journalism Atlas</a> — the roughly 1,500 creator-journalists we&#39;d mapped as of May. They found that &quot;less than 10% of this sample is covering local issues about their community.&quot; Our data from May says the same thing, and so does a <a href="https://centerforcooperativemedia.org/njinfluencers/research-brief.html">Montclair State study</a> of New Jersey influencers this summer: about one post in nine was core local news. They&#39;re right that these people are hard to find. The platforms don&#39;t make it easy.</p>
 
-<p>Penny Abernathy didn&#39;t coin &quot;news desert,&quot; but <a href="https://uncpress.org/book/9781469653242/the-expanding-news-desert">her landmark work at UNC</a> made it the industry&#39;s word and made the loss impossible to ignore. She picked it on purpose. As she <a href="https://localnewsinitiative.northwestern.edu/posts/2024/05/16/penny-abernathy-q-and-a/">told Medill</a>: &quot;I&#39;ve always liked the term &#39;desert&#39; because things grow in a desert.&quot; Most people hear something else: a desert is empty. These places aren&#39;t.</p>
+<p>Penny Abernathy didn&#39;t coin &quot;news desert,&quot; but <a href="https://uncpress.org/book/9781469653242/the-expanding-news-desert">her landmark work at UNC</a> made it the industry&#39;s word and made the loss impossible to ignore. She chose it with care: things grow in a desert, she <a href="https://localnewsinitiative.northwestern.edu/posts/2024/05/16/penny-abernathy-q-and-a/">told Medill&#39;s Tim Franklin</a> in 2024, just not as abundantly. Asked why she didn&#39;t say &quot;news vacuum,&quot; she answered, &quot;There&#39;s news; it&#39;s just not necessarily the quality and the quantity of what you would find elsewhere.&quot; That&#39;s what we found, too. But most people hear &quot;desert&quot; and picture empty. These places aren&#39;t.</p>
 
 <p>Look at the ground and news moves like water. It doesn&#39;t stop at a county line. It runs off the surface, sinks underground and comes up wherever someone digs. In these counties there&#39;s plenty on the surface — the sheriff&#39;s posts, the alerts, the Facebook pages, the radio station one county over and, more and more, <a href="https://seillinoisnews.com/organization/city-of-harrisburg">automated sites dressed up as local news</a>, posting Saline County&#39;s weekly gas prices with nobody there. Most of it runs off. It tells you what happened and almost never why.</p>
 
 <figure class="fig fig-surface" aria-labelledby="f7-h">
-<h3 class="fig-h" id="f7-h">Since Sept. 1, the machines have out-posted the journalists.</h3>
-<svg class="fig-svg fig-svg-wide" viewBox="0 0 440 192" role="img" aria-labelledby="f7-t"><title id="f7-t">Automated local-news items and pieces of local journalism about each county: Saline, 16 automated items to 3 pieces of journalism; Johnson, 19 automated items to 3 pieces of journalism; Hamilton, 16 automated items to 2 pieces of journalism</title><text x="0" y="24" font-size="14" font-weight="700" fill="#000">Saline</text><rect x="84" y="8" width="160" height="18" fill="#000"/><text x="252" y="22" font-size="13" fill="#000"><tspan font-weight="700">16</tspan> automated items</text><rect x="84" y="32" width="30" height="18" fill="var(--color-olive)"/><text x="122" y="46" font-size="13" fill="#000"><tspan font-weight="700">3</tspan> pieces of journalism</text><text x="0" y="88" font-size="14" font-weight="700" fill="#000">Johnson</text><rect x="84" y="72" width="190" height="18" fill="#000"/><text x="282" y="86" font-size="13" fill="#000"><tspan font-weight="700">19</tspan> automated items</text><rect x="84" y="96" width="30" height="18" fill="var(--color-olive)"/><text x="122" y="110" font-size="13" fill="#000"><tspan font-weight="700">3</tspan> pieces of journalism</text><text x="0" y="152" font-size="14" font-weight="700" fill="#000">Hamilton</text><rect x="84" y="136" width="160" height="18" fill="#000"/><text x="252" y="150" font-size="13" fill="#000"><tspan font-weight="700">16</tspan> automated items</text><rect x="84" y="160" width="20" height="18" fill="var(--color-olive)"/><text x="112" y="174" font-size="13" fill="#000"><tspan font-weight="700">2</tspan> pieces of journalism</text></svg>
-<p class="sr-only">Automated local-news items to pieces of local journalism, by county: Saline, 16 automated items to 3 pieces of journalism; Johnson, 19 automated items to 3 pieces of journalism; Hamilton, 16 automated items to 2 pieces of journalism. Counts are lower bounds.</p>
-<figcaption class="fig-src">Atlas sweep of automated local-news sites and local journalism about each county, Sept. 1 to mid-October 2026. Counts are lower bounds.</figcaption>
+<h3 class="fig-h" id="f7-h">The machines keep posting.</h3>
+<svg class="fig-svg fig-svg-wide" viewBox="0 0 440 132" role="img" aria-labelledby="f7-t"><title id="f7-t">Items posted by automated local-news sites about each county, Sept. 1 to Oct. 15, 2026, counting weekly gas-price items: Saline, 13; Johnson, 17; Hamilton, 12</title><text x="0" y="18" font-size="14" font-weight="700" fill="#000">Saline</text><rect x="84" y="2" width="153" height="22" fill="#000"/><text x="245" y="18" font-size="13" fill="#000"><tspan font-weight="700">13</tspan> gas-price items</text><text x="0" y="62" font-size="14" font-weight="700" fill="#000">Johnson</text><rect x="84" y="46" width="200" height="22" fill="#000"/><text x="292" y="62" font-size="13" fill="#000"><tspan font-weight="700">17</tspan> gas-price items</text><text x="0" y="106" font-size="14" font-weight="700" fill="#000">Hamilton</text><rect x="84" y="90" width="141" height="22" fill="#000"/><text x="233" y="106" font-size="13" fill="#000"><tspan font-weight="700">12</tspan> gas-price items</text></svg>
+<p class="sr-only">Items posted by automated local-news sites about each county, Sept. 1 to Oct. 15, 2026, counting weekly gas-price items: Saline, 13; Johnson, 17; Hamilton, 12. Undated items are left out, so counts are lower bounds.</p>
+<figcaption class="fig-src">Atlas sweep of automated local-news sites, Sept. 1 to Oct. 15, 2026. Undated items excluded, so counts are lower bounds.</figcaption>
 </figure>
-<p>Fifteen years ago, Steve Waldman&#39;s <a href="https://www.fcc.gov/node/24648">report for the FCC</a> found that &quot;breathtaking media abundance lives side-by-side with serious shortages in reporting.&quot; These places don&#39;t lack information. They have information <em>without</em> journalism. What&#39;s scarce is the digging — someone who goes to the meeting, reads the minutes and explains what the vote means for the people who live there.</p>
+<p>These places don&#39;t lack information. They have information <em>without</em> journalism. What&#39;s scarce is the digging — someone who goes to the meeting, reads the minutes and explains what the vote means for the people who live there.</p>
 
 <p>People feel the difference. <a href="https://localnewsinitiative.northwestern.edu/posts/2026/02/10/news-deserts-social-media-local-news-medill-survey/index.html">Medill&#39;s own survey</a> found that people in news deserts trust the news media far less than people in places well served by local news: 46% to 59%.</p>
 
-<p>The people doing the digging are hard to see. Most counts, by trade groups and academics alike, look for mastheads. Money follows the counts, and the people doing the work in the thinnest places show up in neither.</p>
+<p>Most counts, by trade groups and academics alike, look for mastheads. Money follows the counts, and the people doing the work in the thinnest places show up in neither.</p>
 
-<aside class="pullquote"><p>Most counts, by trade groups and academics alike, look for mastheads. Money follows the counts, and the people doing the work in the thinnest places show up in neither.</p></aside>
 <p>But in more places than the desert map shows, someone has picked up a shovel. This piece is about them. Every community and every contributor is different, but look across enough of them and patterns emerge:</p>
 
 <figure class="fig fig-legend" aria-label="Field guide: four terms, each with an icon">
@@ -222,7 +233,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 <p class="sr-only">A small U.S. locator map shows Medill's 238 desert counties in gray, with southern Illinois boxed. Left: Saline, Gallatin, Hamilton, Johnson and Pulaski counties in flat gray, the desert map's view. Right: the same counties with what flows through them. WRUL from Carmi into Hamilton County, since at least 2019. TikTok accounts from Carbondale and Marion into Harrisburg, Oct. 19. Ballin4God into Harrisburg's high school, Oct. 18. And one spring inside the lines: the Gallatin County board livestream.</p>
 <figcaption class="fig-src">Sources: <a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2026/report/">Medill State of Local News 2026</a>; <a href="https://wrul.com">WRUL</a>; the <a href="https://www.tiktok.com/@aaronpricereports/video/7698216362031795486">TikTok</a> <a href="https://www.tiktok.com/@soillsportswithchrisdex/video/7698198171800833294">posts</a> and <a href="https://www.tiktok.com/@b4g_sil">Ballin4God</a> linked in the essay; <a href="https://www.facebook.com/profile.php?id=100087831664126">Gallatin County Board (Unofficial)</a>. Places are drawn at city or county center. County boundaries: US Census via us-atlas.</figcaption>
 </figure></div></div></section>
-<section class="light"><div class="measure prose"><h2>Hand-Dug Wells</h2>
+<section class="light"><div class="measure prose"><h2 id="hand-dug-wells">Hand-Dug Wells</h2>
 
 <p>Wells pick up where a paper left off. Most are dug by people who were in the building when the paper died, or watched it hollow out — the editor, the publisher, the reader who showed up to the last-ditch meeting. Their tools are often modest: a nonprofit filing, a newsletter platform, a handful of volunteers.</p>
 
@@ -241,15 +252,15 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 
 <p>I think Weston is being modest. Six neighbors working out a sludge bill and explaining it <em>is</em> the work of journalism.</p>
 
-<aside class="pullquote"><p>Six neighbors working out a sludge bill and explaining it is the work of journalism.</p></aside>
-<h2>Springs</h2>
+<aside class="pullquote"><p>To me, it feels like the heart and soul of the community just got scattered after the closure.</p><p class="pq-by">James Rosien, Anaconda, Mont.</p></aside>
+<h2 id="springs">Springs</h2>
 
 <p>Springs are harder to spot than wells. They&#39;re narrower than a paper — one board, one team, one town&#39;s schools. And they move with the currents of the platforms.</p>
 
-<p>Inside the five southern Illinois counties that lost their papers in June, the clearest spring we&#39;ve found is a camera. In Gallatin County, next door to Saline, an unsigned page called <a href="https://www.facebook.com/profile.php?id=100087831664126">Gallatin County Board (Unofficial)</a> livestreams the board&#39;s meetings and posts its agendas on Facebook and YouTube, and keeps doing it. Nobody explains what happened. But someone decided the meetings should be seen.</p>
+<p>Inside the five southern Illinois counties that lost their papers in June, the clearest springs we&#39;ve found are cameras. In Harrisburg itself, a YouTube channel called <a href="https://www.youtube.com/@BulldogMedia-f1q">Bulldog Media</a>, purple like the high school&#39;s Bulldogs, has posted more than 300 videos: a pregame interview every week, game nights streamed to Facebook and YouTube, a local pharmacy and an eye doctor sponsoring the thumbnails. It has 1.87K subscribers in a town of about 8,200. We don&#39;t know yet who runs it — students, boosters or a parent with a tripod. We&#39;re asking. Next door in Gallatin County, an unsigned page called <a href="https://www.facebook.com/profile.php?id=100087831664126">Gallatin County Board (Unofficial)</a> livestreams the board&#39;s meetings and posts its agendas on Facebook and YouTube, and keeps doing it. Nobody explains what happened. But someone decided the meetings should be seen.</p>
 </div></section>
 <section class="light"><div class="wide-wrap"><div class="wide"><figure class="fig fig-anat" aria-labelledby="fa-h">
-<h3 class="fig-h" id="fa-h">A broadcast company, made by neighbors.</h3>
+<h3 class="fig-h" id="fa-h">Inside a desert county, a weekly broadcast.</h3>
 <div class="anat"><img src="assets/bulldog-media-2026-10-23.jpg" width="1600" height="820" alt="Screenshot of the Bulldog Media YouTube channel page on Oct. 23, 2026: a round purple logo reading Bulldog Media, 1.87K subscribers, 303 videos, tabs for Videos, Live and Playlists, and a row of three pregame-interview video thumbnails filmed in a school office, each carrying a local sponsor logo. A student's face and name are blurred. Callout 1 marks the sponsor logos of The Medicine Shoppe and Thompson Eyecare, local ads. Callout 2 marks the title “Week 9 Benton Pregame Interview,” a weekly beat. Callout 3 marks “303 videos,” the habit. Callout 4 marks the Live tab: game nights, streamed to Facebook and YouTube. Callout 5 marks 1.87K subscribers, in a town of about 8,200." loading="lazy"><svg viewBox="0 0 1600 820" aria-hidden="true" focusable="false"><rect x="39.3" y="419.7" width="85.2" height="45.9" rx="5" fill="none" stroke="#5d7400" stroke-width="4"/><circle cx="41.0" cy="419.7" r="27" fill="#5d7400" stroke="#fff" stroke-width="3"/><text x="41.0" y="430.2" text-anchor="middle" font-size="31" font-weight="700" fill="#fff" font-family="Inter,'Helvetica Neue',Arial,sans-serif">1</text><rect x="27.9" y="709.9" width="490.2" height="63.9" rx="5" fill="none" stroke="#5d7400" stroke-width="4"/><circle cx="514.8" cy="775.4" r="27" fill="#5d7400" stroke="#fff" stroke-width="3"/><text x="514.8" y="785.9" text-anchor="middle" font-size="31" font-weight="700" fill="#fff" font-family="Inter,'Helvetica Neue',Arial,sans-serif">2</text><rect x="673.8" y="73.8" width="101.6" height="29.5" rx="5" fill="none" stroke="#5d7400" stroke-width="4"/><circle cx="796.7" cy="88.5" r="27" fill="#5d7400" stroke="#fff" stroke-width="3"/><text x="796.7" y="99.0" text-anchor="middle" font-size="31" font-weight="700" fill="#fff" font-family="Inter,'Helvetica Neue',Arial,sans-serif">3</text><rect x="160.7" y="260.7" width="50.8" height="29.5" rx="5" fill="none" stroke="#5d7400" stroke-width="4"/><circle cx="213.1" cy="239.4" r="27" fill="#5d7400" stroke="#fff" stroke-width="3"/><text x="213.1" y="249.9" text-anchor="middle" font-size="31" font-weight="700" fill="#fff" font-family="Inter,'Helvetica Neue',Arial,sans-serif">4</text><rect x="492.6" y="73.8" width="168.0" height="29.5" rx="5" fill="none" stroke="#5d7400" stroke-width="4"/><circle cx="627.9" cy="121.3" r="27" fill="#5d7400" stroke="#fff" stroke-width="3"/><text x="627.9" y="131.8" text-anchor="middle" font-size="31" font-weight="700" fill="#fff" font-family="Inter,'Helvetica Neue',Arial,sans-serif">5</text></svg></div>
 <ol class="key-list anat-key"><li><span><strong>Local ads:</strong> sponsor bugs from The Medicine Shoppe and Thompson Eyecare</span></li><li><span><strong>A weekly beat:</strong> “Week 9 Benton Pregame Interview”</span></li><li><span><strong>The habit:</strong> 303 videos</span></li><li><span><strong>Game nights, streamed to Facebook and YouTube:</strong> the Live tab</span></li><li><span><strong>1.87K subscribers</strong> in a town of about 8,200 (2020 Census)</span></li></ol>
 <figcaption class="fig-src">Neighbors thank each other in the comments on the game streams. We don't know yet who runs it; we're asking. Screenshot of the Bulldog Media YouTube channel, Oct. 23, 2026, cropped; a student's face and name are blurred.</figcaption>
@@ -271,8 +282,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 </figure></div></div></section>
 <section class="light"><div class="measure prose"><p>What does show up in these regions tends to run on the open web and on vertical video: a board meeting streamed to Facebook and YouTube, a radio station&#39;s website, sports channels and TikTok accounts that gather a region&#39;s news into a feed. It&#39;s the <a href="https://newsletter.projectc.biz/p/early-returns-on-creator-journalism-make-clear-it-s-a-poly-platform-path-forward-a1c0">poly-platform path</a> we&#39;ve been tracking in creator journalism, showing up where it matters most. Desert springs don&#39;t live on Substack, or at least we haven&#39;t found any yet. They live in streams and feeds.</p>
 
-<aside class="pullquote"><p>Desert springs don't live on Substack, or at least we haven't found any yet. They live in streams and feeds.</p></aside>
-<h2>Confluence</h2>
+<h2 id="confluence">Confluence</h2>
 
 <p>When enough springs and wells run together, you get a confluence. In southern Illinois, much of the digging happens next door, and the news flows in.</p>
 
@@ -288,7 +298,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 
 <p>Some people build the confluence on purpose. In the Upper Valley of Vermont and New Hampshire, Rob Gurwitt started <a href="https://news.daybreak.news/about">Daybreak</a> in 2019 with 25 subscribers. Today more than 15,000 people in about 42 towns get it every weekday, mostly to find everyone else&#39;s reporting in one place. It&#39;s only as strong as the wells around it.</p>
 
-<h2>Picks and Shovels</h2>
+<h2 id="picks-and-shovels">Picks and Shovels</h2>
 
 <p>Picks and shovels are the money and tools that keep the digging going, and the money pools where there&#39;s already water. <a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2026/report/">By Medill&#39;s count</a>, more than 95% of the largest journalism grants went to urban recipients, and nearly 80% of new local outlets launched in urban areas. When we checked 12 funding programs open to local news, one funded a solo creator directly, and five required a sponsor or partner.</p>
 
@@ -304,21 +314,19 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 
 <p>This isn&#39;t the first time thin places needed help getting the news. In <a href="https://eh.net/book_reviews/the-creation-of-the-media-political-origins-of-modern-communications/"><em>The Creation of the Media</em></a>, Paul Starr shows how the Post Office Act of 1792 carried newspapers at cut rates and pushed postal routes into places that could never pay for themselves. Getting news to thin places was public infrastructure, not a market outcome.</p>
 
+<p>The gap showed up in federal policy again 15 years ago, when Steve Waldman&#39;s <a href="https://www.fcc.gov/node/24648">report for the FCC</a> found that &quot;breathtaking media abundance lives side-by-side with serious shortages in reporting.&quot;</p>
+
 <p>Illinois built a modern version. In 2024 it passed a law making it <a href="https://localnewsinitiative.northwestern.edu/posts/2025/08/07/illinois-journalism-tax-credits-4-million/index.html">the first state to pay local newsrooms directly</a> to keep and hire journalists, through refundable tax credits, and <a href="https://www.niemanlab.org/2026/02/for-the-past-year-illinois-has-been-giving-local-news-outlets-tax-credits-to-support-journalism-jobs-a-new-report-looks-at-how-its-going/">the early results are encouraging</a>. Then it lost more newspapers than any other state, <a href="https://www.niemanlab.org/2026/10/from-bad-to-worse-2026-is-shaping-up-to-be-a-super-el-nino-year-for-local-news/">Medill found</a>. The credit runs through payroll: <a href="https://dceo.illinois.gov/expandrelocate/incentives/taxassistance/new-journalism-tax-incentive-program.html">to claim it</a>, you need at least one full-time journalist on staff. Whoever keeps the Gallatin County board livestream running can&#39;t claim it. Neither can the accounts covering Harrisburg&#39;s schools from next door.</p>
 
 <p>Part of the answer already works in cities. City Bureau&#39;s <a href="https://www.citybureau.org/notebook/2022/6/21/the-documenters-network-expands-beyond-the-midwest">Documenters</a> program pays residents to sit through public meetings and write down what happened. The digging can be taught, and it can be paid for.</p>
 
-<h2>Mapping the Basin</h2>
+<h2 id="mapping-the-watershed">Mapping the Watershed</h2>
 
-<p>Elinor Ostrom started her career <a href="https://www.international.ucla.edu/asia/article/120674">studying a groundwater basin that was being pumped faster than it refilled</a>. By the 1940s, so many pumpers were drawing on West Basin, south of Los Angeles, that water levels had dropped below sea level and seawater had begun to creep in. No single agency could fix it. A survey committee started studying the basin in the early 1940s. By 1946 the pumpers had <a href="https://csgs.kcl.ac.uk/crises-of-the-commons-elinor-ostroms-legacy-of-self-governance/">formed an association</a>, and it took until 1961 for most of the parties to sign a <a href="https://www.wbwa.info/history">settlement that cut pumping</a>. Ostrom built a Nobel Prize-winning body of work on that lesson: communities can govern a shared resource without handing it to a market or a single authority. But only if they can see it. Watching is one of her <a href="https://en.wikipedia.org/wiki/Elinor_Ostrom">design principles</a> for commons that last: whoever monitors the resource has to answer to the people who depend on it.</p>
+<p>Elinor Ostrom started her career <a href="https://www.international.ucla.edu/asia/article/120674">studying a groundwater basin that was being pumped faster than it refilled</a>. By the 1940s, seawater was creeping into West Basin, south of Los Angeles, and no single agency could fix it. The pumpers <a href="https://csgs.kcl.ac.uk/crises-of-the-commons-elinor-ostroms-legacy-of-self-governance/">formed an association</a>, and by 1961 most of them had signed a <a href="https://www.wbwa.info/history">settlement that cut pumping</a>. Ostrom built a Nobel Prize-winning body of work on that lesson: communities can govern a shared resource themselves, but only if they can see it. Watching is one of her <a href="https://en.wikipedia.org/wiki/Elinor_Ostrom">design principles</a> for commons that last.</p>
 
 <p>Local information is that kind of resource. It belongs to no single outlet, and it crosses county lines. Our problem runs the other way from West Basin: we have too few wells, not too many pumps. But the first step is the same. You can&#39;t tend a basin you haven&#39;t mapped.</p>
 
 <p>That goes for us, too. Until this month, the Atlas hadn&#39;t mapped a single person in the five southern Illinois counties that lost their papers in June. Medill mapped the institutions. Someone has to map the people, and keep checking who they are, whether they show up and whether the place relies on them.</p>
-
-<p>And yet the people in those counties are looking for news, and finding it in these new forms. Those forms will keep changing. Today&#39;s Substacks and prep-sports TikToks will evolve, probably faster than newspapers turned into websites. Whatever comes next, in a world of AI-powered products and a fractured attention economy, will run on the trust people place in the humans who find information and pass it on.</p>
-
-<h2>Charting the Watershed</h2>
 
 <p>We&#39;ve kept mapping since May. The Atlas now holds more than 2,400 creator-journalists, and the closer we look, the blurrier the categories get.&#32;</p>
 
@@ -331,7 +339,7 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 <p class="sr-only">Creator-journalists in the Atlas: about 1,500 in May 2026, the snapshot Medill used, and 2,430 on Oct. 21. 111 of them are local independent journalists in Chicago.</p>
 <figcaption class="fig-src">Sources: <a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2026/report/">Medill State of Local News 2026</a> (the May snapshot); Independent Journalism Atlas, <a href="https://journalismatlas.com/search?search=chicago">Chicago filter</a>. Bars share one scale, from zero.</figcaption>
 </figure>
-<p>As my co-founder Ryan Kellett <a href="https://newsletter.projectc.biz/p/journalism-minus-the-journalist-eca1">puts it</a>, it&#39;s journalism, not journalists. Ryan spent his <a href="https://cyber.harvard.edu/story/2025-07/journalism-minus-journalist">Nieman-Berkman fellowship</a> studying creators who resist journalism&#39;s labels. Our other co-founder, Liz Kelly Nelson, built <a href="https://newsletter.projectc.biz">Project C</a>, a community of creator-journalists, during her 2024 Sulzberger Fellowship at Columbia. As Liz put it <a href="https://drive.google.com/file/d/1nkg3bBGsBc9ZDN9qce3tUsDoxUuhKLoa/view">at Newsgeist last year</a>, humans are the atomic units of trust and journalism. As an elder millennial who came up in newsrooms in the era of the blogosphere and platform traffic waves, I can&#39;t believe we&#39;re having this argument about credentialing again. Plenty of those &quot;new media&quot; bloggers became the journalists we celebrate now.</p>
+<p>As my co-founder Ryan Kellett <a href="https://newsletter.projectc.biz/p/journalism-minus-the-journalist-eca1">puts it</a>, it&#39;s journalism, not journalists; he spent his <a href="https://cyber.harvard.edu/story/2025-07/journalism-minus-journalist">Nieman-Berkman fellowship</a> studying creators who resist journalism&#39;s labels. Our other co-founder, Liz Kelly Nelson, built <a href="https://newsletter.projectc.biz">Project C</a>, a community of creator-journalists, and as she put it <a href="https://drive.google.com/file/d/1nkg3bBGsBc9ZDN9qce3tUsDoxUuhKLoa/view">at Newsgeist last year</a>, humans are the atomic units of trust and journalism. I came up in newsrooms in the era of the blogosphere, and plenty of those &quot;new media&quot; bloggers became the journalists we celebrate now.</p>
 
 <p>That idea is what <a href="https://journalismatlas.com/who-we-are">the Atlas is built on</a>: we decide who belongs by the work, not by the title or the platform. <a href="https://journalismatlas.com/how-we-did-this">Our standards</a> come down to five tests. Ours is only one way of curating, and we admire and welcome others, from the humble blogrolls independent journalists keep to the in-depth reports of researchers like those at Northwestern.</p>
 
@@ -345,9 +353,11 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 </ol></aside>
 <p>A good map draws on more than one vantage point. As we&#39;ve charted geographies and beats that are new to us, we&#39;ve leaned on <a href="https://www.pressforward.news/">Press Forward&#39;s local chapters</a>, libraries, state press associations and many other journalism groups, formal and informal. They already know who&#39;s digging in their places.</p>
 
-<p>Back in Harrisburg, the sheriff will post again tomorrow. For most of the last century, local news ran on moats: a masthead, a press, a delivery route nobody else could match. In a watershed, bridges are the new moats. The value is in the connection: the radio station that covers the next county&#39;s board, the livestream someone takes the time to explain, the creator a funder would never have found. The bridge builders are already at work, and a few we believe in are below. We&#39;ll keep charting and writing about what we find in <a href="https://journalismatlas.com">the Atlas</a>. If you know who&#39;s digging in your county, or you fund the people who do, write us at <a href="mailto:hello@journalismatlas.com">hello@journalismatlas.com</a>.</p>
+<p>For most of the last century, local news ran on moats: a masthead, a press, a delivery route nobody else could match. In a watershed, bridges are the new moats. The value is in the connection: the radio station that covers the next county&#39;s board, the livestream someone takes the time to explain, the creator a funder would never have found. The bridge builders are already at work, and a few we believe in are below.</p>
 
-<p class="lede-end">There is so much more to chart and build, in our communities, across and beyond platforms.</p>
+<p>Back in Harrisburg, the sheriff will post again tomorrow. On the next game night, someone will turn on a camera, Bulldog Media will stream it to a town of about 8,200, and neighbors will thank each other in the comments. No count of mastheads will find it. Nobody has asked yet what else it could carry.</p>
+
+<p class="lede-end">There&#39;s so much more to find.</p>
 <aside class="bridge" aria-labelledby="bridge-h"><h3 class="bridge-h" id="bridge-h">Builders and mappers we believe in</h3>
 <h4 class="bridge-g">Mapping local information</h4>
 <ul>
@@ -409,6 +419,26 @@ if(!r.ok)throw new Error('fail');document.getElementById('wsl-form-container').s
 }).catch(function(){b.disabled=false;b.textContent='Sign me up';e.style.display='block';});});})();
 </script>
 <!-- /ATLAS CHROME -->
+<script>
+/* Section rail. Off by default: set RAIL_ENABLED = true to ship it (Justin and James decide). */
+var RAIL_ENABLED = false;
+(function(){
+  if(!RAIL_ENABLED) return;
+  var rail=document.getElementById('section-rail'); if(!rail) return;
+  rail.hidden=false;
+  var nav=document.querySelector('.top-nav');
+  function setTop(){ var h=nav?Math.round(nav.getBoundingClientRect().height):64; rail.style.setProperty('--rail-top',h+'px'); }
+  setTop(); window.addEventListener('resize',setTop); window.addEventListener('scroll',setTop,{passive:true});
+  var links=[].slice.call(rail.querySelectorAll('a')), map={};
+  links.forEach(function(a){ var id=a.getAttribute('href').slice(1), el=document.getElementById(id); if(el) map[id]={a:a,el:el}; });
+  function mark(id){ links.forEach(function(a){ if(a.getAttribute('href')==='#'+id) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); }); var cur=rail.querySelector('[aria-current]'), u=rail.querySelector('ul'); if(cur&&u.scrollWidth>u.clientWidth){ u.scrollLeft=Math.max(0,cur.offsetLeft-16); } }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) mark(e.target.id); }); },{rootMargin:'-20% 0px -70% 0px'});
+    Object.keys(map).forEach(function(k){ io.observe(map[k].el); });
+  }
+  links.forEach(function(a){ a.addEventListener('click',function(ev){ var t=document.getElementById(a.getAttribute('href').slice(1)); if(!t) return; ev.preventDefault(); var off=(parseInt(rail.style.getPropertyValue('--rail-top'))||64)+rail.offsetHeight+12; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-off,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); mark(t.id); history.replaceState(null,'','#'+t.id); }); });
+})();
+</script>
 <!-- ATLAS CHROME: site footer -->
 <script src="/assets/js/footer.js"></script>
 <!-- /ATLAS CHROME -->
