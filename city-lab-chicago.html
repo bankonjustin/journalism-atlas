@@ -237,7 +237,7 @@
       <a href="#full-chicago-landscape" class="hero-stat-num-large hero-stat-245-link" onclick="document.getElementById('full-chicago-landscape').scrollIntoView({behavior:'smooth'});return false;">245</a>
       <span class="hero-stat-primary-label">Outlets in the full Chicago media ecosystem <span style="font-size:11px;opacity:0.7">↓ explore</span></span>
     </div>
-    <div class="hero-stat-nudge"><span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle;margin-right:4px">touch_app</span>Tap a layer to explore</div>
+    <div class="hero-stat-nudge"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px;vertical-align:middle;margin-right:4px">touch_app</span>Tap a layer to explore</div>
     <div class="hero-stat-breakdown">
       <div class="hero-stat-child" data-layer="journalism"><span class="hero-stat-num-child">39</span><span class="hero-stat-label-child">Journalism creators →</span></div>
       <div class="hero-stat-child" data-layer="lifestyle"><span class="hero-stat-num-child">37</span><span class="hero-stat-label-child">Lifestyle &amp; culture →</span></div>
@@ -442,8 +442,8 @@
       <span style="font-size:12px;color:#b0b0b8">Think we&rsquo;re missing someone? <a href="mailto:hello@journalismatlas.com?subject=Chicago Creator Suggestion" style="color:#5d7400;font-weight:600">Tell us &rarr;</a></span>
     </div>
     <div class="creators-view-toggle">
-      <button class="view-btn active btn btn--secondary" data-view="list" title="List view" onclick="setView('list')"><span class="material-symbols-outlined" style="font-size:20px">view_list</span></button>
-      <button class="view-btn btn btn--secondary" data-view="grid" title="Grid view" onclick="setView('grid')"><span class="material-symbols-outlined" style="font-size:20px">grid_view</span></button>
+      <button class="view-btn active btn btn--secondary" data-view="list" title="List view" onclick="setView('list')"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:20px">view_list</span></button>
+      <button class="view-btn btn btn--secondary" data-view="grid" title="Grid view" onclick="setView('grid')"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:20px">grid_view</span></button>
     </div>
   </div>
   <div class="creators-filter-bar" id="creators-filter-bar">
@@ -538,7 +538,7 @@
     <span class="cov-beat-pill" style="background:#fce4ec;color:#ad1457;border-color:#f48fb1" onclick="jumpToBeat('LGBTQ+')">LGBTQ+</span>
   </div>
   <div id="coverage-loading" style="text-align:center;padding:48px;color:#b0b0b8;font-size:13px;display:none">
-    <span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:8px">rss_feed</span>
+    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:32px;display:block;margin-bottom:8px">rss_feed</span>
     Fetching feeds&hellip;
   </div>
   <div id="coverage-beat-groups" style="display:none"></div>
@@ -1113,7 +1113,7 @@ async function initCoverageFeeds(){
 
   }catch(err){
     if(lo){
-      lo.innerHTML='<div style="text-align:center;padding:48px 24px"><span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:12px;color:#d4d4d8">rss_feed</span><p style="font-size:13px;color:#606068;margin:0 0 8px">Coverage data unavailable.</p><p style="font-size:12px;color:#b0b0b8;margin:0"><a href="#" onclick="coverageFetched=false;initCoverageFeeds();return false" style="color:#5d7400">Try again</a></p></div>';
+      lo.innerHTML='<div style="text-align:center;padding:48px 24px"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:32px;display:block;margin-bottom:12px;color:#d4d4d8">rss_feed</span><p style="font-size:13px;color:#606068;margin:0 0 8px">Coverage data unavailable.</p><p style="font-size:12px;color:#b0b0b8;margin:0"><a href="#" onclick="coverageFetched=false;initCoverageFeeds();return false" style="color:#5d7400">Try again</a></p></div>';
       lo.style.display='block';
     }
   }

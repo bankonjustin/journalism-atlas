@@ -267,7 +267,7 @@
     <h1>Atlas <em>Wire</em></h1>
     <p class="wire-hero-sub">Independent journalism, surfaced daily. Every morning the Atlas scans its database of <span class="js-creator-count">1,500+</span> creator-journalists and curates the work that matters.</p>
     <a class="wire-bsky-link btn btn--secondary" href="https://bsky.app/profile/journalismatlas.com" target="_blank" rel="noopener">
-      <span class="material-symbols-outlined">open_in_new</span>
+      <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>
       Follow @journalismatlas.com on Bluesky
     </a>
   </div>
@@ -289,7 +289,7 @@
 
     <div class="load-more-wrap" id="load-more-wrap" style="display:none">
       <button class="btn-load-more" id="load-more-btn" onclick="loadMore()">
-        <span class="material-symbols-outlined">expand_more</span>
+        <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
         Load more
       </button>
     </div>
@@ -409,7 +409,7 @@ function loadMore() {
       banner.className = 'cluster-header';
       const count = filteredItems.filter(x => x.cluster_id === cid).length;
       banner.innerHTML = `
-        <span class="material-symbols-outlined">hub</span>
+        <span class="material-symbols-outlined" aria-hidden="true">hub</span>
         ${esc(item.cluster_label || 'Cluster')}
         <span class="cluster-count">${count} journalists</span>`;
       stack.appendChild(banner);
@@ -441,12 +441,12 @@ function renderCard(item, inCluster) {
 
   const sourceBtn = item.source_link
     ? `<a class="btn-source" href="${esc(item.source_link)}" target="_blank" rel="noopener">
-        <span class="material-symbols-outlined">open_in_new</span>Read
+        <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Read
        </a>` : '';
 
   const bskyBtn = item.bsky_post_url
     ? `<a class="btn-bsky" href="${esc(item.bsky_post_url)}" target="_blank" rel="noopener">
-        <span class="material-symbols-outlined">open_in_new</span>Bluesky
+        <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Bluesky
        </a>` : '';
 
   const creatorLink = item.creator_url

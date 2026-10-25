@@ -144,7 +144,7 @@ img { max-width: 100%; display: block; }
 <!-- DRAFT-ONLY NOTICE: remove this banner before publish. Flags open items from the build brief. -->
 <div class="review-banner">
   <div class="review-banner-inner">
-    <span class="material-symbols-outlined">flag</span>
+    <span class="material-symbols-outlined" aria-hidden="true">flag</span>
     DRAFT FOR REVIEW — partner name/framing language, style choice (curator-list vs. ecosystem-lab), and the "99 pending Ryan's review" language below all need Justin + James sign-off before this goes live.
   </div>
 </div>
@@ -394,7 +394,7 @@ function renderGrid() {
     const topicHTML = c.topic     ? `<span class="pill">${esc(c.topic)}</span>`     : '';
     const footerHTML = c.inAtlas
       ? `<hr class="card-divider"><a href="/search?q=${encodeURIComponent(c.name)}" class="card-link link-instruction">View in Atlas &rarr;</a>`
-      : `<hr class="card-divider"><p class="card-status"><span class="material-symbols-outlined">hourglass_top</span>Pending Atlas review</p>`;
+      : `<hr class="card-divider"><p class="card-status"><span class="material-symbols-outlined" aria-hidden="true">hourglass_top</span>Pending Atlas review</p>`;
     return `
       <div class="creator-card" data-status="${c.inAtlas ? 'in' : 'pending'}">
         <div class="creator-name">${esc(c.name)}</div>

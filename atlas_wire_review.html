@@ -284,11 +284,11 @@
   </div>
   <div class="header-actions">
     <button class="btn btn-load" onclick="loadFile()">
-      <span class="material-symbols-outlined">upload_file</span>
+      <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
       Load Queue
     </button>
     <button class="btn btn-export" onclick="exportApproved()" id="export-btn" disabled>
-      <span class="material-symbols-outlined">download</span>
+      <span class="material-symbols-outlined" aria-hidden="true">download</span>
       Export Approved
     </button>
   </div>
@@ -343,7 +343,7 @@
     <div class="modal-actions">
       <button class="btn btn-modal-cancel" onclick="closeModal()">Cancel</button>
       <button class="btn btn-export" onclick="doExport()">
-        <span class="material-symbols-outlined">download</span>
+        <span class="material-symbols-outlined" aria-hidden="true">download</span>
         Download JSON
       </button>
     </div>
@@ -483,11 +483,11 @@ function render() {
     if (row.type === 'cluster-banner') {
       const openerHtml = row.opener ? `
         <div class="cluster-thread-card">
-          <div class="thread-label"><span class="material-symbols-outlined" style="font-size:13px;vertical-align:middle">hub</span> Thread opener</div>
+          <div class="thread-label"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:13px;vertical-align:middle">hub</span> Thread opener</div>
           <div class="thread-text">${esc(row.opener)}</div>
         </div>` : '';
       return `<div class="cluster-banner" style="margin-top:16px">
-        <span class="material-symbols-outlined">hub</span>
+        <span class="material-symbols-outlined" aria-hidden="true">hub</span>
         ${esc(row.cluster.cluster_label)} — ${esc(row.cluster.cluster_summary)}
       </div>${openerHtml}`;
     }
@@ -507,7 +507,7 @@ function renderCard(item) {
     : item.status === 'editing' ? 'editing' : '';
 
   const bskyTag = item.bluesky_handle
-    ? `<span class="bsky-tag"><span class="material-symbols-outlined" style="font-size:13px">person</span>@${esc(item.bluesky_handle)}</span>`
+    ? `<span class="bsky-tag"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:13px">person</span>@${esc(item.bluesky_handle)}</span>`
     : '';
 
   const wireHtml = item._editing
@@ -521,26 +521,26 @@ function renderCard(item) {
 
   const approveBtn = item.status !== 'approved'
     ? `<button class="btn btn-approve" onclick="setStatus('${item.id}', 'approved')">
-        <span class="material-symbols-outlined">check_circle</span> Approve
+        <span class="material-symbols-outlined" aria-hidden="true">check_circle</span> Approve
        </button>`
     : `<button class="btn btn-undo" onclick="setStatus('${item.id}', 'pending')">
-        <span class="material-symbols-outlined">undo</span> Undo
+        <span class="material-symbols-outlined" aria-hidden="true">undo</span> Undo
        </button>`;
 
   const killBtn = item.status !== 'killed'
     ? `<button class="btn btn-kill" onclick="setStatus('${item.id}', 'killed')">
-        <span class="material-symbols-outlined">cancel</span> Kill
+        <span class="material-symbols-outlined" aria-hidden="true">cancel</span> Kill
        </button>`
     : `<button class="btn btn-undo" onclick="setStatus('${item.id}', 'pending')">
-        <span class="material-symbols-outlined">undo</span> Restore
+        <span class="material-symbols-outlined" aria-hidden="true">undo</span> Restore
        </button>`;
 
   const editBtn = item._editing
     ? `<button class="btn btn-edit" onclick="saveEdit('${item.id}')">
-        <span class="material-symbols-outlined">check</span> Save
+        <span class="material-symbols-outlined" aria-hidden="true">check</span> Save
        </button>`
     : `<button class="btn btn-edit" onclick="startEdit('${item.id}')">
-        <span class="material-symbols-outlined">edit</span> Edit
+        <span class="material-symbols-outlined" aria-hidden="true">edit</span> Edit
        </button>`;
 
   const subScores = (item.score_newsworthiness || item.score_distinctiveness || item.score_atlas_fit || item.score_timeliness)
@@ -573,7 +573,7 @@ function renderCard(item) {
       ${editBtn}
       <span class="spacer"></span>
       ${item.link ? `<a class="source-link" href="${esc(item.link)}" target="_blank">
-        <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span>Source
+        <span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px">open_in_new</span>Source
       </a>` : ''}
       ${subScores}
     </div>
