@@ -145,7 +145,7 @@
 
     /* ── STAT STRIP ── */
     .stat-strip { background: #fff; border-bottom: 1px solid #d4d4d8; position: relative; }
-    .stat-strip-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
+    .stat-strip-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
     .stat-cell { padding: 24px 28px 20px; border-right: 1px solid #d4d4d8; }
     .stat-cell:last-child { border-right: none; }
     .stat-num { font-size: 36px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; margin-bottom: 6px; }
@@ -581,7 +581,7 @@
 
   <!-- RIGHT: Viz Canvas -->
   <div class="hero-right">
-    <span class="viz-label"><span class="js-creator-count" data-pulse-fallback="creators">{{CREATOR_COUNT}}</span> verified creator-journalists · 9 beats · 4 platforms</span>
+    <span class="viz-label"><span class="js-creator-count" data-pulse-fallback="creators">{{CREATOR_COUNT}}</span> verified creator-journalists · 9 beats</span>
     <canvas id="hero-canvas"></canvas>
     <div id="cluster-panel"></div>
     <div id="hero-tooltip"></div>
@@ -1055,10 +1055,6 @@ const FEATURED_POOL = [
       <div class="stat-lbl">Creator RSS feeds</div>
       <div class="stat-sub-link link-instruction"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
     </a>
-    <div class="stat-cell">
-      <div class="stat-num dark">12</div>
-      <div class="stat-lbl">Institutional partners</div>
-    </div>
   </div>
 </div>
 
@@ -1073,7 +1069,7 @@ const FEATURED_POOL = [
       <div class="research-header-left">
         <div class="research-badge">Research</div>
         <h2 class="research-headline">Original analysis of an ecosystem most journalism coverage ignores.</h2>
-        <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. One methodology brief live. Two major studies landing this summer.</p>
+        <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. Live now: the CNTI report and our Bluesky methodology brief. Forthcoming: the Knight Foundation / Arizona State economics study.</p>
       </div>
       <a href="research.html" class="btn-lime btn btn--primary">View all research →</a>
     </div>
@@ -1120,15 +1116,16 @@ const FEATURED_POOL = [
         </div>
       </div>
 
-      <!-- Card 3: ASU/Knight — coming -->
-      <div class="research-card research-card--muted">
+      <!-- Card 3: ASU/Knight — forthcoming -->
+      <!-- SLOT asu-knight-paper: on publication, replace "Forthcoming" with the month and year and link the card to the paper. -->
+      <div class="research-card research-card--muted" data-slot="asu-knight-paper">
         <div class="research-card-header">
           <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
         </div>
         <div class="research-card-body">
-          <div class="research-card-status">Knight Foundation · Arizona State University · Coming June 2026</div>
+          <div class="research-card-status">Knight Foundation · Arizona State University · Forthcoming</div>
           <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem.</p>
-          <span class="research-card-link" style="font-size:12px;font-weight:400;color:#bbb;cursor:default;">Coming June 2026</span>
+          <span class="research-card-link" style="font-size:12px;font-weight:400;color:#bbb;cursor:default;">Forthcoming</span>
         </div>
       </div>
 
@@ -1190,7 +1187,6 @@ const FEATURED_POOL = [
       <div class="cluster-creators">
         <span class="cluster-creator-name">Casey Newton</span>
         <span class="cluster-creator-name">Ben Thompson</span>
-        <span class="cluster-creator-name">Kara Swisher</span>
       </div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
@@ -1212,7 +1208,6 @@ const FEATURED_POOL = [
       <div class="cluster-creators">
         <span class="cluster-creator-name">Judd Legum</span>
         <span class="cluster-creator-name">Jessica Huseman</span>
-        <span class="cluster-creator-name">Greg Sargent</span>
       </div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
@@ -1253,11 +1248,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.65;"></span>Own Site 55</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.4;"></span>Podcast 26</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Block Club Chicago</span>
-        <span class="cluster-creator-name">The Oaklandside</span>
-        <span class="cluster-creator-name">Signal Cleveland</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1298,7 +1289,6 @@ const FEATURED_POOL = [
       </div>
       <div class="cluster-creators">
         <span class="cluster-creator-name">Eric Topol</span>
-        <span class="cluster-creator-name">Zeynep Tufekci</span>
         <span class="cluster-creator-name">Ed Yong</span>
       </div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
@@ -1363,9 +1353,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:0.4;"></span>YouTube 11</span>
       </div>
       <div class="cluster-creators">
-        <span class="cluster-creator-name">The Athletic</span>
         <span class="cluster-creator-name">Pablo Torre</span>
-        <span class="cluster-creator-name">Richard Deitsch</span>
       </div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
@@ -1381,11 +1369,11 @@ const FEATURED_POOL = [
      SECTION 9: PARTNER STRIP
      ══════════════════════════════════════════════════════════ -->
 <section class="partner-section-v3" style="position:relative;">
-  <div class="partner-label">Working with</div>
+  <div class="partner-label">Published with</div>
   <div class="partner-logos-row">
-    <div class="partner-logo-slot"><span class="partner-logo-text">Chicago Press Forward</span></div>
-    <div class="partner-logo-slot"><span class="partner-logo-text">ICFJ</span></div>
-    <div class="partner-logo-slot"><span class="partner-logo-text">SembraMedia</span></div>
+    <div class="partner-logo-slot"><a class="partner-logo-text" href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer">CNTI report on US indie info providers</a></div>
+    <div class="partner-logo-slot"><a class="partner-logo-text" href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf" target="_blank" rel="noopener noreferrer">Press Forward Chicago / Chicago Community Trust toolkit</a></div>
+    <div class="partner-logo-slot"><a class="partner-logo-text" href="https://videoconsortium.org/member-resources/rise-of-creator-journalist-report" target="_blank" rel="noopener noreferrer">Video Consortium report</a></div>
   </div>
 </section>
 
@@ -1447,16 +1435,6 @@ const FEATURED_POOL = [
       <div class="db-card-name">Jessica Huseman</div>
       <div class="db-card-pub">Votebeat</div>
       <div class="db-card-pills"><span class="db-pill platform">Website</span><span class="db-pill topic">Politics &amp; Government</span></div>
-    </div>
-    <div class="db-card">
-      <div class="db-card-name">Matt Levine</div>
-      <div class="db-card-pub">Money Stuff</div>
-      <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Business &amp; Finance</span></div>
-    </div>
-    <div class="db-card">
-      <div class="db-card-name">Block Club Chicago</div>
-      <div class="db-card-pub">Block Club Chicago</div>
-      <div class="db-card-pills"><span class="db-pill platform">Website</span><span class="db-pill topic">Local News</span></div>
     </div>
     <div class="db-card">
       <div class="db-card-name">Eric Topol</div>
