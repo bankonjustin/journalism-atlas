@@ -213,6 +213,12 @@ Four locations now exist. Don't assume file paths from older briefs still hold â
 
 ---
 
+## Homepage names come from data
+
+No creator names are typed on `index.html`. The featured rotation, the database-preview cards and the cluster-card exemplars render from the master's trailing `Featured` column (emitted as `featured` in `creators-data.json`). Ryan sets it: `home` puts a creator in the featured rotation and preview cards; `cluster` lets them appear as an exemplar on their cluster card (3 max per card). Tokens combine with `|` or `,`. With nothing set, those slots are hidden. Do not hand-type names or blurbs into the page, and do not set `Featured` yourself. `atlas_normalize.py` only prints a note for the extra column, but check that any script that rewrites the master keeps it.
+
+---
+
 ## Key Constraints
 
 - **Single deployable HTML file** â€” no bundler or npm, no external dependencies beyond CDNs (the only build step is the `build-dist.sh` copy allowlist)
