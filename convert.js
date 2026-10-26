@@ -16,6 +16,9 @@
 //   - `slug` is a URL-safe identifier frozen on first entry in the pipeline.
 //     Originally used for stable URL params on pack.html/postcard.html share
 //     links (both retired July 2026) — not currently consumed by any live page.
+//   - `featured` is a comma-separated list of homepage slots Ryan has assigned:
+//     `home` (featured rotation + database preview) and `cluster` (cluster-card exemplar).
+//     Empty for everyone until he sets it; the homepage hides those slots when none are set.
 //   - `secondaryPlatforms` is an array of {name, link} objects for Platform 2–4.
 //     Only populated entries (non-empty name) are included. Most creators have
 //     0 entries; some have 1–3.
@@ -126,6 +129,7 @@ for (let i = 1; i < rows.length; i++) {
   creators.push({
     name:               row['Creator Name'],
     slug:               row['slug'] || '',
+    featured:           (row['Featured'] || '').trim(),   // tokens: home, cluster (Ryan sets; drives homepage)
     channel:            row['Creator Channel'],
     link:               row['Link Primary'],
     platform:           row['Platform Primary'],

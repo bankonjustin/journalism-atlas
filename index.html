@@ -145,7 +145,7 @@
 
     /* ── STAT STRIP ── */
     .stat-strip { background: #fff; border-bottom: 1px solid #d4d4d8; position: relative; }
-    .stat-strip-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
+    .stat-strip-inner { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
     .stat-cell { padding: 24px 28px 20px; border-right: 1px solid #d4d4d8; }
     .stat-cell:last-child { border-right: none; }
     .stat-num { font-size: 36px; font-weight: 700; letter-spacing: -0.05em; line-height: 1; margin-bottom: 6px; }
@@ -560,7 +560,7 @@
 
   <!-- RIGHT: Viz Canvas -->
   <div class="hero-right">
-    <span class="viz-label"><span class="js-creator-count" data-pulse-fallback="creators">{{CREATOR_COUNT}}</span> verified creator-journalists · 9 beats · 4 platforms</span>
+    <span class="viz-label"><span class="js-creator-count" data-pulse-fallback="creators">{{CREATOR_COUNT}}</span> verified creator-journalists · 9 beats</span>
     <canvas id="hero-canvas"></canvas>
     <div id="cluster-panel"></div>
     <div id="hero-tooltip"></div>
@@ -615,7 +615,7 @@
 <!-- ══════════════════════════════════════════════════════════
      SECTION 5: FEATURED CREATORS
      ══════════════════════════════════════════════════════════ -->
-<section class="featured-section on-dark">
+<section class="featured-section on-dark" hidden>
   <div class="featured-inner">
     <div class="featured-header-row">
       <div class="featured-header-left">
@@ -645,228 +645,17 @@
 </section>
 
 <script>
-const FEATURED_POOL = [
-  {
-    name: "Casey Newton",
-    pub: "Platformer",
-    beat: "Technology",
-    editorial: "Newton left The Verge to build Platformer into one of the most closely-read newsletters in tech — breaking stories institutional outlets follow up on. Proof that the byline isn't the credential anymore. <strong>The work is.</strong>",
-    imgSrc: "assets/images/creators/casey_newton.jpg",
-    initials: "CN",
-    searchUrl: "search.html"
-  },
-  {
-    name: "Jessica Valenti",
-    pub: "Abortion, Every Day",
-    beat: "Gender &amp; Rights",
-    editorial: "Valenti launched Abortion, Every Day the week <em>Roe</em> fell and built it into the most closely-read independent newsletter on reproductive rights in the country. <strong>The story found its reporter.</strong>",
-    imgSrc: "assets/images/creators/jessica_valenti.jpg",
-    initials: "JV",
-    searchUrl: "search.html?q=Jessica+Valenti"
-  },
-  {
-    name: "Alicia Kennedy",
-    pub: "From the Desk of Alicia Kennedy",
-    beat: "Food &amp; Culture",
-    editorial: "Kennedy turned food writing into moral and political inquiry. Built a loyal paid subscriber base without a masthead behind her. <strong>The beat is bigger than the institution ever made it.</strong>",
-    imgSrc: "assets/images/creators/alicia_kennedy.jpeg",
-    initials: "AK",
-    searchUrl: "search.html?q=Alicia+Kennedy"
-  },
-  {
-    name: "Oliver Darcy",
-    pub: "Status",
-    beat: "Media",
-    editorial: "Darcy walked away from CNN to launch Status — now the definitive nightly briefing on media power. <strong>Accountability journalism about the people who control the news.</strong>",
-    imgSrc: "assets/images/creators/oliver_darcy.jpg",
-    initials: "OD",
-    searchUrl: "search.html?q=Oliver+Darcy"
-  },
-  {
-    name: "Kyla Scanlon",
-    pub: "Kyla's Newsletter",
-    beat: "Economics",
-    editorial: "Scanlon coined 'vibecession' before economists would name it and built a million-follower cross-platform operation explaining how money actually works. <strong>Making the most important beat accessible is its own kind of journalism.</strong>",
-    imgSrc: "assets/images/creators/kyla_scanlon.jpeg",
-    initials: "KS",
-    searchUrl: "search.html?q=Kyla+Scanlon"
-  },
-  {
-    name: "Kahlil Greene",
-    pub: "History Can't Hide",
-    beat: "History &amp; Culture",
-    editorial: "Greene built a million-follower operation making suppressed American history impossible to ignore — Emmy-nominated, Peabody-winning, National Geographic docuseries. <strong>The credential is the audience, not the institution.</strong>",
-    imgSrc: "assets/images/creators/kahlil_greene.jpg",
-    initials: "KG",
-    searchUrl: "search.html?q=Kahlil+Greene"
-  },
-  {
-    name: "Tim Mak",
-    pub: "The Counteroffensive",
-    beat: "International",
-    editorial: "NPR laid Mak off. He flew back to Kyiv alone and built the first Substack dedicated to war correspondence — 142,000 subscribers, Substack's largest international publication. <strong>The foreign bureau didn't disappear. It went independent.</strong>",
-    imgSrc: "assets/images/creators/tim_mak.jpg",
-    initials: "TM",
-    searchUrl: "search.html?q=Tim+Mak"
-  },
-  {
-    name: "Katelyn Jetelina",
-    pub: "Your Local Epidemiologist",
-    beat: "Health",
-    editorial: "Jetelina built the most trusted independent public health newsletter in America — translating complex epidemiology for millions of readers without dumbing it down. <strong>Science communication as a public service.</strong>",
-    imgSrc: null,
-    initials: "KJ",
-    searchUrl: "search.html?q=Katelyn+Jetelina"
-  },
-  {
-    name: "Heather Cox Richardson",
-    pub: "Letters from an American",
-    beat: "Politics &amp; History",
-    editorial: "Richardson contextualizes daily political events against the sweep of American history — 1.5 million subscribers read her every night. <strong>Context is the scarcest resource in political journalism.</strong>",
-    imgSrc: null,
-    initials: "HR",
-    searchUrl: "search.html?q=Heather+Cox+Richardson"
-  },
-  {
-    name: "Isaac Saul",
-    pub: "Tangle News",
-    beat: "Politics",
-    editorial: "Saul built Tangle into the rare political newsletter that presents the left and right arguments side by side without false equivalence. <strong>The model is the message.</strong>",
-    imgSrc: null,
-    initials: "IS",
-    searchUrl: "search.html?q=Isaac+Saul"
-  },
-  {
-    name: "Judd Legum",
-    pub: "Popular Info",
-    beat: "Government Accountability",
-    editorial: "Legum left ThinkProgress to build Popular Info — focused investigations into corporate influence and political accountability that legacy newsrooms often can't or won't pursue. <strong>Independence enables the story.</strong>",
-    imgSrc: null,
-    initials: "JL",
-    searchUrl: "search.html?q=Judd+Legum"
-  },
-  {
-    name: "Molly White",
-    pub: "Citation Needed",
-    beat: "Technology",
-    editorial: "White became the most rigorous independent voice on crypto and Web3 fraud — building a body of accountability journalism that shaped congressional hearings. <strong>One reporter. Real consequences.</strong>",
-    imgSrc: null,
-    initials: "MW",
-    searchUrl: "search.html?q=Molly+White"
-  },
-  {
-    name: "Emily Atkin",
-    pub: "Heated",
-    beat: "Climate",
-    editorial: "Atkin left The New Republic to build Heated into the sharpest accountability newsletter on the climate beat — focused on who profits from delay. <strong>The story has villains. She names them.</strong>",
-    imgSrc: null,
-    initials: "EA",
-    searchUrl: "search.html?q=Emily+Atkin"
-  },
-  {
-    name: "Ryan Broderick",
-    pub: "Garbage Day",
-    beat: "Internet Culture",
-    editorial: "Broderick maps the internet's weirdest corners with a journalist's rigor — Garbage Day is the definitive independent newsletter for understanding how online culture shapes offline reality. <strong>The feed is the beat.</strong>",
-    imgSrc: null,
-    initials: "RB",
-    searchUrl: "search.html?q=Ryan+Broderick"
-  },
-  {
-    name: "Matt Brown",
-    pub: "Extra Points",
-    beat: "Sports",
-    editorial: "Brown covers the business and politics of college sports from the outside — no access to protect, no athletic department to appease. <strong>The story behind the scoreboard.</strong>",
-    imgSrc: null,
-    initials: "MB",
-    searchUrl: "search.html?q=Matt+Brown"
-  },
-  {
-    name: "Adam Tooze",
-    pub: "Chartbook",
-    beat: "Economics &amp; Politics",
-    editorial: "Tooze connects macroeconomics, geopolitics, and history in a newsletter that Columbia University can't contain. <strong>The most important economic ideas don't live in academic journals anymore.</strong>",
-    imgSrc: null,
-    initials: "AT",
-    searchUrl: "search.html?q=Adam+Tooze"
-  },
-  {
-    name: "Alastair Campbell",
-    pub: "Rest Is Politics",
-    beat: "International",
-    editorial: "Campbell and Rory Stewart turned political commentary into the UK's most-downloaded podcast and newsletter — reaching audiences that had given up on political media. <strong>The conversation left broadcast behind.</strong>",
-    imgSrc: null,
-    initials: "AC",
-    searchUrl: "search.html?q=Alastair+Campbell"
-  },
-  {
-    name: "Charlotte Clymer",
-    pub: "Charlotte's Web Thoughts",
-    beat: "Politics &amp; LGBTQ+",
-    editorial: "Clymer covers LGBTQ+ policy and political accountability with the urgency of someone whose community is directly at stake. <strong>The stakes are the credential.</strong>",
-    imgSrc: null,
-    initials: "CC",
-    searchUrl: "search.html?q=Charlotte+Clymer"
-  },
-  {
-    name: "Adam Klasfeld",
-    pub: "All Rise News",
-    beat: "Law &amp; Courts",
-    editorial: "Klasfeld built independent legal journalism around the courtrooms that matter most — from January 6th trials to Trump prosecutions — without a wire service behind him. <strong>The gavel doesn't wait for institutional approval.</strong>",
-    imgSrc: null,
-    initials: "AK",
-    searchUrl: "search.html?q=Adam+Klasfeld"
-  },
-  {
-    name: "Noah Smith",
-    pub: "Noahpinion",
-    beat: "Economics",
-    editorial: "Smith left Bloomberg Opinion to build Noahpinion into one of the most-read independent economics newsletters — engaging experts and laypeople alike across tech, trade, and industrial policy. <strong>Economic literacy is a public good.</strong>",
-    imgSrc: null,
-    initials: "NS",
-    searchUrl: "search.html?q=Noah+Smith"
-  },
-  {
-    name: "Ed Zitron",
-    pub: "Where's Your Ed At",
-    beat: "Technology",
-    editorial: "Zitron holds Silicon Valley power accountable from Las Vegas — no press junkets, no access journalism, just pointed criticism of the industry's most powerful figures. <strong>Distance is an editorial asset.</strong>",
-    imgSrc: null,
-    initials: "EZ",
-    searchUrl: "search.html?q=Ed+Zitron"
-  },
-  {
-    name: "Anne Helen Petersen",
-    pub: "Culture Study",
-    beat: "Culture",
-    editorial: "Petersen left BuzzFeed News to build Culture Study — a newsletter that treats burnout, labor, and American life as serious subjects worth extended analysis. <strong>Cultural criticism as reporting.</strong>",
-    imgSrc: null,
-    initials: "AP",
-    searchUrl: "search.html?q=Anne+Helen+Petersen"
-  },
-  {
-    name: "Aaron Carroll",
-    pub: "Healthcare Triage",
-    beat: "Health",
-    editorial: "Carroll built Healthcare Triage into the go-to resource for understanding medical research and health policy — rigorous, accessible, and independent of pharma or hospital influence. <strong>Evidence-based journalism about evidence-based medicine.</strong>",
-    imgSrc: null,
-    initials: "AC",
-    searchUrl: "search.html?q=Aaron+Carroll"
-  },
-  {
-    name: "Jessica Huseman",
-    pub: "Votebeat",
-    beat: "Elections",
-    editorial: "Huseman built Votebeat into the essential nonprofit newsroom covering election administration — the unglamorous infrastructure beat that determines whether democracy actually functions. <strong>Who counts the votes matters more than who runs.</strong>",
-    imgSrc: null,
-    initials: "JH",
-    searchUrl: "search.html?q=Jessica+Huseman"
-  }
-];
-// FEATURED_POOL count: 24
+/* Featured rotation: rendered from creators whose Featured field in creators-master.csv
+   includes "home" (set by Ryan). No names are typed on this page; with none set, the section is hidden. */
+function initFeatured(pool) {
+  var grid     = document.getElementById('featured-grid');
+  var dotsEl   = document.getElementById('featured-progress');
+  var pauseBtn = document.getElementById('featured-pause-btn');
+  var section  = grid ? grid.closest('.featured-section') : null;
+  if (!grid || !dotsEl) return;
+  if (!pool.length) { if (section) section.hidden = true; return; }
+  if (section) section.hidden = false;
 
-(function() {
-  var pool = FEATURED_POOL;
   var pageSize = window.innerWidth < 768 ? 2 : 4;
   var totalPages = Math.ceil(pool.length / pageSize);
   var currentPage = 0;
@@ -874,12 +663,15 @@ const FEATURED_POOL = [
   var cycleInterval = null;
   var CYCLE_MS = 10000;
   var FADE_MS  = 300;
-
-  var grid     = document.getElementById('featured-grid');
-  var dotsEl   = document.getElementById('featured-progress');
-  var pauseBtn = document.getElementById('featured-pause-btn');
   var pauseIcon = pauseBtn ? pauseBtn.querySelector('.material-symbols-outlined') : null;
 
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(ch) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+
+  dotsEl.innerHTML = '';
   for (var i = 0; i < totalPages; i++) {
     var dot = document.createElement('button');
     dot.className = 'featured-progress-dot';
@@ -896,18 +688,13 @@ const FEATURED_POOL = [
     var start = page * pageSize;
     var creators = pool.slice(start, start + pageSize);
     grid.innerHTML = creators.map(function(c) {
-      var avatarInner = c.imgSrc
-        ? '<img src="' + c.imgSrc + '" alt="' + c.name + '" onerror="this.style.display=\'none\'; this.parentElement.setAttribute(\'data-initials\',\'' + c.initials + '\')">'
-        : '';
-      var avatarAttrs = c.imgSrc ? '' : ' data-initials="' + c.initials + '"';
       return [
         '<div class="featured-card">',
-          '<div class="featured-avatar"' + avatarAttrs + '>' + avatarInner + '</div>',
-          '<div class="featured-name">' + c.name + '</div>',
-          '<div class="featured-pub">' + c.pub + '</div>',
-          '<span class="featured-beat">' + c.beat + '</span>',
-          '<div class="featured-editorial">' + c.editorial + '</div>',
-          '<a href="' + c.searchUrl + '" class="featured-link link-instruction">View in Atlas →</a>',
+          '<div class="featured-avatar" data-initials="' + esc(c.initials) + '"></div>',
+          '<div class="featured-name">' + esc(c.name) + '</div>',
+          '<div class="featured-pub">' + esc(c.pub) + '</div>',
+          '<span class="featured-beat">' + esc(c.beat) + '</span>',
+          '<a href="' + esc(c.searchUrl) + '" class="featured-link link-instruction">View in Atlas →</a>',
         '</div>'
       ].join('');
     }).join('');
@@ -925,18 +712,14 @@ const FEATURED_POOL = [
     }, FADE_MS);
   }
 
-  function advance() {
-    goToPage((currentPage + 1) % totalPages);
-  }
+  function advance() { goToPage((currentPage + 1) % totalPages); }
 
   function startTimer() {
     if (cycleInterval) clearInterval(cycleInterval);
-    cycleInterval = setInterval(advance, CYCLE_MS);
+    if (totalPages > 1) cycleInterval = setInterval(advance, CYCLE_MS);
   }
 
-  function resetTimer() {
-    startTimer();
-  }
+  function resetTimer() { startTimer(); }
 
   function setPaused(paused) {
     isPaused = paused;
@@ -950,22 +733,19 @@ const FEATURED_POOL = [
     }
   }
 
-  var section = grid.closest('.featured-section');
   if (section) {
     section.addEventListener('mouseenter', function() { if (!isPaused) { clearInterval(cycleInterval); } });
     section.addEventListener('mouseleave', function() { if (!isPaused) { startTimer(); } });
   }
 
   if (pauseBtn) {
-    pauseBtn.addEventListener('click', function() {
-      setPaused(!isPaused);
-    });
+    pauseBtn.addEventListener('click', function() { setPaused(!isPaused); });
   }
 
   grid.style.transition = 'opacity ' + FADE_MS + 'ms ease';
   renderPage(0);
   startTimer();
-})();
+}
 </script>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -1034,10 +814,6 @@ const FEATURED_POOL = [
       <div class="stat-lbl">Creator RSS feeds</div>
       <div class="stat-sub-link link-instruction"><span class="stat-live-dot"></span> Live via Atlas Pulse →</div>
     </a>
-    <div class="stat-cell">
-      <div class="stat-num dark">12</div>
-      <div class="stat-lbl">Institutional partners</div>
-    </div>
   </div>
 </div>
 
@@ -1052,7 +828,7 @@ const FEATURED_POOL = [
       <div class="research-header-left">
         <div class="research-badge">Research</div>
         <h2 class="research-headline">Original analysis of an ecosystem most journalism coverage ignores.</h2>
-        <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. One methodology brief live. Two major studies landing this summer.</p>
+        <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. Live now: the CNTI report and our Bluesky methodology brief. Forthcoming: the Knight Foundation / Arizona State economics study.</p>
       </div>
       <a href="research.html" class="btn-lime btn btn--primary">View all research →</a>
     </div>
@@ -1084,15 +860,16 @@ const FEATURED_POOL = [
         </div>
       </div>
 
-      <!-- Card 3: ASU/Knight — coming -->
-      <div class="research-card research-card--muted">
+      <!-- Card 3: ASU/Knight — forthcoming -->
+      <!-- SLOT asu-knight-paper: on publication, replace "Forthcoming" with the month and year and link the card to the paper. -->
+      <div class="research-card research-card--muted" data-slot="asu-knight-paper">
         <div class="research-card-header">
           <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
         </div>
         <div class="research-card-body">
-          <div class="research-card-status">Knight Foundation · Arizona State University · Coming June 2026</div>
+          <div class="research-card-status">Knight Foundation · Arizona State University · Forthcoming</div>
           <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem.</p>
-          <span class="research-card-link" style="font-size:12px;font-weight:400;color:#bbb;cursor:default;">Coming June 2026</span>
+          <span class="research-card-link" style="font-size:12px;font-weight:400;color:#bbb;cursor:default;">Forthcoming</span>
         </div>
       </div>
 
@@ -1151,11 +928,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:0.65;"></span>Podcast 37</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#457b9d;opacity:0.4;"></span>YouTube 33</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Casey Newton</span>
-        <span class="cluster-creator-name">Ben Thompson</span>
-        <span class="cluster-creator-name">Kara Swisher</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1173,11 +946,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:0.65;"></span>Podcast 46</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#e63946;opacity:0.4;"></span>YouTube 24</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Judd Legum</span>
-        <span class="cluster-creator-name">Jessica Huseman</span>
-        <span class="cluster-creator-name">Greg Sargent</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1195,11 +964,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:0.65;"></span>Podcast 27</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#2d6a4f;opacity:0.4;"></span>YouTube 17</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Amy Westervelt</span>
-        <span class="cluster-creator-name">Emily Atkin</span>
-        <span class="cluster-creator-name">Robinson Meyer</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1217,11 +982,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.65;"></span>Own Site 55</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#ffd166;opacity:0.4;"></span>Podcast 26</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Block Club Chicago</span>
-        <span class="cluster-creator-name">The Oaklandside</span>
-        <span class="cluster-creator-name">Signal Cleveland</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1239,10 +1000,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:0.65;"></span>Podcast 32</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#f4a261;opacity:0.4;"></span>YouTube 18</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Byrne Hobart</span>
-        <span class="cluster-creator-name">Bryce Covert</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1260,11 +1018,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:0.65;"></span>Podcast 26</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#06d6a0;opacity:0.4;"></span>YouTube 14</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Eric Topol</span>
-        <span class="cluster-creator-name">Zeynep Tufekci</span>
-        <span class="cluster-creator-name">Ed Yong</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1282,11 +1036,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:0.65;"></span>Podcast 26</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#c77dff;opacity:0.4;"></span>YouTube 17</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Anne Helen Petersen</span>
-        <span class="cluster-creator-name">Ryan Broderick</span>
-        <span class="cluster-creator-name">Kate Lindsay</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1304,11 +1054,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.65;"></span>Own Site 27</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#118ab2;opacity:0.4;"></span>YouTube 13</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">Bisan Owda</span>
-        <span class="cluster-creator-name">Bill Bishop</span>
-        <span class="cluster-creator-name">Tim Mak</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1326,11 +1072,7 @@ const FEATURED_POOL = [
         <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:0.65;"></span>Podcast 20</span>
         <span class="fp-label"><span class="fp-swatch" style="background:#ff9f1c;opacity:0.4;"></span>YouTube 11</span>
       </div>
-      <div class="cluster-creators">
-        <span class="cluster-creator-name">The Athletic</span>
-        <span class="cluster-creator-name">Pablo Torre</span>
-        <span class="cluster-creator-name">Richard Deitsch</span>
-      </div>
+      <div class="cluster-creators" style="display:none"></div>
       <span class="cluster-explore-link link-instruction">Explore cluster →</span>
     </a>
 
@@ -1345,11 +1087,11 @@ const FEATURED_POOL = [
      SECTION 9: PARTNER STRIP
      ══════════════════════════════════════════════════════════ -->
 <section class="partner-section-v3" style="position:relative;">
-  <div class="partner-label">Working with</div>
+  <div class="partner-label">Published with</div>
   <div class="partner-logos-row">
-    <div class="partner-logo-slot"><span class="partner-logo-text">Chicago Press Forward</span></div>
-    <div class="partner-logo-slot"><span class="partner-logo-text">ICFJ</span></div>
-    <div class="partner-logo-slot"><span class="partner-logo-text">SembraMedia</span></div>
+    <div class="partner-logo-slot"><a class="partner-logo-text" href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer">CNTI report on US indie info providers</a></div>
+    <div class="partner-logo-slot"><a class="partner-logo-text" href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf" target="_blank" rel="noopener noreferrer">Press Forward Chicago / Chicago Community Trust toolkit</a></div>
+    <div class="partner-logo-slot"><a class="partner-logo-text" href="https://videoconsortium.org/member-resources/rise-of-creator-journalist-report" target="_blank" rel="noopener noreferrer">Video Consortium report</a></div>
   </div>
 </section>
 
@@ -1396,38 +1138,7 @@ const FEATURED_POOL = [
     </select>
     <input type="text" class="db-filter-input" placeholder="Search by name…">
   </div>
-  <div class="db-cards">
-    <div class="db-card">
-      <div class="db-card-name">Casey Newton</div>
-      <div class="db-card-pub">Platformer</div>
-      <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Technology</span></div>
-    </div>
-    <div class="db-card">
-      <div class="db-card-name">Emily Atkin</div>
-      <div class="db-card-pub">HEATED</div>
-      <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Climate &amp; Environment</span></div>
-    </div>
-    <div class="db-card">
-      <div class="db-card-name">Jessica Huseman</div>
-      <div class="db-card-pub">Votebeat</div>
-      <div class="db-card-pills"><span class="db-pill platform">Website</span><span class="db-pill topic">Politics &amp; Government</span></div>
-    </div>
-    <div class="db-card">
-      <div class="db-card-name">Matt Levine</div>
-      <div class="db-card-pub">Money Stuff</div>
-      <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Business &amp; Finance</span></div>
-    </div>
-    <div class="db-card">
-      <div class="db-card-name">Block Club Chicago</div>
-      <div class="db-card-pub">Block Club Chicago</div>
-      <div class="db-card-pills"><span class="db-pill platform">Website</span><span class="db-pill topic">Local News</span></div>
-    </div>
-    <div class="db-card">
-      <div class="db-card-name">Eric Topol</div>
-      <div class="db-card-pub">Ground Truths</div>
-      <div class="db-card-pills"><span class="db-pill platform">Newsletter</span><span class="db-pill topic">Health &amp; Science</span></div>
-    </div>
-  </div>
+  <div class="db-cards" id="db-cards"></div>
   <div class="db-cta">
     <a href="/search" class="btn-lime-lg btn btn--primary">Explore all <span class="js-creator-count" data-pulse-fallback="creators">{{CREATOR_COUNT}}</span> creators →</a>
   </div>
@@ -2317,6 +2028,46 @@ function _splitGroups(groupStr) {
   });
 }
 
+function _isFeatured(c, tag) {
+  return (c.featured || '').split(/[,;|]/).map(t => t.trim().toLowerCase()).includes(tag);
+}
+
+function _firstTopic(c) {
+  return (c.topicRaw || '').split(',')[0].trim();
+}
+
+function _initials(name) {
+  return (name || '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+}
+
+// Featured rotation and database-preview cards: only creators flagged "home" in the master.
+function _renderFeatured() {
+  const pool = allCreators.filter(c => _isFeatured(c, 'home')).map(c => ({
+    name: c.name, pub: c.channel, beat: _firstTopic(c), initials: _initials(c.name),
+    searchUrl: 'search.html?q=' + encodeURIComponent(c.name),
+  }));
+  initFeatured(pool);
+}
+
+function _renderDbCards() {
+  const wrap = document.getElementById('db-cards');
+  if (!wrap) return;
+  const bar = document.querySelector('.db-filter-bar');
+  const picks = allCreators.filter(c => _isFeatured(c, 'home')).slice(0, 9);
+  wrap.textContent = '';
+  picks.forEach(c => {
+    const card = document.createElement('div'); card.className = 'db-card';
+    const name = document.createElement('div'); name.className = 'db-card-name'; name.textContent = c.name;
+    const pub  = document.createElement('div'); pub.className = 'db-card-pub'; pub.textContent = c.channel;
+    const pills = document.createElement('div'); pills.className = 'db-card-pills';
+    const p1 = document.createElement('span'); p1.className = 'db-pill platform'; p1.textContent = c.platform;
+    const p2 = document.createElement('span'); p2.className = 'db-pill topic'; p2.textContent = _firstTopic(c);
+    pills.append(p1, p2); card.append(name, pub, pills); wrap.appendChild(card);
+  });
+  wrap.style.display = picks.length ? '' : 'none';
+  if (bar) bar.style.display = picks.length ? '' : 'none';
+}
+
 function _abbrevPlatform(p) {
   return (p || '').replace(/^Newsletter\s*-\s*/, '').replace(/^Video\s*-\s*/, '') || 'Newsletter';
 }
@@ -2342,6 +2093,20 @@ function _updateClusterCards() {
       matches = allCreators.filter(c => c.topic.includes('sport'));
     }
     if (!matches.length) return;
+
+    // Exemplars: only creators flagged "cluster" in the master's Featured field (Ryan sets it).
+    const exWrap = card.querySelector('.cluster-creators');
+    if (exWrap) {
+      const ex = matches.filter(c => _isFeatured(c, 'cluster')).slice(0, 3);
+      exWrap.textContent = '';
+      ex.forEach(c => {
+        const span = document.createElement('span');
+        span.className = 'cluster-creator-name';
+        span.textContent = c.name;
+        exWrap.appendChild(span);
+      });
+      exWrap.style.display = ex.length ? '' : 'none';
+    }
 
     // Update total count
     const countEl = card.querySelector('.cluster-count-n');
@@ -2386,6 +2151,9 @@ window.addEventListener('DOMContentLoaded', async () => {
       topic:       (c.topic || '').toLowerCase(),
       group:       c.group || '',
       geography:   c.geography || '',
+      slug:        c.slug || '',
+      featured:    c.featured || '',
+      topicRaw:    c.topic || '',
     }));
   } catch (err) {
     console.warn('Atlas viz: data fetch failed, viz will not render', err);
@@ -2395,6 +2163,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   const countStr = allCreators.length.toLocaleString();
   document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = countStr; });
   _updateClusterCards();
+  _renderFeatured();
+  _renderDbCards();
 
   viz = buildViz(
     document.getElementById('hero-canvas'),
