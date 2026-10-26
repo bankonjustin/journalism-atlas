@@ -15,7 +15,7 @@
    ===================================================== */
 var ATLAS_STRIP = {
   id: 'watershed-2026-10',
-  enabled: false,
+  enabled: true,
   expires: '2026-11-15',
   selfPath: '/watershed/',
   hideOn: ['/'],
