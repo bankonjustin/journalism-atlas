@@ -215,6 +215,8 @@ Four locations now exist. Don't assume file paths from older briefs still hold â
 
 ## Homepage names come from data
 
+**Status (Oct 26, 2026):** the homepage is temporarily back on its previous hand-typed featured, preview and exemplar cards (`index.html` restored to its pre-`3ed93d8` state), because no creator has `Featured` set yet and those slots would render empty. The Featured column and `convert.js` support stay in place. Once Ryan has set `Featured` values, re-apply the data-driven homepage from that commit and delete this note.
+
 No creator names are typed on `index.html`. The featured rotation, the database-preview cards and the cluster-card exemplars render from the master's trailing `Featured` column (emitted as `featured` in `creators-data.json`). Ryan sets it: `home` puts a creator in the featured rotation and preview cards; `cluster` lets them appear as an exemplar on their cluster card (3 max per card). Tokens combine with `|` or `,`. With nothing set, those slots are hidden. Do not hand-type names or blurbs into the page, and do not set `Featured` yourself. `atlas_normalize.py` only prints a note for the extra column, but check that any script that rewrites the master keeps it.
 
 ---
