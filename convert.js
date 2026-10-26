@@ -22,6 +22,11 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
+const { checkRejections } = require('./scripts/check-rejections');
+
+// Refuse to build while a rejected slug is live in the master without a re-admit note.
+if (!process.argv.includes('--skip-rejection-check')) checkRejections();
 
 const INPUT       = path.join(__dirname, 'assets', 'data', 'creators-master.csv');
 const OUTPUT      = path.join(__dirname, 'assets', 'data', 'creators-data.json');
@@ -159,11 +164,31 @@ creators.forEach(c => {
   if (c.platform) platforms.add(c.platform);
 });
 
+// As-of date = when the master last changed: the last commit touching it, or the
+// file's mtime while it has uncommitted edits (or outside a git checkout).
+function masterAsOf() {
+  const rel = path.relative(__dirname, INPUT);
+  try {
+    const dirty = execFileSync('git', ['status', '--porcelain', '--', rel], { cwd: __dirname, encoding: 'utf8' }).trim();
+    if (!dirty) {
+      const d = execFileSync('git', ['log', '-1', '--format=%cs', '--', rel], { cwd: __dirname, encoding: 'utf8' }).trim();
+      if (d) return d;
+    }
+  } catch (e) { /* fall through to mtime */ }
+  return fs.statSync(INPUT).mtime.toISOString().slice(0, 10);
+}
+const asOf = masterAsOf();
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const [ay, am, ad] = asOf.split('-').map(Number);
+
 const stats = {
-  totalCreators: creators.length,
-  topicCount:    topics.size,
-  platformCount: platforms.size,
-  lastUpdated:   new Date().toISOString().slice(0, 10),
+  totalCreators:      creators.length,
+  totalCreatorsLabel: creators.length.toLocaleString('en-US'),
+  asOf,
+  asOfLabel:          `${MONTHS[am - 1]} ${ad}, ${ay}`,
+  topicCount:         topics.size,
+  platformCount:      platforms.size,
+  lastUpdated:        asOf,
 };
 
 fs.writeFileSync(STATS_OUTPUT, JSON.stringify(stats, null, 2), 'utf8');

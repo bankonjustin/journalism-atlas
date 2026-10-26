@@ -49,7 +49,7 @@ Intentional, clean, data-forward, and creator-respecting. Authoritative but not 
 | "Independent" | independent journalist / independent journalism | journalist / journalism without "independent" when describing the Atlas's field |
 | Starter Pack | Starter Pack | Postcard (the /postcard URL stays) |
 | Em dashes | word—word | word — word |
-| Database size | "about 2,400–2,500 creators" (after deduplication); always "about" in public | older figures (1,200, 1,718, 2,100, 2,364) |
+| Database size | the build-time count with its as-of date (e.g. "2,415 verified creator-journalists, as of October 25, 2026"); never typed by hand, see CLAUDE.md "Creator Count Convention" | hand-typed counts, rounded forms ("1,800+", "about 2,400–2,500"), older figures (1,200, 1,718, 2,100, 2,364) |
 | Audience | "traffic" or "visitors" (roughly 20,000–30,000 a month) | "leads" |
 | Legal entity | TIJA LLC (legal and copyright lines) | older entity names |
 | Internal designations | — | "Top 100 creators" in anything public |
