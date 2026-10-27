@@ -22,6 +22,9 @@ NAME, format, beat tags and a home-base label. No contact details, no follower c
 import json, re, sys, html, unicodedata, argparse, urllib.parse
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import main_beats   # the shared main-beat list (also read by the Pulse build)
+
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets/data/lens-index.json"
 
@@ -187,18 +190,14 @@ def main():
         featured_log.append((phrase, n_hit, n_hit >= min_pieces))
         if n_hit >= min_pieces:
             chip_labels.append(phrase)
-    pc = {}
-    for t, _c, _u, _d, _f, tg in pieces:
-        for i in tg:
-            pc[i] = pc.get(i, 0) + 1
-    beat_chips = [i for i in sorted(pc, key=lambda i: -pc[i]) if pc[i] >= 40 and len(tag_ids[tags[i]]) >= 25]
-    for i in beat_chips:
+    # beat chips: the shared main-beat list (scripts/main_beats.py: >= 40 pieces this week, >= 25 registry creators), most-covered first
+    main_labels, _pc = main_beats.main_beat_labels(main_beats.load_window_pieces(ROOT, w_from, w_to), main_beats.load_registry_tag_counts(ROOT))
+    for t in main_labels:
         if len(chip_labels) >= 8:
             break
-        if tags[i].lower() not in [c.lower() for c in chip_labels]:
-            chip_labels.append(tags[i])
+        if t.lower() not in [c.lower() for c in chip_labels]:
+            chip_labels.append(t)
     chip_labels = chip_labels[:8]
-    chips = beat_chips   # kept for the report below
 
     feeds = None
     m = re.search(r'"total_rss_resolved":\s*(\d+)', (ROOT / "pulse.html").read_text())
