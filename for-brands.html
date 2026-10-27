@@ -50,7 +50,7 @@
     .small a:hover, .lede a:hover, .col a:hover { color: #000; }
     /* live data: the only place mono appears outside tags */
     .live { font-family: var(--font-mono); font-weight: 500; font-size: 0.92em; letter-spacing: 0.02em; }
-    .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-acid); margin-right: 8px; vertical-align: middle; }
+    .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--viz-orange); margin-right: 8px; vertical-align: middle; }
     .tag { display: inline-block; font-family: var(--font-mono); font-weight: 500; font-size: 12px; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; }
     .tag--real { background: #000; color: #fff; }
     .tag--wip { color: #303030; border: 1px solid #303030; padding: 3px 7px; }
@@ -81,20 +81,21 @@
     .lr-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--color-text-on-dark-2); margin-bottom: 20px; }
     .lens-frame { font-family: var(--font-editorial); font-weight: 700; font-size: 24px; line-height: 1.35; color: #fff; max-width: 30em; }
     @media (min-width: 900px) { .lens-frame { font-size: 28px; } }
-    .lens-frame .live { font-family: var(--font-mono); font-size: 0.85em; color: var(--color-acid); }
+    .lens-frame .live { font-family: var(--font-mono); font-size: 0.85em; color: var(--viz-orange); }
     .lens-grid { position: relative; display: grid; gap: 32px; margin-top: 40px; }
     @media (min-width: 900px) { .lens-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 160px; align-items: start; } }
     .lr-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-    .lr-lines path { fill: none; stroke: var(--color-acid); stroke-width: 1.25; opacity: 0.7; }
+    .lr-lines path { fill: none; stroke: var(--viz-orange); stroke-width: 1.25; opacity: 0.7; }
     .stat-n { font-size: 56px; line-height: 1; color: #fff; display: block; }
     .stat-l { display: block; margin-top: 8px; font-size: 14px; color: var(--color-text-on-dark-2); max-width: 24em; }
     .lr-stats { display: grid; gap: 28px; }
     .lr-stats .lr-secondary .stat-n { font-size: 32px; }
     .mix { display: grid; gap: 12px; }
-    .mix-row { display: grid; grid-template-columns: 96px 1fr 52px; gap: 12px; align-items: center; font-size: 14px; color: #fff; }
+    .mix-row { display: grid; grid-template-columns: 96px 1fr 92px; gap: 12px; align-items: center; font-size: 14px; color: #fff; }
     .mix-row .bar { display: block; height: 8px; border-radius: 2px; background: var(--color-border-on-dark); position: relative; }
     .mix-row .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #fff; border-radius: 2px; }
-    .mix-row .live { text-align: right; }
+    .mix-row .live { text-align: right; white-space: nowrap; }
+    .lr-h--gap { margin-top: 32px; }
     .mix-row[data-zero] { color: var(--color-text-on-dark-2); }
     .lr-cols { display: grid; gap: 40px; margin-top: 48px; }
     @media (min-width: 900px) { .lr-cols { grid-template-columns: 2fr 1fr; gap: 64px; } }
@@ -226,7 +227,7 @@
     <!-- Lens: markup lives in a template, so it is not in the page until ATLAS_FLAGS.lens (or ?lens=1) mounts it. -->
     <p class="hero-cta" id="hero-cta"><a class="btn-brief" href="#build-brief">Request my brief</a></p>
     <div id="lens-mount"></div>
-    <template id="lens-tpl">
+    <template id="lens-tpl" data-through="2026-10-22">
     <!-- The Issue Lens. Chips are written between the LENS:CHIPS markers by scripts/build_lens_index.py (this week's most-covered beats). Results come from assets/data/lens-index.json. -->
     <div class="lens" id="lens">
       <form id="lens-form" role="search" novalidate>
@@ -240,14 +241,14 @@
         </div>
                 <ul class="lens-chips" aria-label="Suggested issues">
           <!-- LENS:CHIPS -->
+          <li><button type="button" class="chip">data centers</button></li>
+          <li><button type="button" class="chip">AI</button></li>
+          <li><button type="button" class="chip">election</button></li>
           <li><button type="button" class="chip">Politics</button></li>
           <li><button type="button" class="chip">Tech</button></li>
           <li><button type="button" class="chip">Local</button></li>
           <li><button type="button" class="chip">Media/Power</button></li>
           <li><button type="button" class="chip">Culture</button></li>
-          <li><button type="button" class="chip">Finance/Economics</button></li>
-          <li><button type="button" class="chip">World</button></li>
-          <li><button type="button" class="chip">Government Accountability</button></li>
           <!-- /LENS:CHIPS -->
         </ul>
       </form>
@@ -475,8 +476,8 @@
 // ── Flags. Content that is draft or date-gated stays hidden until its flag is on. ──
 // nn: Nodes and Networks goes live when the paper does (Oct 28, 2026). Add ?nn=1 to preview early.
 // standards / lab: SOFT blocks, flip to true after Justin signs off.
-// lens: the Issue Lens. Off until it runs on real data (Phase 2). ?lens=1 previews it.
-var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false };
+// lens: the Issue Lens. ?lens=1 previews it. lensMaxAgeDays: past this many days since the index's data-through date the Lens hides itself.
+var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false, lensMaxAgeDays: 14 };
 (function () {
   var qs = new URLSearchParams(location.search);
   function on(name) {
@@ -498,7 +499,11 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false 
   var pre = new URLSearchParams(location.search).get('issue');
   if (pre) { issue.value = pre; lens.value = pre; }
   if (!window.ATLAS_LENS_ON) return;
-  document.getElementById('lens-mount').appendChild(document.getElementById('lens-tpl').content.cloneNode(true));
+  // Failsafe: the through date is baked into the template by scripts/build_lens_index.py. A stale instrument on a buyer page
+  // is worse than none, so past ATLAS_FLAGS.lensMaxAgeDays the Lens never mounts and the hero keeps its plain link.
+  var tpl = document.getElementById('lens-tpl'), through = tpl.dataset.through;
+  if (!through || (Date.now() - new Date(through + 'T12:00:00Z').getTime()) / 864e5 > ATLAS_FLAGS.lensMaxAgeDays) return;
+  document.getElementById('lens-mount').appendChild(tpl.content.cloneNode(true));
   document.getElementById('hero-cta').hidden = true;
 
   var q = document.getElementById('lens-q'), out = document.getElementById('lens-result'), status = document.getElementById('lens-status');
@@ -509,7 +514,8 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false 
   function loadIndex() {
     if (IDX) return Promise.resolve(IDX);
     if (!loading) loading = fetch('/assets/data/lens-index.json').then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
-      d._n = d.pieces.map(function (p) { return norm(p[0]); });
+      d._nc = d.pieces.map(function (p) { return stripMarks(p[0]); });
+      d._n = d._nc.map(function (t) { return t.toLowerCase(); });
       d._tn = d.tags.map(function (t) { return norm(t); });
       d._tseg = d.tags.map(function (t) { return t.split('/').map(norm); });
       IDX = d; return d;
@@ -522,10 +528,17 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false 
   function dateOf(base, off) { var d = new Date(base + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + off); return MON[d.getUTCMonth()] + ' ' + d.getUTCDate(); }
   function fullDate(iso) { var d = new Date(iso + 'T12:00:00Z'); return MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear(); }
   var STOP = { the: 1, a: 1, an: 1, of: 1, and: 1, in: 1, on: 1, for: 1, to: 1, is: 1, are: 1, vs: 1 };
-  function tokens(s) { return norm(s).split(/[^a-z0-9]+/).filter(function (t) { return t && !STOP[t]; }); }
+  function stripMarks(s) { return String(s).normalize('NFKD').replace(/[\u0300-\u036f]/g, ''); }
+  function tokens(s) { return stripMarks(s).split(/[^A-Za-z0-9]+/).filter(function (t) { return t && !STOP[t.toLowerCase()]; }); }
+  function re(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
   function matcher(t) {
-    var stem = (t.length > 3 && /s$/.test(t) && !/ss$/.test(t)) ? t.slice(0, -1) : t;
-    return new RegExp('(^|[^a-z0-9])' + stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + (stem.length <= 3 ? '($|[^a-z0-9])' : ''));
+    if (t.length <= 3) {
+      var forms = /[A-Z]/.test(t) ? [t] : [t.charAt(0).toUpperCase() + t.slice(1).toLowerCase(), t.toUpperCase()];
+      forms = forms.filter(function (f, i) { return forms.indexOf(f) === i; });
+      return { lower: false, rx: new RegExp('(^|[^A-Za-z0-9])(?:' + forms.map(re).join('|') + ')($|[^A-Za-z0-9])') };
+    }
+    var base = t.toLowerCase(); if (/s$/.test(base) && !/ss$/.test(base)) base = base.slice(0, -1);
+    return { lower: true, rx: new RegExp('(^|[^a-z0-9])' + re(base) + '(?:s|es)?($|[^a-z0-9])') };
   }
 
   // Which beat tags does the query name? Exact tag, or one whole segment of a "A/B" tag ("finance" -> Finance/Economics).
@@ -535,61 +548,82 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false 
     return hit;
   }
 
-  function analyze(D, text) {
-    var mode, pieces, tagIdx = beatTags(D, text), label = text.trim();
-    if (tagIdx.length) {
-      mode = 'beat';
-      label = tagIdx.length === 1 ? D.tags[tagIdx[0]] : label;
-      pieces = D.pieces.filter(function (p) { return p[5].some(function (t) { return tagIdx.indexOf(t) > -1; }); });
-    } else {
-      mode = 'title';
-      var res = tokens(text).map(matcher);
-      pieces = res.length ? D.pieces.filter(function (p, i) { return res.every(function (r) { return r.test(D._n[i]); }); }) : [];
-    }
+  // Title matching. MUST match compile_token()/title_hits() in scripts/build_lens_index.py (the build uses it to gate chips).
+  // Whole words only. Tokens of 3 letters or fewer are case-sensitive: "AI" and "Fed" never hit "said" or "fed up"; a short
+  // token typed all lowercase matches its Capitalized or UPPER form. Longer tokens are case-insensitive, whole-word, optional plural.
+  function titleHits(D, text) {
+    var ms = tokens(text).map(matcher), out = [];
+    if (!ms.length) return out;
+    D.pieces.forEach(function (p, i) { if (ms.every(function (m) { return m.rx.test(m.lower ? D._n[i] : D._nc[i]); })) out.push(i); });
+    return out;
+  }
+
+  function stats(D, pieces) {
     var cset = {}, fmt = [0, 0, 0, 0], places = {}, withPlace = 0;
     pieces.forEach(function (p) { p[1].forEach(function (c) { cset[c] = 1; }); fmt[p[4]]++; });
     Object.keys(cset).forEach(function (c) { var pl = D.creators[c][1]; if (pl > -1) { withPlace++; places[pl] = (places[pl] || 0) + 1; } });
-    var verified = null;
-    if (mode === 'beat') {
-      var u = {}; tagIdx.forEach(function (t) { D.tag_ids[t].forEach(function (id) { u[id] = 1; }); }); verified = Object.keys(u).length;
-    }
     var heads = [], seen = {};
     for (var i = 0; i < pieces.length && heads.length < 3; i++) { var c0 = pieces[i][1][0]; if (!seen[c0]) { seen[c0] = 1; heads.push(pieces[i]); } }
     var ranked = Object.keys(places).map(function (k) { return [D.places[k], places[k]]; }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 5);
-    var extra = 0;
-    if (mode === 'beat') { var rs = tokens(text).map(matcher), inSet = {}; pieces.forEach(function (p) { inSet[p[2]] = 1; }); D.pieces.forEach(function (p, i) { if (!inSet[p[2]] && rs.length && rs.every(function (r) { return r.test(D._n[i]); })) extra++; }); }
-    return { mode: mode, extra: extra, label: label, pieces: pieces, creators: Object.keys(cset).length, fmt: fmt, verified: verified, heads: heads, places: ranked, withPlace: withPlace };
+    return { pieces: pieces, creators: Object.keys(cset).length, fmt: fmt, heads: heads, places: ranked, withPlace: withPlace };
   }
 
+  // Two figures, never summed: pieces carried by the beat tag, and (for beat queries) the further pieces that only mention
+  // the phrase in the title. A piece counted under the beat is not counted again.
+  function analyze(D, text) {
+    var tagIdx = beatTags(D, text), hits = titleHits(D, text), r;
+    var beatPieces = tagIdx.length ? D.pieces.filter(function (p) { return p[5].some(function (t) { return tagIdx.indexOf(t) > -1; }); }) : [];
+    if (beatPieces.length) {
+      var seen = {}; beatPieces.forEach(function (p) { seen[p[2]] = 1; });
+      var more = hits.map(function (i) { return D.pieces[i]; }).filter(function (p) { return !seen[p[2]]; });
+      r = stats(D, beatPieces); r.mode = 'beat'; r.label = tagIdx.length === 1 ? D.tags[tagIdx[0]] : text.trim();
+      r.more = more.length ? stats(D, more) : null;
+      var u = {}; tagIdx.forEach(function (t) { D.tag_ids[t].forEach(function (id) { u[id] = 1; }); }); r.verified = Object.keys(u).length;
+    } else {
+      r = stats(D, hits.map(function (i) { return D.pieces[i]; })); r.mode = 'title'; r.label = text.trim(); r.more = null; r.verified = null;
+    }
+    return r;
+  }
+
+  function num(n) { return '<span class="live">' + n.toLocaleString() + '</span>'; }
+  // "{m} pieces from {n} journalists ...", singulars handled. Beat queries add the title figure as its own clause.
   function frame(D, r) {
-    var wk = dateOf(D.from, 0) + ', ' + D.from.slice(0, 4), n = r.creators, m = r.pieces.length;
-    var what = r.mode === 'beat' ? ' on ' + esc(r.label) : ' with <q>' + esc(r.label) + '</q> in the title';
-    return plural(n, 'independent journalist', 'independent journalists').replace(/^([\d,]+)/, '<span class="live">$1</span>') + ' published ' +
-      m.toLocaleString().replace(/^(.*)$/, '<span class="live">$1</span>') + ' ' + (m === 1 ? 'piece' : 'pieces') + what + ' in the week of ' + wk + '.';
+    var wk = dateOf(D.from, 0) + ', ' + D.from.slice(0, 4), m = r.pieces.length, n = r.creators;
+    var s = num(m) + (m === 1 ? ' piece' : ' pieces') + ' from ' + num(n) + (n === 1 ? ' journalist' : ' journalists');
+    if (r.mode === 'beat') {
+      s += ' on the ' + esc(r.label) + ' beat';
+      if (r.more) s += ', plus ' + num(r.more.pieces.length) + ' more ' + (r.more.pieces.length === 1 ? 'piece' : 'pieces') + ' with “' + esc(r.qtext) + '” in the title';
+    } else s += ' with “' + esc(r.label) + '” in the title';
+    return s + ', in the week of ' + wk + '.';
   }
   function plainFrame(D, r) { var d = document.createElement('div'); d.innerHTML = frame(D, r); return d.textContent; }
+  function headList(D, heads) {
+    return heads.map(function (p) {
+      return '<li><a href="' + esc(p[2]) + '" target="_blank" rel="noopener">' + esc(p[0]) + '</a><span class="by">' + esc(D.creators[p[1][0]][0]) + ' &middot; <span class="live">' + dateOf(D.from, p[3]) + '</span></span></li>';
+    }).join('');
+  }
 
   function render(D, text) {
-    var r = analyze(D, text), label = r.label, html = '';
+    var r = analyze(D, text), html = '';
+    r.qtext = text.trim();
     if (!r.pieces.length) {
       html = '<div class="lens-empty"><p class="lens-frame">We didn’t find weekly coverage of “' + esc(text.trim()) + '” in the ' +
-        (D.feeds ? '<span class="live">' + D.feeds.toLocaleString() + '</span> ' : '') + 'feeds we read.</p>' +
+        (D.feeds ? num(D.feeds) + ' ' : '') + 'feeds we read.</p>' +
         '<p class="lede" style="color:var(--color-text-on-dark-2)">That’s a finding too: either nobody independent is covering it yet, or they’re somewhere we should be looking. We match on beat names and piece titles, so a different phrasing may find more. Ask us to dig.</p></div>';
     } else {
       var mx = Math.max.apply(null, r.fmt) || 1;
       var mix = ['Newsletter', 'Video', 'Podcast', 'Web'].map(function (nm, i) {
-        return '<div class="mix-row"' + (r.fmt[i] ? '' : ' data-zero') + '><span>' + nm + '</span><span class="bar"><i style="width:' + Math.round(100 * r.fmt[i] / mx) + '%"></i></span><span class="live">' + r.fmt[i].toLocaleString() + '</span></div>';
-      }).join('');
-      var heads = r.heads.map(function (p) {
-        return '<li><a href="' + esc(p[2]) + '" target="_blank" rel="noopener">' + esc(p[0]) + '</a><span class="by">' + esc(D.creators[p[1][0]][0]) + ' &middot; <span class="live">' + dateOf(D.from, p[3]) + '</span></span></li>';
+        // Podcasts mostly publish on custom domains we can only label by the creator's platform, so that count is a floor.
+        return '<div class="mix-row"' + (r.fmt[i] ? '' : ' data-zero') + '><span>' + nm + '</span><span class="bar"><i style="width:' + Math.round(100 * r.fmt[i] / mx) + '%"></i></span><span class="live">' + (i === 2 ? 'at least ' : '') + r.fmt[i].toLocaleString() + '</span></div>';
       }).join('');
       var places = r.places.length ? '<div><h2 class="lr-h">Where they’re based</h2><ul class="places">' + r.places.map(function (x) { return '<li><span>' + esc(x[0]) + '</span><span class="live">' + x[1] + '</span></li>'; }).join('') + '</ul><p class="lr-fine">Creator home base, not story location. ' + r.withPlace + ' of ' + r.creators + ' have one listed.</p></div>' : '';
-      var ver = r.verified != null ? '<div class="lr-secondary"><span class="stat-n live">' + r.verified.toLocaleString() + '</span><span class="stat-l">verified creators in the Atlas filed under ' + esc(label) + '</span></div>' : '';
+      var ver = r.verified != null ? '<div class="lr-secondary"><span class="stat-n live">' + r.verified.toLocaleString() + '</span><span class="stat-l">verified creators in the Atlas filed under ' + esc(r.label) + '</span></div>' : '';
+      var more = r.more ? '<h2 class="lr-h lr-h--gap">' + r.more.pieces.length.toLocaleString() + ' more from ' + r.more.creators.toLocaleString() + ' ' + (r.more.creators === 1 ? 'journalist' : 'journalists') + ' with “' + esc(text.trim()) + '” in the title, filed under other beats</h2><ul class="lens-heads">' + headList(D, r.more.heads) + '</ul>' : '';
       html = '<p class="lens-frame">' + frame(D, r) + '</p>' +
-        '<div class="lens-grid" id="lr-grid"><div class="mix" id="lr-mix" aria-label="Platform mix of these pieces">' + mix + '</div>' +
-        '<div class="lr-stats"><div id="lr-hub"><span class="stat-n live">' + r.creators.toLocaleString() + '</span><span class="stat-l">' + (r.creators === 1 ? 'creator' : 'creators') + ' in the Atlas published these ' + r.pieces.length.toLocaleString() + (r.pieces.length === 1 ? ' piece' : ' pieces') + '</span></div>' + ver + '</div></div>' +
-        '<div class="lr-cols"><div><h2 class="lr-h">Recent, from their own pages</h2><ul class="lens-heads">' + heads + '</ul></div>' + places + '</div>' +
-        '<p class="lens-note">' + (r.mode === 'beat' ? 'Pieces are matched on the beat tags creators carry in the Atlas.' + (r.extra ? ' ' + plural(r.extra, 'more piece', 'more pieces') + ' from creators filed under other beats ' + (r.extra === 1 ? 'has' : 'have') + ' \u201c' + esc(text.trim()) + '\u201d in the title.' : '') : 'Matched on piece titles only. Titles are all the index holds, so a topic named differently in a title will not show.') + '</p>';
+        '<div class="lens-grid" id="lr-grid"><div><div class="mix" id="lr-mix" aria-label="Platform mix of these pieces">' + mix + '</div></div>' +
+        '<div class="lr-stats"><div id="lr-hub"><span class="stat-n live">' + r.creators.toLocaleString() + '</span><span class="stat-l">' + (r.creators === 1 ? 'creator' : 'creators') + ' in the Atlas published ' + (r.pieces.length === 1 ? 'this piece' : 'these ' + r.pieces.length.toLocaleString() + ' pieces') + '</span></div>' + ver + '</div></div>' +
+        '<div class="lr-cols"><div><h2 class="lr-h">Recent, from their own pages</h2><ul class="lens-heads">' + headList(D, r.heads) + '</ul>' + more + '</div>' + places + '</div>' +
+        '<p class="lens-note">' + (r.mode === 'beat' ? 'Beat pieces are matched on the beat tags creators carry in the Atlas; the title figure is counted separately and never added in. ' : 'Matched on piece titles only, whole words. Titles are all the index holds, so a topic named differently in a title will not show. ') + 'Podcast is a floor: most podcasts publish on custom domains.</p>';
     }
     html = '<div class="lr-head"><span class="live-dot" aria-hidden="true"></span><span>Live window <span class="live">' + dateOf(D.from, 0) + ' to ' + dateOf(D.to, 0) + '</span>. Data through <span class="live">' + dateOf(D.through, 0) + '</span>.</span></div>' + html +
       '<p class="lens-act"><a class="btn-brief" href="#build-brief" data-fill="lens">Request a brief on ' + esc(text.trim()) + '</a></p>';
@@ -629,7 +663,7 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false 
     document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(norm(c.textContent) === norm(text))); });
     out.hidden = false; status.textContent = 'Reading this week’s pieces.';
     if (!IDX) out.innerHTML = '<p class="lr-fine">Reading this week’s pieces…</p>';
-    loadIndex().then(function (D) { if (lastQuery !== text) return; render(D, text); if (!fromUrl) setUrl(text); })
+    loadIndex().then(function (D) { if (lastQuery !== text) return; if ((Date.now() - new Date(D.through + 'T12:00:00Z').getTime()) / 864e5 > ATLAS_FLAGS.lensMaxAgeDays) { document.getElementById('lens').remove(); document.getElementById('hero-cta').hidden = false; return; } render(D, text); if (!fromUrl) setUrl(text); })
       .catch(function () { out.innerHTML = '<p class="lr-fine">The weekly index did not load. You can still <a href="#build-brief" style="color:#fff;text-decoration:underline">request a brief</a>.</p>'; });
   }
   function setUrl(text) { try { var u = new URL(location.href); u.searchParams.set('issue', text); history.replaceState(null, '', u); } catch (e) {} }

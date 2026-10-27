@@ -12,13 +12,14 @@ Inputs (all already in the repo):
   data/pulse-issues.json                  latest issue -> the masthead window (week_start..week_end)
   assets/data/creators-data.json          the registry (beat tags, home base)
   assets/data/site-stats.json             verified count and as-of date
+  config/lens_featured_issues.json        hand-edited issue chips; each is dropped if under min_pieces matches this week
   for-brands.html                         (rewrites the chip list between the LENS:CHIPS markers)
   pulse.html                              feeds monitored (total_rss_resolved), so the page never types it
 
 Nothing here is model-written. The index holds only what the Lens may show: piece title, link, date, creator
 NAME, format, beat tags and a home-base label. No contact details, no follower counts.
 """
-import json, re, sys, html, urllib.parse
+import json, re, sys, html, unicodedata, argparse, urllib.parse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -66,7 +67,49 @@ def norm(name):
     return re.sub(r"\s+", " ", (name or "").strip().lower())
 
 
+# ── Title matcher. MUST stay identical to matcher()/tokens() in for-brands.html (the page and the chip gate use one rule). ──
+# Whole-word only. Tokens of 3 letters or fewer are case-sensitive ("AI" and "Fed" do not hit "said" or "fed up"); a short
+# token typed all lowercase matches its Capitalized or UPPER form, never the lowercase word. Longer tokens match
+# case-insensitively, as whole words with an optional plural ("center" finds "centers", never "centered" or "datacenter").
+STOP = {"the", "a", "an", "of", "and", "in", "on", "for", "to", "is", "are", "vs"}
+
+
+def strip_marks(s):
+    return "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
+
+
+def raw_tokens(q):
+    return [t for t in re.split(r"[^A-Za-z0-9]+", strip_marks(q)) if t and t.lower() not in STOP]
+
+
+def compile_token(t):
+    if len(t) <= 3:
+        forms = [t] if re.search(r"[A-Z]", t) else [t[:1].upper() + t[1:].lower(), t.upper()]
+        forms = list(dict.fromkeys(forms))
+        return re.compile(r"(^|[^A-Za-z0-9])(?:" + "|".join(re.escape(f) for f in forms) + r")($|[^A-Za-z0-9])"), False
+    base = t.lower()
+    if base.endswith("s") and not base.endswith("ss"):
+        base = base[:-1]
+    return re.compile(r"(^|[^a-z0-9])" + re.escape(base) + r"(?:s|es)?($|[^a-z0-9])"), True
+
+
+def title_hits(query, titles):
+    """Indexes of titles matching every token of the query."""
+    toks = [compile_token(t) for t in raw_tokens(query)]
+    if not toks:
+        return []
+    out = []
+    for i, title in enumerate(titles):
+        nc = strip_marks(title); n = nc.lower()
+        if all(rx.search(n if lower else nc) for rx, lower in toks):
+            out.append(i)
+    return out
+
+
 def main():
+    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
+    ap.add_argument('--dry-run', action='store_true', help='report only; write nothing')
+    args = ap.parse_args()
     issues = json.loads((ROOT / "data/pulse-issues.json").read_text())
     latest = issues["issues"][sorted(issues["issues"])[-1]]
     w_from, w_to, through = latest["week_start"], latest["week_end"], latest["data_through"]
@@ -134,12 +177,28 @@ def main():
 
     pieces.sort(key=lambda x: (-x[3], x[0]))
 
-    # chips: most-covered beat tags this window with enough people behind them to be meaningful
+    # chips: featured issues first (hand-picked, each must clear min_pieces), then the most-covered beats; 8 total
+    cfg = json.loads((ROOT / "config/lens_featured_issues.json").read_text())
+    min_pieces = int(cfg.get("min_pieces", 5))
+    titles = [p[0] for p in pieces]
+    chip_labels, featured_log = [], []
+    for phrase in cfg.get("issues", []):
+        n_hit = len(title_hits(phrase, titles))
+        featured_log.append((phrase, n_hit, n_hit >= min_pieces))
+        if n_hit >= min_pieces:
+            chip_labels.append(phrase)
     pc = {}
     for t, _c, _u, _d, _f, tg in pieces:
         for i in tg:
             pc[i] = pc.get(i, 0) + 1
-    chips = [i for i in sorted(pc, key=lambda i: -pc[i]) if pc[i] >= 40 and len(tag_ids[tags[i]]) >= 25][:8]
+    beat_chips = [i for i in sorted(pc, key=lambda i: -pc[i]) if pc[i] >= 40 and len(tag_ids[tags[i]]) >= 25]
+    for i in beat_chips:
+        if len(chip_labels) >= 8:
+            break
+        if tags[i].lower() not in [c.lower() for c in chip_labels]:
+            chip_labels.append(tags[i])
+    chip_labels = chip_labels[:8]
+    chips = beat_chips   # kept for the report below
 
     feeds = None
     m = re.search(r'"total_rss_resolved":\s*(\d+)', (ROOT / "pulse.html").read_text())
@@ -149,23 +208,27 @@ def main():
     out = {
         "v": 1, "from": w_from, "to": w_to, "through": through,
         "creators_total": stats["totalCreators"], "as_of": stats["asOf"], "feeds": feeds,
-        "formats": FORMATS, "tags": tags, "tag_ids": [tag_ids[t] for t in tags], "chips": chips,
+        "formats": FORMATS, "tags": tags, "tag_ids": [tag_ids[t] for t in tags],
         "places": places, "creators": cr_names, "pieces": pieces,
     }
-    OUT.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
-    size = OUT.stat().st_size
+    blob = json.dumps(out, ensure_ascii=False, separators=(",", ":")).encode()
+    if not args.dry_run:
+        OUT.write_bytes(blob)
     import gzip
-    gz = len(gzip.compress(OUT.read_bytes()))
-    print(f"wrote {OUT.relative_to(ROOT)}: {len(pieces)} pieces, {len(cr_names)} creators, {len(tags)} tags, "
+    size, gz = len(blob), len(gzip.compress(blob))
+    print(f"{'would write' if args.dry_run else 'wrote'} {OUT.relative_to(ROOT)}: {len(pieces)} pieces, {len(cr_names)} creators, {len(tags)} tags, "
           f"{size/1024:.0f} KB raw, {gz/1024:.0f} KB gzip; window {w_from}..{w_to}, data through {through}, feeds {feeds}")
-    # Bake this week's chips into for-brands.html between the LENS:CHIPS markers (static, so view-source shows them)
+    # Bake this week's chips and the data-through date into for-brands.html (static, so view-source shows them)
     page = ROOT / "for-brands.html"
     html_src = page.read_text()
-    items = "\n".join(f'          <li><button type="button" class="chip">{html.escape(tags[i])}</button></li>' for i in chips)
+    items = "\n".join(f'          <li><button type="button" class="chip">{html.escape(c)}</button></li>' for c in chip_labels)
     new_src = re.sub(r"(<!-- LENS:CHIPS -->).*?(<!-- /LENS:CHIPS -->)", lambda m: f"{m.group(1)}\n{items}\n          {m.group(2)}", html_src, flags=re.S)
-    if new_src != html_src:
+    new_src = re.sub(r'(<template id="lens-tpl" data-through=")[^"]*(")', lambda m: f"{m.group(1)}{through}{m.group(2)}", new_src)
+    if new_src != html_src and not args.dry_run:
         page.write_text(new_src)
-    print("chips:", [(tags[i], pc[i], len(tag_ids[tags[i]])) for i in chips])
+    print("chips:", chip_labels)
+    for phrase, n_hit, ok in featured_log:
+        print(f"  featured {phrase!r}: {n_hit} matching pieces -> {'kept' if ok else 'DROPPED (under ' + str(min_pieces) + ')'}")
     print("dropped:", dropped)
     print("format mix:", {FORMATS[k]: sum(1 for p in pieces if p[4] == k) for k in range(4)})
     print("creators with a place:", sum(1 for c in cr_names if c[1] >= 0), "of", len(cr_names))
