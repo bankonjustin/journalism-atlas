@@ -77,21 +77,43 @@
     .lens-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; max-width: 900px; padding: 0; list-style: none; }
     .chip { min-height: 40px; padding: 0 14px; font: 500 14px var(--font-primary); color: #fff; background: transparent; border: 1px solid var(--color-button-outline-on-dark); border-radius: 6px; cursor: pointer; }
     .chip:hover, .chip:focus-visible { background: var(--color-acid); color: #000; border-color: var(--color-acid); }
-    .lens-result { margin-top: 40px; padding: 24px; border: 1px dashed var(--color-border-on-dark); border-radius: 6px; }
-    .lens-result-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-    .lens-frame { font-family: var(--font-editorial); font-weight: 700; font-size: 20px; line-height: 1.4; color: #fff; max-width: 34em; }
-    .lens-grid { display: grid; gap: 32px; margin-top: 32px; }
-    @media (min-width: 900px) { .lens-grid { grid-template-columns: 1fr 1fr 1.4fr; } }
-    .stat-n { font-size: 40px; line-height: 1; color: #fff; display: block; }
-    .stat-l { display: block; margin-top: 8px; font-size: 14px; color: var(--color-text-on-dark-2); }
-    .mix { display: grid; gap: 10px; }
-    .mix div { display: grid; grid-template-columns: 88px 1fr 40px; gap: 12px; align-items: center; font-size: 14px; }
-    .mix i { display: block; height: 8px; border-radius: 2px; background: var(--color-border-on-dark); }
-    .lens-heads { margin: 32px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border-on-dark); }
-    .lens-heads li { padding: 14px 0; border-bottom: 1px solid var(--color-border-on-dark); color: var(--color-text-on-dark-2); font-size: 15px; }
-    .lens-act { margin-top: 24px; }
-    .lens-note { margin-top: 16px; font-size: 13px; color: var(--color-text-on-dark-2); }
-
+    .lens-result { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--color-border-on-dark); }
+    .lr-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--color-text-on-dark-2); margin-bottom: 20px; }
+    .lens-frame { font-family: var(--font-editorial); font-weight: 700; font-size: 24px; line-height: 1.35; color: #fff; max-width: 30em; }
+    @media (min-width: 900px) { .lens-frame { font-size: 28px; } }
+    .lens-frame .live { font-family: var(--font-mono); font-size: 0.85em; color: var(--color-acid); }
+    .lens-grid { position: relative; display: grid; gap: 32px; margin-top: 40px; }
+    @media (min-width: 900px) { .lens-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 160px; align-items: start; } }
+    .lr-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+    .lr-lines path { fill: none; stroke: var(--color-acid); stroke-width: 1.25; opacity: 0.7; }
+    .stat-n { font-size: 56px; line-height: 1; color: #fff; display: block; }
+    .stat-l { display: block; margin-top: 8px; font-size: 14px; color: var(--color-text-on-dark-2); max-width: 24em; }
+    .lr-stats { display: grid; gap: 28px; }
+    .lr-stats .lr-secondary .stat-n { font-size: 32px; }
+    .mix { display: grid; gap: 12px; }
+    .mix-row { display: grid; grid-template-columns: 96px 1fr 52px; gap: 12px; align-items: center; font-size: 14px; color: #fff; }
+    .mix-row .bar { display: block; height: 8px; border-radius: 2px; background: var(--color-border-on-dark); position: relative; }
+    .mix-row .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #fff; border-radius: 2px; }
+    .mix-row .live { text-align: right; }
+    .mix-row[data-zero] { color: var(--color-text-on-dark-2); }
+    .lr-cols { display: grid; gap: 40px; margin-top: 48px; }
+    @media (min-width: 900px) { .lr-cols { grid-template-columns: 2fr 1fr; gap: 64px; } }
+    .lr-h { font-size: 13px; color: var(--color-text-on-dark-2); margin: 0 0 8px; font-weight: 600; }
+    .lens-heads { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border-on-dark); }
+    .lens-heads li { padding: 14px 0; border-bottom: 1px solid var(--color-border-on-dark); }
+    .lens-heads a { color: #fff; text-decoration: underline; text-underline-offset: 2px; font-size: 16px; font-weight: 600; }
+    .lens-heads a:hover { color: var(--color-acid); }
+    .lens-heads .by { display: block; margin-top: 4px; font-size: 13px; color: var(--color-text-on-dark-2); }
+    .lens-heads .by .live { font-size: 12px; }
+    .places { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border-on-dark); }
+    .places li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border-on-dark); font-size: 15px; color: #fff; }
+    .lr-fine { margin-top: 10px; font-size: 13px; color: var(--color-text-on-dark-2); }
+    .lens-act { margin-top: 40px; }
+    .lens-note { margin-top: 16px; font-size: 13px; color: var(--color-text-on-dark-2); max-width: 44em; }
+    .lens-empty { max-width: 40em; }
+    .lens-empty .lens-frame { font-size: 22px; }
+    .chip[aria-pressed="true"] { background: #fff; color: #000; border-color: #fff; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .btn-brief { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; font: 600 15px var(--font-primary); color: #fff; background: var(--color-button); border: 1px solid var(--color-button-outline-on-dark); border-radius: 6px; text-decoration: none; cursor: pointer; }
     .btn-brief:hover, .btn-brief:focus-visible { background: var(--color-acid); color: #000; border-color: var(--color-acid); }
     .light .btn-brief { border-color: var(--color-button-outline); }
@@ -201,12 +223,11 @@
     <!-- SOFT: dek copy pending Justin. Every number is live/baked: count and date from site-stats.json at build. -->
     <p class="dek">One in five Americans now get news from individual journalists, not institutions. Local newsrooms keep closing. AI answers summarize the web without sending anyone to it. The people your stakeholders believe have scattered across newsletters, video, podcasts and open protocols. The Atlas tracks <span class="live">{{CREATOR_COUNT}}</span> of them, verified by hand, and reads what they publish every week. <a href="#shift">The evidence</a></p>
 
-    <!-- Lens: held back until Phase 2 gives it data. Markup lives in a template so nothing of it is on the public page.
-         ATLAS_FLAGS.lens (or ?lens=1) mounts it. -->
+    <!-- Lens: markup lives in a template, so it is not in the page until ATLAS_FLAGS.lens (or ?lens=1) mounts it. -->
     <p class="hero-cta" id="hero-cta"><a class="btn-brief" href="#build-brief">Request my brief</a></p>
     <div id="lens-mount"></div>
     <template id="lens-tpl">
-    <!-- The Lens. Phase 1: layout mock only. Chips and the field already hand the issue to the intake form; the result panel below is a static preview with no data. -->
+    <!-- The Issue Lens. Chips are written between the LENS:CHIPS markers by scripts/build_lens_index.py (this week's most-covered beats). Results come from assets/data/lens-index.json. -->
     <div class="lens" id="lens">
       <form id="lens-form" role="search" novalidate>
         <label class="lens-label" for="lens-q">What are you tracking?</label>
@@ -217,41 +238,22 @@
           </div>
           <button class="btn-brief" type="submit">Look</button>
         </div>
-        <!-- SOFT: Phase 2 generates these at build from this week's most-covered topics. Phase 1 uses the seven existing beats. -->
-        <ul class="lens-chips" aria-label="Suggested issues">
-          <li><button type="button" class="chip">Business and economy</button></li>
-          <li><button type="button" class="chip">Politics and government</button></li>
-          <li><button type="button" class="chip">Technology</button></li>
-          <li><button type="button" class="chip">Health and science</button></li>
-          <li><button type="button" class="chip">Climate and environment</button></li>
-          <li><button type="button" class="chip">Local and regional</button></li>
-          <li><button type="button" class="chip">Culture and society</button></li>
+                <ul class="lens-chips" aria-label="Suggested issues">
+          <!-- LENS:CHIPS -->
+          <li><button type="button" class="chip">Politics</button></li>
+          <li><button type="button" class="chip">Tech</button></li>
+          <li><button type="button" class="chip">Local</button></li>
+          <li><button type="button" class="chip">Media/Power</button></li>
+          <li><button type="button" class="chip">Culture</button></li>
+          <li><button type="button" class="chip">Finance/Economics</button></li>
+          <li><button type="button" class="chip">World</button></li>
+          <li><button type="button" class="chip">Government Accountability</button></li>
+          <!-- /LENS:CHIPS -->
         </ul>
       </form>
 
-      <div class="lens-result" id="lens-result" aria-live="polite">
-        <div class="lens-result-head">
-          <span class="tag tag--idea" id="lens-preview-tag"></span>
-        </div>
-        <p class="lens-frame">{n} independent journalists published {m} pieces on {issue} in the week of {date}.</p>
-        <div class="lens-grid">
-          <div><span class="stat-n live">&ndash;</span><span class="stat-l">verified creators on this beat</span></div>
-          <div><span class="stat-n live">&ndash;</span><span class="stat-l">pieces in the latest window, by distinct creators</span></div>
-          <div class="mix" aria-label="Platform mix placeholder">
-            <div><span>Newsletter</span><i></i><span class="live">&ndash;</span></div>
-            <div><span>Video</span><i></i><span class="live">&ndash;</span></div>
-            <div><span>Podcast</span><i></i><span class="live">&ndash;</span></div>
-            <div><span>Web</span><i></i><span class="live">&ndash;</span></div>
-          </div>
-        </div>
-        <ul class="lens-heads">
-          <li>Recent headline, linked to the creator's own page</li>
-          <li>Recent headline, linked to the creator's own page</li>
-          <li>Recent headline, linked to the creator's own page</li>
-        </ul>
-        <p class="lens-act"><a class="btn-brief" href="#build-brief" data-fill="lens">Request a brief on this issue</a></p>
-        <p class="lens-note">Empty state: "We didn't find weekly coverage of that in the feeds we read. That's a finding too. Ask us to dig."</p>
-      </div>
+      <p class="sr-only" id="lens-status" role="status" aria-live="polite"></p>
+      <div class="lens-result" id="lens-result" hidden></div>
     </div>
     </template>
   </div>
@@ -487,7 +489,9 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false 
   window.ATLAS_LENS_ON = on('lens');
 })();
 
-// ── Lens: mounted only when the flag is on. Phase 1 hands the issue to the intake; live results arrive in Phase 2. ──
+// ── Issue Lens: mounted only when the flag is on. All matching runs here, on assets/data/lens-index.json. ──
+// Beat names match creators' Atlas beat tags exactly; anything else matches piece TITLES only (the index has no
+// excerpts or post-level tags), and the panel says so. Bluesky and other social posts are not in the index.
 (function () {
   var issue = document.getElementById('f-issue'), lens = document.getElementById('f-lens');
   document.getElementById('f-ref').value = document.referrer || '';
@@ -496,22 +500,144 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false 
   if (!window.ATLAS_LENS_ON) return;
   document.getElementById('lens-mount').appendChild(document.getElementById('lens-tpl').content.cloneNode(true));
   document.getElementById('hero-cta').hidden = true;
-  document.getElementById('lens-preview-tag').textContent = 'Layout preview. No data yet.';
-  var q = document.getElementById('lens-q');
-  if (pre) q.value = pre;
-  function send(text) {
-    text = (text || '').trim();
-    if (!text) return;
-    issue.value = text; lens.value = text;
-    document.getElementById('build-brief').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    setTimeout(function () { document.getElementById('f-where').focus({ preventScroll: true }); }, 400);
+
+  var q = document.getElementById('lens-q'), out = document.getElementById('lens-result'), status = document.getElementById('lens-status');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var IDX = null, loading = null, lastQuery = '';
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function loadIndex() {
+    if (IDX) return Promise.resolve(IDX);
+    if (!loading) loading = fetch('/assets/data/lens-index.json').then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      d._n = d.pieces.map(function (p) { return norm(p[0]); });
+      d._tn = d.tags.map(function (t) { return norm(t); });
+      d._tseg = d.tags.map(function (t) { return t.split('/').map(norm); });
+      IDX = d; return d;
+    });
+    return loading;
   }
-  document.getElementById('lens-form').addEventListener('submit', function (e) { e.preventDefault(); send(q.value); });
-  document.querySelectorAll('.chip').forEach(function (c) { c.addEventListener('click', function () { q.value = c.textContent; send(c.textContent); }); });
-  // Hand-off label: "Request a brief on {issue}", "Request my brief" when empty.
-  var act = document.querySelector('[data-fill="lens"]');
-  function label() { act.textContent = q.value.trim() ? 'Request a brief on ' + q.value.trim() : 'Request my brief'; }
-  q.addEventListener('input', label); label();
+  function norm(s) { return String(s).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, ''); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function plural(n, one, many) { return n.toLocaleString() + ' ' + (n === 1 ? one : many); }
+  function dateOf(base, off) { var d = new Date(base + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + off); return MON[d.getUTCMonth()] + ' ' + d.getUTCDate(); }
+  function fullDate(iso) { var d = new Date(iso + 'T12:00:00Z'); return MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear(); }
+  var STOP = { the: 1, a: 1, an: 1, of: 1, and: 1, in: 1, on: 1, for: 1, to: 1, is: 1, are: 1, vs: 1 };
+  function tokens(s) { return norm(s).split(/[^a-z0-9]+/).filter(function (t) { return t && !STOP[t]; }); }
+  function matcher(t) {
+    var stem = (t.length > 3 && /s$/.test(t) && !/ss$/.test(t)) ? t.slice(0, -1) : t;
+    return new RegExp('(^|[^a-z0-9])' + stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + (stem.length <= 3 ? '($|[^a-z0-9])' : ''));
+  }
+
+  // Which beat tags does the query name? Exact tag, or one whole segment of a "A/B" tag ("finance" -> Finance/Economics).
+  function beatTags(D, text) {
+    var n = norm(text).trim(), hit = [];
+    D.tags.forEach(function (t, i) { if (D._tn[i] === n || D._tseg[i].indexOf(n) > -1) hit.push(i); });
+    return hit;
+  }
+
+  function analyze(D, text) {
+    var mode, pieces, tagIdx = beatTags(D, text), label = text.trim();
+    if (tagIdx.length) {
+      mode = 'beat';
+      label = tagIdx.length === 1 ? D.tags[tagIdx[0]] : label;
+      pieces = D.pieces.filter(function (p) { return p[5].some(function (t) { return tagIdx.indexOf(t) > -1; }); });
+    } else {
+      mode = 'title';
+      var res = tokens(text).map(matcher);
+      pieces = res.length ? D.pieces.filter(function (p, i) { return res.every(function (r) { return r.test(D._n[i]); }); }) : [];
+    }
+    var cset = {}, fmt = [0, 0, 0, 0], places = {}, withPlace = 0;
+    pieces.forEach(function (p) { p[1].forEach(function (c) { cset[c] = 1; }); fmt[p[4]]++; });
+    Object.keys(cset).forEach(function (c) { var pl = D.creators[c][1]; if (pl > -1) { withPlace++; places[pl] = (places[pl] || 0) + 1; } });
+    var verified = null;
+    if (mode === 'beat') {
+      var u = {}; tagIdx.forEach(function (t) { D.tag_ids[t].forEach(function (id) { u[id] = 1; }); }); verified = Object.keys(u).length;
+    }
+    var heads = [], seen = {};
+    for (var i = 0; i < pieces.length && heads.length < 3; i++) { var c0 = pieces[i][1][0]; if (!seen[c0]) { seen[c0] = 1; heads.push(pieces[i]); } }
+    var ranked = Object.keys(places).map(function (k) { return [D.places[k], places[k]]; }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 5);
+    var extra = 0;
+    if (mode === 'beat') { var rs = tokens(text).map(matcher), inSet = {}; pieces.forEach(function (p) { inSet[p[2]] = 1; }); D.pieces.forEach(function (p, i) { if (!inSet[p[2]] && rs.length && rs.every(function (r) { return r.test(D._n[i]); })) extra++; }); }
+    return { mode: mode, extra: extra, label: label, pieces: pieces, creators: Object.keys(cset).length, fmt: fmt, verified: verified, heads: heads, places: ranked, withPlace: withPlace };
+  }
+
+  function frame(D, r) {
+    var wk = dateOf(D.from, 0) + ', ' + D.from.slice(0, 4), n = r.creators, m = r.pieces.length;
+    var what = r.mode === 'beat' ? ' on ' + esc(r.label) : ' with <q>' + esc(r.label) + '</q> in the title';
+    return plural(n, 'independent journalist', 'independent journalists').replace(/^([\d,]+)/, '<span class="live">$1</span>') + ' published ' +
+      m.toLocaleString().replace(/^(.*)$/, '<span class="live">$1</span>') + ' ' + (m === 1 ? 'piece' : 'pieces') + what + ' in the week of ' + wk + '.';
+  }
+  function plainFrame(D, r) { var d = document.createElement('div'); d.innerHTML = frame(D, r); return d.textContent; }
+
+  function render(D, text) {
+    var r = analyze(D, text), label = r.label, html = '';
+    if (!r.pieces.length) {
+      html = '<div class="lens-empty"><p class="lens-frame">We didn’t find weekly coverage of “' + esc(text.trim()) + '” in the ' +
+        (D.feeds ? '<span class="live">' + D.feeds.toLocaleString() + '</span> ' : '') + 'feeds we read.</p>' +
+        '<p class="lede" style="color:var(--color-text-on-dark-2)">That’s a finding too: either nobody independent is covering it yet, or they’re somewhere we should be looking. We match on beat names and piece titles, so a different phrasing may find more. Ask us to dig.</p></div>';
+    } else {
+      var mx = Math.max.apply(null, r.fmt) || 1;
+      var mix = ['Newsletter', 'Video', 'Podcast', 'Web'].map(function (nm, i) {
+        return '<div class="mix-row"' + (r.fmt[i] ? '' : ' data-zero') + '><span>' + nm + '</span><span class="bar"><i style="width:' + Math.round(100 * r.fmt[i] / mx) + '%"></i></span><span class="live">' + r.fmt[i].toLocaleString() + '</span></div>';
+      }).join('');
+      var heads = r.heads.map(function (p) {
+        return '<li><a href="' + esc(p[2]) + '" target="_blank" rel="noopener">' + esc(p[0]) + '</a><span class="by">' + esc(D.creators[p[1][0]][0]) + ' &middot; <span class="live">' + dateOf(D.from, p[3]) + '</span></span></li>';
+      }).join('');
+      var places = r.places.length ? '<div><h2 class="lr-h">Where they’re based</h2><ul class="places">' + r.places.map(function (x) { return '<li><span>' + esc(x[0]) + '</span><span class="live">' + x[1] + '</span></li>'; }).join('') + '</ul><p class="lr-fine">Creator home base, not story location. ' + r.withPlace + ' of ' + r.creators + ' have one listed.</p></div>' : '';
+      var ver = r.verified != null ? '<div class="lr-secondary"><span class="stat-n live">' + r.verified.toLocaleString() + '</span><span class="stat-l">verified creators in the Atlas filed under ' + esc(label) + '</span></div>' : '';
+      html = '<p class="lens-frame">' + frame(D, r) + '</p>' +
+        '<div class="lens-grid" id="lr-grid"><div class="mix" id="lr-mix" aria-label="Platform mix of these pieces">' + mix + '</div>' +
+        '<div class="lr-stats"><div id="lr-hub"><span class="stat-n live">' + r.creators.toLocaleString() + '</span><span class="stat-l">' + (r.creators === 1 ? 'creator' : 'creators') + ' in the Atlas published these ' + r.pieces.length.toLocaleString() + (r.pieces.length === 1 ? ' piece' : ' pieces') + '</span></div>' + ver + '</div></div>' +
+        '<div class="lr-cols"><div><h2 class="lr-h">Recent, from their own pages</h2><ul class="lens-heads">' + heads + '</ul></div>' + places + '</div>' +
+        '<p class="lens-note">' + (r.mode === 'beat' ? 'Pieces are matched on the beat tags creators carry in the Atlas.' + (r.extra ? ' ' + plural(r.extra, 'more piece', 'more pieces') + ' from creators filed under other beats ' + (r.extra === 1 ? 'has' : 'have') + ' \u201c' + esc(text.trim()) + '\u201d in the title.' : '') : 'Matched on piece titles only. Titles are all the index holds, so a topic named differently in a title will not show.') + '</p>';
+    }
+    html = '<div class="lr-head"><span class="live-dot" aria-hidden="true"></span><span>Live window <span class="live">' + dateOf(D.from, 0) + ' to ' + dateOf(D.to, 0) + '</span>. Data through <span class="live">' + dateOf(D.through, 0) + '</span>.</span></div>' + html +
+      '<p class="lens-act"><a class="btn-brief" href="#build-brief" data-fill="lens">Request a brief on ' + esc(text.trim()) + '</a></p>';
+    out.hidden = false; out.innerHTML = html;
+    status.textContent = r.pieces.length ? plainFrame(D, r) : 'No weekly coverage found for ' + text.trim() + '.';
+    out.querySelector('[data-fill="lens"]').addEventListener('click', function () { issue.value = text.trim(); lens.value = text.trim(); });
+    if (r.pieces.length) drawLines(true);
+  }
+
+  // The one orchestrated motion: thin lines draw from each platform row and converge on the creator count (about 900 ms,
+  // once per query). Skipped entirely under reduced motion, and when the layout stacks.
+  var ro;
+  function drawLines(animate) {
+    var grid = document.getElementById('lr-grid'), hub = document.getElementById('lr-hub');
+    if (!grid || reduce.matches || innerWidth < 900) return;
+    var old = grid.querySelector('.lr-lines'); if (old) old.remove();
+    var g = grid.getBoundingClientRect(), h = hub.querySelector('.stat-n').getBoundingClientRect();
+    var ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('class', 'lr-lines'); svg.setAttribute('aria-hidden', 'true');
+    var hx = h.left - g.left - 12, hy = h.top - g.top + h.height / 2, paths = [];
+    grid.querySelectorAll('.mix-row:not([data-zero])').forEach(function (row) {
+      var b = row.querySelector('.live').getBoundingClientRect(), x = b.right - g.left + 12, y = b.top - g.top + b.height / 2, mid = x + (hx - x) * 0.55;
+      var path = document.createElementNS(ns, 'path'); path.setAttribute('d', 'M' + x + ' ' + y + ' C ' + mid + ' ' + y + ', ' + mid + ' ' + hy + ', ' + hx + ' ' + hy);
+      svg.appendChild(path); paths.push(path);
+    });
+    grid.appendChild(svg);
+    if (animate) paths.forEach(function (p, i) {
+      var len = p.getTotalLength(); p.style.strokeDasharray = len;
+      p.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: 750, delay: i * 50, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'both' });
+    });
+  }
+  window.addEventListener('resize', function () { clearTimeout(ro); ro = setTimeout(function () { var g = document.getElementById('lr-grid'); if (g) { if (innerWidth < 900) { var o = g.querySelector('.lr-lines'); if (o) o.remove(); } else drawLines(false); } }, 150); });
+
+  function run(text, fromUrl) {
+    text = (text || '').trim(); if (text.length < 2) return;
+    lastQuery = text; q.value = text;
+    document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(norm(c.textContent) === norm(text))); });
+    out.hidden = false; status.textContent = 'Reading this week’s pieces.';
+    if (!IDX) out.innerHTML = '<p class="lr-fine">Reading this week’s pieces…</p>';
+    loadIndex().then(function (D) { if (lastQuery !== text) return; render(D, text); if (!fromUrl) setUrl(text); })
+      .catch(function () { out.innerHTML = '<p class="lr-fine">The weekly index did not load. You can still <a href="#build-brief" style="color:#fff;text-decoration:underline">request a brief</a>.</p>'; });
+  }
+  function setUrl(text) { try { var u = new URL(location.href); u.searchParams.set('issue', text); history.replaceState(null, '', u); } catch (e) {} }
+
+  document.getElementById('lens-form').addEventListener('submit', function (e) { e.preventDefault(); run(q.value); });
+  document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); c.addEventListener('click', function () { run(c.textContent); }); });
+  ['focus', 'pointerenter'].forEach(function (ev) { document.getElementById('lens-form').addEventListener(ev, loadIndex, { once: true, capture: true }); });
+  if (pre) run(pre, true);
 })();
 
 // ── One intake ──

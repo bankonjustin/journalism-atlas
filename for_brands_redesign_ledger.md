@@ -143,3 +143,60 @@ Headline and alternates; hero dek; Places/Machines copy; Machines figure; Field 
 
 ### After you push, check in a real browser
 View source shows the baked-in count (no `{{CREATOR_COUNT}}`), submit the form and confirm the Formspree email arrives, and check the OG preview in Slack (still the generic image until Phase 5).
+
+## Phase 2: the Issue Lens (2026-10-27)
+Changed: `for-brands.html` (Lens markup, styles and script; Lens stays behind `ATLAS_FLAGS.lens`, default **off**; `?lens=1` previews it), NEW `scripts/build_lens_index.py`, NEW `assets/data/lens-index.json`, `build-dist.sh` (+2 lines: copies the index). Nothing committed. `build-dist.sh` already had your Pulse edits; I only added the Lens lines.
+Screens: `for_brands_screens/phase-2/`: `lens-{1280,390}-{strong,thin,empty,beat,idle}.png`. Strong = "AI", thin = "data centers", empty = "Bitcoin", beat = "Politics".
+
+### Verdict: beat level plus title-matched pieces, as you chose
+Issue-level matching is honest only as "pieces with these words in the title". The index has titles, creator names, links, dates, a format and the creator's beat tags, and nothing else (no excerpt, no post-level tags). So the Lens says which it did. A query that names a beat ("Politics", "Finance", "Housing") matches creators' Atlas beat tags exactly. Anything else matches titles only, and the panel says "Matched on piece titles only". Where a beat query also appears in titles of pieces filed under other beats, the note says how many.
+
+### Index (`assets/data/lens-index.json`)
+- Built by `python3 scripts/build_lens_index.py` from `assets/data/pulse/posts-*.json`, `data/pulse-issues.json`, `creators-data.json`, `site-stats.json` and `pulse.html` (feeds). Committed, like the Pulse files, because Cloudflare only runs `build-dist.sh`. **Re-run it after each Pulse update and commit the result**, or the Lens goes stale. Not wired into the private Pulse pipeline yet (your call).
+- Contents this run: **3,092 pieces, 886 creators**, window Oct 15 to Oct 21, data through Oct 22, 1,747 feeds, 79 beat tags. This matches the Pulse masthead exactly (886 creators, 3,092 pieces). **480 KB raw, 198 KB gzip.** It loads lazily on first focus or hover of the Lens, or at once if the URL carries `?issue=`; nothing loads when the Lens is off (checked: 0 requests).
+- Bluesky and other social hosts are excluded (0 dropped in this window; the Pulse files already omit them; the script filters again). Creator names, outlet links and dates only: no emails, no follower counts.
+- Platform mix of pieces: from URL host first (YouTube/Vimeo = video; known podcast hosts = podcast; Substack/Beehiiv/Ghost etc. = newsletter), then the creator's platform label for custom domains, else web. This window: newsletter 1,677, video 794, podcast 50, web 571. The podcast count is low because most podcasts publish on custom domains and are labeled by creator; treat it as a floor.
+- Geography: creator home base (registry city + state, falling back to the Pulse geography string), 677 of 886 creators have one. Shown as a ranked list with "62 of 81 have one listed" and the caveat "home base, not story location". Not a map: coverage is 76% and national outlets have none.
+- Chips are baked into the page between `<!-- LENS:CHIPS -->` markers by the script: this week's most-covered beats with at least 40 pieces and 25 creators: Politics (965), Tech (353), Local (319), Media/Power (253), Culture (217), Finance/Economics (204), World (189), Government Accountability (147).
+
+### The Lens
+- Matching is client-side: whole-word for tokens up to 3 letters, word-prefix with simple plural handling above that, all tokens required.
+- Result: framing line (templated), platform mix with counts, the hub creator count, verified creators in the Atlas filed under the beat (beat queries only), three recent headlines linked to the creators' own pages with name and date, ranked places, and "Request a brief on {issue}", which pre-fills the intake.
+- Framing: beat queries say "published N pieces on Politics"; title queries say "published N pieces with "AI" in the title", because "on AI" would claim more than the data shows. Counts include co-hosts, so "2 journalists published 1 piece" can occur for a co-hosted show (same rule as Pulse).
+- Empty state uses your copy with the live feed count (1,747) and one honest line about matching on beat names and titles.
+- URL: `?issue=` reflects the query and re-runs it on load (works for sharing; today it needs `lens=1` until the flag is on).
+- Accessibility: labeled field, chips are buttons with `aria-pressed`, results announced through an `aria-live="polite"` status line, the Lens is keyboard-complete (verified: tab to a chip, Enter, URL updates, hand-off fills the intake). Visible focus on dark uses Lime.
+- Motion: the only animation on the page. On each new query, thin Acid lines draw from the platform rows into the creator count, about 750 ms with a small stagger, once. Skipped under `prefers-reduced-motion` (verified: 0 lines) and below 900 px (stacked layout).
+
+### Query test (flag on, real index)
+| Kind | Query | Result |
+|---|---|---|
+| beat | Politics | 186 journalists, 965 pieces |
+| title | AI | 81 journalists, 91 pieces |
+| title | election | 43 journalists, 55 pieces |
+| beat | housing | 2 journalists, 6 pieces (thin; the beat is small) |
+| title (thin) | tariffs | 4 journalists, 4 pieces |
+| title (thin) | data centers | 12 journalists, 13 pieces |
+| empty | Bitcoin, Taylor Swift, ESPN, zxqv, NFT marketplace | all return the empty state |
+Also checked: Tech, Finance (resolves to Finance/Economics, 204 pieces), quantum (1), insulin (1), shutdown (1).
+Weak spots, stated plainly: a short word can match unrelated titles ("Fed" matches the verb); a topic phrased differently in titles will not match; very new topics need a Pulse refresh to appear. Nothing is model-written.
+
+### Token plan (checked against Pulse and v15)
+Palette in use (all from `variables.css`, none new): white `#fff`, Neutral gray 2 `#efefef` (light surface band), gray 3 `#c6c6c6`, gray 5 `#5e5e5e` (secondary text), gray 6 `#303030` (body, buttons), gray 7 `#121212` (dark stage), black `#000`; Acid `#ceff00` (the single "live" signal: live dot, counts in the framing line, convergence lines, hover); Lime `#97d600` (focus on dark); Dark Olive `#5d7400` (links, focus on light); error `#f50000`.
+Type: Merriweather 700 (hero 36-64px clamp, claims 28/36, stat numerals, framing line 24/28), Inter 400/500/600/700 (16px body, 13-15px small), Source Code Pro 500 only on live data (counts, dates, window) and 12px status tags. Scale: v15 except the hero clamp (see below). Spacing: 4px base (16/24/32/48/64/96 used). Radius 6px; 50% only on dots and avatars. Grid: 1440 container, 32px gutter (16 on mobile), 680px text column, 2- and 3-column grids from 900px.
+Pulse's tokens are the same file. Pulse restyles `.link-instruction` locally; /for-brands has no instruction links.
+Mono is live data only: the Lens counts, dates and window. The creator count in the hero dek is mono because it comes from the build.
+
+### Open for you
+1. **Flip the Lens on?** It is ready for review. To ship it: set `lens: true` in `ATLAS_FLAGS`. Until then `?issue=` links do nothing but pre-fill the intake.
+2. **Index freshness:** it is 5 days stale today because Pulse is (data through Oct 22). The panel says so. Should the private Pulse pipeline call `build_lens_index.py` after each run?
+3. **Hero size** is still the 36-64px range pending James.
+4. **Title-match limits** are in the panel copy; say if you want them softer.
+5. An excerpt field in the Pulse files would let issue queries match more than titles.
+
+### Lighthouse (local; "gzip" = a small compressing server)
+| | Perf | A11y | LCP | CLS |
+|---|---|---|---|---|
+| Default (Lens off), gzip | 96, 96 | 100 | 1.8-1.9 s | 0.093 |
+| Lens on with `?issue=AI`, gzip | 95, 84 (two runs) | 100 | 2.1 s, 3.9 s | 0.097 |
+The LCP element is the hero dek in every run. Lab runs are noisy (one cold default run scored 82). The heading-order warning on the Lens (h3 after h1) was fixed (result headings are h2).

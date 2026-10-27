@@ -29,6 +29,8 @@ cp assets/data/creators-data.json assets/data/bluesky-creators.json assets/data/
 cp data/chicago-pulse.json dist/data/
 # Pulse: per-week post files fetched by pulse.html (written by pipelines/pulse/update_pulse.py)
 cp -R assets/data/pulse dist/assets/data/
+# Issue Lens index for /for-brands (written by scripts/build_lens_index.py, committed)
+cp assets/data/lens-index.json dist/assets/data/
 
 # Generated counts: fill {{CREATOR_COUNT}} / {{COUNT_AS_OF}} from assets/data/site-stats.json
 # (written by convert.js from creators-master.csv). Source pages keep the tokens; only dist/ is stamped.
