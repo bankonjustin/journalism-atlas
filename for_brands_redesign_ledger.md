@@ -200,3 +200,75 @@ Mono is live data only: the Lens counts, dates and window. The creator count in 
 | Default (Lens off), gzip | 96, 96 | 100 | 1.8-1.9 s | 0.093 |
 | Lens on with `?issue=AI`, gzip | 95, 84 (two runs) | 100 | 2.1 s, 3.9 s | 0.097 |
 The LCP element is the hero dek in every run. Lab runs are noisy (one cold default run scored 82). The heading-order warning on the Lens (h3 after h1) was fixed (result headings are h2).
+
+## Phase 2 revision: matching, two figures, featured issues, freshness, pipeline (2026-10-27)
+Changed (public repo): `for-brands.html`, `scripts/build_lens_index.py`, NEW `config/lens_featured_issues.json`, `assets/data/lens-index.json` (rebuilt), `build-dist.sh` (unchanged since last entry). Changed (private repo): `pipelines/pulse/update_pulse.py`, `spidering/core/refresh_pulse.sh`. Nothing committed anywhere. Lens flag still **off**.
+Screens: `for_brands_screens/phase-2/` (strong, thin, empty, beat-plus-title at 1280 and 390; `fold-1280-lens-stale-fallback.png`).
+
+### 0. Found while wiring the pipeline: my Phase 1 rewrite would have broken the weekly Pulse run
+`refresh_pulse.sh` step 2 runs `update_pulse.py --publish` without `--pulse-only`, and that script rewrites `PULSE_SNAPSHOT_BRANDS` inside `for-brands.html`. I removed that snapshot in Phase 1, and `swap_snapshot()` calls `sys.exit("ERROR: Could not find const PULSE_SNAPSHOT_BRANDS")`. The next weekly run would have stopped after writing pulse.html and index.html and before the digest. **Fixed:** `update_pulse.py` now skips the for-brands step with a printed note when the snapshot is absent. Verified with `update_pulse.py --dry-run`: completes, prints the skip. Not yet run for real.
+Side note from that dry run: the private repo already holds a fresher scrape (10,578 rows, post files through W44, data to Oct 27). Pulse is stale only because the publish step has not been run; running it, then the Lens step, would put the Lens on fresh data.
+
+### 1. Matching: it was never substring
+The Phase 2 matcher was already whole-word for short tokens and word-prefix for longer ones, so the demo numbers were not substring noise. It is now strictly whole-word everywhere. Rules: tokens of 3 letters or fewer are **case-sensitive** and whole-word ("AI", "Fed"; a short token typed all lowercase matches its Capitalized or UPPER form, never the lowercase word); longer tokens are case-insensitive whole words with an optional plural ("center" finds "centers", not "datacenter" or "centered"). The page and the build script use one rule (`matcher()` in the page, `compile_token()` in the script).
+| Query | Before (Phase 2) | After (whole-word, case rule) | A naive substring match would give |
+|---|---|---|---|
+| AI | 91 pieces / 81 journalists | **91 / 81** | 451 pieces |
+| Fed | not tested | 4 pieces / 3 journalists | 19 |
+| election | 55 / 43 | 54 / 42 | 55 |
+| data centers | 13 / 12 | 13 / 12 | 6 (misses plurals) |
+| tariffs | 4 / 4 | 4 / 4 | 0 |
+| housing (title) | 13 pieces | 13 | 13 |
+| quantum | 1 / 1 | 1 / 1 | 1 |
+| insulin | 2 pieces | **0** (now empty) | 2 (it matched "insulin" inside longer words) |
+| shutdown | 1 piece | 1 piece | 1 |
+The numbers did not fall sharply: "AI" is the same 91 because it was already whole-word, and the substring column (451) is what the noise would have looked like. Only "election" (-1) and "insulin" (-2, now empty) changed.
+**Ten random "AI" matches (seed 7), for eyeballing:**
+1. Monopoly Round-Up: Goodbye AI Bubble, Hello Real Economy
+2. New AI Tools Piloted at Builder Innovator Summit to Mixed Reviews
+3. Inside the black box of AI: How AI models actually think | Emmanuel Ameisen (Anthropic)
+4. Our Gold Standard AI Tesla V100 Build in the Cooler Master MasterFrame 400 Gold
+5. MOFCOM's New Rules and the Future of Chinese AI
+6. Sam Altman's three endings for the AI safety race
+7. Why a Chinese AI Lab's Product Lead Thinks AGI is "Inevitable"
+8. AI Had Better Work Out
+9. A landmark study of AI in newsrooms reveals they need to be coaxed to experiment with their business models
+10. AI Took My Job
+All ten are about AI. All four "Fed" matches are the Federal Reserve. Item 4 is a hardware-build video, which shows the residual limit: a title containing the word is not always about the issue.
+
+### 2. Beat queries show two figures, never summed
+"6 pieces from 2 journalists on the Housing beat, plus 12 more pieces with "housing" in the title." The "plus" pieces exclude any already counted under the beat (13 title matches, 1 already beat-tagged: 12). The panel gives the beat figure its own stats, mix, places and headlines, and the title figure its own heading ("12 more from 8 journalists ... filed under other beats") and its own three headlines. Your hunch held: on Housing the beat alone undercounts about 3x. Examples: Tech 353 pieces / 104 journalists plus 14 more; Politics 965 / 186 with no extra; Finance 204 / 61 with no extra.
+
+### 3. Template
+"{m} pieces from {n} journalists ..." with singulars ("1 piece from 1 journalist", and "1 piece from 2 journalists" for a co-hosted piece reads correctly under this order).
+
+### 4. Featured issues
+`config/lens_featured_issues.json` (you edit it): `min_pieces: 5`, seeded with data centers, AI, tariffs, election. The build checks each with the same matcher and logs the result:
+- data centers: 13, kept. AI: 91, kept. election: 54, kept. **tariffs: 4, dropped** (under 5).
+Chips this run (8): data centers, AI, election, Politics, Tech, Local, Media/Power, Culture. A dropped issue simply vanishes; a chip cannot lead to an empty state. (Beat chips can still be reached with a different title wording, but each beat chip has 40+ pieces.)
+
+### 5. Freshness failsafe
+The index's `data_through` date is baked into the page (`<template id="lens-tpl" data-through="2026-10-22">`, rewritten by the build script) and also inside the index. `ATLAS_FLAGS.lensMaxAgeDays` is 14. Past that the Lens never mounts and the hero keeps its plain "Request my brief" link (the `?issue=` value still pre-fills the intake). Tested with a faked clock: 13 days old mounts, 14.0+ days hides (Nov 6 hid; Nov 4 mounted); at 19 days the hero is the Phase 1 version (screenshot). "Data through {date}" is always shown on the panel.
+
+### 6. Pipeline
+`refresh_pulse.sh` has a new **Step 3b**, after the digest step: it runs `journalism-atlas/scripts/build_lens_index.py` only if the digest did not fail (a failed digest prints a skip notice and leaves the previous index; the Lens then ages out after 14 days). `--dry-run` runs the script's own `--dry-run` (reports, writes nothing). A failure of 3b is recorded in the end summary and does not stop later steps. The script writes `assets/data/lens-index.json` and rewrites the chip list and `data-through` inside `for-brands.html`, so the Pulse refresh and the Lens refresh land in the same working tree. **No commits.** You commit them together with the Pulse files via GitHub Desktop. The end-of-run summary now names both files.
+**How you run it:** nothing new for the weekly run; `./refresh_pulse.sh` does it. By hand: `python3 scripts/build_lens_index.py` (add `--dry-run` to preview). Not run end-to-end through the shell script (that scrapes for ten minutes); the pieces were run separately.
+
+### 7. Small fixes
+- **Orange:** the convergence lines, the live dot and the framing-line figures now use `var(--viz-orange)`, the Atlas brand orange `#ffaa00` (v15 Tier 3 brand secondary; confirmed in `variables.css` and DESIGN-TOKENS-v15; 11:1 on black). Acid means something else in this system: it is the hover / pressed / selected state color ("green means interaction"), so it should not also mean "live". Computed stroke on the page is rgb(255, 170, 0). Note v15 limits Tier 3 to expression uses (Pulse and editorial graphics are named), and Pulse itself uses amber `#ffbc00` for its "overdue" warning; flag for James whether orange-as-live needs a line in the token doc.
+- "Where they're based" label: present (it was already, with a typographic apostrophe).
+- Podcast count reads "at least {n}", and "none found" when zero. A fine-print line says podcast is a floor.
+
+### Lighthouse, `?lens=1&issue=AI`, mobile, three runs (local server with gzip)
+| Run | Perf | A11y | SEO | LCP | CLS |
+|---|---|---|---|---|---|
+| 1 | 85 | 100 | 100 | 3.85 s | 0.103 |
+| 2 | 96 | 100 | 100 | 1.95 s | 0.098 |
+| 3 | 96 | 100 | 100 | 1.75 s | 0.103 |
+| **Median** | **96** | 100 | 100 | **1.95 s** | **0.103** |
+CLS is at the 0.1 line, a hair over on two runs. The shifts are the font swap and the header's menu button, with the Lens container growing when the result renders. Not fixed; the cheap options (fallback-font size matching) are a follow-up.
+
+### Open for you
+1. Flip `ATLAS_FLAGS.lens` to true for the launch? Data through Oct 22 shows plainly on the panel; the private repo has a fresher scrape if you run the publish step first.
+2. The CLS follow-up.
+3. Whether orange-as-live gets written into the token doc (James).

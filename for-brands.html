@@ -95,7 +95,7 @@
     .mix-row .bar { display: block; height: 8px; border-radius: 2px; background: var(--color-border-on-dark); position: relative; }
     .mix-row .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #fff; border-radius: 2px; }
     .mix-row .live { text-align: right; white-space: nowrap; }
-    .lr-h--gap { margin-top: 32px; }
+    .lr-h.lr-h--gap { margin-top: 32px; }
     .mix-row[data-zero] { color: var(--color-text-on-dark-2); }
     .lr-cols { display: grid; gap: 40px; margin-top: 48px; }
     @media (min-width: 900px) { .lr-cols { grid-template-columns: 2fr 1fr; gap: 64px; } }
@@ -614,7 +614,7 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false,
       var mx = Math.max.apply(null, r.fmt) || 1;
       var mix = ['Newsletter', 'Video', 'Podcast', 'Web'].map(function (nm, i) {
         // Podcasts mostly publish on custom domains we can only label by the creator's platform, so that count is a floor.
-        return '<div class="mix-row"' + (r.fmt[i] ? '' : ' data-zero') + '><span>' + nm + '</span><span class="bar"><i style="width:' + Math.round(100 * r.fmt[i] / mx) + '%"></i></span><span class="live">' + (i === 2 ? 'at least ' : '') + r.fmt[i].toLocaleString() + '</span></div>';
+        return '<div class="mix-row"' + (r.fmt[i] ? '' : ' data-zero') + '><span>' + nm + '</span><span class="bar"><i style="width:' + Math.round(100 * r.fmt[i] / mx) + '%"></i></span><span class="live">' + (i === 2 ? (r.fmt[i] ? 'at least ' + r.fmt[i].toLocaleString() : 'none found') : r.fmt[i].toLocaleString()) + '</span></div>';
       }).join('');
       var places = r.places.length ? '<div><h2 class="lr-h">Where they’re based</h2><ul class="places">' + r.places.map(function (x) { return '<li><span>' + esc(x[0]) + '</span><span class="live">' + x[1] + '</span></li>'; }).join('') + '</ul><p class="lr-fine">Creator home base, not story location. ' + r.withPlace + ' of ' + r.creators + ' have one listed.</p></div>' : '';
       var ver = r.verified != null ? '<div class="lr-secondary"><span class="stat-n live">' + r.verified.toLocaleString() + '</span><span class="stat-l">verified creators in the Atlas filed under ' + esc(r.label) + '</span></div>' : '';
