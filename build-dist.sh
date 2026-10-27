@@ -27,6 +27,8 @@ for d in preview/*/og; do [ -d "$d" ] && mkdir -p "dist/$d" && cp "$d"/*.png "di
 # Data files that pages fetch
 cp assets/data/creators-data.json assets/data/bluesky-creators.json assets/data/coops-data.json dist/assets/data/
 cp data/chicago-pulse.json dist/data/
+# Pulse: per-week post files fetched by pulse.html (written by pipelines/pulse/update_pulse.py)
+cp -R assets/data/pulse dist/assets/data/
 
 # Generated counts: fill {{CREATOR_COUNT}} / {{COUNT_AS_OF}} from assets/data/site-stats.json
 # (written by convert.js from creators-master.csv). Source pages keep the tokens; only dist/ is stamped.

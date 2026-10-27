@@ -3,1320 +3,534 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creator Intelligence for PR &amp; Comms | The Independent Journalism Atlas</title>
+  <!-- SOFT: headline pending Justin (alternates: "Who actually informs the places you work?" / "Your reputation is being written by people who aren't on your list.") -->
+  <title>Trust moved. Here's the map. | Independent Journalism Atlas</title>
+  <meta name="description" content="Trust moved to independent journalists. The Atlas maps {{CREATOR_COUNT}} of them, verified by hand, and shows what they publish every week.">
   <link rel="canonical" href="https://journalismatlas.com/for-brands">
-  <meta property="og:title" content="Creator Intelligence for PR &amp; Comms | The Independent Journalism Atlas">
-  <meta property="og:description" content="The journalists covering your issues aren't in your media list. The Atlas maps {{CREATOR_COUNT}} verified independent creator-journalists — filterable by beat, platform, and geography.">
+  <meta property="og:title" content="Trust moved. Here's the map. | Independent Journalism Atlas">
+  <meta property="og:description" content="Trust moved to independent journalists. The Atlas maps {{CREATOR_COUNT}} of them, verified by hand, and shows what they publish every week.">
   <meta property="og:url" content="https://journalismatlas.com/for-brands">
   <meta property="og:type" content="website">
+  <!-- Phase 5: dedicated 1200x630 for this page, generated at build -->
   <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Independent Journalism Atlas">
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://journalismatlas.com/for-brands">
-  <meta property="twitter:title" content="Creator Intelligence for PR &amp; Comms | The Independent Journalism Atlas">
-  <meta property="twitter:description" content="The journalists covering your issues aren't in your media list. The Atlas maps {{CREATOR_COUNT}} verified independent creator-journalists — filterable by beat, platform, and geography.">
-  <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://journalismatlas.com/for-brands">
+  <meta name="twitter:title" content="Trust moved. Here's the map. | Independent Journalism Atlas">
+  <meta name="twitter:description" content="Trust moved to independent journalists. The Atlas maps {{CREATOR_COUNT}} of them, verified by hand, and shows what they publish every week.">
+  <meta name="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/variables.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&family=Source+Code+Pro:wght@500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
   <style>
-    /* ── BASE ── */
+    /* /for-brands: the briefing room. Tokens only (docs/design/DESIGN-TOKENS-v15.md).
+       Merriweather carries the argument, Inter carries everything you read to understand,
+       Source Code Pro is reserved for live data (.live). Acid = live/now, on dark only as text,
+       on light only as a fill. No per-section color. */
     *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Inter', sans-serif; color: #111111; background: #111111; }
-    a { text-decoration: none; }
-    img { display: block; max-width: 100%; }
+    body { margin: 0; font-family: var(--font-primary); font-size: 16px; line-height: 1.6; color: var(--color-text); background: #fff; }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 0 16px; }
+    .col { max-width: 680px; }
+    @media (min-width: 768px) { .wrap { padding: 0 32px; } }
+    .serif { font-family: var(--font-editorial); font-weight: 700; color: var(--color-text-header); letter-spacing: -0.01em; }
+    h1, h2, h3, p { margin: 0; }
+    section { padding: 64px 0; }
+    @media (min-width: 900px) { section { padding: 96px 0; } }
+    .claim { font-family: var(--font-editorial); font-weight: 700; font-size: 28px; line-height: 1.25; color: var(--color-text-header); max-width: 22em; }
+    @media (min-width: 900px) { .claim { font-size: 36px; line-height: 1.2; } }
+    .lede { margin-top: 20px; max-width: 680px; }
+    .small { font-size: 13px; line-height: 1.5; color: var(--color-text-secondary); }
+    .small a, .lede a, .body a, .col a { color: var(--color-link); text-decoration: underline; text-underline-offset: 2px; }
+    .small a:hover, .lede a:hover, .col a:hover { color: #000; }
+    /* live data: the only place mono appears outside tags */
+    .live { font-family: var(--font-mono); font-weight: 500; font-size: 0.92em; letter-spacing: 0.02em; }
+    .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-acid); margin-right: 8px; vertical-align: middle; }
+    .tag { display: inline-block; font-family: var(--font-mono); font-weight: 500; font-size: 12px; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; }
+    .tag--real { background: #000; color: #fff; }
+    .tag--wip { color: #303030; border: 1px solid #303030; padding: 3px 7px; }
+    .tag--idea { color: #303030; border: 1px dashed #303030; padding: 3px 7px; }
+    .on-dark .tag--wip { color: #fff; border-color: #fff; }
+    .on-dark .tag--idea { color: #fff; border-color: #fff; }
+    .on-dark .tag--real { background: #fff; color: #000; }
 
-    .material-symbols-outlined {
-      font-family: 'Material Symbols Outlined';
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      font-size: 24px; line-height: 1; display: inline-block; vertical-align: middle;
-    }
+    /* ── 1 HERO + LENS ── */
+    .hero { background: var(--color-surface-dark); color: var(--color-text-on-dark-2); padding: 64px 0 72px; }
+    @media (min-width: 900px) { .hero { padding: 96px 0 96px; } }
+    .hero h1 { font-family: var(--font-editorial); font-weight: 700; color: #fff; font-size: clamp(36px, 5.2vw, 64px); line-height: 1.08; letter-spacing: -0.02em; max-width: 14em; }
+    .hero .dek { margin-top: 28px; max-width: 700px; font-size: 18px; line-height: 1.6; color: var(--color-text-on-dark-2); }
+    .hero .dek a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+    .hero .dek a:hover { color: var(--color-acid); }
 
-    /* ── LAYOUT HELPERS ── */
-    .section-inner { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+    .hero-cta { margin-top: 32px; }
+    .lens { margin-top: 56px; border-top: 1px solid var(--color-border-on-dark); padding-top: 32px; }
+    .lens-label { display: block; font-family: var(--font-editorial); font-weight: 700; font-size: 22px; color: #fff; margin-bottom: 16px; }
+    .lens-field { display: flex; gap: 8px; max-width: 720px; }
+    .lens-input-wrap { position: relative; flex: 1; }
+    .lens-input-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #5e5e5e; pointer-events: none; }
+    .lens-input { width: 100%; min-height: 48px; padding: 0 14px 0 44px; font: 400 16px var(--font-primary); color: #000; background: #fff; border: 1px solid #fff; border-radius: 6px; }
+    .lens-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; max-width: 900px; padding: 0; list-style: none; }
+    .chip { min-height: 40px; padding: 0 14px; font: 500 14px var(--font-primary); color: #fff; background: transparent; border: 1px solid var(--color-button-outline-on-dark); border-radius: 6px; cursor: pointer; }
+    .chip:hover, .chip:focus-visible { background: var(--color-acid); color: #000; border-color: var(--color-acid); }
+    .lens-result { margin-top: 40px; padding: 24px; border: 1px dashed var(--color-border-on-dark); border-radius: 6px; }
+    .lens-result-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .lens-frame { font-family: var(--font-editorial); font-weight: 700; font-size: 20px; line-height: 1.4; color: #fff; max-width: 34em; }
+    .lens-grid { display: grid; gap: 32px; margin-top: 32px; }
+    @media (min-width: 900px) { .lens-grid { grid-template-columns: 1fr 1fr 1.4fr; } }
+    .stat-n { font-size: 40px; line-height: 1; color: #fff; display: block; }
+    .stat-l { display: block; margin-top: 8px; font-size: 14px; color: var(--color-text-on-dark-2); }
+    .mix { display: grid; gap: 10px; }
+    .mix div { display: grid; grid-template-columns: 88px 1fr 40px; gap: 12px; align-items: center; font-size: 14px; }
+    .mix i { display: block; height: 8px; border-radius: 2px; background: var(--color-border-on-dark); }
+    .lens-heads { margin: 32px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border-on-dark); }
+    .lens-heads li { padding: 14px 0; border-bottom: 1px solid var(--color-border-on-dark); color: var(--color-text-on-dark-2); font-size: 15px; }
+    .lens-act { margin-top: 24px; }
+    .lens-note { margin-top: 16px; font-size: 13px; color: var(--color-text-on-dark-2); }
 
-    /* ── SECTION EYEBROW ── */
-    .eyebrow {
-      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 20px;
-    }
-    .eyebrow--dark { color: rgba(255,255,255,0.35); }
-    .eyebrow--light { color: rgba(17,17,17,0.4); }
+    .btn-brief { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; font: 600 15px var(--font-primary); color: #fff; background: var(--color-button); border: 1px solid var(--color-button-outline-on-dark); border-radius: 6px; text-decoration: none; cursor: pointer; }
+    .btn-brief:hover, .btn-brief:focus-visible { background: var(--color-acid); color: #000; border-color: var(--color-acid); }
+    .light .btn-brief { border-color: var(--color-button-outline); }
 
-    /* ── SHARED HEADING STYLES ── */
-    .h2-dark { font-size: clamp(28px, 3vw, 44px); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin: 0 0 24px; line-height: 1.1; }
-    .h2-light { font-size: clamp(28px, 3vw, 44px); font-weight: 700; letter-spacing: -0.025em; color: #111111; margin: 0 0 24px; line-height: 1.1; }
+    /* ── 2 SHIFT ── */
+    .shift-grid { display: grid; gap: 48px; margin-top: 48px; }
+    @media (min-width: 900px) { .shift-grid { grid-template-columns: repeat(3, 1fr); gap: 48px; } }
+    .shift-grid > div { border-top: 2px solid var(--color-text-header); padding-top: 20px; }
+    .shift-grid h3 { font-family: var(--font-editorial); font-size: 24px; line-height: 1.25; color: var(--color-text-header); margin-bottom: 12px; }
+    .shift-fig { display: block; font-size: 15px; margin-top: 12px; color: var(--color-text); }
 
-    /* ── SOURCE ATTRIBUTION ── */
-    .source-attr { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 4px; }
-    .source-attr--light { font-size: 11px; color: rgba(0,0,0,0.35); margin-top: 4px; }
-    .source-attr--light a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+    /* ── 3 NOT INFLUENCERS ── */
+    .contrast { margin-top: 40px; border-top: 1px solid var(--color-border); }
+    .contrast-row { display: grid; gap: 4px 48px; padding: 18px 0; border-bottom: 1px solid var(--color-border); }
+    @media (min-width: 768px) { .contrast-row { grid-template-columns: 200px 1fr 1fr; align-items: baseline; } }
+    .contrast-row dt { font-size: 13px; color: var(--color-text-secondary); }
+    .contrast-row dd { margin: 0; }
+    .contrast-row dd:nth-of-type(2) { color: var(--color-text-header); font-weight: 600; }
+    .contrast-head { display: none; }
+    @media (min-width: 768px) { .contrast-head { display: grid; grid-template-columns: 200px 1fr 1fr; gap: 48px; padding: 12px 0; font-size: 13px; color: var(--color-text-secondary); } }
+    .turn { margin-top: 72px; padding-top: 40px; border-top: 2px solid var(--color-text-header); display: grid; gap: 32px; }
+    @media (min-width: 900px) { .turn { grid-template-columns: 1fr 1fr; gap: 64px; } }
+    .turn-stats { display: grid; gap: 24px; grid-template-columns: 1fr 1fr; }
+    .turn-n { font-family: var(--font-editorial); font-weight: 700; font-size: 48px; line-height: 1; color: var(--color-text-header); }
 
-    /* ── BUTTONS ── */
-    .btn-primary { white-space: nowrap; }
-    .btn-ghost { white-space: nowrap; }
+    /* ── 4 RELATIONSHIPS ── */
+    .rel { background: var(--color-surface); }
+    .rel-grid { display: grid; gap: 48px; margin-top: 48px; }
+    @media (min-width: 900px) { .rel-grid { grid-template-columns: repeat(3, 1fr); } }
+    .rel-grid h3 { font-family: var(--font-editorial); font-size: 28px; line-height: 1.2; color: var(--color-text-header); margin-bottom: 12px; }
+    .rel-do { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border); font-size: 15px; color: var(--color-text-header); }
+    .rel-close { margin-top: 80px; }
+    .rel-close p { font-family: var(--font-editorial); font-weight: 700; font-size: clamp(28px, 4vw, 48px); line-height: 1.15; color: var(--color-text-header); max-width: 16em; }
+    .rel-close .btn-brief { margin-top: 32px; }
 
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 2 — HERO
-    ═══════════════════════════════════════════════════════════ */
-    .hero-section { background: #111111; padding: 96px 40px 88px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .hero-eyebrow-pill {
-      display: inline-block;
-      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700;
-      color: var(--color-acid); background: rgba(206,255,0,0.07);
-      border: 1px solid rgba(206,255,0,0.3); border-radius: 100px;
-      padding: 5px 16px; letter-spacing: 0.1em; text-transform: uppercase;
-      margin-bottom: 32px;
-    }
-    .hero-h1 {
-      font-size: clamp(36px, 5vw, 64px); font-weight: 700;
-      letter-spacing: -0.03em; color: #fff; line-height: 1.03;
-      margin: 0 0 24px; max-width: 820px;
-    }
-    .hero-sub {
-      font-size: 18px; color: var(--color-text-on-dark-2); line-height: 1.7;
-      max-width: 600px; margin: 0 0 40px;
-    }
-    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    /* ── 5 WORK ── */
+    .ladder { margin: 40px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--color-text-header); }
+    .ladder li { display: grid; gap: 6px 48px; padding: 24px 0; border-bottom: 1px solid var(--color-border); }
+    @media (min-width: 768px) { .ladder li { grid-template-columns: 240px 1fr 1fr; } }
+    .ladder h3 { font-family: var(--font-editorial); font-size: 22px; line-height: 1.25; color: var(--color-text-header); }
+    .ladder .who { font-size: 14px; color: var(--color-text-secondary); }
+    .lab { margin-top: 40px; display: grid; gap: 24px; }
+    @media (min-width: 900px) { .lab { grid-template-columns: repeat(3, 1fr); } }
+    .lab > div { border-left: 2px solid var(--color-border); padding-left: 20px; }
+    .lab h4 { font-size: 16px; font-weight: 600; color: var(--color-text-header); margin: 10px 0 6px; }
 
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 3 — THE PROBLEM
-    ═══════════════════════════════════════════════════════════ */
-    /* ── Landscape Strip ── */
-    .landscape-strip { background: #1a1a1a; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 14px 40px; }
-    .landscape-strip-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; }
-    .landscape-strip-stat { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; white-space: nowrap; }
-    a.landscape-strip-stat { text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); text-underline-offset: 3px; }
-    a.landscape-strip-stat:hover { color: rgba(255,255,255,0.85); }
-    .landscape-strip-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(206,255,0,0.3); flex-shrink: 0; }
-    .landscape-strip-source { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; margin-left: auto; white-space: nowrap; }
-    @media (max-width: 768px) { .landscape-strip { padding: 12px 20px; } .landscape-strip-source { display: none; } }
+    /* ── 6 STANDARDS ── */
+    .std { background: var(--color-surface-dark); color: var(--color-text-on-dark-2); }
+    .std .claim { color: #fff; }
+    .std-grid { display: grid; gap: 40px; margin-top: 40px; }
+    @media (min-width: 900px) { .std-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
+    .std h3 { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 16px; }
+    .std ul { margin: 0; padding: 0; list-style: none; }
+    .std li { padding: 14px 0; border-top: 1px solid var(--color-border-on-dark); }
+    .std-sign { margin-top: 40px; font-size: 15px; color: #fff; }
 
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 4 — COMPARISON TABLE
-    ═══════════════════════════════════════════════════════════ */
-    .compare-section { background: #f5f5f5; padding: 80px 40px; }
-    .compare-framing {
-      font-size: 18px; color: #444; line-height: 1.75;
-      max-width: 680px; margin: 0 0 48px;
-    }
-    .compare-wrap { overflow-x: auto; }
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 220px 1fr 1fr;
-      border: 1px solid #dddde0; border-radius: 6px; overflow: hidden;
-      min-width: 600px;
-    }
+    /* ── 7 UNDERNEATH ── */
+    .under-grid { display: grid; gap: 48px; margin-top: 48px; }
+    @media (min-width: 900px) { .under-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .under-grid h3 { font-size: 20px; font-weight: 600; color: var(--color-text-header); margin-bottom: 12px; }
+    .under-list { margin: 0; padding: 0; list-style: none; }
+    .under-list li { padding: 8px 0; border-top: 1px solid var(--color-border); font-size: 15px; }
+    .team { display: grid; gap: 16px; }
+    .team-p { display: flex; gap: 12px; align-items: center; }
+    .team-p img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .team-p b { display: block; font-weight: 600; color: var(--color-text-header); font-size: 15px; }
+    .team-p span { font-size: 13px; color: var(--color-text-secondary); }
 
-    /* Header row */
-    .compare-spacer { background: #f0f0f0; border-bottom: 1px solid #dddde0; padding: 14px 20px; }
-    .compare-th {
-      padding: 16px 24px; font-size: 12px; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      border-bottom: 2px solid #dddde0;
-    }
-    .compare-th--left { background: #fff9e0; color: #666; border-left: 1px solid #dddde0; }
-    .compare-th--right { background: var(--color-accent); color: #111111; border-left: 1px solid #7ab000; border-bottom: 3px solid var(--color-accent-on-light); }
-
-    /* Data rows */
-    .compare-row-label {
-      padding: 14px 20px; font-size: 13px; font-weight: 700;
-      color: #111111; background: #f0f0f0;
-      border-top: 1px solid #dddde0;
-      display: flex; align-items: center;
-    }
-    .compare-cell {
-      padding: 14px 24px; font-size: 15px; color: #333;
-      border-top: 1px solid #dddde0; border-left: 1px solid #dddde0;
-      display: flex; align-items: flex-start; padding-top: 16px; background: #fff; line-height: 1.5;
-    }
-    .compare-grid > *:nth-child(6n+4),
-    .compare-grid > *:nth-child(6n+5),
-    .compare-grid > *:nth-child(6n+6) {
-      background: #fafafa;
-    }
-    .compare-grid > *:nth-child(6n+5) { background: #fdfdf5; }
-    .compare-source { font-size: 12px; color: rgba(0,0,0,0.4); margin-top: 20px; }
-
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 5 — THREE WAYS BRANDS SHOW UP
-    ═══════════════════════════════════════════════════════════ */
-    .three-ways-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .three-ways-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
-    .way-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px; padding: 32px 28px;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .way-card:hover { border-color: rgba(206,255,0,0.2); background: rgba(206,255,0,0.03); }
-    .way-card-icon {
-      color: var(--color-acid); font-size: 32px; margin-bottom: 16px;
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 48px; height: 48px; background: rgba(206,255,0,0.08); border-radius: 100px;
-    }
-    .way-card-title {
-      font-size: 20px; font-weight: 700; color: #fff;
-      margin: 0 0 12px; letter-spacing: -0.01em;
-    }
-    .way-card-body { font-size: 16px; color: var(--color-text-on-dark-2); line-height: 1.7; margin: 0; }
-    .three-ways-note {
-      font-size: 15px; color: rgba(255,255,255,0.4); line-height: 1.7;
-      text-align: center; max-width: 640px; margin: 0 auto;
-    }
-    .three-ways-note em { color: rgba(255,255,255,0.6); font-style: normal; }
-
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 6 — GOOD NEWS (light surface — Muck Rack stats as evidence, not billboard)
-    ═══════════════════════════════════════════════════════════ */
-    .good-news-section { background: var(--color-bg); padding: 80px 40px; border-top: 1px solid #d4d4d8; }
-    .good-news-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-bottom: 48px; }
-    .good-news-stat {}
-    .good-news-num {
-      font-family: 'DM Mono', monospace; font-size: clamp(64px, 8vw, 96px);
-      font-weight: 700; color: #111111; line-height: 1; letter-spacing: -0.04em;
-    }
-    .good-news-headline { position: relative; display: inline-block; }
-    .good-news-headline::after { content: ''; display: block; height: 4px; width: 48px; background: var(--color-accent); border-radius: 2px; margin-top: 12px; }
-    .trust-cite-view-all { white-space: nowrap; margin-left: 8px; }
-    .good-news-label { font-size: 18px; color: var(--color-text); margin-top: 16px; line-height: 1.5; max-width: 320px; }
-    .good-news-followup {
-      font-size: 18px; color: rgba(17,17,17,0.65); line-height: 1.75; max-width: 680px;
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 7 — WHAT THE ATLAS DOES
-    ═══════════════════════════════════════════════════════════ */
-    .atlas-does-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .atlas-does-intro { font-size: 17px; color: var(--color-text-on-dark-2); line-height: 1.7; max-width: 600px; margin: 0 0 32px; }
-    .intel-layer-ctas { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
-    .intel-cta-link { align-items: center; gap: 8px; }
-
-    /* ═══════════════════════════════════════════════════════════
-       GALLERY + GALLERY MINI PREVIEWS
-    ═══════════════════════════════════════════════════════════ */
-    .gallery-section { background: #0d0d0d; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .gallery-intro { font-size: 17px; color: var(--color-text-on-dark-2); margin: 0 0 48px; max-width: 560px; line-height: 1.7; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .gallery-card {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px; padding: 28px 24px;
-      display: flex; flex-direction: column;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .gallery-card:hover { border-color: rgba(206,255,0,0.3); background: rgba(206,255,0,0.03); }
-    .gallery-card-eyebrow {
-      font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
-      color: rgba(255,255,255,0.3); letter-spacing: 0.14em; text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .gallery-card-name { font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 12px; letter-spacing: -0.01em; }
-    .gallery-card-desc { font-size: 15px; color: var(--color-text-on-dark-2); line-height: 1.65; flex: 1; margin: 0 0 20px; }
-    .gallery-card-link { display: inline-flex; align-items: center; gap: 6px; }
-    /* ── Gallery mini previews (CSS-drawn ornamental) ── */
-    .gallery-mini-pulse { display: flex; align-items: flex-end; gap: 6px; height: 48px; margin-bottom: 16px; }
-    .gmp-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
-    .gmp-bar { width: 100%; background: var(--color-acid); border-radius: 2px 2px 0 0; opacity: 0.6; min-height: 4px; }
-
-    .gmp-label { font-family: 'DM Mono', monospace; font-size: 7px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
-    .gallery-mini-search { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-    .gms-filter { display: flex; gap: 6px; }
-    .gms-filter span { height: 12px; border-radius: 100px; background: rgba(255,255,255,0.1); }
-    .gms-filter span:nth-child(1) { width: 48px; }
-    .gms-filter span:nth-child(2) { width: 36px; }
-    .gms-filter span:nth-child(3) { width: 28px; }
-    .gms-result { display: flex; align-items: center; gap: 8px; }
-    .gms-avatar { width: 20px; height: 20px; border-radius: 100px; background: rgba(206,255,0,0.15); font-size: 7px; font-weight: 700; color: var(--color-acid); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-    .gms-lines { display: flex; flex-direction: column; gap: 3px; flex: 1; }
-    .gms-lines span { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
-    .gms-lines span:first-child { width: 70%; }
-    .gms-lines span:last-child { width: 50%; }
-
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 9 — CAPTURE FORM
-    ═══════════════════════════════════════════════════════════ */
-    .form-section { background: #ffffff; padding: 56px 40px; border-top: 1px solid #e4e4e8; }
-    .form-inner { max-width: 640px; }
-    .form-body-text { font-size: 17px; color: #555555; line-height: 1.75; margin: 0 0 48px; }
-    .capture-form { display: flex; flex-direction: column; gap: 16px; }
-    .form-field { display: flex; flex-direction: column; gap: 6px; }
-    .form-label {
-      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
-      color: rgba(0,0,0,0.4); letter-spacing: 0.12em; text-transform: uppercase;
-    }
-    .form-input, .form-textarea {
-      background: #ffffff; border: 1px solid #d4d4d8;
-      border-radius: 6px; padding: 12px 16px;
-      font-family: 'Inter', sans-serif; font-size: 16px; color: #111111;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      width: 100%;
-    }
-    .form-input::placeholder, .form-textarea::placeholder { color: rgba(0,0,0,0.3); }
-    .form-input:focus, .form-textarea:focus {
-      border-color: var(--color-focus-on-light);
-      box-shadow: 0 0 0 2px rgba(151,214,0,0.15);
-    }
-    .form-textarea { resize: vertical; min-height: 96px; }
-    .form-submit { align-self: flex-start; margin-top: 8px; }
-    .form-disclaimer { font-size: 13px; color: rgba(0,0,0,0.35); text-align: center; margin-top: 20px; line-height: 1.6; }
-
-    /* ═══════════════════════════════════════════════════════════
-       MOBILE RESPONSIVE — 375px
-    ═══════════════════════════════════════════════════════════ */
-    /* ═══════════════════════════════════════════════════════════
-       SECTION 9 — BRIEF BUILDER FORM
-    ═══════════════════════════════════════════════════════════ */
-    .brief-section { background: #111111; padding: 80px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .brief-inner { max-width: 640px; }
-    .brief-headline { font-size: clamp(28px, 3vw, 40px); font-weight: 700; letter-spacing: -0.025em; color: #fff; margin: 0 0 16px; line-height: 1.1; }
-    .brief-sub { font-size: 17px; color: var(--color-text-on-dark-2); line-height: 1.7; margin: 0 0 48px; }
-
-    .brief-form { display: flex; flex-direction: column; gap: 24px; }
-    .bf-field { display: flex; flex-direction: column; gap: 8px; }
-    .bf-label {
-      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
-      color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase;
-    }
-    .bf-select, .bf-input {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 6px; padding: 12px 16px;
-      font-family: 'Inter', sans-serif; font-size: 16px; color: #fff;
-      width: 100%; transition: border-color 0.15s, box-shadow 0.15s;
-    }
-    .bf-select {
-      appearance: none; cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 14px center;
-      padding-right: 40px;
-    }
-    .bf-select option { background: #1a1a1a; color: #fff; }
-    .bf-input::placeholder { color: rgba(255,255,255,0.25); }
-    .bf-select:focus, .bf-input:focus {
-      border-color: var(--color-acid); box-shadow: 0 0 0 2px rgba(206,255,0,0.1);
-    }
-
-    /* Checkbox + radio groups */
-    .bf-check-group, .bf-radio-group { display: flex; flex-wrap: wrap; gap: 8px 24px; padding-top: 4px; }
-    .bf-check-item, .bf-radio-item {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 16px; color: #d4d4d8; cursor: pointer;
-    }
-    .bf-check-item input, .bf-radio-item input {
-      accent-color: #ceff00; width: 16px; height: 16px; cursor: pointer; flex-shrink: 0;
-    }
-
-    /* Submit */
-    .bf-submit { align-self: flex-start; margin-top: 8px; }
-
-    /* Confirmation state */
-    .brief-confirm {
-      display: none; padding: 40px 32px;
-      background: rgba(206,255,0,0.06); border: 1px solid rgba(206,255,0,0.2);
-      border-radius: 6px;
-    }
-    .brief-confirm-headline { font-size: 20px; font-weight: 700; color: var(--color-acid); margin: 0 0 12px; }
-    .brief-confirm-body { font-size: 16px; color: var(--color-text-on-dark-2); line-height: 1.7; margin: 0; }
-    .brief-section .eyebrow { display: inline-flex; align-items: center; gap: 8px; }
-    .brief-section .eyebrow::before { content: ''; display: inline-block; width: 16px; height: 2px; background: var(--color-acid); border-radius: 1px; }
-    .bf-secondary-path { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .brief-confirm-icon { margin-bottom: 16px; }
-    .brief-confirm-next { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 16px 0 0; }
-    .bf-submit-row { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
-    .bf-soft-cta { text-align: left; }
-    .bf-soft-submit { background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; padding: 12px 24px; border-radius: 6px; cursor: pointer; transition: border-color 0.15s; margin-top: 8px; }
-    .bf-soft-submit:hover { border-color: rgba(255,255,255,0.5); }
-
-    .atlas-card-link { display: inline-block; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(206,255,0,0.8); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; text-decoration: none; }
-    .atlas-card-link:hover { color: #ceff00; }
-
-    /* ── Pulse Intelligence Section ── */
-    .pulse-intel-section { background: #1a1a1a; padding: 72px 40px; }
-    .pulse-intel-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; gap: 24px; }
-    .pulse-intel-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 12px; }
-    .pulse-intel-cta { white-space: nowrap; flex-shrink: 0; align-self: flex-start; }
-    .pulse-intel-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-bottom: 32px; }
-    @media (max-width: 900px) { .pulse-intel-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 540px) { .pulse-intel-grid { grid-template-columns: 1fr; } }
-    .pi-beat-col { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; padding: 20px 16px; }
-    .pi-beat-header { margin-bottom: 10px; }
-    .pi-beat-name { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--color-acid); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; margin-bottom: 2px; }
-    .pi-beat-stats { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em; }
-    .pi-bar-label { font-family: 'DM Mono', monospace; font-size: 7px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.2); margin-bottom: 4px; }
-    .pi-beat-bar-track { height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; margin-bottom: 16px; overflow: hidden; }
-    .pi-beat-bar-fill { height: 100%; background: var(--color-acid); border-radius: 4px; opacity: 0.85; transition: width 0.3s ease; }
-    .pulse-dot-acid {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--color-acid);
-      animation: pulse-dot-anim 2.4s ease-in-out infinite;
-      vertical-align: middle;
-      margin-right: 6px;
-      position: relative;
-      top: -1px;
-    }
-    @keyframes pulse-dot-anim {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.7); }
-    }
-    .pi-post { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .pi-post:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 8px; }
-    .pi-post-title { display: block; font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 4px; text-decoration: none; }
-    .pi-post-title:hover { color: var(--color-acid); }
-    .pi-post-meta { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.05em; }
-    .pi-beat-more { display: block; margin-top: 4px; }
-    .pulse-intel-footer { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.08em; }
-
-    /* ── Hero Ticker ── */
-    .hero-ticker-wrap { margin-top: 64px; overflow: hidden; width: 100vw; position: relative; left: 50%; transform: translateX(-50%); mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); }
-    .hero-ticker-row { display: flex; gap: 0; width: max-content; margin-bottom: 8px; }
-    .hero-ticker-row--forward { animation: ticker-scroll-f 75s linear infinite; }
-    .hero-ticker-row--reverse { animation: ticker-scroll-r 60s linear infinite; }
-    @keyframes ticker-scroll-f { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    @keyframes ticker-scroll-r { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-    .hero-ticker-item { display: inline-flex; align-items: center; gap: 12px; padding: 0 24px; white-space: nowrap; font-size: 13px; color: rgba(255,255,255,0.28); font-weight: 500; }
-    .hero-ticker-item-beat { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(206,255,0,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
-    .hero-ticker-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.12); flex-shrink: 0; }
-
-    /* ── Trust Bar ── */
-    .trust-bar-section { background: var(--color-bg); padding: 40px 40px; border-bottom: 1px solid #d4d4d8; }
-    .trust-bar-inner { max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 32px; }
-    .trust-bar-founders { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .trust-divider { width: 1px; height: 32px; background: #d4d4d8; flex-shrink: 0; }
-    .trust-avatar { width: 36px; height: 36px; border-radius: 100px; background: var(--color-bg-dark); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .trust-founder-name { font-size: 14px; font-weight: 700; color: #111; line-height: 1.2; }
-    .trust-cites { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-    .trust-cites-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(17,17,17,0.35); letter-spacing: 0.14em; text-transform: uppercase; }
-    .trust-cite-pill { font-size: 12px; color: var(--color-text); background: #fff; border: 1px solid #d4d4d8; border-radius: 100px; padding: 5px 14px; }
-    .trust-cite-pill--link { text-decoration: none; transition: background 0.15s, border-color 0.15s; cursor: pointer; }
-    .trust-cite-pill--link:hover { background: #f0f0f0; border-color: #bbb; }
-    .compare-headline-emphasis { display: inline; color: #111111; transition: color 0.4s ease; }
-    .compare-headline-emphasis.is-visible { color: var(--color-accent-on-light); }
-
-    /* ── Beat Explorer ── */
-    .beat-explorer { margin-top: 40px; }
-    .beat-explorer-label { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
-    .beat-explorer-intro { font-size: 14px; color: rgba(255,255,255,0.45); margin: 0 0 16px; line-height: 1.5; }
-    .beat-explorer-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    .bx-chip { white-space: nowrap; }
-    .bx-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; min-height: 120px; }
-    @media (max-width: 768px) { .bx-panel { grid-template-columns: 1fr; } }
-    .bx-creator-card { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 16px 18px; transition: border-color 0.15s; }
-    .bx-creator-card:hover { border-color: rgba(206,255,0,0.2); }
-    .bx-creator-avatar { width: 36px; height: 36px; border-radius: 100px; flex-shrink: 0; background: rgba(206,255,0,0.12); color: var(--color-acid); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-    .bx-creator-body { flex: 1; min-width: 0; }
-    .bx-creator-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .bx-creator-meta { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; line-height: 1.5; }
-    .bx-creator-note { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
-    .bx-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 8px; }
-    .bx-search-cta { align-items: center; gap: 8px; }
-    .bx-count { font-family: 'DM Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
-
-    /* ── Gallery Offer Grid (Free + Paid two-column) ── */
-    .gallery-offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .gallery-offer-col--paid { padding: 36px 32px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; }
-    @media (max-width: 768px) { .gallery-offer-grid { grid-template-columns: 1fr; gap: 32px; } }
-    .pricing-col-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
-    .pricing-col-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.6; }
-    .pricing-col-list .material-symbols-outlined { font-size: 20px; color: var(--color-acid); flex-shrink: 0; margin-top: 2px; }
-
-    /* ── Live Window Editorial (Pulse section) ── */
-    .live-window-editorial { font-size: 18px; color: #e0e0e0; line-height: 1.8; max-width: 680px; margin: 0 0 40px; border-left: 3px solid rgba(206,255,0,0.65); padding-left: 20px; }
-
-    /* ── Pulse Follower Note ── */
-    .pulse-intel-follower-note { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; margin: 16px 0 0; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
-
-    @media (max-width: 768px) {
-      .hero-section, .compare-section, .three-ways-section,
-      .good-news-section, .atlas-does-section, .gallery-section, .pulse-intel-section,
-      .brief-section, .form-section, .trust-bar-section { padding-left: 20px; padding-right: 20px; }
-
-      .hero-section { padding-top: 56px; padding-bottom: 56px; }
-      .hero-ctas { flex-direction: column; }
-      /* instruction links (13px caps) are wider than the old 9px labels: let their rows wrap */
-      .pulse-intel-header, .pulse-intel-follower-note, .pulse-intel-footer { flex-wrap: wrap; }
-      .pulse-intel-follower-note a { flex-basis: 100%; }
-      .btn-ghost { text-align: center; }
-
-      .stat-strip { grid-template-columns: 1fr; gap: 32px; }
-      .compare-section { padding-top: 56px; padding-bottom: 56px; }
-      .three-ways-grid { grid-template-columns: 1fr; }
-      .good-news-stats { grid-template-columns: 1fr; gap: 40px; }
-      .atlas-does-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: 1fr; }
-
-      .form-submit, .bf-submit { width: 100%; align-self: stretch; }
-
-    }
+    /* ── 8 INTAKE ── */
+    .intake { background: var(--color-surface); }
+    .intake-form { margin-top: 40px; max-width: 680px; display: grid; gap: 24px; }
+    .intake-form label, .intake-form legend { display: block; font-size: 14px; font-weight: 600; color: var(--color-text-header); margin-bottom: 6px; padding: 0; }
+    .opt { font-weight: 400; color: var(--color-text-secondary); }
+    .intake-form input[type=text], .intake-form input[type=email], .intake-form textarea { width: 100%; min-height: 48px; padding: 10px 14px; font: 400 16px var(--font-primary); color: #000; background: #fff; border: 1px solid var(--color-button-2-outline); border-radius: 6px; }
+    .intake-form textarea { min-height: 96px; resize: vertical; }
+    .intake-form fieldset { border: 0; margin: 0; padding: 0; }
+    .radios { display: grid; gap: 8px; }
+    .radios label { display: flex; gap: 10px; align-items: center; font-weight: 400; margin: 0; min-height: 44px; padding: 0 14px; background: #fff; border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text); cursor: pointer; }
+    .radios input { accent-color: #000; width: 18px; height: 18px; }
+    .gotcha { position: absolute; left: -9999px; }
+    .form-msg { font-size: 15px; }
+    .form-msg[data-state="error"] { color: var(--color-error); }
+    .intake-form .btn-brief { justify-self: start; }
+    .confirm { margin-top: 40px; max-width: 680px; }
+    .confirm h3 { font-family: var(--font-editorial); font-size: 32px; color: var(--color-text-header); margin-bottom: 12px; }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+    .on-dark :focus-visible, .hero :focus-visible { outline-color: var(--color-focus); }
+    .skip { position: absolute; left: -9999px; }
+    .skip:focus { left: 16px; top: 8px; z-index: 999; background: #fff; padding: 8px 12px; }
   </style>
   <link rel="stylesheet" href="/assets/css/header.css">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" href="/assets/img/favicon-v2.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/img/favicon-v2.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
-
 <script src="assets/js/header.js"></script>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 2 — HERO
-═══════════════════════════════════════════════════════════ -->
-<section class="hero-section on-dark">
-  <div class="section-inner">
-    <div class="hero-eyebrow-pill">For PR · Public Affairs · Comms Teams</div>
-    <h1 class="hero-h1">The journalists covering your<br>issues aren't in your media list.</h1>
-    <p class="hero-sub">Independent creator journalists have built loyal, paying audiences around the exact topics you care about. They're not hard to find. They're just not in the places you're looking.</p>
-    <div class="hero-ctas">
-      <a href="#intelligence-layer" class="btn-primary btn btn--primary">See the intelligence layer</a>
-      <a href="#build-brief" class="btn-ghost btn btn--secondary">Tell us what you're tracking</a>
-    </div>
+<main id="main">
 
-    <div class="hero-ticker-wrap" aria-hidden="true">
-      <div class="hero-ticker-row hero-ticker-row--forward" id="ticker-row-1"></div>
-      <div class="hero-ticker-row hero-ticker-row--reverse" id="ticker-row-2"></div>
-    </div>
-  </div>
-</section>
-<script>
-(function() {
-  const row1Names = [
-    { name: "Kyla Scanlon", beat: "Business & Economy" },
-    { name: "Casey Newton", beat: "Technology" },
-    { name: "Judd Legum", beat: "Politics" },
-    { name: "Jerusalem Demsas", beat: "Policy & Culture" },
-    { name: "Andy Revkin", beat: "Environment" },
-    { name: "M.G. Siegler", beat: "Technology" },
-    { name: "Heidi Moore", beat: "Finance" },
-    { name: "Marisa Kabas", beat: "Politics" },
-    { name: "Dave Jorgenson", beat: "Media" },
-    { name: "Brad DeLong", beat: "Economics" },
-    { name: "Ed Yong", beat: "Science & Health" },
-    { name: "Roland S. Martin", beat: "Politics & Culture" },
-    { name: "Dwarkesh Patel", beat: "Technology" },
-    { name: "Virginia Heffernan", beat: "Media & Culture" },
-    { name: "Michael Hobbes", beat: "Health & Media" },
-  ];
-  const row2Names = [
-    { name: "Michael Socolow", beat: "Media History" },
-    { name: "Jay Rosen", beat: "Journalism" },
-    { name: "Josie Duffy Rice", beat: "Criminal Justice" },
-    { name: "Bridget Todd", beat: "Technology" },
-    { name: "Ken Klippenstein", beat: "National Security" },
-    { name: "Gideon Meyerowitz-Katz", beat: "Health & Science" },
-    { name: "Jordan Chariton", beat: "Politics" },
-    { name: "Raquel Willis", beat: "Culture & Equity" },
-    { name: "Patrick Wyman", beat: "History" },
-    { name: "Karen Hao", beat: "Artificial Intelligence" },
-    { name: "Andrew Callaghan", beat: "Culture" },
-    { name: "Nat Herz", beat: "Alaska & Politics" },
-    { name: "Patty Calhoun", beat: "Local News" },
-    { name: "Wendy Siegelman", beat: "Investigations" },
-    { name: "David Wildstein", beat: "New Jersey Politics" },
-  ];
-  function buildRow(names, id) {
-    const doubled = [...names, ...names];
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = doubled.map(n =>
-      `<span class="hero-ticker-item">${n.name}<span class="hero-ticker-item-beat">${n.beat}</span><span class="hero-ticker-dot"></span></span>`
-    ).join('');
-  }
-  buildRow(row1Names, 'ticker-row-1');
-  buildRow(row2Names, 'ticker-row-2');
-})();
-</script>
+<!-- ═══ 1 HERO + ISSUE LENS ═══ -->
+<section class="hero on-dark" aria-labelledby="hero-h">
+  <div class="wrap">
+    <h1 id="hero-h">Trust moved. Here's the map.</h1>
+    <!-- SOFT: dek copy pending Justin. Every number is live/baked: count and date from site-stats.json at build. -->
+    <p class="dek">One in five Americans now get news from individual journalists, not institutions. Local newsrooms keep closing. AI answers summarize the web without sending anyone to it. The people your stakeholders believe have scattered across newsletters, video, podcasts and open protocols. The Atlas tracks <span class="live">{{CREATOR_COUNT}}</span> of them, verified by hand, and reads what they publish every week. <a href="#shift">The evidence</a></p>
 
-<!-- ── LANDSCAPE STRIP ── -->
-<div class="landscape-strip on-dark">
-  <div class="landscape-strip-inner">
-    <a class="landscape-strip-stat" href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer">About 1 in 5 Americans get news from individuals rather than institutions (Sept 2024)</a>
-    <span class="landscape-strip-dot" aria-hidden="true"></span>
-    <a class="landscape-strip-stat" href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2026/report/" target="_blank" rel="noopener noreferrer">238 US counties are news deserts in 2026</a>
-    <span class="landscape-strip-dot" aria-hidden="true"></span>
-    <a class="landscape-strip-stat" href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2026/report/" target="_blank" rel="noopener noreferrer">170 newspapers closed or merged in the past year</a>
-    <span class="landscape-strip-source">Sources: CNTI · Medill State of Local News 2026</span>
-  </div>
-</div>
-
-<!-- ── TRUST BAR ── -->
-<section class="trust-bar-section">
-  <div class="trust-bar-inner">
-    <div class="trust-bar-founders">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <img src="/assets/images/team/justin-bank.png" alt="Justin Bank" width="36" height="36" style="border-radius:100px;object-fit:cover;flex-shrink:0;">
-        <div>
-          <div class="trust-founder-name">Justin Bank</div>
-          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Washington Post · NYT · NPR</div>
-        </div>
-      </div>
-      <div class="trust-divider"></div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <img src="/assets/images/team/liz-kelly-nelson.jpg" alt="Liz Kelly Nelson" width="36" height="36" style="border-radius:100px;object-fit:cover;flex-shrink:0;">
-        <div>
-          <div class="trust-founder-name">Liz Kelly Nelson</div>
-          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Project C · Vox · Washington Post</div>
-        </div>
-      </div>
-      <div class="trust-divider"></div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <img src="/assets/images/team/ryan-kellett.jpg" alt="Ryan Kellett" width="36" height="36" style="border-radius:100px;object-fit:cover;flex-shrink:0;">
-        <div>
-          <div class="trust-founder-name">Ryan Kellett</div>
-          <div style="font-size:12px;color:rgba(17,17,17,0.5);margin-top:2px;">Nieman Fellow, Harvard · Axios · Washington Post</div>
-        </div>
-      </div>
-    </div>
-    <div class="trust-cites">
-      <span class="trust-cites-label">Citations &amp; Research</span>
-      <a href="https://niemanreports.org/liz-kelly-nelson-project-c-creator-journalists-social-media-gen-z-news-vertical-video/"
-         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
-        Nieman Reports
-      </a>
-      <a href="https://www.niemanlab.org/2026/04/independent-journalists-are-mission-driven-but-financially-strained-a-new-report-says/"
-         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
-        Nieman Lab
-      </a>
-      <a href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf"
-         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
-        Chicago Press Forward
-      </a>
-      <a href="https://cnti.org/reports/understanding-us-indie-info-providers/"
-         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
-        CNTI Report
-      </a>
-      <a href="https://www.niemanlab.org/2025/12/the-creator-infrastructure-gap-will-define-journalisms-next-chapter/"
-         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
-        Nieman Lab — Infrastructure Gap
-      </a>
-      <a href="https://www.niemanlab.org/2025/12/journalisms-songwriter-era/"
-         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
-        Nieman Lab — Songwriter Era
-      </a>
-      <a href="https://videoconsortium.org/member-resources/rise-of-creator-journalist-report"
-         target="_blank" rel="noopener noreferrer" class="trust-cite-pill trust-cite-pill--link">
-        Video Consortium
-      </a>
-      <a href="/research" class="trust-cite-view-all link-instruction">View all research →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 4 — CREATOR JOURNALISTS ≠ INFLUENCERS
-═══════════════════════════════════════════════════════════ -->
-<section class="compare-section">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--light">Know Who You're Working With</div>
-    <h2 class="h2-light compare-headline">
-      Creator journalists are
-      <span class="compare-headline-emphasis">not influencers.</span>
-    </h2>
-    <p class="compare-framing">The distinction matters for your strategy. A bad brand deal costs an influencer one awkward post. It costs a creator journalist their entire business — which means they're far more selective, and far more valuable when they say yes.</p>
-    <div class="compare-wrap">
-      <div class="compare-grid">
-        <!-- Header row -->
-        <div class="compare-spacer"></div>
-        <div class="compare-th compare-th--left">Influencer / Creator for Hire</div>
-        <div class="compare-th compare-th--right">Creator Journalist</div>
-        <!-- Row 1 -->
-        <div class="compare-row-label">Value Proposition</div>
-        <div class="compare-cell">Reach and aesthetic</div>
-        <div class="compare-cell">Credibility and trust</div>
-        <!-- Row 2 -->
-        <div class="compare-row-label">Audience Relationship</div>
-        <div class="compare-cell">Followers / algorithm-driven views</div>
-        <div class="compare-cell">Subscribers who pay or choose to show up</div>
-        <!-- Row 3 -->
-        <div class="compare-row-label">Content Driver</div>
-        <div class="compare-cell">Brand deals, trends, platform algorithm</div>
-        <div class="compare-cell">Editorial agenda, public interest, expertise</div>
-        <!-- Row 4 -->
-        <div class="compare-row-label">Can Pivot Topics?</div>
-        <div class="compare-cell">Yes — skincare to fashion to home goods</div>
-        <div class="compare-cell">No — audience leaves if they sense compromise</div>
-        <!-- Row 5 -->
-        <div class="compare-row-label">How They Make Money</div>
-        <div class="compare-cell">Primarily brand partnerships</div>
-        <div class="compare-cell">Diversified: subscriptions, sponsorships, events, consulting</div>
-        <!-- Row 6 -->
-        <div class="compare-row-label">What a Bad Deal Costs</div>
-        <div class="compare-cell">One awkward post</div>
-        <div class="compare-cell" style="font-weight:700;">Their entire business</div>
-        <!-- Row 7 -->
-        <div class="compare-row-label">What They Want From You</div>
-        <div class="compare-cell">Money and product</div>
-        <div class="compare-cell">Access and stories worth telling</div>
-      </div>
-    </div>
-    <p class="compare-source">Adapted from Project C / Independent Journalism Atlas research. Source data: Muck Rack.</p>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 5 — WHAT THE ATLAS DOES
-═══════════════════════════════════════════════════════════ -->
-<section class="atlas-does-section on-dark" id="intelligence-layer">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--dark">The Intelligence Layer</div>
-    <h2 class="h2-dark"><span class="js-creator-count" data-pulse-fallback="creators">{{CREATOR_COUNT}}</span> verified creator journalists. Mapped, filtered, monitored.</h2>
-    <p class="atlas-does-intro">Verified count as of {{COUNT_AS_OF}}. Click a beat to see who's covering it — then search the full database or read what they're publishing this week.</p>
-    <div class="beat-explorer">
-      <div class="beat-explorer-label">Explore by beat</div>
-      <p class="beat-explorer-intro">Click any beat to see who's covering it.</p>
-      <div class="beat-explorer-chips" role="tablist">
-        <button class="bx-chip bx-chip--active btn btn--secondary" data-beat="business" role="tab" aria-selected="true">Business &amp; Economy</button>
-        <button class="bx-chip btn btn--secondary" data-beat="politics" role="tab" aria-selected="false">Politics &amp; Government</button>
-        <button class="bx-chip btn btn--secondary" data-beat="tech" role="tab" aria-selected="false">Technology</button>
-        <button class="bx-chip btn btn--secondary" data-beat="health" role="tab" aria-selected="false">Health &amp; Science</button>
-        <button class="bx-chip btn btn--secondary" data-beat="environment" role="tab" aria-selected="false">Environment &amp; Climate</button>
-        <button class="bx-chip btn btn--secondary" data-beat="local" role="tab" aria-selected="false">Local &amp; Regional</button>
-        <button class="bx-chip btn btn--secondary" data-beat="culture" role="tab" aria-selected="false">Culture &amp; Society</button>
-      </div>
-      <div class="bx-panel" id="bx-panel"></div>
-      <div class="bx-footer">
-        <a href="/search" class="bx-search-cta link-instruction" id="bx-search-link">
-          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">search</span>
-          Search all creators in this beat →
-        </a>
-        <span class="bx-count" id="bx-count"></span>
-      </div>
-      <div class="intel-layer-ctas">
-        <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="intel-cta-link link-instruction">
-          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;">rss_feed</span>
-          Explore Atlas Pulse →
-        </a>
-        <a href="#build-brief" class="intel-cta-link intel-cta-link--anchor link-instruction">
-          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;">summarize</span>
-          Tell us what you're tracking →
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION: PULSE COVERAGE INTELLIGENCE
-═══════════════════════════════════════════════════════════ -->
-<section class="pulse-intel-section on-dark">
-  <div class="section-inner">
-    <div class="pulse-intel-header">
-      <div>
-        <div class="eyebrow eyebrow--dark"><span class="pulse-dot-acid"></span>↓ Live now · Atlas Pulse</div>
-        <h2 class="h2-dark">What the ecosystem is publishing this week.</h2>
-        <!-- Pulse line + counts below are computed in renderBrandsPulse() from PULSE_SNAPSHOT_BRANDS
-             (one snapshot, one date). Nothing here is hand-written weekly; update_pulse.py regenerates
-             the snapshot and refreshes the data-pulse-fallback text (shown only if JS does not run). -->
-        <p class="live-window-editorial" id="brands-pulse-line">Live counts from the latest Atlas Pulse snapshot.</p>
-        <p class="pulse-intel-sub">
-          <span id="brands-pulse-date" data-pulse-fallback="date_updated">Updated October 22, 2026</span> · <span id="brands-pulse-feeds" data-pulse-fallback="feeds">1,756</span> feeds ·
-          <span id="brands-pulse-active" data-pulse-fallback="active_7d">984</span> creators active this week
-        </p>
-      </div>
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="pulse-intel-cta link-instruction">Explore Atlas Pulse →</a>
-    </div>
-    <div class="pulse-intel-grid" id="pulse-intel-grid"></div>
-    <div class="pulse-intel-follower-note">
-      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;color:rgba(206,255,0,0.5);">info</span>
-      Follower counts, platform reach, and audience size data are available for every verified creator in the Atlas database.
-      <a href="index.html" class="link-instruction">Search the full Atlas →</a>
-    </div>
-    <div class="pulse-intel-footer">
-      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;color:rgba(206,255,0,0.5);">lock_open</span>
-      Atlas Pulse is always free. &nbsp;
-      <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="link-instruction">Explore Atlas Pulse →</a>
-      <span style="opacity:0.4;">&nbsp;·&nbsp;</span>
-      <span style="opacity:0.5;">Powered by Journalism Atlas data</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHAT WE OFFER + TWO WAYS IN ═══ -->
-<section class="gallery-section on-dark">
-  <div class="section-inner">
-
-    <div class="gallery-offer-grid">
-
-      <!-- Left column: free tools -->
-      <div class="gallery-offer-col">
-        <div class="eyebrow eyebrow--dark">Always free</div>
-        <h2 class="h2-dark" style="font-size:clamp(22px,2.5vw,32px);margin-bottom:20px;">Two live products. No account needed.</h2>
-
-        <a href="pulse.html" target="_blank" rel="noopener noreferrer" class="gallery-card" style="margin-bottom:12px;">
-          <div class="gallery-mini-pulse">
-            <div class="gmp-col"><div class="gmp-bar" style="height:80%"></div><div class="gmp-label">Politics</div></div>
-            <div class="gmp-col"><div class="gmp-bar" style="height:45%"></div><div class="gmp-label">Tech</div></div>
-            <div class="gmp-col"><div class="gmp-bar" style="height:30%"></div><div class="gmp-label">Finance</div></div>
-            <div class="gmp-col"><div class="gmp-bar" style="height:25%"></div><div class="gmp-label">Culture</div></div>
-            <div class="gmp-col"><div class="gmp-bar" style="height:22%"></div><div class="gmp-label">Media</div></div>
+    <!-- Lens: held back until Phase 2 gives it data. Markup lives in a template so nothing of it is on the public page.
+         ATLAS_FLAGS.lens (or ?lens=1) mounts it. -->
+    <p class="hero-cta" id="hero-cta"><a class="btn-brief" href="#build-brief">Request my brief</a></p>
+    <div id="lens-mount"></div>
+    <template id="lens-tpl">
+    <!-- The Lens. Phase 1: layout mock only. Chips and the field already hand the issue to the intake form; the result panel below is a static preview with no data. -->
+    <div class="lens" id="lens">
+      <form id="lens-form" role="search" novalidate>
+        <label class="lens-label" for="lens-q">What are you tracking?</label>
+        <div class="lens-field">
+          <div class="lens-input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            <input class="lens-input" id="lens-q" name="issue" type="text" autocomplete="off" placeholder="An issue, a market, a campaign">
           </div>
-          <div class="gallery-card-eyebrow">Atlas Pulse · Always Free</div>
-          <div class="gallery-card-name">What the ecosystem is covering this week.</div>
-          <p class="gallery-card-desc"><span class="js-pulse-feeds" data-pulse-fallback="feeds">1,756</span> creator feeds, monitored weekly. Beat-filtered. See what independent journalists are publishing across your issues — before your morning briefing.</p>
-          <span class="gallery-card-link link-instruction">View the live digest →</span>
-        </a>
-
-        <a href="index.html" target="_blank" rel="noopener noreferrer" class="gallery-card">
-          <div class="gallery-mini-search">
-            <div class="gms-filter"><span></span><span></span><span></span></div>
-            <div class="gms-result"><div class="gms-avatar">KS</div><div class="gms-lines"><span></span><span></span></div></div>
-            <div class="gms-result"><div class="gms-avatar">CN</div><div class="gms-lines"><span></span><span></span></div></div>
-          </div>
-          <div class="gallery-card-eyebrow">Atlas Search · Always Free</div>
-          <div class="gallery-card-name">Find the journalists covering your beat.</div>
-          <p class="gallery-card-desc"><span class="js-creator-count" data-pulse-fallback="creators">{{CREATOR_COUNT}}</span> verified creator-journalists, filterable by topic, platform, and geography. Every entry human-verified. No algorithmic noise.</p>
-          <span class="gallery-card-link link-instruction">Search the Atlas →</span>
-        </a>
-      </div>
-
-      <!-- Right column: paid -->
-      <div class="gallery-offer-col gallery-offer-col--paid">
-        <div class="eyebrow eyebrow--dark" style="color:rgba(206,255,0,0.5);">Paid engagement</div>
-        <h2 class="h2-dark" style="font-size:clamp(22px,2.5vw,32px);margin-bottom:20px;">We build intelligence for your team.</h2>
-        <p style="font-size:16px;color:var(--color-text-on-dark-2);line-height:1.7;margin:0 0 28px;">The free tools show you the ecosystem. The paid work is us inside it — filtering, analyzing, and briefing your team on what matters for your specific issues, markets, and timeline.</p>
-        <ul class="pricing-col-list" style="margin-bottom:32px;">
-          <li><span class="material-symbols-outlined" aria-hidden="true">summarize</span><div><strong style="color:#fff;">Custom intelligence briefs</strong><span style="color:var(--color-text-on-dark-2);"> — filtered creator lists, coverage briefings, and audience packages built by hand.</span></div></li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">monitor</span><div><strong style="color:#fff;">Ongoing monitoring</strong><span style="color:var(--color-text-on-dark-2);"> — weekly or monthly coverage alerts tuned to your issues and timeline.</span></div></li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">group</span><div><strong style="color:#fff;">Discovery consulting</strong><span style="color:var(--color-text-on-dark-2);"> — we map the creator landscape for a campaign, a beat, or a market.</span></div></li>
+          <button class="btn-brief" type="submit">Look</button>
+        </div>
+        <!-- SOFT: Phase 2 generates these at build from this week's most-covered topics. Phase 1 uses the seven existing beats. -->
+        <ul class="lens-chips" aria-label="Suggested issues">
+          <li><button type="button" class="chip">Business and economy</button></li>
+          <li><button type="button" class="chip">Politics and government</button></li>
+          <li><button type="button" class="chip">Technology</button></li>
+          <li><button type="button" class="chip">Health and science</button></li>
+          <li><button type="button" class="chip">Climate and environment</button></li>
+          <li><button type="button" class="chip">Local and regional</button></li>
+          <li><button type="button" class="chip">Culture and society</button></li>
         </ul>
-        <a href="#build-brief" class="btn-primary btn btn--primary">Tell us what you're tracking</a>
-      </div>
+      </form>
 
+      <div class="lens-result" id="lens-result" aria-live="polite">
+        <div class="lens-result-head">
+          <span class="tag tag--idea" id="lens-preview-tag"></span>
+        </div>
+        <p class="lens-frame">{n} independent journalists published {m} pieces on {issue} in the week of {date}.</p>
+        <div class="lens-grid">
+          <div><span class="stat-n live">&ndash;</span><span class="stat-l">verified creators on this beat</span></div>
+          <div><span class="stat-n live">&ndash;</span><span class="stat-l">pieces in the latest window, by distinct creators</span></div>
+          <div class="mix" aria-label="Platform mix placeholder">
+            <div><span>Newsletter</span><i></i><span class="live">&ndash;</span></div>
+            <div><span>Video</span><i></i><span class="live">&ndash;</span></div>
+            <div><span>Podcast</span><i></i><span class="live">&ndash;</span></div>
+            <div><span>Web</span><i></i><span class="live">&ndash;</span></div>
+          </div>
+        </div>
+        <ul class="lens-heads">
+          <li>Recent headline, linked to the creator's own page</li>
+          <li>Recent headline, linked to the creator's own page</li>
+          <li>Recent headline, linked to the creator's own page</li>
+        </ul>
+        <p class="lens-act"><a class="btn-brief" href="#build-brief" data-fill="lens">Request a brief on this issue</a></p>
+        <p class="lens-note">Empty state: "We didn't find weekly coverage of that in the feeds we read. That's a finding too. Ask us to dig."</p>
+      </div>
+    </div>
+    </template>
+  </div>
+</section>
+
+<!-- ═══ 2 THE SHIFT ═══ -->
+<section id="shift" aria-labelledby="shift-h">
+  <div class="wrap">
+    <h2 class="claim" id="shift-h">Your stakeholders follow people now, not mastheads.</h2>
+    <div class="shift-grid">
+      <!-- SOFT: all three panels are draft copy. Figures need primary-source links verified in Phase 3. -->
+      <div>
+        <h3>People</h3>
+        <p>About one in five Americans get news from individuals rather than institutions.</p>
+        <span class="shift-fig small">CNTI, citing Pew, September 2024. <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" rel="noopener">Source</a></span>
+      </div>
+      <div>
+        <h3>Places</h3>
+        <!-- Medill 2026 figures checked against the report on 2026-10-27: "238 counties are news deserts"; "170 newspapers have closed or merged" in the past year. -->
+        <p>238 counties are news deserts and 170 newspapers closed or merged in the past year. The Atlas's own work finds these places aren't empty. They're full of information and short on explanation, and the people still explaining are independent. <a href="/watershed/">Read the essay</a>.</p>
+        <span class="shift-fig small">Medill State of Local News 2026. <a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/2026/report/" rel="noopener">Source</a></span>
+      </div>
+      <div>
+        <h3>Machines</h3>
+        <!-- SOFT: placeholder. Phase 3 adds one sourced zero-click figure (e.g. SparkToro 2026) after the link is verified. No claim that AI systems cite creator journalists. -->
+        <p>Fewer searches end in a click every year, and AI answers summarize instead of sending readers anywhere. The people audiences trust when they want a human are converging on a small set of credible voices.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     THE GOOD NEWS (light surface)
-═══════════════════════════════════════════════════════════ -->
-<section class="good-news-section">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--light">The Good News for Communicators</div>
-    <h2 class="h2-light good-news-headline">They want to hear from you.</h2>
-    <div class="good-news-stats">
-      <div class="good-news-stat">
-        <div class="good-news-num">82%</div>
-        <div class="good-news-label">of creator journalists say some of their stories start with a PR pitch</div>
-        <div class="source-attr--light"><a href="https://www.netinfluencer.com/creator-journalism-matures-as-one-third-of-journalists-publish-independently-study-shows/" target="_blank" rel="noopener noreferrer">Muck Rack, State of Creator Journalism 2025</a></div>
-      </div>
-      <div class="good-news-stat">
-        <div class="good-news-num">32%</div>
-        <div class="good-news-label">view PR professionals as &ldquo;very important&rdquo; to their success</div>
-        <div class="source-attr--light"><a href="https://www.netinfluencer.com/creator-journalism-matures-as-one-third-of-journalists-publish-independently-study-shows/" target="_blank" rel="noopener noreferrer">Muck Rack, State of Creator Journalism 2025</a></div>
-      </div>
+<!-- ═══ 3 NOT INFLUENCERS ═══ -->
+<section class="light" style="padding-top:0" aria-labelledby="inf-h">
+  <div class="wrap">
+    <h2 class="claim" id="inf-h">Creator journalists are not influencers.</h2>
+    <p class="lede">A bad brand deal costs an influencer one awkward post. It costs a creator journalist their entire business, which makes them far more selective, and far more valuable when they say yes.</p>
+    <div class="contrast">
+      <div class="contrast-head" aria-hidden="true"><span></span><span>Influencer or creator for hire</span><span>Creator journalist</span></div>
+      <dl style="margin:0">
+        <div class="contrast-row"><dt>Value proposition</dt><dd>Reach and aesthetic</dd><dd>Credibility and trust</dd></div>
+        <div class="contrast-row"><dt>Audience relationship</dt><dd>Followers and algorithm-driven views</dd><dd>Subscribers who pay or choose to show up</dd></div>
+        <div class="contrast-row"><dt>Can they pivot topics?</dt><dd>Yes. Skincare to fashion to home goods.</dd><dd>No. The audience leaves if it senses compromise.</dd></div>
+        <div class="contrast-row"><dt>How they make money</dt><dd>Mostly brand partnerships</dd><dd>Subscriptions, sponsorships, events and consulting</dd></div>
+        <div class="contrast-row"><dt>What a bad deal costs</dt><dd>One awkward post</dd><dd>Their entire business</dd></div>
+      </dl>
     </div>
-    <p class="good-news-followup">The opportunity is real. The barrier is discoverability. Most comms teams don't know which creator journalists are covering their issues or industry, in their markets, at the scale that matters. That's the gap the Atlas closes.</p>
-  </div>
-</section>
+    <p class="small" style="margin-top:16px">Framework adapted from Project C and Independent Journalism Atlas research.</p>
 
-<!-- ═══════════════════════════════════════════════════════════
-     THREE WAYS BRANDS SHOW UP
-═══════════════════════════════════════════════════════════ -->
-<section class="three-ways-section on-dark">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--dark">Your Relationship Options</div>
-    <h2 class="h2-dark">Three ways brands engage with creator journalists.</h2>
-    <div class="three-ways-grid">
-      <div class="way-card">
-        <div class="way-card-icon"><span class="material-symbols-outlined" aria-hidden="true">article</span></div>
-        <div class="way-card-title">As the story.</div>
-        <p class="way-card-body">A creator covers you — favorably, critically, or somewhere in between. You don't choose this. Your only choice is whether you're prepared. The Atlas tells you who's covering your beat before they publish.</p>
+    <div class="turn">
+      <div>
+        <h3 class="serif" style="font-size:28px;line-height:1.2">They're not influencers, and they're open to you. On their terms.</h3>
+        <p class="lede">The opportunity is real. The barrier is discoverability. Most comms teams don't know which creator journalists cover their issues, in their markets, at the scale that matters.</p>
       </div>
-      <div class="way-card">
-        <div class="way-card-icon"><span class="material-symbols-outlined" aria-hidden="true">handshake</span></div>
-        <div class="way-card-title">As the sponsor.</div>
-        <p class="way-card-body">You underwrite the work. You don't shape the editorial. You're buying association with their credibility, not control of their output. Think NPR underwriting, not native advertising.</p>
+      <div>
+        <div class="turn-stats">
+          <div><span class="turn-n">82%</span><p class="small" style="margin-top:8px">of creator journalists say some of their stories start with a PR pitch.</p></div>
+          <div><span class="turn-n">32%</span><p class="small" style="margin-top:8px">call PR professionals &ldquo;very important&rdquo; to their success.</p></div>
+        </div>
+        <!-- Both figures confirmed in the netinfluencer write-up on 2026-10-27 (82% "at least some portion of their stories originates from PR pitches", most say 1-10%; 32% "very important"). The Muck Rack report page returns a bot challenge to scripted clients, so it was not machine-checked. -->
+        <p class="small" style="margin-top:16px">Muck Rack, State of Creator Journalism 2025: <a href="https://muckrack.com/research/state-of-creator-journalism" rel="noopener">the report</a> and <a href="https://www.netinfluencer.com/creator-journalism-matures-as-one-third-of-journalists-publish-independently-study-shows/" rel="noopener">a write-up with both figures</a>.</p>
       </div>
-      <div class="way-card">
-        <div class="way-card-icon"><span class="material-symbols-outlined" aria-hidden="true">group</span></div>
-        <div class="way-card-title">As the collaborator.</div>
-        <p class="way-card-body">You co-create something — a series, a live event, a piece of access reporting. The creator keeps editorial independence; you bring something they couldn't make alone.</p>
-      </div>
-    </div>
-    <p class="three-ways-note"><em>Your job is to be the brand they say yes to.</em></p>
-    <div style="text-align:center;margin-top:32px;">
-      <a href="#build-brief" class="link-instruction">Tell us what you're tracking →</a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     BRIEF BUILDER FORM
-═══════════════════════════════════════════════════════════ -->
-<section class="brief-section on-dark" id="build-brief">
-  <div class="section-inner">
-    <div class="brief-inner">
-      <div class="eyebrow eyebrow--dark">Get Your Brief</div>
-      <h2 class="brief-headline">Tell us who you need to reach.</h2>
-      <p class="brief-sub">Tell us what you need. We'll build a custom creator intelligence brief — by hand, tuned to your issues.</p>
+<!-- ═══ 4 THREE RELATIONSHIPS ═══ -->
+<section class="rel light" aria-labelledby="rel-h">
+  <div class="wrap">
+    <h2 class="claim" id="rel-h">Three ways a brand meets a creator journalist.</h2>
+    <div class="rel-grid">
+      <div>
+        <h3>As the story.</h3>
+        <p>A creator covers you: favorably, critically, or somewhere in between. You don't choose this. Your only choice is whether you're prepared.</p>
+        <p class="rel-do">We tell you who covers your issue before they publish. <span class="small">(Monitoring)</span></p>
+      </div>
+      <div>
+        <h3>As the sponsor.</h3>
+        <p>You underwrite the work. You don't shape the editorial. You're buying association with their credibility, not control of their output. Think NPR underwriting, not native advertising.</p>
+        <p class="rel-do">We match you with creators whose audiences fit, under our standards. <span class="small">(Partnerships)</span></p>
+      </div>
+      <div>
+        <h3>As the collaborator.</h3>
+        <p>You co-create something: a series, a live event, a piece of access reporting. The creator keeps editorial independence; you bring something they couldn't make alone.</p>
+        <p class="rel-do">We structure it so both sides can say yes. <span class="small">(Partnerships)</span></p>
+      </div>
+    </div>
+    <div class="rel-close">
+      <p>Your job is to be the brand they say yes to.</p>
+      <a class="btn-brief" href="#build-brief">Request my brief</a>
+    </div>
+  </div>
+</section>
 
-      <div class="brief-form-wrap">
-        <form class="brief-form" id="brief-form" action="https://formspree.io/f/xzznlvgj" method="POST">
+<!-- ═══ 5 THE WORK ═══ -->
+<section class="light" aria-labelledby="work-h">
+  <div class="wrap">
+    <h2 class="claim" id="work-h">What we do, from free to hands-on.</h2>
+    <!-- SOFT: "Field Briefs" is the recommended name for the paid service, pending Justin. No prices. -->
+    <ul class="ladder">
+      <li><h3>Free, always</h3><p>Atlas Search and Atlas Pulse. No account.</p><p class="who"><a href="/search">Search the Atlas</a> and <a href="/pulse">read Pulse</a>.</p></li>
+      <li><h3>Field Briefs</h3><p>A hand-built map of the independent journalists covering one issue, market or campaign, with what they've published and how to approach them.</p><p class="who">For teams with a launch, a crisis risk or a market to understand.</p></li>
+      <li><h3>Monitoring</h3><p>Weekly or monthly alerts on your issues, tuned to your markets.</p><p class="who">For teams who want to know before it lands.</p></li>
+      <li><h3>Partnerships</h3><p>Sponsorship and collaboration matching, built on our standards.</p><p class="who">For brands that want to underwrite journalism without buying coverage.</p></li>
+      <li><h3>From the Lab</h3><p>Experiments you can join early. Each carries a status.</p><p class="who">Atlas Labs is our research and product arm.</p></li>
+    </ul>
+    <!-- SOFT: Lab items and statuses pending Justin. Hidden until ATLAS_FLAGS.lab is true. -->
+    <div class="lab" data-gate="lab" hidden>
+      <div><span class="tag tag--idea">Idea</span><h4>Share of answer</h4><p class="small">Which voices do AI answers rely on for your issue, and which of them are in the Atlas?</p></div>
+      <div><span class="tag tag--idea">Idea</span><h4>Briefs as feeds</h4><p class="small">Monitoring delivered as a feed you own, on RSS or open protocols, instead of a PDF in your inbox.</p></div>
+      <div><span class="tag tag--wip">In progress</span><h4>City maps</h4><p class="small">The Chicago work with Press Forward, extended to new markets.</p></div>
+    </div>
+  </div>
+</section>
 
-          <div class="bf-field">
-            <label class="bf-label" for="bf-industry">Your industry</label>
-            <select class="bf-select" id="bf-industry" name="industry">
-              <option value="" disabled selected>Select your sector</option>
-              <optgroup label="Corporate">
-                <option>Consumer Brands &amp; Retail</option>
-                <option>Food &amp; Beverage</option>
-                <option>Financial Services</option>
-                <option>Technology &amp; Gaming</option>
-                <option>Health &amp; Pharma</option>
-                <option>Energy &amp; Sustainability</option>
-              </optgroup>
-              <optgroup label="Public Affairs &amp; Policy">
-                <option>Federal / State Public Affairs</option>
-                <option>Advocacy &amp; Nonprofit</option>
-                <option>Foundation &amp; Philanthropy</option>
-                <option>International Affairs</option>
-              </optgroup>
-              <optgroup label="Communications Agency">
-                <option>PR Agency (multi-client)</option>
-                <option>Public Affairs Firm</option>
-                <option>Integrated / Full-Service Agency</option>
-              </optgroup>
-              <optgroup label="Other">
-                <option>Academic / Research Institution</option>
-                <option>Journalism School or Program</option>
-                <option>Government / Public Sector</option>
-                <option>Media Company or Publisher</option>
-                <option>Something else — I'll explain below</option>
-              </optgroup>
-            </select>
-          </div>
+<!-- ═══ 6 OUR STANDARDS (SOFT: hidden until Justin approves) ═══ -->
+<!-- SOFT: whole section is draft. Set ATLAS_FLAGS.standards = true in the script below after sign-off on commitments and signers. -->
+<section class="std on-dark" data-gate="standards" hidden aria-labelledby="std-h">
+  <div class="wrap">
+    <h2 class="claim" id="std-h">What we will and won't do.</h2>
+    <div class="std-grid">
+      <div>
+        <h3>We won't</h3>
+        <ul>
+          <li>Sell coverage. We can tell you who covers your issue. We can't and won't arrange what they say.</li>
+          <li>Share creators' private contact details or data without their consent.</li>
+          <li>Broker undisclosed sponsorships. Every paid relationship we help build is disclosed by the creator, their way.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>We will</h3>
+        <ul>
+          <li>Verify every creator in the Atlas by hand.</li>
+          <li>Tell you when the honest answer is "nobody independent is covering this yet."</li>
+          <li>Tell creators which brands we work with, if they ask.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="std-sign">Justin Bank, Liz Kelly Nelson, Ryan Kellett.</p>
+  </div>
+</section>
 
-          <div class="bf-field">
-            <label class="bf-label" for="bf-target">Who are you trying to reach?</label>
-            <input class="bf-input" id="bf-target" name="target_description" type="text"
-              placeholder="e.g. Supply chain journalists, climate policy creators in the Southeast, gaming YouTubers with engaged 18–34 audiences"
-              required>
-          </div>
-
-          <div class="bf-field">
-            <div class="bf-label">Platform preference <span style="color:rgba(255,255,255,0.2);font-size:9px;letter-spacing:0.05em;">SELECT ALL THAT APPLY</span></div>
-            <div class="bf-check-group">
-              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Substack"> Substack</label>
-              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="YouTube"> YouTube</label>
-              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Podcast"> Podcast</label>
-              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Instagram"> Instagram</label>
-              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="Bluesky"> Bluesky</label>
-              <label class="bf-check-item"><input type="checkbox" name="platforms[]" value="No preference"> No preference</label>
-            </div>
-          </div>
-
-          <div class="bf-field">
-            <div class="bf-label">Timeline</div>
-            <div class="bf-radio-group">
-              <label class="bf-radio-item"><input type="radio" name="timeline" value="Immediate (this month)"> Immediate (this month)</label>
-              <label class="bf-radio-item"><input type="radio" name="timeline" value="Planning ahead (next quarter)"> Planning ahead (next quarter)</label>
-              <label class="bf-radio-item"><input type="radio" name="timeline" value="Exploratory"> Exploratory</label>
-            </div>
-          </div>
-
-          <div class="bf-field">
-            <label class="bf-label" for="bf-email">Your email</label>
-            <input class="bf-input" id="bf-email" name="email" type="email" placeholder="you@company.com" required>
-          </div>
-
-          <div class="bf-submit-row">
-            <button type="submit" class="bf-submit btn btn--primary">Build my brief</button>
-            <button type="button" class="bf-soft-cta link-instruction" id="bf-soft-toggle">
-              Not ready? Send us a question instead →
-            </button>
-          </div>
-
-          <!-- Soft inquiry panel — hidden by default -->
-          <div class="bf-soft-panel" id="bf-soft-panel" style="display:none;">
-            <div class="bf-field" style="margin-top:24px;">
-              <label class="bf-label" for="bf-question">Your question</label>
-              <textarea class="bf-input" id="bf-question" name="soft_question" rows="3"
-                placeholder="Tell us what you're trying to figure out. We'll respond directly."></textarea>
-            </div>
-            <div class="bf-field">
-              <label class="bf-label" for="bf-soft-email">Your email</label>
-              <input class="bf-input" id="bf-soft-email" name="soft_email" type="email"
-                placeholder="you@company.com">
-            </div>
-            <button type="button" class="bf-soft-submit" id="bf-soft-submit">Send my question →</button>
-          </div>
-        </form>
-
-        <div class="brief-confirm" id="brief-confirm">
-          <div class="brief-confirm-icon">
-            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:40px;color:var(--color-acid);">task_alt</span>
-          </div>
-          <div class="brief-confirm-headline">Brief received.</div>
-          <p class="brief-confirm-body">
-            You'll hear from us within one business day with a first look at what we're seeing in your space.
-          </p>
-          <p class="brief-confirm-next">
-            In the meantime, see what's being covered across beats this week in
-            <a href="pulse.html" class="link-instruction">Atlas Pulse →</a>
-          </p>
+<!-- ═══ 7 THE ATLAS UNDERNEATH ═══ -->
+<section class="light" aria-labelledby="under-h">
+  <div class="wrap">
+    <h2 class="claim" id="under-h">The Atlas underneath.</h2>
+    <div class="under-grid">
+      <div>
+        <h3>Method</h3>
+        <p><span class="live">{{CREATOR_COUNT}}</span> creator journalists, each checked by a person against our published standards. Count as of <span class="live">{{COUNT_AS_OF}}</span>. Atlas Pulse reads their feeds every week.</p>
+        <!-- Phase 2/3: feed count added from the same snapshot as Pulse, not typed. -->
+      </div>
+      <div>
+        <h3>Research</h3>
+        <ul class="under-list">
+          <!-- SOFT: date-gated. Visible from Oct 28, 2026 (ATLAS_FLAGS.nn). Link currently /research; swap to the paper's final URL at launch. -->
+          <li data-gate="nn" hidden><a href="/research">Nodes and Networks</a>: 169 organizations, and governance predicts scale.</li>
+          <li><a href="/watershed/">The Watershed essay</a></li>
+          <li><a href="https://cnti.org/reports/understanding-us-indie-info-providers/" rel="noopener">CNTI, Understanding US indie info providers</a></li>
+          <li><a href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf" rel="noopener">Chicago Creator Journalism Toolkit</a>, with Press Forward Chicago and the Chicago Community Trust</li>
+          <li><a href="https://www.niemanlab.org/2026/04/independent-journalists-are-mission-driven-but-financially-strained-a-new-report-says/" rel="noopener">Nieman Lab, April 2026</a></li>
+          <li><a href="/research">All research</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>People</h3>
+        <!-- SOFT: James Bareham not added pending Justin. Credentials copied from the previous page. -->
+        <div class="team">
+          <div class="team-p"><img src="/assets/images/team/justin-bank.png" alt="" width="40" height="40"><div><b>Justin Bank</b><span>Washington Post, NYT, NPR</span></div></div>
+          <div class="team-p"><img src="/assets/images/team/liz-kelly-nelson.jpg" alt="" width="40" height="40"><div><b>Liz Kelly Nelson</b><span>Project C, Vox, Washington Post</span></div></div>
+          <div class="team-p"><img src="/assets/images/team/ryan-kellett.jpg" alt="" width="40" height="40"><div><b>Ryan Kellett</b><span>Nieman Fellow at Harvard, Axios, Washington Post</span></div></div>
         </div>
       </div>
-
-      <div class="bf-secondary-path" id="bf-hello-trigger-wrap">
-        <a href="#capture-form" class="bf-hello-trigger link-instruction" id="bf-hello-trigger">
-          Or just say hello →
-        </a>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 10 — CAPTURE FORM
-═══════════════════════════════════════════════════════════ -->
-<section class="form-section" id="capture-form" style="display:none;">
-  <div class="section-inner">
-    <div class="eyebrow eyebrow--light">Or just say hello</div>
-    <h2 class="h2-light">Not ready for a full brief? Start here.</h2>
-    <p class="form-body-text">Tell us what you're working on and we'll be in touch.</p>
+<!-- ═══ 8 ONE INTAKE ═══ -->
+<!-- #build-brief and #capture-form both land here (linked from other pages and emails). -->
+<section class="intake light" id="build-brief" aria-labelledby="intake-h">
+  <span id="capture-form"></span>
+  <div class="wrap">
+    <h2 class="claim" id="intake-h">What are you tracking?</h2>
+    <p class="lede">Tell us the issue. We'll build a first look by hand and reply within one business day.</p>
 
-    <form class="capture-form" action="https://formspree.io/f/xzznlvgj" method="POST">
-      <div class="form-field">
-        <label class="form-label" for="f-name">Name</label>
-        <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" required>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="f-title">Title / Role</label>
-        <input class="form-input" id="f-title" name="title" type="text" placeholder="VP Communications, Director of Public Affairs, etc." required>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="f-org">Organization</label>
-        <input class="form-input" id="f-org" name="organization" type="text" placeholder="Your organization" required>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="f-email">Email</label>
-        <input class="form-input" id="f-email" name="email" type="email" placeholder="your@email.com" required>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="f-challenge">What communications challenge are you trying to solve? <span style="color:rgba(0,0,0,0.3);font-size:9px;letter-spacing:0.05em;">OPTIONAL</span></label>
-        <textarea class="form-textarea" id="f-challenge" name="challenge" rows="3" placeholder="Tell us what you're working on…"></textarea>
-      </div>
-      <button type="submit" class="form-submit btn btn--primary">Request a discovery call</button>
+    <form class="intake-form" id="intake-form" action="https://formspree.io/f/xzznlvgj" method="POST" novalidate>
+      <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="lens_query" id="f-lens">
+      <input type="hidden" name="referrer" id="f-ref">
+      <input type="hidden" name="source_page" value="for-brands">
+      <div><label for="f-issue">What are you tracking?</label><input type="text" id="f-issue" name="issue" required autocomplete="off"></div>
+      <div><label for="f-where">Where? <span class="opt">National, a state, a city, or several</span></label><input type="text" id="f-where" name="where" autocomplete="off"></div>
+      <fieldset>
+        <legend>Which relationship?</legend>
+        <div class="radios">
+          <label><input type="radio" name="relationship" value="story"> We're the story</label>
+          <label><input type="radio" name="relationship" value="sponsor"> We want to sponsor</label>
+          <label><input type="radio" name="relationship" value="collaborate"> We want to collaborate</label>
+          <label><input type="radio" name="relationship" value="not sure" checked> Not sure yet</label>
+        </div>
+      </fieldset>
+      <div><label for="f-role">Your role and organization</label><input type="text" id="f-role" name="role_org" required autocomplete="organization-title"></div>
+      <div><label for="f-email">Email</label><input type="email" id="f-email" name="email" required autocomplete="email"></div>
+      <div><label for="f-more">Anything else? <span class="opt">Optional</span></label><textarea id="f-more" name="notes"></textarea></div>
+      <p class="form-msg" id="form-msg" role="status" aria-live="polite" data-state=""></p>
+      <button class="btn-brief" type="submit">Request my brief</button>
     </form>
-    <p class="form-disclaimer">We'll reply within one business day.</p>
+
+    <div class="confirm" id="confirm" hidden tabindex="-1">
+      <h3>Brief requested.</h3>
+      <p>You'll hear from us within one business day with a first look at <strong id="confirm-issue">your issue</strong>. Meanwhile, here's <a href="/pulse" style="color:var(--color-link);text-decoration:underline">what independent journalists published this week</a>.</p>
+    </div>
   </div>
 </section>
+
+</main>
 
 <script src="/assets/js/footer.js"></script>
-
-
 <script>
-// ── Beat Explorer data ────────────────────────────────────────────────────────
-// Per-beat creator counts are computed at load from creators-data.json: distinct creators whose Topic list
-// contains any of the card's exact tags (comma-split, exact match, same rule as Pulse). `count` stays null
-// (count hidden) until that succeeds; nothing is hard-coded. Edit `tags` to change a card's grouping.
-const BEAT_EXPLORER_DATA = {
-  business: {
-    label: "Business & Economy", tags: ["Finance/Economics", "Business"], count: null,
-    creators: [
-      { initials: "KS", name: "Kyla Scanlon", beat: "Economic Sentiment", platform: "Substack + YouTube", audience: "200K+ subscribers", note: "Coined 'vibecession.' Covers consumer confidence, inflation, and labor. Most-cited independent voice on economic mood." },
-      { initials: "BD", name: "Brad DeLong", beat: "Economics & Policy", platform: "Substack", audience: "50K+ subscribers", note: "Former Clinton Treasury. Berkeley economics professor. Covers macro policy with the institutional depth of a think tank." },
-      { initials: "HM", name: "Heidi Moore", beat: "Finance & Media", platform: "Newsletter + Podcast", audience: "40K+ subscribers", note: "Former Guardian US finance editor. Covers the intersection of financial power and media." },
-      { initials: "FS", name: "Felix Salmon", beat: "Finance & Economics", platform: "Axios + Podcast", audience: "80K+ subscribers", note: "Covers Wall Street, fintech, and economic policy for a professional finance audience." },
-    ]
-  },
-  politics: {
-    label: "Politics & Government", tags: ["Politics", "Government Accountability"], count: null,
-    creators: [
-      { initials: "JL", name: "Judd Legum", beat: "Political Accountability", platform: "Substack", audience: "130K+ subscribers", note: "Popular Information. Covers corporate accountability and political money. One of Substack's largest political newsletters." },
-      { initials: "MK", name: "Marisa Kabas", beat: "Politics & Power", platform: "Substack", audience: "60K+ subscribers", note: "The Handbasket. Covers authoritarian drift and democratic accountability. Has broken stories ahead of major outlets." },
-      { initials: "RM", name: "Roland S. Martin", beat: "Politics & Black America", platform: "YouTube + Newsletter", audience: "300K+ subscribers", note: "Roland Martin Unfiltered. Political commentary centered on Black civic power. Large and highly engaged YouTube audience." },
-      { initials: "AM", name: "Adam Mockler", beat: "Politics & Investigations", platform: "YouTube", audience: "80K+ subscribers", note: "Deep-dive political reporting in YouTube format. Covers power structures and accountability." },
-    ]
-  },
-  tech: {
-    label: "Technology", tags: ["Tech"], count: null,
-    creators: [
-      { initials: "CN", name: "Casey Newton", beat: "Social Media & Tech Policy", platform: "Substack", audience: "150K+ subscribers", note: "Platformer. The definitive independent voice on social platform decisions and their consequences." },
-      { initials: "MS", name: "M.G. Siegler", beat: "Tech & Venture", platform: "Substack", audience: "40K+ subscribers", note: "Former GV partner. Covers tech industry dynamics, venture, and product decisions from an insider's lens." },
-      { initials: "DP", name: "Dwarkesh Patel", beat: "AI & Ideas", platform: "YouTube + Podcast", audience: "250K+ subscribers", note: "Long-form interviews with AI researchers, historians, and scientists. Unusually high-caliber audience." },
-      { initials: "KH", name: "Karen Hao", beat: "Artificial Intelligence", platform: "Newsletter", audience: "30K+ subscribers", note: "Empire of AI. Covers AI policy, ethics, and industry dynamics. Former MIT Technology Review AI reporter." },
-    ]
-  },
-  health: {
-    label: "Health & Science", tags: ["Health/Wellness", "Science"], count: null,
-    creators: [
-      { initials: "EY", name: "Ed Yong", beat: "Public Health & Science", platform: "Newsletter", audience: "100K+ subscribers", note: "Pulitzer Prize winner. Former Atlantic. Now independent. Covers science and public health with unmatched depth." },
-      { initials: "GM", name: "Gideon Meyerowitz-Katz", beat: "Epidemiology & Data", platform: "Substack", audience: "50K+ subscribers", note: "Data-first epidemiology and health policy coverage. Known for meticulous methodology breakdowns." },
-      { initials: "MH", name: "Michael Hobbes", beat: "Health & Media Criticism", platform: "Substack + Podcast", audience: "100K+ subscribers", note: "Maintenance Phase. Covers the intersection of health journalism, diet culture, and evidence quality." },
-      { initials: "VH", name: "Virginia Heffernan", beat: "Media & Health Culture", platform: "Substack + Podcast", audience: "40K+ subscribers", note: "Magic + Loss. Cultural criticism at the intersection of technology, medicine, and meaning." },
-    ]
-  },
-  environment: {
-    label: "Environment & Climate", tags: ["Climate/Environment"], count: null,
-    creators: [
-      { initials: "AR", name: "Andy Revkin", beat: "Climate & Conservation", platform: "Substack", audience: "35K+ subscribers", note: "Decades of NYT environmental reporting, now independent. Covers climate solutions and conservation with depth." },
-      { initials: "JB2", name: "Jake Bittle", beat: "Climate & Infrastructure", platform: "Newsletter", audience: "20K+ subscribers", note: "Covers climate adaptation — floods, fire, heat — and the infrastructure decisions that shape risk." },
-      { initials: "DC", name: "Dermot Cole", beat: "Alaska & Environment", platform: "Newsletter", audience: "15K+ subscribers", note: "Alaska's most read independent journalist. Covers energy, resource extraction, and Arctic policy." },
-      { initials: "NH", name: "Nat Herz", beat: "Arctic & Politics", platform: "Substack", audience: "12K+ subscribers", note: "Independent Alaska coverage with strong sourcing in Indigenous communities and state government." },
-    ]
-  },
-  local: {
-    label: "Local & Regional", tags: ["Local"], count: null,
-    creators: [
-      { initials: "DW", name: "David Wildstein", beat: "New Jersey Politics", platform: "Newsletter", audience: "30K+ subscribers", note: "The definitive source for New Jersey political intelligence. Heavily sourced, daily frequency." },
-      { initials: "PC", name: "Patty Calhoun", beat: "Denver & Colorado", platform: "Newsletter", audience: "25K+ subscribers", note: "Long-form local journalism in Denver. Covers arts, politics, and culture with deep community roots." },
-      { initials: "WS", name: "Wendy Siegelman", beat: "Investigations & Local", platform: "Substack", audience: "20K+ subscribers", note: "Investigative journalism with a focus on political accountability and local power structures." },
-      { initials: "DC2", name: "Dermot Cole", beat: "Alaska Politics", platform: "Newsletter", audience: "15K+ subscribers", note: "Independent Alaska political coverage. Long career at Fairbanks Daily News-Miner before going independent." },
-    ]
-  },
-  culture: {
-    label: "Culture & Society", tags: ["Culture"], count: null,
-    creators: [
-      { initials: "JD", name: "Jerusalem Demsas", beat: "Policy & Culture", platform: "Substack", audience: "80K+ subscribers", note: "Covers housing, urban policy, and cultural politics. Sharp analytical voice on contested social questions." },
-      { initials: "PW", name: "Patrick Wyman", beat: "History & Culture", platform: "Substack + Podcast", audience: "40K+ subscribers", note: "Tides of History. Deep historical context for contemporary events. Unusually loyal listener base." },
-      { initials: "RW", name: "Raquel Willis", beat: "Culture & Equity", platform: "Newsletter + Podcast", audience: "30K+ subscribers", note: "Covers race, gender, and cultural politics. Strong community ties in LGBTQ+ and Black media spaces." },
-      { initials: "AC", name: "Andrew Callaghan", beat: "Political Culture", platform: "YouTube", audience: "2M+ subscribers", note: "Channel 5 News. Documentary-style street journalism. Enormous YouTube audience, highly engaged." },
-    ]
+// ── Flags. Content that is draft or date-gated stays hidden until its flag is on. ──
+// nn: Nodes and Networks goes live when the paper does (Oct 28, 2026). Add ?nn=1 to preview early.
+// standards / lab: SOFT blocks, flip to true after Justin signs off.
+// lens: the Issue Lens. Off until it runs on real data (Phase 2). ?lens=1 previews it.
+var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: false };
+(function () {
+  var qs = new URLSearchParams(location.search);
+  function on(name) {
+    var v = ATLAS_FLAGS[name];
+    if (qs.get(name) === '1') return true;
+    if (typeof v === 'boolean') return v;
+    return typeof v === 'string' && new Date() >= new Date(v + 'T00:00:00-04:00');
   }
-};
-
-(function() {
-  const panel = document.getElementById('bx-panel');
-  const countEl = document.getElementById('bx-count');
-  const chips = document.querySelectorAll('.bx-chip');
-
-  function renderBeat(beatKey) {
-    const beat = BEAT_EXPLORER_DATA[beatKey];
-    if (!beat || !panel) return;
-    if (countEl) {
-      countEl.textContent = beat.count != null ? beat.count.toLocaleString() + ' creators in the Atlas' : '';
-      countEl.title = beat.count != null ? 'Creators tagged: ' + beat.tags.join(', ') : '';
-    }
-    panel.innerHTML = beat.creators.map(c => `
-      <div class="bx-creator-card">
-        <div class="bx-creator-avatar">${c.initials}</div>
-        <div class="bx-creator-body">
-          <div class="bx-creator-name">${c.name}</div>
-          <div class="bx-creator-meta">${c.beat} · ${c.platform} · ${c.audience}</div>
-          <div class="bx-creator-note">${c.note}</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      chips.forEach(c => { c.classList.remove('bx-chip--active'); c.setAttribute('aria-selected', 'false'); });
-      chip.classList.add('bx-chip--active');
-      chip.setAttribute('aria-selected', 'true');
-      renderBeat(chip.dataset.beat);
-    });
-  });
-
-  renderBeat('business');
-
-  // Compute each card's count from the creator data; on any failure the counts simply stay hidden.
-  fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
-    Object.keys(BEAT_EXPLORER_DATA).forEach(key => {
-      const tags = BEAT_EXPLORER_DATA[key].tags;
-      const slugs = new Set();
-      data.forEach(c => {
-        const has = (c.topic || '').split(',').some(t => tags.indexOf(t.trim()) !== -1);
-        if (has) slugs.add(c.slug || c.name);
-      });
-      BEAT_EXPLORER_DATA[key].count = slugs.size;
-    });
-    const active = document.querySelector('.bx-chip--active');
-    renderBeat(active ? active.dataset.beat : 'business');
-  }).catch(() => {});
+  document.querySelectorAll('[data-gate]').forEach(function (el) { if (on(el.dataset.gate)) el.hidden = false; });
+  window.ATLAS_LENS_ON = on('lens');
 })();
 
-// ── Atlas Pulse snapshot — regenerated by pipelines/pulse/update_pulse.py; every Pulse figure on this page renders from it ──
-const PULSE_SNAPSHOT_BRANDS = {
-  generated_at: "2026-10-22",
-  active_7d: 984,
-  total_creators: 2432,
-  beat_window_start: "2026-10-15",
-  total_rss_resolved: 1756,
-  beats: [
-    {
-      name: "Politics", post_count_7d: 1314, creator_count_7d: 205, bar_pct: 100,
-      posts: [
-        // SWAP weekly
-        { creator: "Jennifer Rubin", title: "MAGA Hubris Fuels the Blue Wave", url: "https://www.contrariannews.org/p/maga-hubris-fuels-the-blue-wave", platform: "Substack", published: "2026-10-22" },
-        { creator: "Norm Eisen", title: "MAGA Hubris Fuels the Blue Wave", url: "https://www.contrariannews.org/p/maga-hubris-fuels-the-blue-wave", platform: "Substack", published: "2026-10-22" }
-      ]
-    },
-    {
-      name: "Tech", post_count_7d: 391, creator_count_7d: 111, bar_pct: 30,
-      posts: [
-        // SWAP weekly
-        { creator: "Judy Lin", title: "Global Market Watch: Samsung Electronics and SK Hynix Plan to Upgrade NAND Fabs in China to Counter YMTC Competition", url: "https://techsoda.substack.com/p/global-market-watch-samsung-electronics", platform: "Substack", published: "2026-10-22" },
-        { creator: "Lenny Rachitsky", title: "The AI That Lost It’s Mind", url: "https://www.youtube.com/shorts/GeaYmiyDc90", platform: "YouTube", published: "2026-10-22" }
-      ]
-    },
-    {
-      name: "Finance/Economics", post_count_7d: 236, creator_count_7d: 61, bar_pct: 18,
-      posts: [
-        // SWAP weekly
-        { creator: "Daniel Drezner", title: "Has America Hit Peak Protectionism?", url: "https://danieldrezner.substack.com/p/has-america-hit-peak-protectionism", platform: "Substack", published: "2026-10-22" },
-        { creator: "Errol Schweizer", title: "The Checkout Grocery Update’s Fall 2026 Retail Operations Reading List.", url: "https://grocerynerd.substack.com/p/the-checkout-grocery-updates-fall", platform: "Substack", published: "2026-10-22" }
-      ]
-    },
-    {
-      name: "Culture", post_count_7d: 307, creator_count_7d: 85, bar_pct: 23,
-      posts: [
-        // SWAP weekly
-        { creator: "Erin Wylie", title: "Fall clothes frontlines", url: "https://www.blackbirdspyplane.com/p/fall-clothes-frontlines", platform: "Substack", published: "2026-10-22" },
-        { creator: "Jonah Weiner", title: "Fall clothes frontlines", url: "https://www.blackbirdspyplane.com/p/fall-clothes-frontlines", platform: "Substack", published: "2026-10-22" }
-      ]
-    },
-    {
-      name: "Media/Power", post_count_7d: 360, creator_count_7d: 91, bar_pct: 27,
-      posts: [
-        // SWAP weekly
-        { creator: "W. Eric Martin", title: "Ghost Galaxy Prepares New Edition of Battlestar Galactica: The Board Game", url: "https://www.wericmartin.com/ghost-galaxy-prepares-new-edition-of-battlestar-galactica-the-board-game/", platform: "Ghost", published: "2026-10-22" },
-        { creator: "Joy Reid", title: "Funky Dineva On Black GOP Pick-Me Behavior The Joy Reid Show", url: "https://www.youtube.com/watch?v=7VOoWyfP_vk", platform: "YouTube", published: "2026-10-22" }
-      ]
-    }
-  ]
-};
-
-function renderBrandsPulse() {
-  const snap = PULSE_SNAPSHOT_BRANDS;
-  const fmtDate = (iso, opts) => new Date(iso + 'T00:00:00').toLocaleDateString('en-US', opts);
-  const setText = (sel, txt) => document.querySelectorAll(sel).forEach(el => { el.textContent = txt; });
-
-  // Date, feed count, active count and the one-line summary all come from the same snapshot object.
-  if (snap.generated_at) {
-    setText('#brands-pulse-date', 'Updated ' + fmtDate(snap.generated_at, { month: 'long', day: 'numeric', year: 'numeric' }));
+// ── Lens: mounted only when the flag is on. Phase 1 hands the issue to the intake; live results arrive in Phase 2. ──
+(function () {
+  var issue = document.getElementById('f-issue'), lens = document.getElementById('f-lens');
+  document.getElementById('f-ref').value = document.referrer || '';
+  var pre = new URLSearchParams(location.search).get('issue');
+  if (pre) { issue.value = pre; lens.value = pre; }
+  if (!window.ATLAS_LENS_ON) return;
+  document.getElementById('lens-mount').appendChild(document.getElementById('lens-tpl').content.cloneNode(true));
+  document.getElementById('hero-cta').hidden = true;
+  document.getElementById('lens-preview-tag').textContent = 'Layout preview. No data yet.';
+  var q = document.getElementById('lens-q');
+  if (pre) q.value = pre;
+  function send(text) {
+    text = (text || '').trim();
+    if (!text) return;
+    issue.value = text; lens.value = text;
+    document.getElementById('build-brief').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    setTimeout(function () { document.getElementById('f-where').focus({ preventScroll: true }); }, 400);
   }
-  if (snap.total_rss_resolved) setText('#brands-pulse-feeds, .js-pulse-feeds', snap.total_rss_resolved.toLocaleString());
-  if (snap.active_7d)          setText('#brands-pulse-active', snap.active_7d.toLocaleString());
-
-  const lineEl = document.getElementById('brands-pulse-line');
-  const top = (snap.beats || []).slice().sort((a, b) => b.post_count_7d - a.post_count_7d)[0];
-  if (lineEl && snap.generated_at && snap.active_7d && snap.total_rss_resolved && top) {
-    const since = snap.beat_window_start ? ' since ' + fmtDate(snap.beat_window_start, { month: 'short', day: 'numeric' }) : '';
-    lineEl.textContent = 'As of ' + fmtDate(snap.generated_at, { month: 'long', day: 'numeric', year: 'numeric' }) + ', ' +
-      snap.active_7d.toLocaleString() + ' creators published in the past week across ' +
-      snap.total_rss_resolved.toLocaleString() + ' monitored feeds. ' + top.name + ' was the busiest beat, with ' +
-      top.post_count_7d.toLocaleString() + ' posts from ' + top.creator_count_7d.toLocaleString() + ' creators' + since + '.';
-  }
-
-  const grid = document.getElementById('pulse-intel-grid');
-  if (!grid) return;
-
-  grid.innerHTML = PULSE_SNAPSHOT_BRANDS.beats.map(beat => {
-    const posts = beat.posts.map(p => {
-      const dateStr = new Date(p.published + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      return `<div class="pi-post">
-          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="pi-post-title">${p.title}</a>
-          <div class="pi-post-meta">${p.creator} · ${p.platform} · ${dateStr}</div>
-        </div>`;
-    }).join('');
-    const displayName = beat.name.includes('/') ? beat.name.split('/')[0] : beat.name;
-    return `<div class="pi-beat-col">
-        <div class="pi-beat-header">
-          <div class="pi-beat-name">${displayName}</div>
-          <div class="pi-beat-stats">${beat.post_count_7d} posts · ${beat.creator_count_7d} creators</div>
-        </div>
-        <div class="pi-bar-label">Coverage volume</div>
-        <div class="pi-beat-bar-track"><div class="pi-beat-bar-fill" style="width:${beat.bar_pct}%"></div></div>
-        <div class="pi-posts">${posts}</div>
-        <a href="pulse.html?beat=${encodeURIComponent(beat.name)}" class="pi-beat-more link-instruction">View creators with audience data →</a>
-      </div>`;
-  }).join('');
-}
-
-renderBrandsPulse();
-
-document.getElementById('brief-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const form = e.target;
-  try {
-    const resp = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (resp.ok) { showBriefConfirm(); }
-    else { showBriefConfirm(); } // show confirm regardless — don't strand the user
-  } catch(err) {
-    showBriefConfirm();
-  }
-});
-
-function showBriefConfirm() {
-  document.getElementById('brief-form').style.display = 'none';
-  document.getElementById('brief-confirm').style.display = 'block';
-}
-
-fetch('/assets/data/creators-data.json').then(r => r.json()).then(data => {
-  const n = data.length.toLocaleString();
-  document.querySelectorAll('.js-creator-count').forEach(el => { el.textContent = n; });
-}).catch(() => {});
-
-(function() {
-  const el = document.querySelector('.compare-headline-emphasis');
-  if (!el || !('IntersectionObserver' in window)) return;
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        el.classList.add('is-visible');
-        observer.disconnect();
-      }
-    });
-  }, { threshold: 0.6 });
-  observer.observe(el);
+  document.getElementById('lens-form').addEventListener('submit', function (e) { e.preventDefault(); send(q.value); });
+  document.querySelectorAll('.chip').forEach(function (c) { c.addEventListener('click', function () { q.value = c.textContent; send(c.textContent); }); });
+  // Hand-off label: "Request a brief on {issue}", "Request my brief" when empty.
+  var act = document.querySelector('[data-fill="lens"]');
+  function label() { act.textContent = q.value.trim() ? 'Request a brief on ' + q.value.trim() : 'Request my brief'; }
+  q.addEventListener('input', label); label();
 })();
 
-// "Or just say hello" reveal
-(function() {
-  const trigger = document.getElementById('bf-hello-trigger');
-  const target = document.getElementById('capture-form');
-  if (!trigger || !target) return;
-  trigger.addEventListener('click', function(e) {
+// ── One intake ──
+(function () {
+  var form = document.getElementById('intake-form'), msg = document.getElementById('form-msg');
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
-    target.style.display = 'block';
-    target.offsetHeight;
-    setTimeout(function() {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-    document.getElementById('bf-hello-trigger-wrap').style.display = 'none';
+    var bad = form.querySelector('input[required]:invalid');
+    if (bad) { msg.dataset.state = 'error'; msg.textContent = 'Please fill in the ' + (bad.id === 'f-email' ? 'email' : bad.id === 'f-issue' ? 'issue' : 'role and organization') + ' field.'; bad.focus(); return; }
+    msg.dataset.state = ''; msg.textContent = 'Sending…';
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      .then(function (r) {
+        if (!r.ok) throw new Error('status ' + r.status);
+        document.getElementById('confirm-issue').textContent = document.getElementById('f-issue').value;
+        form.hidden = true;
+        var c = document.getElementById('confirm'); c.hidden = false; c.focus();
+      })
+      .catch(function () { msg.dataset.state = 'error'; msg.textContent = 'That did not send. Your answers are still here. Try again, or write to us from the contact page.'; });
   });
-})();
-
-// Soft inquiry toggle
-(function() {
-  const toggle = document.getElementById('bf-soft-toggle');
-  const panel = document.getElementById('bf-soft-panel');
-  if (toggle && panel) {
-    toggle.addEventListener('click', function() {
-      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-      if (panel.style.display === 'block') {
-        toggle.style.display = 'none';
-        panel.querySelector('textarea').focus();
-      }
-    });
-  }
-  const softSubmit = document.getElementById('bf-soft-submit');
-  if (softSubmit) {
-    softSubmit.addEventListener('click', async function() {
-      const q = document.getElementById('bf-question')?.value;
-      const e = document.getElementById('bf-soft-email')?.value;
-      if (!q || !e) return;
-      try {
-        await fetch('https://formspree.io/f/xzznlvgj', {
-          method: 'POST',
-          body: JSON.stringify({ soft_question: q, soft_email: e, type: 'soft_inquiry' }),
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-        });
-      } catch(err) {}
-      document.getElementById('bf-soft-panel').innerHTML =
-        '<p style="color:#ceff00;font-size:15px;margin:16px 0 0;">Got it — we\'ll be in touch.</p>';
-    });
-  }
 })();
 </script>
 </body>
