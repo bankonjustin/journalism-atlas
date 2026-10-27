@@ -14,7 +14,7 @@ Swap the address below for the final one when it is set: <code id="u"></code></p
 <h2>768 px</h2><div class="frame" style="width:768px"><iframe id="f768" title="Explorer at 768 px"></iframe></div>
 <h2>1200 px</h2><div class="frame" style="width:1200px"><iframe id="f1200" title="Explorer at 1200 px"></iframe></div>
 <script>
-var q = new URLSearchParams(location.search), src = 'explorer/index.html', tab = ['governance', 'ways', 'history'].indexOf(q.get('tab')) > -1 ? q.get('tab') : 'governance';
+var q = new URLSearchParams(location.search), src = '../explorer/index.html', tab = ['governance', 'ways', 'history'].indexOf(q.get('tab')) > -1 ? q.get('tab') : 'governance';
 var url = src + '?embed=1&tab=' + tab; document.getElementById('u').textContent = url;
 ['f360', 'f768', 'f1200'].forEach(function (id) { document.getElementById(id).src = url; });
 addEventListener('message', function (e) {
