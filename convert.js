@@ -160,7 +160,11 @@ fs.writeFileSync(OUTPUT, JSON.stringify(creators, null, 2), 'utf8');
 // totals without fetching/parsing the full creators-data.json array.
 const topics = new Set();
 const platforms = new Set();
+// Creators with a Bluesky account in any platform slot (same rule convert_bluesky.py uses for bluesky-creators.json).
+const isBsky = p => /bluesky/i.test(p.name || '') || /bsky\.app/i.test(p.link || '');
+let blueskyCount = 0;
 creators.forEach(c => {
+  if (isBsky({ name: c.platform, link: c.link }) || (c.secondaryPlatforms || []).some(isBsky)) blueskyCount++;
   (c.topic || '').split(',').forEach(t => {
     t = t.trim();
     if (t) topics.add(t);
@@ -192,6 +196,8 @@ const stats = {
   asOfLabel:          `${MONTHS[am - 1]} ${ad}, ${ay}`,
   topicCount:         topics.size,
   platformCount:      platforms.size,
+  blueskyCount,
+  blueskyCountLabel:  blueskyCount.toLocaleString('en-US'),
   lastUpdated:        asOf,
 };
 

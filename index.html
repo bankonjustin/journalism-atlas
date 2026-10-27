@@ -179,7 +179,7 @@
     .featured-card { padding: 32px 28px; border: 1px solid #1f1f1f; border-left: 1px solid #1f1f1f; display: flex; flex-direction: column; gap: 12px; min-height: 0; transition: opacity 0.3s ease; }
     .featured-header-right { display: flex; align-items: center; gap: 16px; padding-right: 40px; }
     .featured-pause-btn { display: flex; align-items: center; }
-    .featured-pause-btn .material-symbols-outlined { font-size: 20px; }
+    .featured-pause-btn .atlas-icon { width: 20px; height: 20px; }
     .featured-progress { display: flex; gap: 6px; justify-content: center; margin-top: 24px; padding-right: 40px; }
     .featured-progress-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: background 0.3s ease; cursor: pointer; border: none; padding: 0; }
     .featured-progress-dot.active { background: var(--color-acid); }
@@ -320,7 +320,8 @@
     .partner-logos-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
     .partner-logo-slot { padding: 8px 32px; border-right: 1px solid #d4d4d8; }
     .partner-logo-slot:last-child { border-right: none; }
-    .partner-logo-text { font-size: 15px; font-weight: 700; color: #b0b0b8; transition: color 0.15s; white-space: nowrap; display: block; }
+    .partner-logo-text { font-size: 15px; font-weight: 700; color: #b0b0b8; transition: color 0.15s;  display: block; }
+    @media (max-width: 767px) { .partner-section-v3 { padding: 32px 16px; } .partner-logo-slot { border-right: none; max-width: 100%; padding: 8px 0; text-align: center; } }
     .partner-logo-text:hover { color: var(--color-text); }
 
     /* ── DATABASE ENTRY ── */
@@ -646,7 +647,7 @@
       </div>
       <div class="featured-header-right">
         <button class="featured-pause-btn btn-icon" id="featured-pause-btn" aria-label="Pause rotation">
-          <span class="material-symbols-outlined" aria-hidden="true">pause_circle</span>
+          <svg class="atlas-icon" id="featured-pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><g class="ic-pause" fill="currentColor" stroke="none"><rect x="9" y="8" width="2" height="8"/><rect x="13" y="8" width="2" height="8"/></g><path class="ic-play" d="M10 8.5v7l5.5-3.5z" fill="currentColor" stroke="none" style="display:none"/></svg>
         </button>
         <a href="search.html" class="featured-view-all link-instruction">View all →</a>
       </div>
@@ -899,7 +900,8 @@ const FEATURED_POOL = [
   var grid     = document.getElementById('featured-grid');
   var dotsEl   = document.getElementById('featured-progress');
   var pauseBtn = document.getElementById('featured-pause-btn');
-  var pauseIcon = pauseBtn ? pauseBtn.querySelector('.material-symbols-outlined') : null;
+  var pauseIcon = pauseBtn ? pauseBtn.querySelector('svg') : null;
+  function showPauseIcon(paused) { if (!pauseIcon) return; pauseIcon.querySelector('.ic-pause').style.display = paused ? 'none' : ''; pauseIcon.querySelector('.ic-play').style.display = paused ? '' : 'none'; }
 
   for (var i = 0; i < totalPages; i++) {
     var dot = document.createElement('button');
@@ -964,10 +966,10 @@ const FEATURED_POOL = [
     if (paused) {
       clearInterval(cycleInterval);
       cycleInterval = null;
-      if (pauseIcon) pauseIcon.textContent = 'play_circle';
+      showPauseIcon(true);
     } else {
       startTimer();
-      if (pauseIcon) pauseIcon.textContent = 'pause_circle';
+      showPauseIcon(false);
     }
   }
 
@@ -1024,7 +1026,7 @@ const FEATURED_POOL = [
     <div class="pulse-grid" id="pulse-grid"></div>
 
     <div class="pulse-free-notice">
-      <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">lock_open</span>
+      <svg class="atlas-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg>
       Atlas Pulse is always free. No account required. &nbsp;
       <a href="pulse.html" class="link-instruction">Explore the full digest →</a>
     </div>
@@ -1069,7 +1071,6 @@ const FEATURED_POOL = [
       <div class="research-header-left">
         <div class="research-badge">Research</div>
         <h2 class="research-headline">Original analysis of an ecosystem most journalism coverage ignores.</h2>
-        <p class="research-sub">We work with researchers and journalism organizations to produce original analysis of the independent journalism ecosystem. Live now: the CNTI report and our Bluesky methodology brief. Forthcoming: the Knight Foundation / Arizona State economics study.</p>
       </div>
       <a href="research.html" class="btn-lime btn btn--primary">View all research →</a>
     </div>
@@ -1111,21 +1112,20 @@ const FEATURED_POOL = [
         </div>
         <div class="research-card-body">
           <div class="research-card-status">Atlas Methodology Brief · May 2026</div>
-          <p class="research-card-desc">How we spidered 500+ creator-journalists across the AT Protocol — starter packs, curator networks, and the structure of the independent journalism graph on Bluesky.</p>
+          <p class="research-card-desc">How we spidered 500+ creator-journalists across the AT Protocol — starter packs, curator networks, and the structure of the independent journalism graph on Bluesky. The map now holds {{BLUESKY_COUNT}}.</p>
           <a href="bluesky-creator-intelligence.html" class="research-card-link link-instruction">Read the brief →</a>
         </div>
       </div>
 
-      <!-- Card 3: ASU/Knight — forthcoming -->
-      <!-- SLOT asu-knight-paper: on publication, replace "Forthcoming" with the month and year and link the card to the paper. -->
-      <div class="research-card research-card--muted" data-slot="asu-knight-paper">
+      <!-- Card 3: Nodes and Networks. Date-gated by assets/js/nn-gate.js: no link before Oct 28, 2026 (ET), "Read the study" from then on. SOFT copy; paper URL is a single value in nn-gate.js. -->
+      <div class="research-card" data-slot="nn-paper">
         <div class="research-card-header">
-          <span class="research-card-title-text">The Economics of Independent Journalism at Scale</span>
+          <span class="research-card-title-text">Nodes and Networks</span>
         </div>
         <div class="research-card-body">
-          <div class="research-card-status">Knight Foundation · Arizona State University · Forthcoming</div>
-          <p class="research-card-desc">A revenue cohort analysis of 1,000+ independent journalists — what sustainability actually looks like across the ecosystem.</p>
-          <span class="research-card-link" style="font-size:12px;font-weight:400;color:#bbb;cursor:default;">Forthcoming</span>
+          <div class="research-card-status">Knight Center for the Future of News, ASU Cronkite School · October 28, 2026</div>
+          <p class="research-card-desc">A field study of 169 U.S. journalism organizations: how governance, more than platform, beat or geography, predicts how big they get.</p>
+          <span class="research-card-link" data-nn-link data-nn-class="research-card-link link-instruction"></span>
         </div>
       </div>
 
@@ -1451,6 +1451,7 @@ const FEATURED_POOL = [
 <!-- ══════════════════════════════════════════════════════════
      SECTION 11: FOOTER
      ══════════════════════════════════════════════════════════ -->
+<script src="/assets/js/nn-gate.js" defer></script>
 <script src="/assets/js/footer.js"></script>
 
 <script>

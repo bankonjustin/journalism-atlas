@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bluesky Creator Intelligence — Atlas</title>
-<meta name="description" content="550+ verified independent journalists on Bluesky, organized by beat. The most complete map of independent journalism on AT Protocol.">
+<meta name="description" content="{{BLUESKY_COUNT}} verified independent journalists on Bluesky, organized by beat. The most complete map of independent journalism on AT Protocol.">
 <meta property="og:title" content="Bluesky Creator Intelligence — Atlas">
-<meta property="og:description" content="550+ verified independent journalists on Bluesky, organized by beat. The most complete map of journalism on AT Protocol.">
+<meta property="og:description" content="{{BLUESKY_COUNT}} verified independent journalists on Bluesky, organized by beat. The most complete map of journalism on AT Protocol.">
 <meta property="og:url" content="https://journalismatlas.com/bluesky-creator-intelligence">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Bluesky Creator Intelligence — Atlas">
-<meta name="twitter:description" content="550+ verified independent journalists on Bluesky, organized by beat.">
+<meta name="twitter:description" content="{{BLUESKY_COUNT}} verified independent journalists on Bluesky, organized by beat.">
 <link rel="canonical" href="https://journalismatlas.com/bluesky-creator-intelligence">
 <link rel="stylesheet" href="assets/css/variables.css">
 <link rel="stylesheet" href="assets/css/components.css">
@@ -246,6 +246,22 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--page-bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); }
+/* ── PHONE LAYOUT (390px overflow fix, Oct 27): hero, header, steps and padding were desktop-only ── */
+@media (max-width: 767px) {
+  .header { padding: 12px 16px; gap: 12px; }
+  .header-right { gap: 12px; min-width: 0; }
+  .header-right > :not(.header-cta) { display: none; }
+  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .hero-left { padding: 32px 16px; border-right: none; }
+  .hero-right { height: 320px; }
+  .method-steps { grid-template-columns: minmax(0, 1fr); }
+  .method-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .section, .db-section { padding-left: 16px; padding-right: 16px; }
+  .section-header { flex-wrap: wrap; }
+  .section-meta { margin-left: 0; }
+  .header-cta { max-width: 100%; white-space: normal; }
+}
+
 </style>
 <link rel="stylesheet" href="/assets/css/header.css">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -370,20 +386,22 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
     </div>
     <div class="method-step">
       <div class="method-num">02 · Human Review</div>
-      <div class="method-name">The intake queue</div>
-      <div class="method-desc">Each candidate enters the Atlas Intake Queue. Multiple reviewers evaluate independently — no single person decides.</div>
+      <div class="method-name">Reviewed by hand</div>
+      <!-- SOFT: reviewer wording trimmed to what the data supports (Oct 27). Add the three-reviewer edge-case vote only after Ryan confirms the protocol in writing. -->
+      <div class="method-desc">Every candidate is reviewed by hand against the Atlas criteria.</div>
       <div class="method-tags">
-        <span class="method-tag">Multi-reviewer</span>
-        <span class="method-tag">Independent</span>
+        <span class="method-tag">Human review</span>
+        <span class="method-tag">Atlas criteria</span>
       </div>
     </div>
     <div class="method-step">
       <div class="method-num">03 · Decision</div>
-      <div class="method-name">Approve or reject</div>
-      <div class="method-desc">Reviewers vote. Rejection categories are real and enforced: legacy, inactive, duplicate, not-journalism, out of scope, insufficient presence.</div>
+      <div class="method-name">Approve or decline</div>
+      <!-- SOFT -->
+      <div class="method-desc">Approve or decline. Every decline is logged with a named reason: legacy, inactive, duplicate, not journalism, out of scope, insufficient presence.</div>
       <div class="method-tags">
-        <span class="method-tag">Voted</span>
-        <span class="method-tag">Named rejection criteria</span>
+        <span class="method-tag">Logged</span>
+        <span class="method-tag">Named decline reasons</span>
       </div>
     </div>
     <div class="method-step">
@@ -477,7 +495,7 @@ body { background: var(--page-bg); color: var(--text-primary); font-family: 'Int
     <!-- rendered by JS -->
   </div>
   <div class="suggest-band">
-    <p class="section-subtitle">Know a creator, a community, or a Bluesky starter pack we should be looking at? Every suggestion goes through the same multi-reviewer human approval as every other entry in the database — we don't auto-add.</p>
+    <p class="section-subtitle">Know a creator, a community, or a Bluesky starter pack we should be looking at? Every suggestion goes through the same human review as every other entry in the database — we don't auto-add.</p>
     <a href="mailto:justin&#64;journalismatlas.com" class="header-cta btn btn--primary" style="display:inline-block;text-decoration:none;">Suggest a creator or flag a correction →</a>
   </div>
 </section>

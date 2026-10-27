@@ -123,7 +123,7 @@ window.atlasTrack = function(eventName, params) {
         }
         return '<div class="atlas-strip" id="atlasStrip" role="region" aria-label="' + (welcome ? 'Welcome to the Atlas' : 'New from the Atlas') + '" data-strip-mode="' + (welcome ? 'welcome' : 'announce') + '">' +
                '<div class="atlas-strip__in"><div class="atlas-strip__body">' + body + '</div>' +
-               '<button type="button" class="btn-icon atlas-strip__dismiss" id="atlasStripDismiss" aria-label="Dismiss"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>' +
+               '<button type="button" class="btn-icon atlas-strip__dismiss" id="atlasStripDismiss" aria-label="Dismiss"><svg class="atlas-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>' +
                '</div></div>';
     }
     var stripHtml = buildStrip();
@@ -148,7 +148,7 @@ window.atlasTrack = function(eventName, params) {
         '      <a href="/how-we-did-this.html" class="nav-link">How it works</a>',
         '    </div>',
         '    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Open menu">',
-        '      <span class="material-symbols-outlined" aria-hidden="true">menu</span>',
+        '      <svg class="atlas-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>',
         '    </button>',
         '  </div>',
         '</nav>',
@@ -157,7 +157,7 @@ window.atlasTrack = function(eventName, params) {
         '  <div class="mobile-menu-header">',
         '    <strong>Menu</strong>',
         '    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">',
-        '      <span class="material-symbols-outlined" aria-hidden="true">close</span>',
+        '      <svg class="atlas-icon" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>',
         '    </button>',
         '  </div>',
         '  <nav class="mobile-menu-links">',

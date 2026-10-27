@@ -32,14 +32,15 @@ cp -R assets/data/pulse dist/assets/data/
 # Issue Lens index for /for-brands (written by scripts/build_lens_index.py, committed)
 cp assets/data/lens-index.json dist/assets/data/
 
-# Generated counts: fill {{CREATOR_COUNT}} / {{COUNT_AS_OF}} from assets/data/site-stats.json
+# Generated counts: fill {{CREATOR_COUNT}} / {{COUNT_AS_OF}} / {{BLUESKY_COUNT}} from assets/data/site-stats.json
 # (written by convert.js from creators-master.csv). Source pages keep the tokens; only dist/ is stamped.
 STATS=assets/data/site-stats.json
 COUNT=$(sed -n 's/.*"totalCreatorsLabel": *"\([^"]*\)".*/\1/p' "$STATS")
 ASOF=$(sed -n 's/.*"asOfLabel": *"\([^"]*\)".*/\1/p' "$STATS")
-[ -n "$COUNT" ] && [ -n "$ASOF" ] || { echo "build-dist: $STATS is missing totalCreatorsLabel/asOfLabel; run node convert.js" >&2; exit 1; }
-find dist -name '*.html' -exec sed -i.bak -e "s/{{CREATOR_COUNT}}/$COUNT/g" -e "s/{{COUNT_AS_OF}}/$ASOF/g" {} +
+BSKY=$(sed -n 's/.*"blueskyCountLabel": *"\([^"]*\)".*/\1/p' "$STATS")
+[ -n "$COUNT" ] && [ -n "$ASOF" ] && [ -n "$BSKY" ] || { echo "build-dist: $STATS is missing totalCreatorsLabel/asOfLabel/blueskyCountLabel; run node convert.js" >&2; exit 1; }
+find dist -name '*.html' -exec sed -i.bak -e "s/{{CREATOR_COUNT}}/$COUNT/g" -e "s/{{COUNT_AS_OF}}/$ASOF/g" -e "s/{{BLUESKY_COUNT}}/$BSKY/g" {} +
 find dist -name '*.bak' -delete
-if grep -rlE '\{\{(CREATOR_COUNT|COUNT_AS_OF)\}\}' dist; then echo "build-dist: unresolved count tokens above" >&2; exit 1; fi
+if grep -rlE '\{\{(CREATOR_COUNT|COUNT_AS_OF|BLUESKY_COUNT)\}\}' dist; then echo "build-dist: unresolved count tokens above" >&2; exit 1; fi
 
 find dist -name .DS_Store -delete
