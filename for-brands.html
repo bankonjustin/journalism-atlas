@@ -57,7 +57,7 @@
     .small a:hover, .lede a:hover, .col a:hover { color: #000; }
     /* live data: the only place mono appears outside tags */
     .live { font-family: var(--font-mono); font-weight: 500; font-size: 0.92em; letter-spacing: 0.02em; }
-    .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--viz-orange); margin-right: 8px; vertical-align: middle; }
+    .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-acid); margin-right: 8px; vertical-align: middle; }
     .tag { display: inline-block; font-family: var(--font-mono); font-weight: 500; font-size: 12px; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; }
     .tag--real { background: #000; color: #fff; }
     .tag--wip { color: #303030; border: 1px solid #303030; padding: 3px 7px; }
@@ -88,11 +88,11 @@
     .lr-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--color-text-on-dark-2); margin-bottom: 20px; }
     .lens-frame { font-family: var(--font-editorial); font-weight: 700; font-size: 24px; line-height: 1.35; color: #fff; max-width: 30em; }
     @media (min-width: 900px) { .lens-frame { font-size: 28px; } }
-    .lens-frame .live { font-family: var(--font-mono); font-size: 0.85em; color: var(--viz-orange); }
+    .lens-frame .live { font-family: var(--font-mono); font-size: 0.85em; color: var(--color-acid); }
     .lens-grid { position: relative; display: grid; gap: 32px; margin-top: 40px; }
     @media (min-width: 900px) { .lens-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 160px; align-items: start; } }
     .lr-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-    .lr-lines path { fill: none; stroke: var(--viz-orange); stroke-width: 1.25; opacity: 0.7; }
+    .lr-lines path { fill: none; stroke: var(--color-acid); stroke-width: 1.25; opacity: 0.7; }
     .stat-n { font-size: 56px; line-height: 1; color: #fff; display: block; }
     .stat-l { display: block; margin-top: 8px; font-size: 14px; color: var(--color-text-on-dark-2); max-width: 24em; }
     .lr-stats { display: grid; gap: 28px; }
@@ -234,7 +234,7 @@
     <!-- Lens: markup lives in a template, so it is not in the page until ATLAS_FLAGS.lens (or ?lens=1) mounts it. -->
     <p class="hero-cta" id="hero-cta"><a class="btn-brief" href="#build-brief">Request my brief</a></p>
     <div id="lens-mount"></div>
-    <template id="lens-tpl" data-through="2026-10-22">
+    <template id="lens-tpl" data-through="2026-10-27">
     <!-- The Issue Lens. Chips are written between the LENS:CHIPS markers by scripts/build_lens_index.py (this week's most-covered beats). Results come from assets/data/lens-index.json. -->
     <div class="lens" id="lens">
       <form id="lens-form" role="search" novalidate>
@@ -250,12 +250,12 @@
           <!-- LENS:CHIPS -->
           <li><button type="button" class="chip">data centers</button></li>
           <li><button type="button" class="chip">AI</button></li>
+          <li><button type="button" class="chip">tariffs</button></li>
           <li><button type="button" class="chip">election</button></li>
           <li><button type="button" class="chip">Politics</button></li>
           <li><button type="button" class="chip">Tech</button></li>
           <li><button type="button" class="chip">Local</button></li>
           <li><button type="button" class="chip">Media/Power</button></li>
-          <li><button type="button" class="chip">Culture</button></li>
           <!-- /LENS:CHIPS -->
         </ul>
       </form>
@@ -593,14 +593,15 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: true, 
   }
 
   function num(n) { return '<span class="live">' + n.toLocaleString() + '</span>'; }
-  // "{m} pieces from {n} journalists ...", singulars handled. Beat queries add the title figure as its own clause.
+  // Beat queries: "{n} creators who cover {beat} published {m} pieces in the week of ...". Title queries: "{m} pieces from {n} creators with "x" in the title ...".
+  // Beat tags belong to creators, not pieces, so a beat count is creators who cover the beat and the pieces they published. Singulars handled.
   function frame(D, r) {
     var wk = dateOf(D.from, 0) + ', ' + D.from.slice(0, 4), m = r.pieces.length, n = r.creators;
-    var s = num(m) + (m === 1 ? ' piece' : ' pieces') + ' from ' + num(n) + (n === 1 ? ' journalist' : ' journalists');
+    var pcs = num(m) + (m === 1 ? ' piece' : ' pieces'), crs = num(n) + (n === 1 ? ' creator' : ' creators'), s;
     if (r.mode === 'beat') {
-      s += ' on the ' + esc(r.label) + ' beat';
-      if (r.more) s += ', plus ' + num(r.more.pieces.length) + ' more ' + (r.more.pieces.length === 1 ? 'piece' : 'pieces') + ' with “' + esc(r.qtext) + '” in the title';
-    } else s += ' with “' + esc(r.label) + '” in the title';
+      s = crs + ' who cover ' + esc(r.label) + ' published ' + pcs;
+      if (r.more) s += ', plus ' + num(r.more.pieces.length) + ' more ' + (r.more.pieces.length === 1 ? 'piece' : 'pieces') + ' with \u201c' + esc(r.qtext) + '\u201d in the title';
+    } else s = pcs + ' from ' + crs + ' with \u201c' + esc(r.label) + '\u201d in the title';
     return s + ', in the week of ' + wk + '.';
   }
   function plainFrame(D, r) { var d = document.createElement('div'); d.innerHTML = frame(D, r); return d.textContent; }
@@ -625,12 +626,12 @@ var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: true, 
       }).join('');
       var places = r.places.length ? '<div><h2 class="lr-h">Where they’re based</h2><ul class="places">' + r.places.map(function (x) { return '<li><span>' + esc(x[0]) + '</span><span class="live">' + x[1] + '</span></li>'; }).join('') + '</ul><p class="lr-fine">Creator home base, not story location. ' + r.withPlace + ' of ' + r.creators + ' have one listed.</p></div>' : '';
       var ver = r.verified != null ? '<div class="lr-secondary"><span class="stat-n live">' + r.verified.toLocaleString() + '</span><span class="stat-l">verified creators in the Atlas filed under ' + esc(r.label) + '</span></div>' : '';
-      var more = r.more ? '<h2 class="lr-h lr-h--gap">' + r.more.pieces.length.toLocaleString() + ' more from ' + r.more.creators.toLocaleString() + ' ' + (r.more.creators === 1 ? 'journalist' : 'journalists') + ' with “' + esc(text.trim()) + '” in the title, filed under other beats</h2><ul class="lens-heads">' + headList(D, r.more.heads) + '</ul>' : '';
+      var more = r.more ? '<h2 class="lr-h lr-h--gap">' + r.more.pieces.length.toLocaleString() + ' more from ' + r.more.creators.toLocaleString() + ' ' + (r.more.creators === 1 ? 'creator' : 'creators') + ' with “' + esc(text.trim()) + '” in the title, filed under other beats</h2><ul class="lens-heads">' + headList(D, r.more.heads) + '</ul>' : '';
       html = '<p class="lens-frame">' + frame(D, r) + '</p>' +
         '<div class="lens-grid" id="lr-grid"><div><div class="mix" id="lr-mix" aria-label="Platform mix of these pieces">' + mix + '</div></div>' +
         '<div class="lr-stats"><div id="lr-hub"><span class="stat-n live">' + r.creators.toLocaleString() + '</span><span class="stat-l">' + (r.creators === 1 ? 'creator' : 'creators') + ' in the Atlas published ' + (r.pieces.length === 1 ? 'this piece' : 'these ' + r.pieces.length.toLocaleString() + ' pieces') + '</span></div>' + ver + '</div></div>' +
         '<div class="lr-cols"><div><h2 class="lr-h">Recent, from their own pages</h2><ul class="lens-heads">' + headList(D, r.heads) + '</ul>' + more + '</div>' + places + '</div>' +
-        '<p class="lens-note">' + (r.mode === 'beat' ? 'Beat pieces are matched on the beat tags creators carry in the Atlas; the title figure is counted separately and never added in. ' : 'Matched on piece titles only, whole words. Titles are all the index holds, so a topic named differently in a title will not show. ') + 'Podcast is a floor: most podcasts publish on custom domains.</p>';
+        '<p class="lens-note">' + (r.mode === 'beat' ? 'Beat tags belong to creators, not pieces: the beat figure is the creators who carry the tag in the Atlas and the pieces they published. The title figure is counted separately and never added in. ' : 'Matched on piece titles only, whole words. Titles are all the index holds, so a topic named differently in a title will not show. ') + 'Podcast is a floor: most podcasts publish on custom domains.</p>';
     }
     html = '<div class="lr-head"><span class="live-dot" aria-hidden="true"></span><span>Live window <span class="live">' + dateOf(D.from, 0) + ' to ' + dateOf(D.to, 0) + '</span>. Data through <span class="live">' + dateOf(D.through, 0) + '</span>.</span></div>' + html +
       '<p class="lens-act"><a class="btn-brief" href="#build-brief" data-fill="lens">Request a brief on ' + esc(text.trim()) + '</a></p>';

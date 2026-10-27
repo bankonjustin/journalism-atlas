@@ -4,20 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- PULSE:HEAD:START -->
-  <title>Atlas Pulse No. 8: what independent journalists published, Oct 20–26, 2026</title>
-  <meta name="description" content="Oct 20–26: 907 independent creators published 3,153 pieces across 73 beats (all monitored feeds). From the Independent Journalism Atlas.">
+  <title>907 creators in the Atlas published 3,153 pieces this week. Atlas Pulse No. 8</title>
+  <meta name="description" content="907 creators in the Atlas published 3,153 pieces this week. Oct 20–26, 2026. Counted from 1,747 monitored feeds of newsletters, video, podcasts and websites. From the Independent Journalism Atlas.">
   <link rel="canonical" href="https://journalismatlas.com/pulse">
   <meta property="og:url" content="https://journalismatlas.com/pulse">
-  <meta property="og:title" content="Atlas Pulse No. 8: what independent journalists published, Oct 20–26, 2026">
-  <meta property="og:description" content="Oct 20–26: 907 independent creators published 3,153 pieces across 73 beats (all monitored feeds). From the Independent Journalism Atlas.">
+  <meta property="og:title" content="907 creators in the Atlas published 3,153 pieces this week.">
+  <meta property="og:description" content="907 creators in the Atlas published 3,153 pieces this week. Oct 20–26, 2026. Counted from 1,747 monitored feeds of newsletters, video, podcasts and websites. From the Independent Journalism Atlas.">
   <meta property="og:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
   <meta property="og:type" content="website">
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://journalismatlas.com/pulse">
-  <meta property="twitter:title" content="Atlas Pulse No. 8: what independent journalists published, Oct 20–26, 2026">
-  <meta property="twitter:description" content="Oct 20–26: 907 independent creators published 3,153 pieces across 73 beats (all monitored feeds). From the Independent Journalism Atlas.">
+  <meta property="twitter:title" content="907 creators in the Atlas published 3,153 pieces this week.">
+  <meta property="twitter:description" content="907 creators in the Atlas published 3,153 pieces this week. Oct 20–26, 2026. Counted from 1,747 monitored feeds of newsletters, video, podcasts and websites. From the Independent Journalism Atlas.">
   <meta property="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
 <!-- PULSE:HEAD:END -->
+  <script id="d3-lib" src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous" defer></script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet"></noscript>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/img/favicon-v2.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -119,7 +122,7 @@
     .pulse-thesis-band {
       background: var(--color-bg);
       padding: 20px 40px;
-      border-bottom: 1px solid #d4d4d8;
+      border-bottom: 1px solid var(--p-border);
     }
     .pulse-thesis-band p {
       font-family: var(--font-mono);
@@ -145,22 +148,22 @@
     .signal-card-title a { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; text-decoration: none; line-height: 1.35; display: block; margin-bottom: 10px; }
     .signal-card-title a:hover { color: var(--color-acid); }
     .signal-card-meta { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
-    .field-summary-band { background: #ffffff; border-top: 1px solid #d4d4d8; border-bottom: 1px solid #d4d4d8; padding: 24px 40px; }
+    .field-summary-band { background: var(--p-surface); border-top: 1px solid var(--p-border); border-bottom: 1px solid var(--p-border); padding: 24px 40px; }
     .field-summary-inner { max-width: 760px; }
     .field-summary-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em;  color: #97d600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .field-summary-draft { font-family: var(--font-mono); font-size: 12px; color: #aaa; }
     .field-summary-text { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 16px; font-weight: 400; color: var(--color-text); line-height: 1.7; margin-bottom: 10px; }
     .field-summary-byline { font-family: var(--font-mono); font-size: 12px; color: #aaa; letter-spacing: 0.04em; }
-    .audience-bridge-v2 { background: #fff; border-top: 1px solid #d4d4d8; border-bottom: 1px solid #d4d4d8; padding: 24px 40px; display: flex; align-items: stretch; }
+    .audience-bridge-v2 { background: var(--p-surface); border-top: 1px solid var(--p-border); border-bottom: 1px solid var(--p-border); padding: 24px 40px; display: flex; align-items: stretch; }
     .audience-bridge-item { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 4px 24px 4px 0; }
     .audience-bridge-item:first-child { padding-left: 0; }
-    .audience-bridge-divider { width: 1px; background: #d4d4d8; margin: 0 24px; flex-shrink: 0; }
+    .audience-bridge-divider { width: 1px; background: var(--p-fill); margin: 0 24px; flex-shrink: 0; }
     .audience-bridge-label { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em;  color: #888; }
     .audience-bridge-sub { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 16px; color: var(--color-text); line-height: 1.4; }
     .audience-bridge-link { margin-top: 2px; }
     .beat-trend-grid { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
     .beat-trend-row { display: flex; align-items: center; gap: 8px; }
-    .beat-trend-name { font-family: var(--font-mono); font-size: 12px; color: #555; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .beat-trend-name { font-family: var(--font-mono); font-size: 12px; color: var(--p-ink-2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .beat-trend-arrow { font-size: 12px; width: 14px; flex-shrink: 0; }
     .beat-trend-pct { font-family: var(--font-mono); font-size: 12px; width: 44px; text-align: right; flex-shrink: 0; }
     .trend-up { color: var(--color-accent-on-light); }
@@ -252,11 +255,11 @@
     .signal-card-meta { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.28); letter-spacing: 0.04em; margin-top: 4px; }
 
     /* ── ARCHIVE HEADER (dark→light boundary) ── */
-    .archive-header { background: #ffffff; border-top: 3px solid var(--color-accent-on-light); border-bottom: 1px solid #d4d4d8; padding: 32px 40px; }
+    .archive-header { background: var(--p-surface); border-top: 3px solid var(--color-accent-on-light); border-bottom: 1px solid var(--p-border); padding: 32px 40px; }
     .archive-header-inner { max-width: 1440px; margin: 0 auto; }
     .archive-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em;  color: var(--color-text); font-weight: 500; margin-bottom: 20px; }
     .archive-method { font-family: var(--font-mono); font-size: 12px; color: #888; line-height: 1.7; letter-spacing: 0.02em; margin-bottom: 20px; max-width: 760px; }
-    .archive-method strong { color: #555; font-weight: 700; }
+    .archive-method strong { color: var(--p-ink-2); font-weight: 700; }
 
     @media (max-width: 700px) {
       .audience-bridge-v2 { flex-direction: column; padding: 16px 20px; gap: 16px; }
@@ -333,7 +336,7 @@
     }
     .beat-bar-track {
       flex: 1;
-      background: #e8e8eb;
+      background: var(--p-fill);
       border-radius: 3px;
       overflow: hidden;
       height: 14px;
@@ -359,7 +362,7 @@
       top: 56px;
       z-index: 10;
       background: var(--color-bg);
-      border-bottom: 1px solid #d4d4d8;
+      border-bottom: 1px solid var(--p-border);
       padding: 12px 24px;
     }
     .controls-inner {
@@ -404,7 +407,7 @@
       padding: 16px 0 8px;
     }
     .post-row {
-      border-bottom: 1px solid #e4e4e8;
+      border-bottom: 1px solid var(--p-border);
       padding: 16px 0;
     }
     .post-meta-row {
@@ -455,7 +458,7 @@
     .post-title a {
       font-size: 15px;
       font-weight: 500;
-      color: #1a1a1a;
+      color: var(--p-ink);
       line-height: 1.4;
       text-decoration: none;
     }
@@ -484,7 +487,7 @@
     .heat-toggle {
       display: flex;
       gap: 2px;
-      background: #e4e4e8;
+      background: var(--p-fill);
       border-radius: 4px;
       padding: 2px;
     }
@@ -502,11 +505,11 @@
       transition: background 0.15s, color 0.15s;
     }
     .heat-toggle-btn.active {
-      background: #fff;
-      color: #1a1a1a;
+      background: var(--p-surface);
+      color: var(--p-ink);
     }
     .heat-grid-wrap { display: flex; align-items: flex-start; }
-    .heat-label-col { flex-shrink: 0; width: 160px; position: sticky; left: 0; background: #fff; z-index: 2; padding-right: 12px; }
+    .heat-label-col { flex-shrink: 0; width: 160px; position: sticky; left: 0; background: var(--p-surface); z-index: 2; padding-right: 12px; }
     .heat-beat-label { font-family: var(--font-mono); font-size: 13px; color: #888;  letter-spacing: 0.05em; text-align: right; height: 22px; margin-bottom: 4px; display: flex; align-items: center; justify-content: flex-end; white-space: nowrap; }
     .heat-axis-spacer { height: 22px; margin-bottom: 0; }
     .heat-scroll-col { overflow-x: auto; flex: 1; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #d4d4d8 transparent; }
@@ -555,8 +558,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: #fff;
-      border: 1px solid #e4e4e8;
+      background: var(--p-surface);
+      border: 1px solid var(--p-border);
       border-radius: 100px;
       padding: 6px 12px;
       white-space: nowrap;
@@ -571,7 +574,7 @@
     .creator-chip-name {
       font-size: 13px;
       font-weight: 500;
-      color: #1a1a1a;
+      color: var(--p-ink);
       letter-spacing: -0.01em;
     }
     .creator-chip-count {
@@ -597,18 +600,18 @@
     .co-matrix { border-collapse: collapse; }
     .co-corner { width: 140px; position: sticky; left: 0; z-index: 2; background: var(--color-bg); }
     .co-col-label { font-family: var(--font-mono); font-size: 12px; color: #888; text-align: center; padding: 4px 6px; letter-spacing: 0.05em; min-width: 44px; }
-    .co-row-label { font-family: var(--font-mono); font-size: 12px; color: #666; padding: 4px 12px 4px 0; text-align: right; white-space: nowrap; position: sticky; left: 0; background: var(--color-bg); z-index: 1; }
+    .co-row-label { font-family: var(--font-mono); font-size: 12px; color: var(--p-ink-2); padding: 4px 12px 4px 0; text-align: right; white-space: nowrap; position: sticky; left: 0; background: var(--color-bg); z-index: 1; }
     .co-cell { width: 44px; height: 36px; text-align: center; vertical-align: middle; font-family: var(--font-mono); font-size: 12px; border-radius: 2px; cursor: pointer; transition: opacity 0.1s; }
     .co-cell:hover:not(.co-diagonal) { opacity: 0.75; }
     .co-cell.co-active { outline: 2px solid #1a1a1a; outline-offset: -2px; }
-    .co-diagonal { background: #e0e0e4; color: #aaa; }
-    .co-cell-zero { background: #f4f4f6; color: transparent; }
+    .co-diagonal { background: var(--p-fill); color: #aaa; }
+    .co-cell-zero { background: var(--p-surface-2); color: transparent; }
 
     /* ── PLATFORM BREAKDOWN ── */
-    .platform-breakdown { margin-bottom: 24px; padding: 16px 20px; background: #fff; border-radius: 6px; border: 1px solid #e4e4e8; }
+    .platform-breakdown { margin-bottom: 24px; padding: 16px 20px; background: var(--p-surface); border-radius: 6px; border: 1px solid var(--p-border); }
     .plat-intro { font-family: var(--font-mono); font-size: 13px; color: #888;  letter-spacing: 0.05em; margin-bottom: 12px; }
     .plat-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-    .plat-label { font-family: var(--font-mono); font-size: 13px; color: #555; width: 80px; flex-shrink: 0; }
+    .plat-label { font-family: var(--font-mono); font-size: 13px; color: var(--p-ink-2); width: 80px; flex-shrink: 0; }
     .plat-bar-track { flex: 1; height: 6px; background: var(--color-bg); border-radius: 3px; overflow: hidden; }
     .plat-bar-fill { height: 100%; background: #1a1a1a; border-radius: 3px; transition: width 0.25s ease; }
     .plat-pct { font-family: var(--font-mono); font-size: 13px; color: #aaa; width: 32px; text-align: right; flex-shrink: 0; }
@@ -618,14 +621,14 @@
     .pulse-section-head { max-width: 1440px; margin: 0 auto; padding: 40px 40px 0; }
     .pulse-section-title { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 28px; font-weight: 700; line-height: 1.25; color: var(--color-text-header); margin: 0 0 8px; }
     .pulse-section-sub { font-size: 16px; color: var(--color-text-secondary); max-width: 680px; line-height: 1.5; margin: 0 0 8px; }
-    .pulse-feed { border-top: 1px solid #d4d4d8; background: var(--color-bg); }
+    .pulse-feed { border-top: 1px solid var(--p-border); background: var(--color-bg); }
     .pulse-feed-inner { max-width: 960px; margin: 0 0 0 40px; }
-    .pulse-instruments { border-top: 1px solid #d4d4d8; background: var(--color-bg); padding-bottom: 48px; }
+    .pulse-instruments { border-top: 1px solid var(--p-border); background: var(--color-bg); padding-bottom: 48px; }
     .pulse-instruments-inner { max-width: 1440px; margin: 0 auto; padding: 24px 40px 0; }
-    .pulse-underneath { background: #fff; border-top: 1px solid #d4d4d8; padding: 0 0 40px; }
-    .pulse-work { background: #fff; border-top: 1px solid #d4d4d8; padding-bottom: 8px; }
-    .pulse-work .pulse-brands-cta { background: #fff; padding: 20px 40px; max-width: 1440px; margin: 0 auto; border-top: none; }
-    .intel-brief { background: #fff; border-top: 1px solid #d4d4d8; }
+    .pulse-underneath { background: var(--p-surface); border-top: 1px solid var(--p-border); padding: 0 0 40px; }
+    .pulse-work { background: var(--p-surface); border-top: 1px solid var(--p-border); padding-bottom: 8px; }
+    .pulse-work .pulse-brands-cta { background: var(--p-surface); padding: 20px 40px; max-width: 1440px; margin: 0 auto; border-top: none; }
+    .intel-brief { background: var(--p-surface); border-top: 1px solid var(--p-border); }
     .intel-brief-inner { max-width: 1440px; margin: 0 auto; padding: 0 40px 40px; }
     .intel-brief-inner .pulse-section-head { padding-left: 0; padding-right: 0; }
     .rail-title { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 28px; font-weight: 700; line-height: 1.25; color: #fff; margin: 0 0 8px; }
@@ -654,22 +657,22 @@
     .intel-post-link { display: inline-block; min-height: 24px; padding: 2px 0; }
     /* AA contrast on light surfaces: secondary text uses the v15 secondary step instead of #888/#aaa/#bbb */
     main .creator-name, main .platform-tag, main .post-date, main .post-geo, main .beat-count, main .creator-chip-platform,
-    main .plat-pct, main .intel-section-eyebrow, main .analysis-tab, main .tab-descriptor { color: #5e5e5e; }
+    main .plat-pct, main .intel-section-eyebrow, main .analysis-tab, main .tab-descriptor { color: var(--p-ink-2); }
     main .analysis-tab.active { color: var(--color-accent-on-light); }
     main .audience-bridge-label, main .post-count-label, main .plat-intro, main .creator-strip-header, main .section-eyebrow,
-    main .archive-method, main .archive-method strong { color: #5e5e5e; }
+    main .archive-method, main .archive-method strong { color: var(--p-ink-2); }
     main .pulse-ticker-item, main .signal-reason-tag, main .signal-card-meta { color: rgba(255,255,255,0.68); }
     main .pulse-ticker-item-beat { color: rgba(206,255,0,0.8); }
-    main .beat-tag { background: #f4f5ef; }
+    main .beat-tag { background: var(--p-surface-2); }
     .analysis-panel {
-      background: #fff;
-      border: 1px solid #d4d4d8;
+      background: var(--p-surface);
+      border: 1px solid var(--p-border);
     }
     .analysis-tabs {
       display: flex;
-      border-bottom: 1px solid #d4d4d8;
+      border-bottom: 1px solid var(--p-border);
       flex-shrink: 0;
-      background: #fff;
+      background: var(--p-surface);
     }
     .analysis-tab {
       flex: 1;
@@ -722,7 +725,7 @@
       font-family: 'Inter', 'Inter Fallback', sans-serif;
       font-size: 16px;
       font-weight: 400;
-      color: #666;
+      color: var(--p-ink-2);
       margin: 0 0 4px;
       line-height: 1.5;
     }
@@ -737,8 +740,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #fff;
-      border: 1px solid #d4d4d8;
+      background: var(--p-surface);
+      border: 1px solid var(--p-border);
       border-radius: 6px;
       padding: 6px 10px;
       max-width: 360px;
@@ -759,7 +762,7 @@
       flex-wrap: wrap;
       gap: 6px;
       padding-top: 4px;
-      border-top: 1px dashed #e4e4e8;
+      border-top: 1px dashed var(--p-border);
     }
     .beat-more-btn {
       width: fit-content; }
@@ -776,7 +779,7 @@
     .rhythm-view-toggle {
       display: flex;
       gap: 2px;
-      background: #e4e4e8;
+      background: var(--p-fill);
       border-radius: 4px;
       padding: 2px;
     }
@@ -793,14 +796,14 @@
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
-    .rhythm-view-btn.active { background: #fff; color: #1a1a1a; }
+    .rhythm-view-btn.active { background: var(--p-surface); color: var(--p-ink); }
     .heat-cell-weekly { width: 80px; border-radius: 4px; }
 
     /* ── FOR-BRANDS CTA ── */
     .pulse-brands-cta {
-      border-top: 1px solid #e4e4e8;
+      border-top: 1px solid var(--p-border);
       padding: 20px;
-      background: #fafafa;
+      background: var(--p-surface);
     }
     .pulse-brands-cta-inner {
       display: flex;
@@ -812,7 +815,7 @@
     .pulse-brands-cta-label {
       font-size: 13px;
       font-weight: 500;
-      color: #1a1a1a;
+      color: var(--p-ink);
       margin-bottom: 3px;
     }
     .pulse-brands-cta-sub {
@@ -872,7 +875,7 @@
       color: #aaa;
       margin: 20px 0 10px;
       padding-top: 16px;
-      border-top: 1px solid #e4e4e8;
+      border-top: 1px solid var(--p-border);
     }
     .intel-topic { margin-bottom: 18px; }
     .intel-topic-name {
@@ -969,41 +972,274 @@
       margin-bottom: 8px;
     }
     .city-spotlight-section { padding: 32px 24px; }
-    .city-spotlight-card { background: #f4f4f6; border: 1px solid #e0e0e0; border-left: 4px solid var(--color-accent-on-light); border-radius: 6px; padding: 24px 28px; max-width: 800px; }
+    .city-spotlight-card { background: var(--p-surface-2); border: 1px solid var(--p-border); border-left: 4px solid var(--color-accent-on-light); border-radius: 6px; padding: 24px 28px; max-width: 800px; }
     .city-spotlight-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em;  color: var(--color-accent-on-light); margin-bottom: 10px; display: flex; align-items: center; }
     .city-spotlight-title { font-size: 22px; font-weight: 700; color: #000; margin-bottom: 10px; line-height: 1.2; }
     .city-spotlight-body { font-size: 15px; color: #444; line-height: 1.6; margin-bottom: 16px; max-width: 640px; }
     .city-spotlight-cta { margin-bottom: 20px; }
-    .city-spotlight-stats { display: flex; gap: 24px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid #e0e0e0; }
-    .city-spotlight-stat { font-size: 13px; color: #666; }
+    .city-spotlight-stats { display: flex; gap: 24px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid var(--p-border); }
+    .city-spotlight-stat { font-size: 13px; color: var(--p-ink-2); }
     .city-spotlight-stat strong { color: #000; font-weight: 700; margin-right: 4px; }
-  </style>
+      @font-face { font-family: 'Merriweather Fallback'; src: local('Georgia Bold'), local('Georgia-Bold'); font-weight: 700; size-adjust: 96.5%; ascent-override: 102%; descent-override: 28.3%; line-gap-override: 0%; }
+
+    /* ══ PULSE REBUILD (Oct 27, 2026) ══════════════════════════════════════════════════════════════════════════
+       Tokens: v15 neutrals via role variables. The whole page follows the viewer's theme (prefers-color-scheme;
+       data-theme="light|dark" on <html> overrides). The hero is set apart by scale, not by a different background.
+       Live / selected = Acid (fills on light, anything on dark). Focus ring: Dark Olive on light, Lime on dark. */
+    :root { --p-surface:#ffffff; --p-surface-2:#f4f4f6; --p-fill:#e4e4e8; --p-border:#d4d4d8; --p-ink:#1a1a1a; --p-ink-2:#5e5e5e;
+            --p-link: var(--color-link); --p-focus:#5d7400; --p-hover-text:#000; color-scheme: light dark; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --p-surface:#121212; --p-surface-2:#1c1c1c; --p-fill:#3a3a3a; --p-border:#5e5e5e; --p-ink:#efefef; --p-ink-2:#c6c6c6;
+                                        --p-link:#ffffff; --p-focus:#97d600; --p-hover-text:#ceff00; }
+      :root:not([data-theme="light"]) body { background:#303030; color:#efefef; }
+      :root:not([data-theme="light"]) main { --color-bg:#303030; --color-text:#efefef; --color-text-secondary:#c6c6c6; --color-accent-on-light:#ceff00; }
+    }
+    :root[data-theme="dark"] { --p-surface:#121212; --p-surface-2:#1c1c1c; --p-fill:#3a3a3a; --p-border:#5e5e5e; --p-ink:#efefef; --p-ink-2:#c6c6c6;
+                               --p-link:#ffffff; --p-focus:#97d600; --p-hover-text:#ceff00; }
+    :root[data-theme="dark"] body { background:#303030; color:#efefef; }
+    :root[data-theme="dark"] main { --color-bg:#303030; --color-text:#efefef; --color-text-secondary:#c6c6c6; --color-accent-on-light:#ceff00; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) main .pulse-section-title, :root:not([data-theme="light"]) main .btn--secondary,
+      :root:not([data-theme="light"]) main .city-spotlight-title, :root:not([data-theme="light"]) main .city-spotlight-card strong { color: var(--p-ink); }
+      :root:not([data-theme="light"]) main .btn--secondary { border-color: var(--p-border); background: transparent; }
+      :root:not([data-theme="light"]) main .city-spotlight-body, :root:not([data-theme="light"]) main .city-spotlight-asof { color: var(--p-ink-2); }
+    }
+    :root[data-theme="dark"] main .pulse-section-title, :root[data-theme="dark"] main .btn--secondary,
+    :root[data-theme="dark"] main .city-spotlight-title, :root[data-theme="dark"] main .city-spotlight-card strong { color: var(--p-ink); }
+    :root[data-theme="dark"] main .btn--secondary { border-color: var(--p-border); background: transparent; }
+    :root[data-theme="dark"] main .city-spotlight-body, :root[data-theme="dark"] main .city-spotlight-asof { color: var(--p-ink-2); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
+    }
+    main :focus-visible { outline: 2px solid var(--p-focus); outline-offset: 2px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .gotcha { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    main { background: var(--color-bg); }
+    .sec-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    main a { text-underline-offset: 2px; }
+
+    /* ── hero ── */
+    .pulse-hero { background: var(--color-bg); padding: 56px 0 32px; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .pulse-hero .masthead-dateline { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--p-ink-2); margin: 0 0 20px; }
+    .pulse-hero .masthead-dateline time { color: inherit; }
+    .pulse-hero .masthead-stale { color: #b45309; }
+    .pulse-hero .masthead-title { font-family: 'Merriweather', 'Merriweather Fallback', Georgia, serif; font-size: clamp(36px, 5.2vw, 64px); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em;
+                                  color: var(--p-ink); max-width: 17em; margin: 0 0 32px; min-height: 2.16em; }
+    .field-wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+    .field-stage { position: relative; width: 100%; aspect-ratio: 100 / 62; min-width: 0; }
+    .field-svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .f-cluster { cursor: pointer; transform: translate(var(--tx), var(--ty)); transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease-out; outline: none; }
+    .f-cluster.f-pre { transform: translate(var(--sx), var(--sy)) scale(0.3); opacity: 0; }
+    .f-hull { fill: transparent; stroke: var(--p-border); stroke-width: 1; pointer-events: all; }
+    .f-dot { fill: var(--p-ink-2); fill-opacity: 0.5; }
+    .f-label { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 12px; font-weight: 600; fill: var(--p-ink); paint-order: stroke; stroke: var(--color-bg); stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+    .f-label.f-count { font-family: var(--font-mono); font-weight: 500; }
+    .f-cluster.is-on .f-dot { fill: #ceff00; fill-opacity: 1; }
+    .f-cluster.is-on .f-hull { stroke: var(--p-ink); stroke-width: 1.5; }
+    .f-cluster.is-pinned .f-hull { stroke-width: 2.5; }
+    .f-cluster:focus-visible .f-hull { stroke: var(--p-focus); stroke-width: 3; }
+    .f-cluster.is-on .f-label { stroke: var(--color-bg); }
+    .field-tip { position: absolute; z-index: 5; pointer-events: none; background: var(--p-ink); color: var(--color-bg); font-size: 13px; line-height: 1.3; padding: 6px 10px; border-radius: 6px; max-width: 260px; }
+    .field-tip[hidden] { display: none; }
+    .field-panel { background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 6px; padding: 20px; min-height: 120px; color: var(--p-ink); font-size: 15px; line-height: 1.5; }
+    .fp-hint { color: var(--p-ink-2); }
+    .fp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .field-panel h3 { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.25; color: var(--p-ink); }
+    .fp-close { display: none; background: none; border: 1px solid var(--p-border); border-radius: 6px; color: var(--p-ink); font: 600 14px 'Inter', 'Inter Fallback', sans-serif; min-height: 44px; padding: 0 16px; cursor: pointer; }
+    .fp-count { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--p-ink); margin: 4px 0 16px; }
+    .fp-sub { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--p-ink-2); margin: 16px 0 8px; }
+    .fp-list { list-style: none; display: grid; gap: 4px; }
+    .fp-list li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+    .fp-list a { color: var(--p-link); text-decoration: underline; display: inline-block; min-height: 24px; }
+    .fp-list a:hover { color: var(--p-hover-text); }
+    .fp-more { list-style: none; max-height: 46vh; overflow: auto; margin-top: 12px; border-top: 1px solid var(--p-border); }
+    .fp-beat { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; width: 100%; min-height: 44px; padding: 8px 0; background: none; border: 0; border-bottom: 1px solid var(--p-border); cursor: pointer; text-align: left;
+               color: var(--p-ink); font: 600 15px 'Inter', 'Inter Fallback', sans-serif; }
+    .fp-beat:hover span:first-child { text-decoration: underline; color: var(--p-hover-text); }
+    .fp-n { font-family: var(--font-mono); font-size: 12px; color: var(--p-ink-2); white-space: nowrap; }
+    .fp-top a { color: var(--p-link); font-weight: 600; text-decoration: underline; display: inline-block; min-height: 24px; }
+    .fp-top a:hover { color: var(--p-hover-text); }
+    .fp-by { display: block; font-size: 13px; color: var(--p-ink-2); }
+    .fp-actions { display: grid; gap: 12px; margin-top: 20px; justify-items: start; }
+    .fp-brief { color: var(--p-link); font-size: 15px; font-weight: 600; text-decoration: underline; min-height: 24px; }
+    .fp-brief:hover { color: var(--p-hover-text); }
+    .field-caption { font-size: 14px; line-height: 1.5; color: var(--p-ink-2); max-width: 760px; margin: 12px 0 0; }
+    .field-count { font-size: 14px; line-height: 1.5; color: var(--p-ink-2); max-width: 760px; margin: 4px 0 0; }
+    .field-count strong { color: var(--p-ink); font-weight: 600; }
+    .field-count a { color: var(--p-link); text-decoration: underline; }
+    #field-table { margin-top: 16px; font-size: 13px; border-collapse: collapse; color: var(--p-ink); }
+    #field-table th, #field-table td { text-align: left; padding: 4px 16px 4px 0; font-weight: 400; }
+    #field-table.sr-only { display: block; }
+
+    /* ── sections ── */
+    .pulse-picks, .pulse-corner { background: var(--color-bg); border-top: 1px solid var(--p-border); padding: 48px 0; }
+    .pulse-picks .pulse-section-title, .pulse-corner .pulse-section-title { margin: 0 0 8px; }
+    .picks-label { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--p-ink-2); margin: 0 0 24px; }
+    .picks-list { list-style: none; counter-reset: pick; display: grid; gap: 24px; max-width: 760px; }
+    .pick { counter-increment: pick; position: relative; padding-left: 44px; }
+    .pick::before { content: counter(pick); position: absolute; left: 0; top: 2px; font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--p-ink-2); }
+    .pick-title { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3; }
+    .pick-title a { color: var(--p-link); text-decoration: underline; }
+    .pick-title a:hover { color: var(--p-hover-text); }
+    .pick-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-family: var(--font-mono); font-size: 12px; color: var(--p-ink-2); margin-top: 6px; }
+    .pick-why { font-size: 16px; line-height: 1.5; color: var(--p-ink); margin-top: 6px; }
+    .corner-controls { display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0 24px; }
+    .cc-field { display: grid; gap: 6px; }
+    .cc-grow { flex: 1 1 280px; max-width: 520px; }
+    .cc-field label, .corner-form label { font-size: 14px; font-weight: 600; color: var(--p-ink); }
+    .cc-field select, .cc-field input, .corner-form input[type=email], .corner-form input[type=text] { min-height: 48px; padding: 10px 14px; font: 400 16px 'Inter', 'Inter Fallback', sans-serif; color: var(--p-ink);
+        background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 6px; width: 100%; }
+    .cc-field select { min-width: 260px; }
+    .corner-line { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 20px; font-weight: 600; line-height: 1.35; color: var(--p-ink); max-width: 760px; }
+    .corner-clear2, .suggest-open { background: none; border: 0; padding: 0; margin-top: 8px; min-height: 24px; color: var(--p-link); font: 600 15px 'Inter', 'Inter Fallback', sans-serif; text-decoration: underline; cursor: pointer; }
+    .corner-form { display: grid; gap: 8px; max-width: 520px; margin: 16px 0 32px; }
+    .cf-row { display: flex; gap: 12px; }
+    .cf-row input { flex: 1 1 auto; }
+    .cf-row .btn { flex: 0 0 auto; }
+    .corner-form .opt { font-weight: 400; color: var(--p-ink-2); }
+    .form-msg { font-size: 15px; min-height: 1.4em; color: var(--p-ink); }
+    .form-msg[data-state="error"] { color: #f50000; }
+    :root:not([data-theme="light"]) .form-msg[data-state="error"] { color: #ff6b6b; }
+    .suggest-box { margin: 8px 0 24px; }
+    .c-day { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--p-ink-2); margin: 28px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--p-border); }
+    .c-rows { list-style: none; max-width: 900px; }
+    .c-row { padding: 10px 0; border-bottom: 1px solid var(--p-border); display: grid; gap: 2px; }
+    .c-title { color: var(--p-link); font-size: 16px; font-weight: 600; line-height: 1.35; text-decoration: underline; display: inline-block; min-height: 24px; }
+    .c-title:hover { color: var(--p-hover-text); }
+    .c-meta { display: flex; flex-wrap: wrap; gap: 2px 16px; font-family: var(--font-mono); font-size: 12px; color: var(--p-ink-2); }
+    .corner-more { margin-top: 24px; }
+
+    /* ── lower blocks ── */
+    .city-spotlight-section { padding: 32px 0; border-top: 1px solid var(--p-border); background: var(--color-bg); }
+    .pulse-work { background: var(--color-bg); border-top: 1px solid var(--p-border); padding: 32px 0 40px; }
+    .pulse-work .audience-bridge-v2 { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .pulse-method { background: var(--color-bg); border-top: 1px solid var(--p-border); }
+    .pulse-method > summary { max-width: 1200px; margin: 0 auto; padding: 24px 32px; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; min-height: 44px; }
+    .pulse-method > summary::-webkit-details-marker { display: none; }
+    .pulse-method > summary::after { content: '+'; font-family: var(--font-mono); font-size: 20px; color: var(--p-ink); }
+    .pulse-method[open] > summary::after { content: '\2212'; }
+    .pulse-method > summary h2 { margin: 0; padding: 0; }
+    .method-body { max-width: 1200px; margin: 0 auto; padding: 0 32px 48px; }
+    .method-body > * { max-width: 760px; }
+    .method-p { font-size: 16px; line-height: 1.6; color: var(--p-ink); margin: 0 0 16px; }
+    .method-p strong { font-weight: 600; }
+    .method-p a, .method-inst-sub a { color: var(--p-link); text-decoration: underline; }
+    .method-inst { margin-top: 24px; border-top: 1px solid var(--p-border); max-width: none !important; }
+    .method-inst > summary { cursor: pointer; padding: 16px 0; list-style: none; min-height: 44px; display: flex; align-items: center; justify-content: space-between; max-width: 760px; }
+    .method-inst > summary::-webkit-details-marker { display: none; }
+    .method-inst > summary::after { content: '+'; font-family: var(--font-mono); color: var(--p-ink); }
+    .method-inst[open] > summary::after { content: '\2212'; }
+    .method-inst > summary h3 { font-family: 'Inter', 'Inter Fallback', sans-serif; font-size: 20px; font-weight: 700; color: var(--p-ink); }
+    .method-inst-sub { font-size: 15px; color: var(--p-ink-2); margin: 0 0 16px; }
+    .method-inst .analysis-pane { display: block; }
+
+    /* ── bottom sheet on narrow screens ── */
+    @media (max-width: 899px) {
+      .field-wrap { grid-template-columns: minmax(0, 1fr); }
+      .field-panel { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; max-height: 72vh; overflow: auto; border-radius: 12px 12px 0 0; padding: 20px 20px 28px;
+                     box-shadow: 0 -8px 24px rgba(0,0,0,0.25); transform: translateY(105%); transition: transform 0.25s ease-out; visibility: hidden; }
+      .field-panel.open { transform: none; visibility: visible; }
+      .field-panel .fp-close { display: inline-block; }
+      .field-panel:not(.has-content) { display: none; }
+      .field-stage { aspect-ratio: 100 / 105; }
+    }
+    @media (min-width: 600px) and (max-width: 899px) { .field-panel { max-height: 56vh; } }
+    @media (max-width: 767px) {
+      .hero-inner, .sec-inner, .method-body, .pulse-work .audience-bridge-v2, .pulse-method > summary { padding-left: 16px; padding-right: 16px; }
+      .pulse-hero { padding-top: 32px; }
+      .pulse-picks, .pulse-corner { padding: 40px 0; }
+      .cc-field select { min-width: 0; width: 100%; }
+      .cc-field { flex: 1 1 100%; }
+      .cf-row { flex-direction: column; }
+      .city-spotlight-section { padding: 24px 0; }
+    }
+</style>
   <link rel="stylesheet" href="/assets/css/header.css">
 </head>
 <body>
 <script src="/assets/js/header.js"></script>
 
 <main id="main">
-<!-- ── MASTHEAD (dateline, h1 and numbers are written at build time between the markers; do not hand-edit) ── -->
-<section class="pulse-masthead on-dark">
-  <div class="masthead-inner">
+<!-- ── THE FIELD (hero). Dateline and h1 are written at build time between the markers; do not hand-edit. ── -->
+<section class="pulse-hero" id="hero" aria-labelledby="masthead-title">
+  <div class="hero-inner">
     <!-- PULSE:MASTHEAD:START -->
 <div class="masthead-dateline" id="masthead-dateline">Pulse · Vol. 1, No. 8 · Oct 20–26, 2026 · <span id="masthead-through">Data through <time datetime="2026-10-27T11:43:16+00:00">Tue Oct 27, 2026</time></span></div>
-<h1 class="masthead-title">Atlas Pulse</h1>
-<p class="masthead-numbers" id="masthead-numbers">Oct 20–26: <strong>907</strong> creators published <strong>3,153</strong> pieces across <strong>73</strong> beats (all monitored feeds). <span id="archive-feed-count-line">1,747 feeds monitored.</span></p>
-<p class="masthead-cohort-note" id="masthead-cohort-note">Among the <strong>500</strong> feeds that published in every one of the last four weeks, volume was up 4% on the week before. This cohort leaves out the highest-volume feeds, which cannot qualify while RSS depth caps hide their older posts; it will include them once archived history is merged. Compared with the three weeks before, <strong>108</strong> feeds published this week after a quiet stretch and <strong>36</strong> that had published every week did not.</p>
+<h1 class="masthead-title" id="masthead-title">907 creators in the Atlas published 3,153 pieces this week.</h1>
 <!-- PULSE:MASTHEAD:END -->
-    <p class="masthead-lede" id="masthead-lede"></p>
-    <div class="masthead-story-stack" id="masthead-story-stack" style="display:none"></div>
-    <div class="masthead-beat-map" id="masthead-beat-map" role="group" aria-label="Posts by beat in the latest week, all monitored feeds"></div>
-  </div>
-  <div class="pulse-ticker-wrap" aria-hidden="true">
-    <div class="pulse-ticker-row pulse-ticker-row--forward" id="pulse-ticker-row"></div>
+    <div class="field-wrap" id="field-wrap">
+      <div class="field-stage" id="field" role="group" aria-label="Every creator who published this week, grouped by the beat they published most in. Select a group for details. The same counts are in the table below."></div>
+      <div class="field-tip" id="field-tip" hidden></div>
+      <aside class="field-panel" id="field-panel" aria-label="Beat details" tabindex="-1"><p class="fp-hint">Hover or select a group to see its beat: creators, pieces, who published most, and one piece to read.</p></aside>
+    </div>
+    <!-- PULSE:FIELD:START -->
+<script type="application/json" id="field-data">{"issue":8,"window":{"from":"2026-10-20","to":"2026-10-26"},"totals":{"creators":907,"pieces":3153,"beats":73},"min":{"pieces":40,"creators":25},"main":["Politics","Tech","Local","Media/Power","Culture","Finance/Economics","World","Government Accountability","General News","Science","Investigative","Sports","Climate/Environment","Health/Wellness","Food","Business","Law/Legal Issues","History","Explanatory","Foreign Policy","Entertainment/Hollywood","Education","Travel","Identity/Belonging","Internet Culture","Comedy","Faith/Religion","Parenting"],"beats":[{"label":"Politics","slug":"politics","creators":187,"pieces":994,"top_creators":[["Jennifer Rubin",20,"https://contrarian.substack.com"],["Norm Eisen",20,"https://contrarian.substack.com"],["Jacob Silverman",18,"https://silverman.substack.com/"],["Heather Cox Richardson",17,"https://heathercoxrichardson.substack.com"],["Steve Schmidt",17,"https://steveschmidt.substack.com/"],["Ben Shapiro",15,"https://www.youtube.com/@BenShapiro"],["Carlos Valverde Bravo",15,"https://www.youtube.com/c/CARLOSVALVERDEENLARED"],["Isaac Saul",15,"https://www.readtangle.com"]]},{"label":"Tech","slug":"tech","creators":110,"pieces":368,"top_creators":[["Jason Kottke",42,"https://kottke.org"],["Matt Swider",20,"https://www.theshortcut.com/"],["Jacob Silverman",18,"https://silverman.substack.com/"],["Ryan McBeth",15,"https://www.youtube.com/@RyanMcBethProgramming"],["Federico Viticci",10,"https://www.macstories.net"],["Louis Rossmann",10,"https://www.youtube.com/@rossmanngroup"],["Lenny Rachitsky",9,"https://www.youtube.com/@LennysPodcast"],["Rowan Cheung",9,"https://www.rundown.ai"]]},{"label":"Media/Power","slug":"media-power","creators":86,"pieces":262,"top_creators":[["Matthew Keys",25,"https://thedesk.net"],["Scott Galloway",18,"https://www.profgmedia.com"],["Joy Reid",11,"https://www.youtube.com/@TheJoyReidShow"],["Yuri Fernandes",10,"https://youtube.com/@colaborajornalismo"],["W. Eric Martin",9,"https://www.wericmartin.com/"],["Seth Godin",8,"https://seths.blog"],["Ben Thompson",7,"https://stratechery.com"],["Jacob Donnelly",7,"https://www.amediaoperator.com"]]},{"label":"Culture","slug":"culture","creators":78,"pieces":220,"top_creators":[["Tim Pool",14,"https://www.youtube.com/@Timcast"],["Adam Schrader",13,"https://www.urgentmatter.press"],["Cameron Cowan",13,"https://www.cameronjournal.com"],["Jerusalem Demsas",12,"https://www.theargumentmag.com"],["Monique (Black Belt Babe)",12,"https://www.tiktok.com/@blackbeltbabe"],["Ethan Strauss",10,"https://www.houseofstrauss.com"],["Anthony Mason",9,"https://www.youtube.com/@alchemywithanthonymason"],["Amelia Dimoldenberg",6,"https://www.youtube.com/@AmeliaDimoldenberg"]]},{"label":"Local","slug":"local","creators":74,"pieces":306,"top_creators":[["Bruce Maples",14,"https://ForwardKY.com"],["Chris Wadsworth",14,"https://theburn.com"],["Pat The Designer (P. Kidd)",14,"https://www.youtube.com/@TheWindyCityBreeze"],["Megan Raposa",13,"https://www.sfsimplified.com"],["Emilie Raguso",12,"https://www.berkeleyscanner.com"],["Rich Miller",12,"https://capitolfax.com"],["Ryan Belmore",12,"https://www.alexandriabrief.com"],["Annie Dance",11,"https://anniedance.substack.com"]]},{"label":"Finance/Economics","slug":"finance-economics","creators":66,"pieces":202,"top_creators":[["Matt Yglesias",13,"https://www.slowboring.com"],["Trish Regan",13,"https://podcasts.apple.com/us/podcast/the-trish-regan-show/id1526687124"],["Bernard Hickey",12,"https://thekaka.substack.com"],["Adam Tooze",11,"https://adamtooze.substack.com"],["Brad DeLong",11,"https://braddelong.substack.com"],["Sharon McMahon",9,"https://www.instagram.com/sharonsaysso"],["Paul Krugman",8,"https://paulkrugman.substack.com"],["Joel Whitaker",7,"https://bevnews.net/"]]},{"label":"World","slug":"world","creators":47,"pieces":181,"top_creators":[["Luis Chaparro",14,"https://www.tiktok.com/@pie.de.nota"],["Owen Jones",14,"https://www.youtube.com/@OwenJonesTalks"],["Adam Tooze",11,"https://adamtooze.substack.com"],["Jeremy Scahill",11,"https://www.dropsitenews.com"],["Ryan Grim",11,"https://www.dropsitenews.com"],["王志安",10,"https://www.youtube.com/@wangzhian"],["Annie Koshy",9,"https://brandingninja.substack.com"],["Paul Krugman",8,"https://paulkrugman.substack.com"]]},{"label":"Science","slug":"science","creators":46,"pieces":130,"top_creators":[["Fraser Cain",19,"https://www.universetoday.com"],["Amy Rosenfeld",12,"https://www.microbe.tv/twiv"],["Angela Mingarelli",12,"https://www.microbe.tv/twiv"],["Vincent Racaniello",12,"https://www.microbe.tv/twiv"],["Maya Higa",10,"https://www.youtube.com/@mayahiga"],["Andrea Moccia",8,"https://www.youtube.com/@GeopOP"],["Dave Farina",5,"https://www.youtube.com/@ProfessorDaveExplains"],["Derek Lowe",5,"https://www.science.org/blogs/pipeline"]]},{"label":"Climate/Environment","slug":"climate-environment","creators":44,"pieces":98,"top_creators":[["Robinson Meyer",23,"https://heatmap.news/"],["Maya Higa",10,"https://www.youtube.com/@mayahiga"],["Yuri Fernandes",10,"https://youtube.com/@colaborajornalismo"],["Miranda Green",4,"https://mirandacgreen.substack.com"],["Andy Revkin",3,"https://revkin.substack.com"],["Doug Lewin",3,"https://www.texasenergyandpower.com"],["Jonathan P. Thompson",3,"https://www.landdesk.org"],["Sammy Roth",3,"https://www.climatecoloredgoggles.com"]]},{"label":"Food","slug":"food","creators":44,"pieces":88,"top_creators":[["Micheline Maynard",6,"https://culinarywoman.substack.com"],["Aly Walansky",5,"https://www.instagram.com/alywalansky"],["Marion Nestle",5,"https://www.foodpolitics.com"],["Ashok Selvam",4,"https://www.weareravenous.com"],["Farrah Berrou",4,"https://aanab.news"],["Kristen Wile",4,"https://unpretentiouspalate.com"],["Landon Hustig",4,"https://wichitalifeict.com/"],["Alexis Benveniste",3,"https://getextracredit.substack.com"]]}],"more":{"creators":272,"beat_count":63,"beats":[["Government Accountability",36,140],["Health/Wellness",34,95],["Explanatory",28,78],["General News",27,138],["Investigative",26,112],["Law/Legal Issues",23,83],["History",23,81],["Parenting",22,42],["Sports",21,99],["Business",21,85],["Foreign Policy",21,73],["Internet Culture",21,52],["Education",19,59],["Entertainment/Hollywood",18,66],["Travel",18,55],["Policy",16,57],["Comedy",16,48],["Faith/Religion",15,45],["Recipes",14,23],["Identity/Belonging",13,53],["National Security",13,35],["Books/Writing",13,14],["Fashion",12,18],["Lifestyle",11,33],["Music",11,29],["Crime",10,41],["Careers",10,35],["Immigration",10,34],["Gender",10,31],["LGBTQIA",9,34],["Restaurants and bars",9,19],["Data Visualization",8,36],["Human Rights",8,34],["Mental Health",8,21],["Activism",8,16],["Art",7,63],["Labor/Workers Rights",7,22],["Film/Movies",7,17],["Real Estate",7,14],["Design",7,11],["Personal Finance",6,36],["Things to Do",6,9],["Home",5,14],["Day in a Life",5,11],["Self-Help",4,15],["Beauty",4,6],["Positive News",4,4],["Urban Planning",4,4],["Outdoors",3,5],["Dating/Romance",3,4],["Agriculture",3,3],["Games/Gaming",2,10],["Solutions Journalism",2,10],["Housing",2,6],["Transportation",2,6],["Architecture",2,3],["Museums",1,13],["Inequality",1,2],["Construction",1,1],["Data",1,1],["Energy",1,1],["Military",1,1],["Visual Journalism",1,1]]},"circles":[["Jason Kottke",42,1],["Matthew Keys",25,2],["Robinson Meyer",23,8],["Jennifer Rubin",20,0],["Julie Roys",20,-1],["Matt Swider",20,1],["Norm Eisen",20,0],["Polina Pompliano",20,-1],["Fraser Cain",19,7],["Jacob Silverman",18,0],["Scott Galloway",18,2],["Heather Cox Richardson",17,0],["Steve Schmidt",17,0],["Ben Shapiro",15,0],["Caitlin Schmidt",15,-1],["Caleb Hammer",15,-1],["Carlos Valverde Bravo",15,0],["Isaac Saul",15,0],["Kat Callahan",15,-1],["Krystal Ball",15,0],["Mike Elk",15,-1],["Ryan McBeth",15,1],["Saagar Enjeti",15,0],["Tom Bueno",15,-1],["Tucker Carlson",15,0],["Aaron Parnas",14,0],["Adam Mockler",14,0],["Bruce Maples",14,0],["Bruce Unfiltered",14,0],["Chris Wadsworth",14,4],["Cüneyt Özdemir",14,0],["David Sirota",14,0],["Farron Cousins",14,0],["Francesca Fiorentini",14,0],["Katie Halper",14,0],["Keith Edwards",14,0],["Kim Iversen",14,0],["Luis Chaparro",14,6],["Marc Elias",14,0],["Nate Silver",14,0],["Owen Jones",14,0],["Pat The Designer (P. Kidd)",14,4],["Tim Pool",14,0],["Adam Schrader",13,3],["Brian Tyler Cohen",13,0],["Cameron Cowan",13,3],["David Shands",13,-1],["John Iadarola",13,0],["Matt Yglesias",13,0],["Megan Raposa",13,0],["Steve Ram",13,0],["Trish Regan",13,0],["Amy Rosenfeld",12,7],["Angela Mingarelli",12,7],["Bernard Hickey",12,0],["David Pakman",12,0],["Dr. Ed Weir",12,-1],["Emilie Raguso",12,4],["Jerusalem Demsas",12,0],["Monique (Black Belt Babe)",12,0],["Neil Paine",12,-1],["Rich Miller",12,0],["Ryan Belmore",12,4],["Vincent Racaniello",12,7],["Adam Tooze",11,0],["Andy Dehnart",11,-1],["Annie Dance",11,4],["Brad DeLong",11,5],["Jeremy Scahill",11,6],["Joy Reid",11,0],["Ryan Grim",11,6],["Adedayo Fashanu",10,-1],["Chris Cillizza",10,0],["David Cay Johnston",10,0],["David Crook",10,0],["DeVory Darkins",10,0],["Erin Reed",10,-1],["Ethan Strauss",10,3],["Federico Viticci",10,1],["John Ellis",10,-1],["Joyce Vance",10,0],["Louis Rossmann",10,1],["Maya Higa",10,7],["Vince Tweddell",10,4],["Yascha Mounk",10,0],["Yuri Fernandes",10,2],["王志安",10,6],["Amy Bushatz",9,4],["Annie Koshy",9,0],["Anthony Mason",9,3],["Chris Van Vliet",9,-1],["Glenn Kirschner",9,-1],["James Li",9,0],["Jiquanda Johnson",9,4],["Katie Couric",9,-1],["Laura Belin",9,0],["Lenny Rachitsky",9,1],["Marcy Wheeler",9,-1],["Nathan Yau",9,-1],["Rowan Cheung",9,1],["Sharon McMahon",9,0],["W. Eric Martin",9,2],["Aaron Rupar",8,0],["Andrea Moccia",8,7],["Blog A Bull",8,4],["Branden Andersen",8,4],["Candace Owens",8,0],["Daniel Hernandez",8,4],["Derek Davison",8,-1],["Dmitriy Byshonkov",8,-1],["Dwarkesh Patel",8,1],["Jack Cocchiarella",8,0],["Jack Ohman",8,0],["Judy Lin",8,1],["Monte Oz",8,-1],["Paolo Benza",8,-1],["Paul Krugman",8,5],["Peter Greene",8,-1],["Scot McKnight",8,-1],["Seth Godin",8,1],["Stephen Hackett",8,1],["Alastair Campbell",7,0],["Andrew Tanenbaum",7,0],["Ben Thompson",7,1],["Caroline Crampton",7,-1],["Charles Gaba",7,-1],["Chase Hughes",7,0],["Fatih Altaylı",7,0],["Florian Sohnke",7,0],["Frederick Murphy",7,-1],["Grant Hermes",7,-1],["Greg Hartley",7,0],["Jacob Donnelly",7,2],["Jeff Tiedrich",7,-1],["Joel Whitaker",7,5],["Jordan Dyer",7,-1],["Ken Schneck",7,4],["Lisa Remillard",7,-1],["Lucian K. Truscott IV",7,0],["Mark Bowden",7,0],["Mary L. Trump",7,0],["Qasim Rashid",7,0],["Robert Cottrell",7,-1],["Rory Stewart",7,0],["Ruth Ben-Ghiat",7,2],["Sarah Hart-Unger",7,-1],["Scott Rouse",7,0],["Shikha Dalmia",7,0],["Simon Owens",7,2],["Yves Engler",7,-1],["Ac2ality",6,-1],["Aiden McCaig",6,1],["Alexander Russo",6,2],["Amelia Dimoldenberg",6,3],["Andrew Callaghan",6,2],["Brandon Ewing",6,1],["Brandon Jarvis",6,0],["Brian Beutler",6,0],["Bruce Schneier",6,1],["Chas Hundley",6,4],["DMV Adventures Chris",6,-1],["Dan Pfeiffer",6,0],["Doug Wreden",6,1],["Emily Sundberg",6,3],["Esther Perel",6,-1],["G. Elliott Morris",6,0],["Galen Druke",6,0],["Gene Weingarten",6,-1],["Jeff Maurer",6,-1],["Jen Gerson",6,0],["Joanna Goddard",6,-1],["Joe Posnanski",6,-1],["Jonathan Macri",6,4],["Jordan Schneider",6,0],["Justin Wolfers",6,5],["Mariel Garza",6,3],["Mark Zuckerman",6,-1],["Matt Gurney",6,0],["Micheline Maynard",6,9],["Pat Myers",6,-1],["Paul \"Barbs\" Barbato",6,6],["Sari Botton",6,-1],["Ted Williams",6,4],["Yves Smith",6,0],["Éric Grenier",6,0],["Adam Klasfeld",5,-1],["Alan Sepinwall",5,-1],["Aly Walansky",5,9],["Andrew Pulrang",5,-1],["Anna Conkling",5,-1],["Anthony Davis",5,0],["Austin Kocher",5,-1],["Ben Werdmüller",5,1],["Bill Bishop",5,6],["Bill McBride",5,5],["Bryan Schott",5,0],["Caitlin Johnstone",5,0],["Casey Lewis",5,-1],["Charlie Meyerson",5,0],["Charlotte Clymer",5,0],["Craig Calcaterra",5,-1],["Dave Farina",5,7],["David Bernstein",5,0],["Derek Lowe",5,7],["Emily Christensen",5,2],["Eric Newcomer",5,1],["Fernando Hurtado",5,3],["Gary Marcus",5,1],["Ivan Oransky",5,7],["Jamie Dupree",5,0],["Jeff Stein",5,-1],["Jon Worth",5,2],["Jordana Timerman",5,6],["Judd Legum",5,-1],["Kaiser Kuo",5,6],["Kate Swenson",5,-1],["Larry Fitzmaurice",5,3],["Marina Mogilko",5,1],["Marion Nestle",5,9],["Mark Horvath",5,-1],["Mark Trahant",5,-1],["Michael Easter",5,7],["Michael Jones",5,0],["Michael MacLeod",5,4],["Pablo Torre",5,2],["Peter Zeihan",5,6],["Philip DeFranco",5,0],["Philippe J. Fournier",5,0],["Phillips P. O'Brien",5,-1],["Poe Zhao",5,1],["Sam Vecenie",5,-1],["Scott Alexander",5,1],["Scott Tobias",5,3],["Sonali Kolhatkar",5,2],["Tim Foley",5,0],["Wade Wright",5,6],["Walter Hickey",5,-1],["Wendell Potter",5,-1],["Alex González Ormerod",4,0],["Anggy Pasaribu",4,0],["Ari Drennen",4,-1],["Ariella Steinhorn",4,0],["Ashok Selvam",4,9],["Brett Cooper",4,0],["Brian Keating",4,7],["Christopher Dring",4,2],["Cleo Abram",4,1],["Cory Doctorow",4,1],["Dan Kennedy",4,2],["Dan Shafer",4,0],["Dan Toomey",4,-1],["Daniel Larison",4,-1],["David Gokhshtein",4,1],["Devin Stone",4,-1],["Dr. Jen Gunter",4,-1],["Farrah Berrou",4,3],["Francine McKenna",4,5],["Gaspard G",4,-1],["Grace Blakeley",4,0],["Hannah Spier",4,-1],["Jeff Delaney",4,1],["Jessica Valenti",4,-1],["Joe Rogan",4,0],["Kate Lindsay",4,-1],["Kate Walker",4,-1],["Kim France",4,3],["Kristen Wile",4,4],["Kyle Raymond Fitzpatrick",4,3],["Landon Hustig",4,4],["Lindsey Stanberry",4,-1],["Lynn Ngugi",4,-1],["Matt Kiser",4,-1],["Matthew Beat",4,-1],["Melissa del Bosque",4,-1],["Michelangelo Signorile",4,0],["Miranda Green",4,0],["Ophélie Dénommée-Marchand",4,2],["Parker Molloy",4,-1],["Petter Hörnfeldt",4,6],["Sabine Hossenfelder",4,7],["Sarah Shapiro",4,-1],["Sharon Goldman",4,1],["Stephen Totilo",4,3],["Timothy Snyder",4,-1],["Virginia Heffernan",4,0],["Aaron Gleeman",3,2],["Aarron Walter",3,-1],["Adam Kucharski",3,7],["Adeola Fayehun",3,6],["Alexander Vindman",3,0],["Alexis Benveniste",3,9],["Alyssa Rosenberg",3,-1],["Andrew Gelman",3,7],["Andrew Sullivan",3,0],["Andrew Zimmern",3,9],["Andy Revkin",3,2],["Ann Telnaes",3,0],["Anna Fifield",3,6],["Anne Kurtz",3,-1],["Ashlee Vance",3,1],["Azeem Azhar",3,1],["Bad Astronomy",3,7],["Barry Malone",3,6],["Ben Dietz",3,3],["Betsy Ladyzhets",3,-1],["Brianna Wickey",3,4],["Bryan Anderson",3,0],["Cam Vargas",3,0],["Caroline Moss",3,2],["Chris Geidner",3,-1],["Daniel Drezner",3,0],["Darren Samuelsohn",3,2],["David Rothkopf",3,-1],["David Wildstein",3,0],["Donald Shaw",3,5],["Doug Lewin",3,4],["Dr. Becky Smethurst",3,7],["Dr. Joel Bervell",3,-1],["Eli Woolery",3,-1],["Elvia Diaz",3,0],["Emily Ley",3,-1],["Emily Oster",3,-1],["Emma Restrepo",3,4],["Erin Wylie",3,3],["Errol Schweizer",3,5],["Garnet Henderson",3,-1],["Geo Global Tales",3,6],["George Eaton",3,0],["Gergely Orosz",3,1],["Gina Chua",3,2],["Greg Olear",3,0],["Herb Greenberg",3,5],["High Speed Dining",3,-1],["James Pethokoukis",3,5],["Jan Harayda",3,-1],["Janko Roettgers",3,1],["Jason Sattler",3,0],["Jill Filipovic",3,0],["John Ganz",3,0],["John Heilprin",3,7],["Jonah Weiner",3,3],["Jonathan P. Thompson",3,8],["Jordan Chariton",3,-1],["Josh Szeps",3,0],["Julia La Roche",3,1],["Julie Rose",3,0],["Kate Manne",3,-1],["Katelyn Jetelina",3,-1],["Ken Klippenstein",3,0],["Kristen Lopez",3,-1],["Leonardo Puglisi",3,-1],["Liana Satenstein",3,-1],["Luke O'Neil",3,0],["M.G. Siegler",3,1],["Marcus Cleaver",3,-1],["Mario Gabriele",3,5],["Mark Bittman",3,9],["Mark Jacob",3,2],["Maureen Kelleher",3,0],["Meghan Donovan",3,-1],["Michael Horn",3,-1],["Michael Wolff",3,0],["Miles Griffis",3,-1],["Natalie Bencivenga",3,4],["Nick Cohen",3,0],["Nick Valencia",3,-1],["Noah Smith",3,1],["Petula Dvorak",3,4],["Rachel Gilmore",3,0],["Rachel Karten",3,1],["Rick Perlstein",3,2],["Robert Basler",3,-1],["Roger Pielke Jr.",3,7],["Ross Barkan",3,0],["Sam Ro",3,5],["Sammy Roth",3,8],["Seulki Lee",3,6],["Steve Burke",3,1],["Steven Bartlett",3,-1],["Susan Rinkunas",3,-1],["Tara Palmeri",3,0],["Ted Gioia",3,-1],["The Eat Good Newsletter",3,9],["Tim Mak",3,6],["Tobias Harris",3,6],["Tom Shroder",3,1],["Tony Case",3,-1],["Van Jackson",3,-1],["Victoria Wolff",3,-1],["Xyla Foxlin",3,7],["Abigail Koffler",2,3],["Adam Roberts",2,9],["Aidan Hall",2,-1],["Alex Kantrowitz",2,1],["Alex Konrad",2,1],["Aliza Pressman",2,-1],["Amanda Montei",2,-1],["Andy Masley",2,1],["Angela Denker",2,-1],["Annemarie Dooling",2,4],["Austin Kleon",2,-1],["Ayana Elizabeth Johnson",2,8],["Bradley Onishi",2,-1],["Brady Dale",2,1],["Brett Bristow",2,1],["Brian Merchant",2,1],["Brian Nemhauser",2,-1],["Brian Wieser",2,2],["Cahal Moran",2,5],["Carla Lalli Music",2,-1],["Caroline Chambers",2,9],["Casey Liss",2,1],["Casey Newton",2,1],["Christene Barberich",2,-1],["Christian Caple",2,2],["Christopher Curtis",2,6],["Courtney Martin",2,-1],["Dami Lee",2,-1],["Damon Linker",2,0],["Dan Davies",2,5],["Daniel Miller",2,-1],["Dave Herrera",2,-1],["David Adeleke",2,5],["David Chen",2,2],["David Lat",2,-1],["David Lebovitz",2,9],["David Roberts",2,1],["Delia Cai",2,2],["Derek Muller",2,7],["Derek Thompson",2,-1],["Dhruv Rathee",2,0],["Diana Butler Bass",2,3],["Dina Temple-Raston",2,1],["Ed Zitron",2,1],["Eli Enis",2,-1],["Emilia Petrarca",2,-1],["Eric Zorn",2,0],["Evan Minsker",2,2],["Evan Shapiro",2,1],["Fionn Pooler",2,2],["Garrett Bucks",2,0],["Glenn Sumi",2,3],["Haley Lickstein",2,0],["Hannah Ritchie",2,8],["Helena Bottemiller Evich",2,9],["Henry Oliver",2,3],["Holly Berkley Fletcher",2,0],["Holly Korbey",2,-1],["Hugo Travers",2,-1],["Hunter Harris",2,-1],["Ian Leslie",2,3],["Ira Madison III",2,2],["Isabelle Roughol",2,-1],["Jacklyn Dallas",2,1],["Jacob Carter",2,7],["Jake Rockatansky",2,2],["Jalil Johnson",2,-1],["Jamin Ball",2,1],["Jason Slaughter",2,6],["Jeff Asher",2,-1],["Jeff Eager",2,0],["Jenny Rosenstrach",2,9],["Jeremy Faust",2,-1],["Jeremy Ney",2,5],["Jim Branscome",2,4],["Jim Waterson",2,0],["John Cochrane",2,5],["Jon Bois",2,-1],["Jonathan Nunn",2,3],["Joon Lee",2,-1],["Joost van Dreunen",2,1],["Josh Larsen",2,-1],["José David Araujo",2,-1],["Julian Feeld",2,2],["Kaiser Fung",2,-1],["Karim Zidan",2,-1],["Kelton Wright",2,4],["Laura Bassett",2,0],["Laura Reilly",2,-1],["Leeja Miller",2,2],["Liz Plank",2,-1],["Lucas Amin",2,0],["Lukas Ziegler",2,1],["Luke Savage",2,0],["Maggie Fox",2,-1],["Maggie Hoffman",2,-1],["Mandy Hofmockel",2,-1],["Marcia Gagliardi",2,2],["Mariana Antaya",2,1],["Marissa Lovell",2,4],["Matt Stoller",2,5],["Michael Tatarski",2,6],["Michael Wriston",2,-1],["Mick Ryan",2,-1],["Molly Knight",2,-1],["Molly O'Shea",2,1],["Naomi Krueger",2,2],["Nate Spangle",2,4],["Nathan Lambert",2,1],["Navya Singh",2,8],["Nicholas Gill",2,9],["Nick Parish",2,-1],["Nicola Lamb",2,9],["Norman Oder",2,4],["Olivia Ruth Messer",2,0],["Patrick Klepek",2,3],["Paul Queary",2,0],["Paul Wells",2,0],["Pete Pachal",2,1],["Peter Geoghegan",2,0],["Philipp Dettmer",2,1],["Prakash Loungani",2,5],["Prashanth Parameswaran",2,-1],["Rachel Donald",2,0],["Rebecca May Johnson",2,9],["Roland S. Martin",2,0],["Russ Mould",2,5],["Ryan Burge",2,0],["Sally Clarkson",2,-1],["Scott Manley",2,7],["Scott Martin",2,2],["Simon Carless",2,-1],["Simone Giertz",2,1],["Skanda Amarnath",2,5],["Snarky Gherkin",2,2],["Spencer Ackerman",2,-1],["Sree Sreenivasan",2,1],["Steve Vladeck",2,0],["Susan Zakin",2,0],["Taylor Lorenz",2,-1],["Thomas des Garets Geddes",2,-1],["Tina Brown",2,2],["Tomas Pueyo",2,1],["Travis View",2,2],["Ty Burr",2,-1],["Venkatesh Rao",2,1],["Violet Witchel",2,9],["Virgil Texas",2,0],["Viri Ríos",2,0],["Wendall Wilson",2,1],["William Spaniel",2,6],["Yasi Salek",2,3],["Yawu Miller",2,4],["Yoni Greenbaum",2,2],["Yulia Denisyuk",2,-1],["Zerlina Maxwell",2,0],["Aaron Carroll",1,7],["Adam Bienkov",1,0],["Adam Cole",1,-1],["Adam Johnson",1,0],["Aja Romano",1,3],["Alec Karakatsanis",1,-1],["Alex Heath",1,1],["Alex Turnbull",1,5],["Ali Slagle",1,9],["Alie Ward",1,7],["Alison Roman",1,9],["Amanda Royal",1,8],["Amanda Shendruk",1,-1],["Amber McDaniel",1,8],["Amelia",1,-1],["Andrea Hernandez",1,9],["Andrea Nguyen",1,-1],["Andrew Dessler",1,8],["Andrew Donlan",1,4],["Andy Beta",1,-1],["Angela Huffman",1,-1],["Angus Hervey",1,6],["Anil Dash",1,1],["Anna Baydakova",1,1],["Anna Brones",1,-1],["Anna Sale",1,-1],["Anne Applebaum",1,0],["Anne Kadet",1,4],["Anya Kamenetz",1,8],["Aran Goyoaga",1,-1],["Ari Shapiro",1,2],["Audrey Watters",1,-1],["Austin Berg",1,0],["Aziz Sunderji",1,-1],["Becca Farsace",1,1],["Ben Fowlkes",1,2],["Ben Lippett",1,-1],["Ben Zand",1,3],["Benn Jordan",1,1],["Bill McKibben",1,0],["Bob Garfield",1,2],["Bobby Ross Jr.",1,2],["Branislava Lovre",1,1],["Brian Krebs",1,1],["Brian Potter",1,-1],["Brian Read",1,1],["Brian Reed",1,2],["Britt Wray",1,8],["Caitlin Dewey",1,-1],["Caleb Harmon-Marshall",1,-1],["Cameron Murray",1,-1],["Camille Copeland",1,-1],["Cara MariAnna",1,-1],["Carl Chery",1,3],["Carole Cadwalladr",1,0],["Caroline Patton",1,3],["Charlene Rhinehart",1,0],["Charlie Kilman",1,8],["Chase Cain",1,7],["Cheryl Wischhover",1,-1],["Cheyenne Lin",1,3],["Chris Broad",1,3],["Chris Plante",1,3],["Chris Richards",1,-1],["Christine Muhlke",1,3],["Christopher Barnatt",1,1],["Chuck Todd",1,0],["Cindy DiTiberio",1,-1],["Claire Dinhut",1,3],["Claire Zulkey",1,3],["Clara",1,3],["Claudia Sahm",1,5],["Claudine Zap",1,4],["Corey Hutchins",1,2],["Cremieux",1,7],["Dan Froomkin",1,2],["Daniel Carr",1,-1],["Daniel Denvir",1,0],["Daniel Penny",1,8],["Danny Palumbo",1,-1],["Dave Anderson",1,1],["Dave Barry",1,-1],["Dave Borlace",1,8],["David Blumenfeld",1,0],["David Farrier",1,3],["David Lê",1,-1],["David Pepper",1,0],["David S. H. Rosenthal",1,1],["David Warsh",1,5],["Deon Osborne",1,-1],["Diane Rehm",1,-1],["Dick Tofel",1,2],["Dino-Ray Ramos",1,3],["Don Moynihan",1,-1],["Doug Shapiro",1,2],["Dr. Kiki Sanford",1,7],["Eben Shapiro",1,1],["Ed Yong",1,7],["Eileen Kennedy-Moore",1,-1],["Elena Bridgers",1,-1],["Elise Cutts",1,7],["Elizabeth Held",1,-1],["Elizabeth Lang",1,3],["Elizabeth Minkel",1,3],["Elizabeth Spiers",1,0],["Ellen Kornmehl",1,-1],["Emily Atkin",1,8],["Emily Edlynn",1,-1],["Emily Nunn",1,9],["Eric Blanc",1,-1],["Erin Allmann Updyke",1,7],["Erin Cook",1,6],["Erin Welsh",1,7],["Ernie Smith",1,1],["Ethan Mollick",1,1],["Euan Thomson",1,5],["Frank Shyong",1,4],["Freddie deBoer",1,0],["Gabriella Karefa-Johnson",1,-1],["Gary Suarez",1,2],["Geneva S. Thomas",1,3],["Geopolitical Guy",1,6],["Gideon Meyerowitz-Katz",1,7],["Grady Hillhouse",1,7],["Graham Cluley",1,1],["Grant Sanderson",1,7],["Greg Nix",1,-1],["Greg Prince",1,4],["Gregory Foster",1,0],["Hamilton Nolan",1,2],["Hannah Zhang",1,-1],["Henry Farrell",1,0],["Henry Reich",1,7],["Holger Roonemaa",1,-1],["Hollis Robbins",1,3],["Holly Dagres",1,-1],["Hrishikesh Hirway",1,2],["Huma Razvi",1,0],["Igor Studenkov",1,2],["Ilana Wiles",1,-1],["Illyanna Maisonet",1,3],["Internal Tech Emails",1,1],["Jack Clark",1,1],["Jack Rhysider",1,1],["Jacob Simon",1,8],["Jacqueline Nesi",1,1],["Jae-Ha Kim",1,3],["Jaime Black",1,1],["Jake Williams",1,-1],["James Stanier",1,1],["Jane Black",1,9],["Jared Keller",1,1],["Jason Sandford",1,4],["Jason Tashea",1,1],["Jazmine Becerra Green",1,-1],["Jean Twenge",1,1],["Jeff Barker",1,4],["Jeff Tweedy",1,3],["Jeffrey Lewis",1,-1],["Jeffrey Seglin",1,2],["Jemar Tisby",1,-1],["Jen Roberts",1,3],["Jenn Budd",1,-1],["Jenn Dowd",1,-1],["Jennifer Chowdhury",1,-1],["Jennifer Fink",1,-1],["Jennifer Strong",1,1],["Jenny Lawson",1,-1],["Jeremy Caplan",1,2],["Jesper Koll",1,5],["Jessica Dante",1,9],["Jessica Defino",1,2],["Jim Duncan",1,-1],["Joeri Schasfoort",1,5],["Joey D'Urso",1,-1],["John Dickerson",1,0],["John Earl",1,4],["Jonathan Larsen",1,0],["Jonn Elledge",1,2],["Jonny Matthews",1,5],["Jordi Amaral",1,-1],["Joseph Pisenti",1,-1],["Joseph Politano",1,5],["Josh Cohen",1,0],["Joss Fong",1,-1],["Joy McConnochie",1,8],["Julia Busuttil Nishimura",1,-1],["Justin Gerdes",1,8],["Karl Bode",1,1],["Kate Mackenzie",1,8],["Kate Morrissey",1,-1],["Kate Schneider",1,-1],["Kate Woodsome",1,-1],["Katelyn Burns",1,0],["Katharine Wilkinson",1,7],["Kathleen Hays",1,5],["Katie Harbath",1,0],["Katie Nelson",1,-1],["Kelley Greene",1,-1],["Kelly Coyne",1,3],["Kenny Beecham",1,-1],["Kent Beck",1,1],["Kevin Driscoll",1,0],["Khadija Mbowe",1,3],["Kristin Kobes DuMez",1,-1],["Kristina Cho",1,-1],["Kristina Rodulfo",1,-1],["L0la L33tz",1,5],["La Pulla",1,0],["Latria Graham",1,-1],["Laura Amico",1,3],["Laura Paskus",1,4],["Laura Trevelyan",1,0],["Lawrence Pintak",1,6],["Leah Sottile",1,4],["Leandra Medine Cohen",1,-1],["Lee Drutman",1,0],["Leela Punyaratabandhu",1,9],["Leo Aquino",1,-1],["Lia Haberman",1,1],["Linda H. Codega",1,3],["Lindsey Danis",1,-1],["Link Lauren",1,-1],["Lisa Bennett",1,8],["Lisa Graves",1,-1],["Liz Dunn",1,9],["Liz Neeley",1,0],["Lucy Ritzmann",1,0],["Lyall Mabin",1,8],["MIMS",1,3],["Maggie Mertens",1,-1],["Maggie Smith",1,-1],["Mahira Rivers",1,-1],["Maia Mindel",1,5],["Manjula Martin",1,-1],["Marc Rubinstein",1,5],["Marcel Dirsus",1,0],["Marco Arment",1,1],["Margaret Sullivan",1,2],["Marianna Limas",1,7],["Marianne Dhenin",1,-1],["Masuma Ahuja",1,1],["Mathew Ingram",1,1],["Matt Binder",1,0],["Matt Pearce",1,2],["Matthew C. Klein",1,5],["Mattia Peretti",1,1],["Max Falkowitz",1,9],["Max Levy",1,7],["Maynard Okereke",1,7],["Meghan McCarthy",1,-1],["Melinda Wenner Moyer",1,7],["Mercedes Schneider",1,-1],["Michael Graff",1,4],["Michael MacKelvie",1,-1],["Michael Nagrant",1,4],["Michael Ruhlman",1,9],["Michael Thomas",1,0],["Mike Lee",1,9],["Mike Shanahan",1,8],["Miranda July",1,-1],["Miranda Shanahan",1,3],["Molly White",1,1],["Molly Young",1,3],["Mona Eltahawy",1,6],["Moses Sternstein",1,5],["Musa al-Gharbi",1,2],["Nancy Flores",1,3],["Naomi Brockwell",1,1],["Naomi Klein",1,0],["Natalie Jennings",1,0],["Nathan Brown",1,2],["Neha Ruch",1,-1],["Niala Boodhoo",1,-1],["Nicholas Gruen",1,5],["Nick Kindelsperger",1,-1],["Nima Shirazi",1,0],["Ochuko Akpovbovbo",1,3],["Olga Massov",1,9],["Olivia Meikle",1,-1],["Oona Hanson",1,-1],["Packy McCormick",1,5],["Page Berger",1,-1],["Patrick Boyle",1,5],["Patrick Gray",1,1],["Patrick Kennedy",1,1],["Paul Brandus",1,-1],["Paul Offit",1,7],["Peter Barrett",1,9],["Peter Erdelyi",1,2],["Peter Leonard",1,6],["Phil Edwards",1,-1],["Phoebe Zerwick",1,0],["Quinn Moreland",1,3],["Rachel Ziemba",1,5],["Radley Balko",1,-1],["Raelyn Roberson",1,1],["Rahawa Haile",1,-1],["Rana Ayyub",1,6],["Rashmee Roshan Lall",1,0],["Ray Delahanty",1,-1],["Renee Knake Jefferson",1,-1],["Rey Katz",1,-1],["Richard Pretorius",1,-1],["Richard Prince",1,2],["Rob Abasolo",1,-1],["Rob Martinez",1,3],["Robert Peston",1,0],["Rohan Venkat",1,6],["Rory Satran",1,4],["Rose Thomas Bannister",1,3],["Russ Roberts",1,5],["Ruth Reichl",1,9],["Ryan Haas",1,4],["Ryan McCormick",1,7],["Ryan Puzycki",1,-1],["Ryan Teague Beckwith",1,2],["S Peter Davis",1,3],["Sam Denby",1,-1],["Sam Ellis",1,-1],["Sam Kriss",1,0],["Sandro Galea",1,-1],["Sara Petersen",1,-1],["Sarah McCammon",1,0],["Sarah Miller",1,3],["Sarah Mock",1,-1],["Scott Choppin",1,-1],["Scott Hines",1,9],["Scott Sumner",1,5],["Serena Maria Daniels",1,9],["Seymour Hersh",1,-1],["Shoshana Weissmann",1,2],["Shrouq Aila",1,-1],["Simon McGarr",1,2],["Sophie from Mars",1,0],["Stephen Beals",1,-1],["Stephen Semler",1,0],["Stetson",1,-1],["Steven Greenhouse",1,-1],["Suzanne Kianpour",1,0],["T.K. Coleman",1,-1],["TP Huang",1,1],["Taylor Justin",1,3],["Terry Moran",1,0],["The Pudding",1,-1],["Thomas Hochman",1,8],["Thomas Zimmer",1,-1],["Thor Benson",1,0],["Tom Martin",1,0],["Tommy Tomlinson",1,3],["Tyler McCauley",1,-1],["Valerie Monroe",1,-1],["Vince Beiser",1,1],["Yael Schonbrun",1,-1],["Yaling Jiang",1,5],["Yessina Funes",1,8],["Zach Griff",1,-1],["Zeke Hausfather",1,8],["Zoë Yasemin Akihary",1,-1],["Zuby",1,3],["柴静 Chai Jing",1,8]]}</script>
+<table class="sr-only" id="field-table"><caption>Creators who cover each beat and the pieces they published, Oct 20–26, 2026. The first 10 rows are the beats shown as clusters; the rest are the 63 more beats. A creator counts under every beat they cover.</caption><thead><tr><th scope="col">Beat</th><th scope="col">Creators</th><th scope="col">Pieces</th></tr></thead><tbody><tr><th scope="row">Politics</th><td>187</td><td>994</td></tr><tr><th scope="row">Tech</th><td>110</td><td>368</td></tr><tr><th scope="row">Media/Power</th><td>86</td><td>262</td></tr><tr><th scope="row">Culture</th><td>78</td><td>220</td></tr><tr><th scope="row">Local</th><td>74</td><td>306</td></tr><tr><th scope="row">Finance/Economics</th><td>66</td><td>202</td></tr><tr><th scope="row">World</th><td>47</td><td>181</td></tr><tr><th scope="row">Science</th><td>46</td><td>130</td></tr><tr><th scope="row">Climate/Environment</th><td>44</td><td>98</td></tr><tr><th scope="row">Food</th><td>44</td><td>88</td></tr><tr><th scope="row">Government Accountability</th><td>36</td><td>140</td></tr><tr><th scope="row">Health/Wellness</th><td>34</td><td>95</td></tr><tr><th scope="row">Explanatory</th><td>28</td><td>78</td></tr><tr><th scope="row">General News</th><td>27</td><td>138</td></tr><tr><th scope="row">Investigative</th><td>26</td><td>112</td></tr><tr><th scope="row">Law/Legal Issues</th><td>23</td><td>83</td></tr><tr><th scope="row">History</th><td>23</td><td>81</td></tr><tr><th scope="row">Parenting</th><td>22</td><td>42</td></tr><tr><th scope="row">Sports</th><td>21</td><td>99</td></tr><tr><th scope="row">Business</th><td>21</td><td>85</td></tr><tr><th scope="row">Foreign Policy</th><td>21</td><td>73</td></tr><tr><th scope="row">Internet Culture</th><td>21</td><td>52</td></tr><tr><th scope="row">Education</th><td>19</td><td>59</td></tr><tr><th scope="row">Entertainment/Hollywood</th><td>18</td><td>66</td></tr><tr><th scope="row">Travel</th><td>18</td><td>55</td></tr><tr><th scope="row">Policy</th><td>16</td><td>57</td></tr><tr><th scope="row">Comedy</th><td>16</td><td>48</td></tr><tr><th scope="row">Faith/Religion</th><td>15</td><td>45</td></tr><tr><th scope="row">Recipes</th><td>14</td><td>23</td></tr><tr><th scope="row">Identity/Belonging</th><td>13</td><td>53</td></tr><tr><th scope="row">National Security</th><td>13</td><td>35</td></tr><tr><th scope="row">Books/Writing</th><td>13</td><td>14</td></tr><tr><th scope="row">Fashion</th><td>12</td><td>18</td></tr><tr><th scope="row">Lifestyle</th><td>11</td><td>33</td></tr><tr><th scope="row">Music</th><td>11</td><td>29</td></tr><tr><th scope="row">Crime</th><td>10</td><td>41</td></tr><tr><th scope="row">Careers</th><td>10</td><td>35</td></tr><tr><th scope="row">Immigration</th><td>10</td><td>34</td></tr><tr><th scope="row">Gender</th><td>10</td><td>31</td></tr><tr><th scope="row">LGBTQIA</th><td>9</td><td>34</td></tr><tr><th scope="row">Restaurants and bars</th><td>9</td><td>19</td></tr><tr><th scope="row">Data Visualization</th><td>8</td><td>36</td></tr><tr><th scope="row">Human Rights</th><td>8</td><td>34</td></tr><tr><th scope="row">Mental Health</th><td>8</td><td>21</td></tr><tr><th scope="row">Activism</th><td>8</td><td>16</td></tr><tr><th scope="row">Art</th><td>7</td><td>63</td></tr><tr><th scope="row">Labor/Workers Rights</th><td>7</td><td>22</td></tr><tr><th scope="row">Film/Movies</th><td>7</td><td>17</td></tr><tr><th scope="row">Real Estate</th><td>7</td><td>14</td></tr><tr><th scope="row">Design</th><td>7</td><td>11</td></tr><tr><th scope="row">Personal Finance</th><td>6</td><td>36</td></tr><tr><th scope="row">Things to Do</th><td>6</td><td>9</td></tr><tr><th scope="row">Home</th><td>5</td><td>14</td></tr><tr><th scope="row">Day in a Life</th><td>5</td><td>11</td></tr><tr><th scope="row">Self-Help</th><td>4</td><td>15</td></tr><tr><th scope="row">Beauty</th><td>4</td><td>6</td></tr><tr><th scope="row">Positive News</th><td>4</td><td>4</td></tr><tr><th scope="row">Urban Planning</th><td>4</td><td>4</td></tr><tr><th scope="row">Outdoors</th><td>3</td><td>5</td></tr><tr><th scope="row">Dating/Romance</th><td>3</td><td>4</td></tr><tr><th scope="row">Agriculture</th><td>3</td><td>3</td></tr><tr><th scope="row">Games/Gaming</th><td>2</td><td>10</td></tr><tr><th scope="row">Solutions Journalism</th><td>2</td><td>10</td></tr><tr><th scope="row">Housing</th><td>2</td><td>6</td></tr><tr><th scope="row">Transportation</th><td>2</td><td>6</td></tr><tr><th scope="row">Architecture</th><td>2</td><td>3</td></tr><tr><th scope="row">Museums</th><td>1</td><td>13</td></tr><tr><th scope="row">Inequality</th><td>1</td><td>2</td></tr><tr><th scope="row">Construction</th><td>1</td><td>1</td></tr><tr><th scope="row">Data</th><td>1</td><td>1</td></tr><tr><th scope="row">Energy</th><td>1</td><td>1</td></tr><tr><th scope="row">Military</th><td>1</td><td>1</td></tr><tr><th scope="row">Visual Journalism</th><td>1</td><td>1</td></tr></tbody></table>
+<p class="field-caption">Each creator appears once, under the largest of the beats they cover. Beat tags belong to creators, not pieces; co-hosted pieces count for each host.</p>
+<p class="field-count">Counted from <strong>1,747</strong> monitored feeds of newsletters, video, podcasts and websites. <a href="#method">How we count</a></p>
+<!-- PULSE:FIELD:END -->
   </div>
 </section>
 
-<!-- ── THE LINE: 30-day publishing pulse. Designed in Phase 2; nothing here yet. ── -->
+<!-- ── WHAT MATTERED ── -->
+<section class="pulse-picks" id="what-mattered" aria-labelledby="picks-title">
+  <div class="sec-inner">
+    <h2 class="pulse-section-title" id="picks-title">What mattered</h2>
+    <p class="picks-label" id="picks-label"></p>
+    <ol class="picks-list" id="picks-list"></ol>
+  </div>
+</section>
 
+<!-- ── FIND YOUR CORNER ── -->
+<section class="pulse-corner" id="corner" aria-labelledby="corner-title">
+  <div class="sec-inner">
+    <h2 class="pulse-section-title" id="corner-title">Find your corner</h2>
+    <div class="corner-controls">
+      <div class="cc-field"><label for="corner-beat">Beat</label><select id="corner-beat"></select></div>
+      <div class="cc-field cc-grow"><label for="corner-q">Search</label><input type="search" id="corner-q" placeholder="A creator, a topic, a title word" autocomplete="off"></div>
+    </div>
+    <p class="corner-line" id="corner-line" role="status" aria-live="polite"></p>
+    <button type="button" class="corner-clear2" id="corner-clear2" hidden>Show one beat only</button>
+    <form class="corner-form" id="corner-form" action="https://formspree.io/f/xzznlvgj" method="POST" novalidate>
+      <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source_page" value="pulse">
+      <input type="hidden" name="interest" id="cf-interest">
+      <input type="hidden" name="_subject" id="cf-subject">
+      <input type="hidden" name="page_url" id="cf-url">
+      <label for="cf-email" id="cf-label">Want Atlas Pulse every week? Tell us</label>
+      <div class="cf-row"><input type="email" id="cf-email" name="email" required autocomplete="email" placeholder="Your email"><button type="submit" class="btn btn--primary">Tell us</button></div>
+      <p class="form-msg" role="status" aria-live="polite" data-state=""></p>
+    </form>
+    <div class="suggest-box" id="suggest-box" hidden>
+      <button type="button" class="suggest-open" id="sg-open">Suggest someone</button>
+      <form class="corner-form" id="suggest-form" action="https://formspree.io/f/xzznlvgj" method="POST" novalidate hidden>
+        <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="source_page" value="pulse">
+        <input type="hidden" name="interest" value="suggest-creator">
+        <input type="hidden" name="_subject" value="Pulse: suggest a creator">
+        <input type="hidden" name="page_url" id="sg-url">
+        <label for="sg-text">Who should be in the Atlas? A name or a link</label>
+        <input type="text" id="sg-text" name="suggestion" required autocomplete="off">
+        <label for="sg-email">Your email <span class="opt">Optional</span></label>
+        <div class="cf-row"><input type="email" id="sg-email" name="email" autocomplete="email"><button type="submit" class="btn btn--primary">Send</button></div>
+        <p class="form-msg" role="status" aria-live="polite" data-state=""></p>
+      </form>
+    </div>
+    <div id="corner-list" class="corner-list"></div>
+    <button type="button" class="btn btn--secondary corner-more" id="corner-more" hidden>Show 50 more</button>
+  </div>
+</section>
+
+<!-- Parked: render targets for code that is kept but no longer drawn (lede, story stack, beat map, ticker, signal rail,
+     weekly brief, the old feed controls, the activity bars, the instrument tab bar). Nothing here is shown. -->
+<div id="pulse-parked" hidden>
+    <p class="masthead-lede" id="masthead-lede"></p>
+    <div class="masthead-story-stack" id="masthead-story-stack" style="display:none"></div>
+    <div class="masthead-beat-map" id="masthead-beat-map" role="group" aria-label="Posts by beat in the latest week, all monitored feeds"></div>
+  <div class="pulse-ticker-wrap" aria-hidden="true">
+    <div class="pulse-ticker-row pulse-ticker-row--forward" id="pulse-ticker-row"></div>
+  </div>
 <!-- ── WHAT MOVED: signal stories, then the weekly brief ── -->
 <section class="pulse-rail on-dark" id="what-moved" aria-labelledby="what-moved-title">
   <div class="rail-inner">
@@ -1066,12 +1302,9 @@
   </div>
 </section>
 
-<!-- ── THE INSTRUMENTS ── -->
-<section class="pulse-instruments" id="instruments" aria-labelledby="instruments-title">
-  <div class="pulse-instruments-inner">
-    <h2 class="pulse-section-title" id="instruments-title">The instruments</h2>
-    <div class="analysis-panel">
-      <div class="analysis-tabs" role="tablist" aria-label="Instruments">
+
+<div class="analysis-panel"><div class="analysis-panel-body"><p id="tab-descriptor" class="tab-descriptor"></p>
+<div class="analysis-tabs">
         <button class="analysis-tab active" role="tab" id="tab-activity" aria-selected="true" aria-controls="pane-activity" tabindex="0" data-tab="activity" data-descriptor="Publishing volume across beats and platforms for this period, from all monitored feeds.">
           <span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>
           Activity
@@ -1090,53 +1323,18 @@
         </button>
       </div>
 
-      <div class="analysis-panel-body">
-        <p id="tab-descriptor" class="tab-descriptor"></p>
-
-        <div class="analysis-pane active" id="pane-activity" role="tabpanel" aria-labelledby="tab-activity">
+      <div class="analysis-pane active" id="pane-activity" role="tabpanel" aria-labelledby="tab-activity">
           <div class="section-eyebrow" style="margin-bottom:16px;">
             <span class="pulse-dot-inline"></span> Publishing activity by beat, last 30 days (all monitored feeds)
           </div>
           <div class="beat-rows" id="beat-rows"></div>
         </div>
 
-        <div class="analysis-pane" id="pane-rhythm" role="tabpanel" aria-labelledby="tab-rhythm" hidden>
-          <div class="rhythm-controls">
-            <div class="rhythm-view-toggle">
-              <button class="rhythm-view-btn active" id="rhythm-btn-daily" data-view="daily">Daily</button>
-              <button class="rhythm-view-btn" id="rhythm-btn-rolling" data-view="rolling">7-day avg</button>
-              <button class="rhythm-view-btn" id="rhythm-btn-weekly" data-view="weekly">Weekly</button>
-            </div>
-            <div class="heat-toggle" id="heat-mode-toggle">
-              <button class="heat-toggle-btn active" id="heat-btn-beat" data-mode="beat">By beat</button>
-              <button class="heat-toggle-btn" id="heat-btn-platform" data-mode="platform">By platform</button>
-            </div>
-          </div>
-          <div class="heat-header-row" style="margin-bottom:16px;">
-            <div class="section-eyebrow" id="heat-eyebrow">Publishing rhythm</div>
-          </div>
-          <div class="heat-grid-wrap">
-            <div class="heat-label-col" id="heat-label-col"></div>
-            <div class="heat-scroll-col" id="heat-scroll-col"></div>
-          </div>
-        </div>
-
-        <div class="analysis-pane" id="pane-overlap" role="tabpanel" aria-labelledby="tab-overlap" hidden>
-          <div class="section-eyebrow" style="margin-bottom:4px;">Beat co-occurrence</div>
-                    <div class="co-section-sub" style="margin-bottom:16px;">Click any cell to filter posts tagged with both beats.</div>
-          <div class="co-matrix-wrap" id="co-matrix-wrap"></div>
-        </div>
-
-        <div class="analysis-pane" id="pane-pa" role="tabpanel" aria-labelledby="tab-pa" hidden>
-          <div id="pa-content"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        </div></div>
+</div>
 
 <script type="application/json" id="pulse-data">
-{"generated_at":"2026-10-27","generated_at_iso":"2026-10-27T11:43:16+00:00","preflight":{"ok":true,"checked":true,"csv_count":2415,"json_count":2415,"delta":0,"convert_js_mtime":"2026-10-26 13:36 UTC","message":"creators-data.json matches creators-master.csv (2415 rows)"},"window_days":30,"total_creators":2415,"total_rss_resolved":1747,"total_posts":8875,"active_7d":917,"active_30d":1128,"dark_count":511,"beat_activity":{"Politics":2197,"Tech":1054,"Local":795,"Media/Power":762,"Culture":706,"Finance/Economics":626,"World":536,"Government Accountability":399,"Science":394,"Food":345,"General News":326,"Health/Wellness":286,"Climate/Environment":282,"Sports":267,"Investigative":265,"Law/Legal Issues":239,"Business":231,"Foreign Policy":230,"Explanatory":221,"History":218,"Education":194,"Faith/Religion":176,"Internet Culture":172,"Policy":166,"Travel":162,"Entertainment/Hollywood":161,"Identity/Belonging":156,"Parenting":151,"Comedy":143,"Art":137,"Lifestyle":121,"National Security":120,"Immigration":112,"Recipes":106,"Music":100,"Crime":98,"Human Rights":94,"Careers":92,"Gender":90,"Data Visualization":90,"LGBTQIA":84,"Mental Health":83,"Activism":81,"Restaurants and bars":75,"Film/Movies":72,"Fashion":71,"Books/Writing":68,"Self-Help":66,"Personal Finance":64,"Real Estate":57,"Labor/Workers Rights":47,"Design":45,"Home":38,"Things to Do":34,"Day in a Life":33,"Games/Gaming":30,"Transportation":29,"Solutions Journalism":27,"Positive News":24,"Beauty":23,"Outdoors":21,"Housing":20,"Urban Planning":18,"Agriculture":17,"Museums":15,"Architecture":12,"Dating/Romance":12,"Energy":8,"Inequality":8,"Criminal Justice":8,"Construction":7,"Military":7,"Data":4,"Visual Journalism":4,"Indigenous":3},"recency":{"24h":926,"7d":3400,"30d":8875},"cross_signal":[],"cross_signal_count":0,"feed_health":{"confirmed":1848,"no_feed":794,"youtube_unresolved":0,"degraded":12,"fetch_error_this_run":26,"no_rss_platform_this_run":406,"no_feed_this_run":262,"new_feeds_discovered":0,"by_strategy":{"append_feed":1137,"youtube_atom":235,"append_rss":247,"apple_podcast":18,"legacy_csv":63,"override":40,"append_atom":7},"feed_buckets_source":"pulse_v2_run"},"completeness":{"accounted":1.0,"fetch_rate":0.9851,"creators":2415,"timeout_fired":false},"issue":{"vol":1,"issue":8,"iso_week":"2026-W44","week_start":"2026-10-20","week_end":"2026-10-26"},"week_stats":{"creators":907,"posts":3153,"beats":73},"cohort":{"definition":"Feeds with at least one post in each of the last 4 seven-day periods ending 2026-10-26. Excludes the highest-volume feeds, whose RSS depth cap keeps them from reaching the oldest period.","members":500,"sensitivity_members":597,"feeds_posting_in_span":1117,"joined":108,"dropped_out":36,"buckets":[{"start":"2026-09-29","end":"2026-10-05","raw_posts":1411,"cohort_posts":1117,"sens_posts":1245},{"start":"2026-10-06","end":"2026-10-12","raw_posts":1724,"cohort_posts":1206,"sens_posts":1259},{"start":"2026-10-13","end":"2026-10-19","raw_posts":2257,"cohort_posts":1231,"sens_posts":1288},{"start":"2026-10-20","end":"2026-10-26","raw_posts":3350,"cohort_posts":1278,"sens_posts":1407}],"wow_cohort_pct":3.8,"wow_raw_pct":48.4,"daily":{"dates":["2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08","2026-10-09","2026-10-10","2026-10-11","2026-10-12","2026-10-13","2026-10-14","2026-10-15","2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-20","2026-10-21","2026-10-22","2026-10-23","2026-10-24","2026-10-25","2026-10-26"],"raw":[206,239,239,251,112,124,240,295,278,268,340,106,168,269,352,356,380,399,185,197,388,428,461,502,614,301,326,718],"cohort":[166,177,183,215,89,103,184,219,206,200,242,65,106,168,195,204,215,229,88,100,200,204,195,229,230,96,102,222],"covered":[0.856,0.902,0.928,0.97,0.98,0.986,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]},"beat_trends":{"Politics":{"current":260,"baseline":244,"delta_pct":7,"trend":"stable"},"Tech":{"current":151,"baseline":146,"delta_pct":3,"trend":"stable"},"Media/Power":{"current":130,"baseline":129,"delta_pct":1,"trend":"stable"},"Local":{"current":110,"baseline":102,"delta_pct":8,"trend":"stable"},"Culture":{"current":104,"baseline":99,"delta_pct":5,"trend":"stable"},"Finance/Economics":{"current":88,"baseline":89,"delta_pct":-1,"trend":"stable"},"Government Accountability":{"current":61,"baseline":64,"delta_pct":-5,"trend":"stable"},"Food":{"current":58,"baseline":61,"delta_pct":-5,"trend":"stable"},"World":{"current":56,"baseline":70,"delta_pct":-20,"trend":"down"},"Science":{"current":48,"baseline":49,"delta_pct":-2,"trend":"stable"},"General News":{"current":47,"baseline":39,"delta_pct":21,"trend":"up"},"Health/Wellness":{"current":45,"baseline":40,"delta_pct":12,"trend":"up"},"History":{"current":42,"baseline":39,"delta_pct":8,"trend":"stable"},"Investigative":{"current":41,"baseline":27,"delta_pct":52,"trend":"up"},"Law/Legal Issues":{"current":40,"baseline":38,"delta_pct":5,"trend":"stable"},"Education":{"current":39,"baseline":40,"delta_pct":-2,"trend":"stable"},"Climate/Environment":{"current":38,"baseline":37,"delta_pct":3,"trend":"stable"},"Faith/Religion":{"current":35,"baseline":28,"delta_pct":25,"trend":"up"},"Internet Culture":{"current":35,"baseline":28,"delta_pct":25,"trend":"up"},"Comedy":{"current":34,"baseline":34,"delta_pct":0,"trend":"stable"},"Identity/Belonging":{"current":34,"baseline":26,"delta_pct":31,"trend":"up"},"Sports":{"current":30,"baseline":23,"delta_pct":30,"trend":"up"},"Parenting":{"current":29,"baseline":28,"delta_pct":4,"trend":"stable"},"Business":{"current":28,"baseline":24,"delta_pct":17,"trend":"up"},"Policy":{"current":27,"baseline":27,"delta_pct":0,"trend":"stable"},"Entertainment/Hollywood":{"current":25,"baseline":27,"delta_pct":-7,"trend":"stable"},"Foreign Policy":{"current":25,"baseline":24,"delta_pct":4,"trend":"stable"},"Travel":{"current":25,"baseline":22,"delta_pct":14,"trend":"up"},"Lifestyle":{"current":22,"baseline":23,"delta_pct":-4,"trend":"stable"},"Human Rights":{"current":21,"baseline":15,"delta_pct":40,"trend":"up"},"Mental Health":{"current":21,"baseline":21,"delta_pct":0,"trend":"stable"},"National Security":{"current":20,"baseline":20,"delta_pct":0,"trend":"stable"},"Explanatory":{"current":18,"baseline":18,"delta_pct":0,"trend":"stable"},"Recipes":{"current":18,"baseline":20,"delta_pct":-10,"trend":"down"},"Immigration":{"current":17,"baseline":18,"delta_pct":-6,"trend":"stable"},"Restaurants and bars":{"current":17,"baseline":15,"delta_pct":13,"trend":"up"},"Activism":{"current":15,"baseline":17,"delta_pct":-12,"trend":"down"},"Careers":{"current":14,"baseline":17,"delta_pct":-18,"trend":"down"},"Data Visualization":{"current":14,"baseline":16,"delta_pct":-12,"trend":"down"}},"min_base":15},"posts_manifest":{"base":"/assets/data/pulse/","weeks":[{"week":"2026-W44","file":"/assets/data/pulse/posts-2026-W44.json","from":"2026-10-26","to":"2026-11-01","count":926},{"week":"2026-W43","file":"/assets/data/pulse/posts-2026-W43.json","from":"2026-10-19","to":"2026-10-25","count":2843},{"week":"2026-W42","file":"/assets/data/pulse/posts-2026-W42.json","from":"2026-10-12","to":"2026-10-18","count":2029},{"week":"2026-W41","file":"/assets/data/pulse/posts-2026-W41.json","from":"2026-10-05","to":"2026-10-11","count":1633},{"week":"2026-W40","file":"/assets/data/pulse/posts-2026-W40.json","from":"2026-09-28","to":"2026-10-04","count":1351},{"week":"2026-W39","file":"/assets/data/pulse/posts-2026-W39.json","from":"2026-09-21","to":"2026-09-27","count":93}]},"reconciliation":{"rows_in_source":10578,"source_total_posts_field":10578,"source_recency_30d":10578,"creators_dropped":[],"dark_dropped":[],"rows_dropped_registry":0,"rows_after_registry":10578,"rows_excluded":{"social_platform_label":340,"no_url":15,"social_host_url":907,"no_title_even_after_fallback":5},"titles_derived_kept":0,"bluesky":{"creators_window":77,"creators_30d":86,"posts_window":518,"window":["2026-10-20","2026-10-26"]},"social_host_rows_if_included":1127,"feed_rows_kept":9311,"canonical_pieces":8875,"rss_resolved_source":1747,"rss_resolved_canonical":1747,"creators_with_pieces":1128}}
+{"generated_at":"2026-10-27","generated_at_iso":"2026-10-27T11:43:16+00:00","preflight":{"ok":true,"checked":true,"csv_count":2415,"json_count":2415,"delta":0,"convert_js_mtime":"2026-10-26 13:36 UTC","message":"creators-data.json matches creators-master.csv (2415 rows)"},"window_days":30,"total_creators":2415,"total_rss_resolved":1747,"total_posts":8875,"active_7d":917,"active_30d":1128,"dark_count":511,"beat_activity":{"Politics":2197,"Tech":1054,"Local":795,"Media/Power":762,"Culture":706,"Finance/Economics":626,"World":536,"Government Accountability":399,"Science":394,"Food":345,"General News":326,"Health/Wellness":286,"Climate/Environment":282,"Sports":267,"Investigative":265,"Law/Legal Issues":239,"Business":231,"Foreign Policy":230,"Explanatory":221,"History":218,"Education":194,"Faith/Religion":176,"Internet Culture":172,"Policy":166,"Travel":162,"Entertainment/Hollywood":161,"Identity/Belonging":156,"Parenting":151,"Comedy":143,"Art":137,"Lifestyle":121,"National Security":120,"Immigration":112,"Recipes":106,"Music":100,"Crime":98,"Human Rights":94,"Careers":92,"Gender":90,"Data Visualization":90,"LGBTQIA":84,"Mental Health":83,"Activism":81,"Restaurants and bars":75,"Film/Movies":72,"Fashion":71,"Books/Writing":68,"Self-Help":66,"Personal Finance":64,"Real Estate":57,"Labor/Workers Rights":47,"Design":45,"Home":38,"Things to Do":34,"Day in a Life":33,"Games/Gaming":30,"Transportation":29,"Solutions Journalism":27,"Positive News":24,"Beauty":23,"Outdoors":21,"Housing":20,"Urban Planning":18,"Agriculture":17,"Museums":15,"Architecture":12,"Dating/Romance":12,"Energy":8,"Inequality":8,"Criminal Justice":8,"Construction":7,"Military":7,"Data":4,"Visual Journalism":4,"Indigenous":3},"recency":{"24h":926,"7d":3400,"30d":8875},"cross_signal":[],"cross_signal_count":0,"feed_health":{"confirmed":1848,"no_feed":794,"youtube_unresolved":0,"degraded":12,"fetch_error_this_run":26,"no_rss_platform_this_run":406,"no_feed_this_run":262,"new_feeds_discovered":0,"by_strategy":{"append_feed":1137,"youtube_atom":235,"append_rss":247,"apple_podcast":18,"legacy_csv":63,"override":40,"append_atom":7},"feed_buckets_source":"pulse_v2_run"},"completeness":{"accounted":1.0,"fetch_rate":0.9851,"creators":2415,"timeout_fired":false},"issue":{"vol":1,"issue":8,"iso_week":"2026-W44","week_start":"2026-10-20","week_end":"2026-10-26"},"week_stats":{"creators":907,"posts":3153,"beats":73},"cohort":{"definition":"Feeds with at least one post in each of the last 4 seven-day periods ending 2026-10-26. Excludes the highest-volume feeds, whose RSS depth cap keeps them from reaching the oldest period.","members":500,"sensitivity_members":597,"feeds_posting_in_span":1117,"joined":108,"dropped_out":36,"buckets":[{"start":"2026-09-29","end":"2026-10-05","raw_posts":1411,"cohort_posts":1117,"sens_posts":1245},{"start":"2026-10-06","end":"2026-10-12","raw_posts":1724,"cohort_posts":1206,"sens_posts":1259},{"start":"2026-10-13","end":"2026-10-19","raw_posts":2257,"cohort_posts":1231,"sens_posts":1288},{"start":"2026-10-20","end":"2026-10-26","raw_posts":3350,"cohort_posts":1278,"sens_posts":1407}],"wow_cohort_pct":3.8,"wow_raw_pct":48.4,"daily":{"dates":["2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08","2026-10-09","2026-10-10","2026-10-11","2026-10-12","2026-10-13","2026-10-14","2026-10-15","2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-20","2026-10-21","2026-10-22","2026-10-23","2026-10-24","2026-10-25","2026-10-26"],"raw":[206,239,239,251,112,124,240,295,278,268,340,106,168,269,352,356,380,399,185,197,388,428,461,502,614,301,326,718],"cohort":[166,177,183,215,89,103,184,219,206,200,242,65,106,168,195,204,215,229,88,100,200,204,195,229,230,96,102,222],"covered":[0.856,0.902,0.928,0.97,0.98,0.986,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]},"beat_trends":{"Politics":{"current":260,"baseline":244,"delta_pct":7,"trend":"stable"},"Tech":{"current":151,"baseline":146,"delta_pct":3,"trend":"stable"},"Media/Power":{"current":130,"baseline":129,"delta_pct":1,"trend":"stable"},"Local":{"current":110,"baseline":102,"delta_pct":8,"trend":"stable"},"Culture":{"current":104,"baseline":99,"delta_pct":5,"trend":"stable"},"Finance/Economics":{"current":88,"baseline":89,"delta_pct":-1,"trend":"stable"},"Government Accountability":{"current":61,"baseline":64,"delta_pct":-5,"trend":"stable"},"Food":{"current":58,"baseline":61,"delta_pct":-5,"trend":"stable"},"World":{"current":56,"baseline":70,"delta_pct":-20,"trend":"down"},"Science":{"current":48,"baseline":49,"delta_pct":-2,"trend":"stable"},"General News":{"current":47,"baseline":39,"delta_pct":21,"trend":"up"},"Health/Wellness":{"current":45,"baseline":40,"delta_pct":12,"trend":"up"},"History":{"current":42,"baseline":39,"delta_pct":8,"trend":"stable"},"Investigative":{"current":41,"baseline":27,"delta_pct":52,"trend":"up"},"Law/Legal Issues":{"current":40,"baseline":38,"delta_pct":5,"trend":"stable"},"Education":{"current":39,"baseline":40,"delta_pct":-2,"trend":"stable"},"Climate/Environment":{"current":38,"baseline":37,"delta_pct":3,"trend":"stable"},"Faith/Religion":{"current":35,"baseline":28,"delta_pct":25,"trend":"up"},"Internet Culture":{"current":35,"baseline":28,"delta_pct":25,"trend":"up"},"Comedy":{"current":34,"baseline":34,"delta_pct":0,"trend":"stable"},"Identity/Belonging":{"current":34,"baseline":26,"delta_pct":31,"trend":"up"},"Sports":{"current":30,"baseline":23,"delta_pct":30,"trend":"up"},"Parenting":{"current":29,"baseline":28,"delta_pct":4,"trend":"stable"},"Business":{"current":28,"baseline":24,"delta_pct":17,"trend":"up"},"Policy":{"current":27,"baseline":27,"delta_pct":0,"trend":"stable"},"Travel":{"current":25,"baseline":22,"delta_pct":14,"trend":"up"},"Foreign Policy":{"current":25,"baseline":24,"delta_pct":4,"trend":"stable"},"Entertainment/Hollywood":{"current":25,"baseline":27,"delta_pct":-7,"trend":"stable"},"Lifestyle":{"current":22,"baseline":23,"delta_pct":-4,"trend":"stable"},"Human Rights":{"current":21,"baseline":15,"delta_pct":40,"trend":"up"},"Mental Health":{"current":21,"baseline":21,"delta_pct":0,"trend":"stable"},"National Security":{"current":20,"baseline":20,"delta_pct":0,"trend":"stable"},"Recipes":{"current":18,"baseline":20,"delta_pct":-10,"trend":"down"},"Explanatory":{"current":18,"baseline":18,"delta_pct":0,"trend":"stable"},"Immigration":{"current":17,"baseline":18,"delta_pct":-6,"trend":"stable"},"Restaurants and bars":{"current":17,"baseline":15,"delta_pct":13,"trend":"up"},"Activism":{"current":15,"baseline":17,"delta_pct":-12,"trend":"down"},"Careers":{"current":14,"baseline":17,"delta_pct":-18,"trend":"down"},"Data Visualization":{"current":14,"baseline":16,"delta_pct":-12,"trend":"down"}},"min_base":15},"posts_manifest":{"base":"/assets/data/pulse/","weeks":[{"week":"2026-W44","file":"/assets/data/pulse/posts-2026-W44.json","from":"2026-10-26","to":"2026-11-01","count":926},{"week":"2026-W43","file":"/assets/data/pulse/posts-2026-W43.json","from":"2026-10-19","to":"2026-10-25","count":2843},{"week":"2026-W42","file":"/assets/data/pulse/posts-2026-W42.json","from":"2026-10-12","to":"2026-10-18","count":2029},{"week":"2026-W41","file":"/assets/data/pulse/posts-2026-W41.json","from":"2026-10-05","to":"2026-10-11","count":1633},{"week":"2026-W40","file":"/assets/data/pulse/posts-2026-W40.json","from":"2026-09-28","to":"2026-10-04","count":1351},{"week":"2026-W39","file":"/assets/data/pulse/posts-2026-W39.json","from":"2026-09-21","to":"2026-09-27","count":93}]},"reconciliation":{"rows_in_source":10578,"source_total_posts_field":10578,"source_recency_30d":10578,"creators_dropped":[],"dark_dropped":[],"rows_dropped_registry":0,"rows_after_registry":10578,"rows_excluded":{"social_platform_label":340,"no_url":15,"social_host_url":907,"no_title_even_after_fallback":5},"titles_derived_kept":0,"bluesky":{"creators_window":77,"creators_30d":86,"posts_window":518,"window":["2026-10-20","2026-10-26"]},"social_host_rows_if_included":1127,"feed_rows_kept":9311,"canonical_pieces":8875,"rss_resolved_source":1747,"rss_resolved_canonical":1747,"creators_with_pieces":1128}}
 </script>
 <script type="application/json" id="digest-data">
 {
@@ -2102,6 +2300,7 @@
 }
 </script>
 
+<!-- ── CHICAGO CITY LAB ── -->
 <section class="city-spotlight-section" aria-label="Chicago City Spotlight">
   <div class="city-spotlight-card">
     <div class="city-spotlight-eyebrow">
@@ -2118,24 +2317,9 @@
   </div>
 </section>
 
-<!-- ── THE ATLAS UNDERNEATH ── -->
-<section class="pulse-underneath" id="how-pulse-works" aria-labelledby="underneath-title">
-  <div class="pulse-section-head">
-    <h2 class="pulse-section-title" id="underneath-title">How Pulse works</h2>
-    <p class="archive-method">Pulse monitors newsletters, video, podcasts and websites. Each issue covers one week and is written when the weekly run finishes; the feed and instruments reflect the latest scrape. A piece can carry several beats, so beat counts add up to more than the total. <span id="archive-no-feed-count"><!-- PULSE:FEEDS:START -->
-<strong>1,747</strong> feeds monitored. Another 406 creators publish only where there's no feed to follow (Instagram, TikTok and similar); 262 more we're still working to connect.
-<!-- PULSE:FEEDS:END --></span> <a href="about-this-project.html" class="link-instruction">Learn how the Atlas works</a></p>
-    <p class="archive-method" id="bluesky-stat"><!-- PULSE:BLUESKY:START -->
-<strong>77</strong> Atlas creators posted to Bluesky in Oct 20–26 (86 in the last 30 days). Counted from the Bluesky accounts Pulse monitors, not a census of every Atlas creator on Bluesky; these posts are not counted as pieces.
-<!-- PULSE:BLUESKY:END --></p>
-  </div>
-</section>
-
-<!-- ── WORK WITH US ── -->
+<!-- ── WORK WITH THE ATLAS ── -->
 <section class="pulse-work" id="work-with-us" aria-labelledby="work-title">
-  <div class="pulse-section-head" style="padding-bottom:16px">
-    <h2 class="pulse-section-title" id="work-title">Work with us</h2>
-  </div>
+  <div class="sec-inner"><h2 class="pulse-section-title" id="work-title" style="margin-bottom:16px">Work with the Atlas</h2></div>
   <div class="audience-bridge-v2">
     <div class="audience-bridge-item">
       <span class="audience-bridge-label">For journalists &amp; researchers</span>
@@ -2155,17 +2339,69 @@
       <a href="/about-this-project.html" class="audience-bridge-link link-instruction">Read about the Atlas</a>
     </div>
   </div>
-  <div class="pulse-brands-cta">
-    <div class="pulse-brands-cta-inner">
-      <div>
-        <div class="pulse-brands-cta-label">Turn this into a brief for your team.</div>
-        <div class="pulse-brands-cta-sub">The Atlas packages this intelligence into custom weekly briefs for communications and research teams, curated by beat, geography, or partner.</div>
-      </div>
-      <a href="for-brands.html" class="pulse-brands-cta-btn link-instruction">Learn about team briefs</a>
-    </div>
-  </div>
 </section>
+
+<!-- ── HOW WE COUNT ── -->
+<details class="pulse-method" id="method">
+  <summary><h2 class="pulse-section-title">How we count</h2></summary>
+  <div class="method-body">
+    <!-- PULSE:COHORT:START -->
+<p class="method-p" id="masthead-cohort-note">Among the <strong>500</strong> feeds that published in every one of the last four weeks, volume was up 4% on the week before. This cohort leaves out the highest-volume feeds, which cannot qualify while RSS depth caps hide their older posts; it will include them once archived history is merged. Compared with the three weeks before, <strong>108</strong> feeds published this week after a quiet stretch and <strong>36</strong> that had published every week did not.</p>
+<p class="method-p" id="method-raw">Across all monitored feeds, raw volume looks up 48% on the week before. Do not read that as growth: a feed only exposes its latest items, so the older days of a prolific feed are missing and the curve climbs toward today whatever people publish. The cohort keeps the feeds constant, which is why it is the number to read.</p>
+<!-- PULSE:COHORT:END -->
+    <p class="method-p">Pulse monitors newsletters, video, podcasts and websites. Each issue covers one week and is written when the weekly run finishes. Beat tags belong to creators, not to pieces. A count by beat is the creators who cover that beat and every piece they published this week, so a piece counts under each beat its creator covers and beat counts add up to more than the total. The field shows the ten beats with the most creators and groups the rest; it places each creator once, under the largest beat they cover, and every number printed on this page is a count of creators who cover a beat. <span id="archive-no-feed-count"><!-- PULSE:FEEDS:START -->
+<strong>1,747</strong> feeds monitored. Another 406 creators publish only where there's no feed to follow (Instagram, TikTok and similar); 262 more we're still working to connect.
+<!-- PULSE:FEEDS:END --></span> <a href="about-this-project.html">Learn how the Atlas works</a></p>
+    <p class="method-p" id="bluesky-stat"><!-- PULSE:BLUESKY:START -->
+<strong>77</strong> Atlas creators posted to Bluesky in Oct 20–26 (86 in the last 30 days). Counted from the Bluesky accounts Pulse monitors, not a census of every Atlas creator on Bluesky; these posts are not counted as pieces.
+<!-- PULSE:BLUESKY:END --></p>
+    <p class="method-p" id="method-machine">Story picks ranked by signal are machine-generated from this week&rsquo;s posts and checked by a second automated pass. Every title links to the creator&rsquo;s own work. <a href="/about-this-project.html">How the Atlas works</a></p>
+    <details class="method-inst"><summary><h3>Rhythm</h3></summary>
+      <p class="method-inst-sub">How publishing volume moves from day to day, by beat and by platform.</p>
+<div class="analysis-pane active" id="pane-rhythm">
+          <div class="rhythm-controls">
+            <div class="rhythm-view-toggle">
+              <button class="rhythm-view-btn active" id="rhythm-btn-daily" data-view="daily">Daily</button>
+              <button class="rhythm-view-btn" id="rhythm-btn-rolling" data-view="rolling">7-day avg</button>
+              <button class="rhythm-view-btn" id="rhythm-btn-weekly" data-view="weekly">Weekly</button>
+            </div>
+            <div class="heat-toggle" id="heat-mode-toggle">
+              <button class="heat-toggle-btn active" id="heat-btn-beat" data-mode="beat">By beat</button>
+              <button class="heat-toggle-btn" id="heat-btn-platform" data-mode="platform">By platform</button>
+            </div>
+          </div>
+          <div class="heat-header-row" style="margin-bottom:16px;">
+            <div class="section-eyebrow" id="heat-eyebrow">Publishing rhythm</div>
+          </div>
+          <div class="heat-grid-wrap">
+            <div class="heat-label-col" id="heat-label-col"></div>
+            <div class="heat-scroll-col" id="heat-scroll-col"></div>
+          </div>
+        </div>
+
+        
+    </details>
+    <details class="method-inst"><summary><h3>Overlap</h3></summary>
+      <p class="method-inst-sub">Which beats travel together: topics that appear in the same creator&rsquo;s work.</p>
+<div class="analysis-pane active" id="pane-overlap">
+          <div class="section-eyebrow" style="margin-bottom:4px;">Beat co-occurrence</div>
+                    <div class="co-section-sub" style="margin-bottom:16px;">Click any cell to filter posts tagged with both beats.</div>
+          <div class="co-matrix-wrap" id="co-matrix-wrap"></div>
+        </div>
+
+        
+    </details>
+    <details class="method-inst" id="method-pa" hidden><summary><h3>For teams</h3></summary>
+      <p class="method-inst-sub">Signals for communications, brand, and public affairs teams.</p>
+<div class="analysis-pane active" id="pane-pa">
+          <div id="pa-content"></div>
+        </div>
+
+    </details>
+  </div>
+</details>
 </main>
+
 
 <script src="/assets/js/footer.js"></script>
 
@@ -2349,7 +2585,7 @@ function populateHeaderPosts() {
     const intelTab = document.querySelector('.analysis-tab[data-tab="intel"]');
     if (intelTab) {
       intelTab.click();
-      document.querySelector('.pulse-split').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelector('.pulse-split').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     }
   });
 }
@@ -2434,7 +2670,7 @@ function renderBeatBar() {
       renderPlatformBreakdown(activeBeat);
       renderCreatorStrip();
       renderPosts();
-      document.querySelector('.controls-row').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelector('.controls-row').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     });
   });
 }
@@ -2808,12 +3044,9 @@ function renderCoMatrix() {
         document.querySelectorAll('.co-cell.co-active').forEach(c => c.classList.remove('co-active'));
         cell.classList.add('co-active');
       }
-      visibleCount = 50;
-      renderBeatPills();
-      renderPlatformBreakdown(activeBeat);
-      renderCreatorStrip();
-      renderPosts();
-      document.querySelector('.controls-row').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      cornerShown = 50;
+      renderCorner();
+      document.getElementById('corner').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     });
   });
 }
@@ -3307,7 +3540,7 @@ function _wireBeatFilterClicks(el) {
       renderBeatPills(); renderPlatformBreakdown(activeBeat);
       renderCreatorStrip(); renderPosts();
       const archiveEl = document.querySelector('.controls-row');
-      if (archiveEl) archiveEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (archiveEl) archiveEl.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     });
   });
 }
@@ -3455,7 +3688,7 @@ function renderMasthead(early) {
           renderCreatorStrip();
           renderPosts();
           const archiveEl = document.querySelector('.controls-row');
-          if (archiveEl) archiveEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (archiveEl) archiveEl.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
         });
       });
     } else {
@@ -3620,7 +3853,7 @@ function renderSignalPanel() {
         renderCreatorStrip();
         renderPosts();
         const archiveEl = document.querySelector('.controls-row');
-        if (archiveEl) archiveEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (archiveEl) archiveEl.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
       });
     });
   }
@@ -3664,26 +3897,377 @@ function renderSignalPanel() {
   renderStack(activeTab);
 }
 
+// ════════════════════════════════════════════════════════════════════════════
+// PULSE REBUILD (Oct 27, 2026): the field, what mattered, find your corner, the intake.
+// The page answers three questions in order: how big is this (the field), what mattered (five stories),
+// where is my piece of it (find your corner). Counts printed anywhere are any-tag (a piece counts under every
+// beat it carries; co-hosts count). The primary beat only decides where a creator's circle sits.
+// Field data is written at build time into #field-data (update_pulse.py, from scripts/main_beats.py).
+// ════════════════════════════════════════════════════════════════════════════
+const FIELD = JSON.parse(document.getElementById('field-data').textContent);
+const ISSUE_FROM = FIELD.window.from, ISSUE_TO = FIELD.window.to;
+const FORM_ENDPOINT = 'https://formspree.io/f/xzznlvgj';   // the /for-brands intake endpoint; source_page=pulse tells the inbox where it came from
+const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmtN = n => Number(n).toLocaleString('en-US');
+const plural = (n, one, many) => fmtN(n) + ' ' + (n === 1 ? one : many);
+const tagsOf = p => (p.topic || '').split(',').map(t => t.trim()).filter(Boolean);
+const scrollBehavior = () => (prefersReducedMotion() ? 'auto' : 'smooth');
+
+// Pieces in the issue window (the weekly files are already canonical: one record per URL, social posts out).
+let WIN = [];
+function buildWindow() {
+  WIN = PULSE_DATA.posts.filter(p => p.title && p.title !== 'No title' && p.url && p.published >= ISSUE_FROM && p.published <= ISSUE_TO &&
+                                    !SOCIAL_PLATFORMS.includes(p.platform))
+    .sort((a, b) => (b.published_at || b.published).localeCompare(a.published_at || a.published));
+}
+const winTags = () => [...new Set(WIN.flatMap(tagsOf))];
+
+// ── Field ───────────────────────────────────────────────────────────────────────
+let fieldPinned = -2;   // beat index pinned by a click or tap; -1 is "Other beats"; -2 is none
+let fieldHover = -2;
+function d3Ready() {
+  return new Promise((resolve, reject) => {
+    if (window.d3) return resolve();
+    const s = document.getElementById('d3-lib');
+    if (s) { s.addEventListener('load', () => resolve()); s.addEventListener('error', () => reject(new Error('d3'))); }
+    setTimeout(() => (window.d3 ? resolve() : reject(new Error('d3 timeout'))), 10000);
+  });
+}
+
+// The field caps its display at ten beats (scripts/main_beats.py FIELD_BEATS): the ten with the most creators get a labeled cluster, the same ten at
+// every width; everything else is one "{n} more beats" cluster (ix -1). The Lens keeps the full shared 28-beat main list; this cap is display only.
+function fieldGroups() {
+  const groups = FIELD.beats.map((b, i) => ({ ix: i, label: b.label, count: fmtN(b.creators), creators: [] }));
+  groups.push({ ix: -1, label: fmtN(FIELD.more.beat_count) + ' more beats', count: '', creators: [] });
+  FIELD.circles.forEach(([n, p, b]) => groups[b === -1 ? groups.length - 1 : b].creators.push({ n, p }));
+  return groups.filter(g => g.creators.length);
+}
+
+// Label lines (12 px): the name on one or two lines, then the creator count. Every cluster carries its label at every width,
+// so a cluster's hull never shrinks below what its label needs (minPx).
+function labelLines(label) {
+  if (label.length <= 11) return [label];
+  let best = -1;
+  for (let i = 1; i < label.length - 1; i++) if (label[i] === ' ' || label[i - 1] === '/') { if (best < 0 || Math.abs(i - label.length / 2) < Math.abs(best - label.length / 2)) best = i; }
+  return best < 0 ? [label] : [label.slice(0, best).trim(), label.slice(best).trim()];
+}
+function labelBox(g) {
+  const L = labelLines(g.label), w = Math.max(...L.map(s => s.length), g.count.length) * 7.1, h = (L.length + (g.count ? 1 : 0)) * 14;
+  g.lines = L; g.minPx = Math.sqrt((w / 2) * (w / 2) + (h / 2) * (h / 2)) + 5;
+}
+
+function layoutField(W, H) {
+  const groups = fieldGroups();
+  groups.forEach(g => {
+    const kids = g.creators.map(c => ({ ...c, r: Math.sqrt(c.p) + 0.35 }));   // padded radius for packing; drawn at sqrt(p)
+    d3.packSiblings(kids);
+    const enc = d3.packEnclose(kids);
+    g.kids = kids.map(k => ({ n: k.n, p: k.p, x: k.x - enc.x, y: k.y - enc.y }));
+    g.R0 = enc.r + 1.4; g.R = g.R0;
+    labelBox(g);
+  });
+  const GAP = 1.6, wide = W / H, m = 6;
+  let s = 1, nodes;
+  for (let pass = 0; pass < 4; pass++) {   // grow small hulls to fit their labels, re-fit, repeat (settles in a few passes)
+    nodes = groups.map(g => ({ g, r: g.R + GAP }));
+    d3.packSiblings(nodes);
+    // flatten the blob toward the stage's aspect ratio, then settle (deterministic: a fixed number of synchronous ticks)
+    const sim = d3.forceSimulation(nodes).stop()
+      .force('x', d3.forceX(0).strength(0.05)).force('y', d3.forceY(0).strength(0.05 * wide * wide))
+      .force('c', d3.forceCollide(d => d.r).iterations(4));
+    for (let i = 0; i < 300; i++) sim.tick();
+    const x0 = d3.min(nodes, d => d.x - d.r), x1 = d3.max(nodes, d => d.x + d.r), y0 = d3.min(nodes, d => d.y - d.r), y1 = d3.max(nodes, d => d.y + d.r);
+    s = Math.min((W - 2 * m) / (x1 - x0), (H - 2 * m) / (y1 - y0));
+    let grew = false;
+    groups.forEach(g => { const need = g.minPx / s; if (need > g.R + 0.01) { g.R = need; grew = true; } });
+    if (!grew) { const ox = (W - (x1 - x0) * s) / 2 - x0 * s, oy = (H - (y1 - y0) * s) / 2 - y0 * s; nodes.forEach(nd => { nd.g.cx = nd.x * s + ox; nd.g.cy = nd.y * s + oy; nd.g.s = s; }); return groups; }
+  }
+  const x0 = d3.min(nodes, d => d.x - d.r), x1 = d3.max(nodes, d => d.x + d.r), y0 = d3.min(nodes, d => d.y - d.r), y1 = d3.max(nodes, d => d.y + d.r);
+  const ox = (W - (x1 - x0) * s) / 2 - x0 * s, oy = (H - (y1 - y0) * s) / 2 - y0 * s;
+  nodes.forEach(nd => { nd.g.cx = nd.x * s + ox; nd.g.cy = nd.y * s + oy; nd.g.s = s; });
+  return groups;
+}
+
+function renderField() {
+  const stage = document.getElementById('field');
+  const W = Math.max(300, Math.round(stage.clientWidth));
+  const H = W >= 640 ? Math.round(W * 0.62) : Math.round(W * 1.05);
+  const groups = layoutField(W, H);
+  const NS = 'http://www.w3.org/2000/svg';
+  const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+  stage.innerHTML = '';
+  const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: 'field-svg' }, stage);
+  const settle = !prefersReducedMotion();
+  groups.forEach((g, gi) => {
+    const R = g.R * g.s;
+    const el = mk('g', { class: 'f-cluster', tabindex: 0, role: 'button', 'data-ix': g.ix,
+      'aria-label': g.ix === -1 ? `${g.label}. Creators grouped here: ${fmtN(FIELD.more.creators)}. Open the list of beats.`
+                                : `${g.label} ${g.count}. ${plural(FIELD.beats[g.ix].creators, 'creator', 'creators')} who cover it published ${plural(FIELD.beats[g.ix].pieces, 'piece', 'pieces')} this week. Open details.` }, svg);
+    el.style.setProperty('--tx', g.cx + 'px'); el.style.setProperty('--ty', g.cy + 'px'); el.style.setProperty('--sx', W / 2 + 'px'); el.style.setProperty('--sy', H / 2 + 'px');
+    if (settle) { el.classList.add('f-pre'); el.style.transitionDelay = Math.min(gi * 22, 260) + 'ms'; }
+    mk('circle', { class: 'f-hull', r: R }, el);
+    g.kids.forEach(k => { const c = mk('circle', { class: 'f-dot', cx: k.x * g.s, cy: k.y * g.s, r: Math.max(1.1, Math.sqrt(k.p) * g.s) }, el); c.__who = k; });
+    const rows = g.lines.length + (g.count ? 1 : 0);
+    g.lines.forEach((ln, li) => { const t = mk('text', { class: 'f-label', 'text-anchor': 'middle', 'aria-hidden': 'true', y: (li - (rows - 1) / 2) * 14 + 4 }, el); t.textContent = ln; });
+    if (g.count) { const t2 = mk('text', { class: 'f-label f-count', 'text-anchor': 'middle', 'aria-hidden': 'true', y: (g.lines.length - (rows - 1) / 2) * 14 + 4 }, el); t2.textContent = g.count; }
+  });
+  if (settle) requestAnimationFrame(() => requestAnimationFrame(() => svg.querySelectorAll('.f-pre').forEach(e => e.classList.remove('f-pre'))));
+  syncFieldState();
+}
+
+function syncFieldState() {
+  document.querySelectorAll('#field .f-cluster').forEach(el => {
+    const ix = Number(el.dataset.ix);
+    el.classList.toggle('is-on', ix === fieldPinned || ix === fieldHover);
+    el.classList.toggle('is-pinned', ix === fieldPinned);
+    el.setAttribute('aria-pressed', ix === fieldPinned ? 'true' : 'false');
+  });
+}
+
+// Panel. There is no "top piece": beat tags belong to creators, not pieces, so a piece cannot honestly stand for a beat until pieces are tagged
+// individually. The panel shows creators (linked to their own work) and the beat's counts.
+function renderPanel(ix) {
+  const panel = document.getElementById('field-panel');
+  const b = ix === -1 ? null : FIELD.beats[ix];
+  let h;
+  const people = rows => '<ol class="fp-list">' + rows.map(([n, k, u]) => `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(n)}</a>` : `<span>${esc(n)}</span>`}<span class="fp-n">${plural(k, 'piece', 'pieces')}</span></li>`).join('') + '</ol>';
+  if (b) {
+    h = `<div class="fp-head"><h3 id="fp-title" tabindex="-1">${esc(b.label)}</h3><button type="button" class="fp-close" aria-label="Close details">Close</button></div>
+      <p class="fp-count">${fmtN(b.creators)} creators who cover ${esc(b.label)} published ${fmtN(b.pieces)} pieces this week.</p>
+      <h4 class="fp-sub">Most pieces this week</h4>${people(b.top_creators)}
+      <div class="fp-actions"><button type="button" class="btn btn--secondary fp-see" data-beat="${esc(b.label)}">See all ${esc(b.label)}</button>
+      <a class="fp-brief" href="/for-brands?issue=${encodeURIComponent(b.label)}">Brief your team on ${esc(b.label)}</a></div>`;
+  } else {
+    const o = FIELD.more;
+    h = `<div class="fp-head"><h3 id="fp-title" tabindex="-1">${fmtN(o.beat_count)} more beats</h3><button type="button" class="fp-close" aria-label="Close details">Close</button></div>
+      <p class="fp-count">${fmtN(o.creators)} creators sit here because the largest beat they cover is not one of the ten shown. Select a beat to see it in Find your corner.</p>
+      <ul class="fp-more">${o.beats.map(([t, c, p]) => `<li><button type="button" class="fp-beat" data-beat="${esc(t)}"><span>${esc(t)}</span><span class="fp-n">${fmtN(c)} ${c === 1 ? 'creator' : 'creators'}, ${fmtN(p)} ${p === 1 ? 'piece' : 'pieces'}</span></button></li>`).join('')}</ul>`;
+  }
+  panel.innerHTML = h;
+  panel.classList.add('has-content');
+}
+
+function openPanel(ix, focus) {
+  renderPanel(ix);
+  const panel = document.getElementById('field-panel');
+  panel.classList.add('open');
+  document.body.classList.toggle('fp-sheet-open', window.matchMedia('(max-width: 899px)').matches);
+  if (focus) { const t = document.getElementById('fp-title'); if (t) t.focus({ preventScroll: true }); }
+}
+function closePanel() {
+  fieldPinned = -2; fieldHover = -2; syncFieldState();
+  const panel = document.getElementById('field-panel');
+  panel.classList.remove('open', 'has-content');
+  panel.innerHTML = panel.dataset.hint;
+  document.body.classList.remove('fp-sheet-open');
+}
+
+function wireField() {
+  const stage = document.getElementById('field'), panel = document.getElementById('field-panel'), wrap = document.getElementById('field-wrap');
+  panel.dataset.hint = panel.innerHTML;
+  const tip = document.getElementById('field-tip');
+  const showTip = (txt, e) => { const r = wrap.getBoundingClientRect(); tip.textContent = txt; tip.hidden = false; tip.style.left = Math.min(e.clientX - r.left + 14, r.width - 180) + 'px'; tip.style.top = (e.clientY - r.top + 16) + 'px'; };
+  const hoverOK = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let dwell = null;
+  stage.addEventListener('pointerover', e => {
+    if (!hoverOK.matches) return;
+    const cl = e.target.closest('.f-cluster'); if (!cl) return;
+    const ix = Number(cl.dataset.ix);
+    fieldHover = ix; syncFieldState();
+    clearTimeout(dwell);
+    if (fieldPinned === -2) dwell = setTimeout(() => { if (fieldHover === ix) openPanel(ix, false); }, 120);
+  });
+  stage.addEventListener('pointermove', e => {
+    if (!hoverOK.matches) return;
+    const dot = e.target.closest('.f-dot');
+    if (dot && dot.__who) showTip(`${dot.__who.n} · ${plural(dot.__who.p, 'piece', 'pieces')}`, e);
+    else { const cl = e.target.closest('.f-cluster'); if (cl) { const ix = Number(cl.dataset.ix); showTip(ix === -1 ? `${fmtN(FIELD.more.beat_count)} more beats` : `${FIELD.beats[ix].label} · ${fmtN(FIELD.beats[ix].creators)} creators`, e); } else tip.hidden = true; }
+  });
+  stage.addEventListener('pointerleave', () => { fieldHover = -2; clearTimeout(dwell); tip.hidden = true; syncFieldState(); });
+  stage.addEventListener('click', e => {
+    const cl = e.target.closest('.f-cluster'); if (!cl) return;
+    const ix = Number(cl.dataset.ix);
+    fieldPinned = fieldPinned === ix && !hoverOK.matches ? -2 : ix;
+    if (fieldPinned === -2) { closePanel(); return; }
+    syncFieldState(); openPanel(ix, !hoverOK.matches);
+  });
+  stage.addEventListener('keydown', e => {
+    const cl = e.target.closest && e.target.closest('.f-cluster'); if (!cl) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); const ix = Number(cl.dataset.ix); fieldPinned = ix; syncFieldState(); openPanel(ix, true); }
+  });
+  panel.addEventListener('click', e => {
+    if (e.target.closest('.fp-close')) { closePanel(); return; }
+    const see = e.target.closest('.fp-see, .fp-beat');
+    if (see) { cornerSetBeat(see.dataset.beat); document.body.classList.remove('fp-sheet-open'); panel.classList.remove('open'); }
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open') && fieldPinned !== -2) { const el = stage.querySelector('.f-cluster.is-pinned'); closePanel(); if (el) el.focus(); } });
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { if (Math.abs(stage.clientWidth - (stage.querySelector('svg') || {}).clientWidth) > 1 || true) renderField(); }, 160); });
+}
+
+async function initField() {
+  const stage = document.getElementById('field');
+  try { await d3Ready(); renderField(); wireField(); }
+  catch (err) { stage.hidden = true; document.getElementById('field-table').classList.remove('sr-only'); console.error('Field not drawn', err); }
+}
+
+// ── What mattered ──────────────────────────────────────────────────────────────
+async function renderPicks() {
+  const list = document.getElementById('picks-list'), label = document.getElementById('picks-label');
+  const byUrl = new Map(WIN.map(p => [p.url, p]));
+  let items = [], how = 'fallback';
+  try {
+    const v = encodeURIComponent(PULSE_DATA.generated_at_iso || PULSE_DATA.generated_at);
+    const r = await fetch('/assets/data/pulse/pulse-picks.json?v=' + v);
+    if (r.ok) {
+      const j = await r.json();
+      if (j.issue === FIELD.issue && Array.isArray(j.picks)) {
+        items = j.picks.map(k => ({ p: byUrl.get(k.url), why: k.why })).filter(k => k.p).slice(0, 5);
+        if (items.length) how = j.picked_by === 'atlas' ? 'atlas' : 'auto';
+      }
+    }
+  } catch (e) { /* no picks file for this issue: fall back below */ }
+  if (how === 'fallback') {
+    const seen = new Set();
+    (DIGEST_DATA.signal_stories || []).filter(s => s.published >= ISSUE_FROM && s.published <= ISSUE_TO).sort((a, b) => (b.signal_score || 0) - (a.signal_score || 0)).forEach(s => {
+      const beat = tagsOf(s)[0] || ''; if (items.length >= 5 || seen.has(beat)) return; seen.add(beat);
+      items.push({ p: { title: s.title, url: s.url, creator: s.creator, topic: s.topic, published: s.published }, why: s.signal_reason ? 'Ranked for: ' + s.signal_reason + '.' : '' });
+    });
+  }
+  label.textContent = how === 'atlas' ? 'Picked by the Atlas.' : how === 'auto' ? 'Selected automatically this week.' : 'Ranked automatically by signal.';
+  list.innerHTML = items.map(({ p, why }) => `<li class="pick">
+      <h3 class="pick-title"><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a></h3>
+      <p class="pick-meta"><span>${esc(p.creator)}</span><span>${esc(tagsOf(p)[0] || '')}</span><span>${esc(fmtDateShort(p.published))}</span></p>
+      ${why ? `<p class="pick-why">${esc(why)}</p>` : ''}</li>`).join('');
+}
+
+// ── Find your corner ───────────────────────────────────────────────────────────
+let cornerQ = '';
+let cornerShown = 50;
+const cornerBeatSlug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+function cornerFiltered() {
+  const toks = cornerQ.toLowerCase().split(/\s+/).filter(Boolean);
+  return WIN.filter(p => {
+    const t = tagsOf(p);
+    if (activeBeat !== 'all' && !t.includes(activeBeat)) return false;
+    if (activeBeat2 && !t.includes(activeBeat2)) return false;
+    if (toks.length) { const hay = [p.creator, ...(p.co || []), p.channel, p.title, p.topic].join(' ').toLowerCase(); if (!toks.every(k => hay.includes(k))) return false; }
+    return true;
+  });
+}
+
+function cornerSyncUrl() {
+  const q = new URLSearchParams(location.search);
+  ['beat', 'q'].forEach(k => q.delete(k));
+  if (activeBeat !== 'all') q.set('beat', [activeBeat, activeBeat2].filter(Boolean).map(cornerBeatSlug).join(','));
+  if (cornerQ) q.set('q', cornerQ);
+  const qs = q.toString();
+  try { history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash); } catch (e) { /* sandboxed preview */ }
+}
+
+function dayHeading(iso) { const d = new Date(iso + 'T00:00:00Z'); return d.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', timeZone: 'UTC' }); }
+
+function renderCorner() {
+  const rows = cornerFiltered();
+  const creators = new Set(rows.flatMap(p => [p.creator, ...(p.co || [])]));
+  const beatName = activeBeat === 'all' ? 'All beats' : activeBeat + (activeBeat2 ? ' + ' + activeBeat2 : '');
+  const cover = activeBeat === 'all' ? '' : ' who cover ' + activeBeat + (activeBeat2 ? ' and ' + activeBeat2 : '');
+  const line = document.getElementById('corner-line'), list = document.getElementById('corner-list'), more = document.getElementById('corner-more');
+  const sugg = document.getElementById('suggest-box'), form = document.getElementById('corner-form');
+  document.getElementById('corner-beat').value = activeBeat;
+  document.getElementById('corner-clear2').hidden = !activeBeat2;
+  const empty = rows.length === 0;
+  if (empty && cornerQ) {
+    line.textContent = `No one in the Atlas published on “${cornerQ}” this week.`;
+    sugg.hidden = false; form.hidden = true;
+    document.getElementById('sg-text').value = cornerQ;
+  } else {
+    sugg.hidden = true; form.hidden = false;
+    line.textContent = `${fmtN(creators.size)} ${creators.size === 1 ? 'creator' : 'creators'}${cover}${cornerQ ? ` matching \u201c${cornerQ}\u201d` : ''} published ${plural(rows.length, 'piece', 'pieces')} this week.`;
+  }
+  const interest = activeBeat === 'all' ? 'Atlas Pulse' : beatName;
+  document.getElementById('cf-label').textContent = `Want ${interest} every week? Tell us`;
+  document.getElementById('cf-interest').value = interest;
+  document.getElementById('cf-subject').value = 'Pulse: ' + interest;
+  const slice = rows.slice(0, cornerShown);
+  let html = '', day = '';
+  slice.forEach(p => {
+    if (p.published !== day) { if (day) html += '</ul>'; day = p.published; html += `<h3 class="c-day">${esc(dayHeading(day))}</h3><ul class="c-rows">`; }
+    const co = (p.co && p.co.length) ? ' with ' + p.co.map(esc).join(', ') : '';
+    html += `<li class="c-row"><a class="c-title" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a><span class="c-meta"><span>${esc(p.creator)}${co}</span><span>${esc(tagsOf(p)[0] || '')}</span><span>${esc(abbreviatePlatform(p.platform))}</span></span></li>`;
+  });
+  if (day) html += '</ul>';
+  list.innerHTML = html;
+  more.hidden = rows.length <= cornerShown;
+  more.textContent = `Show 50 more (${fmtN(rows.length - cornerShown)} left)`;
+  cornerSyncUrl();
+}
+
+function cornerSetBeat(label) {
+  activeBeat = label || 'all'; activeBeat2 = null; cornerShown = 50;
+  renderCorner();
+  const sec = document.getElementById('corner');
+  sec.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+  const sel = document.getElementById('corner-beat'); if (sel) sel.focus({ preventScroll: true });
+}
+
+function initCorner() {
+  const sel = document.getElementById('corner-beat'), q = document.getElementById('corner-q');
+  const tags = winTags(), main = FIELD.main;   // the Lens's shared main-beat list (28), not the field's ten
+  const rest = tags.filter(t => !main.includes(t)).sort((a, b) => a.localeCompare(b));
+  sel.innerHTML = '<option value="all">All beats</option>' +
+    '<optgroup label="Main beats">' + main.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('') + '</optgroup>' +
+    '<optgroup label="Other beats">' + rest.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('') + '</optgroup>';
+  // URL state: ?beat=slug[,slug]&q=text (old ?beat=Politics links still resolve)
+  const bySlug = s => tags.find(t => cornerBeatSlug(t) === cornerBeatSlug(s));
+  const want = (INITIAL_URL.get('beat') || '').split(',').map(bySlug).filter(Boolean);
+  activeBeat = want[0] || 'all'; activeBeat2 = want[1] || null;
+  cornerQ = (INITIAL_URL.get('q') || '').trim(); q.value = cornerQ;
+  sel.addEventListener('change', () => { activeBeat = sel.value; activeBeat2 = null; cornerShown = 50; renderCorner(); });
+  let t; q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { cornerQ = q.value.trim(); cornerShown = 50; renderCorner(); }, 120); });
+  q.addEventListener('keydown', e => { if (e.key === 'Escape') { q.value = ''; cornerQ = ''; renderCorner(); } });
+  document.getElementById('corner-clear2').addEventListener('click', () => { activeBeat2 = null; renderCorner(); });
+  document.getElementById('corner-more').addEventListener('click', () => { cornerShown += 50; renderCorner(); });
+  document.getElementById('sg-open').addEventListener('click', () => { const f = document.getElementById('suggest-form'); f.hidden = false; document.getElementById('sg-open').hidden = true; document.getElementById('sg-text').focus(); });
+  wireIntake(document.getElementById('corner-form'), 'Thanks. We will be in touch.');
+  wireIntake(document.getElementById('suggest-form'), 'Thanks. We will take a look.');
+  renderCorner();
+}
+
+// One Formspree endpoint, shared with /for-brands. Failure keeps the answer and says so (no false "sent").
+function wireIntake(form, okText) {
+  const msg = form.querySelector('.form-msg');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const bad = form.querySelector('[required]:invalid');
+    if (bad) { msg.dataset.state = 'error'; msg.textContent = bad.type === 'email' ? 'Please enter a valid email address.' : 'Please fill in this field.'; bad.focus(); return; }
+    const pu = form.querySelector('[name=page_url]'); if (pu) pu.value = location.href;   // the address with the viewer's filters, read at send time
+    msg.dataset.state = ''; msg.textContent = 'Sending…';
+    fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      .then(r => { if (!r.ok) throw new Error('status ' + r.status); msg.dataset.state = 'ok'; msg.textContent = okText; form.querySelectorAll('input:not([type=hidden]), button').forEach(el => { el.disabled = true; }); })
+      .catch(() => { msg.dataset.state = 'error'; msg.textContent = 'That did not send. Your answer is still here. Try again in a moment.'; });
+  });
+}
+
+// #method is a <details>: a link to it opens it.
+function openMethodFromHash() { if (location.hash === '#method') { const d = document.getElementById('method'); if (d) { d.open = true; } } }
+window.addEventListener('hashchange', openMethodFromHash);
+document.addEventListener('click', e => { const a = e.target.closest && e.target.closest('a[href="#method"]'); if (a) { const d = document.getElementById('method'); if (d) d.open = true; } });
+
+function pulseV3Init() { buildWindow(); initCorner(); renderPicks(); openMethodFromHash(); }
+
 renderDataAge();
-renderMasthead(true);   // lede only: it needs the digest, not the posts
+initField();
 try { await postsPromise; } catch (err) { PULSE_POSTS_FAILED = true; PULSE_DATA.posts = []; console.error('Pulse posts failed to load', err); }
 ECOSYSTEM_BEATS_7D = computeEcosystemBeats7d();
-renderMasthead();
-renderSignalPanel();
-renderIntel();
+pulseV3Init();   // window pieces, find your corner, what mattered. The lede, signal rail and weekly brief are no longer drawn (code kept).
 
-// PA tab: show only when public_affairs_signals is populated
+// For teams (moved into #method): show only when public_affairs_signals is populated
 (function() {
   const pa = DIGEST_DATA.public_affairs_signals;
-  const paTab = document.getElementById('tab-pa');
-  if (pa && Object.keys(pa).length) {
-    if (paTab) paTab.style.display = '';
-    renderPASignals();
-  }
+  if (pa && Object.keys(pa).length) { document.getElementById('method-pa').hidden = false; renderPASignals(); }
 })();
 
-renderStatStrip();
-renderBeatBar();
 renderHeatCalendar();
 
 // By Beat / By Platform toggle
@@ -3723,13 +4307,7 @@ document.getElementById('rhythm-btn-weekly').addEventListener('click', () => {
   renderCurrentCalendar();
 });
 
-populateHeaderPosts();
 renderCoMatrix();
-renderRecencyToggle();
-renderBeatPills();
-renderPlatformBreakdown('all');
-renderCreatorStrip();
-renderPosts();
 
 // Beat/creator search
 document.getElementById('beat-search').addEventListener('input', function() {
@@ -3798,50 +4376,7 @@ document.getElementById('beat-search').addEventListener('keydown', function(e) {
   }
 });
 
-// ── INSTRUMENT TABS (WAI-ARIA tabs: arrow keys, Home/End, URL-reflected) ──────────────────
-(function() {
-  const tablist = document.querySelector('.analysis-tabs');
-  const visibleTabs = () => [...tablist.querySelectorAll('.analysis-tab')].filter(t => t.style.display !== 'none');
-  function activate(tab, focus) {
-    tablist.querySelectorAll('.analysis-tab').forEach(t => {
-      const on = t === tab;
-      t.classList.toggle('active', on);
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-    });
-    document.querySelectorAll('.analysis-pane').forEach(p => {
-      const on = p.id === 'pane-' + tab.dataset.tab;
-      p.classList.toggle('active', on);
-      p.hidden = !on;
-    });
-    const d = document.getElementById('tab-descriptor');
-    if (d) d.textContent = tab.dataset.descriptor || '';
-    if (focus) tab.focus();
-    if (tab.dataset.tab === 'pa') renderPASignals();
-    syncUrl();
-  }
-  tablist.addEventListener('click', e => { const t = e.target.closest('.analysis-tab'); if (t) activate(t, false); });
-  tablist.addEventListener('keydown', e => {
-    const list = visibleTabs();
-    const i = list.indexOf(document.activeElement);
-    if (i < 0) return;
-    let next = null;
-    if (e.key === 'ArrowRight') next = list[(i + 1) % list.length];
-    else if (e.key === 'ArrowLeft') next = list[(i - 1 + list.length) % list.length];
-    else if (e.key === 'Home') next = list[0];
-    else if (e.key === 'End') next = list[list.length - 1];
-    if (next) { e.preventDefault(); activate(next, true); }
-  });
-  const want = INITIAL_URL.get('view');
-  activate(visibleTabs().find(t => t.dataset.tab === want) || document.getElementById('tab-activity'), false);
-})();
-
-// Restore a shared ?q= search once the handlers above exist.
-(function() {
-  const q = (INITIAL_URL.get('q') || '').trim();
-  const input = document.getElementById('beat-search');
-  if (q && input) { input.value = q; input.dispatchEvent(new Event('input')); }
-})();
+// (The instrument tab bar is gone: Rhythm, Overlap and For teams sit in #method. The old tab and ?q= restore code was removed with it.)
 }
 pulseBoot();
 </script>
