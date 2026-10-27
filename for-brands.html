@@ -33,6 +33,13 @@
        Merriweather carries the argument, Inter carries everything you read to understand,
        Source Code Pro is reserved for live data (.live). Acid = live/now, on dark only as text,
        on light only as a fill. No per-section color. */
+    /* CLS: size-adjusted local fallbacks so the swap to the web fonts barely moves the text. Metrics measured from the font
+       files (average advance of English text vs Arial / Georgia Bold; ascent and descent divided by the size-adjust). */
+    @font-face { font-family: 'Inter Fallback'; src: local('Arial'); size-adjust: 107.5%; ascent-override: 90.1%; descent-override: 22.4%; line-gap-override: 0%; }
+    @font-face { font-family: 'Merriweather Fallback'; src: local('Georgia Bold'), local('Georgia-Bold'); font-weight: 700; size-adjust: 96.5%; ascent-override: 102%; descent-override: 28.3%; line-gap-override: 0%; }
+    :root { --font-primary: 'Inter', 'Inter Fallback', sans-serif; --font-editorial: 'Merriweather', 'Merriweather Fallback', serif; }
+    /* The header's menu button shows its icon-font ligature text until the font loads; a fixed box keeps it from shifting. */
+    #mobileMenuButton { width: 44px; height: 44px; overflow: hidden; }
     *, *::before, *::after { box-sizing: border-box; }
     body { margin: 0; font-family: var(--font-primary); font-size: 16px; line-height: 1.6; color: var(--color-text); background: #fff; }
     .wrap { max-width: 1440px; margin: 0 auto; padding: 0 16px; }

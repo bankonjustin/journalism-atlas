@@ -272,3 +272,37 @@ CLS is at the 0.1 line, a hair over on two runs. The shifts are the font swap an
 1. Flip `ATLAS_FLAGS.lens` to true for the launch? Data through Oct 22 shows plainly on the panel; the private repo has a fresher scrape if you run the publish step first.
 2. The CLS follow-up.
 3. Whether orange-as-live gets written into the token doc (James).
+
+## Pre-push checks (2026-10-27, evening)
+Changed: `for-brands.html` (CLS fixes only). Private repo: `pipelines/pulse/update_pulse.py` (for-brands step removed), `pipelines/pulse/pulse_digest.py` (one comment), `spidering/core/refresh_pulse.sh` (step 3b, from the last entry). Nothing committed by me. At this moment `git status` in the public repo shows only `for-brands.html` and one new screenshot as uncommitted.
+
+### 1. The two "insulin" titles
+They were Portuguese: "Insulina semanal: jovem compartilhar novidade no Brasil" and "Insulina por 2 euros na Itália? Advogado com diabetes explica como funciona o acesso ao medicamento". The old matcher matched "insulin" inside "Insulina", a false positive; whole-word matching dropped them correctly. Plurals, possessives and hyphens were already accepted, because an apostrophe or hyphen is a word boundary and the matcher allows a trailing s/es. Checked on synthetic titles for the query "insulin": matches "Insulin's price", "Insulin’s price", "insulins are", "Insulin-maker sues", "Novo's insulin-pen recall"; does not match "Insulina semanal", "insulinoma study" or "centered on data". "data center", "data centers" and "Data Center" each return 13 pieces / 12 journalists; "data-center fight" and "Data Center's cost" match. No change to the matcher was needed. One known limit: the run-together "datacenter" is not matched.
+
+### 2. update_pulse.py: removed, not skipped
+Deleted the whole for-brands step, its constants (`BRANDS_HTML`, `BRANDS_BEATS`, `BRANDS_POSTS_PER_BEAT`), `build_brands_snapshot()` and the now-unused `beat_stats_7d()`; updated the docstring and `--pulse-only` help text. `pulse_digest.py` referenced the old function only in a comment, now fixed. Dry runs: `update_pulse.py --dry-run` and `--dry-run --pulse-only` both complete with no for-brands output at all. The dry run reads the Oct 27 scrape: Vol. 1 No. 8 (2026-W44), 907 creators, 3,153 posts. Not run for real.
+
+### 3. CLS
+Added size-adjusted local fallbacks for the web fonts (Inter over Arial: 107.5% size-adjust, 90.1% ascent, 22.4% descent; Merriweather 700 over Georgia Bold: 96.5%, 102%, 28.3%; measured from the font files, Latin subset, English letter frequencies) and a fixed 44x44 box on the header menu button, whose icon-font ligature text was shifting. Page-scoped; the shared `header.css` is untouched. Fallbacks cover Inter regular and Merriweather bold only; bolder Inter weights still swap from the regular-weight fallback.
+Mobile Lighthouse, `?lens=1&issue=AI`, three runs on the compressing server:
+| Run | Perf | A11y | SEO | LCP | CLS |
+|---|---|---|---|---|---|
+| 1 | 88 | 100 | 100 | 3.85 s | 0.0002 |
+| 2 | 99 | 100 | 100 | 1.74 s | 0.0002 |
+| 3 | 99 | 100 | 100 | 1.74 s | 0.0002 |
+| **Median** | **99** | 100 | 100 | **1.74 s** | **0.0002** (was 0.103) |
+Run 1 is the usual cold-start outlier. The remaining shifts are the site's top banner dismiss button, 0.0001 each.
+
+### 4. The build for tonight
+`sh build-dist.sh` runs clean. In `dist/for-brands.html`: `lens: false`, no `{{` tokens left, the hero reads "The Atlas tracks 2,415", the description carries 2,415, `lens-index.json` is present (491,638 bytes), no layout-preview text. With the flag off the page has no Lens in the DOM and makes no request for the index (checked). Final Lens re-test with the flag on: AI 91/81, Politics 965/186, Housing 6/2 plus 12 more titles, insulin and Bitcoin empty, no console errors.
+
+### Step 1, tonight (public repo, via GitHub Desktop)
+Stage `for-brands.html`. That is the only uncommitted change that matters; the screenshot is optional. Lens flag is off, so the page ships with the honest form, the build-stamped count, and the plain hero link.
+
+### Step 2, tomorrow morning
+1. Run `./refresh_pulse.sh` for real (about 10 minutes plus the digest). It is the first real run of the patched `update_pulse.py` and of step 3b.
+2. Check: the digest gate passed (no "digest" in the failed-steps list); step 3b printed a build line with 3,000-ish pieces and `data through 2026-10-27`; its chip list; `featured` lines (a featured issue under 5 matches is dropped and logged).
+3. If all pass, set `lens: true` in `ATLAS_FLAGS` in `for-brands.html` and commit with the fresh Pulse files and `assets/data/lens-index.json`.
+4. If the gate fails, do not flip the flag and do not stage the Lens files; step 1 stays live and nothing breaks. If only 3b fails, the Pulse refresh can still go out and the Lens stays off.
+5. Private repo: commit `update_pulse.py`, `pulse_digest.py` and `refresh_pulse.sh` after the real run works, or any time (they do not deploy).
+After it is live, check in a real browser: `?issue=AI` loads the panel; `/assets/data/lens-index.json` returns 200; the panel says data through Oct 27; a test brief arrives from Formspree with `lens_query` filled in.
