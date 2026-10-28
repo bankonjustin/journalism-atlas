@@ -12,6 +12,11 @@
    When in doubt, check DESIGN-TOKENS-v15.md for the canonical value.
    ============================================= */
 
+/* Metric-matched local fallbacks (DESIGN-TOKENS-v16.md § Font Tokens). Implementation values for layout stability. */
+@font-face { font-family: "Inter Fallback"; src: local("Arial"), local("Arimo"), local("Liberation Sans"); size-adjust: 107.5%; ascent-override: 90.1%; descent-override: 22.4%; line-gap-override: 0%; }
+@font-face { font-family: "Source Code Pro Fallback"; src: local("Courier New"), local("CourierNewPSMT"), local("Liberation Mono"); size-adjust: 100%; ascent-override: 98.4%; descent-override: 27.3%; line-gap-override: 0%; }
+@font-face { font-family: "Merriweather Fallback"; src: local("Georgia"); }
+
 :root {
 
   /* =========================================
@@ -126,6 +131,16 @@
   --color-border-dark-hover:  #606068;
   --color-error-dark:         #ff4422;
 
+  /* PROVISIONAL (Oct 28, 2026), for James to confirm, rename or replace. Error TEXT roles from the Material 3 baseline.
+     Why separate: --color-error is James's value and is 4.3:1 on white and 3.7:1 on --color-bg, under the 4.5:1 text
+     minimum. These do not replace it. Use for error messages (text, with an "Error:" prefix or an icon); not fills.
+     Contrast, light: M3 error 6.5:1 on white, 5.7:1 on --color-bg. Dark: M3 dark error 12.3:1 on black, 11.0:1 on
+     --color-surface-dark, 7.7:1 on step 6. On-error pairs: white on M3 error 6.5:1; M3 dark on-error on M3 dark error 7.7:1. */
+  --color-error-provisional:            #b3261e;   /* on light surfaces */
+  --color-on-error-provisional:         #ffffff;   /* on an --color-error-provisional fill */
+  --color-error-on-dark-provisional:    #f2b8b5;   /* on dark surfaces */
+  --color-on-error-on-dark-provisional: #601410;   /* on an --color-error-on-dark-provisional fill */
+
 
   /* =========================================
      CANVAS — Always-dark surface tokens
@@ -166,30 +181,26 @@
      Weights: 400 / 500 (Source Code Pro labels only) / 600 (H3) / 700. 800 retired in v15.
      ========================================= */
 
-  /* Font families */
-  --font-primary:   'Inter', sans-serif;
-  --font-mono:      'Source Code Pro', monospace;
-  --font-editorial: 'Merriweather', serif;   /* reactivated Sept 2026 — DESIGN-TOKENS-v15.md v11 § Font Stack */
+  /* Font families. DESIGN-TOKENS-v16.md § Font Tokens.
+     The ONLY place in the codebase that names a font family. Pages use these variables. */
+  --font-primary: 'Inter', 'Inter Fallback', sans-serif;                    /* UI and body */
+  --font-heading: var(--font-primary);                                      /* every heading, every page */
+  --font-mono:    'Source Code Pro', 'Source Code Pro Fallback', monospace; /* all-caps labels and tags only */
+  --font-prose:   'Merriweather', 'Merriweather Fallback', serif;           /* editorial article body prose only */
 
-  /* Legacy alias */
-  --font-ui: 'Inter', sans-serif;
+  /* Retired in v16. Kept only until the Pulse and For Brands brief removes the last use; then delete. */
+  --font-editorial: var(--font-prose);
 
-  /* Type scale — v7 (Display 48 / H1 36 / H2 28 / H3 20 / Body 16 / Small 13 / Micro 11) */
-  --text-display:  48px;   /* 700 (v15; was 800) · lh 53px */
-  --text-h1:       36px;   /* 700 · lh 44px */
-  --text-h2:       28px;   /* 700 · lh 35px */
-  --text-h3:       20px;   /* 600 · lh 26px */
-  --text-body-lg:  16px;   /* 400 · lh 26px — default reading size */
-  --text-body-md:  14px;   /* 400 · lh 22px */
-  --text-label:    14px;   /* 400 · lh 20px */
-  --text-small:    13px;   /* 400 · lh 20px — floor for all UI text */
-  --text-micro:    11px;   /* 500 · lh 15px — all-caps labels only; letter-space 0.08–0.1em */
-
-  /* Legacy aliases */
-  --text-title:  20px;   /* maps to H3 */
-  --text-body:   16px;
-  --text-data:   14px;
-  --text-micro-legacy: 12px;   /* pre-v7 micro; do not use for new work */
+  /* Type scale. DESIGN-TOKENS-v16.md § Type Scale (Size variables) */
+  --text-display: 48px;  /* 700, lh 1.1 */
+  --text-h1:      36px;  /* 700, lh 1.2 */
+  --text-h2:      28px;  /* 700, lh 1.25 */
+  --text-h3:      20px;  /* 600, lh 1.3 */
+  --text-body:    16px;  /* 400, lh 1.6 */
+  --text-button:  15px;  /* Inter 600, buttons only */
+  --text-small:   13px;  /* 400, lh 1.5: the floor for everything except Tag */
+  --text-label:   13px;  /* Source Code Pro 500, caps, lh 1.4, 0.08–0.12em */
+  --text-tag:     12px;  /* Source Code Pro 500, caps, lh 1.2 (1.4 meta lines), 0.08em */
 
   /* Line heights (computed from v7 ratios) */
   --lh-display:  53px;   /* 48 × 1.1  */

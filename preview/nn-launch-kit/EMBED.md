@@ -69,6 +69,6 @@ Add `&embed=1` to any of these when embedding.
 
 - Tabs are keyboard reachable (arrow keys move between them) and the explorer follows the visitor's light or dark setting. The chart stage is always black.
 - With "reduce motion" on, tabs switch instantly with no animation.
-- Hover or tap a mark for a card. The card shows cohort, path to size and year founded. This address withholds organization names; whether names appear is still an open decision.
+- Hover or tap a mark for a card. The card shows the organization's name, cohort, mechanism (or "Started above $10M" / "No mechanism"), revenue bracket and year founded. Organization names are shown: Justin and Carrie decided on the Oct 28 call to publish with names, which settles the earlier open decision.
 - No cookies, no network requests, no external fonts or scripts: the page is one self-contained file.
 - Open questions for ASU: whether iframes are allowed, whether scripts are allowed, and the maximum content width. These decide which snippet to use.

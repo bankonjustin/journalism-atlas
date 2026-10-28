@@ -3,6 +3,9 @@
 ## Standing rules
 - **Dated vs. live numbers (Oct 27).** A dated document keeps the figure it had on its date; the live figure appears next to it, labeled live. Never drop today's number into a sentence about a past version or brief.
 - Counts come from build tokens only (`{{CREATOR_COUNT}}`, `{{COUNT_AS_OF}}`, `{{BLUESKY_COUNT}}`).
+- **Design system is v16 (Oct 27).** Phase 3 builds on `docs/design/DESIGN-TOKENS-v16.md` and `docs/design/CLAUDE-DESIGN-RULES.md`, not v15. Read `docs/design/CLAUDE-DESIGN-RULES.md` before any styling. Decision 0 below is answered by this: Inter headings, Merriweather only in editorial articles, no orange "live" accent.
+- **How we research must add zero new brand-check violations.** `python3 scripts/check_brand.py --tight` must pass with the baseline unchanged or lower for that page; no new hex, `rgba()`, named color, font literal or size under 12px. List anything v16 can't give for James instead of improvising.
+- **Phase 1 status:** the Phase 1 hotfix, revision and belief-line addendum were committed in `50251de` and are on `main`; the "Nothing committed" lines in those sections are stale. The brand-check baseline (3,041 violations in 59 files, written Oct 27) already includes Phase 1.
 
 ## Phase 5 redirect table (running)
 | Old | New | Note |
@@ -11,6 +14,10 @@
 | /how-we-did-this(.html) | /how-we-research | |
 | /advisory(.html) | /who-we-are#boards | only if the merge is approved |
 | /what-we-do(.html) | /about | retarget the existing rule (today it goes to /about-this-project); keep it single-hop |
+| Desktop and mobile nav "About" link (`assets/js/header.js`, two places) | /about | Added to the desktop nav Oct 27, pointing at `/about-this-project.html` like the mobile menu. Retarget both when /about ships after Oct 28. |
+
+## Who We Are: James's listing (2026-10-27)
+Hold. James's title ("Design Lead") and bio on `who-we-are.html` stay exactly as they are, with no alternates. James to supply title and bio later.
 
 ## Decisions waiting on Justin (keep current)
 0. **Design system (blocks Phase 3).** The brief says Playfair Display / DM Sans / Space Mono and orange for "changed recently." The repo (v15 tokens) and both sister ledgers use Inter / Merriweather / Source Code Pro with Acid as the single "live" color; there is no orange token. The brief says to reuse the Pulse and /for-brands tokens, so I plan on v15 (Space Mono rule becomes Source Code Pro, orange becomes Acid). Confirm, or James approves a departure.
@@ -26,6 +33,15 @@
 10. The paper's published URL.
 11. **New: reviewer wording.** See finding F3. Rewrite "no single person decides" or change the practice.
 12. **New: "one form, same endpoint."** /contact#contribute is an embedded Google Form iframe. There is no endpoint to post to. Embed the same iframe on How we research, or move to a real form (needs a backend).
+
+## How we research: direction (approved by James, 2026-10-27)
+- **Direction: lab notebook.** The page reads as a researcher's notebook, built from v16 tokens only (Inter headings, no new fonts, colors or motion beyond what v16 defines).
+- **One signature element: "Trace this number."** Every figure on the page can be traced to its source. It is the only signature element; do not add others.
+- **Do not build the Trace interaction yet.** Open with James first (answers go here):
+  1. How does a traced number open: in place (inline expand) or in a side panel? Especially on mobile (390px), where a side panel may cover the page.
+  2. Is the single motion the draw-down (a line drawn from the number to its source) or a plain open? v16 defines no motion roles today, so either needs James's ruling and a token.
+- **Allowed meanwhile:** the lab-notebook layout and copy, with each traceable number marked up (for example `data-trace` on the figure) so the interaction can attach later. No behavior, no animation.
+- **Guardrail:** How we research must add zero new brand-check violations (see Standing rules).
 
 ## Phase 0: Audit (2026-10-27)
 Changed: nothing in the site. Created this ledger and `about_screens/phase-0/` (32 PNGs: home, overview, who, method, advisory, research, contact, bluesky at 390/768/1280/1600, full page, from a local copy with count tokens stamped). Nothing committed.

@@ -2,17 +2,14 @@
 
 *Updated 2026-10-06 after the autonomous v14 run. Delete an item when it is resolved.*
 
-## For James
-1. **Report article links.** `research/nodes-and-networks.html` styles body links with its own blue (`--blue: #185FA5`, underlined). v14 says olive + underlined on light. Skipped: the page is a copy-locked template with its own palette (warm off-system grays, `#faf9f5` background). Switch to olive?
-2. **CTA-style links inside sentences** (arrow links, e.g. "Submit here →" in `how-we-did-this.html`, "Switch to Journalism →" in `city-lab-dc-v3.html`) and the beat-name links in the Pulse masthead lede (`a.lede-beat`, white on dark, no underline). Inline-link rule or CTA/tag rule?
-3. **Focus ring on dark.** v14 says lime; `--focus-ring-dark` is still acid. Confirm and I will move it.
-4. **`#a8a8a8` → step 5.** `--color-border-hover` now jumps from a pale gray to `#5e5e64` (as ruled). Keep, or step 3/4?
-5. **Off-system grays** (~107 colors, 1,444 uses, incl. the warm family): by-role proposal in `docs/V12-UNMAPPED-GRAYS-PROPOSAL-2026-10-06.md`.
-6. **Charts** use brand-secondary colors as categories; `ATLAS_VIZ_COLORS` migration needs Ryan's taxonomy mapping.
-7. **Header search button** is now acid at rest on every page (it was lime). Confirm.
-8. Tier 2 contrast column in v14: label it Neutral (the Cool figures are the semantic table's).
+Design rules: DESIGN-TOKENS-v16.md. Open design questions for James live in docs/design/v15-session-2/JAMES-OPEN-ITEMS.md.
 
 ## For Justin
+- **v16 install, to finish (2026-10-27):** walk James through `docs/briefs/V16-INSTALL-NOTES-FOR-JAMES-2026-10.md`; **CODEOWNERS is deferred** (no file yet; write it once you have James's GitHub username, using the narrowed list in his notes); do the GitHub and Cloudflare steps in the install brief's Part E; check the first Cloudflare build log shows the brand check printing OK (or a SKIPPED warning, which means Python is missing).
+- **Brand-check burn-down (approved):** order is `index.html`, `pulse.html`, `city-lab-chicago.html`, then by count; Chicago is not exempt. Each fix regenerates `scripts/brand-baseline.json` in the same change.
+- **Provisional, confirm with James:** error text roles, monospace = live or versioned data only, Acid = changed recently (see `docs/design/CLAUDE-DESIGN-RULES.md`).
+- **Team DMV header and footer:** open decision.
+- **TIJA LLC GitHub organization and the repo going private:** see the repo-visibility brief.
 - **Logos:** header swap done (blk/wht wired, default white). Still needed: `Atlas_logo_lockup_stacked_wht_web.svg` (the footer still uses `Journalism_Atlas_wordmark_stacked_white.svg`). The old header SVG (`Journalism_Atlas_wordmark_horizontal_lockup_black.svg`) is now unreferenced and can be deleted.
 - **Partner pages have a 72px empty band above the header** (`body { padding-top: 72px }`, pre-existing; the nav is sticky now). Remove the padding?
 - **22 pages without `variables.css`** (14 hardcode a green). They were skipped everywhere. Fix = link `variables.css` (visible change) or hardcode v14 colors. Includes `partners/nj-lab.html` / `njlab.html`, whose link is a relative path that 404s. Lists: `docs/V14-STEP2I-2026-10-06.md`, `docs/V14-RESIDUAL-GREENS-2026-10-06.md`.
@@ -29,6 +26,6 @@
 - **Release date, dateline, launch date** are open.
 - **URL:** `partners/smartnews` (default on ungate, via `git mv`) vs `/smartnews` with a redirect.
 - **Template:** should this become the reusable "partner announcement" template? Recommendation: after the second partner.
-- **Brand guide:** resolved. `ATLAS-BRAND-GUIDE-v4.md` and `DESIGN-TOKENS-v15.md` live in `docs/design/` (v14 tokens in `docs/design/archive/`). `ATLAS-BRAND-GUIDE-v3.md` is still at the repo root, superseded; archive it when convenient.
+- **Brand guide:** resolved. `ATLAS-BRAND-GUIDE-v5.md` and `DESIGN-TOKENS-v16.md` live in `docs/design/`; earlier versions (v3, v4, v14, v15) are in `docs/design/archive/`.
 - **Before ungating:** deploy the Apps Script, submit one real test application and confirm the row lands in the Sheet (the form posts with `no-cors` and shows success even when the endpoint is broken).
 - **For James:** twelve items in `docs/briefs/smartnews/REVIEW-NOTES-JAMES.md`, including error-text contrast (4.3:1) and the header search field at 390 px.

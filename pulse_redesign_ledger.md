@@ -1,3 +1,5 @@
+> Font, color and "live" choices below are superseded by DESIGN-TOKENS-v16 and docs/briefs/Atlas-Pulse-For-Brands-Brief-2026-10.md.
+
 # Pulse redesign ledger
 
 ## Phase 0: Audit (2026-10-26)

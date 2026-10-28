@@ -1,3 +1,5 @@
+> Superseded by docs/design/DESIGN-TOKENS-v16.md and ATLAS-BRAND-GUIDE-v5.md (October 27, 2026). Do not implement from this file.
+
 # Pulse tokens (Phase 2, hero)
 
 Built on the v15 neutrals in `assets/css/variables.css`. Light values are the page's existing colours; dark values use the v15 dark neutrals.

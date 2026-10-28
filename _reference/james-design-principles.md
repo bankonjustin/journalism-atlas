@@ -1,4 +1,6 @@
 # James Design Principles
+
+> Where a value here conflicts with DESIGN-TOKENS-v16.md, v16 wins.
 *James Bareham / Happicamp — Web Design Principles for Journalism Atlas*
 *Source: james-design-principles.pdf*
 

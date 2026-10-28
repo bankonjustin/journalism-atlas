@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Brand check fixture: must produce zero violations</title>
+<style>
+#fade { }
+.pass-text   { color: var(--color-text); }
+.pass-olive  { color: #5d7400; }
+.pass-white  { color: white; }
+.pass-icon   { fill: currentColor; }
+.pass-border { border-color: transparent; }
+.pass-font   { font-family: var(--font-primary); }
+.pass-size   { font-size: 13px; }
+.pass-grad   { background: linear-gradient(#ffffff, #000000); }
+/* white or black with alpha is allowed anywhere except as a text color */
+.pass-shadow  { box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.pass-tshadow { text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
+.pass-border  { border: 1px solid rgba(255,255,255,0.2); }
+.pass-scrim   { background: rgba(0,0,0,0.5); }
+.pass-fade    { background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.6)); }
+.pass-shape   { fill: rgba(0,0,0,0.2); }
+</style>
+</head>
+<body>
+<a href="#bad">anchor</a>
+<svg><rect fill="rgba(255,255,255,0.4)"/></svg>
+<a href="#add">anchor</a>
+<script>
+document.querySelector('#bed');
+d3.select("svg").append("rect").attr("fill","rgba(0,0,0,0.3)");
+ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillRect(0, 0, 10, 10);
+</script>
+</body>
+</html>
