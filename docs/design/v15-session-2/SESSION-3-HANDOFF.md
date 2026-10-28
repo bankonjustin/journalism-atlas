@@ -9,8 +9,8 @@ Branch `main`, 13 local commits ahead of `origin/main` (`b8fc045` was the last p
 ## What Session 3 should pick up
 
 1. **Bluesky page mobile layout** (705px at phone width: hero `1fr 440px`, header row, section meta, CTA). Also 320px-only: `for-brands` gallery column (367px) and `partners/njlab` CTA (368px). C10 is done (`C10-REPORT.md`); C10b (hamburger at 1214px, 24px gap from 1215–1279px) needs a decision before push.
-2. **Eyebrows.** Non-clickable caps labels without arrows (v15: Source Code Pro 500, 13px, 0.12em, step 5 on light; step 3 or Acid on dark). Many are still DM Mono / JetBrains Mono at 8–11px (`index`, `for-brands`, `pulse`, `research`). The `link-instruction` work did not touch them.
-3. **Tags** (12px Source Code Pro caps, 6px radius, no pills, no hover): not started.
+2. **Eyebrows.** Non-clickable caps labels without arrows (v15: Source Code Pro 500, 13px, 0.12em, step 5 on light; step 3 or Acid on dark). Many are still DM Mono / JetBrains Mono at 8–11px (`index`, `for-brands`, `pulse`, `research`). The `link-instruction` work did not touch them. **Replaced by `docs/briefs/Atlas-Type-Consolidation-Brief-2026-10.md`.**
+3. **Tags** (12px Source Code Pro caps, 6px radius, no pills, no hover): not started. **Replaced by `docs/briefs/Atlas-Type-Consolidation-Brief-2026-10.md`.**
 4. **nj-lab / njlab** (F2): no `components.css`, broken `variables.css` link, `.cta-ghost`, `.cta-primary` with Lime hover. Needs James's answer on item 3 in open items first.
 5. **Open items marked "unsure"** (tab strips, `hcn-pill`, carousel dots, `lede-creator`, Chicago "245" link): wait for James.
 6. **Dead CSS** (`DEAD-CSS.txt`): ~60 selectors in 15 files; safe to delete after a quick visual check.

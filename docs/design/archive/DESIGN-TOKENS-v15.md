@@ -1,3 +1,5 @@
+> Superseded by docs/design/DESIGN-TOKENS-v16.md and ATLAS-BRAND-GUIDE-v5.md (October 27, 2026). Do not implement from this file.
+
 # Atlas Design Tokens — v15
 *Canonical design reference — committed to repo as source of truth for implementation*
 

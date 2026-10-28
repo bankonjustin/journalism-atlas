@@ -146,6 +146,7 @@ window.atlasTrack = function(eventName, params) {
         '      <a href="/for-brands.html" class="nav-link">For Brands</a>',
         '      <a href="/research" class="nav-link">Research &amp; Writing</a>',
         '      <a href="/how-we-did-this.html" class="nav-link">How it works</a>',
+        '      <a href="/about-this-project.html" class="nav-link">About</a>',
         '    </div>',
         '    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Open menu">',
         '      <svg class="atlas-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>',

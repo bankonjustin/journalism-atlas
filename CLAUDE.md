@@ -1,8 +1,8 @@
 # Atlas — Claude Code Session Guide
 
 *Project: Independent Journalism Atlas (journalismatlas.com)*
-*Owner: Justin | Design system: James (james@journalismatlas.com)*
-*Last updated: October 22, 2026 (design tokens now v15, brand guide v4; v15 is rolling out in stages, see "v15 rollout status")*
+*Owner: Justin (product, structure, copy, build) | Design rules: locked in docs/design/DESIGN-TOKENS-v16.md, owned by James (james@journalismatlas.com)*
+*Last updated: October 27, 2026 (design tokens v16, brand guide v5)*
 
 **Read at session start:** This file + `WORKFLOW.md` (decision authority, "done" definition, Chat→Code handoff protocol, deploy process).
 
@@ -14,7 +14,7 @@
 
 - No sycophantic openers ("Great question!", "I'd be happy to help with that!", "Absolutely!")
 - No restating the request back before answering
-- No hedging on calls already settled by this file, `docs/design/DESIGN-TOKENS-v15.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
+- No hedging on calls already settled by this file, `docs/design/DESIGN-TOKENS-v16.md`, or `james-design-principles.md` — state the answer, cite the rule, move on
 - Flag genuine ambiguity once, briefly, then proceed with the most reasonable interpretation rather than stalling
 
 ### Required reading order
@@ -22,8 +22,9 @@
 | File | When |
 |------|------|
 | `CLAUDE.md` (this file) | Always |
-| `docs/design/DESIGN-TOKENS-v15.md` | Before any CSS/styling work |
-| `docs/design/ATLAS-BRAND-GUIDE-v4.md` | Before writing any user-facing copy (voice, self-description, em dash style, database-size wording). Hanken Grotesk is retired per this guide. |
+| `docs/design/CLAUDE-DESIGN-RULES.md` | Before any CSS, styling, inline styles, chart or canvas work. Read first; it overrides this file on design |
+| `docs/design/DESIGN-TOKENS-v16.md` | Before any CSS, styling, markup with inline styles, chart or canvas work. Read **Governance, Locks and Exceptions** first |
+| `docs/design/ATLAS-BRAND-GUIDE-v5.md` | Before writing any user-facing copy (voice, self-description, em dash style, database-size wording) |
 | `_reference/james-design-principles.md` | Before any visual/component decision |
 | `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
 | `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
@@ -55,9 +56,11 @@ A vanilla JS static HTML site. No npm, no React, no bundler. All pages are singl
 
 ## Design System
 
-All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` as the single source of truth (v14 is archived in `docs/design/archive/`). Brand voice and strategy: `docs/design/ATLAS-BRAND-GUIDE-v4.md`. The CSS implementation of the tokens lives in `assets/css/variables.css`, the canonical token file, loaded before all other stylesheets.
+**Design rules are locked to v16 and live in `docs/design/CLAUDE-DESIGN-RULES.md`. Read it before any styling work.** Never pick a design value; apply briefs by role; undefined means unbuilt. That file wins over anything in this section.
 
-**v15 rollout status.** v15 is being applied in stages, scoped in `docs/design/v15-discovery/V15-SCOPE-BUCKETS.md`. The rules below describe the target. Until a stage has shipped, live pages can still show the old look (for example Acid-at-rest buttons, pill tags and DM Mono/JetBrains Mono labels). When a rule and a page disagree, the rule wins for new work; don't "fix" old pages outside the stage being worked.
+All visual implementation references `docs/design/DESIGN-TOKENS-v16.md` as the single source of truth (v14 is archived in `docs/design/archive/`). Brand voice and strategy: `docs/design/ATLAS-BRAND-GUIDE-v5.md`. The CSS implementation of the tokens lives in `assets/css/variables.css`, the canonical token file, loaded before all other stylesheets.
+
+**v15/v16 rollout status.** v16 adds no visual values; it locks v15 and adds the type rules above. The type work is in docs/briefs/Atlas-Type-Consolidation-Brief-2026-10.md. Until a stage ships, live pages can still show the old look; the brand check's baseline records what's left, and new work may not add to it. v15 is being applied in stages, scoped in `docs/design/v15-discovery/V15-SCOPE-BUCKETS.md`. The rules below describe the target. Until a stage has shipped, live pages can still show the old look (for example Acid-at-rest buttons, pill tags and DM Mono/JetBrains Mono labels). When a rule and a page disagree, the rule wins for new work; don't "fix" old pages outside the stage being worked.
 
 **Built in Session 2 (Oct 23, 2026; committed locally, not yet pushed; details in `docs/design/v15-session-2/V15-SESSION-2-REPORT.md`):** `assets/css/components.css` (`.btn--primary`, `.btn--secondary`, `.btn-icon`, `.link-instruction`, `.link-body`, global focus rings, `.on-dark` surfaces), `components.js` (selected ARIA), header nav states with `aria-current`, white footer links, report "Jump to" restyle. Buttons now rest gray/outlined and turn Acid on hover; the live site still shows the old look until that push.
 
@@ -69,7 +72,7 @@ All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` as the s
 
 ### Non-negotiable rules (memorize these)
 
-- **Green means interaction (docs/design/DESIGN-TOKENS-v15.md § Component States).** Buttons, tags, instruction links and nav rest in monotones. Green appears on hover, press and selected. The only things that rest in green are body links on light surfaces (Dark Olive, underlined) and eyebrows on dark surfaces (Acid allowed).
+- **Green means interaction (docs/design/DESIGN-TOKENS-v16.md § Component States).** Buttons, tags, instruction links and nav rest in monotones. Green appears on hover, press and selected. The only things that rest in green are body links on light surfaces (Dark Olive, underlined) and eyebrows on dark surfaces (Acid allowed).
   - **Acid `#ceff00`:** hover, press and selected. **Fill only on light surfaces** (black text on top); fills, text, underlines and icons on dark. Never a success signal. No per-composition limit.
   - **Lime `#97d600`:** keyboard focus ring on dark surfaces only. Not a hover color. Not used on light.
   - **Dark Olive `#5d7400`:** the green for text, icons, underlines and thin strokes on light surfaces (hover and selected text, current nav item, body links, focus ring). Never a fill, button background or hover fill. Not used on dark (4.0:1 on black).
@@ -81,16 +84,14 @@ All visual implementation references `docs/design/DESIGN-TOKENS-v15.md` as the s
   - **Migration state:** primitives `--color-acid` / `--color-lime` / `--color-olive` exist and role variables point at them. `--color-hover` still resolves to Lime until the green-model stage; v15 makes it an alias of Acid. Migrate each use by role; never repoint `--color-accent` in place without checking its uses.
 - **Gray scales (v15):** the website uses the **Neutral** scale (`--gray-neutral-*`) for every semantic gray role, through the role variables (`--color-bg`, `--color-text`, `--color-text-secondary`, `--color-muted`, `--color-border`, `--color-text-on-dark-2`, `--color-border-on-dark`, `--color-surface`, `--color-surface-dark`, `--color-heading`). Use the role variable, not a hex. **Cool** (`--gray-cool-*`) is for graphics only (charts, infographics, illustrations); an embedded graphic counts as its own surface. Don't mix scales on one surface.
 - **Site header = `#ffffff` (default, matches the live site) or `#000000`** (a per-page choice). Logo must match (`..._blk_web.svg` on white, `..._wht_web.svg` on black); nav text follows the header (step 1 on black; step 6 or 8 on white); hover is underlined; selected (current page) is Dark Olive on white or Acid on black with a 2px underline, offset 8px. Anything docked to the header (the report "Jump to" sub-nav) uses the same background. The black theme is wired: `header.js` switches the logo with `<html data-header-theme="black">` (default white). Pages do not request it yet.
-- **Body copy minimum 16px.** Small (13px) is the floor for UI text. All-caps UI labels are Source Code Pro 500: **Label 13px** (eyebrows, instruction links, 0.08–0.12em) and **Tag 12px** (tags, badges, card meta lines, 0.08em). 12px Source Code Pro is the only size allowed below 13px.
 - **Material Symbols Outlined only.** Filled only for active toggle/action icons (save, follow, bookmark). Navigation and section icons stay outlined at every state.
 - **4px base spacing unit:** xs 4 / sm 8 / md 16 / lg 24 / xl 32 / 2xl 48 / 3xl 96.
-- **Font weights: 400 / 500 / 600 / 700.** 500 is for Source Code Pro labels and tags only; 600 for H3/card titles and buttons. 800 and 900 are retired.
 - **Border radius: 6px for everything rectangular** (cards, buttons, inputs, tags, badges). Pills are retired. `50%` only for photos, avatars and status dots.
 
 ### CSS token architecture
 
 ```
-assets/css/variables.css   ← THE canonical token file (implements docs/design/DESIGN-TOKENS-v15.md)
+assets/css/variables.css   ← THE canonical token file (implements docs/design/DESIGN-TOKENS-v16.md)
 assets/css/header.css      ← Shared site header + footer wordmark styles (all pages)
 assets/css/main.css        ← Used by search.html
 assets/css/animations.css  ← Standalone animation keyframes
@@ -109,25 +110,20 @@ assets/css/animations.css  ← Standalone animation keyframes
 The site header is injected via `assets/js/header.js` — a self-contained script that:
 - Inserts the `<nav class="top-nav">` HTML as the first element in `<body>`
 - Wires up mobile menu, scroll-shrink, and search navigation
-- Injects Inter, Source Code Pro 500 (v15 labels; not used yet) and Material Symbols fonts if not already loaded
+- Loads the site fonts for every page: Inter 400/600/700, Source Code Pro 500 and Material Symbols Outlined (DESIGN-TOKENS-v16.md § Font Loading). Pages don't add their own font links; editorial article pages also load Merriweather.
 
 `header.js` is loaded as the **first** `<script>` tag in `<body>` on every page. Do not duplicate nav HTML manually — edit `header.js` to change nav content.
 
 Pages with inline `<style>` blocks (partners/*.html, city-lab-chicago.html, latin-america-lab.html) link variables.css before their inline block, and header.css after it (before `</head>`).
 
-### How to use docs/design/DESIGN-TOKENS-v15.md in a session
+### How to use docs/design/DESIGN-TOKENS-v16.md in a session
 
-Before writing any CSS or styling-related code, read the relevant section of `docs/design/DESIGN-TOKENS-v15.md`. Reference it explicitly in comments when implementing tokens:
+Before writing any CSS or styling-related code, read the relevant section of `docs/design/DESIGN-TOKENS-v16.md`. Reference it explicitly in comments when implementing tokens:
 
 ```css
-/* Interaction fill: hover, press, selected (fill only on light surfaces). docs/design/DESIGN-TOKENS-v15.md § Semantic Color Assignments */
+/* Interaction fill: hover, press, selected (fill only on light surfaces). docs/design/DESIGN-TOKENS-v16.md § Semantic Color Assignments */
 --color-accent: var(--color-acid);
 ```
-
-### What requires James's sign-off before implementing
-
-- Full card vs. small card definitions in the postcard system
-- Any new component type not already defined in the tokens doc
 
 ---
 

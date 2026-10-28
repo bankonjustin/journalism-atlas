@@ -144,7 +144,7 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 2.5rem;
+    gap: 1.5rem; /* v16 § Header Nav Spacing fallback (lg 24px): with five links, 32-40px leaves no gap after the search bar */
     align-items: center;
 }
 
@@ -381,18 +381,12 @@ body {
 .footer-legal a:active { color: var(--color-accent, #ceff00); text-decoration-line: underline; }
 
 /* ── Responsive ── */
-/* ── Mid widths: tighter nav links, then the hamburger ──
-   At 1280px and up the desktop nav fits with 40px between links (container 1248px = logo 297 + search 304 + links 581).
-   v15 § Header Nav Spacing: "if cramped, fall back to lg (24px) between nav links". With 24px the links take 517px
-   and the nav fits down to a 1215px viewport; at 1214px and below the hamburger takes over (the menu already exists
-   at 768px, so only the switch moves). Before this the nav ran past the container from 769px to 1279px. */
+/* ── Mid widths: the hamburger ──
+   With five links (Pulse, For Brands, Research & Writing, How it works, About) at the v16 § Header Nav Spacing
+   fallback of 24px, the desktop nav keeps its gap after the search bar only from 1280px up (47px at 1280; it is
+   7px at 1240px and 0 at 1215px). At 1279px and below the hamburger takes over; the menu already exists at 768px,
+   so only the switch moves. */
 @media (max-width: 1279px) {
-    .nav-links {
-        gap: 1.5rem;
-    }
-}
-
-@media (max-width: 1214px) {
     .nav-links {
         display: none;
     }

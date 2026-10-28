@@ -4,6 +4,14 @@
 # the master CSV, .claude, .beads, _deprecated, ...) is never published.
 # To publish a new top-level folder or data file, add it below.
 set -eu
+# Brand check (DESIGN-TOKENS-v16.md § Enforcement): fail the deploy on any new font, size, weight or color violation.
+# check_brand.py needs Python 3.7+. If the build image has none, skip loudly rather than block the deploy;
+# the required GitHub brand-check status still enforces the rules on every pull request.
+if command -v python3 >/dev/null 2>&1 && python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 7) else 1)'; then
+  python3 scripts/check_brand.py || { echo "build-dist: brand check failed; see the list above and docs/design/DESIGN-TOKENS-v16.md" >&2; exit 1; }
+else
+  echo "build-dist: WARNING: python3 (3.7+) not found; BRAND CHECK SKIPPED. Set PYTHON_VERSION=3.11 in Cloudflare Pages, or choose build image v2/v3." >&2
+fi
 
 rm -rf dist
 mkdir -p dist/assets/data dist/data dist/atlas-portal

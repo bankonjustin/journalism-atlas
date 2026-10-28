@@ -108,16 +108,7 @@ Atlas.prototype/
 
 ## 🎨 Design System
 
-### Colors
-- **Black**: `#000000` - Primary text, navigation
-- **Acid Green**: `#CCFF00` - Brand accent, CTAs
-- **Light Gray**: `#efeff2` - Background
-- **Dark Gray**: `#313131` - Secondary text
-- **White**: `#FFFFFF` - Cards, overlays
-
-### Typography
-- **Primary**: Hanken Grotesk (400, 500, 600, 700, 800)
-- **Secondary**: Merriweather (400, 700)
+Design system: see docs/design/DESIGN-TOKENS-v16.md (canonical) and docs/design/ATLAS-BRAND-GUIDE-v5.md. Fonts: Inter, Source Code Pro, Merriweather (articles only); icons: Material Symbols Outlined.
 
 ### Spacing Scale
 - XS: 4px
@@ -164,8 +155,7 @@ The application uses `creators-data.json` with this structure:
 ### Libraries
 - **D3.js** - Desktop treemap & mobile bubbles
 - **Hammer.js** - Mobile touch gestures (mobile only)
-- **Google Fonts** - Hanken Grotesk, Merriweather
-- **Material Icons** - UI icons
+- **Fonts and icons** - Inter, Source Code Pro, Merriweather (articles only); Material Symbols Outlined (see Design System)
 
 ### Hosting
 - **Cloudflare Pages** - Static hosting
@@ -304,8 +294,8 @@ Copyright © 2026 The Independent Journalism Atlas
 **Built with**:
 - D3.js by Mike Bostock
 - Hammer.js by Jorik Tangelder
-- Google Fonts
-- Material Icons
+- Google Fonts (Inter, Source Code Pro, Merriweather)
+- Material Symbols Outlined
 
 **Special Thanks**:
 - Advisory Board members

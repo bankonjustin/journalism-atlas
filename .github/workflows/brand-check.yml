@@ -1,0 +1,21 @@
+# Runs the Atlas brand check (DESIGN-TOKENS-v16.md § Enforcement).
+# Make "brand-check" a required status check on main.
+name: brand-check
+on:
+  push:
+  pull_request:
+jobs:
+  brand-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check fonts, sizes and colors against DESIGN-TOKENS-v16
+        run: python3 scripts/check_brand.py --tight
+      - name: Baseline may only go down
+        if: github.event_name == 'pull_request'
+        run: python3 scripts/check_brand.py --guard-baseline "origin/${{ github.base_ref }}"
