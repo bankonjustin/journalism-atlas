@@ -22,6 +22,14 @@
 - **Text colors are role variables,** never `rgba()` white or black.
 - **Font weights:** Inter 400/600/700; Source Code Pro 500. No Inter 500, no 800 or 900.
 
+## Provisional, confirm with James
+
+Set by Justin on Oct 28, 2026. Not yet in DESIGN-TOKENS-v16.md. Use only as written; don't extend them to new cases.
+
+- **Monospace (Source Code Pro) = live or versioned data only.**
+- **Acid = changed recently.**
+- **Error text roles:** `--color-error-provisional`, `--color-on-error-provisional`, `--color-error-on-dark-provisional`, `--color-on-error-on-dark-provisional` (Material 3 baseline, contrast checked). They sit beside James's `--color-error`, which stays as is. Error messages carry an "Error:" prefix or an icon, descriptive text and `role="alert"`.
+
 ## What changes only with a new token version (James)
 
 - Any color, typeface, size, weight, spacing value, radius, icon or component state not in DESIGN-TOKENS-v16.md

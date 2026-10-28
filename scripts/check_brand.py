@@ -24,7 +24,10 @@ Rules (v16 § Enforcement):
   color         a hex color (3, 4, 6 or 8 digits) whose base is not in the v16 palette (Tiers 1-5, Neutral and Cool scales)
   lime-text     Lime Green used as a text color
   color-alpha   a 4- or 8-digit hex whose base IS a palette color: transparency, for James to review
-  color-func    rgb(), rgba(), hsl() or hsla() in CSS, inline styles or JS strings (values are not mapped to the palette)
+  color-func    rgb(), rgba(), hsl() or hsla() in CSS, inline styles or JS strings (values are not mapped to the palette).
+                Pure white or black at any alpha is flagged ONLY as a text color (color, -webkit-text-fill-color, caret-color,
+                fill/stroke on SVG or canvas text); in shadows, borders, backgrounds and overlays it is allowed.
+                Any other rgb/hsl value is flagged wherever it appears.
   color-name    a CSS named color (red, orange, tomato...) as the value of a color-bearing property or attribute;
                 white, black, transparent, currentColor and the CSS-wide keywords are not flagged
 """
@@ -91,6 +94,16 @@ COLOR_JS = (
     re.compile(r"\.style\.(?:color|fill|stroke|background(?:Color)?)\s*=\s*['\"`]([^'\"`]*)['\"`]"),
     re.compile(r"\.(?:fillStyle|strokeStyle)\s*=\s*['\"`]([^'\"`]*)['\"`]"),
 )
+TEXT_COLOR_PROPS = {"color", "-webkit-text-fill-color", "caret-color"}
+JS_PROP_BEFORE = (
+    re.compile(r"\.(?:attr|style)\(\s*['\"]([-\w]+)['\"]\s*,\s*['\"`]?$"),
+    re.compile(r"\.style\.(\w+)\s*=\s*['\"`]?$"),
+    re.compile(r"\.(fillStyle|strokeStyle)\s*=\s*['\"`]?$"),
+    re.compile(r"setAttribute\(\s*['\"]([-\w]+)['\"]\s*,\s*['\"`]?$"),
+)
+SVG_ATTR_BEFORE = re.compile(r"(?<![\w-])(fill|stroke)\s*=\s*[\"']$")
+CSS_DECL_BEFORE = re.compile(r"\s*(-{0,2}[\w-]+)\s*:")
+TEXTY_SELECTOR = re.compile(r"(?<![\w-])(?:text|tspan)(?![\w-])", re.I)
 COLOR_WORD = re.compile(r"(?<![\w#.-])[a-z]+(?![\w(-])")
 FAMILY_DECL = re.compile(r"font-family\s*:\s*([^;}{<>\n]+)", re.I)
 ATTR_END = re.compile(r"\"\s*(?:[\w-]+=|/?>)|\"\s*$")
@@ -106,6 +119,62 @@ LIME_TEXT = re.compile(r"(?:^|[;{\s\"'])color\s*:\s*(#97d600|var\(--color-lime\)
 RULEBLOCK = re.compile(r"([^{}]{1,400})\{([^{}]*)\}")
 HEADINGISH = re.compile(r"(h[1-6]\b|title|head|claim|display|lede|dek|stat|numeral|pullquote|label|eyebrow|-n\b)", re.I)
 SERIFISH = re.compile(r"merriweather|var\(--font-(editorial|prose|body|serif)\)|(?<!sans-)\bserif\b", re.I)
+
+def white_or_black(call):
+    """True for rgb/rgba/hsl/hsla that is pure white or pure black at any alpha."""
+    name, _, args = call.partition("(")
+    nums = re.findall(r"[\d.]+%?", args)
+    if len(nums) < 3:
+        return False
+    if name.strip().lower().startswith("rgb"):
+        vals = [(float(n[:-1]) * 2.55 if n.endswith("%") else float(n)) for n in nums[:3]]
+        return all(abs(v - 255) < 0.5 for v in vals) or all(v < 0.5 for v in vals)
+    light = nums[2]
+    return light.endswith("%") and float(light[:-1]) in (0.0, 100.0)
+
+def is_text_color(text, pos):
+    """Is the color function at pos the value of a text-color property (or fill/stroke/fillStyle of text)?"""
+    ls = text.rfind("\n", 0, pos) + 1
+    line_pre = text[ls:pos]
+    prop = None
+    for rx in JS_PROP_BEFORE:
+        m = rx.search(line_pre)
+        if m:
+            prop = m.group(1)
+            break
+    kind = "js" if prop else None
+    if prop is None:
+        m = SVG_ATTR_BEFORE.search(line_pre)
+        if m:
+            prop, kind = m.group(1), "svg"
+    if prop is None:
+        seg = text[max(0, pos - 300):pos]
+        cut = max(seg.rfind(c) for c in ";{}\"'")
+        m = CSS_DECL_BEFORE.match(seg[cut + 1:])
+        if m:
+            prop, kind = m.group(1), "css"
+    if prop is None:
+        return False
+    prop = {"fillstyle": "fill", "strokestyle": "stroke"}.get(prop.lower(), prop.lower())
+    if prop in TEXT_COLOR_PROPS:
+        return True
+    if prop not in ("fill", "stroke"):
+        return False
+    if kind == "svg":
+        tag = re.findall(r"<(\w+)", text[max(0, pos - 400):pos])
+        return bool(tag) and tag[-1].lower() in ("text", "tspan")
+    if kind == "css":
+        brace = text.rfind("{", 0, pos)
+        if brace == -1 or text.rfind("}", brace, pos) != -1:
+            return False
+        sel = text[max(text.rfind("}", 0, brace), text.rfind(";", 0, brace)) + 1:brace]
+        return bool(TEXTY_SELECTOR.search(sel))
+    back = re.findall(r"\.append\(\s*['\"](\w+)['\"]\s*\)|\.select(?:All)?\(\s*['\"]([^'\"]+)['\"]\s*\)", text[max(0, pos - 400):pos])
+    if back:                                    # D3: the element the attr/style chain was last built on
+        last = (back[-1][0] or back[-1][1]).lower()
+        return bool(TEXTY_SELECTOR.search(last))
+    ahead = re.search(r"fillText|strokeText|fillRect|strokeRect|\.fill\(|\.stroke\(|\.arc\(", text[pos:pos + 300])
+    return bool(ahead) and ahead.group(0) in ("fillText", "strokeText")   # canvas
 
 def norm_family(name):
     return name.strip().strip("'\"").replace("+", " ").strip().lower()
@@ -178,6 +247,8 @@ def scan(path, text):
         elif alpha:
             add("color-alpha", m.start(), "#" + m.group(1))
     for m in COLOR_FUNC.finditer(text):
+        if white_or_black(m.group(0)) and not is_text_color(text, m.start()):
+            continue  # white or black in a shadow, border, background or overlay is allowed; only text colors are locked
         add("color-func", m.start(), m.group(0))
     def named(value, pos):
         value = re.sub(r"(?:var|url)\([^)]*\)", " ", value.lower())

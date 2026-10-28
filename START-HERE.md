@@ -5,7 +5,9 @@
 Design rules: DESIGN-TOKENS-v16.md. Open design questions for James live in docs/design/v15-session-2/JAMES-OPEN-ITEMS.md.
 
 ## For Justin
-- **v16 install, to finish (2026-10-27):** walk James through `docs/briefs/V16-INSTALL-NOTES-FOR-JAMES-2026-10.md`; get James's GitHub username into `.github/CODEOWNERS` (placeholder `@JAMES_GITHUB_USERNAME`); do the GitHub and Cloudflare steps in the install brief's Part E; check the first Cloudflare build log shows the brand check printing OK (or a SKIPPED warning, which means Python is missing).
+- **v16 install, to finish (2026-10-27):** walk James through `docs/briefs/V16-INSTALL-NOTES-FOR-JAMES-2026-10.md`; **CODEOWNERS is deferred** (no file yet; write it once you have James's GitHub username, using the narrowed list in his notes); do the GitHub and Cloudflare steps in the install brief's Part E; check the first Cloudflare build log shows the brand check printing OK (or a SKIPPED warning, which means Python is missing).
+- **Brand-check burn-down (approved):** order is `index.html`, `pulse.html`, `city-lab-chicago.html`, then by count; Chicago is not exempt. Each fix regenerates `scripts/brand-baseline.json` in the same change.
+- **Provisional, confirm with James:** error text roles, monospace = live or versioned data only, Acid = changed recently (see `docs/design/CLAUDE-DESIGN-RULES.md`).
 - **Team DMV header and footer:** open decision.
 - **TIJA LLC GitHub organization and the repo going private:** see the repo-visibility brief.
 - **Logos:** header swap done (blk/wht wired, default white). Still needed: `Atlas_logo_lockup_stacked_wht_web.svg` (the footer still uses `Journalism_Atlas_wordmark_stacked_white.svg`). The old header SVG (`Journalism_Atlas_wordmark_horizontal_lockup_black.svg`) is now unreferenced and can be deleted.

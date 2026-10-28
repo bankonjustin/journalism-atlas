@@ -18,7 +18,7 @@ Everything here is factual and short. The install changed no visible page.
 
 **B1, 4- and 8-digit hex.** `#rgba` and `#rrggbbaa` are now checked. The base color is compared with the palette: not in it is `color`; in it is `color-alpha`, for your review.
 
-**B2, functional colors.** Every `rgb(`, `rgba(`, `hsl(` and `hsla(` is `color-func`. Values are not mapped to the palette.
+**B2, functional colors (re-scoped Oct 28).** `rgb(`, `rgba(`, `hsl(` and `hsla(` are `color-func`, with this scope: pure white or black (any alpha) is flagged **only as a text color** (`color`, `-webkit-text-fill-color`, `caret-color`, `fill`/`stroke` on SVG or canvas text); in shadows, borders, backgrounds and overlays it is allowed. Any other `rgb`/`hsl` value (for example Acid at 20% alpha) is still flagged wherever it appears, because it can't be mapped to the palette. Fixtures cover both cases. Known gaps: a text color set through a custom property (`--x: rgba(...)` used as `color: var(--x)`) isn't caught; text-versus-shape detection for `fill`/`stroke` is heuristic.
 
 **B3, named colors.** CSS named colors are `color-name` when they are the value of a color property or attribute (CSS properties, SVG `fill`/`stroke`, D3 `.attr`/`.style`, `.style.color`, canvas `fillStyle`/`strokeStyle`). Not flagged: `white`, `black`, `transparent`, `currentColor` and the CSS-wide keywords. Two small additions beyond the brief's list: `.style.background`/`backgroundColor`, and any object's `.fillStyle`/`.strokeStyle`, not only `ctx`.
 
@@ -30,7 +30,7 @@ Everything here is factual and short. The install changed no visible page.
 
 **B7, serif path.** No long-form report page exists in the repo (Nodes and Networks is excluded). `SERIF_ARTICLE_PATHS` stays `("watershed/",)` with a comment to add the report path when the first page is built.
 
-**Narrowed CODEOWNERS** (to be written after the baseline). Owned: `/docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml`, `CODEOWNERS`. Not owned: the baseline file (the guard blocks increases mechanically, so fix-PRs don't wait on you), `build-dist.sh`, `_headers`, `CLAUDE.md`, `WORKFLOW.md`, the rest of `.github/`. Reasons are in Part D of the install brief.
+**CODEOWNERS: deferred.** No `.github/CODEOWNERS` file exists yet, because James's GitHub username isn't known. The narrowed list is ready to write when it is: `/docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml` and CODEOWNERS itself; not the baseline (the guard blocks increases), `build-dist.sh`, `_headers`, `CLAUDE.md`, `WORKFLOW.md` or the rest of `.github/`. Until the file exists, the ruleset's "require review from Code Owners" does nothing, so design-file changes need James's review by agreement, not by GitHub. `brand-check.yml` is kept and still enforces the check and the baseline guard.
 
 ## 3. Where the repo differed from your brief
 
@@ -46,45 +46,40 @@ Everything here is factual and short. The install changed no visible page.
 - **Count:** the unmodified check reports 2,307 violations in 59 files on Justin's tree; you recorded 2,308 on the public repo.
 - **Git:** your `check_brand.py` was committed to `main` (`c1c5689`) before `dev` was cut. `dev` was created fresh from `main`; an older `origin/dev` from 8 months ago exists and is stale.
 
-## 4. Baseline counts
+## 4. Baseline counts (rewritten Oct 28 after the re-scope)
 
 | | Count |
 |---|---|
-| Your original rules (unchanged by B1–B4) | 2,307 |
-| `color-func` (51 files; 571 of them are `rgb()`/`rgba()` white or black) | 731 |
-| `color-name` | 3 |
+| Your original rules | 2,310 |
+| `color-func` (47 files) | 467 |
+| `color-name` | 0 |
 | `color-alpha` | 0 |
-| **Total, 59 files** | **3,041** |
+| **Total, 59 files** | **2,777** |
 
-Original rules: `color` 1,371, `font-size` 410, `font-literal` 272, `font-family` 151, `font-weight` 34, `serif-scope` 29, `pill-radius` 19, `serif-heading` 17, `lime-text` 4. The new rules mostly record existing off-palette and off-role usage for your next token version; they are not new problems. The three `color-name` hits: `red` in an inline error message (`assets/js/main.js:425`) and `gray` in two spinner borders (`lab/health-field-finder/funder.html:148` and `review.html:148`). There is no 4- or 8-digit hex on the site today.
+Original rules: `color` 1,374, `font-size` 410, `font-literal` 272, `font-family` 151, `font-weight` 34, `serif-scope` 29, `pill-radius` 19, `serif-heading` 17, `lime-text` 4. Before the re-scope the baseline was 3,041: 731 `color-func`, 3 `color-name`, and `color` at 1,371. The new rules mostly record existing off-palette usage for your next token version; they are not new problems.
 
-### 4a. `color-func` by property: does v16's rule cover only text color?
+What changed since the first count: `color-func` 731 to 467 (shadows, borders, backgrounds and overlays in white or black are allowed); `color-name` 3 to 0 (the `red` error message and the two `gray` spinners were fixed, see 4a); `color` +3 (the three provisional error hex values in `variables.css`).
 
-v16 says (lines 22 and 297) that opacity-based **text** colors such as `rgba(255,255,255,0.3)` are off-system. It says nothing about shadows, borders, overlays or fills. `color-func` as built flags every `rgb(`/`rgba(`/`hsl(`/`hsla(` regardless of property, so most of the 731 are outside what the rule names. Breakdown by the property the value sits in:
+### 4a. What the 467 `color-func` hits are, and what else changed Oct 28
 
-| Property | All 731 | Of which white or black |
-|---|---|---|
-| `color` (text) | 318 | 303 |
-| `border`, `outline`, `stroke` | 162 | 125 |
-| `background` (incl. gradients) | 148 | 80 |
-| `box-shadow`, `text-shadow` | 58 | 42 |
-| multi-line value or gradient continuation (no property on the line) | 24 | 10 |
-| `fill` | 9 | 4 |
-| custom property (`--x: rgba(...)`) | 6 | 4 |
-| other (`text-decoration-color`, `scrollbar-color`, `text-decoration`, a `bg` key) | 6 | 3 |
-| **Total** | **731** | **571** |
+- **307** are white or black used as a **text color** (the thing v16 forbids).
+- **144** are other colors in non-text properties, mostly Acid or Lime with alpha (`rgba(206,255,0,...)`, `rgba(151,214,0,...)`) used as tints and overlays. If you decide tinted palette colors are allowed too, this drops to 323.
+- **16** are other colors used as text color.
 
-Only the 318 text-color hits (303 white or black) are what v16 clearly forbids. The other 413 are shadows, borders, backgrounds and overlays that v16 neither allows nor forbids; under "undefined means unbuilt" they read as violations, but nobody has said what token an overlay or a shadow should use. Questions for James:
+**Error roles (PROVISIONAL, for you).** `--color-error` (`#f50000`) stays your value. It is 4.3:1 on white and 3.7:1 on `--color-bg`, below the 4.5:1 text minimum, and `v16` records that you rejected the Material 3 `#b3261e` in May 2026 as "too dull". Four new tokens sit beside it, from the Material 3 baseline, named `*-provisional`: `--color-error-provisional` (light surfaces), `--color-on-error-provisional`, `--color-error-on-dark-provisional`, `--color-on-error-on-dark-provisional`. Contrast: light error text 6.5:1 on white and 5.7:1 on `--color-bg`; dark error text 12.3:1 on black, 11.0:1 on step 7, 7.7:1 on step 6; white on the light error 6.5:1; the dark on-error on the dark error 7.7:1. Use is limited to error messages. The search page's data-load error now reads "Error: the creator data could not be loaded. Check your connection and refresh the page." with `role="alert"`.
 
-1. Should `color-func` narrow to text color only (the `color` property), with shadows, borders and overlays handled by a new token role in your next version?
-2. Or does every `rgba()` stay flagged, and v17 adds roles (overlay, hairline, shadow) so each one has a home?
-3. Until you decide, nobody should rewrite shadows or borders to clear the count. The baseline freezes all 731 as they are.
+**Gray spinner:** the `gray` (`#808080`) border on the spinner in `lab/health-field-finder/funder.html` and `review.html` now uses `--gray-neutral-4` (`#909090`, the closest neutral step), with `#909090` as a fallback because those pages don't load `variables.css`. If those pages are regenerated by the password-protection tool, the edit is lost.
+
+**Provisional rules** are in `CLAUDE-DESIGN-RULES.md` under "Provisional, confirm with James": monospace is for live or versioned data only; Acid means changed recently.
+
+**Burn-down order** for the backlog: `index.html`, `pulse.html`, `city-lab-chicago.html`, then by count. Chicago has no exemption (the check never excluded it). Fixing the backlog over time is approved; each fix regenerates the baseline in the same change.
+
 
 ## 5. Open items for James and Justin
 
-- Do `color-alpha` and `color-func` uses get palette roles, or a rule? Only the `color` (text) hits fall under your rule; see the breakdown in section 4a before anyone starts working the 731 down.
+- Do tinted palette colors (Acid or Lime with alpha, 144 hits) get palette roles, or are they allowed? And does the provisional error role (section 4a) stand, change or go?
 - The open questions at the end of the Pulse and For Brands brief.
 - How we research (About Phase 3): lab notebook with "Trace this number" as the single signature element, approved. Before it is built: does a traced number open in place or in a side panel (especially on mobile at 390px), and is the one motion the draw-down or a plain open? v16 has no motion roles, so a motion needs a token.
 - Team DMV's header and footer.
 - The TIJA LLC GitHub organization, and the repo going private.
-- Your GitHub username, for CODEOWNERS (still a placeholder).
+- Your GitHub username, so CODEOWNERS can be written (deferred).

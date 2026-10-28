@@ -131,6 +131,16 @@
   --color-border-dark-hover:  #606068;
   --color-error-dark:         #ff4422;
 
+  /* PROVISIONAL (Oct 28, 2026), for James to confirm, rename or replace. Error TEXT roles from the Material 3 baseline.
+     Why separate: --color-error is James's value and is 4.3:1 on white and 3.7:1 on --color-bg, under the 4.5:1 text
+     minimum. These do not replace it. Use for error messages (text, with an "Error:" prefix or an icon); not fills.
+     Contrast, light: M3 error 6.5:1 on white, 5.7:1 on --color-bg. Dark: M3 dark error 12.3:1 on black, 11.0:1 on
+     --color-surface-dark, 7.7:1 on step 6. On-error pairs: white on M3 error 6.5:1; M3 dark on-error on M3 dark error 7.7:1. */
+  --color-error-provisional:            #b3261e;   /* on light surfaces */
+  --color-on-error-provisional:         #ffffff;   /* on an --color-error-provisional fill */
+  --color-error-on-dark-provisional:    #f2b8b5;   /* on dark surfaces */
+  --color-on-error-on-dark-provisional: #601410;   /* on an --color-error-on-dark-provisional fill */
+
 
   /* =========================================
      CANVAS — Always-dark surface tokens

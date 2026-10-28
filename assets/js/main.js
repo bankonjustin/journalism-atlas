@@ -422,7 +422,7 @@
             } catch (error) {
                 console.error('Data fetch failed:', error);
                 const loadingEl = document.getElementById('loadingState');
-                if (loadingEl) loadingEl.innerHTML = '<p style="color: red;">Error loading creator data. Please refresh the page.</p>';
+                if (loadingEl) loadingEl.innerHTML = '<p role="alert" style="color: var(--color-error-provisional);">Error: the creator data could not be loaded. Check your connection and refresh the page.</p>';
                 return;
             }
 

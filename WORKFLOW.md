@@ -56,7 +56,7 @@ Claude Chat is good at briefs and strategy. Claude Code is authoritative on curr
 1. Work on the `dev` branch; Cloudflare builds a preview for it
 2. Verify in the browser (load the page, check console, check design) and run `python3 scripts/check_brand.py`
 3. Push `dev` via GitHub Desktop and open a pull request to `main`
-4. James reviews design changes on the preview; files under CODEOWNERS need his approval. The `brand-check` status must pass
+4. James reviews design changes on the preview (`docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml`); until CODEOWNERS exists, ask him directly. The `brand-check` status must pass
 5. Merge; Cloudflare deploys `main` within about a minute
 6. Test on the live URL in a fresh incognito window (cached redirects can mask issues)
 
