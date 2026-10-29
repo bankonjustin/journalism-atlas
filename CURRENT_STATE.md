@@ -196,6 +196,7 @@ Three-layer layout:
 ---
 
 ## Open flags in code
+- **G8 quiet-bucket rule does not exist** (checked Oct 29: no such rule in `pulse_v2.py`, `update_pulse.py` or `pulse_digest.py`). Not built; for the next Pulse logic session.
 - `// TODO-JUSTIN: increment VOL. number per edition until automated` — in `renderMasthead()`
 - `// TODO-JUSTIN: wire search.html ?q= param` — in lede creator links + corpus cluster name links
 - `// TODO-LIZ: confirm archive section copy` — in `.archive-method` paragraph
