@@ -25,6 +25,29 @@ mkdir -p dist/preview
 (cd preview && find . -name index.html -exec sh -c 'mkdir -p "../dist/preview/$(dirname "$1")" && cp "$1" "../dist/preview/$1"' _ {} \;)
 cp atlas-portal/*.html atlas-portal/script.js dist/atlas-portal/
 
+# Nodes and Networks launch kit. This step never fails the site deploy.
+# Preferred: build it here from nn/content/copy.md and stamp the pages "built on Cloudflare".
+# Fallback: if Python is missing or too old (Pages build image v1) or the build fails, publish the committed copy in nn/built/
+# (refreshed by ship.sh) and print a loud warning. The page source says which one is live: view source, first lines.
+# The old preview explorer copies are dropped so _redirects forwards those addresses to /nodes-and-networks/explorer/.
+rm -rf dist/preview/nn-launch-kit/explorer dist/preview/nn-launch-kit/explorer-named
+NNTMP=$(mktemp -d)
+if command -v python3 >/dev/null 2>&1 && python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 7) else 1)' && python3 nn/build.py --out "$NNTMP" --stamp "built on Cloudflare"; then
+  cp -R "$NNTMP/nodes-and-networks" dist/
+else
+  echo "################################################################" >&2
+  echo "build-dist: WARNING: the Nodes and Networks build did not run (Python 3.7+ missing or too old, or the build failed; see above)." >&2
+  echo "build-dist: WARNING: publishing the COMMITTED FALLBACK COPY in nn/built/. Edits to nn/content/copy.md will NOT show until the build runs." >&2
+  echo "################################################################" >&2
+  if [ -d nn/built/nodes-and-networks ]; then
+    rm -rf dist/nodes-and-networks; cp -R nn/built/nodes-and-networks dist/
+    mkdir -p dist/nodes-and-networks/media && cp -R nn/media/. dist/nodes-and-networks/media/
+  else
+    echo "build-dist: WARNING: nn/built/ is missing too, so /nodes-and-networks/ is NOT published this deploy. Run sh ship.sh." >&2
+  fi
+fi
+rm -rf "$NNTMP"
+
 # Assets
 cp -R assets/css assets/js assets/images assets/img dist/assets/
 

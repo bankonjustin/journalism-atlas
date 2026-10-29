@@ -1,0 +1,81 @@
+<!doctype html>
+<!-- nn build: 2026-10-29T12:28:42Z | fallback copy (built locally) -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Embed the explorer | Nodes and Networks</title><meta name="description" content="Copy-paste code to put the Nodes and Networks explorer on your page, with tab links, sizes and the credit line."><link rel="canonical" href="https://journalismatlas.com/nodes-and-networks/embed/"><meta property="og:type" content="website"><meta property="og:site_name" content="Independent Journalism Atlas"><meta property="og:title" content="Embed the explorer | Nodes and Networks"><meta property="og:description" content="Copy-paste code to put the Nodes and Networks explorer on your page, with tab links, sizes and the credit line."><meta property="og:url" content="https://journalismatlas.com/nodes-and-networks/embed/"><meta property="og:image" content="https://journalismatlas.com/nodes-and-networks/media/og/landing.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Nodes and Networks. Who pays for journalism shapes how big it gets. Knight Center for the Future of News, ASU Cronkite School."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Embed the explorer | Nodes and Networks"><meta name="twitter:description" content="Copy-paste code to put the Nodes and Networks explorer on your page, with tab links, sizes and the credit line."><meta name="twitter:image" content="https://journalismatlas.com/nodes-and-networks/media/og/landing.png"><meta name="twitter:image:alt" content="Nodes and Networks. Who pays for journalism shapes how big it gets. Knight Center for the Future of News, ASU Cronkite School.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/css/variables.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<style>
+body,.nnp{font-family:Inter,"Helvetica Neue",Arial,sans-serif}
+.nnp{max-width:1440px;margin:0 auto;padding:32px 16px 64px}
+.col{max-width:760px;margin:0 auto}
+.eyebrow{margin:0 0 8px;font:600 13px/1.2 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--color-muted)}
+h1{margin:0 0 12px;font:700 36px/1.1 Inter,sans-serif;color:var(--color-heading)}
+h2{margin:36px 0 8px;font:700 20px/1.25 Inter,sans-serif}
+p{margin:0 0 12px;font-size:16px;line-height:1.5;max-width:66ch}
+pre{margin:0 0 12px;padding:14px;background:#000;color:#fff;border-radius:6px;overflow:auto;font:500 13px/1.5 "Source Code Pro",monospace;white-space:pre}
+code{font:500 13px "Source Code Pro",monospace}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:8px 10px;border-top:1px solid var(--color-border);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+thead th{border-top:0;font-weight:700}
+ul{margin:0 0 12px;padding-left:20px;line-height:1.5}
+.back{display:inline-block;margin-top:32px}
+@media (max-width:560px){h1{font-size:28px}}
+</style>
+<link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+<main class="nnp"><div class="col">
+<p class="eyebrow">Nodes and Networks</p>
+<h1>Embed the explorer</h1>
+<p>Paste one of these into your page. The address ends in <code>?embed=1</code>, which removes the header and footer and makes the background clear.</p>
+<p>The explorer can be framed on asu.edu pages and on journalismatlas.com. To use it on another site, <a href="/contact">ask us first</a>.</p>
+<h2>Size</h2>
+<p>Use a width of 760px or less. The explorer fills the width you give it. Height depends on the tab and the width. A fixed frame needs 1900px under 760px wide and 1500px from 760px up, which fits every tab and leaves empty space on the shorter ones. The auto-height code below has no empty space.</p>
+<h2>1. Plain iframe</h2>
+<p>Works in any system that allows iframes.</p>
+<pre>&lt;iframe
+  src="https://journalismatlas.com/nodes-and-networks/explorer/?embed=1&amp;tab=short"
+  title="Nodes and Networks explorer: 169 U.S. journalism organizations"
+  loading="lazy"
+  style="display:block;width:100%;max-width:760px;height:1900px;margin:0 auto;border:0"&gt;&lt;/iframe&gt;</pre>
+<h2>2. Plain iframe with two heights</h2>
+<p>If your system allows a style block, this switches the height at 760px.</p>
+<pre>&lt;style&gt;.nn-frame{display:block;width:100%;max-width:760px;height:1900px;margin:0 auto;border:0}
+@media (min-width:760px){.nn-frame{height:1500px}}&lt;/style&gt;
+&lt;iframe class="nn-frame" src="https://journalismatlas.com/nodes-and-networks/explorer/?embed=1&amp;tab=short" title="Nodes and Networks explorer: 169 U.S. journalism organizations" loading="lazy"&gt;&lt;/iframe&gt;</pre>
+<h2>3. Auto-height iframe</h2>
+<p>If your system allows scripts, this resizes the frame to fit. There is no empty space and no inner scrollbar. The explorer sends its height each time its size changes, and the listener accepts messages only from this frame. To embed two explorers on one page, copy the code and change the id.</p>
+<pre>&lt;iframe id="nn-explorer" src="https://journalismatlas.com/nodes-and-networks/explorer/?embed=1&amp;tab=short"
+  title="Nodes and Networks explorer: 169 U.S. journalism organizations" loading="lazy"
+  style="display:block;width:100%;max-width:760px;height:1900px;margin:0 auto;border:0"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+addEventListener('message', function (e) {
+  var d = e.data, f = document.getElementById('nn-explorer');
+  if (!d || d.source !== 'nn-explorer' || d.type !== 'height' || e.source !== f.contentWindow) return;
+  f.style.height = d.height + 'px';
+});
+&lt;/script&gt;</pre>
+<h2>4. Still image, if your system strips iframes</h2>
+<p>A still of the first chapter, linked to the live explorer. Upload the image to your media library and change the image address to match.</p>
+<pre>&lt;a href="https://journalismatlas.com/nodes-and-networks/explorer/?tab=short"&gt;
+  &lt;img src="nodes-networks-in-short.png" width="1080" height="1350"
+       style="max-width:100%;height:auto"
+       alt="169 U.S. journalism organizations sorted into nine kinds of newsroom and colored by who pays. Open the interactive explorer."&gt;
+&lt;/a&gt;</pre>
+<h2>Links to each tab</h2>
+<p>Add <code>&amp;embed=1</code> to any of these when you embed.</p>
+<table><thead><tr><th>View</th><th>tab value</th><th>Link</th></tr></thead><tbody><tr><th scope="row">In short (opens first)</th><td><code>short</code></td><td><a href="../explorer/?tab=short">https://journalismatlas.com/nodes-and-networks/explorer/?tab=short</a></td></tr><tr><th scope="row">1 Who pays</th><td><code>governance</code></td><td><a href="../explorer/?tab=governance">https://journalismatlas.com/nodes-and-networks/explorer/?tab=governance</a></td></tr><tr><th scope="row">2 How they got big</th><td><code>ways</code></td><td><a href="../explorer/?tab=ways">https://journalismatlas.com/nodes-and-networks/explorer/?tab=ways</a></td></tr><tr><th scope="row">3 When they started</th><td><code>history</code></td><td><a href="../explorer/?tab=history">https://journalismatlas.com/nodes-and-networks/explorer/?tab=history</a></td></tr></tbody></table>
+<h2>Credit line</h2>
+<p>Place this under the embed. The explorer also shows it at the bottom of the frame.</p>
+<pre>Nodes and Networks. Knight Center for the Future of News, ASU Cronkite School. journalismatlas.com</pre>
+<h2>Good to know</h2>
+<ul><li>Tabs work with the keyboard. Arrow keys move between them.</li><li>With "reduce motion" on, tabs switch with no animation.</li><li>The explorer follows the visitor's light or dark setting. The chart area is always black.</li><li>Hover or tap a mark to see the organization, its kind of newsroom, how it grew, its revenue and the year it was founded.</li><li>No cookies, no network requests, no outside fonts or scripts. The explorer is one self-contained page.</li></ul>
+<a class="link-instruction back" href="../">Back to Nodes and Networks</a>
+</div></main>
+</body>
+</html>

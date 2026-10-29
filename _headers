@@ -25,3 +25,11 @@
 /preview/nn-launch-kit/explorer-named/*
   Content-Security-Policy: frame-ancestors 'self'
 # <<< nn launch kit
+
+# >>> nn permanent home (journalismatlas.com/nodes-and-networks/)
+# Only the explorer page may be framed: by this site and by ASU. Other origins are refused.
+/nodes-and-networks/explorer/*
+  Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu https://journalismatlas.com
+/nodes-and-networks/media/*
+  Cache-Control: public, max-age=3600
+# <<< nn permanent home

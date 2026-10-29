@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{{HEAD}}
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/css/variables.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<style>
+body,.nnp{font-family:Inter,"Helvetica Neue",Arial,sans-serif}
+.nnp{max-width:1440px;margin:0 auto;padding:32px 16px 64px}
+.col{max-width:760px;margin:0 auto}
+.eyebrow{margin:0 0 8px;font:600 13px/1.2 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--color-muted)}
+h1{margin:0 0 12px;font:700 36px/1.1 Inter,sans-serif;color:var(--color-heading)}
+h2{margin:36px 0 8px;font:700 20px/1.25 Inter,sans-serif}
+p{margin:0 0 12px;font-size:16px;line-height:1.5;max-width:66ch}
+pre{margin:0 0 12px;padding:14px;background:#000;color:#fff;border-radius:6px;overflow:auto;font:500 13px/1.5 "Source Code Pro",monospace;white-space:pre}
+code{font:500 13px "Source Code Pro",monospace}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:8px 10px;border-top:1px solid var(--color-border);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+thead th{border-top:0;font-weight:700}
+ul{margin:0 0 12px;padding-left:20px;line-height:1.5}
+.back{display:inline-block;margin-top:32px}
+@media (max-width:560px){h1{font-size:28px}}
+</style>
+<link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+<script src="/assets/js/header.js"></script>
+<main class="nnp"><div class="col">
+<p class="eyebrow">{{embed.eyebrow}}</p>
+<h1>{{embed.h1}}</h1>
+<p>{{embed.intro}}</p>
+<p>{{embed.who}}</p>
+<h2>{{embed.size_heading}}</h2>
+<p>{{embed.size_body}}</p>
+<h2>{{embed.plain_heading}}</h2>
+<p>{{embed.plain_body}}</p>
+<pre>{{CODE_PLAIN}}</pre>
+<h2>{{embed.responsive_heading}}</h2>
+<p>{{embed.responsive_body}}</p>
+<pre>{{CODE_RESPONSIVE}}</pre>
+<h2>{{embed.auto_heading}}</h2>
+<p>{{embed.auto_body}}</p>
+<pre>{{CODE_AUTO}}</pre>
+<h2>{{embed.still_heading}}</h2>
+<p>{{embed.still_body}}</p>
+<pre>{{CODE_STILL}}</pre>
+<h2>{{embed.tabs_heading}}</h2>
+<p>{{embed.tabs_body}}</p>
+<table><thead><tr><th>{{embed.tab_col_view}}</th><th>{{embed.tab_col_value}}</th><th>{{embed.tab_col_link}}</th></tr></thead><tbody>{{TAB_ROWS}}</tbody></table>
+<h2>{{embed.credit_heading}}</h2>
+<p>{{embed.credit_body}}</p>
+<pre>{{embed.credit_line}}</pre>
+<h2>{{embed.notes_heading}}</h2>
+<ul><li>{{embed.note_keyboard}}</li><li>{{embed.note_motion}}</li><li>{{embed.note_theme}}</li><li>{{embed.note_cards}}</li><li>{{embed.note_privacy}}</li></ul>
+<a class="link-instruction back" href="../">{{embed.back}}</a>
+</div></main>
+</body>
+</html>

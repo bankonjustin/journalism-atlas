@@ -48,7 +48,7 @@ EXCLUDED = (
     "_deprecated/", "_reference/", "node_modules/", "dist/", "outputs/", "qa/", "docs/", "sessions/",
     ".claude/", ".beads/", "pipeline/", "scripts/",
     # Co-branded report exception: Nodes and Networks (ASU / Knight Center at Cronkite)
-    "preview/nodes-and-networks-", "preview/nn-launch-kit/", "assets/nn5/", "nodes-networks-v5/", "tools/preview-build/",
+    "preview/nodes-and-networks-", "preview/nn-launch-kit/", "assets/nn5/", "nn/", "nodes-networks-v5/", "tools/preview-build/",
     # Internal mock of a Google Form (uses Roboto to match Google Forms)
     "atlas-portal/google-form-template.html",
 )
