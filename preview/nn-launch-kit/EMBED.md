@@ -6,7 +6,7 @@ Every example uses `?embed=1`, which removes the page header and footer, makes t
 
 ## 1. Plain iframe (works with no scripts)
 
-Fixed height **1650 px** at every width. That fits the tallest case (History at 380 px wide, measured 1594 px). Under `?embed=1` the page background is transparent and the dark chart panels end where the content ends, so any spare height shows the host page, not a black block.
+Fixed height **1650 px** at every width. Content is never taller than about 1610 px in any tab at any iframe width from 310 px to 760 px (the iframe is never wider than 760 px). The explorer switches to its embed layout when the URL has `?embed=1` or when it is framed from another site; it then uses Arial, a transparent background, and a compact layout on narrow screens. The dark chart panels end where the content ends, so any spare height shows the host page, not a black block.
 
 ```html
 <iframe
@@ -16,7 +16,9 @@ Fixed height **1650 px** at every width. That fits the tallest case (History at 
   style="display:block;width:100%;max-width:760px;height:1650px;margin:0 auto;border:0"></iframe>
 ```
 
-Use `{{EXPLORER_URL}}` in place of the address once the final one is set. In `?embed=1` the explorer always uses its light text on a transparent background, whatever the visitor's dark-mode setting, so it reads on a white host page.
+Use `{{EXPLORER_URL}}` in place of the address once the final one is set. In embed mode the explorer always uses its light-page text colors on a transparent background, whatever the visitor's dark-mode setting, so it reads on a white host page.
+
+In a CMS draft preview on a host other than cronkite.asu.edu the iframe may show blank, because the explorer's server only allows framing from asu.edu and journalismatlas.com. It works once the page is published on cronkite.asu.edu.
 
 ## 2. Optional: trim the height
 
@@ -36,7 +38,7 @@ addEventListener('message', function (e) {
 </script>
 ```
 
-The `e.source` check accepts messages only from this frame. Use a second copy with a different `id` for a second explorer on the same page.
+The `e.source` check accepts messages only from this frame; a message posted by any other window is ignored. Use a second copy with a different `id` for a second explorer on the same page.
 
 ## 3. Fallback (CMS strips iframes)
 
