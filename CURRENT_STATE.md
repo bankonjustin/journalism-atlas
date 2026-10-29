@@ -1,5 +1,15 @@
 # Pulse — Current State
-*Last updated: October 23, 2026 (Nodes and Networks interactive edition staged, **not yet pushed**)*
+*Last updated: October 29, 2026 (Pulse Oct 27 run backfilled). Previously: October 23, 2026 (Nodes and Networks interactive edition staged, **not yet pushed**)*
+
+## Pulse run, Oct 27, 2026 (backfilled Oct 29)
+
+- **Scrape:** `pulse_v2.py` 07:36–07:43 ET, 30-day window, 436 s, exit 0, completeness gate passed (fetch rate 98.5%). 2,415 creators loaded and all accounted for; 1,747 RSS-resolved feeds attempted; 1,669 ok, 52 empty, 26 errors, 262 no feed, 406 no-RSS platform. 10,578 posts in window; 1,006 active in 7 days, 1,236 in 30 days.
+- **Failed feeds (26), by creator platform:** Website 17, Instagram 3, Substack 2, Podcast 2, Ghost 1, Twitter/X 1. By error: invalid feed 15, 404 4, 5xx 3, 403 3, timeout 1. List: `pipelines/pulse/run-manifests/pulse_failed_feeds_20261027_074316.csv` (private repo).
+- **Digest:** `pulse_digest_20261027.json`, valid. Final run 12:22 UTC logged `ok`, verification not failed, 0 numeral mismatches, 5 model verification issues, 7 trending topics, 20 signal stories. Earlier same-day runs logged 1 mismatch. `reviewed_by` is "Justin Bank". Window Oct 20–26, 8,875 posts in the 7-day digest.
+- **Enrichment:** `enrichment_suggestions_20261027.csv` has 0 rows (header only).
+- **Mining and spidering brief:** not run. No `pulse_mining_discovery_20261027/` exists (latest is 20261005).
+- **Publish:** staged copy in private `pipelines/pulse/staged/2026-10-27/`; its `pulse.html` was superseded by the Phase 3 rebuild (commit c3e416a), so do not run its `apply.sh`.
+- **Scheduling:** no weekly schedule is registered on this machine. See private `pipelines/pulse/PULSE-WEEKLY-ROUTINE-SPEC.md`.
 
 ## Nodes and Networks interactive edition: staged locally, **not yet pushed** (Oct 23, 2026)
 
