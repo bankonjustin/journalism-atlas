@@ -1,6 +1,6 @@
 # Nodes and Networks explorer: copy export
 
-Every visible and screen-reader string in the explorer, as it reads today. Bracketed items are filled in from the data and should not be edited as text. Standalone-page-only lines are hidden when the explorer is embedded with `?embed=1`.
+Every visible and screen-reader string in the explorer, as it reads today (regenerated Oct 29 after Carrie's final edits: reading notes moved under the key, interaction hint added, organization name labels removed from the History chart; names appear only in cards and tooltips). Bracketed items are filled in from the data and should not be edited as text. Standalone-page-only lines are hidden when the explorer is embedded with `?embed=1`.
 
 | Location | Current text |
 |---|---|
@@ -11,7 +11,7 @@ Every visible and screen-reader string in the explorer, as it reads today. Brack
 | Tab button | Governance |
 | Tab button | The 6 ways |
 | Tab button | History |
-| Key (all tabs), row 1 label | Color |
+| Key (all tabs; each shape is drawn as that tab's chart draws it: Governance all filled, 6 ways circles and squares muted, History circle hollow), row 1 label | Color |
 | Key (all tabs), color item | Legacy, Creator, Barbell |
 | Key (all tabs), color item | Philanthropic, Public Media, Collaboration |
 | Key (all tabs), color item | Co-ops, Civic, B2B |
@@ -23,7 +23,9 @@ Every visible and screen-reader string in the explorer, as it reads today. Brack
 | Governance tab, heading | Governance |
 | Governance tab, intro | Nine cohorts capture the range of journalism operators currently producing in the United States, in three groups. |
 | Governance tab, summary line | 169 organizations, 9 cohorts, 3 groups. |
-| Governance tab, caption below chart | Position: Each wedge is one cohort. |
+| Governance tab, reading note (directly under the key, above the chart) | Position: Each wedge is one cohort. |
+| Governance tab, interaction hint (under the key; mouse and trackpad readers) | Hover over any mark to see the organization behind it. |
+| Governance tab, interaction hint (under the key; touch readers) | Tap any mark to see the organization behind it. |
 | Governance tab, chart labels (wide: code and name; narrow: code only) | C1 Legacy Publishers; C2 Creator Brands; C3 Barbell Hybrids; C4 Philanthropic Mesh Networks; C5 Public Media Networks; C6 Collaboration Layers; C7 Worker-Owned Co-ops; C8 Emerging Civic Actors; C9 B2B/Professional Services |
 | Governance tab, list row (name, then count) | C1 · Legacy Publishers 18 |
 | Governance tab, list row (name, then count) | C2 · Creator Brands 26 |
@@ -38,7 +40,10 @@ Every visible and screen-reader string in the explorer, as it reads today. Brack
 | 6 ways tab, heading | The 6 ways to grow beyond $10M |
 | 6 ways tab, intro | Organizations that break past their cohort's typical ceiling almost always do so through one of six specific mechanisms — and rarely more than one. |
 | 6 ways tab, summary line | All 31 organizations that grew past $10M did it through one of the six mechanisms. |
-| 6 ways tab, caption below chart | Position: Each sector is one mechanism. Organizations that started above $10M and those still under $10M have their own sections. Mechanism 1, Bundle, is an empty slot: No organization grew past $10M this way. Every bundle in the dataset started above it. |
+| 6 ways tab, reading note (directly under the key, above the chart) | Position: Each wedge is one mechanism. Organizations that started above $10M and those still under $10M have their own sections. |
+| 6 ways tab, interaction hint (mouse readers) | Hover over any mark to see the organization behind it. |
+| 6 ways tab, interaction hint (touch readers) | Tap any mark to see the organization behind it. |
+| 6 ways tab, caption below chart (kept below: reads as a finding, not a reading instruction) | Mechanism 1, Bundle, is an empty slot: No organization grew past $10M this way. Every bundle in the dataset started above it. |
 | 6 ways tab, chart label above the triangles (wide) | Grew past $10M (31) |
 | 6 ways tab, chart label above the triangles (narrow, two lines) | Grew past $10M / (31) |
 | 6 ways tab, sector labels (number, then short name; narrow shows number only) | 1 Bundle; 2 Ideology; 3 Team + portfolio; 4 B2B; 5 Philanthropy; 6 Diversified |
@@ -59,7 +64,10 @@ Every visible and screen-reader string in the explorer, as it reads today. Brack
 | 6 ways tab, screen-reader description of chart | Chart of 169 organizations. The 6 ways to grow beyond $10M. Organizations that break past their cohort's typical ceiling almost always do so through one of six specific mechanisms — and rarely more than one. All 31 organizations that grew past $10M did it through one of the six mechanisms. |
 | History tab, heading | When they started matters. Who pays them matters more. |
 | History tab, intro | Organizations founded before 1995 — when the internet began reshaping print and broadcast distribution — mostly run above $10 million: 24 of 38. Organizations founded after 1995 are mostly smaller, with annual revenue below $10 million for 99 of 130. And only five of the nine kinds of organization in this study existed before 1995. The rest are new ways to pay for journalism, and most of the organizations using them are still small. |
-| History tab, caption below chart | Position: Founding year, left to right; the axis is compressed before 1995. Filled marks are over $10M in revenue. 1 organization with no verified founding year is not shown. Who pays predicts an organization's revenue band more strongly than when it was founded. |
+| History tab, reading note (directly under the key, above the chart) | Position: Founding year, left to right; the axis is compressed before 1995. Filled marks are over $10M in revenue. One organization with no verified founding year is not shown. |
+| History tab, interaction hint (mouse readers) | Hover over any mark to see the organization behind it. |
+| History tab, interaction hint (touch readers) | Tap any mark to see the organization behind it. |
+| History tab, caption below chart (takeaway) | Who pays predicts an organization's revenue band more strongly than when it was founded. |
 | History tab, chart 1 title | Organizations over $10 million by founding year |
 | History tab, chart 1 key | Grew past $10M |
 | History tab, chart 1 key | Started above $10M (lighter) |
@@ -71,7 +79,6 @@ Every visible and screen-reader string in the explorer, as it reads today. Brack
 | History tab, chart 2 row totals (narrow column), with column heading "over $10M" | [n] of [N] |
 | History tab, chart 2 marker label | 1995: the internet starts reshaping print and broadcast distribution. |
 | History tab, chart 2 axis labels | 1850; 1925; 1995; 2000; 2010; 2020 (narrow: 2005; 2015; 2025); Before 1995 (compressed); 1995 to 2026 |
-| History tab, chart 2 organization name labels (from the data) | New York Times; NPR; Washington Post; Fox News; ProPublica; Texas Tribune; Politico Pro; Axios; Daily Wire; Semafor; Baltimore Banner (narrow shows: New York Times; NPR; ProPublica; Axios) |
 | History tab, screen-reader description of chart 1 bars | [Era]: [n] of [N] over $10M ([x] grew past, [y] started above) |
 | History tab, screen-reader description of each mark | [Organization], [cohort code], founded [year], [started above $10M / grew past $10M / $10M or under] |
 | Card on hover or tap (6 ways and Governance), line 1 (bold) | [Organization name] |

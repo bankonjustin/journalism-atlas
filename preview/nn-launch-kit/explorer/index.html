@@ -39,8 +39,11 @@ canvas{display:block;width:100%}
 .tip{position:absolute;pointer-events:none;background:rgba(0,0,0,.92);border:1px solid #444;color:#fff;border-radius:6px;padding:7px 9px;font:500 12px/1.35 var(--font);max-width:230px;z-index:2}
 .tip b{display:block;font-weight:700;font-size:13px}
 .tip span{display:block;color:#cfcfcf}
-.legend{margin:0 0 8px;font-size:13px;color:#d2d2d2;background:var(--panel);border-radius:6px;padding:10px 12px}
-.pos{margin:8px 0 0;font-size:13px;color:var(--ink-2)}.pos:empty{display:none}
+.legend{margin:0 0 6px;font-size:13px;color:#d2d2d2;background:var(--panel);border-radius:6px;padding:10px 12px}
+.pos{margin:0 0 4px;font-size:13px;color:var(--ink-2)}.pos:empty{display:none}
+.hint{margin:0 0 10px;font-size:13px;color:var(--ink-3)}.h-tap{display:none}@media (hover:none),(pointer:coarse){.h-hover{display:none}.h-tap{display:inline}}
+.take{margin:8px 0 0;font-size:13px;color:var(--ink-2)}.take:empty{display:none}
+canvas.hot,.hist .mk{cursor:pointer}
 .legend .row{display:flex;flex-wrap:wrap;align-items:center;gap:2px 14px;margin:0 0 6px}.legend .row>b{flex:none}.legend .row .sw{margin:0}
 .legend p{margin:0 0 6px}
 .legend b{color:#fff}.legend .row:last-child{margin:0}
@@ -56,12 +59,12 @@ canvas{display:block;width:100%}
 .flag{display:inline-block;font:600 11px/1 var(--font);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--ink-3);color:var(--ink-3);padding:4px 6px;border-radius:6px;margin-bottom:10px}
 .stat:empty{display:none}
 .hist{padding:14px 12px 8px}.embed .hist{padding:12px 10px 6px}.hist[hidden]{display:none}.hist svg{display:block;width:100%;height:auto;overflow:visible}.hist text{font-family:var(--font);fill:#fff}
-.hist text,.hist line{pointer-events:none}.hist .mk:focus{outline:none}.hist .mk:focus-visible .ring,.hist .mk:hover .ring{stroke:#fff;stroke-width:1.5;fill:none}
+.hist text,.hist line{pointer-events:none}.hist .mk:focus{outline:none}.hist .ring{pointer-events:all}.hist .mk:focus-visible .ring,.hist .mk:hover .ring{stroke:#fff;stroke-width:1.5}
 .credit{margin:14px 0 0;font-size:12px;line-height:1.4;color:var(--ink-3)}
 .embed header,.embed .flag{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (max-width:420px){h1{font-size:24px}.tab{padding:9px 11px;font-size:13px}}
-@media (max-width:340px){.embed .sent,.embed .sub{font-size:14px;line-height:1.4}.embed .legend{font-size:12px;padding:8px 10px}.embed .legend .row{gap:2px 10px;margin:0 0 4px}.embed .pos{font-size:12px;line-height:1.4}.embed .credit{font-size:11px}.embed .stat{margin:0 0 8px}}
+@media (max-width:340px){.embed .sent,.embed .sub{font-size:14px;line-height:1.4}.embed .legend{font-size:12px;padding:8px 10px}.embed .legend .row{gap:2px 10px;margin:0 0 4px}.embed .pos,.embed .hint,.embed .take{font-size:12px;line-height:1.4}.embed .credit{font-size:11px}.embed .stat{margin:0 0 8px}}
 </style>
 </head>
 <body>
@@ -78,9 +81,11 @@ canvas{display:block;width:100%}
   <p class="sent" id="sent"></p>
   <p class="stat" id="stat"></p>
   <div class="legend" id="legend"></div>
+  <p class="pos" id="pos"></p>
+  <p class="hint" id="hint"><span class="h-hover">Hover over any mark to see the organization behind it.</span><span class="h-tap">Tap any mark to see the organization behind it.</span></p>
   <div class="stage" id="stage"><canvas id="cv" role="img" aria-label="Explorer"></canvas><div class="tip" id="tip" hidden></div></div>
   <div class="stage hist" id="hist" hidden><div class="tip" id="htip" hidden></div><div id="hsvg"></div></div>
-  <p class="pos" id="pos"></p>
+  <p class="take" id="take"></p>
   <ul class="list" id="list"></ul>
 </section>
 <footer class="credit">Nodes and Networks by Justin Bank for the Knight Center for the Future of News at Arizona State University's Walter Cronkite School of Journalism and Mass Communication</footer>
@@ -235,7 +240,8 @@ const HS = (() => {
   return { a, b: pre.length, c, d: post.length, k, u, eras, nCoh: M.cohorts.length,
     title: 'When they started matters. Who pays them matters more.',
     dek: `Organizations founded before ${M.cut} — when the internet began reshaping print and broadcast distribution — mostly run above $10 million: ${a} of ${pre.length}. Organizations founded after ${M.cut} are mostly smaller, with annual revenue below $10 million for ${post.length - c} of ${post.length}. And only ${NUM[k]} of the ${NUM[M.cohorts.length]} kinds of organization in this study existed before ${M.cut}. The rest are new ways to pay for journalism, and most of the organizations using them are still small.`,
-    foot: `Position: Founding year, left to right; the axis is compressed before ${M.cut}. Filled marks are over $10M in revenue. ${u} organization${u === 1 ? '' : 's'} with no verified founding year ${u === 1 ? 'is' : 'are'} not shown. Who pays predicts an organization's revenue band more strongly than when it was founded.` };
+    how: `Position: Founding year, left to right; the axis is compressed before ${M.cut}. Filled marks are over $10M in revenue. ${u <= 10 ? NUM[u][0].toUpperCase() + NUM[u].slice(1) : u} organization${u === 1 ? '' : 's'} with no verified founding year ${u === 1 ? 'is' : 'are'} not shown.`,
+    take: `Who pays predicts an organization's revenue band more strongly than when it was founded.` };
 })();
 const TABS = [
   { id: 'governance', param: 'governance', engine: 'gov', label: 'Governance', title: 'Governance', sent: M.copy.gov },
@@ -251,12 +257,18 @@ const tabsEl = $('tabs');
 tabsEl.innerHTML = TABS.map(t => `<button class="tab" role="tab" id="t-${t.id}" data-id="${t.id}" aria-selected="false" tabindex="-1">${esc(t.label)}</button>`).join('');
 const tabBtns = [...tabsEl.children];
 
-const shapeSvg = s => s === 'ci' ? '<svg class="dim" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.2"/></svg>' : s === 'sq' ? '<svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="2" width="10" height="10"/></svg>' : '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5 13 12H1z"/></svg>';
-const PAGES = { history: HS.foot, governance: 'Position: Each wedge is one cohort.', ways: 'Position: Each sector is one mechanism. Organizations that started above $10M and those still under $10M have their own sections.' };
+// Each key shape is drawn the way its tab draws it. Governance: all filled. 6 ways: under-$10M circles and started-above squares are muted (34%). History: under-$10M circles are hollow rings (50%), the rest filled.
+const shapeSvg = (s, tab) => {
+  const dim = tab === 'ways' && s !== 'tri' ? ' style="opacity:.34"' : '';
+  if (s === 'ci') return tab === 'history' ? '<svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="#fff" stroke-width="1.4" opacity=".5"/></svg>' : `<svg viewBox="0 0 14 14" aria-hidden="true"${dim}><circle cx="7" cy="7" r="5.2"/></svg>`;
+  return s === 'sq' ? `<svg viewBox="0 0 14 14" aria-hidden="true"${dim}><rect x="2" y="2" width="10" height="10"/></svg>` : '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5 13 12H1z"/></svg>';
+};
+const PAGES = { history: HS.how, governance: 'Position: Each wedge is one cohort.', ways: 'Position: Each wedge is one mechanism. Organizations that started above $10M and those still under $10M have their own sections.' };
+const TAKE = { history: HS.take, governance: '', ways: '' };
 const bundleNote = () => (cnt(n => n.m === M.paths[0].key && n.o === 'CROSSED') === 0 && cnt(n => n.m === M.paths[0].key && n.o === 'INHERITED') > 0 ? 'No organization grew past $10M this way. Every bundle in the dataset started above it.' : '');
-function legend() {   // one key for every tab: color = cohort group, shape = path to $10M; each mark drawn as it appears in the chart
+function legend() {   // same entries on every tab: color = cohort group, shape = path to $10M; shapes redrawn per tab to match that tab's marks
   const colors = `<div class="row"><b>Color</b>${['a', 'b', 'c'].map(k => `<span class="sw"><i class="dot" style="background:var(--${k})"></i>${esc(M.groups[k])}</span>`).join('')}</div>`;
-  const shapes = `<div class="row"><b>Path to $10M in revenue</b><span class="sw">${shapeSvg('ci')}Under $10M</span><span class="sw">${shapeSvg('tri')}Grew past $10M</span><span class="sw">${shapeSvg('sq')}Started above $10M</span></div>`;
+  const shapes = `<div class="row"><b>Path to $10M in revenue</b><span class="sw">${shapeSvg('ci', cur.id)}Under $10M</span><span class="sw">${shapeSvg('tri', cur.id)}Grew past $10M</span><span class="sw">${shapeSvg('sq', cur.id)}Started above $10M</span></div>`;
   return colors + shapes;
 }
 function stat() {
@@ -274,7 +286,7 @@ function listHtml() {
 function ui() {
   tabBtns.forEach(b => { const on = b.dataset.id === cur.id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; b.id = 't-' + b.dataset.id; });
   $('panel').setAttribute('aria-labelledby', 't-' + cur.id);
-  $('title').textContent = cur.title; $('sent').textContent = cur.sent; $('stat').textContent = stat(); $('legend').innerHTML = legend(); $('pos').textContent = PAGES[cur.id] + (cur.id === 'ways' && bundleNote() ? ' Mechanism 1, Bundle, is an empty slot: ' + bundleNote() : ''); $('list').innerHTML = listHtml();
+  $('title').textContent = cur.title; $('sent').textContent = cur.sent; $('stat').textContent = stat(); $('legend').innerHTML = legend(); $('pos').textContent = PAGES[cur.id]; $('take').textContent = [TAKE[cur.id], cur.id === 'ways' && bundleNote() ? 'Mechanism 1, Bundle, is an empty slot: ' + bundleNote() : ''].filter(Boolean).join(' '); $('list').innerHTML = listHtml();
   const lst = $('list'); [...lst.children].forEach(li => { li.addEventListener('pointerenter', () => setHl(li.dataset.key)); li.addEventListener('pointerleave', () => setHl(null)); li.addEventListener('focus', () => setHl(li.dataset.key)); li.addEventListener('blur', () => setHl(null)); });
   const alt = `${cur.title}. ${$('sent').textContent} ${$('stat').textContent}`; cv.setAttribute('aria-label', 'Chart of ' + M.n + ' organizations. ' + alt);
   const isH = cur.id === 'history'; stage.hidden = isH; $('hist').hidden = !isH; if (isH) { renderHist(); cv.removeAttribute('aria-label'); }
@@ -339,15 +351,15 @@ function cardFor(n) {
 function hit(ev) {
   if (mode !== 'idle') return; const r = cv.getBoundingClientRect(), k = r.width / G.w, x = ev.clientX - r.left, y = ev.clientY - r.top; let best = -1, bd = 1e9;
   N.forEach((n, i) => { const dd = Math.hypot((G.cx + P[i].x * G.R) * k - x, (G.cy + P[i].y * G.R) * k - y); if (dd < bd) { bd = dd; best = i; } });
-  if (bd > (ev.pointerType === 'mouse' ? 14 : 24)) { tip.hidden = true; if (hovered != null) { hovered = null; paint(); } return; }
-  hovered = best; paint();
+  if (bd > (ev.pointerType === 'mouse' ? 14 : 24)) { cv.classList.remove('hot'); tip.hidden = true; if (hovered != null) { hovered = null; paint(); } return; }
+  cv.classList.add('hot'); hovered = best; paint();
   const px = (G.cx + P[best].x * G.R) * k, py = (G.cy + P[best].y * G.R) * k; tip.innerHTML = cardFor(N[best]); tip.hidden = false;
   const tw = tip.offsetWidth, th = tip.offsetHeight; tip.style.left = Math.min(Math.max(6, px - tw / 2), r.width - tw - 6) + 'px'; tip.style.top = (py - th - 14 < 0 ? py + 14 : py - th - 14) + 'px';
   const ctx2 = ctx; ctx2.save(); ctx2.setTransform(dpr, 0, 0, dpr, 0, 0); ctx2.beginPath(); ctx2.arc(G.cx + P[best].x * G.R, G.cy + P[best].y * G.R, L.MR * G.R * G.boost * 2.3, 0, 7); ctx2.strokeStyle = '#fff'; ctx2.lineWidth = 1.5; ctx2.stroke(); ctx2.restore();
 }
 cv.addEventListener('pointermove', hit); cv.addEventListener('pointerdown', hit);
-cv.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; tip.hidden = true; if (hovered != null) { hovered = null; paint(); } });   // a touch tap ends with pointerleave: keep the card until the next tap
-addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' && e.target !== cv && !tip.hidden) { tip.hidden = true; if (hovered != null) { hovered = null; paint(); } } });
+cv.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; cv.classList.remove('hot'); tip.hidden = true; if (hovered != null) { hovered = null; paint(); } });   // a touch tap ends with pointerleave: keep the card until the next tap
+addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' && e.target !== cv && !tip.hidden) { tip.hidden = true; if (hovered != null) { hovered = null; paint(); } } if (e.pointerType !== 'mouse' && !e.target.closest('.mk')) $('htip').hidden = true; });
 addEventListener('keydown', e => { if (e.key === 'Escape') { tip.hidden = true; $('htip').hidden = true; hovered = null; paint(); } });
 
 // ---- History tab: one SVG row per cohort, founding year left to right (broken axis), era bars on top ----
@@ -356,7 +368,6 @@ const hw = () => { const el = $('hist'), cs = getComputedStyle(el); return Math.
 const mctx = document.createElement('canvas').getContext('2d');
 const tw = (t, px, wt) => { mctx.font = `${wt || 500} ${px}px ${NN_FAM}`; return mctx.measureText(t).width; };
 const fmtRev = v => v >= 1e9 ? '$' + +(v / 1e9).toFixed(v >= 1e10 ? 0 : 1) + 'B' : v >= 1e6 ? '$' + +(v / 1e6).toFixed(v >= 1e8 ? 0 : 1) + 'M' : '$' + Math.round(v / 1e3) + 'K';
-const ANCHORS = ['New York Times', 'NPR', 'Washington Post', 'Fox News', 'ProPublica', 'Texas Tribune', 'Politico Pro', 'Axios', 'Daily Wire', 'Semafor', 'Baltimore Banner'], ANCHORS_NARROW = ['New York Times', 'NPR', 'ProPublica', 'Axios'];
 const wrap = (t, px, maxW, wt) => { const out = []; let line = ''; t.split(' ').forEach(wd => { const c = line ? line + ' ' + wd : wd; if (line && tw(c, px, wt) > maxW) { out.push(line); line = wd; } else line = c; }); if (line) out.push(line); return out; };
 function histCard(n) {
   const co = M.cohorts.find(c => c.code === n.c), pi = pathIdx(n.m), l = [`${n.c} ${co.name}`];
@@ -368,7 +379,6 @@ function histCard(n) {
   if (n.st) l.push('Status: ' + n.st);
   return `<b>${esc(n.nm)}</b>` + l.map(x => `<span>${esc(x)}</span>`).join('');
 }
-const findAnchor = (nm, N) => N.find(n => n.fy && n.nm && (n.nm === nm || n.nm.startsWith(nm + ' ') || n.nm.startsWith('The ' + nm + ' ') || n.nm.startsWith(nm + ' (')));
 function renderHist() {
   const host = $('hsvg'), w = Math.max(260, hw()); histW = w;
   const narrow = w < (EMBED ? 700 : 520), cmp = EMBED && narrow, stack = cmp && w < 300, FS = narrow ? 10 : 11, r = cmp ? 3.1 : narrow ? 3.4 : 4.3, step = cmp ? 8.3 : narrow ? 9.2 : 11.5, hdrH = stack ? FS + 5 : 0, rowPad = cmp ? 5 : 10, gh = cmp ? FS + 8 : FS + 12;   // embed + narrow: compact spacing so every tab fits the fixed 1650px frame; stack: cohort names above their rows
@@ -402,9 +412,9 @@ function renderHist() {
     M.cohorts.filter(c => c.g === g).forEach(c => {
       const mem = N.filter(n => n.c === c.code && n.fy).sort((a, b) => a.fy - b.fy || a.i - b.i), lanes = [], minDx = 2.3 * r + 1;
       const pl = mem.map(n => { const x = xOf(n.fy); let ln = lanes.findIndex(lx => x - lx >= minDx); if (ln < 0) { ln = lanes.length; lanes.push(-1e9); } lanes[ln] = x; return { n, x, ln }; });
-      const anch = (narrow ? ANCHORS_NARROW : ANCHORS).some(a => { const q = findAnchor(a, N); return q && q.c === c.code; }), h = hdrH + Math.max(1, lanes.length) * step + rowPad + (anch ? step + 5 : 0), laneY = yy + hdrH + rowPad / 2 + lanes.length * step + (step + 5) / 2 + 1;
+      const h = hdrH + Math.max(1, lanes.length) * step + rowPad;
       pl.forEach(p => { p.y = yy + hdrH + rowPad / 2 + step * (p.ln + .5); p.r = r; marks.push(p); });
-      const over = mem.filter(n => n.b === 2).length; rows.push({ c, y: yy, h, laneY, anch, over, tot: N.filter(n => n.c === c.code).length }); yy += h;
+      const over = mem.filter(n => n.b === 2).length; rows.push({ c, y: yy, h, over, tot: N.filter(n => n.c === c.code).length }); yy += h;
     });
   });
   const rowsEnd = yy, axisY = rowsEnd + 6;
@@ -427,7 +437,7 @@ function renderHist() {
   hero.forEach((ln, i) => o.push(txt(xb + 7, bandTop + FS + 1 + i * (FS + 4), ln, { fs: FS + 1, wt: 700 })));
   o.push(`<line x1="${px0}" x2="${xb - gapB}" y1="${axisY}" y2="${axisY}" stroke="#666"/><line x1="${xb}" x2="${px1}" y1="${axisY}" y2="${axisY}" stroke="#666"/>`);
   [xb - 5, xb - 2].forEach(bx => o.push(`<line x1="${bx - 2}" x2="${bx + 2}" y1="${axisY + 5}" y2="${axisY - 5}" stroke="#fff" stroke-width="1.5"/>`));
-  ticksL.forEach(t => o.push(txt(xOf(t), axisY + 15, String(t), { an: 'middle', fill: '#bdbdbd', fs: FS - 1 })));
+  ticksL.forEach(t => o.push(txt(xOf(t), axisY + 15, String(t), { an: xOf(t) < 14 ? 'start' : 'middle', fill: '#bdbdbd', fs: FS - 1 })));
   [M.cut, ...ticksR].forEach(t => o.push(txt(xOf(t), axisY + 15, String(t), { an: 'middle', fill: t === M.cut ? '#fff' : '#bdbdbd', wt: t === M.cut ? 700 : 500, fs: FS - 1 })));
   o.push((stack ? txt(0, axisY + 44, `Before ${M.cut} (compressed)`, { fill: '#bdbdbd', fs: FS - 1 }) : txt(xb - 8, axisY + 30, `Before ${M.cut} (compressed)`, { an: 'end', fill: '#bdbdbd', fs: FS - 1 })) + txt(xb + 4, axisY + 30, `${M.cut} to 2026`, { fill: '#bdbdbd', fs: FS - 1 }));
   const H = axisY + (stack ? 52 : 40);
@@ -439,25 +449,8 @@ function renderHist() {
     return `<polygon points="${pts}" fill="${col}"/>`; };
   marks.forEach(p => { const col = T2[p.n.g], desc = `${p.n.nm}, ${p.n.c}, founded ${p.n.fy}, ${p.n.b === 2 ? (p.n.o === 'INHERITED' ? 'started above $10M' : 'grew past $10M') : '$10M or under'}`;
     o.push(`<g class="mk" tabindex="0" role="img" aria-label="${esc(desc)}" data-i="${p.n.i}"><circle class="ring" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(r * 2).toFixed(1)}" fill="transparent"/>${shape(p, col)}</g>`); });
-  // ---- direct labels, placed programmatically: right of the mark, else left, nudged up or down inside the row; skipped if nothing is clear ----
-  const want = narrow ? ANCHORS_NARROW : ANCHORS, boxes = marks.map(p => [p.x - r * 1.4, p.y - r * 1.4, p.x + r * 1.4, p.y + r * 1.4]), skipped = [], lfs = FS - .5; boxes.push([xb - 3, rowsTop, xb + 3, rowsEnd]); if (stack) rows.filter(q => q.c).forEach(q => boxes.push([0, q.y, w, q.y + hdrH]));   // labels never sit on the 1995 line
-  const hit2 = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
-  want.forEach(nmk => {
-    const nd = findAnchor(nmk, N), p = nd && marks.find(m => m.n === nd); if (!p) { skipped.push(nmk + ' (not found)'); return; }
-    const rw = rows.find(q => q.c && q.c.code === p.n.c), wd = tw(nmk, lfs, 600) + 3, self = boxes[marks.indexOf(p)]; let placed = null;
-    const ok = bx => !(bx[0] < px0 - 4 || bx[2] > px1 + 4 || bx[1] < rw.y || bx[3] > rw.y + rw.h || boxes.some(b => b !== self && hit2(bx, b)));
-    for (const side of rw.anch ? [1] : [1, -1]) {   // left-of-mark labels read as belonging to the mark on their left, so rows with a label lane use it instead
-      const x0 = side > 0 ? p.x + r * 1.4 + 3 : p.x - r * 1.4 - 3 - wd, bx = [x0, p.y - lfs * .6, x0 + wd, p.y + lfs * .6]; if (ok(bx)) { placed = { x: x0, y: p.y, bx }; break; } }
-    if (!placed && rw.anch) for (const off of [0, -.6, .6, -1.2, 1.2, -1.8, 1.8, -2.4, 2.4, -3.2, 3.2, -4.4, 4.4, -6, 6]) {   // label lane under the row's marks, joined to its mark by a thin leader
-      const x0 = Math.min(Math.max(p.x - wd / 2 + off * wd, px0), px1 - wd), bx = [x0, rw.laneY - lfs * .6, x0 + wd, rw.laneY + lfs * .6];
-      if (ok(bx)) { placed = { x: x0, y: rw.laneY, bx, lead: [p.x, p.y + r * 1.4, Math.min(Math.max(p.x, x0 + 2), x0 + wd - 2), bx[1] - 1] }; break; }
-    }
-    if (!placed) { skipped.push(nmk); return; }
-    boxes.push([placed.bx[0] - 4, placed.bx[1], placed.bx[2] + 4, placed.bx[3]]); if (placed.lead) o.push(`<line x1="${placed.lead[0].toFixed(1)}" y1="${placed.lead[1].toFixed(1)}" x2="${placed.lead[2].toFixed(1)}" y2="${placed.lead[3].toFixed(1)}" stroke="#9a9a9a" stroke-width=".8"/>`);
-    o.push(txt(placed.x, placed.y + lfs * .35, nmk, { fs: lfs, wt: 600 }));
-  });
   host.innerHTML = `<svg viewBox="0 0 ${w} ${H}" width="${w}" height="${H}" role="group" aria-label="${esc(HS.title + ' ' + HS.dek)}">${o.join('')}</svg>`;
-  host.dataset.skipped = skipped.join('|'); host.dataset.h = Math.round(H);
+  host.dataset.h = Math.round(H);
   const ht = $('htip'), hist = $('hist');
   const show = g => { const n = N[+g.dataset.i]; ht.innerHTML = histCard(n); ht.hidden = false; const hr = hist.getBoundingClientRect(), gr = g.getBoundingClientRect(), tw2 = ht.offsetWidth, th = ht.offsetHeight, cxm = gr.left + gr.width / 2 - hr.left, top = gr.top - hr.top;
     ht.style.left = Math.min(Math.max(6, cxm - tw2 / 2), hr.width - tw2 - 6) + 'px'; ht.style.top = (top - th - 8 < 0 ? top + gr.height + 8 : top - th - 8) + 'px'; };
@@ -469,7 +462,7 @@ function report() { if (!EMBED || parent === window) return; parent.postMessage(
 ui(); paint();
 if (typeof ResizeObserver === 'function') new ResizeObserver(() => { if (cur.id === 'history') { if (Math.max(260, hw()) !== histW) renderHist(); } else if (mode === 'idle') paint(); report(); }).observe(document.body);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (cur.id === 'history') renderHist(); else if (mode === 'idle') paint(); report(); });
-window.NNX = { pt: nm => { const i = N.findIndex(n => n.nm === nm); if (i < 0) return null; const r = cv.getBoundingClientRect(), k = r.width / G.w; return { x: r.left + (G.cx + P[i].x * G.R) * k, y: r.top + (G.cy + P[i].y * G.R) * k }; }, go: id => go(byParam(id), false), get tab() { return cur.param; }, get skipped() { return $('hsvg').dataset.skipped; } };
+window.NNX = { pt: nm => { const i = N.findIndex(n => n.nm === nm); if (i < 0) return null; const r = cv.getBoundingClientRect(), k = r.width / G.w; return { x: r.left + (G.cx + P[i].x * G.R) * k, y: r.top + (G.cy + P[i].y * G.R) * k }; }, go: id => go(byParam(id), false), get tab() { return cur.param; } };
 })();
 </script>
 </body>
