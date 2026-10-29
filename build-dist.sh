@@ -29,8 +29,8 @@ cp atlas-portal/*.html atlas-portal/script.js dist/atlas-portal/
 # Preferred: build it here from nn/content/copy.md and stamp the pages "built on Cloudflare".
 # Fallback: if Python is missing or too old (Pages build image v1) or the build fails, publish the committed copy in nn/built/
 # (refreshed by ship.sh) and print a loud warning. The page source says which one is live: view source, first lines.
-# The old preview explorer copies are dropped so _redirects forwards those addresses to /nodes-and-networks/explorer/.
-rm -rf dist/preview/nn-launch-kit/explorer dist/preview/nn-launch-kit/explorer-named
+# preview/nn-launch-kit/explorer/ is the permanent ASU embed address and is published as committed. Only the retired explorer-named copy is dropped (_redirects forwards it).
+rm -rf dist/preview/nn-launch-kit/explorer-named
 NNTMP=$(mktemp -d)
 if command -v python3 >/dev/null 2>&1 && python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 7) else 1)' && python3 nn/build.py --out "$NNTMP" --stamp "built on Cloudflare"; then
   cp -R "$NNTMP/nodes-and-networks" dist/

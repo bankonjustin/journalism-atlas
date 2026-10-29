@@ -4,35 +4,30 @@ Replace `{{EXPLORER_URL}}` with the final address once the report URL is set. Un
 `https://journalismatlas.com/preview/nn-launch-kit/explorer/`.
 Every example uses `?embed=1`, which removes the page header and footer, makes the background transparent and reports its height to the host page.
 
-## 1. Plain iframe (any CMS that allows iframes)
+## 1. Plain iframe (works with no scripts)
 
-The explorer reflows by width, so its height is not one fixed ratio. These heights fit every tab: **1400 px** under 640 px wide, **1200 px** from 640 px up.
+Fixed height **1650 px** at every width. That fits the tallest case (History at 380 px wide, measured 1594 px). Under `?embed=1` the page background is transparent and the dark chart panels end where the content ends, so any spare height shows the host page, not a black block.
 
 ```html
 <iframe
-  src="{{EXPLORER_URL}}?embed=1&tab=governance"
+  src="https://journalismatlas.com/preview/nn-launch-kit/explorer/?embed=1&tab=ways"
   title="Nodes and Networks explorer: 169 U.S. journalism organizations"
   loading="lazy"
-  style="display:block;width:100%;max-width:760px;height:1400px;margin:0 auto;border:0"></iframe>
+  style="display:block;width:100%;max-width:760px;height:1650px;margin:0 auto;border:0"></iframe>
 ```
 
-If the CMS allows a `<style>` block, this swaps the height by width:
+Use `{{EXPLORER_URL}}` in place of the address once the final one is set. In `?embed=1` the explorer always uses its light text on a transparent background, whatever the visitor's dark-mode setting, so it reads on a white host page.
+
+## 2. Optional: trim the height
+
+Optional — trims height if your CMS allows scripts. Add this after the iframe; without it the iframe simply keeps its fixed 1650 px. The explorer posts `{source:'nn-explorer', type:'height', height:<px>}` whenever its size changes.
 
 ```html
-<style>.nn-frame{display:block;width:100%;max-width:760px;height:1400px;margin:0 auto;border:0}
-@media (min-width:640px){.nn-frame{height:1200px}}</style>
-<iframe class="nn-frame" src="{{EXPLORER_URL}}?embed=1&tab=governance" title="Nodes and Networks explorer" loading="lazy"></iframe>
-```
-
-## 2. Auto-height iframe (CMS allows scripts)
-
-The explorer posts `{source:'nn-explorer', type:'height', height:<px>}` whenever its size changes. The listener resizes the frame to fit, so there is no empty space or inner scrollbar.
-
-```html
-<iframe id="nn-explorer" src="{{EXPLORER_URL}}?embed=1&tab=governance"
+<iframe id="nn-explorer" src="https://journalismatlas.com/preview/nn-launch-kit/explorer/?embed=1&tab=ways"
   title="Nodes and Networks explorer" loading="lazy"
-  style="display:block;width:100%;max-width:760px;height:1400px;margin:0 auto;border:0"></iframe>
+  style="display:block;width:100%;max-width:760px;height:1650px;margin:0 auto;border:0"></iframe>
 <script>
+/* optional — trims height if your CMS allows scripts */
 addEventListener('message', function (e) {
   var d = e.data, f = document.getElementById('nn-explorer');
   if (!d || d.source !== 'nn-explorer' || d.type !== 'height' || e.source !== f.contentWindow) return;
@@ -41,7 +36,7 @@ addEventListener('message', function (e) {
 </script>
 ```
 
-The `e.source` check accepts messages only from this frame. Use a second copy of the snippet with a different `id` for a second explorer on the same page.
+The `e.source` check accepts messages only from this frame. Use a second copy with a different `id` for a second explorer on the same page.
 
 ## 3. Fallback (CMS strips iframes)
 
