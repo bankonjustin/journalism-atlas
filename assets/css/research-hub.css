@@ -1,0 +1,71 @@
+/* Research hub + piece-page modules. Built from DESIGN-TOKENS-v16 roles only (no page-local values).
+   Used by /preview/research/ (later /research) and by "Talked about on" on piece pages (watershed/).
+   Pattern borrowed from Switchboard: a module renders only when it has real material (see assets/js/research-hub.js). */
+
+.rh { font-family: var(--font-primary); color: var(--color-text); background: var(--color-bg); }
+.rh-sec { padding: 48px 16px; background: var(--color-bg); }
+.rh-sec.on-dark { background: var(--color-surface-dark); color: var(--color-text-on-dark-2); }
+.rh-in { max-width: 1100px; margin: 0 auto; }
+@media (min-width: 760px) { .rh-sec { padding: 64px 32px; } }
+
+/* Eyebrow (v16 § Eyebrows) and section head (H2) */
+.rh-eyebrow { font-family: var(--font-mono); font-size: var(--text-label); font-weight: 500; line-height: 1.4; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-secondary); margin: 0 0 16px; }
+.on-dark .rh-eyebrow { color: var(--color-acid); }
+.rh-h2 { font-family: var(--font-heading); font-size: 24px; font-weight: 700; line-height: 1.25; color: var(--color-heading); margin: 0 0 32px; max-width: 24em; }
+.on-dark .rh-h2 { color: #fff; }
+@media (min-width: 760px) { .rh-h2 { font-size: var(--text-h2); } }
+
+/* Card meta line (v16 Tag: Source Code Pro 12px caps, 0.08em, 1.4 for meta lines) */
+.rh-meta { font-family: var(--font-mono); font-size: var(--text-tag); font-weight: 500; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-secondary); margin: 0 0 12px; overflow-wrap: anywhere; }
+.on-dark .rh-meta { color: var(--color-text-on-dark-2); }
+
+/* Card: 6px radius, step-3 border on light, step-5 on dark */
+.rh-card { display: flex; flex-direction: column; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 6px; padding: 20px; min-width: 0; }
+.on-dark .rh-card { background: var(--gray-neutral-6); border-color: var(--color-border-on-dark); }
+.rh-card-t { font-family: var(--font-heading); font-size: var(--text-h3); font-weight: 600; line-height: 1.3; color: var(--color-heading); margin: 0 0 8px; overflow-wrap: anywhere; }
+.on-dark .rh-card-t { color: #fff; }
+.rh-card-b { font-size: var(--text-small); line-height: 1.5; margin: 0 0 16px; color: var(--color-text-secondary); }
+.on-dark .rh-card-b { color: var(--color-text-on-dark-2); }
+.rh-card .link-instruction { margin-top: auto; align-self: flex-start; }
+.rh-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 760px) { .rh-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .rh-grid--3 { grid-template-columns: repeat(3, 1fr); } }
+
+/* Featured piece: image over text on phones, side by side from 760px */
+.rh-feat { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+.rh-feat-img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.rh-feat-t { font-family: var(--font-heading); font-size: 28px; font-weight: 700; line-height: 1.2; color: #fff; margin: 0 0 16px; overflow-wrap: anywhere; }
+.rh-feat-b { font-size: var(--text-body); line-height: 1.6; color: var(--color-text-on-dark-2); margin: 0 0 24px; }
+.rh-feat-act { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+@media (min-width: 760px) { .rh-feat--img { grid-template-columns: 1fr 1fr; align-items: center; gap: 32px; } .rh-feat-t { font-size: var(--text-h1); } }
+
+/* Social post card: poster on top, meta, caption, link out */
+.rh-post-img { display: block; width: 100%; height: auto; border-radius: 6px; margin: 0 0 16px; background: var(--gray-neutral-2); }
+.rh-post-cap { font-size: var(--text-small); line-height: 1.5; margin: 0 0 16px; color: var(--color-text); overflow-wrap: anywhere; white-space: pre-line; }
+
+/* Partners band */
+.rh-partners { list-style: none; margin: 0 0 32px; padding: 0; display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 560px) { .rh-partners { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .rh-partners { grid-template-columns: repeat(4, 1fr); } }
+.rh-partner { display: flex; flex-direction: column; gap: 8px; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 6px; padding: 16px; min-width: 0; }
+.rh-partner-logo { display: block; max-width: 100%; max-height: 48px; width: auto; height: auto; }
+.rh-partner-n { font-size: var(--text-body); font-weight: 600; line-height: 1.3; color: var(--color-heading); overflow-wrap: anywhere; }
+.rh-partner-n a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.rh-partner-n a:hover { color: var(--color-link); }
+.rh-partner-r { font-size: var(--text-small); line-height: 1.5; color: var(--color-text-secondary); margin: 0; }
+
+/* Hub signup band */
+.rh-cta-note { font-size: var(--text-small); line-height: 1.5; color: var(--color-text-on-dark-2); margin: 16px 0 0; }
+
+/* Piece-page module ("Talked about on"): sits on the white endcap surface */
+.rh-talked { background: var(--color-surface); padding: 48px 0 0; font-family: var(--font-primary); }
+.rh-talked .rh-in { padding: 0 16px; max-width: 1040px; }
+@media (min-width: 900px) { .rh-talked .rh-in { padding: 0 32px; } }
+.rh-talked .rh-h2 { font-size: var(--text-h3); font-weight: 600; margin-bottom: 20px; }
+.rh-talked .rh-card { background: var(--color-bg-card); }
+
+/* Page hero (hub) */
+.rh-h1 { font-family: var(--font-heading); font-size: 28px; font-weight: 700; line-height: 1.2; color: #fff; margin: 0 0 16px; max-width: 20em; }
+.rh-lede { font-size: var(--text-body); line-height: 1.6; color: var(--color-text-on-dark-2); margin: 0; max-width: 40em; }
+@media (min-width: 760px) { .rh-h1 { font-size: var(--text-h1); } }
+.rh-fallback { padding: 48px 16px; }
