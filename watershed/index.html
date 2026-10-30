@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/assets/css/variables.css">
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/header.css">
+<link rel="stylesheet" href="/assets/css/research-hub.css">
 <!-- /ATLAS CHROME -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -402,12 +403,14 @@ mark.ph{background:var(--draft-hl);color:#000;padding:0 2px;border-radius:2px}
 </div></section>
 <!-- PROSE END -->
 </main>
+<!-- ATLAS CHROME: "Talked about on" (data/social.json; renders nothing until a post is tagged piece_slug=watershed) -->
+<div data-research-talked data-piece="watershed" hidden></div>
 <!-- ATLAS CHROME: endcap (outside the prose region; do not paste prose here) -->
 <div class="endcap">
 <section class="endcap-tell on-dark" aria-labelledby="endcap-tell-h"><div class="endcap-in">
 <h2 id="endcap-tell-h">Doing this work where there&#39;s no newsroom? Tell us.</h2>
 <p>Reporting, documenting or explaining what&#39;s happening in your county, on any platform. Or point us to someone who is. A person on our team reads every one.</p>
-<a href="/contact" class="btn btn--primary">Tell us →</a>
+<a href="/contact?source=watershed&amp;cta=tell-us-who-were-missing" class="btn btn--primary" data-research-cta="primary" data-piece="watershed">Tell us →</a>
 </div></section>
 <section class="endcap-keep" aria-labelledby="endcap-keep-h"><div class="endcap-in">
 <h2 class="endcap-h" id="endcap-keep-h">Keep going</h2>
@@ -440,6 +443,7 @@ var RAIL_ENABLED = false;
 })();
 </script>
 <!-- ATLAS CHROME: site footer -->
+<script src="/assets/js/research-hub.js" defer></script>
 <script src="/assets/js/footer.js"></script>
 <!-- /ATLAS CHROME -->
 </body>
