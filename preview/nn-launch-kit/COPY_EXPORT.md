@@ -39,16 +39,16 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | Governance tab, screen-reader description of chart | Chart of 169 organizations. Governance. Nine cohorts capture the range of journalism operators currently producing in the United States, in three groups. 169 organizations, 9 cohorts, 3 groups. |
 | 6 ways tab, heading | The 6 ways to grow beyond $10M |
 | 6 ways tab, intro | Organizations that break past their cohort's typical ceiling almost always do so through one of six specific mechanisms — and rarely more than one. |
-| 6 ways tab, summary line | All 31 organizations that grew past $10M did it through one of the six mechanisms. |
+| 6 ways tab, summary line | All 30 organizations that grew past $10M did it through one of the six mechanisms. |
 | 6 ways tab, reading note (directly under the key, above the chart) | Position: Each wedge is one mechanism. Organizations that started above $10M and those still under $10M have their own sections. |
 | 6 ways tab, interaction hint (mouse readers) | Hover over any mark to see the organization behind it. |
 | 6 ways tab, interaction hint (touch readers) | Tap any mark to see the organization behind it. |
 | 6 ways tab, caption below chart (kept below: reads as a finding, not a reading instruction) | Mechanism 1, Bundle, is an empty slot: No organization grew past $10M this way. Every bundle in the dataset started above it. |
-| 6 ways tab, chart label above the triangles (wide) | Grew past $10M (31) |
-| 6 ways tab, chart label above the triangles (narrow, two lines) | Grew past $10M / (31) |
+| 6 ways tab, chart label above the triangles (wide) | Grew past $10M (30) |
+| 6 ways tab, chart label above the triangles (narrow, two lines) | Grew past $10M / (30) |
 | 6 ways tab, sector labels (number, then short name; narrow shows number only) | 1 Bundle; 2 Ideology; 3 Team + portfolio; 4 B2B; 5 Philanthropy; 6 Diversified |
-| 6 ways tab, chart label for squares (wide) | Started above $10M (24) |
-| 6 ways tab, chart label for squares (narrow, two lines) | Above $10M / (24) |
+| 6 ways tab, chart label for squares (wide) | Started above $10M (25) |
+| 6 ways tab, chart label for squares (narrow, two lines) | Above $10M / (25) |
 | 6 ways tab, chart label for circles (wide, two lines) | Under $10M / not yet grown past it |
 | 6 ways tab, chart label for circles (narrow) | Under $10M |
 | 6 ways tab, note in the empty Bundle sector (wide, three lines) | None grew this way. / Every organization selling a / bundle started above $10M. |
@@ -58,10 +58,10 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | 6 ways tab, list row (name, then count) | 3 · A newer organization that grew a team and a portfolio at once 10 |
 | 6 ways tab, list row (name, then count) | 4 · B2B pricing built for an employer's expense account rather than a household budget 9 |
 | 6 ways tab, list row (name, then count) | 5 · Philanthropic scale large enough to function like an endowment 7 |
-| 6 ways tab, list row (name, then count) | 6 · Genuine diversification, with no single stream large enough to hurt if it disappeared 3 |
-| 6 ways tab, list row (name, then count) | Started above $10M 24 |
+| 6 ways tab, list row (name, then count) | 6 · Genuine diversification, with no single stream large enough to hurt if it disappeared 2 |
+| 6 ways tab, list row (name, then count) | Started above $10M 25 |
 | 6 ways tab, list row (name, then count) | Under $10M 114 |
-| 6 ways tab, screen-reader description of chart | Chart of 169 organizations. The 6 ways to grow beyond $10M. Organizations that break past their cohort's typical ceiling almost always do so through one of six specific mechanisms — and rarely more than one. All 31 organizations that grew past $10M did it through one of the six mechanisms. |
+| 6 ways tab, screen-reader description of chart | Chart of 169 organizations. The 6 ways to grow beyond $10M. Organizations that break past their cohort's typical ceiling almost always do so through one of six specific mechanisms — and rarely more than one. All 30 organizations that grew past $10M did it through one of the six mechanisms. |
 | History tab, heading | When they started matters. Governance predicts even more. |
 | History tab, intro | Organizations founded before 1995 — when the internet began reshaping print and broadcast distribution — mostly run above $10 million: 24 of 38. Organizations founded after 1995 are mostly smaller, with annual revenue below $10 million for 99 of 130. And only five of the nine kinds of organization in this study existed before 1995. The rest are new ways to pay for journalism, and most of the organizations using them are still small. |
 | History tab, reading note (directly under the key, above the chart) | Position: Founding year, left to right; the axis is compressed before 1995. Filled marks are over $10M in revenue. One organization with no verified founding year is not shown. |
