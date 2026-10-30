@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>White host page: Nodes and Networks explorer</title>
+<style>body{margin:0;background:#fff;color:#000;font:16px/1.4 Arial,sans-serif}.wrap{padding:0}</style></head>
+<body><div class="wrap">
+<iframe
+  src="http://localhost:8801/preview/nn-launch-kit/explorer/?embed=1&tab=ways"
+  title="Nodes and Networks explorer: 169 U.S. journalism organizations"
+  loading="lazy"
+  style="display:block;width:100%;max-width:760px;height:1650px;margin:0 auto;border:0"></iframe>
+</div>
+<script>
+// QA convenience only: ?tab=history|governance|ways swaps the iframe tab (the shipped snippet above is otherwise unchanged); ?noembed=1 drops ?embed=1 to test the cross-origin trigger.
+var q=new URLSearchParams(location.search),f=document.querySelector('iframe'),t=q.get('tab')||'ways';
+f.src='http://localhost:8801/preview/nn-launch-kit/explorer/?'+(q.get('noembed')?'':'embed=1&')+'tab='+t;
+</script></body></html>
