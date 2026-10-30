@@ -57,7 +57,9 @@ for d in preview/*/og; do [ -d "$d" ] && mkdir -p "dist/$d" && cp "$d"/*.png "di
 
 # Data files that pages fetch
 cp assets/data/creators-data.json assets/data/bluesky-creators.json assets/data/coops-data.json dist/assets/data/
-cp data/chicago-pulse.json dist/data/
+cp data/chicago-pulse.json data/research.json data/social.json dist/data/
+# Research hub: poster images and logos per piece (assets/research/<slug>/)
+cp -R assets/research dist/assets/
 # Pulse: per-week post files fetched by pulse.html (written by pipelines/pulse/update_pulse.py)
 cp -R assets/data/pulse dist/assets/data/
 # Issue Lens index for /for-brands (written by scripts/build_lens_index.py, committed)
@@ -75,3 +77,4 @@ find dist -name '*.bak' -delete
 if grep -rlE '\{\{(CREATOR_COUNT|COUNT_AS_OF|BLUESKY_COUNT)\}\}' dist; then echo "build-dist: unresolved count tokens above" >&2; exit 1; fi
 
 find dist -name .DS_Store -delete
+find dist -name .gitkeep -delete
