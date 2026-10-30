@@ -62,12 +62,12 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | 6 ways tab, list row (name, then count) | Started above $10M 24 |
 | 6 ways tab, list row (name, then count) | Under $10M 114 |
 | 6 ways tab, screen-reader description of chart | Chart of 169 organizations. The 6 ways to grow beyond $10M. Organizations that break past their cohort's typical ceiling almost always do so through one of six specific mechanisms — and rarely more than one. All 31 organizations that grew past $10M did it through one of the six mechanisms. |
-| History tab, heading | When they started matters. Who pays them matters more. |
+| History tab, heading | When they started matters. Governance predicts even more. |
 | History tab, intro | Organizations founded before 1995 — when the internet began reshaping print and broadcast distribution — mostly run above $10 million: 24 of 38. Organizations founded after 1995 are mostly smaller, with annual revenue below $10 million for 99 of 130. And only five of the nine kinds of organization in this study existed before 1995. The rest are new ways to pay for journalism, and most of the organizations using them are still small. |
 | History tab, reading note (directly under the key, above the chart) | Position: Founding year, left to right; the axis is compressed before 1995. Filled marks are over $10M in revenue. One organization with no verified founding year is not shown. |
 | History tab, interaction hint (mouse readers) | Hover over any mark to see the organization behind it. |
 | History tab, interaction hint (touch readers) | Tap any mark to see the organization behind it. |
-| History tab, caption below chart (takeaway) | Who pays predicts an organization's revenue band more strongly than when it was founded. |
+| History tab, caption below chart (takeaway) | Governance predicts an organization's revenue band more strongly than when it was founded. |
 | History tab, chart 1 title | Organizations over $10 million by founding year |
 | History tab, chart 1 key | Grew past $10M |
 | History tab, chart 1 key | Started above $10M (lighter) |
@@ -83,7 +83,7 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | History tab, screen-reader description of each mark | [Organization], [cohort code], founded [year], [started above $10M / grew past $10M / $10M or under] |
 | Card on hover or tap (6 ways and Governance), line 1 (bold) | [Organization name] |
 | Card (6 ways and Governance), line 2 | [Cohort code] [Cohort name] |
-| Card (6 ways and Governance), line 3 | Started above $10M  /  Mechanism: [short name]  /  No mechanism |
+| Card (6 ways and Governance), line 3 | Started above $10M  /  Mechanism: [short name]  /  Under $10M, not yet grown past it |
 | Card (6 ways and Governance), line 4 | Under $3.5M in revenue  /  $3.5M to $10M in revenue  /  Over $10M in revenue |
 | Card (6 ways and Governance), optional lines | Revenue estimate unverified; Founded [year]; Status: [absorbed / acquired / closed] |
 | Card on hover or tap (History), line 1 (bold) | [Organization name] |

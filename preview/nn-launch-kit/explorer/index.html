@@ -238,10 +238,10 @@ const HS = (() => {
   const k = M.cohorts.filter(c => pre.some(n => n.c === c.code)).length, u = N.length - dated.length;
   const a = pre.filter(o10).length, c = post.filter(o10).length;
   return { a, b: pre.length, c, d: post.length, k, u, eras, nCoh: M.cohorts.length,
-    title: 'When they started matters. Who pays them matters more.',
+    title: 'When they started matters. Governance predicts even more.',
     dek: `Organizations founded before ${M.cut} — when the internet began reshaping print and broadcast distribution — mostly run above $10 million: ${a} of ${pre.length}. Organizations founded after ${M.cut} are mostly smaller, with annual revenue below $10 million for ${post.length - c} of ${post.length}. And only ${NUM[k]} of the ${NUM[M.cohorts.length]} kinds of organization in this study existed before ${M.cut}. The rest are new ways to pay for journalism, and most of the organizations using them are still small.`,
     how: `Position: Founding year, left to right; the axis is compressed before ${M.cut}. Filled marks are over $10M in revenue. ${u <= 10 ? NUM[u][0].toUpperCase() + NUM[u].slice(1) : u} organization${u === 1 ? '' : 's'} with no verified founding year ${u === 1 ? 'is' : 'are'} not shown.`,
-    take: `Who pays predicts an organization's revenue band more strongly than when it was founded.` };
+    take: `Governance predicts an organization's revenue band more strongly than when it was founded.` };
 })();
 const TABS = [
   { id: 'governance', param: 'governance', engine: 'gov', label: 'Governance', title: 'Governance', sent: M.copy.gov },
@@ -341,7 +341,7 @@ function cardFor(n) {
   const co = M.cohorts.find(c => c.code === n.c), pi = pathIdx(n.m), l = [];
   const head = M.names && n.nm ? n.nm : `${n.c} ${co.name}`;
   if (M.names && n.nm) l.push(`${n.c} ${co.name}`);
-  l.push(n.o === 'INHERITED' ? 'Started above $10M' : pi >= 0 ? 'Mechanism: ' + M.paths[pi].short : 'No mechanism');
+  l.push(n.o === 'INHERITED' ? 'Started above $10M' : pi >= 0 ? 'Mechanism: ' + M.paths[pi].short : 'Under $10M, not yet grown past it');
   l.push(BRACKET[n.b]);
   if (n.un) l.push('Revenue estimate unverified');
   if (n.fy) l.push('Founded ' + n.fy);
