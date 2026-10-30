@@ -229,6 +229,7 @@ const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const T = { bg: '#000', a: '#F6C84E', b: '#B23A5E', c: '#A8A8A8', neutral: '#7C7C7C', ink: '#fff', ink2: '#bdbdbd', grid: '#262626' };
 const cnt = f => N.filter(f).length, over = n => n.b === 2, pathIdx = k => M.paths.findIndex(p => p.key === k);
 const shapeName = { INHERITED: 'Started above $10M', CROSSED: 'Grew past $10M', NEVER_CROSSED: 'Under $10M' };
+const DISPLAY_NAME = { 'Defector (Year 5)': 'Defector' }, dn = n => DISPLAY_NAME[n.nm] || n.nm;   // label only: the data value is unchanged
 // ---- History numbers: every figure is derived from the data the page loads ----
 const NUM = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 const ERAS = [{ k: 'e0', label: 'Before ' + M.cut, lo: -1e9, hi: M.cut }, { k: 'e1', label: M.cut + '–2007', lo: M.cut, hi: 2008 }, { k: 'e2', label: '2008–2014', lo: 2008, hi: 2015 }, { k: 'e3', label: '2015 or later', lo: 2015, hi: 1e9 }];
@@ -339,7 +340,7 @@ addEventListener('popstate', () => { const t = byParam(new URLSearchParams(locat
 const BRACKET = ['Under $3.5M in revenue', '$3.5M to $10M in revenue', 'Over $10M in revenue'];
 function cardFor(n) {
   const co = M.cohorts.find(c => c.code === n.c), pi = pathIdx(n.m), l = [];
-  const head = M.names && n.nm ? n.nm : `${n.c} ${co.name}`;
+  const head = M.names && n.nm ? dn(n) : `${n.c} ${co.name}`;
   if (M.names && n.nm) l.push(`${n.c} ${co.name}`);
   l.push(n.o === 'INHERITED' ? 'Started above $10M' : pi >= 0 ? 'Mechanism: ' + M.paths[pi].short : 'Under $10M, not yet grown past it');
   l.push(BRACKET[n.b]);
@@ -377,7 +378,7 @@ function histCard(n) {
   else if (n.o === 'INHERITED') l.push('Started above $10M');
   else { l.push('Grew past $10M'); l.push('Mechanism: ' + M.paths[pi].short); }
   if (n.st) l.push('Status: ' + n.st);
-  return `<b>${esc(n.nm)}</b>` + l.map(x => `<span>${esc(x)}</span>`).join('');
+  return `<b>${esc(dn(n))}</b>` + l.map(x => `<span>${esc(x)}</span>`).join('');
 }
 function renderHist() {
   const host = $('hsvg'), w = Math.max(260, hw()); histW = w;
@@ -447,7 +448,7 @@ function renderHist() {
     if (n.o === 'INHERITED') return `<rect x="${(p.x - r * .88).toFixed(1)}" y="${(p.y - r * .88).toFixed(1)}" width="${(r * 1.76).toFixed(1)}" height="${(r * 1.76).toFixed(1)}" fill="${col}"/>`;
     const pts = `${x},${(p.y - q).toFixed(1)} ${(p.x + q * .866).toFixed(1)},${(p.y + q * .5).toFixed(1)} ${(p.x - q * .866).toFixed(1)},${(p.y + q * .5).toFixed(1)}`;
     return `<polygon points="${pts}" fill="${col}"/>`; };
-  marks.forEach(p => { const col = T2[p.n.g], desc = `${p.n.nm}, ${p.n.c}, founded ${p.n.fy}, ${p.n.b === 2 ? (p.n.o === 'INHERITED' ? 'started above $10M' : 'grew past $10M') : '$10M or under'}`;
+  marks.forEach(p => { const col = T2[p.n.g], desc = `${dn(p.n)}, ${p.n.c}, founded ${p.n.fy}, ${p.n.b === 2 ? (p.n.o === 'INHERITED' ? 'started above $10M' : 'grew past $10M') : '$10M or under'}`;
     o.push(`<g class="mk" tabindex="0" role="img" aria-label="${esc(desc)}" data-i="${p.n.i}"><circle class="ring" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(r * 2).toFixed(1)}" fill="transparent"/>${shape(p, col)}</g>`); });
   host.innerHTML = `<svg viewBox="0 0 ${w} ${H}" width="${w}" height="${H}" role="group" aria-label="${esc(HS.title + ' ' + HS.dek)}">${o.join('')}</svg>`;
   host.dataset.h = Math.round(H);
