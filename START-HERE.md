@@ -18,6 +18,7 @@ Design rules: DESIGN-TOKENS-v16.md. Open design questions for James live in docs
 - `Atlas-Long-Form-Report-Template-2026-09.md` is not in this repo; it needs the white sub-nav spec.
 - `.DS_Store` is tracked and shows modified every time; untrack it separately.
 - Six commits from this run are local; push when ready.
+- **`coming` status contract (after N&N launch):** `docs/RESEARCH-SOCIAL-POSTING.md` says `coming` renders "Coming <date>", but `assets/js/research-hub.js:162` only handles `placeholder`. Decide which is the contract and fix the other.
 
 ## SmartNews page (added 2026-10-19; see `docs/briefs/smartnews/SMARTNEWS-PAGE-REPORT-v1.0.md`)
 - **Form backend:** built for option A (Apps Script → Sheet). Deploy `docs/briefs/smartnews/intake-apps-script.gs`, paste the URL into `FORM_ENDPOINT`, submit one test row. B (Pages Function + D1/KV) and C (Tally/Typeform) were not built.
