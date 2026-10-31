@@ -19,7 +19,7 @@ var ATLAS_STRIP = {
   expires: '2026-12-01',
   selfPath: '/watershed/',
   hideOn: [],
-  announce: { label: 'Research from the Atlas', text: 'A Watershed Moment for News Deserts \u00b7 Nodes and Networks arrives Thursday', linkText: 'See our research', href: '/research' },
+  announce: { label: 'Research from the Atlas', text: 'New from the Atlas: Nodes and Networks, a field study of how American journalism is reorganizing', linkText: 'Read the study', href: '/nodes-and-networks/' },
   welcome:  { text: 'You\u2019re reading the Independent Journalism Atlas. We map {count} independent journalists by beat and place.',
               links: [ { text: 'Explore the Atlas', href: '/search' }, { text: 'How we find them', href: '/how-we-did-this.html' } ] }
 };
