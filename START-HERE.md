@@ -18,7 +18,6 @@ Design rules: DESIGN-TOKENS-v16.md. Open design questions for James live in docs
 - `Atlas-Long-Form-Report-Template-2026-09.md` is not in this repo; it needs the white sub-nav spec.
 - **`coming` status contract (after N&N launch):** `docs/RESEARCH-SOCIAL-POSTING.md` says `coming` renders "Coming <date>", but `assets/js/research-hub.js:162` only handles `placeholder`. Decide which is the contract and fix the other.
 
-- **Brand check is red at HEAD (found 2026-10-31):** `python3 scripts/check_brand.py --tight` reports 2,811 violations against a baseline of 2,777. All of the new ones are in `preview/nn-launch-kit-staging/explorer/index.html` (45; baseline 0). It was already red at `8b65f2b`. Options for James and Justin: add the path to `EXCLUDED` in `scripts/check_brand.py` (as `preview/nn-launch-kit/` is) with a new token version, or fix the file. Production archives go to `_deprecated/` (excluded), not `_archive/` (scanned).
 - **Launch and cleanup decisions** for Nodes and Networks, the cleanup plan, and the thread registry are tracked in the private repo: `ops/DECISIONS-QUEUE.md`, `ops/THREADS.md`.
 
 ## SmartNews page (added 2026-10-19; see `docs/briefs/smartnews/SMARTNEWS-PAGE-REPORT-v1.0.md`)
