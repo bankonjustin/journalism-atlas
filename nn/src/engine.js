@@ -28,6 +28,29 @@ const NN = (() => {
     return { pos, s };
   }
 
+  // History: the third turn of the dial. Each mark keeps its angle from the 6 Ways view; distance from the center is founding year, oldest inside.
+  // Core circle = before 1970; rings at the era boundaries (M.cut, 2008); outermost dashed ring = founding year missing or unverified (never estimated).
+  const HR = { core: .30, a: .52, b: .70, now: .90, unv: 1.0 }, HSZ = [.72, 1, 1.38];   // ring radii (stage units); mark size by revenue band
+  function histLayout(N, M, L) {
+    // ring radii follow how many organizations each era holds (equal area per organization), not equal spans of years: the core is sized by the pre-1970 count, then each era adds its own count
+    const cut = M.cut, ver = N.filter(n => n.fy && !n.un), cn = (lo, hi) => ver.filter(n => n.fy >= lo && n.fy < hi).length, c0 = cn(-1e9, 1970), c1 = cn(1970, cut), c2 = cn(cut, 2008), c3 = cn(2008, 1e9), T = c0 + c1 + c2 + c3;
+    const rr = k => Math.max(.14 + k * .06, HR.now * Math.sqrt(k === 0 ? c0 / T : k === 1 ? (c0 + c1) / T : (c0 + c1 + c2) / T)), RG = { core: rr(0), a: rr(1), b: rr(2), now: HR.now, unv: HR.unv };
+    const rOf = n => {
+      if (!n.fy || n.un) return RG.unv; const y = n.fy;
+      if (y < 1970) return .08 + (Math.max(y, 1840) - 1840) / 130 * (RG.core - .10);
+      if (y < cut) return RG.core + (y - 1970) / (cut - 1970) * (RG.a - RG.core);
+      if (y < 2008) return RG.a + (y - cut) / (2008 - cut) * (RG.b - RG.a);
+      return RG.b + Math.min(1, (y - 2008) / 18) * (RG.now - RG.b);
+    };
+    const bnd = []; L.ways.geo.forEach(g => g.members.forEach(i => { bnd[i] = [g.a0, g.a1]; }));
+    const P = N.map(n => { const [lo, hi] = bnd[n.i], mid = (lo + hi) / 2, w0 = Math.atan2(L.ways.pos[n.i].y, L.ways.pos[n.i].x), a = mid + Math.atan2(Math.sin(w0 - mid), Math.cos(w0 - mid)); return { a, a0: a, lo, hi, r: rOf(n) }; }), d = L.MR * 2.15;   // nudges stay inside the mark's own 6 Ways wedge
+    for (let it = 0; it < 60; it++) for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) {   // radius is the data, so overlaps are resolved by small angular nudges only
+      const p = P[i], q = P[j], dx = Math.cos(p.a) * p.r - Math.cos(q.a) * q.r, dy = Math.sin(p.a) * p.r - Math.sin(q.a) * q.r, dist = Math.hypot(dx, dy);
+      if (dist >= d) continue; const sg = Math.sign(Math.atan2(Math.sin(q.a - p.a), Math.cos(q.a - p.a))) || (i % 2 ? 1 : -1), da = (d - dist) / (2 * Math.max(.2, (p.r + q.r) / 2)) * .55;
+      p.a = cl(p.a - sg * da, p.lo, p.hi); q.a = cl(q.a + sg * da, q.lo, q.hi);
+    }
+    return { pos: P.map(p => ({ x: Math.cos(p.a) * p.r, y: Math.sin(p.a) * p.r })), rings: { ...RG, cut, counts: [c0, c1, c2, c3] } };
+  }
   function build(D) {
     const N = D.nodes, M = D.meta, L = {};
     // governance: wedges per cohort
@@ -43,6 +66,7 @@ const NN = (() => {
     L.ways = { geo: wg, ...pack(wg, N) };
     L.MR = Math.min(.045, .36 * Math.min(L.gov.s, L.ways.s));
     L.MR = Math.min(.045, .36 * Math.min(L.gov.s, L.ways.s)); L.scatter = { pos: N.map(n => ({ x: n.pf[0], y: n.pf[1] })) };
+    L.hist = histLayout(N, M, L);
     return L;
   }
   const shapeOf = n => (n.m === 'EXCEPTION_PLATFORM_LICENSING' ? 'trid' : SHAPE[n.o]);
@@ -91,12 +115,13 @@ const NN = (() => {
       if (S.spokes === 'ways') { const dv = geo.find(g => g.key === 'INHERITED_SCALE'); if (dv) { ctx.strokeStyle = T.ink2; ctx.lineWidth = Math.max(1.5, R / 220); ctx.setLineDash([R / 60, R / 90]); const a0 = dv.a0 - .02, [x0, y0] = rp(Math.cos(a0) * .1, Math.sin(a0) * .1), [x1, y1] = rp(Math.cos(a0) * .98, Math.sin(a0) * .98); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); ctx.setLineDash([]); } }
       ctx.globalAlpha = 1;
     }
+    if (S.under) S.under(ctx, G, rp);                                   // beneath the marks: History rings
     // marks
     const r = L.MR * R * G.boost;
     N.forEach((n, i) => {
       const p = S.pos[i], [x, y] = rp(p.x, p.y), ce = S.ceArr ? S.ceArr[i] : (S.ce == null ? 1 : S.ce);
       const muted = n.m === 'BELOW' || n.o === 'INHERITED' ? S.mutedA || 0 : 0, hlOff = S.hl != null && S.hlKeyOf && S.hlKeyOf(n) !== S.hl ? (S.dim == null ? .75 : S.dim) : 0;
-      mark(ctx, x, y, r, ce > .5 ? shapeOf(n) : 'ci', mixc(T.neutral, T[n.g], ce), (1 - .66 * muted) * (1 - hlOff) * (S.appear ? S.appear[i] : 1));
+      mark(ctx, x, y, r * (S.sizeArr ? S.sizeArr[i] : 1), ce > .5 ? shapeOf(n) : 'ci', mixc(T.neutral, T[n.g], ce), (1 - .66 * muted) * (1 - hlOff) * (S.appear ? S.appear[i] : 1));
     });
     ctx.globalAlpha = 1;
     // labels
@@ -120,5 +145,5 @@ const NN = (() => {
     const narrow = w < 560, h0 = Math.round(w * (hFactor || (narrow ? 1.02 : .8))), R = narrow ? w * .37 : h0 * .4, h = h0 + 2 * pad;
     return { w, h, cx: w / 2, cy: h / 2, R, dpr, narrow, boost: narrow ? 1.12 : 1, pad };
   }
-  return { wayKey, shapeOf, build, draw, geom, posOf, labelsFor, cl, ss, eio, mixc, SHAPE, MR, TAU };
+  return { HR, HSZ, wayKey, shapeOf, build, draw, geom, posOf, labelsFor, cl, ss, eio, mixc, SHAPE, MR, TAU };
 })();

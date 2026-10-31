@@ -9,21 +9,21 @@ html[data-nn-theme=asu]{
   --kl-bg:#000000;--kl-a:#FFC627;--kl-b:#E74973;--kl-c:#BFBFBF;--kl-neutral:#747474;--kl-ink:#FFFFFF;--kl-ink-2:#D0D0D0;--kl-ink-3:#BFBFBF;--kl-grid:#484848;
   --bg:#FFFFFF;--bg-2:#FAFAFA;--ink:#191919;--ink-2:#484848;--ink-3:#484848;--grid:#E8E8E8;--rule:#D0D0D0;--rule-strong:#747474;
   --node:#FFFFFF;--node-stroke:#484848;--focus:#8C1D40;--focus-halo:#FFC627;--sel:#8C1D40;--selink:#FFFFFF;--rule-accent:#8C1D40;
-  --f3-sub:#BFBFBF;--f3-other:#747474;--bs1-ink:#191919;--cover:#000000;--cover-grid:#484848;--icon-grey:#484848;
+  --f3-sub:#BFBFBF;--f3-other:#747474;--bs1-ink:#191919;--g-c-edge:#484848;--g-c-in:1.5px;--cover:#000000;--cover-grid:#484848;--icon-grey:#484848;
 }
 @media (prefers-color-scheme:dark){
   html[data-nn-theme=asu]:not([data-theme=light]){
     --g-gold:#FFC627;--g-maroon:#E74973;--g-grey:#BFBFBF;--maroon-text:#E74973;--g-gold-edge:transparent;
     --bg:#000000;--bg-2:#191919;--ink:#FFFFFF;--ink-2:#E8E8E8;--ink-3:#BFBFBF;--grid:#191919;--rule:#484848;--rule-strong:#747474;
     --node:#FFFFFF;--node-stroke:#000000;--focus:#FFC627;--focus-halo:#FFC627;--sel:#8C1D40;--selink:#FFFFFF;--rule-accent:#FFC627;
-    --f3-sub:#BFBFBF;--f3-other:#747474;--bs1-ink:#FFFFFF;
+    --f3-sub:#BFBFBF;--f3-other:#747474;--bs1-ink:#FFFFFF;--g-c-edge:transparent;--g-c-in:0px;
   }
 }
 html[data-nn-theme=asu][data-theme=dark]{
   --g-gold:#FFC627;--g-maroon:#E74973;--g-grey:#BFBFBF;--maroon-text:#E74973;--g-gold-edge:transparent;
   --bg:#000000;--bg-2:#191919;--ink:#FFFFFF;--ink-2:#E8E8E8;--ink-3:#BFBFBF;--grid:#191919;--rule:#484848;--rule-strong:#747474;
   --node:#FFFFFF;--node-stroke:#000000;--focus:#FFC627;--focus-halo:#FFC627;--sel:#8C1D40;--selink:#FFFFFF;--rule-accent:#FFC627;
-  --f3-sub:#BFBFBF;--f3-other:#747474;--bs1-ink:#FFFFFF;
+  --f3-sub:#BFBFBF;--f3-other:#747474;--bs1-ink:#FFFFFF;--g-c-edge:transparent;--g-c-in:0px;
 }
 /* explorer chrome */
 html[data-nn-theme=asu] .tab[aria-selected=true],html[data-nn-theme=asu] .steps button[aria-current=step]{background:var(--sel);color:var(--selink)}
@@ -31,3 +31,7 @@ html[data-nn-theme=asu] .chap{border-top-color:var(--rule-accent)}
 html[data-nn-theme=asu] .tip{border-color:#484848}
 html[data-nn-theme=asu] .tip span{color:#D0D0D0}
 html[data-nn-theme=asu] .tab:focus-visible,html[data-nn-theme=asu] .li:focus-visible{outline-color:var(--focus)}
+/* group c marks (Gray 4) need a #484848 edge on a light page (1.8:1 against white). The diamonds are clip-path shapes, so the edge is a darker diamond with the gray one inset on top; on the dark page the inset is 0 */
+html[data-nn-theme=asu] :is(.dd.g-c,.tag.g-c i,.df-legend .g-c i){background:var(--g-c-edge);position:relative}
+html[data-nn-theme=asu] :is(.dd.g-c,.tag.g-c i,.df-legend .g-c i)::after{content:"";position:absolute;inset:var(--g-c-in);background:var(--g-grey);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+html[data-nn-theme=asu] :is(.g-c .cohort-line,.map-line.g-c::before,.dock-line.g-c::before){box-shadow:0 0 0 1px var(--g-c-edge)}

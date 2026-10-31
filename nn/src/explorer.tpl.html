@@ -68,6 +68,7 @@ ol.chaps{list-style:none;margin:0;padding:0;display:grid;gap:12px}.chap{display:
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (max-width:420px){h1{font-size:24px}.tab{padding:9px 11px;font-size:13px}}
 /*THEMECSS*/
+.bare,.bare body{background:#000}.bare .nn{width:980px;max-width:none;padding:0;margin:0 auto}.bare main>*:not(#panel),.bare #panel>*:not(#chapterv),.bare #chapterv>*:not(#stage):not(#hist),.bare .hist text,.bare .hist .tip,.bare #ann,.bare .tip{display:none!important}.bare .stage{border-radius:0}
 </style>
 </head>
 <body>
@@ -104,8 +105,9 @@ ol.chaps{list-style:none;margin:0;padding:0;display:grid;gap:12px}.chap{display:
 <script>
 (() => {
 const D = JSON.parse(document.getElementById('nn-data').textContent), M = D.meta, N = D.nodes, L = NN.build(D);
-const qs = new URLSearchParams(location.search), EMBED = qs.get('embed') === '1';
+const qs = new URLSearchParams(location.search), EMBED = qs.get('embed') === '1', HTL = qs.get('history') === 'timeline', MORPH = qs.get('morph') === '1' || (!!window.NN_ASU_ON && qs.get('morph') !== '0'), BARE = qs.get('bare') === '1';   // HTL: fallback, the dial turn ends in the per-cohort timeline; MORPH: tween Governance and 6 Ways too (teaser)
 if (EMBED) document.documentElement.classList.add('embed');
+if (BARE) document.documentElement.classList.add('bare');   // ?bare=1: shapes only (no chrome, spokes or labels), for the teaser capture
 const $ = id => document.getElementById(id), esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const CP = M.cp, fmt = (s, v) => s.replace(/\{(\w+)\}/g, (m, k) => v && k in v ? v[k] : m), cp = (k, v) => { if (!(k in CP)) throw new Error('missing copy ' + k); return v ? fmt(CP[k], v) : CP[k]; }, lc1 = s => s.charAt(0).toLowerCase() + s.slice(1);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -123,7 +125,7 @@ const HS = (() => {
   return { a, b: pre.length, c, d: post.length, k, u, eras, nCoh: M.cohorts.length,
     title: cp('chapter3.title'),
     dek: cp('chapter3.dek'),
-    foot: cp('chapter3.foot') };
+    foot: cp(HTL ? 'chapter3.foot' : 'chapter3.foot_radial') };
 })();
 // ---- v7: chapter copy. One source for the In short rows, the chapter lines, the headlines and the annotations; every figure derives from the loaded data ----
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
@@ -138,10 +140,10 @@ const TABS = [
   { id: 'short', param: 'short', engine: null, label: cp('tabs.short') },
   { id: 'governance', param: 'governance', engine: 'gov', ch: 1, label: cp('tabs.governance'), name: cp('chapter1.name'), title: cp('chapter1.title'), sent: cp('chapter1.paper'), line: CH[0] },
   { id: 'ways', param: 'ways', engine: 'ways', ch: 2, label: cp('tabs.ways'), name: cp('chapter2.name'), title: cp('chapter2.title'), sent: cp('chapter2.paper'), line: CH[1] },
-  { id: 'history', param: 'history', engine: null, svg: true, ch: 3, label: cp('tabs.history'), name: cp('chapter3.name'), title: HS.title, sent: HS.dek, line: CH[2] },
+  { id: 'history', param: 'history', engine: 'hist', ch: 3, label: cp('tabs.history'), name: cp('chapter3.name'), title: HS.title, sent: HS.dek, line: CH[2] },
 ];
 const CHAPS = TABS.filter(t => t.ch), byParam = p => TABS.find(t => t.param === p || t.id === p);
-let cur = (byParam(qs.get('tab')) || TABS[0]), P = NN.posOf(L, cur.engine || 'gov').map(p => ({ ...p })), mode = 'idle', hovered = null, userHl = null, dimOn = true, G, dpr = 1, measuring = false, fontsReady = false;
+let svgOn = false, raf = 0, cur = (byParam(qs.get('tab')) || TABS[0]), P = NN.posOf(L, cur.engine || 'gov').map(p => ({ ...p })), mode = 'idle', hovered = null, userHl = null, dimOn = true, G, dpr = 1, measuring = false, fontsReady = false;
 const cv = $('cv'), ctx = cv.getContext('2d'), stage = $('stage'), tip = $('tip'), root = document.querySelector('main');
 
 $('sub').textContent = cp('header.sub'); $('eyebrow').textContent = cp('header.eyebrow'); $('h1').textContent = cp('header.title'); $('sumKey').textContent = cp('how_to_read.summary'); $('sumExp').textContent = cp('explore.summary');
@@ -169,7 +171,7 @@ function stat() {
 function listHtml() {
   const row = (key, dot, name, n, extra) => `<li class="li" tabindex="0" data-key="${esc(key)}">${dot ? `<i class="dot" style="background:var(--${dot})"></i>` : ''}<span><b>${name}</b>${extra ? ' ' + esc(extra) : ''}</span><span class="n">${n}</span></li>`;
   if (cur.id === 'governance') return M.cohorts.map(c => row(c.code, c.g, c.code + ' · ' + esc(c.name), cnt(n => n.c === c.code))).join('');
-  if (cur.id === 'ways') return L.ways.geo.map((g, x) => x < 6 ? row(g.key, null, `${x + 1} · ${esc(M.paths[x].full)}`, g.members.length, x === 0 && bundleNote() ? '— ' + bundleNote() : '') : g.key === 'EXCEPTION_PLATFORM_LICENSING' ? row(g.key, null, cp('list.no_mechanism'), g.members.length, cp('list.no_mechanism_note')) : g.key === 'INHERITED_SCALE' ? row(g.key, null, cp('legend.started_above'), g.members.length) : row(g.key, null, cp('legend.under'), g.members.length)).join('');
+  if (cur.id === 'ways' || cur.id === 'history') return L.ways.geo.map((g, x) => x < 6 ? row(g.key, null, `${x + 1} · ${esc(M.paths[x].full)}`, g.members.length, x === 0 && bundleNote() ? '— ' + bundleNote() : '') : g.key === 'EXCEPTION_PLATFORM_LICENSING' ? row(g.key, null, cp('list.no_mechanism'), g.members.length, cp('list.no_mechanism_note')) : g.key === 'INHERITED_SCALE' ? row(g.key, null, cp('legend.started_above'), g.members.length) : row(g.key, null, cp('legend.under'), g.members.length)).join('');
   return '';
 }
 const effHl = () => userHl != null ? userHl : (dimOn && cur.id === 'governance' ? 'TOP' : null);
@@ -203,7 +205,7 @@ function shortHtml() {
 function ui() {
   tabBtns.forEach(b => { const on = b.dataset.id === cur.id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; b.id = 't-' + b.dataset.id; });
   $('panel').setAttribute('aria-labelledby', 't-' + cur.id);
-  const isS = cur.id === 'short', isH = cur.id === 'history';
+  const isS = cur.id === 'short', isH = cur.id === 'history' && HTL && svgOn;
   $('shortv').hidden = !isS; $('chapterv').hidden = isS;
   if (isS) {
     $('shortv').innerHTML = shortHtml(); thumbs();
@@ -223,20 +225,22 @@ function ui() {
   if (!measuring) report();
 }
 function setHl(k) { userHl = k; if (mode === 'idle') paint(); [...$('list').children].forEach(li => li.classList.toggle('off', k != null && li.dataset.key !== k)); }
-function setDim(on) { if (dimOn === on) return; dimOn = on; if (cur.id === 'history') $('hist').classList.toggle('dimmed', dimOn); else paint(); }
+function setDim(on) { if (dimOn === on) return; dimOn = on; if (cur.id === 'history' && svgOn) $('hist').classList.toggle('dimmed', dimOn); else paint(); }
 const ANNPAD = () => ((Math.round(stage.getBoundingClientRect().width) || 358) < 560 ? 58 : 46);
 function geom() {
   dpr = Math.min(2, devicePixelRatio || 1); const w = Math.round(stage.getBoundingClientRect().width) || 358;
-  G = NN.geom(w, dpr, undefined, ANNPAD());
+  G = NN.geom(w, dpr, undefined, ANNPAD()); if (cur.id === 'history') G.labelPad = 1;   // wedge labels sit outside the unverified ring
   if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(G.h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(G.h * dpr); cv.style.height = G.h + 'px'; }
 }
-const chrome = (t, a) => ({ labelsTab: t.engine, spokes: t.engine, labelA: a, chromeA: a });
-function idleState(t) { return { ...chrome(t, 1), tab: t.engine, pos: P, mutedA: t.id === 'ways' && dimOn ? 1 : 0, hl: effHl(), dim: .65, ce: 1, hlKeyOf, labelOn: k => (userHl != null ? userHl === k : cur.id === 'governance' && dimOn ? TOPSET.has(k) : true) }; }
-function paint() { if (!cur.engine || stage.hidden) return; geom(); NN.draw(ctx, G, D, L, T, idleState(cur)); drawAnn(); root.dataset.tab = cur.param; root.dataset.drawn = N.length; }
+const geoKey = e => (e === 'hist' ? 'ways' : e), chrome = (t, a) => ({ labelsTab: geoKey(t.engine), spokes: geoKey(t.engine), labelA: BARE ? 0 : a, chromeA: BARE ? 0 : a });
+const sizeK = t => (t.id === 'history' ? N.map(n => NN.HSZ[n.b]) : null);
+function idleState(t) { return { ...chrome(t, 1), tab: t.engine, pos: P, mutedA: (t.id === 'ways' || t.id === 'history') && dimOn ? 1 : 0, hl: effHl(), dim: .65, ce: 1, hlKeyOf, sizeArr: sizeK(t), under: t.id === 'history' ? histRings(() => 1) : null, extra: t.id === 'history' ? histLabels(1) : null, labelOn: k => (userHl != null ? userHl === k : cur.id === 'governance' && dimOn ? TOPSET.has(k) : true) }; }
+function paint() { if (!cur.engine || stage.hidden || mode !== 'idle') return; geom(); NN.draw(ctx, G, D, L, T, idleState(cur)); drawAnn(); root.dataset.tab = cur.param; root.dataset.drawn = N.length; }
 
 // ---- annotations on the radial charts: short sentences in the bands above and below the circle, each tied to its marks by a thin leader ----
 const cen = ms => { const ps = ms.map(m => P[m.i]); return [G.cx + ps.reduce((a, p) => a + p.x, 0) / ps.length * G.R, G.cy + ps.reduce((a, p) => a + p.y, 0) / ps.length * G.R]; };
 function annNotes() {
+  if (cur.id === 'history' || BARE) return [];
   if (cur.id === 'governance') {
     const small = byC.filter(c => c.up === 0), top2 = [...byC].sort((a, b) => b.up - a.up).slice(0, 2), big = top2[0], b2 = top2[1];
     return [{ t: cp('ann.gov_top'), ms: N.filter(n => n.c === big.code) }, { t: cp('ann.gov_second'), ms: N.filter(n => n.c === b2.code) }, { t: cp('ann.gov_small'), ms: N.filter(n => small.some(c => c.code === n.c)) }];
@@ -269,11 +273,43 @@ function drawAnn() {
 }
 
 const setUrl = tab => { const u = new URL(location.href); u.searchParams.set('tab', tab.param); history.replaceState(null, '', u); };
+// ---- History rings (drawn beneath the marks) and their labels. Radii come from the engine (NN.HR); years from the data (M.cut); the outer dashed ring holds marks with no verified founding year ----
+const ringList = () => { const q = L.hist.rings; return [{ r: q.core, t: cp('hist.ring_core', { year: 1970 }) }, { r: q.a, t: String(M.cut) }, { r: q.b, t: '2008' }, { r: q.now, t: '2026' }, { r: q.unv, t: cp('hist.ring_unverified'), dash: 1 }]; };
+const histRings = pk => (c, G2, rp) => {
+  const [cx, cy] = rp(0, 0); c.save();
+  ringList().forEach((q, k) => { const p = pk(k); if (p <= 0) return; c.beginPath(); c.arc(cx, cy, q.r * G2.R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p);
+    if (k === 0) { c.fillStyle = 'rgba(255,255,255,.05)'; if (p >= 1) c.fill(); }
+    c.globalAlpha = .55; c.strokeStyle = T.ink2; c.lineWidth = Math.max(1, G2.R / 330); c.setLineDash(q.dash ? [G2.R / 45, G2.R / 60] : k === 0 ? [] : [G2.R / 90, G2.R / 70]); c.stroke(); });
+  c.restore();
+};
+const histLabels = a => (c, G2, rp) => {
+  if (a <= 0 || BARE) return; const fs = Math.max(11, Math.round(G2.R / 24)), ang = L.ways.geo[0].a0 - .02; c.save(); c.globalAlpha = a; c.textAlign = 'center'; c.textBaseline = 'middle';
+  ringList().forEach((q, k) => { const aa = q.dash ? 2.45 : ang + (k - 1.5) * (G2.narrow ? .34 : .16), [x, y] = rp(Math.cos(aa) * q.r, Math.sin(aa) * q.r); c.font = `600 ${k === 4 ? fs - 1 : fs}px ${FAM}`;
+    const wd = c.measureText(q.t).width + fs * .7, h = fs * 1.5, xx = Math.min(Math.max(x, wd / 2 + 2), G2.w - wd / 2 - 2); c.fillStyle = 'rgba(0,0,0,.82)'; c.fillRect(xx - wd / 2, y - h / 2, wd, h); c.fillStyle = T.ink; c.fillText(q.t, xx, y); });
+  c.restore();
+};
+// ---- the dial turn: marks blend from one layout to the next (same blend, 1.5 s + 0.4 s stagger, ease-in-out cubic, as the edition's Turn the lens) ----
+const blend = (from, to, t) => N.map((n, i) => { const g = to[i], f = from[i], del = ((Math.atan2(g.y, g.x) + Math.PI / 2 + 4 * Math.PI) % (2 * Math.PI)) / (2 * Math.PI) * 400, e = NN.eio(NN.cl((t - del) / 1500)); return { x: f.x + (g.x - f.x) * e, y: f.y + (g.y - f.y) * e, e }; });
+const fa = (t, n) => (!dimOn ? 1 : t.id === 'governance' ? (TOPSET.has(n.c) ? 1 : .35) : (n.m === 'BELOW' || n.o === 'INHERITED' ? .34 : 1));   // resting opacity of a mark in a view (matches the idle gray-out)
+function tween(from, to) {
+  cancelAnimationFrame(raf); const fp = P.map(p => ({ ...p })), tp = NN.posOf(L, to.engine), t0 = performance.now(), sf = sizeK(from), st = sizeK(to), fh = from.id === 'history', th = to.id === 'history'; mode = 'trans';
+  const step = now => {
+    const dt = now - t0, bp = blend(fp, tp, dt), swap = dt < 600, tk = swap ? from : to, cA = swap ? 1 - NN.ss(0, 500, dt) : NN.ss(600, 1200, dt); P = bp; geom();
+    NN.draw(ctx, G, D, L, T, { ...chrome(tk, cA), tab: tk.engine, pos: bp, mutedA: 0, hl: null, ce: 1, hlKeyOf, labelOn: () => true, appear: N.map((n, i) => fa(from, n) + (fa(to, n) - fa(from, n)) * bp[i].e),   // the gray-out follows the marks, so the turn never pops
+      sizeArr: N.map((n, i) => (sf ? sf[i] : 1) + ((st ? st[i] : 1) - (sf ? sf[i] : 1)) * bp[i].e),
+      under: fh || th ? histRings(k => (th ? NN.ss(700 + k * 100, 1100 + k * 100, dt) : 1 - NN.ss(0, 500, dt))) : null,   // entering History the rings sweep outward from the center, about 600 ms
+      extra: fh || th ? histLabels(th ? NN.ss(1300, 1700, dt) : 1 - NN.ss(0, 400, dt)) : null });
+    if (dt < 1950) raf = requestAnimationFrame(step); else { P = tp.map(p => ({ ...p })); mode = 'idle'; if (th && HTL) { svgOn = true; ui(); } paint(); }
+  };
+  raf = requestAnimationFrame(step);
+}
 function go(tab, user) {
   if (tab === cur) return;
+  const from = cur, morph = !reduced() && !measuring && tab.engine && from.engine && (MORPH || tab.id === 'history' || from.id === 'history');
+  cancelAnimationFrame(raf); mode = 'idle'; svgOn = false;
   cur = tab; hovered = null; tip.hidden = true; $('htip').hidden = true; userHl = null; dimOn = true; $('hist').classList.add('dimmed');
-  if (tab.engine) P = NN.posOf(L, tab.engine).map(p => ({ ...p }));   // no morph: switching tabs is instant, so nothing moves under the reader
-  ui(); paint(); if (user) setUrl(tab);
+  if (tab.engine && !morph) { P = NN.posOf(L, tab.engine).map(p => ({ ...p })); svgOn = HTL && tab.id === 'history'; }   // Governance and 6 Ways switch instantly (as before); the dial turns when History is involved, or with ?morph=1
+  ui(); if (morph) tween(from, tab); else paint(); if (user) setUrl(tab);
 }
 tabBtns.forEach(b => b.addEventListener('click', () => go(byParam(b.dataset.id), true)));
 tabsEl.addEventListener('keydown', e => {
@@ -299,7 +335,7 @@ function hit(ev) {
   N.forEach((n, i) => { const dd = Math.hypot((G.cx + P[i].x * G.R) * k - x, (G.cy + P[i].y * G.R) * k - y); if (dd < bd) { bd = dd; best = i; } });
   if (bd > (ev.pointerType === 'mouse' ? 14 : 24)) { tip.hidden = true; if (hovered != null) { hovered = null; paint(); } return; }
   hovered = best; paint();
-  const px = (G.cx + P[best].x * G.R) * k, py = (G.cy + P[best].y * G.R) * k; tip.innerHTML = cardFor(N[best]); tip.hidden = false;
+  const px = (G.cx + P[best].x * G.R) * k, py = (G.cy + P[best].y * G.R) * k; tip.innerHTML = cur.id === 'history' ? histCard(N[best]) : cardFor(N[best]); tip.hidden = false;
   const tw = tip.offsetWidth, th = tip.offsetHeight; tip.style.left = Math.min(Math.max(6, px - tw / 2), r.width - tw - 6) + 'px'; tip.style.top = (py - th - 14 < 0 ? py + 14 : py - th - 14) + 'px';
   const ctx2 = ctx; ctx2.save(); ctx2.setTransform(dpr, 0, 0, dpr, 0, 0); ctx2.beginPath(); ctx2.arc(G.cx + P[best].x * G.R, G.cy + P[best].y * G.R, L.MR * G.R * G.boost * 2.3, 0, 7); ctx2.strokeStyle = '#fff'; ctx2.lineWidth = 1.5; ctx2.stroke(); ctx2.restore();
 }
@@ -332,21 +368,8 @@ function renderHist() {
   const xOf = y => y < M.cut ? px0 + (Math.max(y, 1840) - 1840) / (M.cut - 1840) * (xb - gapB - px0) : xb + (Math.min(y, 2026) - M.cut) / (2026 - M.cut) * (px1 - xb - r - 3);
   const T2 = { a: T.a, b: T.b, c: T.c }, o = [];
   const txt = (x, y, t, o2 = {}) => `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="${o2.fs || FS}" font-weight="${o2.wt || 500}" text-anchor="${o2.an || 'start'}" fill="${o2.fill || '#fff'}"${o2.op ? ` opacity="${o2.op}"` : ''}>${esc(t)}</text>`;
-  // ---- era bars ----
-  let y = 0; o.push(txt(0, y + 15, cp('hist.era_title'), { fs: narrow ? 13 : 15, wt: 700 }));
-  y += 30; const kt = [cp('legend.grew_past'), cp('hist.key_started')], k1 = tw(kt[0], FS), kx = 0;
-  o.push(`<rect x="0" y="${y - 8}" width="9" height="9" fill="#fff"/>` + txt(14, y, kt[0], { fill: '#d2d2d2' }) + `<rect x="${24 + k1}" y="${y - 8}" width="9" height="9" fill="#fff" opacity=".35"/>` + txt(38 + k1, y, kt[1], { fill: '#d2d2d2' }));
-  const bmax = narrow ? 72 : 90, base = y + 22 + bmax, slot = w / HS.eras.length, bw = Math.min(70, slot * .56);
-  HS.eras.forEach((e, i) => {
-    const cx = slot * (i + .5), hg = e.N ? e.grew / e.N * bmax : 0, ha = e.N ? e.above / e.N * bmax : 0, pct = e.N ? Math.round(100 * e.over / e.N) : 0;
-    o.push(`<g role="img" aria-label="${esc(cp('hist.era_aria_full', { label: e.label, over: e.over, n: e.N, grew: e.grew, above: e.above }))}">`
-      + (ha ? `<rect x="${cx - bw / 2}" y="${base - ha}" width="${bw}" height="${ha}" fill="#fff" opacity=".35"/>` : '')
-      + (hg ? `<rect x="${cx - bw / 2}" y="${base - ha - hg}" width="${bw}" height="${hg}" fill="#fff"/>` : '')
-      + txt(cx, base - ha - hg - 6, pct + '%', { fs: narrow ? 14 : 16, wt: 700, an: 'middle' })
-      + txt(cx, base + 17, `${e.over} of ${e.N}`, { fs: narrow ? 12 : 13, wt: 700, an: 'middle' }) + txt(cx, base + 32, e.label, { an: 'middle', fill: '#bdbdbd' }) + '</g>');
-  });
-  o.push(`<line x1="0" x2="${w}" y1="${base}" y2="${base}" stroke="#444"/>`);
-  y = base + 62;
+  let y = 18;   // the era bar chart (pre/post counts) is gone from the History view; the timeline starts at its main title
+
   // ---- main chart ----
   o.push(txt(0, y, cp('hist.main_title'), { fs: narrow ? 13 : 15, wt: 700 })); y += 14;
   const hero = wrap(cp('hist.hero'), FS + 1, (narrow ? px1 : w) - xb - 10, 700), bandTop = y, bandH = hero.length * (FS + 4) + 8;
@@ -431,9 +454,9 @@ function renderHist() {
 // Height policy (Justin, Oct 28): start at the "In short" height; on the first visit to any chapter grow to the tallest chapter; never shrink after that.
 let hShort = { w: -1, h: 0 }, hCh = { w: -1, h: 0 }, visitedChapter = !!(byParam(qs.get('tab')) && byParam(qs.get('tab')).ch), sentH = 0;
 function measureTabs(list) {
-  const keep = cur, ko = userHl, kd = dimOn; measuring = true; let mx = 0;
-  list.forEach(t => { cur = t; userHl = null; ui(); paint(); mx = Math.max(mx, Math.ceil(root.getBoundingClientRect().bottom + scrollY + 4)); });
-  cur = keep; userHl = ko; dimOn = kd; ui(); paint(); measuring = false; return mx;
+  const keep = cur, ko = userHl, kd = dimOn, ks = svgOn; measuring = true; let mx = 0;
+  list.forEach(t => { cur = t; svgOn = HTL && t.id === 'history'; userHl = null; ui(); paint(); mx = Math.max(mx, Math.ceil(root.getBoundingClientRect().bottom + scrollY + 4)); });
+  cur = keep; svgOn = ks; userHl = ko; dimOn = kd; ui(); paint(); measuring = false; return mx;
 }
 function wantedHeight() {
   const w = Math.round(root.getBoundingClientRect().width);
@@ -446,8 +469,9 @@ function report() { if (!EMBED || parent === window || !fontsReady) return; sent
 const hist = $('hist');
 hist.addEventListener('pointerenter', e => { if (e.pointerType !== 'touch') setDim(false); }); hist.addEventListener('pointerleave', e => { if (e.pointerType !== 'touch') setDim(true); }); hist.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') setDim(false); }); hist.addEventListener('focusin', () => setDim(false)); hist.addEventListener('focusout', () => setDim(true));
 stage.addEventListener('pointerenter', e => { if (e.pointerType !== 'touch') setDim(false); }); stage.addEventListener('pointerleave', e => { if (e.pointerType !== 'touch') setDim(true); }); stage.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') setDim(false); });
+svgOn = HTL && cur.id === 'history';
 ui(); paint();
-if (typeof ResizeObserver === 'function') new ResizeObserver(() => { if (measuring) return; if (cur.id === 'history') { if (Math.round($('hist').getBoundingClientRect().width) - 24 !== histW) renderHist(); } else if (cur.id === 'short') thumbs(); else paint(); report(); }).observe(root);
+if (typeof ResizeObserver === 'function') new ResizeObserver(() => { if (measuring) return; if (cur.id === 'history' && svgOn) { if (Math.round($('hist').getBoundingClientRect().width) - 24 !== histW) renderHist(); } else if (cur.id === 'short') thumbs(); else paint(); report(); }).observe(root);
 const ready = () => { fontsReady = true; hShort = { w: -1, h: 0 }; hCh = { w: -1, h: 0 }; ui(); paint(); report(); };
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(ready); else ready();
 window.NNX = { pt: nm => { const i = N.findIndex(n => n.nm === nm); if (i < 0) return null; const r = cv.getBoundingClientRect(), k = r.width / G.w; return { x: r.left + (G.cx + P[i].x * G.R) * k, y: r.top + (G.cy + P[i].y * G.R) * k }; }, go: id => go(byParam(id), false), get tab() { return cur.param; }, get copy() { return { top: TOPLINE, ch: CH, titles: TABS.map(x => x.title), tabs: TABS.map(x => x.label), agree: TOTALS_AGREE, over: OV.length, upTop, upRest, top4: TOP.map(c => c.code + ' ' + c.up + '/' + c.n), eras: HS.eras.map(e => `${e.label}: ${e.over} of ${e.N} (${e.grew} grew, ${e.above} started above)`), notes: (() => { const k = cur.id; return k; })() }; }, paintAudit() { geom(); NN.draw(ctx, G, D, L, T, { ...idleState(cur), chromeA: 0 }); }, get dbg() { return { G, P: P.map(p => ({ ...p })), MR: L.MR }; }, get skipped() { return $('hsvg').dataset.skipped; } };

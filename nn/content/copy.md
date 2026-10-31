@@ -136,6 +136,9 @@ When they started matters. Who pays them matters more.
 ## chapter3.dek
 The internet began reshaping print and broadcast distribution in {cut}. Organizations founded before then mostly run above $10 million: {hist_pre_over} of {hist_pre}. Those founded since mostly don't: {hist_post_over} of {hist_post}. Only {hist_old_kinds_word} of the {cohorts_word} kinds of newsroom in this study existed before {cut}. The rest are new ways to pay for journalism, and most of their organizations are still small.
 
+## chapter3.foot_radial
+Distance from the center is founding year, oldest in the middle, with rings at {cut} and 2008. {unverified_orgs} with no verified founding year {unverified_be} on the dashed outer ring; we do not estimate one. Filled marks are over $10M in revenue, and bigger marks are bigger revenue bands. Who pays predicts an organization's revenue more strongly than when it was founded.
+
 ## chapter3.foot
 Position is founding year, left to right. The axis is compressed before {cut}. Filled marks are over $10M in revenue. {unverified_orgs} with no verified founding year {unverified_be} not shown. Who pays predicts an organization's revenue more strongly than when it was founded.
 
@@ -278,6 +281,12 @@ Before {cut} (compressed)
 
 ## hist.era_aria_full
 {label}: {over} of {n} over $10M ({grew} grew past, {above} started above)
+
+## hist.ring_core
+Before {year}
+
+## hist.ring_unverified
+Founding year not verified
 
 ## hist.mark_aria
 {name}, {cohort}, founded {year}, {shape}
