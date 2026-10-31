@@ -21,7 +21,7 @@ Put `?src=` on any link to journalismatlas.com in a post. Use one code per platf
 
 The site already runs Google Analytics 4, which records the full address a reader landed on, so `?src=` shows up there as part of the page location. Check that it appears in your GA4 reports after launch; nothing in the code reads it.
 
-Signup and contact links from the hub and piece pages carry `?source=<piece-slug>&cta=<cta-id>`. `/updates` writes both into the Formspree submission as hidden fields. `/contact` is a Google Form embed, so those two values reach the page address only, not the form.
+Signup and contact links from the hub and piece pages carry `?source=<piece-slug>&cta=<cta-id>`. `/updates` writes both into the Formspree submission as hidden fields. `/contact` is a Google Form embed, so those two values reach the page address only, not the form. For now, contact attribution is via GA4 `page_location` only. The clean fix, after launch, is moving "Tell us" to a native Formspree form like `/updates`.
 
 ## 2. Add a post (Instagram, TikTok, LinkedIn, Threads, YouTube, or a Bluesky post you want to pin)
 
