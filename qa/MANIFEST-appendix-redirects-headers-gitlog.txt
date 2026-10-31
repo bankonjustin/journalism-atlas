@@ -1,0 +1,592 @@
+# Appendix A: _redirects and _headers, full git log -p (generated read-only, Oct 31 2026)
+
+################ git log -p -- _redirects
+=== 24bc4a1 2026-10-30 22:36:38 -0400 bankonjustin: so many
+
+diff --git a/_redirects b/_redirects
+index 7e025c9..996c69b 100644
+--- a/_redirects
++++ b/_redirects
+@@ -62,9 +62,9 @@
+ /Amber McDaniel                        /amber-mcdaniel           301
+ 
+ # Old Nodes and Networks preview (retired 2026-10-15) -> current preview
+-/research/nodes-and-networks        /preview/nodes-and-networks-f348eb08/   301
+-/research/nodes-and-networks.html   /preview/nodes-and-networks-f348eb08/   301
+-/research/nodes-and-networks/       /preview/nodes-and-networks-f348eb08/   301
++/research/nodes-and-networks        /nodes-and-networks/   301
++/research/nodes-and-networks.html   /nodes-and-networks/   301
++/research/nodes-and-networks/       /nodes-and-networks/   301
+ 
+ # Watershed essay: preview slug retired at publish (Oct 25, 2026) -> final URL
+ /watershed-preview-uhh7gdyn              /watershed/   301
+=== b091310 2026-10-29 12:05:33 -0400 bankonjustin: N&N preview explorer: final ASU embed edits; serve preview path (no redirect/drop)
+
+diff --git a/_redirects b/_redirects
+index 0302fd1..7e025c9 100644
+--- a/_redirects
++++ b/_redirects
+@@ -71,10 +71,7 @@
+ /watershed-preview-uhh7gdyn/             /watershed/   301
+ /watershed-preview-uhh7gdyn/index.html   /watershed/   301
+ 
+-# Nodes and Networks launch kit: preview addresses now forward to the permanent home. Query strings pass through.
+-/preview/nn-launch-kit/explorer          /nodes-and-networks/explorer/   301
+-/preview/nn-launch-kit/explorer/         /nodes-and-networks/explorer/   301
+-/preview/nn-launch-kit/explorer/index.html  /nodes-and-networks/explorer/   301
++# Nodes and Networks launch kit: /preview/nn-launch-kit/explorer/ is the permanent ASU embed address and must NOT redirect (Oct 29). Only the retired explorer-named address forwards.
+ /preview/nn-launch-kit/explorer-named          /nodes-and-networks/explorer/   301
+ /preview/nn-launch-kit/explorer-named/         /nodes-and-networks/explorer/   301
+ /preview/nn-launch-kit/explorer-named/index.html  /nodes-and-networks/explorer/   301
+=== 88b857a 2026-10-29 08:34:36 -0400 bankonjustin: pulse and nodes
+
+diff --git a/_redirects b/_redirects
+index 7a50a75..0302fd1 100644
+--- a/_redirects
++++ b/_redirects
+@@ -70,3 +70,11 @@
+ /watershed-preview-uhh7gdyn              /watershed/   301
+ /watershed-preview-uhh7gdyn/             /watershed/   301
+ /watershed-preview-uhh7gdyn/index.html   /watershed/   301
++
++# Nodes and Networks launch kit: preview addresses now forward to the permanent home. Query strings pass through.
++/preview/nn-launch-kit/explorer          /nodes-and-networks/explorer/   301
++/preview/nn-launch-kit/explorer/         /nodes-and-networks/explorer/   301
++/preview/nn-launch-kit/explorer/index.html  /nodes-and-networks/explorer/   301
++/preview/nn-launch-kit/explorer-named          /nodes-and-networks/explorer/   301
++/preview/nn-launch-kit/explorer-named/         /nodes-and-networks/explorer/   301
++/preview/nn-launch-kit/explorer-named/index.html  /nodes-and-networks/explorer/   301
+=== e4f21f3 2026-10-24 09:27:39 -0400 bankonjustin: PUBLISH: remove noindex, draft banner and (draft) title from /watershed/; retire preview slug with 301s; drop review sheet
+
+diff --git a/_redirects b/_redirects
+index ba4782c..7a50a75 100644
+--- a/_redirects
++++ b/_redirects
+@@ -65,3 +65,8 @@
+ /research/nodes-and-networks        /preview/nodes-and-networks-f348eb08/   301
+ /research/nodes-and-networks.html   /preview/nodes-and-networks-f348eb08/   301
+ /research/nodes-and-networks/       /preview/nodes-and-networks-f348eb08/   301
++
++# Watershed essay: preview slug retired at publish (Oct 25, 2026) -> final URL
++/watershed-preview-uhh7gdyn              /watershed/   301
++/watershed-preview-uhh7gdyn/             /watershed/   301
++/watershed-preview-uhh7gdyn/index.html   /watershed/   301
+=== 08ceba8 2026-10-15 09:18:34 -0400 bankonjustin: research
+
+diff --git a/_redirects b/_redirects
+index b898b8f..ba4782c 100644
+--- a/_redirects
++++ b/_redirects
+@@ -60,3 +60,8 @@
+ /Joy McConnochie                       /joy-mcconnochie          301
+ /Lyall Mabin                           /lyall-mabin              301
+ /Amber McDaniel                        /amber-mcdaniel           301
++
++# Old Nodes and Networks preview (retired 2026-10-15) -> current preview
++/research/nodes-and-networks        /preview/nodes-and-networks-f348eb08/   301
++/research/nodes-and-networks.html   /preview/nodes-and-networks-f348eb08/   301
++/research/nodes-and-networks/       /preview/nodes-and-networks-f348eb08/   301
+=== 4f4e2c8 2026-07-07 01:06:46 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index 78894d8..b898b8f 100644
+--- a/_redirects
++++ b/_redirects
+@@ -1,6 +1,9 @@
+ /wire   /wire.html   200
+ 
+-/pack   /postcard   301
++/pack        /    301
++/pack.html   /    301
++/knight-brief        /    301
++/knight-brief.html   /    301
+ 
+ /partner-list-cillizza     /partners/cillizza    301
+ /partner-list-cillizza/    /partners/cillizza    301
+=== 9c74ad6 2026-07-06 23:45:30 -0400 bankonjustin: updates
+
+diff --git a/_redirects b/_redirects
+index 37e3332..78894d8 100644
+--- a/_redirects
++++ b/_redirects
+@@ -23,6 +23,8 @@
+ /chicago/                             /city-lab-chicago          301
+ /what-we-do.html                      /about-this-project        301
+ /what-we-do                           /about-this-project        301
++/postcard.html                         /                          301
++/postcard                              /                          301
+ /submit                    /contact                   301
+ /contact.html              /contact                   301
+ /submit.html               /contact                   301
+=== f4ccd7e 2026-06-24 21:21:14 -0400 bankonjustin: search
+
+diff --git a/_redirects b/_redirects
+index 52c89ac..37e3332 100644
+--- a/_redirects
++++ b/_redirects
+@@ -6,10 +6,10 @@
+ /partner-list-cillizza/    /partners/cillizza    301
+ /partner-icfj              /partners/icfj        301
+ /partner-icfj/             /partners/icfj        301
+-/partner-list-grist        /partners/grist       301
+-/partner-list-grist/       /partners/grist       301
+-/partner-list-stahl        /partners/grist       301
+-/partner-list-stahl/       /partners/grist       301
++/partner-list-grist        /partners/jessica-stahl    301
++/partner-list-grist/       /partners/jessica-stahl    301
++/partner-list-stahl        /partners/jessica-stahl    301
++/partner-list-stahl/       /partners/jessica-stahl    301
+ /partner-list-ahp-v1       /partners/ahp         301
+ /partner-list-ahp-v1/      /partners/ahp         301
+ /partner-list-ahp          /partners/ahp         301
+@@ -18,6 +18,7 @@
+ /partners/grist/           /partners/jessica-stahl    301
+ /bluesky-intelligence                 /bluesky-creator-intelligence  301
+ /bluesky-intelligence/                /bluesky-creator-intelligence  301
++/partners/ccm                         /partners/news-creator-corps   301
+ /chicago                              /city-lab-chicago          301
+ /chicago/                             /city-lab-chicago          301
+ /what-we-do.html                      /about-this-project        301
+=== 7c6d3af 2026-06-24 13:27:32 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index e37867d..52c89ac 100644
+--- a/_redirects
++++ b/_redirects
+@@ -1,5 +1,7 @@
+ /wire   /wire.html   200
+ 
++/pack   /postcard   301
++
+ /partner-list-cillizza     /partners/cillizza    301
+ /partner-list-cillizza/    /partners/cillizza    301
+ /partner-icfj              /partners/icfj        301
+=== 60282e5 2026-06-17 01:19:13 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index 80c325d..e37867d 100644
+--- a/_redirects
++++ b/_redirects
+@@ -1,3 +1,5 @@
++/wire   /wire.html   200
++
+ /partner-list-cillizza     /partners/cillizza    301
+ /partner-list-cillizza/    /partners/cillizza    301
+ /partner-icfj              /partners/icfj        301
+=== 28428e1 2026-06-06 10:28:23 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index 0e120b7..80c325d 100644
+--- a/_redirects
++++ b/_redirects
+@@ -12,6 +12,8 @@
+ /partner-list-ahp/         /partners/ahp         301
+ /partners/grist            /partners/jessica-stahl    301
+ /partners/grist/           /partners/jessica-stahl    301
++/bluesky-intelligence                 /bluesky-creator-intelligence  301
++/bluesky-intelligence/                /bluesky-creator-intelligence  301
+ /chicago                              /city-lab-chicago          301
+ /chicago/                             /city-lab-chicago          301
+ /what-we-do.html                      /about-this-project        301
+=== 75b505a 2026-06-05 15:59:09 -0400 bankonjustin: Update _redirects
+
+diff --git a/_redirects b/_redirects
+index 180d2be..0e120b7 100644
+--- a/_redirects
++++ b/_redirects
+@@ -12,6 +12,8 @@
+ /partner-list-ahp/         /partners/ahp         301
+ /partners/grist            /partners/jessica-stahl    301
+ /partners/grist/           /partners/jessica-stahl    301
++/chicago                              /city-lab-chicago          301
++/chicago/                             /city-lab-chicago          301
+ /what-we-do.html                      /about-this-project        301
+ /what-we-do                           /about-this-project        301
+ /submit                    /contact                   301
+=== 3766da3 2026-06-05 07:16:46 -0400 bankonjustin: updates
+
+diff --git a/_redirects b/_redirects
+index 649a856..180d2be 100644
+--- a/_redirects
++++ b/_redirects
+@@ -22,3 +22,27 @@
+ /ari-shapro                /ari-shapiro               301
+ /briahna-joy-grey          /briahna-joy-gray          301
+ /petula-devorak            /petula-dvorak             301
++
++# June 4 2026 — Ryan data cleanup: slug fixes and duplicate removals
++
++# Group A: channel-name slugs replaced by person-name slugs
++/jason-selvig-davram-stiefler          /jason-selvig             301
++/east-atlanta-anthem                   /connor-nolte             301
++
++# Group C: duplicate slug removals
++/joel-bervell                          /dr-joel-bervell          301
++/monique                               /monique-black-belt-babe  301
++/catilin-johnstone                     /caitlin-johnstone        301
++/Bethesdahistoryblog                   /bethesda-history-blog    301
++/rebecca-becky-smethurst               /dr-becky-smethurst       301
++/briahna-joy-grey                      /briahna-joy-gray         301
++/brandon-ewing-aiden-mccaig-doug-wreden  /brandon-ewing          301
++
++# Slug case fixes
++/Ibby                                  /ibby                     301
++/Webbie                                /webbie                   301
++
++# Sustainable Jungle: full-name slugs replaced by hyphenated
++/Joy McConnochie                       /joy-mcconnochie          301
++/Lyall Mabin                           /lyall-mabin              301
++/Amber McDaniel                        /amber-mcdaniel           301
+=== 565c2c5 2026-06-03 20:37:25 -0400 bankonjustin: Update _redirects
+
+diff --git a/_redirects b/_redirects
+index 8be042e..649a856 100644
+--- a/_redirects
++++ b/_redirects
+@@ -14,8 +14,6 @@
+ /partners/grist/           /partners/jessica-stahl    301
+ /what-we-do.html                      /about-this-project        301
+ /what-we-do                           /about-this-project        301
+-/bluesky-creator-intelligence         /bluesky-intelligence      301
+-/bluesky-creator-intelligence.html    /bluesky-intelligence      301
+ /submit                    /contact                   301
+ /contact.html              /contact                   301
+ /submit.html               /contact                   301
+=== b9ca0bb 2026-06-03 18:50:00 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index d7d67b3..8be042e 100644
+--- a/_redirects
++++ b/_redirects
+@@ -19,3 +19,8 @@
+ /submit                    /contact                   301
+ /contact.html              /contact                   301
+ /submit.html               /contact                   301
++
++# Slug typo corrections — June 3, 2026
++/ari-shapro                /ari-shapiro               301
++/briahna-joy-grey          /briahna-joy-gray          301
++/petula-devorak            /petula-dvorak             301
+=== 6741e88 2026-05-14 20:48:57 -0400 bankonjustin: updated
+
+diff --git a/_redirects b/_redirects
+index 52f4dc7..d7d67b3 100644
+--- a/_redirects
++++ b/_redirects
+@@ -16,7 +16,6 @@
+ /what-we-do                           /about-this-project        301
+ /bluesky-creator-intelligence         /bluesky-intelligence      301
+ /bluesky-creator-intelligence.html    /bluesky-intelligence      301
+-/city-lab-dc-v2                       /                          301
+ /submit                    /contact                   301
+ /contact.html              /contact                   301
+ /submit.html               /contact                   301
+=== 9bae54c 2026-05-14 18:16:24 -0400 bankonjustin: Update _redirects
+
+diff --git a/_redirects b/_redirects
+index 997c1d0..52f4dc7 100644
+--- a/_redirects
++++ b/_redirects
+@@ -16,10 +16,7 @@
+ /what-we-do                           /about-this-project        301
+ /bluesky-creator-intelligence         /bluesky-intelligence      301
+ /bluesky-creator-intelligence.html    /bluesky-intelligence      301
+-/city-lab-chicago                     /                          301
+-/city-lab-dc                          /                          301
+ /city-lab-dc-v2                       /                          301
+ /submit                    /contact                   301
+ /contact.html              /contact                   301
+ /submit.html               /contact                   301
+-/search                    /search.html               200
+=== aa71def 2026-05-14 09:37:55 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index a4eb010..997c1d0 100644
+--- a/_redirects
++++ b/_redirects
+@@ -22,3 +22,4 @@
+ /submit                    /contact                   301
+ /contact.html              /contact                   301
+ /submit.html               /contact                   301
++/search                    /search.html               200
+=== 49583c3 2026-05-13 19:04:43 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index b75132a..a4eb010 100644
+--- a/_redirects
++++ b/_redirects
+@@ -12,8 +12,13 @@
+ /partner-list-ahp/         /partners/ahp         301
+ /partners/grist            /partners/jessica-stahl    301
+ /partners/grist/           /partners/jessica-stahl    301
+-/what-we-do.html           /about-this-project.html   301
+-/what-we-do                /about-this-project.html   301
++/what-we-do.html                      /about-this-project        301
++/what-we-do                           /about-this-project        301
++/bluesky-creator-intelligence         /bluesky-intelligence      301
++/bluesky-creator-intelligence.html    /bluesky-intelligence      301
++/city-lab-chicago                     /                          301
++/city-lab-dc                          /                          301
++/city-lab-dc-v2                       /                          301
+ /submit                    /contact                   301
+ /contact.html              /contact                   301
+ /submit.html               /contact                   301
+=== a6303d5 2026-05-11 12:50:10 -0400 bankonjustin: update
+
+diff --git a/_redirects b/_redirects
+index 5aa735f..b75132a 100644
+--- a/_redirects
++++ b/_redirects
+@@ -14,3 +14,6 @@
+ /partners/grist/           /partners/jessica-stahl    301
+ /what-we-do.html           /about-this-project.html   301
+ /what-we-do                /about-this-project.html   301
++/submit                    /contact                   301
++/contact.html              /contact                   301
++/submit.html               /contact                   301
+=== bfc4644 2026-04-29 13:22:20 -0400 bankonjustin: more updates
+
+diff --git a/_redirects b/_redirects
+index 03a6f70..5aa735f 100644
+--- a/_redirects
++++ b/_redirects
+@@ -12,3 +12,5 @@
+ /partner-list-ahp/         /partners/ahp         301
+ /partners/grist            /partners/jessica-stahl    301
+ /partners/grist/           /partners/jessica-stahl    301
++/what-we-do.html           /about-this-project.html   301
++/what-we-do                /about-this-project.html   301
+=== c415242 2026-04-29 00:01:47 -0400 bankonjustin: updates
+
+diff --git a/_redirects b/_redirects
+index a58654f..03a6f70 100644
+--- a/_redirects
++++ b/_redirects
+@@ -10,3 +10,5 @@
+ /partner-list-ahp-v1/      /partners/ahp         301
+ /partner-list-ahp          /partners/ahp         301
+ /partner-list-ahp/         /partners/ahp         301
++/partners/grist            /partners/jessica-stahl    301
++/partners/grist/           /partners/jessica-stahl    301
+=== 4170be4 2026-04-28 07:22:05 -0400 bankonjustin: updates
+
+diff --git a/_redirects b/_redirects
+new file mode 100644
+index 0000000..a58654f
+--- /dev/null
++++ b/_redirects
+@@ -0,0 +1,12 @@
++/partner-list-cillizza     /partners/cillizza    301
++/partner-list-cillizza/    /partners/cillizza    301
++/partner-icfj              /partners/icfj        301
++/partner-icfj/             /partners/icfj        301
++/partner-list-grist        /partners/grist       301
++/partner-list-grist/       /partners/grist       301
++/partner-list-stahl        /partners/grist       301
++/partner-list-stahl/       /partners/grist       301
++/partner-list-ahp-v1       /partners/ahp         301
++/partner-list-ahp-v1/      /partners/ahp         301
++/partner-list-ahp          /partners/ahp         301
++/partner-list-ahp/         /partners/ahp         301
+
+################ git log -p -- _headers
+=== 24bc4a1 2026-10-30 22:36:38 -0400 bankonjustin: so many
+
+diff --git a/_headers b/_headers
+index ffed31c..6b4b4ad 100644
+--- a/_headers
++++ b/_headers
+@@ -32,9 +32,4 @@
+   Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu https://journalismatlas.com
+ /nodes-and-networks/media/*
+   Cache-Control: public, max-age=3600
+-# TEMPORARY until the Nov 5, 2026 launch: keep the whole folder (landing, explorer, embed, media) out of search. Remove these two lines on Nov 5.
+-/nodes-and-networks/*
+-  X-Robots-Tag: noindex, nofollow
+-/nodes-and-networks
+-  X-Robots-Tag: noindex, nofollow
+ # <<< nn permanent home
+=== c0ac95e 2026-10-30 22:29:05 -0400 bankonjustin: Keep /nodes-and-networks/ out of search until the Nov 5 launch (X-Robots-Tag, temporary)
+
+diff --git a/_headers b/_headers
+index 6b4b4ad..ffed31c 100644
+--- a/_headers
++++ b/_headers
+@@ -32,4 +32,9 @@
+   Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu https://journalismatlas.com
+ /nodes-and-networks/media/*
+   Cache-Control: public, max-age=3600
++# TEMPORARY until the Nov 5, 2026 launch: keep the whole folder (landing, explorer, embed, media) out of search. Remove these two lines on Nov 5.
++/nodes-and-networks/*
++  X-Robots-Tag: noindex, nofollow
++/nodes-and-networks
++  X-Robots-Tag: noindex, nofollow
+ # <<< nn permanent home
+=== 88b857a 2026-10-29 08:34:36 -0400 bankonjustin: pulse and nodes
+
+diff --git a/_headers b/_headers
+index 884f055..6b4b4ad 100644
+--- a/_headers
++++ b/_headers
+@@ -25,3 +25,11 @@
+ /preview/nn-launch-kit/explorer-named/*
+   Content-Security-Policy: frame-ancestors 'self'
+ # <<< nn launch kit
++
++# >>> nn permanent home (journalismatlas.com/nodes-and-networks/)
++# Only the explorer page may be framed: by this site and by ASU. Other origins are refused.
++/nodes-and-networks/explorer/*
++  Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu https://journalismatlas.com
++/nodes-and-networks/media/*
++  Cache-Control: public, max-age=3600
++# <<< nn permanent home
+=== 3b309c8 2026-10-28 20:37:18 -0400 bankonjustin: Update _headers
+
+diff --git a/_headers b/_headers
+index 6dc25e7..884f055 100644
+--- a/_headers
++++ b/_headers
+@@ -21,7 +21,7 @@
+ /preview/nn-launch-kit/*
+   X-Robots-Tag: noindex, nofollow
+ /preview/nn-launch-kit/explorer/*
+-  Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu
++  Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu https://journalismatlas.com
+ /preview/nn-launch-kit/explorer-named/*
+   Content-Security-Policy: frame-ancestors 'self'
+ # <<< nn launch kit
+=== 42b0817 2026-10-27 08:11:14 -0400 bankonjustin: hgfhfhgfghf
+
+diff --git a/_headers b/_headers
+index 327a323..6dc25e7 100644
+--- a/_headers
++++ b/_headers
+@@ -22,4 +22,6 @@
+   X-Robots-Tag: noindex, nofollow
+ /preview/nn-launch-kit/explorer/*
+   Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu
++/preview/nn-launch-kit/explorer-named/*
++  Content-Security-Policy: frame-ancestors 'self'
+ # <<< nn launch kit
+=== 0695ed0 2026-10-26 22:57:16 -0400 bankonjustin: visuals
+
+diff --git a/_headers b/_headers
+index 4bc050b..327a323 100644
+--- a/_headers
++++ b/_headers
+@@ -16,3 +16,10 @@
+   X-Robots-Tag: noindex
+ /partners/_shell
+   X-Robots-Tag: noindex
++
++# >>> nn launch kit (explorer, embed test, video; preview only)
++/preview/nn-launch-kit/*
++  X-Robots-Tag: noindex, nofollow
++/preview/nn-launch-kit/explorer/*
++  Content-Security-Policy: frame-ancestors 'self' https://asu.edu https://*.asu.edu
++# <<< nn launch kit
+=== 07a622a 2026-10-24 12:49:12 -0400 bankonjustin: lets go
+
+diff --git a/_headers b/_headers
+index 001b0d6..4bc050b 100644
+--- a/_headers
++++ b/_headers
+@@ -1,4 +1,4 @@
+-# >>> nn5 edition rules (managed by nodes-networks-v5/edition/tools/stage.py)
++# >>> nn5 edition rules (managed by nodes-networks-v5/edition/tools/stage.py and launch.py)
+ /preview/nodes-and-networks-edition-e852c5c5/*
+   X-Robots-Tag: noindex, nofollow
+ /preview/nodes-and-networks-edition-e852c5c5/embed/*
+=== 65976ef 2026-10-23 15:35:39 -0400 bankonjustin: more
+
+diff --git a/_headers b/_headers
+index 8e44c85..001b0d6 100644
+--- a/_headers
++++ b/_headers
+@@ -1,4 +1,4 @@
+-# Cloudflare Pages response headers. Nodes and Networks interactive edition (unlisted until launch).
++# >>> nn5 edition rules (managed by nodes-networks-v5/edition/tools/stage.py)
+ /preview/nodes-and-networks-edition-e852c5c5/*
+   X-Robots-Tag: noindex, nofollow
+ /preview/nodes-and-networks-edition-e852c5c5/embed/*
+@@ -9,6 +9,7 @@
+   Cache-Control: public, max-age=600
+ /assets/nn5/fonts/*
+   Cache-Control: public, max-age=31536000, immutable
++# <<< nn5 edition rules
+ 
+ # Partner page template (not a public page; copying it must not carry noindex, so it is set here, not in the file).
+ /partners/_shell.html
+=== b8fc045 2026-10-23 09:22:21 -0400 bankonjustin: v15: Session 2 checkpoint (handoff notes, tooling, shell noindex re-added)
+
+diff --git a/_headers b/_headers
+index 41661b0..8e44c85 100644
+--- a/_headers
++++ b/_headers
+@@ -9,3 +9,9 @@
+   Cache-Control: public, max-age=600
+ /assets/nn5/fonts/*
+   Cache-Control: public, max-age=31536000, immutable
++
++# Partner page template (not a public page; copying it must not carry noindex, so it is set here, not in the file).
++/partners/_shell.html
++  X-Robots-Tag: noindex
++/partners/_shell
++  X-Robots-Tag: noindex
+=== e7b6e2c 2026-10-23 09:21:11 -0400 bankonjustin: commit
+
+diff --git a/_headers b/_headers
+index dca2694..41661b0 100644
+--- a/_headers
++++ b/_headers
+@@ -3,13 +3,9 @@
+   X-Robots-Tag: noindex, nofollow
+ /preview/nodes-and-networks-edition-e852c5c5/embed/*
+   Content-Security-Policy: frame-ancestors *
+-/assets/nn5/*
++/assets/nn5/edition.css
++  Cache-Control: public, max-age=600
++/assets/nn5/js/*
+   Cache-Control: public, max-age=600
+ /assets/nn5/fonts/*
+   Cache-Control: public, max-age=31536000, immutable
+-
+-# Partner page template (not a public page; copying it must not carry noindex, so it is set here, not in the file).
+-/partners/_shell.html
+-  X-Robots-Tag: noindex
+-/partners/_shell
+-  X-Robots-Tag: noindex
+=== 89e0ede 2026-10-23 08:29:05 -0400 bankonjustin: v15: noindex header for the partner page template
+
+diff --git a/_headers b/_headers
+index 119c1b5..dca2694 100644
+--- a/_headers
++++ b/_headers
+@@ -7,3 +7,9 @@
+   Cache-Control: public, max-age=600
+ /assets/nn5/fonts/*
+   Cache-Control: public, max-age=31536000, immutable
++
++# Partner page template (not a public page; copying it must not carry noindex, so it is set here, not in the file).
++/partners/_shell.html
++  X-Robots-Tag: noindex
++/partners/_shell
++  X-Robots-Tag: noindex
+=== 3b3daed 2026-10-23 08:14:33 -0400 bankonjustin: design tokens
+
+diff --git a/_headers b/_headers
+new file mode 100644
+index 0000000..119c1b5
+--- /dev/null
++++ b/_headers
+@@ -0,0 +1,9 @@
++# Cloudflare Pages response headers. Nodes and Networks interactive edition (unlisted until launch).
++/preview/nodes-and-networks-edition-e852c5c5/*
++  X-Robots-Tag: noindex, nofollow
++/preview/nodes-and-networks-edition-e852c5c5/embed/*
++  Content-Security-Policy: frame-ancestors *
++/assets/nn5/*
++  Cache-Control: public, max-age=600
++/assets/nn5/fonts/*
++  Cache-Control: public, max-age=31536000, immutable
+

@@ -1,6 +1,6 @@
 # Nodes and Networks: ASU theme, History dial, teaser. Ledger (Oct 30, 2026)
 
-Nothing was committed from the terminal. Justin's GitHub Desktop commit `24bc4a1` ("so many") landed mid-session and captured an early state of Phase 1–2; everything after that is uncommitted. Not deployed.
+Nothing was committed from the terminal. Justin's GitHub Desktop commits landed afterwards: `24bc4a1` ("so many", Oct 30) captured an early state of Phase 1–2, and `49bdb49` ("explorer", Oct 31 10:06) captured the rest of this ledger. **Both are pushed**, so this work is deployed to the parked edition at `/nodes-and-networks/` and the edition `fig-*` pages (behind `?theme=asu`). Carrie's ASU embed (`preview/nn-launch-kit/explorer/`) is a separate hand-edited file and was not touched. `24bc4a1` also dropped the temporary noindex on `/nodes-and-networks/*`; it was restored in `792c728` (local, not yet pushed as of Oct 31 10:40).
 
 ## Halt conditions
 - No data or count changes (N=169 untouched).
