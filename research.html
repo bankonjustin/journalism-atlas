@@ -655,6 +655,7 @@
         }
     </style>
     <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/research-hub.css">
 </head>
 <body>
     <script src="/assets/js/header.js"></script>
@@ -688,61 +689,10 @@
         </div>
     </section>
 
-    <!-- ─── 3. FEATURED RESEARCH (DARK) ──────────────────────── -->
-    <section class="research-section on-dark">
-        <div class="research-inner">
-            <p class="eyebrow">Research &amp; Partnerships</p>
-            <h2 class="section-headline">Original research on a landscape most funders are still figuring out.</h2>
-
-            <!-- CNTI anchor card — full width -->
-            <div class="research-anchor on-dark">
-                <span class="badge-pill">April 2026 · Center for News, Technology &amp; Innovation</span>
-                <h3 class="research-anchor-headline">US Indie Info Providers: Professionally Diverse, Mission-driven, Sometimes Lonely, Rarely Earning Profit</h3>
-                <p class="research-anchor-body">A first look at the people shaping independent information in the US. 26 creators interviewed. Project C provided recruitment, field knowledge, and expertise throughout the research process.</p>
-                <div class="stat-row">
-                    <div class="stat-item">
-                        <span class="stat-num">1 in 5</span>
-                        <span class="stat-label">Americans get news from individuals</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-num">26</span>
-                        <span class="stat-label">creators interviewed</span>
-                    </div>
-                </div>
-                <a href="https://cnti.org/reports/understanding-us-indie-info-providers/" target="_blank" rel="noopener noreferrer" class="research-link link-instruction">Read the report →</a>
-            </div>
-
-            <!-- 2-col row: Chicago Toolkit + News Ecosystem Map -->
-            <div class="research-grid">
-                <!-- Nodes and Networks. SOFT copy. Date-gated by assets/js/nn-gate.js: no link before Oct 28, 2026 (ET); after, a link only if nn-gate.js has the paper's URL. Landing target for "Read the study" on home and Overview. -->
-                <div class="research-card" id="nodes-and-networks" style="scroll-margin-top: 96px;">
-                    <span class="badge-pill">October 28, 2026 · Knight Center for the Future of News, ASU Cronkite School</span>
-                    <h3 class="research-card-headline">Nodes and Networks</h3>
-                    <p class="research-card-body">A field study of 169 U.S. journalism organizations: how governance, more than platform, beat or geography, predicts how big they get.</p>
-                    <span data-nn-link data-nn-optional data-nn-class="research-link link-instruction"></span>
-                </div>
-                <!-- Watershed essay (Oct 2026). Newest first. -->
-                <div class="research-card research-card--watershed">
-                    <span class="badge-pill">October 2026 · Independent Journalism Atlas</span>
-                    <h3 class="research-card-headline">A Watershed Moment for News Deserts</h3>
-                    <p class="research-card-body">Medill's map shows where local news has dried up. Look closer and it's still moving — across county lines, through people no count yet sees. Finding them takes a new kind of map.</p>
-                    <a href="/watershed/" class="research-link link-instruction">Read the essay →</a>
-                </div>
-                <div class="research-card">
-                    <span class="badge-pill">June 2026 · Press Forward Chicago</span>
-                    <h3 class="research-card-headline">Creator Journalism Toolkit</h3>
-                    <p class="research-card-body">A practical field guide for independent journalists in Chicago — produced with Press Forward Chicago and the Chicago Community Trust. Maps the creator journalism landscape, identifies infrastructure gaps, and provides actionable guidance for building sustainable independent ventures.</p>
-                    <a href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf" target="_blank" rel="noopener noreferrer" class="research-link link-instruction">Download the toolkit →</a>
-                </div>
-                <div class="research-card">
-                    <span class="badge-pill">March 2025 · Project C</span>
-                    <h3 class="research-card-headline">The 2025 News Ecosystem Map</h3>
-                    <p class="research-card-body">An interactive graphic mapping the full spectrum of where news content is being produced and distributed today — from established legacy media to creator-model journalists to news influencers. Presented at ISOJ 2025, Knight Media Forum, and referenced across industry research.</p>
-                    <a href="https://newsletter.projectc.biz/p/from-trad-news-to-ai-the-evolving-journalism-landscape" target="_blank" rel="noopener noreferrer" class="research-link link-instruction">Explore the map →</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ─── 3. RESEARCH HUB: rendered from data/research.json by assets/js/research-hub.js (edit the data, not this page; see docs/RESEARCH-SOCIAL-POSTING.md) ─── -->
+    <div data-research-hub>
+        <noscript><div class="rh-fallback"><a class="link-instruction" href="/watershed/">A Watershed Moment for News Deserts →</a> <a class="link-instruction" href="/nodes-and-networks/">Nodes and Networks →</a></div></noscript>
+    </div>
 
     <!-- ─── 4. PUBLICATIONS GRID (LIGHT) ─────────────────────── -->
     <section class="publications-section">
@@ -1031,6 +981,7 @@
     }).catch(() => {});
     </script>
 
+    <script src="/assets/js/research-hub.js" defer></script>
     <script src="/assets/js/nn-gate.js" defer></script>
     <script src="/assets/js/footer.js"></script>
 </body>

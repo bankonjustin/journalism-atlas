@@ -288,6 +288,7 @@ def build(out):
     page_alt = R['share.alt_landing']
     explorer = (SRC / 'explorer.tpl.html').read_text(encoding='utf-8')
     explorer = explorer.replace('<!--HEAD-->', head(R['header.title'] + ': Explorer', R['landing.meta_description'], BASE + 'explorer/', og('landing.png'), page_alt))
+    explorer = explorer.replace('/*THEMEJS*/', (REPO / 'assets' / 'nn5' / 'nn-theme.js').read_text(encoding='utf-8')).replace('/*THEMECSS*/', (REPO / 'assets' / 'nn5' / 'nn-theme.css').read_text(encoding='utf-8'))
     explorer = explorer.replace('/*FONT*/', font).replace('/*DATA*/', dj).replace('/*ENGINE*/', engine).replace('/*MAXW*/', maxw)
     root = out / 'nodes-and-networks'
     for d in ('explorer', 'embed', 'media'): (root / d).mkdir(parents=True, exist_ok=True)

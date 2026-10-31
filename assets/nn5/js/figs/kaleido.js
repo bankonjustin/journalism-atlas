@@ -74,7 +74,7 @@ export function mount(el, { data, state = '', onChange, animate = true, intro = 
     if (hollow) { ctx.lineWidth = Math.max(1.5, s * .35); ctx.strokeStyle = fill; ctx.stroke(); return; }
     ctx.fillStyle = fill; ctx.fill(); if (edge) { ctx.lineWidth = 1.2; ctx.strokeStyle = '#000'; ctx.stroke(); }
   }
-  const font = (w, px) => `${w} ${px}px "Inter Tight", Arial, sans-serif`;
+  const font = (w, px) => `${w} ${px}px ${window.NN_FAM || '"Inter Tight", Arial, sans-serif'}`;   // ASU theme: Arial (nn-theme.js)
   function pill(txt, x, y, fs, fg, alpha) {
     ctx.font = font(600, fs); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const w = ctx.measureText(txt).width + fs * .6, h = fs * 1.6; ctx.fillStyle = 'rgba(0,0,0,.78)'; ctx.fillRect(x - w / 2, y - h / 2, w, h); ctx.fillStyle = fg; ctx.fillText(txt, x, y);
@@ -93,10 +93,10 @@ export function mount(el, { data, state = '', onChange, animate = true, intro = 
     if (st.zonesA > 0) {                                                      // revenue bands as places: shaded zones, brighter outward
       for (let z = 2; z >= 0; z--) { ctx.beginPath(); ctx.arc(cx, cy, ZONE[z][1] * R, 0, Math.PI * 2); ctx.arc(cx, cy, ZONE[z][0] * R, 0, Math.PI * 2, true); ctx.fillStyle = `rgba(255,255,255,${TINT[z] * st.zonesA})`; ctx.fill('evenodd'); }
       ctx.globalAlpha = st.zonesA; ctx.setLineDash([R / 60, R / 60]); ctx.lineWidth = Math.max(1, R / 300);
-      TH.forEach((r, k) => { ctx.strokeStyle = k ? '#6a6a6a' : '#4a4a4a'; ctx.beginPath(); ctx.arc(cx, cy, r * R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * (st.ringT == null ? 1 : st.ringT)); ctx.stroke(); });
+      TH.forEach((r, k) => { ctx.strokeStyle = window.NN_ASU_ON ? (k ? '#747474' : '#484848') : (k ? '#6a6a6a' : '#4a4a4a'); ctx.beginPath(); ctx.arc(cx, cy, r * R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * (st.ringT == null ? 1 : st.ringT)); ctx.stroke(); });
       ctx.setLineDash([]); ctx.globalAlpha = 1;
     }
-    if (st.yearsA > 0) { ctx.globalAlpha = st.yearsA; ctx.setLineDash([R / 90, R / 60]); ctx.strokeStyle = '#3a3a3a'; ctx.lineWidth = Math.max(1, R / 320); YEARS.forEach(y => { ctx.beginPath(); ctx.arc(cx, cy, yearR(y) * R, 0, Math.PI * 2); ctx.stroke(); }); ctx.setLineDash([]); ctx.globalAlpha = 1; }
+    if (st.yearsA > 0) { ctx.globalAlpha = st.yearsA; ctx.setLineDash([R / 90, R / 60]); ctx.strokeStyle = window.NN_ASU_ON ? '#484848' : '#3a3a3a'; ctx.lineWidth = Math.max(1, R / 320); YEARS.forEach(y => { ctx.beginPath(); ctx.arc(cx, cy, yearR(y) * R, 0, Math.PI * 2); ctx.stroke(); }); ctx.setLineDash([]); ctx.globalAlpha = 1; }
     if (st.chromeA > 0 && L.geo.length) {                                    // spokes and wedge labels
       ctx.globalAlpha = st.chromeA; ctx.strokeStyle = T.grid; ctx.lineWidth = Math.max(1, R / 400);
       L.geo.forEach(g => { ctx.beginPath(); ctx.moveTo(cx + Math.cos(g.a0) * R * .1, cy + Math.sin(g.a0) * R * .1); ctx.lineTo(cx + Math.cos(g.a0) * R * .98, cy + Math.sin(g.a0) * R * .98); ctx.stroke(); });

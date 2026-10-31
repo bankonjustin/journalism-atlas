@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!--HEAD-->
+<script>/*THEMEJS*/</script>
 <style>
 @font-face{font-family:"Inter Tight";src:url(data:font/woff2;base64,/*FONT*/) format("woff2");font-weight:500 800;font-style:normal;font-display:swap}
 :root{--bg:#fff;--ink:#000;--ink-2:#3b3b3b;--ink-3:#6d6d6d;--rule:#d4d4d4;--panel:#000;--a:#F6C84E;--b:#B23A5E;--c:#A8A8A8;--focus:#000;--sel:#000;--selink:#fff;--font:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;color-scheme:light}
@@ -66,6 +67,7 @@ ol.chaps{list-style:none;margin:0;padding:0;display:grid;gap:12px}.chap{display:
 .embed header,.embed .foot,.embed .flag{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (max-width:420px){h1{font-size:24px}.tab{padding:9px 11px;font-size:13px}}
+/*THEMECSS*/
 </style>
 </head>
 <body>
@@ -107,7 +109,8 @@ if (EMBED) document.documentElement.classList.add('embed');
 const $ = id => document.getElementById(id), esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const CP = M.cp, fmt = (s, v) => s.replace(/\{(\w+)\}/g, (m, k) => v && k in v ? v[k] : m), cp = (k, v) => { if (!(k in CP)) throw new Error('missing copy ' + k); return v ? fmt(CP[k], v) : CP[k]; }, lc1 = s => s.charAt(0).toLowerCase() + s.slice(1);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const T = { bg: '#000', a: '#F6C84E', b: '#B23A5E', c: '#A8A8A8', neutral: '#7C7C7C', ink: '#fff', ink2: '#bdbdbd', grid: '#262626' };
+const T = Object.assign({ bg: '#000', a: '#F6C84E', b: '#B23A5E', c: '#A8A8A8', neutral: '#7C7C7C', ink: '#fff', ink2: '#bdbdbd', grid: '#262626' }, window.NN_ASU_T || {});   // ASU theme (nn-theme.js) overrides the stage colors
+const FAM = window.NN_FAM || '"Inter Tight",Arial,sans-serif', asu = window.NN_ASU_ON ? window.nnAsu : x => x;   // asu(): remaps hex literals in generated SVG under the ASU theme
 const cnt = f => N.filter(f).length, over = n => n.b === 2, pathIdx = k => M.paths.findIndex(p => p.key === k);
 // ---- History numbers: every figure is derived from the data the page loads ----
 const NUM = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
@@ -177,7 +180,7 @@ const isAnswer = n => (n.o === 'CROSSED' && pathIdx(n.m) >= 0) || n.m === 'EXCEP
 function thumbs() {
   document.querySelectorAll('[data-th]').forEach(el => {
     const k = el.dataset.th, w = Math.round(el.getBoundingClientRect().width) || 110;
-    if (k === 'history') { el.innerHTML = eraThumb(w); return; }
+    if (k === 'history') { el.innerHTML = asu(eraThumb(w)); return; }
     const c = el.querySelector('canvas'), d = Math.min(2, devicePixelRatio || 1), g = NN.geom(w, d, .86);
     const hk = k === 'gov' ? n => (TOPSET.has(n.c) ? 'H' : 'x') : n => (isAnswer(n) ? 'H' : 'x'), pos = L[k].pos, hs = N.filter(n => k === 'gov' || hk(n) === 'H').map(n => pos[n.i]);
     const x0 = Math.min(...hs.map(p => p.x)), x1 = Math.max(...hs.map(p => p.x)), y0 = Math.min(...hs.map(p => p.y)), y1 = Math.max(...hs.map(p => p.y)), pm = L.MR * 2.2;   // fit the highlighted marks to the thumbnail
@@ -262,7 +265,7 @@ function drawAnn() {
     occ.push(best.bx); const { x, y, lines, wd, hh, tp } = best, lx = Math.min(Math.max(tp[0], x), x + wd), ly = Math.min(Math.max(tp[1], y), y + hh);
     return lines.map((l, i) => `<text x="${x}" y="${(y + fs + i * lh - 2).toFixed(1)}" font-size="${fs}" font-weight="600" fill="#fff">${esc(l)}</text>`).join('') + `<line x1="${lx.toFixed(1)}" y1="${ly.toFixed(1)}" x2="${tp[0].toFixed(1)}" y2="${tp[1].toFixed(1)}" stroke="#9a9a9a" stroke-width=".8"/><circle cx="${tp[0].toFixed(1)}" cy="${tp[1].toFixed(1)}" r="2.2" fill="#fff"/>`;
   });
-  svg.setAttribute('viewBox', `0 0 ${w} ${h}`); svg.setAttribute('width', w); svg.setAttribute('height', h); svg.innerHTML = out.join('');
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`); svg.setAttribute('width', w); svg.setAttribute('height', h); svg.innerHTML = asu(out.join(''));
 }
 
 const setUrl = tab => { const u = new URL(location.href); u.searchParams.set('tab', tab.param); history.replaceState(null, '', u); };
@@ -307,7 +310,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') { tip.hidden = true; 
 // ---- History tab: one SVG row per cohort, founding year left to right (broken axis), era bars on top ----
 let histW = 0;
 const mctx = document.createElement('canvas').getContext('2d');
-const tw = (t, px, wt) => { mctx.font = `${wt || 500} ${px}px "Inter Tight",Arial,sans-serif`; return mctx.measureText(t).width; };
+const tw = (t, px, wt) => { mctx.font = `${wt || 500} ${px}px ${FAM}`; return mctx.measureText(t).width; };
 const fmtRev = v => v >= 1e9 ? '$' + +(v / 1e9).toFixed(v >= 1e10 ? 0 : 1) + 'B' : v >= 1e6 ? '$' + +(v / 1e6).toFixed(v >= 1e8 ? 0 : 1) + 'M' : '$' + Math.round(v / 1e3) + 'K';
 const ANCHORS = ['New York Times', 'NPR', 'Washington Post', 'Fox News', 'ProPublica', 'Texas Tribune', 'Politico Pro', 'Axios', 'Daily Wire', 'Semafor', 'Baltimore Banner'], ANCHORS_NARROW = ['New York Times', 'NPR', 'ProPublica', 'Axios'];
 const wrap = (t, px, maxW, wt) => { const out = []; let line = ''; t.split(' ').forEach(wd => { const c = line ? line + ' ' + wd : wd; if (line && tw(c, px, wt) > maxW) { out.push(line); line = wd; } else line = c; }); if (line) out.push(line); return out; };
@@ -416,7 +419,7 @@ function renderHist() {
     boxes.push([placed.bx[0] - 4, placed.bx[1], placed.bx[2] + 4, placed.bx[3]]); if (placed.lead) o.push(`<line x1="${placed.lead[0].toFixed(1)}" y1="${placed.lead[1].toFixed(1)}" x2="${placed.lead[2].toFixed(1)}" y2="${placed.lead[3].toFixed(1)}" stroke="#9a9a9a" stroke-width=".8"/>`);
     o.push(txt(placed.x, placed.y + lfs * .35, nmk, { fs: lfs, wt: 600 }));
   });
-  host.innerHTML = `<svg viewBox="0 0 ${w} ${H}" width="${w}" height="${H}" role="group" aria-label="${esc(HS.title + ' ' + HS.dek)}">${o.join('')}</svg>`;
+  host.innerHTML = asu(`<svg viewBox="0 0 ${w} ${H}" width="${w}" height="${H}" role="group" aria-label="${esc(HS.title + ' ' + HS.dek)}">${o.join('')}</svg>`);
   host.dataset.skipped = skipped.join('|'); host.dataset.h = Math.round(H);
   const ht = $('htip'), hist = $('hist');
   const show = g => { const n = N[+g.dataset.i]; ht.innerHTML = histCard(n); ht.hidden = false; const hr = hist.getBoundingClientRect(), gr = g.getBoundingClientRect(), tw2 = ht.offsetWidth, th = ht.offsetHeight, cxm = gr.left + gr.width / 2 - hr.left, top = gr.top - hr.top;

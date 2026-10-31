@@ -58,7 +58,7 @@ const NN = (() => {
     if (hollow) { ctx.lineWidth = Math.max(1.5, r * .3); ctx.setLineDash([r * .7, r * .5]); ctx.stroke(); ctx.setLineDash([]); } else ctx.fill();
   }
   const mixc = (h1, h2, t) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)), a = p(h1), b = p(h2); return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',')})`; };
-  const fnt = (w, px, fam) => `${w} ${px}px ${fam || '"Inter Tight",Arial,sans-serif'}`;
+  const fnt = (w, px, fam) => `${w} ${px}px ${fam || (typeof window !== 'undefined' && window.NN_FAM) || '"Inter Tight",Arial,sans-serif'}`;
 
   // labels for a tab: [{a, lines:[bold, small], key}] angles in radians, before rotation
   function labelsFor(D, L, tab, narrow, pad = .13) {
