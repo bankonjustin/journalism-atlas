@@ -416,8 +416,8 @@
       <div>
         <h3>Research</h3>
         <ul class="under-list">
-          <!-- SOFT: date-gated. Visible from Oct 28, 2026 (ATLAS_FLAGS.nn). Link currently /research; swap to the paper's final URL at launch. -->
-          <li data-gate="nn" hidden><a href="/research">Nodes and Networks</a>: 169 organizations, and governance predicts scale.</li>
+          <!-- SOFT: shown by assets/js/nn-gate.js at the N&N publish instant (data-nn-show). Link currently /research; swap to the paper's final URL at launch. -->
+          <li data-nn-show hidden><a href="/research">Nodes and Networks</a>: 169 organizations, and governance predicts scale.</li>
           <li><a href="/watershed/">The Watershed essay</a></li>
           <li><a href="https://cnti.org/reports/understanding-us-indie-info-providers/" rel="noopener">CNTI, Understanding US indie info providers</a></li>
           <li><a href="https://www.cct.org/wp-content/uploads/2026/06/Chicago-Creator-Journalism-Toolkit-Press-Forward-Chicago-and-The-Independent-Journalism-Atlas.pdf" rel="noopener">Chicago Creator Journalism Toolkit</a>, with Press Forward Chicago and the Chicago Community Trust</li>
@@ -479,12 +479,13 @@
 </main>
 
 <script src="/assets/js/footer.js"></script>
+<script src="/assets/js/nn-gate.js" defer></script>
 <script>
 // ── Flags. Content that is draft or date-gated stays hidden until its flag is on. ──
-// nn: Nodes and Networks goes live when the paper does (Oct 28, 2026). Add ?nn=1 to preview early.
+// nn: not a flag here. The Nodes and Networks line ([data-nn-show]) is revealed by assets/js/nn-gate.js, so every reveal flips at one instant. ?nn=1 previews it.
 // standards / lab: SOFT blocks, flip to true after Justin signs off.
 // lens: the Issue Lens. ?lens=1 previews it. lensMaxAgeDays: past this many days since the index's data-through date the Lens hides itself.
-var ATLAS_FLAGS = { nn: '2026-10-28', standards: false, lab: false, lens: true, lensMaxAgeDays: 14 };
+var ATLAS_FLAGS = { standards: false, lab: false, lens: true, lensMaxAgeDays: 14 };
 (function () {
   var qs = new URLSearchParams(location.search);
   function on(name) {

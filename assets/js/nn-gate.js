@@ -8,6 +8,9 @@
   var live = Date.now() >= Date.parse(NN.publishAt) || /[?&]nn=1\b/.test(location.search);
   if (!live) return; // before launch the markup already reads correctly, with no link
 
+  // Elements that exist only after launch (e.g. the N&N line on /for-brands): same switch, same instant.
+  document.querySelectorAll('[data-nn-show]').forEach(function (el) { el.hidden = false; });
+
   var href = NN.url || '/research#nodes-and-networks';
   document.querySelectorAll('[data-nn-link]').forEach(function (el) {
     if (!NN.url && el.hasAttribute('data-nn-optional')) return;
