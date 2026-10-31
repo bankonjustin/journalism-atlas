@@ -2,7 +2,7 @@
 
 *Project: Independent Journalism Atlas (journalismatlas.com)*
 *Owner: Justin (product, structure, copy, build) | Design rules: locked in docs/design/DESIGN-TOKENS-v16.md, owned by James (james@journalismatlas.com)*
-*Last updated: October 27, 2026 (design tokens v16, brand guide v5)*
+*Last updated: October 31, 2026 (N&N preview row; design tokens v16, brand guide v5)*
 
 **Read at session start:** This file + `WORKFLOW.md` (decision authority, "done" definition, Chat→Code handoff protocol, deploy process).
 
@@ -249,7 +249,7 @@ No creator names are typed on `index.html`. The featured rotation, the database-
 | `partners/noah-smith.html` | Noah Smith economics picks | 8 | Inline `<style>` |
 | `partners/iij.html` | Institute for Independent Journalists (IIJ) picks — built Aug 1, 2026. Published and reachable by direct URL; unlinked from nav/`partners/index.html`/`_redirects` pending confirmation of partnership next steps. Not yet documented elsewhere prior to this entry. | 122 | `variables.css` + inline `<style>` |
 | `city-lab-chicago.html` | Chicago journalism ecosystem | 245+ | Inline `<style>` + inlined data |
-| `preview/nodes-and-networks-f348eb08/index.html` | Preview of the ASU/Knight paper "Nodes and Networks" (v938). Unlisted, `noindex`, `/preview/` disallowed in `robots.txt`. **Generated. Don't hand-edit it.** Rebuild it with `make -C tools/preview-build preview DOCX=...` (see `tools/preview-build/preview_build_ledger.md`). Figures are inlined SVG from `paper-one-band-dataset/figures_v22/html/`. Replaced `research/nodes-and-networks.html` (retired Oct 15, 2026, now in `_deprecated/`; the old URL 301s here). | — | Inline `<style>` (v16 chrome) |
+| `preview/nodes-and-networks-f348eb08/index.html` | Preview of the ASU/Knight paper "Nodes and Networks" (v938). Unlisted, `noindex`, `/preview/` disallowed in `robots.txt`. **Generated. Don't hand-edit it.** Rebuild it with `make -C tools/preview-build preview DOCX=...` (see `tools/preview-build/preview_build_ledger.md`). Figures are inlined SVG from `paper-one-band-dataset/figures_v22/html/`. Replaced `research/nodes-and-networks.html` (retired Oct 15, 2026, now in `_deprecated/`). **No longer the current edition (Oct 31, 2026):** the old `/research/nodes-and-networks*` URLs now 301 to `/nodes-and-networks/` (`_redirects`), which is built from `nn/` (see `nn/README.md`). This preview is kept for now and is a post-launch archive candidate. | — | Inline `<style>` (v16 chrome) |
 | `city-lab-dc-v3.html` | DC/DMV journalism ecosystem — "Who Covers Washington Now" | ~350 | Inline `<style>` + inlined data |
 | `latin-america-lab.html` | Latin America & Caribbean creator lab (ICFJ) | — | Inline `<style>` + inlined data |
 | `partners/nj-lab.html` (a near-identical duplicate, `partners/njlab.html`, is also live) | NJ State Lab — CCM partnership. 51 creators (CCM NJ Influencer Study), 6 sections, filterable grid, CSS vizzes. | 51 | Inline `<style>` + inlined data |

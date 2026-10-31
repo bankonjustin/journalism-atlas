@@ -8,3 +8,10 @@ Archive, don't delete. Moves go to `_archive/2026-10-sweep/`; the only allowed r
 | A2 | `partners/_reviewjames copy.html` | `_archive/2026-10-sweep/partners/_reviewjames copy.html` | archive | Differs from `partners/_reviewjames.html` only in older token names (`--acid`, `--olive` vs `--color-acid`, `--color-accent-on-light`); sibling is newer in content | sha256 98f6629d0a76cd7f271c5b10921f82b3a865e06b26f756ccf0311d0667abc13b vs sibling `d7c13baa73f22fc2ef8f15cdfed738bfb358ae905ca555d379e73df61b63726c`; 16-line diff; referenced only in `docs/V12-*` audit files |
 | H2 | `_deprecated/atlas_bluesky_handles_spidering_artifact.tsv` | `journalism-atlas-private/_archive/2026-10-sweep/journalism-atlas/_deprecated/` | archive (cross-repo) | Creator email addresses (16); removed from the public tree. **Git history still holds the file** (tracked under repo-privacy item W3) | byte-identical copy verified by sha256 in the private MANIFEST |
 | H2 | `_deprecated/ryan_handoff_bsky_enrichment_june18.csv` | `journalism-atlas-private/_archive/2026-10-sweep/journalism-atlas/_deprecated/` | archive (cross-repo) | Creator email addresses (11); same note | same |
+
+## Category F: doc drift (mechanical fixes, 2026-10-31)
+
+| Row | Path | Action | Reason | Evidence |
+|---|---|---|---|---|
+| F1 | `CLAUDE.md` (page-inventory row for `preview/nodes-and-networks-f348eb08/`, and the "Last updated" line) | fix | Said the old URL 301s to that preview; it now 301s to `/nodes-and-networks/` | `_redirects:65-67` |
+| F2 | `REDIRECTS_AUDIT.md:100` | fix (superseded note added, original text kept) | Said `/pack` has no redirect; `CLAUDE.md:267` says it redirects to `/` | `CLAUDE.md:267` |
