@@ -2,7 +2,7 @@
 // SOFT: Justin sets `url` to the paper's published address. Until it is set, home and Overview link to the entry on /research (#nodes-and-networks);
 // the entry itself (data-nn-optional) shows no link until `url` is set.
 (function () {
-  var NN = { publishDate: '2026-10-28', url: '' };
+  var NN = { publishDate: '2026-11-05', url: '' };
 
   function todayET() {
     try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date()); }
