@@ -3,7 +3,7 @@
 Words come from nn/content/copy.md, so run this after changing any video.*, share.* or chapter wording.
   python3 nn/tools/render_media.py [--only video|og]
 Needs: Python 3 with Playwright (chromium), Pillow, and `swift` (macOS) for the H.264 encode. Output: nn/media/."""
-import sys, os, json, pathlib, shutil, subprocess, tempfile, threading, functools, http.server, importlib.util
+import sys, os, json, pathlib, shutil, subprocess, tempfile, threading, functools, http.server, importlib.util, time
 HERE = pathlib.Path(__file__).resolve().parent
 NN = HERE.parent
 MEDIA = NN / 'media'
@@ -53,7 +53,9 @@ function wrap(ctx, text, maxW) { const w = text.split(' '), out = []; let l = ''
 function scene(t) { return CFG.scenes.find(s => t >= s.start && t < s.end) || CFG.scenes[CFG.scenes.length - 1]; }
 function drawBeat(ctx, id, p, a) {
   const { tall, W, H } = F, im = imgs[id]; if (!im) return;
-  const capH = tall ? 330 : 200, dw = tall ? 1000 : 1060, k = dw / im.width, dh = im.height * k, top = tall ? 70 : 30, wh = H - capH - top - 20, x = (W - dw) / 2;
+  const capH = tall ? 330 : 200, top = tall ? 70 : 30, wh = H - capH - top - 20, dw0 = tall ? 1000 : 1060, h0 = im.height * dw0 / im.width;
+  // a page only slightly taller than the window is scaled to fit and shown whole; scrolling it would cut the headline off the top (and off the poster frame)
+  const dw = h0 > wh && h0 <= wh * 1.2 ? dw0 * wh / h0 : dw0, k = dw / im.width, dh = im.height * k, x = (W - dw) / 2;
   ctx.save(); ctx.globalAlpha = a; ctx.beginPath(); ctx.rect(0, top, W, wh); ctx.clip();
   const y = dh <= wh ? top + (wh - dh) / 2 : top - (dh - wh) * ez(cl((p - .12) / .76));
   ctx.drawImage(im, x, y, dw, dh); ctx.restore();
@@ -101,7 +103,14 @@ def render_video(pw, bt):
                 Image.open(fr / ('%05d.png' % i)).convert('RGB').resize((1280, 720), Image.LANCZOS).save(MEDIA / 'nodes-networks-poster.jpg', quality=84, optimize=True)
         b.close()
         out = MEDIA / ('nodes-networks-%s.mp4' % fmt)
-        subprocess.run(['swift', str(HERE / 'encode.swift'), str(fr), str(out), str(w), str(h), str(FPS), str(KBPS * 1000)], check=True)
+        t0 = time.time(); final = out; out = work / final.name   # encode in the temp folder: AVAssetWriter's faststart pass times out (POSIX 60) when it writes inside ~/Documents
+        r = subprocess.run(['swift', str(HERE / 'encode.swift'), str(fr), str(out), str(w), str(h), str(FPS), str(KBPS * 1000)], capture_output=True, text=True)
+        log = (r.stdout or '') + (r.stderr or ''); print(log.strip())
+        # encode.swift prints "failed: ..." and can still exit 0, so judge by the file too: it must be new and a real video
+        if r.returncode or 'failed' in log.lower() or not out.exists() or out.stat().st_mtime < t0 or out.stat().st_size < 1_000_000:
+            shutil.rmtree(work, ignore_errors=True)
+            sys.exit('render_media.py: the %s encode FAILED; %s was not updated (the poster and stills already written are fine).' % (fmt, final.name))
+        shutil.copy2(out, final); out = final
         print(out.name, round(out.stat().st_size / 1e6, 1), 'MB')
         shutil.rmtree(fr)
 

@@ -337,11 +337,16 @@ function geom() {
 const ringsExtra = a => (c, g, rp) => {   // History rings: drawn outward from the center as `a` rises
   const H = L.hist, [cx, cy] = rp(0, 0), fs = Math.max(10, Math.round(g.R / 27)), nm = ['Before 1970', '1970–' + M.cut, M.cut + '–2008', '2008–2026'], n1 = H.ring.length + 1, lw = Math.max(1, g.R / 380);
   c.save(); c.font = `600 ${fs}px ${NN_FAM}`; c.textAlign = 'center'; c.lineJoin = 'round';
-  const lab = (t, y, base, al, fill) => { c.globalAlpha = al; c.textBaseline = base; c.lineWidth = 3; c.strokeStyle = '#000'; c.strokeText(t, cx, y); c.fillStyle = fill; c.fillText(t, cx, y); };
+  const lab = (t, x, y, base, al, fill) => { c.globalAlpha = al; c.textBaseline = base; c.lineWidth = 3; c.strokeStyle = '#000'; c.strokeText(t, x, y); c.fillStyle = fill; c.fillText(t, x, y); };
+  const placed = [], hit = (p, q) => p[0] < q[2] && p[2] > q[0] && p[1] < q[3] && p[3] > q[1];
+  const pos = H.ring.map((r, k) => { const wd = c.measureText(nm[k]).width + 8, hh = fs * 1.1; let pick = null;   // each label starts at the top of its ring; if it would crowd the one before it, slide it along its own ring until clear
+    for (const d of [0, .2, -.2, .4, -.4, .6, -.6, .8, -.8, 1.1, -1.1]) { const x = Math.max(wd / 2 + 2, Math.min(cx + Math.sin(d) * g.R * r, (g.w || 1e9) - wd / 2 - 2)), y = cy - Math.cos(d) * g.R * r + 4, bx = [x - wd / 2, y, x + wd / 2, y + hh];
+      if (!pick) pick = { x, y, bx }; if (!placed.some(q => hit(q, bx))) { pick = { x, y, bx }; break; } }
+    placed.push(pick.bx); return pick; });
   H.ring.forEach((r, k) => {
     const al = NN.cl(a * n1 - k); if (al <= 0) return;
     c.globalAlpha = al * .85; c.lineWidth = lw; c.strokeStyle = '#6b6b6b'; c.setLineDash([]); c.beginPath(); c.arc(cx, cy, g.R * r, 0, NN.TAU); c.stroke();
-    lab(nm[k], cy - g.R * r + 4, 'top', al, '#d0d0d0');
+    lab(nm[k], pos[k].x, pos[k].y, 'top', al, '#d0d0d0');
   });
   const au = NN.cl(a * n1 - H.ring.length);
   if (au > 0 && H.nu) {

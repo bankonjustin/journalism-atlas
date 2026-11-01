@@ -58,7 +58,7 @@ canvas{display:block;width:100%}
 details.key,details.explore{margin:0 0 10px}details summary{cursor:pointer;font:600 13px/1.2 var(--font);color:var(--ink-2);padding:6px 0}details[open]>summary{margin-bottom:4px}
 .ann{position:absolute;left:0;top:0;pointer-events:none}.ann text{font-family:var(--font)}
 .hist.dimmed .mk{opacity:.4}.hist .mk .hol{opacity:.5}.hist.dimmed .mk .hol{opacity:.85}
-.shortv h2{font:700 30px/1.08 var(--font);margin:4px 0 10px;max-width:20ch}.enc{margin:0 0 14px;color:var(--ink-2);font-size:14px;max-width:62ch}
+.shortv h2{font:700 30px/1.08 var(--font);margin:4px 0 10px;max-width:20ch}.enc{margin:0 0 14px;color:var(--ink-2);font-size:14px;max-width:62ch;text-wrap:balance}
 ol.chaps{list-style:none;margin:0;padding:0;display:grid;gap:12px}.chap{display:grid;grid-template-columns:minmax(96px,170px) 1fr;gap:14px;align-items:center;padding:10px 0;border-top:1px solid var(--rule)}
 .chap .th{background:#000;border-radius:6px;overflow:hidden;padding:4px}.chap .th canvas,.chap .th svg{display:block;width:100%}
 .chap .n{margin:0 0 3px;font:700 12px/1 var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}.chap .sn{margin:0 0 6px;font:500 16px/1.35 var(--font)}.see{font:700 14px/1 var(--font);color:var(--ink)}
@@ -252,21 +252,26 @@ function drawAnn() {
   const svg = $('ann'), w = G.w, h = G.h, fs = G.narrow ? 10.5 : 11.5, lh = fs + 2.5, pt = G.narrow ? 4 : 5, notes = annNotes();
   // occupied space: every mark, every wedge label (approximate box), then each note as it is placed
   const occ = N.map(n => { const x = G.cx + P[n.i].x * G.R, y = G.cy + P[n.i].y * G.R, rr = L.MR * G.R * G.boost * 1.8; return [x - rr, y - rr, x + rr, y + rr]; });
-  NN.labelsFor(D, L, cur.engine, G.narrow, G.labelPad).forEach(l => { const x = G.cx + Math.cos(l.a) * G.R * l.r, y = G.cy + Math.sin(l.a) * G.R * l.r, ww = Math.max(...l.lines.map(s => tw(s, fs * 1.15, 700))) + 8, hh = l.lines.length * (fs * 1.35) + 6, c = Math.cos(l.a); occ.push([c > .3 ? x - 4 : c < -.3 ? x - ww : x - ww / 2, y - hh / 2, c > .3 ? x + ww : c < -.3 ? x + 4 : x + ww / 2, y + hh / 2]); });
+  NN.labelsFor(D, L, cur.engine, G.narrow, G.labelPad).forEach(l => { const x = G.cx + Math.cos(l.a) * G.R * l.r, y = G.cy + Math.sin(l.a) * G.R * l.r, ww = Math.max(...l.lines.map(s => tw(s, fs * 1.15, 700))) + 16, hh = l.lines.length * (fs * 1.35) + 10, c = Math.cos(l.a); occ.push([c > .3 ? x - 4 : c < -.3 ? x - ww : x - ww / 2, y - hh / 2, c > .3 ? x + ww : c < -.3 ? x + 4 : x + ww / 2, y + hh / 2]); });
   const hit = (a, b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+  // a leader line must not run through another note, and no note may sit on an earlier leader (sampled along the segment)
+  const placed = [], leads = [], onSeg = (sg, bx) => { for (let k = 0; k <= 24; k++) { const px = sg[0] + (sg[2] - sg[0]) * k / 24, py = sg[1] + (sg[3] - sg[1]) * k / 24; if (px > bx[0] && px < bx[2] && py > bx[1] && py < bx[3]) return true; } return false; };
   const out = notes.map(nt => {
     const pts = nt.ms.map(m => [G.cx + P[m.i].x * G.R, G.cy + P[m.i].y * G.R]); let best = null;
     for (const wmax of G.narrow ? [150, 120, 96] : [230, 180, 140]) {
-      const lines = wrap(nt.t, fs, wmax, 600).slice(0, 3), wd = Math.max(...lines.map(l => tw(l, fs, 600))), hh = lines.length * lh;
+      const all = wrap(nt.t, fs, wmax, 600); if (all.length > 3) continue;   // never cut a note's last words: try a wider setting instead
+      const lines = all, wd = Math.max(...lines.map(l => tw(l, fs, 600))), hh = lines.length * lh;
       for (let y = 4; y + hh <= h - 4; y += 6) for (let x = 4; x + wd <= w - 4; x += 6) {
-        const bx = [x - 3, y - 2, x + wd + 3, y + hh + 2]; if (occ.some(o => hit(bx, o))) continue;
+        const bx = [x - 8, y - 5, x + wd + 8, y + hh + 5]; if (occ.some(o => hit(bx, o))) continue;
         let d = 1e9, tp = null; pts.forEach(q => { const dd = Math.hypot(Math.max(bx[0] - q[0], 0, q[0] - bx[2]), Math.max(bx[1] - q[1], 0, q[1] - bx[3])); if (dd < d) { d = dd; tp = q; } });
-        if (!best || d + lines.length * 3 < best.d) best = { d: d + lines.length * 3, x, y, lines, wd, hh, tp, bx };
+        const sg = [Math.min(Math.max(tp[0], x), x + wd), Math.min(Math.max(tp[1], y), y + hh), tp[0], tp[1]];
+        if (placed.some(pb => onSeg(sg, pb)) || leads.some(ls => onSeg(ls, bx))) continue;
+        if (!best || d + lines.length * 3 < best.d) best = { d: d + lines.length * 3, x, y, lines, wd, hh, tp, bx, sg };
       }
       if (best && best.d < 90) break;
     }
     if (!best) return '';
-    occ.push(best.bx); const { x, y, lines, wd, hh, tp } = best, lx = Math.min(Math.max(tp[0], x), x + wd), ly = Math.min(Math.max(tp[1], y), y + hh);
+    occ.push(best.bx); placed.push(best.bx); leads.push(best.sg); const { x, y, lines, wd, hh, tp } = best, lx = Math.min(Math.max(tp[0], x), x + wd), ly = Math.min(Math.max(tp[1], y), y + hh);
     return lines.map((l, i) => `<text x="${x}" y="${(y + fs + i * lh - 2).toFixed(1)}" font-size="${fs}" font-weight="600" fill="#fff">${esc(l)}</text>`).join('') + `<line x1="${lx.toFixed(1)}" y1="${ly.toFixed(1)}" x2="${tp[0].toFixed(1)}" y2="${tp[1].toFixed(1)}" stroke="#9a9a9a" stroke-width=".8"/><circle cx="${tp[0].toFixed(1)}" cy="${tp[1].toFixed(1)}" r="2.2" fill="#fff"/>`;
   });
   svg.setAttribute('viewBox', `0 0 ${w} ${h}`); svg.setAttribute('width', w); svg.setAttribute('height', h); svg.innerHTML = asu(out.join(''));
@@ -284,8 +289,13 @@ const histRings = pk => (c, G2, rp) => {
 };
 const histLabels = a => (c, G2, rp) => {
   if (a <= 0 || BARE) return; const fs = Math.max(11, Math.round(G2.R / 24)), ang = L.ways.geo[0].a0 - .02; c.save(); c.globalAlpha = a; c.textAlign = 'center'; c.textBaseline = 'middle';
-  ringList().forEach((q, k) => { const aa = q.dash ? 2.45 : ang + (k - 1.5) * (G2.narrow ? .34 : .16), [x, y] = rp(Math.cos(aa) * q.r, Math.sin(aa) * q.r); c.font = `600 ${k === 4 ? fs - 1 : fs}px ${FAM}`;
-    const wd = c.measureText(q.t).width + fs * .7, h = fs * 1.5, xx = Math.min(Math.max(x, wd / 2 + 2), G2.w - wd / 2 - 2); c.fillStyle = 'rgba(0,0,0,.82)'; c.fillRect(xx - wd / 2, y - h / 2, wd, h); c.fillStyle = T.ink; c.fillText(q.t, xx, y); });
+  const placed = [], hit = (p, r) => p[0] < r[2] && p[2] > r[0] && p[1] < r[3] && p[3] > r[1];
+  ringList().forEach((q, k) => { c.font = `600 ${k === 4 ? fs - 1 : fs}px ${FAM}`;
+    const base = q.dash ? 2.45 : ang + (k - 1.5) * (G2.narrow ? .34 : .16), wd = c.measureText(q.t).width + fs * .7, h = fs * 1.5; let pick = null;
+    for (const d of [0, .12, -.12, .24, -.24, .36, -.36, .5, -.5, .7, -.7, 1, -1]) {   // slide the label along its own ring until its pill is clear of the pills already placed
+      const aa = base + d, [x, y] = rp(Math.cos(aa) * q.r, Math.sin(aa) * q.r), xx = Math.min(Math.max(x, wd / 2 + 2), G2.w - wd / 2 - 2), r = [xx - wd / 2, y - h / 2, xx + wd / 2, y + h / 2];
+      if (!pick) pick = { xx, y, r }; if (!placed.some(p => hit(p, r))) { pick = { xx, y, r }; break; } }
+    placed.push(pick.r); c.fillStyle = 'rgba(0,0,0,.82)'; c.fillRect(pick.r[0], pick.r[1], wd, h); c.fillStyle = T.ink; c.fillText(q.t, pick.xx, pick.y); });
   c.restore();
 };
 // ---- the dial turn: marks blend from one layout to the next (same blend, 1.5 s + 0.4 s stagger, ease-in-out cubic, as the edition's Turn the lens) ----

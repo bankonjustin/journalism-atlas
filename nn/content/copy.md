@@ -82,10 +82,10 @@ See the chart
 Governance
 
 ## chapter1.sentence
-{cohorts_word|cap} kinds of newsroom, sorted by governance. {top_word|cap} of them hold {top_hold} of the {over10m_total} organizations over $10 million. The other {rest_word} hold {rest_hold}.
+{cohorts_word|cap} kinds of newsroom, sorted by governance. {top_word|cap} of them hold {top_hold} of the {over10m_total} organizations over $10M. The other {rest_word} hold {rest_hold}.
 
 ## chapter1.title
-{top_word|cap} of {cohorts_word} kinds of newsroom hold {top_pct}% of the organizations over $10 million.
+{top_word|cap} of {cohorts_word} kinds of newsroom hold {top_pct}% of the organizations over $10M.
 
 ## chapter1.paper [locked]
 Nine cohorts capture the range of journalism operators currently producing in the United States, in three groups.
@@ -102,10 +102,10 @@ Each wedge is one cohort.
 How they got big
 
 ## chapter2.sentence
-{crossed} organizations grew past $10 million. All of them did it one of six ways.
+{crossed} organizations grew past $10M. All of them did it one of six ways.
 
 ## chapter2.title
-{ways_word|cap} ways to grow past $10 million
+{ways_word|cap} ways to grow past $10M
 
 ## chapter2.paper [locked]
 Organizations that break past their cohort's typical ceiling almost always do so through one of six specific mechanisms — and rarely more than one.
@@ -128,13 +128,13 @@ No organization grew past $10M this way. Every bundle in the dataset started abo
 When they started
 
 ## chapter3.sentence
-The oldest are the biggest: {hist_pre_over} of {hist_pre} founded before {cut} run over $10 million. But governance matters more than when an organization started.
+The oldest are the biggest: {hist_pre_over} of {hist_pre} founded before {cut} run over $10M. But governance matters more than when an organization started.
 
 ## chapter3.title
 When they started matters. Governance matters more.
 
 ## chapter3.dek
-The internet began reshaping print and broadcast distribution in {cut}. Organizations founded before then mostly run above $10 million: {hist_pre_over} of {hist_pre}. Those founded since mostly don't: {hist_post_over} of {hist_post}. Only {hist_old_kinds_word} of the {cohorts_word} kinds of newsroom in this study existed before {cut}. The rest are new ways to pay for journalism, and most of their organizations are still small.
+The internet began reshaping print and broadcast distribution in {cut}. Organizations founded before then mostly run above $10M: {hist_pre_over} of {hist_pre}. Those founded since mostly don't: {hist_post_over} of {hist_post}. Only {hist_old_kinds_word} of the {cohorts_word} kinds of newsroom in this study existed before {cut}. The rest are new ways to pay for journalism, and most of their organizations are still small.
 
 ## chapter3.foot_radial
 Distance from the center is founding year, oldest in the middle, with rings at {cut} and 2008. {unverified_orgs} with no verified founding year {unverified_be} on the dashed outer ring; we do not estimate one. Filled marks are over $10M in revenue, and bigger marks are bigger revenue bands. Governance predicts an organization's revenue more strongly than when it was founded.
@@ -383,7 +383,7 @@ Nodes and Networks
 {@in_short.top_line}
 
 ## landing.intro
-The study sorts {n_orgs} organizations into {cohorts_word} kinds of newsroom, then asks which ones grew past $10 million, and how.
+The study sorts {n_orgs} organizations into {cohorts_word} kinds of newsroom, then asks which ones grew past $10M, and how.
 
 ## landing.report_cta
 {report_label}
@@ -572,16 +572,16 @@ Nodes and Networks, {name}: {sentence}
 {cohorts_word|cap} kinds of newsroom, sorted by governance.
 
 ## video.cue3
-{top_word|cap} of them hold {top_hold} of the {over10m_total} organizations over $10 million.
+{top_word|cap} of them hold {top_hold} of the {over10m_total} organizations over $10M.
 
 ## video.cue4
-{crossed} organizations grew past $10 million.
+{crossed} organizations grew past $10M.
 
 ## video.cue5
-{six_way_growers} of them did it one of six ways.
+All of them did it one of six ways.
 
 ## video.cue6
-The oldest are the biggest: {hist_pre_over} of {hist_pre} founded before {cut} run over $10 million.
+The oldest are the biggest: {hist_pre_over} of {hist_pre} founded before {cut} run over $10M.
 
 ## video.cue7
 But governance matters more than when an organization started.
