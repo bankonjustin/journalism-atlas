@@ -31,3 +31,15 @@
 17. **Header at phone width: fixed in C10 (see `C10-REPORT.md`).** At 390px the hamburger was off-screen on ~20 pages and the logo was crushed to ~11px on ~18 others. At ≤640px Search now lives at the top of the mobile menu; the header is logo + hamburger. **Decision for James:** C10b gives the 24px `lg` nav link gap from 1215px to 1279px and switches to the hamburger at 1214px and below (the desktop nav fits down to 1215px). 1280px and up is unchanged. Anyone under 1215px (small laptops, landscape tablets) sees the hamburger.
 19. **Phone overflow outside the header:** homepage, About and partner pages fixed after C10 (see `C10-REPORT.md`). The Bluesky page still overflows at phone width (705px; no mobile layout) and needs a mobile pass.
 18. **Copy:** wording differences for the same destination are logged in `COPY-SWEEP-NOTES.md`, unchanged.
+
+## James's seven questions (Slack, relayed via Chat, Oct 28)
+
+Logged 2026-10-31. James's own wording is not in the repo; these are the topics as Justin relayed them. Numbered S1-S7 so they don't collide with items 1-19 above. The mapping against existing answers is in `docs/design/DESIGN-STATE-2026-10-31.md` section 5; none has an answer on file.
+
+- **S1.** Provisional design-rule conflicts (`CLAUDE-DESIGN-RULES.md`: error text roles, monospace, Acid).
+- **S2.** Error-color contrast (`#f50000` is below 4.5:1 on white).
+- **S3.** A secondary brand color, with transparency tokens (related to the tinted-palette question; no existing entry).
+- **S4.** CODEOWNERS and review scope (needs James's GitHub username).
+- **S5.** Repo private under a TIJA LLC org (private repo decision W3).
+- **S6.** The other team's shared header and footer (Team DMV).
+- **S7.** Interim defaults for Pulse and For Brands (brief section 6; one v17 after Nov 5 is the default).
