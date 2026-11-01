@@ -244,6 +244,9 @@
 
   function renderHub(mount, research, social) {
     var pieces = (research.pieces || []).filter(function (p) { return p && p.slug && p.title; });
+    // "gate": "nn" pieces follow assets/js/nn-gate.js: hidden before the publish instant, live from then on.
+    pieces = pieces.filter(function (p) { return p.gate !== 'nn' || window.ATLAS_NN_LIVE; })
+      .map(function (p) { return p.gate === 'nn' ? Object.assign({}, p, { status: 'live' }) : p; });
     var feat = pieces.filter(function (p) { return p.featured && p.status === 'live'; })[0];
     var rest = pieces.filter(function (p) { return p !== feat; }).sort(byDateDesc);
     var frag = document.createDocumentFragment();

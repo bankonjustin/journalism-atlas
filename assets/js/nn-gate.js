@@ -6,10 +6,13 @@
   var NN = { publishAt: '2026-11-05T12:00:00-05:00', url: '/nodes-and-networks/' };
 
   var live = Date.now() >= Date.parse(NN.publishAt) || /[?&]nn=1\b/.test(location.search);
-  if (!live) return; // before launch the markup already reads correctly, with no link
+  window.ATLAS_NN_LIVE = live; // read by research-hub.js (pieces with "gate": "nn"); load this file first
+  if (!live) return; // before launch: N&N markup stays hidden (data-nn-show) and no link is written
 
-  // Elements that exist only after launch (e.g. the N&N line on /for-brands): same switch, same instant.
+  // Elements that exist only after launch (home card, About teaser, /for-brands line): same switch, same instant.
   document.querySelectorAll('[data-nn-show]').forEach(function (el) { el.hidden = false; });
+  // Pre-launch-only copy, hidden at the same instant.
+  document.querySelectorAll('[data-nn-hide]').forEach(function (el) { el.hidden = true; });
 
   var href = NN.url || '/research#nodes-and-networks';
   document.querySelectorAll('[data-nn-link]').forEach(function (el) {
