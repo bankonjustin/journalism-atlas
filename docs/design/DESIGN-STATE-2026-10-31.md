@@ -32,7 +32,7 @@
 |---|---|---|
 | CODEOWNERS | **None** in either repo. Narrowed list ready: `/docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml`, CODEOWNERS itself. Needs James's GitHub username. | Install notes section 2; `ls .github`. |
 | `origin/dev` vs `main` | `origin/dev` is a stale March branch (last commit `fc1a83e`, 2026-03-06). `main` is 508 commits ahead; the two differ by 919 files (+37,385 / -266,237). No local `dev` branch exists. The install notes say a fresh `dev` was cut from `main`; **that branch is NOT FOUND**. | `git rev-list --count origin/dev..main`; `git branch --list dev`. |
-| Workflow doc vs practice | `WORKFLOW.md` Deploy Process says "work on `dev`, PR to `main`, James reviews". In practice commits go straight to `main`, and `james/*` branches (mentioned in an Oct 11 design-lane patch in the private repo) are NOT FOUND. | `WORKFLOW.md:54-60`; `git branch -a`. |
+| Workflow doc vs practice | **Fixed Oct 31:** `WORKFLOW.md` Deploy Process now says work on `main`, Justin pushes via GitHub Desktop (it said "work on `dev`, PR to `main`, James reviews"). `james/*` branches are still NOT FOUND; agenda item 6 is now only about how James reviews. | `WORKFLOW.md:54-60`; `git branch -a`. |
 | Branch protection | Not possible while the repo is public on a free org (readiness item, W3). | `ops/DECISIONS-QUEUE.md` W3. |
 
 ## 4. `JAMES-OPEN-ITEMS.md` (v15 Session 2)
@@ -49,13 +49,21 @@
 | 15 | `.btn-icon` has no spec entry | Component set |
 | 1, 5-8, 10-14, 16, 18 | Smaller: header search height, hero pills, Acid links at rest on dark, carousel dots, press chips, hover-only "Explore cluster", one-column Pulse grid at 480px, `aria-current` sections, inline "How we verify", Report "Jump to", Bluesky "For brands" button, copy wording | Various |
 
-## 5. James's "seven Oct 28 questions": not found as a set
+## 5. James's seven questions (Slack, relayed via Chat, Oct 28)
 
-No file carries seven questions dated Oct 28. The closest lists are:
-- **Install notes section 5 (Oct 27, six bullets):** tinted palette colors (144 hits) and the provisional error role; the open questions at the end of the Pulse and For Brands brief; lab notebook "Trace this number" (opens in place or side panel; one motion or none); Team DMV header and footer; the TIJA LLC organization and the repo going private; James's GitHub username. None has an answer on file.
-- **Pulse and For Brands brief section 6 (six token-version decisions):** a "live" signal, a warning color, error-text contrast, a site dark mode, a responsive Display size, graphic strokes on dark mastheads. None has an answer on file.
+*Source: James's Slack message of about Oct 28, relayed to Code by Justin on Oct 31. **James's own wording is not in the repo**; the topics below are as Justin relayed them, so treat the phrasing as a paraphrase. They are logged as S1-S7 in `docs/design/v15-session-2/JAMES-OPEN-ITEMS.md`. None has an answer on file.*
 
-If a seventh question exists, it is in Chat or email; please paste it. It would not be answerable from the repo.
+| # | James's question (topic) | Existing material | Status |
+|---|---|---|---|
+| S1 | Provisional design-rule conflicts | `CLAUDE-DESIGN-RULES.md` lists the provisional rules (error text roles, monospace = live or versioned data only, Acid = changed recently); section 6 of this file | Open. Needs James to say which conflict. |
+| S2 | Error-color contrast | Agenda item 2: `#f50000` is 4.3:1 on white and 3.7:1 on `--color-bg`, below 4.5:1; James rejected Material `#b3261e` in May | Open. Default: keep the `*-provisional` tokens until he picks. |
+| S3 | Secondary brand color, with transparency tokens | Agenda item 1 covers tinted palette colors (144 `color-func` hits); **no secondary brand color question exists in any file** | Open. Related to item 1, not the same. |
+| S4 | CODEOWNERS and review scope | Agenda item 5; narrowed five-path list is ready; needs James's GitHub username (install notes section 2) | Open. |
+| S5 | Repo private under a TIJA LLC org | Decision W3 in the private repo's `ops/DECISIONS-QUEUE.md`; branch protection is not possible while public on a free org (section 3 above) | Open. Most urgent of the seven. |
+| S6 | The other team's shared header and footer | Agenda item 10 (Team DMV header and footer); install notes section 5 | Open. Default: follow the site header. |
+| S7 | Interim defaults for Pulse and For Brands | Pulse and For Brands brief section 6 (six token-version decisions); agenda item 4 | Open. Default: one v17 after Nov 5; interim = current pages unchanged. |
+
+Earlier versions of this section said no set of seven was found. This is that set.
 
 ## 6. Unmigrated surfaces
 
