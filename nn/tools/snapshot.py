@@ -22,6 +22,13 @@ for r in csv.DictReader(open(RECODE)):
 assert recode, 'recode file has no approved rows'
 byk = {(n['name'], n['c']): n for n in nodes}
 assert all(k in byk for k in recode), 'a recode row matches no node'
+# nn/data/snapshot-overrides.csv: one row per ruling (org, field, value, decision, source), applied after the recode file
+OVERRIDES = pathlib.Path(ARG('--overrides', HERE / 'data' / 'snapshot-overrides.csv'))
+over = {}
+for r in csv.DictReader(open(OVERRIDES)):
+    assert r['field'] in ('o', 'm'), 'override field must be o or m: %s' % r
+    over[(r['org'], r['field'])] = r['value']
+assert all(any(n['name'] == k[0] for n in nodes) for k in over), 'an override row matches no node'
 out = []
 for n in nodes:
     r = banded[n['i']]; nm, fy = n['name'], n['fy']
@@ -30,6 +37,8 @@ for n in nodes:
         nm, fy = r['Organization / Creator'], int(float(r['Founding_Year']))
     o = n['orig']
     if ORIGIN_RULE == 'v22.3' and r['Origin_Position'] in OMAP: o = OMAP[r['Origin_Position']]
-    out.append({'i': n['i'], 'nm': nm, 'fy': fy, 'o': o, 'm': recode.get((n['name'], n['c']), n['mech']), 'rv': int(float(r['Revenue_Raw'])), 'st': STATUS.get(n['cl'], '')})
+    m = recode.get((n['name'], n['c']), n['mech'])
+    o, m = over.get((n['name'], 'o'), o), over.get((n['name'], 'm'), m)
+    out.append({'i': n['i'], 'nm': nm, 'fy': fy, 'o': o, 'm': m, 'rv': int(float(r['Revenue_Raw'])), 'st': STATUS.get(n['cl'], '')})
 json.dump({'origin_rule': ORIGIN_RULE, 'nodes': out}, open(HERE / 'data' / 'public-snapshot.json', 'w'), separators=(',', ':'))
 print('snapshot', len(out), 'nodes, origin rule', ORIGIN_RULE)

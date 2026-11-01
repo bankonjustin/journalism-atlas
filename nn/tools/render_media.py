@@ -34,7 +34,8 @@ def beats(pw):
         pg.add_style_tag(content=HIDE); pg.wait_for_timeout(300)
         pg.locator('main').screenshot(path=str(work / ('beat-%s.png' % tab))); out[tab] = work / ('beat-%s.png' % tab)
         if tab != 'short':
-            pg.locator('#hist' if tab == 'history' else '#stage').screenshot(path=str(work / ('chart-%s.png' % tab)))
+            sel = '#hist' if tab == 'history' and pg.locator('#hist').is_visible() else '#stage'   # the dial SVG only shows when the explorer has the history timeline; otherwise the canvas stage is the chart
+            pg.locator(sel).screenshot(path=str(work / ('chart-%s.png' % tab)))
     b.close(); return out
 
 

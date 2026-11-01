@@ -33,7 +33,7 @@ LOCKED = {
  'cohort.C1': 'Legacy Publishers', 'cohort.C2': 'Creator Brands', 'cohort.C3': 'Barbell Hybrids', 'cohort.C4': 'Philanthropic Mesh Networks',
  'cohort.C5': 'Public Media Networks', 'cohort.C6': 'Collaboration Layers', 'cohort.C7': 'Worker-Owned Co-ops', 'cohort.C8': 'Emerging Civic Actors',
  'cohort.C9': 'B2B/Professional Services',
- 'group.a': 'Journalism as most people picture it', 'group.b': 'Funded by philanthropy and public money', 'group.c': 'Funded directly by audiences and the market',
+ 'group.a': 'Legacy, Creator, Barbell', 'group.b': 'Philanthropic, Public Media, Collaboration', 'group.c': 'Co-ops, Civic, B2B',   # paper Figure 5 labels (Justin, Nov 1 2026)
  'mechanism1.full': "A bundle big enough to capture a subscriber's whole information budget",
  'mechanism2.full': 'An audience captured by ideology rather than reporting',
  'mechanism3.full': 'A newer organization that grew a team and a portfolio at once',
@@ -142,7 +142,7 @@ def check_copy(copy, needed):
     for cid, want in LOCKED.items():
         if cid in copy and copy[cid][0] != want:
             raise BuildError('copy.md line %d: "%s" quotes the paper and cannot change here.\n  Expected: %s\n  Found:    %s' % (copy[cid][1], cid, want, copy[cid][0]))
-    ok = re.compile(r'\$10M|\$10 million|\b[1-4]\.? (Who|How|When|Plain|Auto|Still)|Mechanism 1|asu\.edu|embed=1|\d+px|2026|\b2007\b|\b2015\b|\bB2B\b|\bC\d\b')
+    ok = re.compile(r'\$10M|\$10 million|\b[1-4]\.? (Who|Governance|How|When|Plain|Auto|Still)|Mechanism 1|asu\.edu|embed=1|\d+px|2026|\b2007\b|\b2015\b|\bB2B\b|\bC\d\b')
     warns = []
     for cid, (text, ln, locked) in copy.items():
         if locked or cid.startswith(('tabs.', 'cohort.', 'mechanism', 'group.')): continue
@@ -262,6 +262,11 @@ def build(out):
     known = set(used_ids())
     for cid in copy:
         if cid not in known: warns.append('copy.md line %d: "%s" is not used by any page.' % (copy[cid][1], cid))
+    try:   # warn only: a data mismatch must never push Cloudflare onto the stale nn/built/ fallback
+        sys.path.insert(0, str(HERE / 'tools')); import parity_check
+        warns += ['snapshot differs from the live ASU embed (%s). Run python3 nn/tools/parity_check.py.' % d for d in parity_check.parity_diffs()]
+    except Exception as e:
+        warns.append('parity check could not run (%s)' % e)
     for w in warns: print('warning:', w)
     meta = {'n': len(nodes), 'names': True, 'cut': CUT,
             'cohorts': [{'code': c, 'name': cohort_names[c], 'g': COHORT_GROUP[c]} for c in cohort_names],

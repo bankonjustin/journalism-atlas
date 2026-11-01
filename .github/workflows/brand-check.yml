@@ -16,6 +16,8 @@ jobs:
           python-version: "3.12"
       - name: Check fonts, sizes and colors against DESIGN-TOKENS-v16
         run: python3 scripts/check_brand.py --tight
+      - name: N&N snapshot matches the live ASU embed
+        run: python3 nn/tools/parity_check.py
       - name: Baseline may only go down
         if: github.event_name == 'pull_request'
         run: python3 scripts/check_brand.py --guard-baseline "origin/${{ github.base_ref }}"
