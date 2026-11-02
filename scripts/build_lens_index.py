@@ -158,10 +158,14 @@ def main():
         cr_names.append([name, place_ix.get(p, -1), cid if cid is not None else -1])
         return cr_ix[key]
 
-    seen, pieces, dropped = set(), [], {"social": 0, "outside_window": 0, "no_title_or_url": 0, "dup": 0, "unregistered": 0}
+    seen, pieces, dropped = set(), [], {"social": 0, "outside_window": 0, "no_title_or_url": 0, "dup": 0, "unregistered": 0, "prior_issue": 0}
+    _ov = ROOT / "data/pulse-overlap.json"   # URLs an overlapping earlier issue already counted (written by update_pulse.py)
+    prior = set(json.loads(_ov.read_text()).get("urls", [])) if _ov.exists() else set()
     for p in posts:
         if not (w_from <= p["published"] <= w_to):
             dropped["outside_window"] += 1; continue
+        if p.get("url") in prior:
+            dropped["prior_issue"] += 1; continue
         url = p.get("url") or ""
         title = html.unescape((p.get("title") or "").strip())
         if not url or not title or title.lower() == "no title":

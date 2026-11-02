@@ -83,9 +83,11 @@ def load_window_pieces(root=ROOT, w_from=None, w_to=None):
         latest = load_issue(root)
         w_from, w_to = latest["week_start"], latest["week_end"]
     seen, out = set(), []
+    _ov = root / "data/pulse-overlap.json"   # URLs an overlapping earlier issue already counted (written by update_pulse.py)
+    skip = set(json.loads(_ov.read_text()).get("urls", [])) if _ov.exists() else set()
     for f in sorted((root / "assets/data/pulse").glob("posts-*.json")):
         for p in json.loads(f.read_text())["posts"]:
-            if not (w_from <= p["published"] <= w_to):
+            if not (w_from <= p["published"] <= w_to) or p.get("url") in skip:
                 continue
             url = p.get("url") or ""
             title = html.unescape((p.get("title") or "").strip())

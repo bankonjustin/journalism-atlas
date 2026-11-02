@@ -55,6 +55,10 @@ cp -R assets/css assets/js assets/images assets/img dist/assets/
 cp -R assets/nn5 dist/assets/
 for d in preview/*/og; do [ -d "$d" ] && mkdir -p "dist/$d" && cp "$d"/*.png "dist/$d/"; done
 
+# ASU launch kit: permanent teaser files and the kaleidoscope chart's fallback image (the preview step above copies only index.html)
+mkdir -p dist/preview/nn-launch-kit/media && cp preview/nn-launch-kit/media/teaser* dist/preview/nn-launch-kit/media/
+[ -f preview/nn-launch-kit/figures/kaleidoscope/still.png ] && cp preview/nn-launch-kit/figures/kaleidoscope/still.png dist/preview/nn-launch-kit/figures/kaleidoscope/
+
 # Data files that pages fetch
 cp assets/data/creators-data.json assets/data/bluesky-creators.json assets/data/coops-data.json dist/assets/data/
 cp data/chicago-pulse.json data/research.json data/social.json dist/data/
