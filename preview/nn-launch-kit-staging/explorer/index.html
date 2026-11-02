@@ -147,6 +147,19 @@ const NN = (() => {
       q.forEach(o => { o.ang = cl(o.ang + cl(o.d, -.06, .06), o.lo, o.hi); });
     }
     q.forEach(o => { o.x = Math.cos(o.ang) * o.r; o.y = Math.sin(o.ang) * o.r; });
+    // Pre-1970 started-above squares all sit in a narrow wedge at the center, where angle alone cannot separate them. Spread them along the radius, keeping the oldest innermost, and let angle take up what is left.
+    const sq = N.map((n, i) => i).filter(i => N[i].fy && N[i].fy < edges[0] && N[i].o === 'INHERITED').sort((i, j) => N[i].fy - N[j].fy || i - j), dsq = 2 * L.MR, rLo = .04, rHi = ring[0] - .02;
+    sq.forEach((i, k) => { q[i].r = rLo + (rHi - rLo) * (k + .5) / sq.length; });
+    for (let it = 0; it < 900; it++) {
+      q.forEach(o => { o.x = Math.cos(o.ang) * o.r; o.y = Math.sin(o.ang) * o.r; });
+      sq.forEach(i => { const a = q[i]; let px = 0, py = 0;
+        for (let j = 0; j < q.length; j++) { if (j === i) continue; const b = q[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy); if (d >= dsq) continue; const f = (dsq - d) * (sq.includes(j) ? .5 : 1) * .5, ux = d ? dx / d : Math.cos(a.ang), uy = d ? dy / d : Math.sin(a.ang); px += ux * f; py += uy * f; }
+        const nx = a.x + px, ny = a.y + py; a.r = cl(Math.hypot(nx, ny), rLo, rHi); a.ang = cl(a.ang + cl(mod(Math.atan2(ny, nx) - a.ang + Math.PI) - Math.PI, -.06, .06), a.lo, a.hi); });
+      let blocks = sq.map(i => ({ s: q[i].r, n: 1 }));   // radius never runs backwards in founding year: pool adjacent violators
+      for (let b = 1; b < blocks.length; b++) while (b > 0 && blocks[b - 1].s / blocks[b - 1].n > blocks[b].s / blocks[b].n) { blocks[b - 1] = { s: blocks[b - 1].s + blocks[b].s, n: blocks[b - 1].n + blocks[b].n }; blocks.splice(b, 1); b--; }
+      let k = 0; blocks.forEach(bl => { for (let m = 0; m < bl.n; m++) q[sq[k++]].r = bl.s / bl.n; });
+    }
+    q.forEach(o => { o.x = Math.cos(o.ang) * o.r; o.y = Math.sin(o.ang) * o.r; });
     const nf = N.findIndex(n => !n.fy);
     return { pos: q.map(o => ({ x: o.x, y: o.y })), ring, cnt, RU, nu: N.filter(n => !n.fy).length, ua: nf < 0 ? 0 : q[nf].ang };
   }
@@ -193,12 +206,42 @@ const NN = (() => {
     const grew = N.filter(n => n.o === 'CROSSED').length, wg = L.ways.geo;
     const labs = wg.map((g, x) => {
       const a = (g.a0 + g.a1) / 2, r = rOf(g.members, L.ways.pos);
-      if (x < 6) return { a, r: Math.max(r, .7), key: g.key, lines: narrow ? [String(x + 1)] : [String(x + 1), M.paths[x].short], note: x === 0 && !g.members.length ? { long: ['None grew this way.', 'Every organization selling a', 'bundle started above $10M.'], short: ['None grew this way \u2192'] } : null };
+      if (x < 6) { const empty = x === 0 && !g.members.length; return { a, r: empty ? Math.max(r, 1.04) : Math.max(r, .7), key: g.key, lines: narrow ? [String(x + 1)] : [String(x + 1), M.paths[x].short], note: empty ? { text: M.bundleNote, short: M.bundleNote.split('. ')[0].replace(/\.$/, ''), half: (g.a1 - g.a0) / 2 + .02 } : null }; }   // the empty wedge keeps its label outside the arc; the note sits inside it
       if (g.key === 'INHERITED_SCALE') return { a, r, key: g.key, lines: narrow ? ['Above $10M', '(' + g.members.length + ')'] : ['Started above $10M (' + g.members.length + ')'] };
       return { a, r, key: g.key, lines: narrow ? ['Under $10M'] : ['Under $10M', 'not yet grown past it'] };
     });
     labs.push({ a: (wg[1].a0 + wg[5].a1) / 2, r: tab === 'hist' ? 1.2 : 1.08, key: 'CROSSED', lines: narrow ? ['Grew past $10M', '(' + grew + ')'] : ['Grew past $10M (' + grew + ')'] });   // the triangle region: sectors 1-6
     return labs;
+  }
+
+  // The empty-wedge note: set along the wedge's own axis, centred in it, every line kept clear of both boundaries. Falls back to the short form, then to a suffix on the wedge label.
+  function fitNote(ctx, note, R, sub) {
+    const lh = Math.round(sub * 1.15), tn = Math.tan(note.half - .06), lo = .12 * R, hi = .93 * R;
+    ctx.font = fnt(500, sub);
+    for (const txt of [note.text, note.short]) {
+      const words = txt.split(' ');
+      for (let n = 1; n <= 5; n++) {
+        const rows = []; let k = 0;
+        for (let i = 0; i < n; i++) {
+          const d = (i - (n - 1) / 2) * lh, r0 = Math.max(lo, (Math.abs(d) + lh / 2) / tn); let t = '';
+          while (k < words.length) { const c = t ? t + ' ' + words[k] : words[k]; if (ctx.measureText(c).width > hi - r0) break; t = c; k++; }
+          if (!t) break; rows.push({ t, d, r0, w: ctx.measureText(t).width });
+        }
+        if (k < words.length || rows.length < n) continue;
+        const a = Math.max(...rows.map(o => o.r0 + o.w / 2)), b = Math.min(...rows.map(o => hi - o.w / 2));
+        rows.forEach(o => { o.c = a <= b ? (a + b) / 2 : (o.r0 + hi) / 2; });
+        return { rows, short: txt === note.short };
+      }
+    }
+    return null;
+  }
+  function drawNote(ctx, G, o) {
+    const { cx, cy, R } = G, f = fitNote(ctx, o.l.note, R, o.sub);
+    ctx.save(); ctx.globalAlpha = o.al; ctx.font = fnt(500, o.sub); ctx.lineJoin = 'round'; ctx.lineWidth = 3; ctx.strokeStyle = '#000'; ctx.fillStyle = '#8f8f8f';
+    if (!f) { ctx.textBaseline = 'middle'; ctx.textAlign = o.align; ctx.fillText('(none grew this way)', o.tx, o.y + o.sub * 1.9); ctx.restore(); return; }
+    ctx.translate(cx, cy); ctx.rotate(o.a + Math.PI); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    f.rows.forEach(r => { ctx.strokeText(r.t, -r.c, r.d); ctx.fillText(r.t, -r.c, r.d); });
+    ctx.restore();
   }
 
   // S: {tab, pos, ce(0..1), chromeA, rot, mutedA(0..1 muting of BELOW), hl, labelA, tint}
@@ -212,8 +255,11 @@ const NN = (() => {
     const geo = S.spokes && (S.spokes === 'ways' ? L.ways.geo : L.gov.geo);
     if (geo && S.chromeA > 0) {
       ctx.globalAlpha = S.chromeA; ctx.strokeStyle = T.grid; ctx.lineWidth = Math.max(1, R / 400);
-      geo.forEach(g => { const a0 = g.a0, [x0, y0] = rp(Math.cos(a0) * .1, Math.sin(a0) * .1), [x1, y1] = rp(Math.cos(a0) * .98, Math.sin(a0) * .98); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); });
-      if (S.spokes === 'ways') { const dv = geo.find(g => g.key === 'INHERITED_SCALE'); if (dv) { ctx.strokeStyle = T.ink2; ctx.lineWidth = Math.max(1.5, R / 220); ctx.setLineDash([R / 60, R / 90]); const a0 = dv.a0 - .02, [x0, y0] = rp(Math.cos(a0) * .1, Math.sin(a0) * .1), [x1, y1] = rp(Math.cos(a0) * .98, Math.sin(a0) * .98); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); ctx.setLineDash([]); } }
+      // Section boundaries (under $10M | six ways | started above $10M) share one dashed divider, set in the middle of the gap. The six mechanism wedges keep the hairline separators.
+      const sec = (g, x) => S.spokes === 'ways' && (x === 0 || g.key === 'INHERITED_SCALE' || g.key === 'BELOW');
+      const ray = a0 => { const [x0, y0] = rp(Math.cos(a0) * .1, Math.sin(a0) * .1), [x1, y1] = rp(Math.cos(a0) * .98, Math.sin(a0) * .98); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); };
+      geo.forEach((g, x) => { if (!sec(g, x)) ray(g.a0); });
+      if (S.spokes === 'ways') { ctx.strokeStyle = T.ink2; ctx.lineWidth = Math.max(1.5, R / 220); ctx.setLineDash([R / 60, R / 90]); geo.forEach((g, x) => { if (sec(g, x)) ray(g.a0 - .02); }); ctx.setLineDash([]); }
       ctx.globalAlpha = 1;
     }
     // marks
@@ -225,21 +271,36 @@ const NN = (() => {
     });
     ctx.globalAlpha = 1;
     // labels
+    const notes = [], boxes = [], rm = (S.r != null ? S.r : L.MR * R * G.boost), mk = S.labelA > 0 ? N.map((n, i) => rp(S.pos[i].x, S.pos[i].y)) : [];
+    if (S.spokes === 'ways' && S.labelA > 0) L.ways.geo.forEach((g, x) => { if (x === 0 || g.key === 'INHERITED_SCALE' || g.key === 'BELOW') for (let t = .1; t <= .98; t += .02) mk.push(rp(Math.cos(g.a0 - .02) * t, Math.sin(g.a0 - .02) * t)); });   // the section dividers count as obstacles for the label search
     if (S.labelA > 0) {
       lab.forEach(l => {
         const a = l.a + rot, x = cx + Math.cos(a) * R * l.r, y = cy + Math.sin(a) * R * l.r, c = Math.cos(a), on = S.hl == null || S.hl === l.key;
         ctx.globalAlpha = S.labelA * (on ? 1 : .4); ctx.textBaseline = 'middle';
         const big = Math.round(fs * (narrow ? 1.05 : 1.25)), sub = Math.max(11, Math.round(fs * .85)), two = l.lines[1];
         ctx.font = fnt(700, big); const w1 = ctx.measureText(l.lines[0]).width; ctx.font = fnt(500, sub); const w2 = two ? ctx.measureText(two).width : 0, ww = Math.max(w1, w2);
-        let al = c > .3 ? 'left' : c < -.3 ? 'right' : 'center', tx = x;
-        if (al === 'left') tx = Math.min(x, w - ww - 3); else if (al === 'right') tx = Math.max(x, ww + 3); else tx = cl(x, ww / 2 + 3, w - ww / 2 - 3);
-        ctx.textAlign = al; ctx.fillStyle = l.grp ? T[l.grp] : T.ink; ctx.font = fnt(700, big); ctx.fillText(l.lines[0], tx, y - (two ? fs * .55 : 0));
-        if (two) { ctx.font = fnt(500, sub); ctx.fillStyle = T.ink2; ctx.fillText(two, tx, y + fs * .65); }
-        if (l.note) { ctx.font = fnt(500, sub); ctx.fillStyle = '#8f8f8f'; const avail = al === 'left' ? w - tx - 3 : al === 'right' ? tx - 3 : w - 6, nl = l.note.long.every(t => ctx.measureText(t).width <= avail) ? l.note.long : l.note.short; nl.forEach((t, k) => { const nw = ctx.measureText(t).width, nx = al === 'left' ? Math.min(tx, w - nw - 3) : al === 'right' ? Math.max(tx, nw + 3) : cl(tx, nw / 2 + 3, w - nw / 2 - 3); ctx.fillText(t, nx, y + fs * ((two ? 1.95 : 1.35) + k * 1.15)); }); }
+        let al = c > .3 ? 'left' : c < -.3 ? 'right' : 'center', tx = x, ty = y;
+        const bh = two ? fs * 1.3 + sub : big, span = (al, px) => al === 'left' ? [px, px + ww] : al === 'right' ? [px - ww, px] : [px - ww / 2, px + ww / 2], clash = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1];
+        if (l.key === 'INHERITED_SCALE') {   // this label must never sit on a mark: search outward and around the wedge for the nearest clear spot
+          let pick = null;
+          for (const dr of [0, .04, .08, .12, .18, .25]) for (const da of [0, -.1, .1, -.2, .2, -.3, .3, -.45, .45, -.6, .6]) for (const alg of [al, al === 'left' ? 'right' : 'left', 'center']) {
+            const aa = a + da, px = cx + Math.cos(aa) * R * (l.r + dr), py = cy + Math.sin(aa) * R * (l.r + dr), [x0, x1] = span(alg, px), bx = [x0, py - bh / 2, x1, py + bh / 2], pad = rm * 1.3;
+            if (x0 < 3 || x1 > w - 3 || bx[1] < 3 || bx[3] > h - 3) continue;
+            if (mk.some(m => m[0] > x0 - pad && m[0] < x1 + pad && m[1] > bx[1] - pad && m[1] < bx[3] + pad) || boxes.some(o => clash([bx[0] - 5, bx[1] - 3, bx[2] + 5, bx[3] + 3], o))) continue;
+            const cost = dr * 3 + Math.abs(da) + (alg === al ? 0 : .15); if (!pick || cost < pick.cost) pick = { cost, al: alg, tx: px, ty: py };
+          }
+          if (pick) { al = pick.al; tx = pick.tx; ty = pick.ty; }
+        } else if (al === 'left') tx = Math.min(x, w - ww - 3); else if (al === 'right') tx = Math.max(x, ww + 3); else tx = cl(x, ww / 2 + 3, w - ww / 2 - 3);
+        { const [x0, x1] = span(al, tx); boxes.push([x0, ty - bh / 2, x1, ty + bh / 2]); }
+        ctx.textAlign = al; ctx.fillStyle = l.grp ? T[l.grp] : T.ink; ctx.font = fnt(700, big); const halo = l.key === 'INHERITED_SCALE' ? (t, yy) => { ctx.save(); ctx.lineJoin = 'round'; ctx.lineWidth = 3; ctx.strokeStyle = '#000'; ctx.strokeText(t, tx, yy); ctx.restore(); } : () => {};   // this label can cross the dotted ring: a halo keeps it legible
+        halo(l.lines[0], ty - (two ? fs * .55 : 0)); ctx.fillText(l.lines[0], tx, ty - (two ? fs * .55 : 0));
+        if (two) { ctx.font = fnt(500, sub); halo(two, ty + fs * .65); ctx.fillStyle = T.ink2; ctx.fillText(two, tx, ty + fs * .65); }
+        if (l.note) notes.push({ l, a, al: ctx.globalAlpha, tx, y: ty, sub, align: al });
       });
       ctx.globalAlpha = 1;
     }
     if (S.extra) S.extra(ctx, G, rp);
+    notes.forEach(o => drawNote(ctx, G, o));   // after the rings, so the halo keeps the text clear of them
     ctx.restore();
   }
   function geom(w, dpr, hFactor) {
@@ -252,7 +313,9 @@ const NN = (() => {
 </script>
 <script>
 (() => {
-const D = JSON.parse(document.getElementById('nn-data').textContent), M = D.meta, N = D.nodes, L = NN.build(D);
+const D = JSON.parse(document.getElementById('nn-data').textContent), M = D.meta, N = D.nodes;
+M.bundleNote = 'None grew this way. Every organization selling a bundle started above $10M.';   // the one string the chart note and the mechanism list both show
+const L = NN.build(D);
 const qs = new URLSearchParams(location.search), EMBED = window.NN_EMBED, HV = qs.get('history') === 'settle' ? 'settle' : 'radial';   // ?history=radial (default) or ?history=settle
 const $ = id => document.getElementById(id), esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -280,7 +343,7 @@ const TABS = [
   { id: 'history', param: 'history', engine: 'hist', label: 'History', title: HS.title, sent: HS.dek },
 ];
 const byParam = p => TABS.find(t => t.param === p || t.id === p);
-const HOW_RADIAL = `Position: Distance from the center is founding year, oldest in the middle. Rings mark 1970, ${M.cut} and 2008, and each ring band is sized to the number of organizations in it. Angle is the same as on the previous tab: each wedge is one mechanism. ${HS.u === 1 ? 'One organization has no verified founding year and sits' : HS.u + ' organizations have no verified founding year and sit'} on the dashed outer ring.`;
+const HOW_RADIAL = `Position: Distance from the center is founding year, oldest in the middle. Rings mark 1970, ${M.cut} and 2008, and each ring band is sized to the number of organizations in it. Angle is the same as on the previous tab: each wedge is one mechanism. ${HS.u === 1 ? 'One organization has no verified founding year and sits' : HS.u + ' organizations have no verified founding year and sit'} on the dotted outer ring.`;
 let cur = (byParam(qs.get('tab')) || TABS[0]), P = NN.posOf(L, cur.engine || 'gov').map(p => ({ ...p })), raf = 0, mode = 'idle', hovered = null, hl = null, G, dpr = 1;
 let landed = HV === 'settle' && cur.id === 'history', ext = 0, rOver = null, hollow = 0;   // settle: landed = the timeline SVG is showing; ext = canvas height while dots travel into it
 const svgShown = () => cur.id === 'history' && HV === 'settle' && landed;
@@ -299,7 +362,7 @@ const shapeSvg = (s, tab) => {
 };
 const PAGES = { history: HV === 'settle' ? HS.how : HOW_RADIAL, governance: 'Position: Each wedge is one cohort.', ways: 'Position: Each wedge is one mechanism. Organizations that started above $10M and those still under $10M have their own sections.' };
 const TAKE = { history: HS.take, governance: '', ways: '' };
-const bundleNote = () => (cnt(n => n.m === M.paths[0].key && n.o === 'CROSSED') === 0 && cnt(n => n.m === M.paths[0].key && n.o === 'INHERITED') > 0 ? 'No organization grew past $10M this way. Every bundle in the dataset started above it.' : '');
+const bundleNote = () => (cnt(n => n.m === M.paths[0].key && n.o === 'CROSSED') === 0 && cnt(n => n.m === M.paths[0].key && n.o === 'INHERITED') > 0 ? M.bundleNote : '');
 function legend() {   // same entries on every tab: color = cohort group, shape = path to $10M; shapes redrawn per tab to match that tab's marks
   const colors = `<div class="row"><b>Color</b>${['a', 'b', 'c'].map(k => `<span class="sw"><i class="dot" style="background:var(--${k})"></i>${esc(M.groups[k])}</span>`).join('')}</div>`;
   const shapes = `<div class="row"><b>Path to $10M in revenue</b><span class="sw">${shapeSvg('ci', cur.id)}Under $10M</span><span class="sw">${shapeSvg('tri', cur.id)}Grew past $10M</span><span class="sw">${shapeSvg('sq', cur.id)}Started above $10M</span></div>`;
@@ -317,10 +380,11 @@ function listHtml() {
   if (cur.id === 'ways' || cur.id === 'history') return L.ways.geo.map((g, x) => x < 6 ? row(g.key, null, `${x + 1} · ${esc(M.paths[x].full)}`, g.members.length, x === 0 && cur.id === 'ways' && bundleNote() ? '— ' + bundleNote() : '') : g.key === 'INHERITED_SCALE' ? row(g.key, null, 'Started above $10M', g.members.length) : row(g.key, null, 'Under $10M', g.members.length)).join('');
   return '';
 }
+const setHead = () => { $('title').textContent = cur.title; $('sent').textContent = cur.sent; $('stat').textContent = stat(); $('legend').innerHTML = legend(); $('pos').textContent = PAGES[cur.id]; };
 function ui() {
   tabBtns.forEach(b => { const on = b.dataset.id === cur.id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; b.id = 't-' + b.dataset.id; });
   $('panel').setAttribute('aria-labelledby', 't-' + cur.id);
-  $('title').textContent = cur.title; $('sent').textContent = cur.sent; $('stat').textContent = stat(); $('legend').innerHTML = legend(); $('pos').textContent = PAGES[cur.id]; $('take').textContent = [TAKE[cur.id], cur.id === 'ways' && bundleNote() ? 'Mechanism 1, Bundle, is an empty slot: ' + bundleNote() : ''].filter(Boolean).join(' '); $('list').innerHTML = listHtml();
+  setHead(); $('take').textContent = TAKE[cur.id] || ''; $('list').innerHTML = listHtml();
   const lst = $('list'); [...lst.children].forEach(li => { li.addEventListener('pointerenter', () => setHl(li.dataset.key)); li.addEventListener('pointerleave', () => setHl(null)); li.addEventListener('focus', () => setHl(li.dataset.key)); li.addEventListener('blur', () => setHl(null)); });
   const alt = `${cur.title}. ${$('sent').textContent} ${$('stat').textContent}`; cv.setAttribute('aria-label', 'Chart of ' + M.n + ' organizations. ' + alt);
   const svgOn = svgShown(); stage.hidden = svgOn; $('hist').hidden = !svgOn; if (svgOn) { renderHist(); cv.removeAttribute('aria-label'); }
@@ -335,12 +399,12 @@ function geom() {
   if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(G.h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(G.h * dpr); cv.style.height = G.h + 'px'; }
 }
 const ringsExtra = a => (c, g, rp) => {   // History rings: drawn outward from the center as `a` rises
-  const H = L.hist, [cx, cy] = rp(0, 0), fs = Math.max(10, Math.round(g.R / 27)), nm = ['Before 1970', '1970–' + M.cut, M.cut + '–2008', '2008–2026'], n1 = H.ring.length + 1, lw = Math.max(1, g.R / 380);
+  const H = L.hist, [cx, cy] = rp(0, 0), fs = Math.max(10, Math.round(g.R / 27)), nm = g.narrow ? ['1970', String(M.cut), '2008', '2026'] : ['Before 1970', '1970–' + M.cut, M.cut + '–2008', '2008–2026'], n1 = H.ring.length + 1, lw = Math.max(1, g.R / 380);
   c.save(); c.font = `600 ${fs}px ${NN_FAM}`; c.textAlign = 'center'; c.lineJoin = 'round';
   const lab = (t, x, y, base, al, fill) => { c.globalAlpha = al; c.textBaseline = base; c.lineWidth = 3; c.strokeStyle = '#000'; c.strokeText(t, x, y); c.fillStyle = fill; c.fillText(t, x, y); };
   const placed = [], hit = (p, q) => p[0] < q[2] && p[2] > q[0] && p[1] < q[3] && p[3] > q[1];
   const pos = H.ring.map((r, k) => { const wd = c.measureText(nm[k]).width + 8, hh = fs * 1.1; let pick = null;   // each label starts at the top of its ring; if it would crowd the one before it, slide it along its own ring until clear
-    for (const d of [0, .2, -.2, .4, -.4, .6, -.6, .8, -.8, 1.1, -1.1]) { const x = Math.max(wd / 2 + 2, Math.min(cx + Math.sin(d) * g.R * r, (g.w || 1e9) - wd / 2 - 2)), y = cy - Math.cos(d) * g.R * r + 4, bx = [x - wd / 2, y, x + wd / 2, y + hh];
+    for (const d of g.narrow ? [0] : [0, .2, -.2, .4, -.4, .6, -.6, .8, -.8, 1.1, -1.1]) { const x = Math.max(wd / 2 + 2, Math.min(cx + Math.sin(d) * g.R * r, (g.w || 1e9) - wd / 2 - 2)), y = cy - Math.cos(d) * g.R * r + 4, bx = [x - wd / 2, y, x + wd / 2, y + hh];
       if (!pick) pick = { x, y, bx }; if (!placed.some(q => hit(q, bx))) { pick = { x, y, bx }; break; } }
     placed.push(pick.bx); return pick; });
   H.ring.forEach((r, k) => {
@@ -350,9 +414,12 @@ const ringsExtra = a => (c, g, rp) => {   // History rings: drawn outward from t
   });
   const au = NN.cl(a * n1 - H.ring.length);
   if (au > 0 && H.nu) {
-    c.globalAlpha = au * .9; c.lineWidth = lw; c.strokeStyle = '#9a9a9a'; c.setLineDash([g.R / 60, g.R / 80]); c.beginPath(); c.arc(cx, cy, g.R * H.RU, 0, NN.TAU); c.stroke(); c.setLineDash([]);
+    c.globalAlpha = au * .9; c.lineWidth = Math.max(1.8, g.R / 140); c.lineCap = 'round'; c.strokeStyle = '#9a9a9a'; c.setLineDash([0, g.R / 38]); c.beginPath(); c.arc(cx, cy, g.R * H.RU, 0, NN.TAU); c.stroke(); c.setLineDash([]); c.lineCap = 'butt';   // dotted, so it never reads as a section divider
     const ua = H.ua, lc = Math.cos(ua), ux = cx + lc * g.R * (H.RU + .05) + (lc > 0 ? 6 : -6), uy = cy + Math.sin(ua) * g.R * (H.RU + .05);   // beside the one unverified mark, outside the dashed ring
-    c.globalAlpha = au; c.textBaseline = 'middle'; c.textAlign = lc > 0 ? 'left' : 'right'; c.fillStyle = '#bdbdbd'; c.fillText('Founding year', ux, uy - fs * .6); c.fillText('not verified', ux, uy + fs * .6);
+    c.globalAlpha = au; c.textBaseline = 'middle'; c.fillStyle = '#bdbdbd';
+    const tw = Math.max(c.measureText('Founding year').width, c.measureText('not verified').width); let tx = ux, ty = uy, ta = lc > 0 ? 'left' : 'right';
+    if (ta === 'left' && tx + tw > g.w - 3) { ta = 'right'; tx = g.w - 3; ty = uy + fs * 2; } else if (ta === 'right' && tx - tw < 3) { ta = 'left'; tx = 3; ty = uy + fs * 2; }   // no room beside the mark: tuck the label under it, inside the canvas
+    c.textAlign = ta; c.fillText('Founding year', tx, ty - fs * .6); c.fillText('not verified', tx, ty + fs * .6);
   }
   c.restore();
 };
@@ -432,9 +499,10 @@ function hit(ev) {
   N.forEach((n, i) => { const dd = Math.hypot((G.cx + P[i].x * G.R) * k - x, (G.cy + P[i].y * G.R) * k - y); if (dd < bd) { bd = dd; best = i; } });
   if (bd > (ev.pointerType === 'mouse' ? 14 : 24)) { cv.classList.remove('hot'); tip.hidden = true; if (hovered != null) { hovered = null; paint(); } return; }
   cv.classList.add('hot'); hovered = best; paint();
-  const px = (G.cx + P[best].x * G.R) * k, py = (G.cy + P[best].y * G.R) * k; tip.innerHTML = cur.id === 'history' ? histCard(N[best]) : cardFor(N[best]); tip.hidden = false;
+  const mr = L.MR * G.R * G.boost * k, grp = N.map((n, i) => i).filter(i => i === best || Math.hypot((P[i].x - P[best].x) * G.R * k, (P[i].y - P[best].y) * G.R * k) < 1.8 * mr).sort((i, j) => (i === best ? -1 : j === best ? 1 : i - j));   // marks that overlap the nearest one are listed with it, so none is unreachable
+  const px = (G.cx + P[best].x * G.R) * k, py = (G.cy + P[best].y * G.R) * k, card = i => cur.id === 'history' ? histCard(N[i]) : cardFor(N[i]); tip.innerHTML = grp.length > 1 ? `<span>${grp.length} overlapping marks</span>` + grp.map(i => `<div style="margin-top:6px;padding-top:6px;border-top:1px solid #444">${card(i)}</div>`).join('') : card(best); tip.hidden = false;
   const tw = tip.offsetWidth, th = tip.offsetHeight; tip.style.left = Math.min(Math.max(6, px - tw / 2), r.width - tw - 6) + 'px'; tip.style.top = (py - th - 14 < 0 ? py + 14 : py - th - 14) + 'px';
-  const ctx2 = ctx; ctx2.save(); ctx2.setTransform(dpr, 0, 0, dpr, 0, 0); ctx2.beginPath(); ctx2.arc(G.cx + P[best].x * G.R, G.cy + P[best].y * G.R, L.MR * G.R * G.boost * 2.3, 0, 7); ctx2.strokeStyle = '#fff'; ctx2.lineWidth = 1.5; ctx2.stroke(); ctx2.restore();
+  const ctx2 = ctx; ctx2.save(); ctx2.setTransform(dpr, 0, 0, dpr, 0, 0); ctx2.beginPath(); grp.forEach(i => { ctx2.beginPath(); ctx2.arc(G.cx + P[i].x * G.R, G.cy + P[i].y * G.R, L.MR * G.R * G.boost * 2.3, 0, 7); ctx2.strokeStyle = '#fff'; ctx2.lineWidth = 1.5; ctx2.stroke(); }); ctx2.restore();
 }
 cv.addEventListener('pointermove', hit); cv.addEventListener('pointerdown', hit);
 cv.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; cv.classList.remove('hot'); tip.hidden = true; if (hovered != null) { hovered = null; paint(); } });   // a touch tap ends with pointerleave: keep the card until the next tap
