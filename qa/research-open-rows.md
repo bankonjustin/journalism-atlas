@@ -75,7 +75,7 @@ Origin documentation (supports keeping CROSSED, company documents only): the Abo
 
 If relabeled later: "Wells Media Group (publisher of Insurance Journal)", founded 1923.
 
-Downstream effect if excluded as "revenue unverifiable": see the net line. Above $10M 55 to 54; grew past 30 to 29; C9 17 to 16; M4 wedge 11 to 10; N 169 to 168; bands 80 / 34 / 55 become 80 / 34 / 54; History dek before 1995 "24 of 38" becomes "23 of 37".
+Downstream effect if excluded as "revenue unverifiable": see the net line. Above $10M 55 to 54; grew past 30 to 29; C9 17 to 16; M4 wedge 9 to 8; N 169 to 168; bands 80 / 34 / 55 become 80 / 34 / 54; History dek before 1995 "24 of 38" becomes "23 of 37".
 
 ---
 
@@ -103,4 +103,4 @@ Downstream effect: none. Gaps: no exact paid count, no group or founding tier pr
 
 ---
 
-Net change: above $10M 55 to 54, grew past 30 to 29, C9 17 to 16, M4 11 to 10, all from excluding Insurance Journal as unverifiable; Risk.net, GovExec and Platformer move no counts (History dek only: Insurance Journal out gives 23 of 37 and 31 of 130; GovExec dated 1969 instead gives 25 of 39 and 30 of 129; both together give 24 of 38 and 30 of 129).
+Net change: above $10M 55 to 54, grew past 30 to 29, C9 17 to 16, M4 9 to 8, all from excluding Insurance Journal as unverifiable; Risk.net, GovExec and Platformer move no counts (History dek only: Insurance Journal out gives 23 of 37 and 31 of 130; GovExec dated 1969 instead gives 25 of 39 and 30 of 129; both together give 24 of 38 and 30 of 129).

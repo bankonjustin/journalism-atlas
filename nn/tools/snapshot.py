@@ -7,18 +7,22 @@ Reads the CSV and recode file read-only."""
 import json, csv, sys, pathlib
 HERE = pathlib.Path(__file__).resolve().parent.parent
 ARG = lambda k, d: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else d
-CSV = pathlib.Path(ARG('--csv', HERE.parent.parent / 'paper-one-band-dataset' / 'cohort_reference_expanded_v22.csv'))
+CSV = pathlib.Path(ARG('--csv', HERE.parent.parent / 'paper-one-band-dataset' / 'cohort_reference_expanded_v22.5.csv'))
 RECODE = pathlib.Path(ARG('--recode', HERE.parent.parent / 'nodes-networks-v5' / 'launch-kit' / 'MECH-RECODE-PROPOSED.csv'))
 ORIGIN_RULE = ARG('--origin', 'v22.3')
-STATUS = {'CLOSED': 'closed', 'ACQUIRED': 'acquired', 'ABSORBED': 'absorbed'}
+STATUS = {'CLOSED': 'closed', 'ACQUIRED': 'acquired', 'ABSORBED': 'absorbed', 'DEAL_ANNOUNCED': 'deal announced'}
 OMAP = {'BORN_ABOVE': 'INHERITED', 'CROSSED': 'CROSSED', 'NEVER_CROSSED': 'NEVER_CROSSED'}
 nodes = json.load(open(HERE / 'data' / 'nodes169.json'))['nodes']
 banded = [r for r in csv.DictReader(open(CSV)) if r['Band_Position']]
 assert len(nodes) == 169 and len(banded) == 169, 'expected 169 banded rows'
 assert all(n['name'] == banded[n['i']]['Organization / Creator'] for n in nodes if not n['un']), 'node order no longer matches the CSV'
+# v22.5 renamed two rows and moved the Banner to C4; the recode file is a read-only approval record, so its keys are translated here.
+RENAMED = {'Gannett Co. Inc. (GCI)': 'USA TODAY Co. (formerly Gannett)', 'CNN (Warner Bros. Discovery)': 'CNN (Skydance)'}
+MOVED = {('Baltimore Banner', 'C1'): 'C4'}
 recode = {}
 for r in csv.DictReader(open(RECODE)):
-    if (r.get('approved (yes/no)') or '').strip().lower() == 'yes' and r['proposed_path']: recode[(r['data_name'], r['cohort'])] = r['proposed_path']
+    if (r.get('approved (yes/no)') or '').strip().lower() == 'yes' and r['proposed_path']:
+        recode[(RENAMED.get(r['data_name'], r['data_name']), MOVED.get((r['data_name'], r['cohort']), r['cohort']))] = r['proposed_path']
 assert recode, 'recode file has no approved rows'
 byk = {(n['name'], n['c']): n for n in nodes}
 assert all(k in byk for k in recode), 'a recode row matches no node'

@@ -27,10 +27,10 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | Governance tab, interaction hint (under the key; mouse and trackpad readers) | Hover over any mark to see the organization behind it. |
 | Governance tab, interaction hint (under the key; touch readers) | Tap any mark to see the organization behind it. |
 | Governance tab, chart labels (wide: code and name; narrow: code only) | C1 Legacy Publishers; C2 Creator Brands; C3 Barbell Hybrids; C4 Philanthropic Mesh Networks; C5 Public Media Networks; C6 Collaboration Layers; C7 Worker-Owned Co-ops; C8 Emerging Civic Actors; C9 B2B/Professional Services |
-| Governance tab, list row (name, then count) | C1 · Legacy Publishers 18 |
+| Governance tab, list row (name, then count) | C1 · Legacy Publishers 17 |
 | Governance tab, list row (name, then count) | C2 · Creator Brands 26 |
 | Governance tab, list row (name, then count) | C3 · Barbell Hybrids 8 |
-| Governance tab, list row (name, then count) | C4 · Philanthropic Mesh Networks 44 |
+| Governance tab, list row (name, then count) | C4 · Philanthropic Mesh Networks 45 |
 | Governance tab, list row (name, then count) | C5 · Public Media Networks 14 |
 | Governance tab, list row (name, then count) | C6 · Collaboration Layers 8 |
 | Governance tab, list row (name, then count) | C7 · Worker-Owned Co-ops 7 |
@@ -49,7 +49,7 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | 6 ways tab, sector labels (number, then short name; narrow shows number only) | 1 Bundle; 2 Ideology; 3 Team + portfolio; 4 B2B; 5 Philanthropy; 6 Diversified |
 | 6 ways tab, chart label for squares (wide) | Started above $10M (25) |
 | 6 ways tab, chart label for squares (narrow, two lines) | Above $10M / (25) |
-| 6 ways tab, chart label for circles (wide, two lines) | Under $10M / not yet grown past it |
+| 6 ways tab, chart label for circles (wide, two lines) | Under $10M / in latest year |
 | 6 ways tab, chart label for circles (narrow) | Under $10M |
 | 6 ways tab, note in the empty Bundle sector (wide, three lines) | None grew this way. / Every organization selling a / bundle started above $10M. |
 | 6 ways tab, note in the empty Bundle sector (narrow) | None grew this way → |
@@ -75,7 +75,7 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | History tab, chart 2 title | Every organization, by cohort and founding year |
 | History tab, chart 2 group headings | Legacy, Creator, Barbell; Philanthropic, Public Media, Collaboration; Co-ops, Civic, B2B |
 | History tab, chart 2 row labels (cohort names) | Legacy Publishers; Creator Brands; Barbell Hybrids; Philanthropic Mesh Networks; Public Media Networks; Collaboration Layers; Worker-Owned Co-ops; Emerging Civic Actors; B2B/Professional Services |
-| History tab, chart 2 row totals (wide and stacked) | [n] of [N] over $10M  (for example 18 of 18 over $10M) |
+| History tab, chart 2 row totals (wide and stacked) | [n] of [N] over $10M  (for example 17 of 17 over $10M) |
 | History tab, chart 2 row totals (narrow column), with column heading "over $10M" | [n] of [N] |
 | History tab, chart 2 marker label | 1995: the internet starts reshaping print and broadcast distribution. |
 | History tab, chart 2 axis labels | 1850; 1925; 1995; 2000; 2010; 2020 (narrow: 2005; 2015; 2025); Before 1995 (compressed); 1995 to 2026 |
@@ -83,9 +83,9 @@ Every visible and screen-reader string in the explorer, as it reads today (regen
 | History tab, screen-reader description of each mark | [Organization], [cohort code], founded [year], [started above $10M / grew past $10M / $10M or under] |
 | Card on hover or tap (6 ways and Governance), line 1 (bold) | [Organization name] |
 | Card (6 ways and Governance), line 2 | [Cohort code] [Cohort name] |
-| Card (6 ways and Governance), line 3 | Started above $10M  /  Mechanism: [short name]  /  Under $10M, not yet grown past it |
+| Card (6 ways and Governance), line 3 | Started above $10M  /  Mechanism: [short name]  /  Under $10M in latest year |
 | Card (6 ways and Governance), line 4 | Under $3.5M in revenue  /  $3.5M to $10M in revenue  /  Over $10M in revenue |
-| Card (6 ways and Governance), optional lines | Revenue estimate unverified; Founded [year]; Status: [absorbed / acquired / closed] |
+| Card (6 ways and Governance), optional lines | Revenue: [label] (three rows: Risk.net, Defense One / GovExec, Insurance Journal); Revenue estimate unverified; Founded [year]; Status: [absorbed / acquired / closed / deal announced] |
 | Card on hover or tap (History), line 1 (bold) | [Organization name] |
-| Card (History), lines | [Cohort code] [Cohort name]; Founded [year]; Revenue: [amount] (or Revenue estimate unverified); $10M or under  /  Started above $10M  /  Grew past $10M with Mechanism: [short name]; Status: [absorbed / acquired / closed] |
+| Card (History), lines | [Cohort code] [Cohort name]; Founded [year]; Revenue: [amount] (or Revenue: [label] on the three labelled rows; Revenue estimate unverified on unverified rows); $10M or under  /  Started above $10M  /  Grew past $10M with Mechanism: [short name]; Status: [absorbed / acquired / closed / deal announced] |
 | Screen-reader description of the canvas (all canvas tabs) | Chart of 169 organizations. [Heading]. [Intro]. [Summary line] |

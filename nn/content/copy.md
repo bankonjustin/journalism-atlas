@@ -190,7 +190,7 @@ Above $10M
 Under $10M
 
 ## labels.under_2
-not yet grown past it
+in latest year
 
 # Cards (the box that opens on a mark)
 
@@ -201,7 +201,7 @@ Mechanism: {name}
 Over $10M in revenue
 
 ## card.under
-$10M or under in revenue
+Under $10M in latest year
 
 ## card.unverified
 Revenue estimate unverified

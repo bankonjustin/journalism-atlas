@@ -1,14 +1,16 @@
 # nodes169.json changelog
 
+Nov 2, 2026: regenerated from `cohort_reference_expanded_v22.5.csv` so that `nn/tools/snapshot.py`'s name check passes against v22.5. Built with a copy of `nodes-networks-v5/edition/tools/build_nodes169.py` (same code, inputs pointed at v22.5; the copy was first run on the v22 inputs and reproduced the edition's Nov 1 file byte for byte). The RESOLVED csv stays read-only; its Gannett and CNN keys and the Banner's cohort are translated in memory. Differences from the Oct 29 file: names (CNN (Skydance), USA TODAY Co. (formerly Gannett)), Baltimore Banner C1 to C4 (c, ci, g), Rogan M3 (was the Exception coding), Puck status DEAL_ANNOUNCED, and every layout position (the gov and born lenses re-pack with C1 at 17 and C4 at 45; the other lenses re-run with the same seeds). `nn/built/` was not rebuilt, so the deployed fallback still carries the Oct 29 positions.
+
 Nov 1, 2026: no changes. The file stays read-only and is unchanged.
 
 ## Known drift (nothing reads it; sync after launch)
 
 `nn/build.py` takes position, cohort, group, band and the unverified flag from this file. It takes name, founding year, origin, mechanism, revenue and status from `public-snapshot.json`, which `nn/tools/snapshot.py` builds from the private CSV, the approved recode rows and `snapshot-overrides.csv`. These fields in `nodes169.json` therefore differ from the live ASU embed:
 
-- Mechanism on 18 started-above rows (`INHERITED_SCALE` here, an M-code in the embed), Rogan (`EXCEPTION_PLATFORM_LICENSING` here, M3 in the embed).
+- Mechanism on 18 started-above rows (`INHERITED_SCALE` here, an M-code in the embed). Rogan now matches (M3).
 - Name and founding year withheld on rows 2, 152 and 153 (Washington Post, Risk.net, Insurance Journal).
-- No status flag on 12 rows (the embed carries `acquired`, `closed` or `absorbed`).
+- Status flags now present on all 11 rows (`deal announced` for Puck); the old gap is closed.
 
 `nn/tools/parity_check.py` compares the snapshot, not this file, with the embed.
 
