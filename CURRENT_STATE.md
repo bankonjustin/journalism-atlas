@@ -1,6 +1,13 @@
 # Pulse — Current State
 *Last updated: October 29, 2026 (Pulse Oct 27 run backfilled). Previously: October 23, 2026 (Nodes and Networks interactive edition staged, **not yet pushed**)*
 
+## Team DMV prototype retired (Nov 2, 2026), committed locally, **not yet pushed**
+
+- `teamdmv/` moved to `_deprecated/teamdmv/` (same pattern as `be0d717`); `teamdmv` removed from the `cp -R` line in `build-dist.sh`; `_redirects` sends `/teamdmv`, `/teamdmv/` and `/teamdmv/*` to `https://dmvswitchboard.com/` with 301 (410 is the alternative; Justin's call). Logged as H3 in `_archive/2026-10-sweep/MANIFEST.md`.
+- **Git history still holds the page**, including about 58 Instagram profiles with follower counts and cohort flags, and the client-side password. No history rewrite done; that is Justin's decision.
+- **Live check not done:** Claude in Chrome was not connected, so whether `/teamdmv/` is served today was not observed (`build-dist.sh:21` says it was). After pushing, open it in a private window to confirm the redirect.
+- Brand baseline regenerated: the six `teamdmv/index.html` entries dropped (count fell, nothing rose).
+
 ## Pulse run, Oct 27, 2026 (backfilled Oct 29)
 
 - **Scrape:** `pulse_v2.py` 07:36–07:43 ET, 30-day window, 436 s, exit 0, completeness gate passed (fetch rate 98.5%). 2,415 creators loaded and all accounted for; 1,747 RSS-resolved feeds attempted; 1,669 ok, 52 empty, 26 errors, 262 no feed, 406 no-RSS platform. 10,578 posts in window; 1,006 active in 7 days, 1,236 in 30 days.

@@ -17,3 +17,4 @@ Archive, don't delete. Moves go to `_archive/2026-10-sweep/`; the only allowed r
 |---|---|---|---|---|
 | F1 | `CLAUDE.md` (page-inventory row for `preview/nodes-and-networks-f348eb08/`, and the "Last updated" line) | fix | Said the old URL 301s to that preview; it now 301s to `/nodes-and-networks/` | `_redirects:65-67` |
 | F2 | `REDIRECTS_AUDIT.md:100` | fix (superseded note added, original text kept) | Said `/pack` has no redirect; `CLAUDE.md:267` says it redirects to `/` | `CLAUDE.md:267` |
+| H3 | `teamdmv/index.html` | `_deprecated/teamdmv/index.html` | move (retire) | Old "Team DMV" prototype with client-side password gate and ~58 Instagram creator profiles, follower counts and cohort flags readable in page source; was published by `build-dist.sh` at `/teamdmv/`. Removed from the build; `/teamdmv*` 301s to dmvswitchboard.com. **Git history still holds the file** | `git mv`, same bytes |
