@@ -9,7 +9,7 @@ export function cardHtml(c) {
   return `<div class="mc-code" aria-hidden="true">${c.code}</div><div class="mc-body"><p class="mc-name"><strong>${esc(c.name)}</strong></p><p>${esc(c.def)}</p>`
     + `<div class="mc-row"><span class="chip chip-solid">n=${c.n}</span><span class="chip">${esc(c.model)}</span></div>`
     + `<p class="mc-ex">Examples: ${c.examples.map(esc).join(' · ')}</p><p class="mc-note">${esc(c.tension)}</p>`
-    + `<a class="mc-go" href="#${c.code.toLowerCase()}">Read the full ${c.code} profile</a></div>`;
+    + (window.NN_ASU_ON ? '' : `<a class="mc-go" href="#${c.code.toLowerCase()}">Read the full ${c.code} profile</a>`) + '</div>';
 }
 
 export function html(cards, { alt, sel = 'C1' }) {

@@ -6,9 +6,13 @@ import { esc, $, $$, setHash } from '../lib.js?v=a7031425';
 export const id = 'fig-4-threshold';
 export const PAPER = 80;
 
-const count = (rows, t) => rows.filter(r => r.pct > t).length;
+// ASU theme (window.NN_ASU_ON): ">=" so "80% or more" is literally true; the default edition keeps ">"
+const above = (p, t) => (window.NN_ASU_ON ? p >= t : p > t);
+const count = (rows, t) => rows.filter(r => above(r.pct, t)).length;
 export function readout(rows, t) {
   const k = count(rows, t);
+  if (window.NN_ASU_ON) return `<b>${k}</b> get ${t}% or more of their revenue from grants or donations.`
+    + (t === PAPER ? ' <span class="lp-paper">80% is the threshold used in the paper.</span>' : ' <span class="lp-paper">The paper uses 80%.</span>');
   return `<b>${k} of ${rows.length}</b> get more than ${t}% of revenue from grants and donations.`
     + (t === PAPER ? ' <span class="lp-paper">80% is the threshold used in the paper.</span>'
       : ` <span class="lp-paper">The paper uses 80%.</span>`);
@@ -23,12 +27,12 @@ export function html(rows, { alt, threshold = PAPER, controls = true }) {
       + `<button type="button" class="btn-reset" id="lpReset"${t === PAPER ? ' hidden' : ''}>Reset to 80%</button></div>`
     : '';
   const plot = rows.map(r =>
-    `<div class="lp-row${r.pct > t ? ' over' : ''}" data-v="${r.pct}"><span class="lp-name" title="${esc(r.name)}">${esc(r.name)}</span>`
+    `<div class="lp-row${above(r.pct, t) ? ' over' : ''}" data-v="${r.pct}"><span class="lp-name" title="${esc(r.name)}">${esc(r.name)}</span>`
     + `<span class="lp-track"><span class="lp-stem" style="width:${r.pct}%"></span><span class="lp-dot" style="left:${r.pct}%"></span></span>`
     + `<span class="lp-val">${r.pct}%</span></div>`).join('');
   return `${ctl}<p class="lp-readout" id="lpOut" aria-live="polite">${readout(rows, t)}</p>`
     + `<div class="lp" role="img" aria-label="${esc(alt)}"><div class="lp-plot" style="--t:${t}">${plot}<div class="lp-th"><span>${t}%</span></div></div></div>`
-    + `<p class="lp-key" aria-hidden="true"><span class="k-over"></span>more than the threshold <span class="k-under"></span>at or below it<span class="lp-round">Percentages are rounded to whole numbers; counts use the rounded values.</span></p>`;
+    + `<p class="lp-key" aria-hidden="true"><span class="k-over"></span>${window.NN_ASU_ON ? 'at or above the threshold' : 'more than the threshold'} <span class="k-under"></span>${window.NN_ASU_ON ? 'below it' : 'at or below it'}<span class="lp-round">Percentages are rounded to whole numbers; counts use the rounded values.</span></p>`;
 }
 
 export function tableHtml(rows) {
@@ -44,7 +48,7 @@ export function mount(el, { data, state } = {}) {
   function place(userSet) {
     const t = +rng.value;
     plot.style.setProperty('--t', t); th.firstChild.textContent = t + '%';
-    $$('.lp-row', plot).forEach(row => row.classList.toggle('over', +row.dataset.v > t));
+    $$('.lp-row', plot).forEach(row => row.classList.toggle('over', above(+row.dataset.v, t)));
     out.innerHTML = readout(rows, t);
     rng.setAttribute('aria-valuetext', t + ' percent'); if (now) now.textContent = t + '%';
     if (reset) reset.hidden = t === PAPER;
