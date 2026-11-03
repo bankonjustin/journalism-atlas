@@ -14,7 +14,7 @@
      {count}   welcome mode only: filled from creators-data.json after page load (see _initStripCount)
    ===================================================== */
 var ATLAS_STRIP = {
-  id: 'research-2026-11',
+  id: 'nn-2026-11',
   enabled: true,
   expires: '2026-12-01',
   selfPath: '/watershed/',
