@@ -118,6 +118,7 @@ OLD = the live explorer before v22.5 and the paper's known values. Search string
 | since 1995 under $10M | 99 of 130 | 99 of 130 | same |  | `99 of 130` |
 | Cramér's V, cohort x band | 0.503 | 0.481 | **changed** | 0.490 | `0.503` ; `.503` ; `V = 0.503` |
 | Cramér's V, era x band | 0.384 | 0.353 | **changed** | 0.353 | `0.384` ; `.384` ; `V = 0.384` |
+| grant dependency, the paper's framing: nonprofits with a 990 above 80% | 15 of 17 | 15 of 17 | same | 15 of 17 | `15 of 17` ; `more than 80%` ; `more than 80 percent` |
 | grant dependency: in-band nonprofits above 78% | 17 of 18 | 16 of 18 | **changed** | 16 of 18 | `17 of 18` ; `more than 78` ; `78%` |
 | grant dependency: range of those above 78% | 82.5-102.3% | 78.4-99.3% | **changed** | 78.4-99.3% | `82.5` ; `102.3` ; `82.5 to 102.3` |
 | grant dependency: exceptions | Colorado Sun | Colorado Sun (49.1), LION Publishers (71.6) | **changed** | Colorado Sun (49.1), LION Publishers (71.6) | `Colorado Sun` |

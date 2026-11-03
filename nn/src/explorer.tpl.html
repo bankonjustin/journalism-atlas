@@ -182,7 +182,13 @@ const isAnswer = n => (n.o === 'CROSSED' && pathIdx(n.m) >= 0) || n.m === 'EXCEP
 function thumbs() {
   document.querySelectorAll('[data-th]').forEach(el => {
     const k = el.dataset.th, w = Math.round(el.getBoundingClientRect().width) || 110;
-    if (k === 'history') { el.innerHTML = asu(eraThumb(w)); return; }
+    if (k === 'history') {   // radial History in miniature: the same layout (L.hist) and rings as the History tab; marks founded before the era cut are lit
+      const c = el.querySelector('canvas'), d = Math.min(2, devicePixelRatio || 1), g = NN.geom(w, d, .86), R2 = Math.min(g.w, g.h) / 2 * .94, base = g.R;
+      const G2 = { ...g, R: R2, cx: g.w / 2, cy: g.h / 2, boost: g.boost * 1.45 * Math.min(1, base / R2 * 1.6) }, hk = n => (n.fy && !n.un && n.fy < M.cut ? 'H' : 'x');
+      c.width = Math.round(w * d); c.height = Math.round(g.h * d); c.style.height = g.h + 'px';
+      NN.draw(c.getContext('2d'), G2, D, L, T, { tab: 'hist', pos: L.hist.pos, ce: 1, chromeA: 0, labelA: 0, labelsTab: null, mutedA: 0, hl: 'H', hlKeyOf: hk, dim: .6, sizeArr: N.map(n => NN.HSZ[n.b]), under: histRings(() => 1) });
+      return;
+    }
     const c = el.querySelector('canvas'), d = Math.min(2, devicePixelRatio || 1), g = NN.geom(w, d, .86);
     const hk = k === 'gov' ? n => (TOPSET.has(n.c) ? 'H' : 'x') : n => (isAnswer(n) ? 'H' : 'x'), pos = L[k].pos, hs = N.filter(n => k === 'gov' || hk(n) === 'H').map(n => pos[n.i]);
     const x0 = Math.min(...hs.map(p => p.x)), x1 = Math.max(...hs.map(p => p.x)), y0 = Math.min(...hs.map(p => p.y)), y1 = Math.max(...hs.map(p => p.y)), pm = L.MR * 2.2;   // fit the highlighted marks to the thumbnail
@@ -191,13 +197,6 @@ function thumbs() {
     c.width = Math.round(w * d); c.height = Math.round(g.h * d); c.style.height = g.h + 'px';
     NN.draw(c.getContext('2d'), G2, D, L, T, { tab: k, pos, ce: 1, chromeA: 0, labelA: k === 'gov' ? 1 : 0, labelsTab: k === 'gov' ? 'gov' : null, labelOn: key => TOPSET.has(key), labelOnly: true, mutedA: 0, hl: 'H', hlKeyOf: hk, dim: k === 'gov' ? .86 : 1 });
   });
-}
-function eraThumb(w) {
-  const bmax = 64, h = bmax + 34, slot = w / HS.eras.length, bw = Math.min(26, slot * .6), base = bmax + 14;
-  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="${esc(HS.eras.map(e => cp('hist.era_aria', { label: e.label, over: e.over, n: e.N })).join('; '))}">` + HS.eras.map((e, i) => {
-    const cx = slot * (i + .5), hg = e.grew / e.N * bmax, ha = e.above / e.N * bmax;
-    return (ha ? `<rect x="${cx - bw / 2}" y="${base - ha}" width="${bw}" height="${ha}" fill="#fff" opacity=".35"/>` : '') + `<rect x="${cx - bw / 2}" y="${base - ha - hg}" width="${bw}" height="${hg}" fill="#fff"/><text x="${cx}" y="${base - ha - hg - 4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" style="font-family:var(--font)">${Math.round(100 * e.over / e.N)}%</text>${w < 130 ? '' : `<text x="${cx}" y="${base + 13}" text-anchor="middle" font-size="9.5" fill="#bdbdbd" style="font-family:var(--font)">${esc(['<' + M.cut, String(M.cut).slice(2) + '–07', '08–14', '15+'][i])}</text>`}`;
-  }).join('') + `<line x1="0" x2="${w}" y1="${base}" y2="${base}" stroke="#444"/></svg>`;
 }
 function shortHtml() {
   return `<h2 id="stTop">${esc(TOPLINE)}</h2><p class="enc">${esc(ENC)}</p><ol class="chaps">` + CHAPS.map((t, i) => `<li class="chap"><div class="th" data-th="${['gov', 'ways', 'history'][i]}"><canvas role="img" aria-label="${esc(cp('in_short.thumb_aria', { name: t.name }))}"></canvas></div><div class="tx"><p class="n">${esc(t.label)}</p><p class="sn">${esc(t.line)}</p><a class="see" href="?tab=${t.param}" data-go="${t.id}">${esc(cp('in_short.see_chart'))}<span aria-hidden="true"> →</span></a></div></li>`).join('') + '</ol>';

@@ -183,6 +183,8 @@ row("since 1995 over $10M", "31 of 130", f"{post_over[0]} of {post_over[1]}", "`
 row("since 1995 under $10M", "99 of 130", f"{post_under[0]} of {post_under[1]}", "`99 of 130`")
 row("Cramér's V, cohort x band", f"{OLD['V_cohort']:.3f}", f3(V_c["V"]), "`0.503` ; `.503` ; `V = 0.503`", f3(V_c22["V"]))
 row("Cramér's V, era x band", f"{OLD['V_era']:.3f}", f3(V_e["V"]), "`0.384` ; `.384` ; `V = 0.384`", f3(V_e22["V"]))
+_b80 = sum(1 for _, p_ in [(a_, b_) for a_, b_, e_ in gd_all if e_[:2].isdigit()] if p_ > 80)
+row("grant dependency, the paper's framing: nonprofits with a 990 above 80%", "15 of 17", f"{_b80} of {GD_B['n']}", "`15 of 17` ; `more than 80%` ; `more than 80 percent`", "15 of 17")
 row("grant dependency: in-band nonprofits above 78%", OLD_GD[0], f"{GD_A['over']} of {GD_A['n']}", "`17 of 18` ; `more than 78` ; `78%`", f"{V22_GD['over']} of {V22_GD['n']}")
 row("grant dependency: range of those above 78%", OLD_GD[1], f"{GD_A['lo']:.1f}-{GD_A['hi']:.1f}%", "`82.5` ; `102.3` ; `82.5 to 102.3`", f"{V22_GD['lo']}-{V22_GD['hi']}%")
 row("grant dependency: exceptions", OLD_GD[2], excs(GD_A), "`Colorado Sun`", V22_GD["exc"])
