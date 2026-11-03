@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Review: Nodes and Networks charts and teaser</title>
+<style>
+body{font:16px/1.45 Arial,Helvetica,sans-serif;margin:0;padding:24px 16px 64px;background:#f3f3f1;color:#191919}
+main{max-width:1200px;margin:0 auto}h1{font-size:24px;margin:0 0 6px}h2{font-size:18px;margin:40px 0 4px}
+p{margin:0 0 10px;color:#3b3b3b;max-width:72ch}a{color:#8C1D40}
+.frame{background:#fff;border:1px dashed #9a9a9a}iframe{display:block;border:0;width:100%}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}.pair figure{margin:0;background:#fff;border:1px dashed #9a9a9a;padding:8px}
+figcaption{font-size:14px;color:#3b3b3b;margin-top:6px}video,img{display:block;width:100%;height:auto}
+nav a{margin-right:14px;white-space:nowrap}
+</style></head>
+<body><main>
+<h1>Nodes and Networks: review page</h1>
+<p>Each chart below is loaded exactly the way the report will embed it. The link under each heading opens that chart on its own page.</p>
+<nav><a href="#f1">Figure 1</a><a href="#f2">Figure 2</a><a href="#f3">Figure 3</a><a href="#f4">Figure 4</a><a href="#f5">Figure 5</a><a href="#explorer">Explorer autoplay</a><a href="#teaser">Teaser</a><a href="../explorer/?tab=ways">Explorer</a></nav>
+
+<h2 id="f1">Figure 1: Funding and organization timeline, 2018–2026</h2>
+<p><a href="../figures/timeline/">Open on its own</a></p>
+<div class="frame"><iframe data-nn src="../figures/timeline/" title="Figure 1" height="1016" scrolling="no"></iframe></div>
+
+<h2 id="f2">Figure 2: The nine cohorts</h2>
+<p><a href="../figures/map/">Open on its own</a></p>
+<div class="frame"><iframe data-nn src="../figures/map/" title="Figure 2" height="1062" scrolling="no"></iframe></div>
+
+<h2 id="f3">Figure 3: Defector revenue, Years 1–5</h2>
+<p><a href="../figures/defector/">Open on its own</a></p>
+<div class="frame"><iframe data-nn src="../figures/defector/" title="Figure 3" height="807" scrolling="no"></iframe></div>
+
+<h2 id="f4">Figure 4: Share of revenue from grants and donations, nonprofits with $3.5M–$10M in revenue</h2>
+<p><a href="../figures/threshold/">Open on its own</a></p>
+<div class="frame"><iframe data-nn src="../figures/threshold/" title="Figure 4" height="1145" scrolling="no"></iframe></div>
+
+<h2 id="f5">Figure 5: Revenue band distribution by cohort (n=169)</h2>
+<p><a href="../figures/bands/">Open on its own</a></p>
+<div class="frame"><iframe data-nn src="../figures/bands/" title="Figure 5" height="1062" scrolling="no"></iframe></div>
+
+<h2 id="explorer">Explorer with autoplay</h2>
+<p>The same explorer embed with <code>&amp;autoplay=1</code> added. It turns through Governance, the 6 ways and History on its own until you click, tap, scroll or press a key. Without it, the explorer waits for the reader. <a href="../explorer/?tab=governance&amp;autoplay=1">Open on its own</a></p>
+<div class="frame" style="max-width:760px"><iframe id="nnx" src="../explorer/?embed=1&amp;tab=governance&amp;autoplay=1" title="Explorer with autoplay" height="1650"></iframe></div>
+
+<h2 id="teaser">Teaser for the explorer button: MP4 or GIF</h2>
+<p>The same 10-second loop in both formats. The MP4 is sharper and smaller, and it autoplays on phones as long as it stays muted. The GIF works anywhere, including places that strip video.</p>
+<div class="pair">
+<figure><video autoplay muted loop playsinline preload="metadata" width="1200" height="960" poster="../media/teaser-poster.jpg">
+<source src="../media/teaser@2x.mp4" type="video/mp4" media="(min-resolution: 2dppx)"><source src="../media/teaser.mp4" type="video/mp4"></video>
+<figcaption>Autoplay MP4: 0.8 MB (1.5 MB on high-resolution screens). <a href="../media/teaser.mp4">Open the file</a></figcaption></figure>
+<figure><img src="../media/teaser.gif" width="800" height="640" alt="The explorer turning from the 6 ways view to History and back.">
+<figcaption>Animated GIF: 1.9 MB, 800 px wide. <a href="../media/teaser.gif">Open the file</a></figcaption></figure>
+</div>
+</main>
+<script>
+addEventListener("message",function(e){if(!e.data||e.data.type!=="nn:resize")return;
+document.querySelectorAll("iframe[data-nn]").forEach(function(f){if(f.contentWindow===e.source)f.style.height=e.data.height+"px";});});
+addEventListener("message",function(e){var d=e.data,f=document.getElementById("nnx");if(d&&d.source==="nn-explorer"&&d.type==="height"&&e.source===f.contentWindow)f.style.height=d.height+"px";});
+</script>
+</body></html>

@@ -1,5 +1,21 @@
 # Pulse — Current State
-*Last updated: October 29, 2026 (Pulse Oct 27 run backfilled). Previously: October 23, 2026 (Nodes and Networks interactive edition staged, **not yet pushed**)*
+*Last updated: November 2, 2026 (Pulse Issue 9). Previously: October 29, 2026*
+
+## Pulse run, Nov 2, 2026 (Issue 9, `2026-W44`, Oct 26 - Nov 1)
+
+- **Windows are now fixed ISO weeks** (Mon-Sun, last full week before the scrape). Issue 9 is keyed `2026-W44`; Issues 7 and 8 were re-keyed to `2026-W42` and `2026-W43` in `data/pulse-issues.json` (published numbers unchanged; seed week now W36). Keys appear only in that build-time file, so no public URL changed. Oct 26 pieces already counted in Issue 8 (431) are deduped out of Issue 9.
+- **Scrape:** `pulse_v2.py --enrich`, 435 s, exit 0. 2,415 creators, 1,746 RSS feeds attempted (1,669 ok, 51 empty, 26 errors), 263 no feed, 406 no-RSS platform; fetch rate 98.5%. Preflight: CSV 2,415 = JSON 2,415.
+- **Issue 9:** 852 creators, 2,675 pieces, 75 beats. Digest `pulse_digest_20261102.json` valid, verification not failed, 4 numeral mismatches logged, **`reviewed_by` empty** (needs a person).
+- **Lens dedupe (fixed Nov 2):** `update_pulse.py` writes `data/pulse-overlap.json` (build-time, not published); `scripts/build_lens_index.py` and `scripts/main_beats.py` skip those URLs, so the Lens matches the page (2,675 pieces, 852 creators). `pulse-picks.json` is still keyed to Issue 8.
+- **Staged, not pushed by Claude:** `pulse.html`, `index.html`, `for-brands.html`, `data/pulse-issues.json`, `assets/data/lens-index.json`, `assets/data/pulse/posts-*.json`.
+- **Scheduling:** still none registered. See private `pipelines/pulse/PULSE-WEEKLY-ROUTINE-SPEC-v1.0.md`.
+
+## Team DMV prototype retired (Nov 2, 2026), committed locally, **not yet pushed**
+
+- `teamdmv/` moved to `_deprecated/teamdmv/` (same pattern as `be0d717`); `teamdmv` removed from the `cp -R` line in `build-dist.sh`; `_redirects` sends `/teamdmv`, `/teamdmv/` and `/teamdmv/*` to `https://dmvswitchboard.com/` with 301 (410 is the alternative; Justin's call). Logged as H3 in `_archive/2026-10-sweep/MANIFEST.md`.
+- **Git history still holds the page**, including about 58 Instagram profiles with follower counts and cohort flags, and the client-side password. No history rewrite done; that is Justin's decision.
+- **Live check not done:** Claude in Chrome was not connected, so whether `/teamdmv/` is served today was not observed (`build-dist.sh:21` says it was). After pushing, open it in a private window to confirm the redirect.
+- Brand baseline regenerated: the six `teamdmv/index.html` entries dropped (count fell, nothing rose).
 
 ## Pulse run, Oct 27, 2026 (backfilled Oct 29)
 

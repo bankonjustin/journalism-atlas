@@ -417,6 +417,7 @@
             line-height: 1.6;
             color: #555;
         }
+        .research-teaser-text p + p { margin-top: 8px; }
         .research-teaser-cta { flex-shrink: 0; }
         .btn-lime-about {
             white-space: nowrap; }
@@ -708,10 +709,17 @@
 
     <div class="research-teaser">
       <div class="research-teaser-text">
-        <!-- SOFT: date-gated by assets/js/nn-gate.js. No link before Nov 5, 2026 (ET); "Read the study" after. -->
+        <!-- Pre-launch: the Watershed lead shows. At the N&N publish instant (assets/js/nn-gate.js) it swaps to the N&N lead. ?nn=1 previews. -->
+        <div data-nn-hide>
+        <h3>A Watershed Moment for News Deserts</h3>
+        <p>Medill&#39;s map shows where local news has dried up. Look closer and information is still moving, across county lines and through platforms, beats and forms the count doesn&#39;t see. <a class="link-body" href="/watershed/">Read the essay</a></p>
+        <p>Also published: the CNTI report on US indie info providers and a Bluesky methodology brief.</p>
+        </div>
+        <div data-nn-show hidden>
         <h3>Nodes and Networks</h3>
         <p>Knight Center for the Future of News, ASU Cronkite School · Nov 5, 2026. A field study of 169 U.S. journalism organizations: how governance, more than platform, beat or geography, predicts how big they get. <span data-nn-link data-nn-class="link-body"></span></p>
         <p>Also published: the Watershed essay, the CNTI report on US indie info providers, and a Bluesky methodology brief.</p>
+        </div>
       </div>
       <div class="research-teaser-cta">
         <a href="research.html" class="btn-lime-about btn btn--primary">View all research →</a>

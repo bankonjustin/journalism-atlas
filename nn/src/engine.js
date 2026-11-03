@@ -57,7 +57,7 @@ const NN = (() => {
     const govGeo = D.gov.map(g => ({ ...g, members: N.filter(n => n.c === g.key).map(n => n.i) }));
     L.gov = { geo: govGeo, ...pack(govGeo, N) };
     // six ways: six path sectors, the exception, started above, under $10M (weights give every labelled sector room)
-    const keys = [...M.paths.map(p => p.key), 'EXCEPTION_PLATFORM_LICENSING', ...(N.some(n => n.o === 'INHERITED') ? ['INHERITED_SCALE'] : []), 'BELOW'];
+    const keys = [...M.paths.map(p => p.key), ...(N.some(n => n.m === 'EXCEPTION_PLATFORM_LICENSING') ? ['EXCEPTION_PLATFORM_LICENSING'] : []), ...(N.some(n => n.o === 'INHERITED') ? ['INHERITED_SCALE'] : []), 'BELOW'];
     const mem = k => N.filter(n => wayKey(n) === k).map(n => n.i);
     const W = keys.map((k, x) => x < 6 ? 24 : k === 'EXCEPTION_PLATFORM_LICENSING' ? 18 : Math.max(14, mem(k).length + 12));
     const gap = .04, tot = W.reduce((a, b) => a + b, 0), unit = (TAU - gap * keys.length) / tot, ub = keys.indexOf('BELOW');

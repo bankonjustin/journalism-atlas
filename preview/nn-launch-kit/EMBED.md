@@ -20,6 +20,18 @@ Use `{{EXPLORER_URL}}` in place of the address once the final one is set. In emb
 
 In a CMS draft preview on a host other than cronkite.asu.edu the iframe may show blank, because the explorer's server only allows framing from asu.edu and journalismatlas.com. It works once the page is published on cronkite.asu.edu.
 
+## 1b. Optional: autoplay
+
+Add `&autoplay=1` to the address and the explorer tours its three views on its own (Governance, the 6 ways, History, 6 seconds each, looping) while it is on screen. The first click, tap, scroll or key press stops it for good, and the explorer then works as usual. It stays still for visitors who have reduced motion turned on, and it pauses when the browser tab is hidden. Without `&autoplay=1` nothing changes.
+
+```html
+<iframe
+  src="https://journalismatlas.com/preview/nn-launch-kit/explorer/?embed=1&tab=governance&autoplay=1"
+  title="Nodes and Networks explorer: 169 U.S. journalism organizations"
+  loading="lazy"
+  style="display:block;width:100%;max-width:760px;height:1650px;margin:0 auto;border:0"></iframe>
+```
+
 ## 2. Optional: trim the height
 
 Optional — trims height if your CMS allows scripts. Add this after the iframe; without it the iframe simply keeps its fixed 1650 px. The explorer posts `{source:'nn-explorer', type:'height', height:<px>}` whenever its size changes.
