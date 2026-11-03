@@ -13,7 +13,7 @@ nav a{margin-right:14px;white-space:nowrap}
 <body><main>
 <h1>Nodes and Networks: review page</h1>
 <p>Each chart below is loaded exactly the way the report will embed it. The link under each heading opens that chart on its own page.</p>
-<nav><a href="#f1">Figure 1</a><a href="#f2">Figure 2</a><a href="#f3">Figure 3</a><a href="#f4">Figure 4</a><a href="#f5">Figure 5</a><a href="#teaser">Teaser</a><a href="../explorer/?tab=ways">Explorer</a></nav>
+<nav><a href="#f1">Figure 1</a><a href="#f2">Figure 2</a><a href="#f3">Figure 3</a><a href="#f4">Figure 4</a><a href="#f5">Figure 5</a><a href="#explorer">Explorer autoplay</a><a href="#teaser">Teaser</a><a href="../explorer/?tab=ways">Explorer</a></nav>
 
 <h2 id="f1">Figure 1: Funding and organization timeline, 2018–2026</h2>
 <p><a href="../figures/timeline/">Open on its own</a></p>
@@ -35,6 +35,10 @@ nav a{margin-right:14px;white-space:nowrap}
 <p><a href="../figures/bands/">Open on its own</a></p>
 <div class="frame"><iframe data-nn src="../figures/bands/" title="Figure 5" height="1062" scrolling="no"></iframe></div>
 
+<h2 id="explorer">Explorer with autoplay</h2>
+<p>The same explorer embed with <code>&amp;autoplay=1</code> added. It turns through Governance, the 6 ways and History on its own until you click, tap, scroll or press a key. Without it, the explorer waits for the reader. <a href="../explorer/?tab=governance&amp;autoplay=1">Open on its own</a></p>
+<div class="frame" style="max-width:760px"><iframe id="nnx" src="../explorer/?embed=1&amp;tab=governance&amp;autoplay=1" title="Explorer with autoplay" height="1650"></iframe></div>
+
 <h2 id="teaser">Teaser for the explorer button: MP4 or GIF</h2>
 <p>The same 10-second loop in both formats. The MP4 is sharper and smaller, and it autoplays on phones as long as it stays muted. The GIF works anywhere, including places that strip video.</p>
 <div class="pair">
@@ -48,5 +52,6 @@ nav a{margin-right:14px;white-space:nowrap}
 <script>
 addEventListener("message",function(e){if(!e.data||e.data.type!=="nn:resize")return;
 document.querySelectorAll("iframe[data-nn]").forEach(function(f){if(f.contentWindow===e.source)f.style.height=e.data.height+"px";});});
+addEventListener("message",function(e){var d=e.data,f=document.getElementById("nnx");if(d&&d.source==="nn-explorer"&&d.type==="height"&&e.source===f.contentWindow)f.style.height=d.height+"px";});
 </script>
 </body></html>

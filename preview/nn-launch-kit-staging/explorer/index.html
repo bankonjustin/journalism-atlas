@@ -604,6 +604,20 @@ function report() { if (!EMBED || parent === window) return; parent.postMessage(
 ui(); paint();
 if (typeof ResizeObserver === 'function') new ResizeObserver(() => { if (svgShown()) { if (Math.max(260, hw()) !== histW) renderHist(); } else if (mode === 'idle') paint(); report(); }).observe(document.body);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (svgShown()) renderHist(); else if (mode === 'idle') paint(); report(); });
+// ?autoplay=1 (for embeds): tour Governance -> 6 ways -> History while the explorer is on screen, until the visitor touches anything.
+// Off with reduced motion. Any pointer, wheel, touch or key input stops it for good; so does clicking a tab.
+(function () {
+  if (qs.get('autoplay') !== '1' || reduced()) return;
+  const ORDER = ['governance', 'ways', 'history'], DWELL = 6000;
+  let timer = null, onScreen = true, stopped = false;
+  const next = () => { timer = null; if (stopped || !onScreen || document.hidden) return; const i = ORDER.indexOf(cur.param); go(byParam(ORDER[(i + 1) % ORDER.length]), false); arm(); };
+  const arm = () => { if (!stopped && timer == null) timer = setTimeout(next, DWELL); };
+  const stop = () => { stopped = true; clearTimeout(timer); timer = null; ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(ev => removeEventListener(ev, stop, true)); };
+  ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(ev => addEventListener(ev, stop, { capture: true, passive: true }));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(timer); timer = null; } else arm(); });
+  if (typeof IntersectionObserver === 'function') new IntersectionObserver(es => { onScreen = es[0].isIntersecting; if (onScreen) arm(); else { clearTimeout(timer); timer = null; } }, { threshold: .35 }).observe(cv);
+  arm();
+})();
 window.NNX = { pt: nm => { const i = N.findIndex(n => n.nm === nm); if (i < 0) return null; const r = cv.getBoundingClientRect(), k = r.width / G.w; return { x: r.left + (G.cx + P[i].x * G.R) * k, y: r.top + (G.cy + P[i].y * G.R) * k }; }, go: id => go(byParam(id), false), get tab() { return cur.param; } };
 })();
 </script>
