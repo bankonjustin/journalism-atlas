@@ -203,7 +203,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .check input { margin-top: 3px; width: 18px; height: 18px; flex: none; accent-color: #000; }
 .err { display: none; font-size: 13px; line-height: 20px; font-weight: 600; color: var(--color-error); }
 .invalid .err { display: block; }
-.err::before { content: "Error: "; }
 .invalid input:not([type=checkbox]):not([type=radio]), .invalid select, .invalid textarea { border-color: var(--color-error); box-shadow: inset 0 0 0 1px var(--color-error); }
 .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md); }
 .form-note { font-size: 14px; line-height: 20px; color: var(--color-error); font-weight: 600; }
@@ -381,7 +380,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
                 <label class="choice"><input type="checkbox" name="interested_in" value="future-phases"><span><span class="ttl">Future phases<span class="pill quiet">Taking applications for 2027</span></span><small>For independent journalists and creators on other beats, as the program expands toward more topics.</small></span></label>
                 <label class="choice"><input type="checkbox" name="interested_in" value="other-opportunities"><span><span class="ttl">Other opportunities<span class="pill quiet">Always open</span></span><small>Stay in the Atlas’s pool for future platform partnerships and pilots beyond SmartNews.</small></span></label>
               </div>
-              <span class="err" id="e-interest">Choose at least one.</span>
+              <span class="err" id="e-interest">Error: choose at least one.</span>
             </fieldset>
 
             <fieldset class="field full" id="g-mode">
@@ -392,17 +391,17 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
               </div>
             </fieldset>
 
-            <div class="field" id="w-name"><label for="f-name" id="l-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name"><span class="err" id="e-name">Enter a name.</span></div>
-            <div class="field" id="w-email"><label for="f-email" id="l-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><span class="err" id="e-email">Enter an email address we can reach you at.</span></div>
+            <div class="field" id="w-name"><label for="f-name" id="l-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name"><span class="err" id="e-name">Error: enter a name.</span></div>
+            <div class="field" id="w-email"><label for="f-email" id="l-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><span class="err" id="e-email">Error: enter an email address we can reach you at.</span></div>
 
-            <div class="field" id="w-rname" hidden><label for="f-rname">Your name</label><input id="f-rname" name="recommender_name" type="text" autocomplete="name" aria-describedby="e-rname"><span class="err" id="e-rname">Enter your name.</span></div>
-            <div class="field" id="w-remail" hidden><label for="f-remail">Your email</label><input id="f-remail" name="recommender_email" type="email" autocomplete="email" aria-describedby="e-remail"><span class="err" id="e-remail">Enter your email address.</span></div>
+            <div class="field" id="w-rname" hidden><label for="f-rname">Your name</label><input id="f-rname" name="recommender_name" type="text" autocomplete="name" aria-describedby="e-rname"><span class="err" id="e-rname">Error: enter your name.</span></div>
+            <div class="field" id="w-remail" hidden><label for="f-remail">Your email</label><input id="f-remail" name="recommender_email" type="email" autocomplete="email" aria-describedby="e-remail"><span class="err" id="e-remail">Error: enter your email address.</span></div>
 
-            <div class="field" id="w-pub"><label for="f-pub" id="l-pub">Publication or channel</label><input id="f-pub" name="publication" type="text" required aria-describedby="e-pub"><span class="err" id="e-pub">Enter the name of the publication or channel.</span></div>
-            <div class="field" id="w-url"><label for="f-url" id="l-url">Link to your work</label><input id="f-url" name="link_primary" type="url" inputmode="url" placeholder="https://" required aria-describedby="e-url"><span class="err" id="e-url">Enter a full link, starting with https://</span></div>
+            <div class="field" id="w-pub"><label for="f-pub" id="l-pub">Publication or channel</label><input id="f-pub" name="publication" type="text" required aria-describedby="e-pub"><span class="err" id="e-pub">Error: enter the name of the publication or channel.</span></div>
+            <div class="field" id="w-url"><label for="f-url" id="l-url">Link to your work</label><input id="f-url" name="link_primary" type="url" inputmode="url" placeholder="https://" required aria-describedby="e-url"><span class="err" id="e-url">Error: enter a full link, starting with https://</span></div>
 
-            <div class="field" id="w-platform"><label for="f-platform" id="l-platform">Where you publish</label><select id="f-platform" name="platform_primary" required aria-describedby="e-platform"></select><span class="err" id="e-platform">Choose where the work is published.</span></div>
-            <div class="field" id="w-beat"><label for="f-beat" id="l-beat">Main beat</label><select id="f-beat" name="group" required aria-describedby="e-beat"></select><span class="err" id="e-beat">Choose a main beat.</span></div>
+            <div class="field" id="w-platform"><label for="f-platform" id="l-platform">Where you publish</label><select id="f-platform" name="platform_primary" required aria-describedby="e-platform"></select><span class="err" id="e-platform">Error: choose where the work is published.</span></div>
+            <div class="field" id="w-beat"><label for="f-beat" id="l-beat">Main beat</label><select id="f-beat" name="group" required aria-describedby="e-beat"></select><span class="err" id="e-beat">Error: choose a main beat.</span></div>
 
             <div class="field"><label for="f-loc" id="l-loc">Where you’re based <span class="opt">(optional)</span></label><input id="f-loc" name="location" type="text" autocomplete="address-level2"></div>
             <div class="field"><label for="f-freq">How often you publish <span class="opt">(optional)</span></label>
@@ -412,7 +411,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 
             <div class="field full" id="w-consent">
               <label class="check"><input id="f-consent" name="consent" type="checkbox" value="yes" required aria-describedby="e-consent"><span id="l-consent">The Independent Journalism Atlas and SmartNews can contact me about this program and future opportunities.</span></label>
-              <span class="err" id="e-consent">Check the box so we can contact you.</span>
+              <span class="err" id="e-consent">Error: check the box so we can contact you.</span>
             </div>
 
             <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
