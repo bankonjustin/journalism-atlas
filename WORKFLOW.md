@@ -8,7 +8,7 @@
 
 **Justin makes product, structure, page, copy, build and release decisions.**
 
-**Design values are not decisions to make in a session.** Colors, typefaces, sizes, weights, spacing, radius, icons and component states are locked in `docs/design/DESIGN-TOKENS-v16.md`. They change only through a new token version written or approved by **James Bareham** (Creative Director, james@journalismatlas.com). If a task seems to need one, stop and list it for James; don't build it, and don't map it to the nearest token.
+**Design values are not decisions to make in a session.** Colors, typefaces, sizes, weights, spacing, radius, icons and component states are locked in `docs/design/DESIGN-TOKENS-v16.1.md`. They change only through a new token version written or approved by **James Bareham** (Creative Director, james@journalismatlas.com). If a task seems to need one, stop and list it for James; don't build it, and don't map it to the nearest token.
 
 - **James Bareham**: owns the design tokens and brand guide. His principles live at `_reference/james-design-principles.md`; where a value there conflicts with v16, v16 wins.
 - **Ryan**: data advisor. Consult before modifying `creators-data.json`, `creators-master.csv`, or the data pipeline (`convert.js`, `DATA-OPS-PROTOCOL.md`).
@@ -33,7 +33,7 @@ The CSS_AUDIT.md and JS_AUDIT.md files document the baseline. New work should no
 Before writing any code:
 
 - [ ] Read `CLAUDE.md` (page inventory, CSS architecture, key constraints)
-- [ ] Read docs/design/DESIGN-TOKENS-v16.md (Governance, Locks and Exceptions first) if the session touches any styling, inline styles, charts or canvas text
+- [ ] Read docs/design/DESIGN-TOKENS-v16.1.md (Governance, Locks and Exceptions first) if the session touches any styling, inline styles, charts or canvas text
 - [ ] Read `DATA-OPS-PROTOCOL.md` if the session touches any JSON or CSV data
 - [ ] If working from a Chat-originated brief: cross-reference file paths and page names against actual repo state — briefs can go stale
 
@@ -56,7 +56,7 @@ Claude Chat is good at briefs and strategy. Claude Code is authoritative on curr
 1. Work on `main`; Cloudflare builds and deploys `main` on every push
 2. Verify in the browser (load the page, check console, check design) and run `python3 scripts/check_brand.py`
 3. Justin pushes `main` via GitHub Desktop (Code never pushes)
-4. James reviews design changes (`docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml`); until CODEOWNERS exists, ask him directly, before Justin pushes. The `brand-check` status must pass
+4. James's review of design changes (`docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml`): Deferred until after the v16.1 level-set (DESIGN-TOKENS-v16.1.md § Enforcement, item 3). Nothing waits on James's GitHub access. The `brand-check` status must pass
 5. Cloudflare deploys `main` within about a minute
 6. Test on the live URL in a fresh incognito window (cached redirects can mask issues)
 
@@ -65,8 +65,8 @@ Claude Chat is good at briefs and strategy. Claude Code is authoritative on curr
 ## When to Stop and Ask
 
 Stop and surface to Justin when:
-- A decision requires a judgment call on design that isn't covered by `docs/design/DESIGN-TOKENS-v16.md`
-- A brief, mockup or request names a font, color, size or rule that isn't in DESIGN-TOKENS-v16.md (apply by role; list the gap for James)
+- A decision requires a judgment call on design that isn't covered by `docs/design/DESIGN-TOKENS-v16.1.md`
+- A brief, mockup or request names a font, color, size or rule that isn't in DESIGN-TOKENS-v16.1.md (apply by role; list the gap for James)
 - `check_brand.py` fails and the fix would mean editing the baseline, the check, `variables.css` or the tokens
 - A brief conflicts with current repo state in a way that affects the build approach
 - A data operation would modify `creators-master.csv` or change the JSON schema

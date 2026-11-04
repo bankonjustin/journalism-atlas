@@ -689,7 +689,7 @@ var ATLAS_FLAGS = { standards: false, lab: false, lens: true, lensMaxAgeDays: 14
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var bad = form.querySelector('input[required]:invalid');
-    if (bad) { msg.dataset.state = 'error'; msg.textContent = 'Please fill in the ' + (bad.id === 'f-email' ? 'email' : bad.id === 'f-issue' ? 'issue' : 'role and organization') + ' field.'; bad.focus(); return; }
+    if (bad) { msg.dataset.state = 'error'; msg.textContent = 'Error: please fill in the ' + (bad.id === 'f-email' ? 'email' : bad.id === 'f-issue' ? 'issue' : 'role and organization') + ' field.'; bad.focus(); return; }
     msg.dataset.state = ''; msg.textContent = 'Sending…';
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
       .then(function (r) {
@@ -698,7 +698,7 @@ var ATLAS_FLAGS = { standards: false, lab: false, lens: true, lensMaxAgeDays: 14
         form.hidden = true;
         var c = document.getElementById('confirm'); c.hidden = false; c.focus();
       })
-      .catch(function () { msg.dataset.state = 'error'; msg.textContent = 'That did not send. Your answers are still here. Try again, or write to us from the contact page.'; });
+      .catch(function () { msg.dataset.state = 'error'; msg.textContent = 'Error: that did not send. Your answers are still here. Try again, or write to us from the contact page.'; });
   });
 })();
 </script>

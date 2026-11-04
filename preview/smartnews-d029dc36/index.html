@@ -203,6 +203,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .check input { margin-top: 3px; width: 18px; height: 18px; flex: none; accent-color: #000; }
 .err { display: none; font-size: 13px; line-height: 20px; font-weight: 600; color: var(--color-error); }
 .invalid .err { display: block; }
+.err::before { content: "Error: "; }
 .invalid input:not([type=checkbox]):not([type=radio]), .invalid select, .invalid textarea { border-color: var(--color-error); box-shadow: inset 0 0 0 1px var(--color-error); }
 .submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md); }
 .form-note { font-size: 14px; line-height: 20px; color: var(--color-error); font-weight: 600; }
@@ -671,7 +672,7 @@ form.addEventListener("submit", async e => {
   e.preventDefault();
   const note = $("form-note"), btn = $("submit"); note.textContent = "";
   const bad = validate();
-  if (bad) { bad.focus(); note.textContent = "Fix the highlighted fields, then apply again."; return; }
+  if (bad) { bad.focus(); note.textContent = "Error: fix the highlighted fields, then apply again."; return; }
   const fd = new FormData(form), data = {};
   fd.forEach((v, k) => { data[k] = k in data ? data[k] + "; " + v : v; });
   const honeypot = data.company_website; delete data.company_website;
@@ -685,7 +686,7 @@ form.addEventListener("submit", async e => {
     form.style.display = "none"; const done = $("done"); done.style.display = "block"; done.focus();
   } catch (err) {
     btn.disabled = false; btn.textContent = "Apply to join";
-    note.textContent = "That didn’t send. Check your connection and try again.";
+    note.textContent = "Error: that didn’t send. Check your connection and try again.";
   }
 });
 </script>

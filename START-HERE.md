@@ -2,13 +2,12 @@
 
 *Updated 2026-10-31 (sweep). Delete an item when it is resolved.*
 
-Design rules: DESIGN-TOKENS-v16.md. Open design questions for James live in docs/design/v15-session-2/JAMES-OPEN-ITEMS.md.
+Design rules: DESIGN-TOKENS-v16.1.md. Open design questions for James live in docs/design/v15-session-2/JAMES-OPEN-ITEMS.md.
 
 ## For Justin
-- **v16 install, to finish (2026-10-27):** walk James through `docs/briefs/V16-INSTALL-NOTES-FOR-JAMES-2026-10.md`; **CODEOWNERS is deferred** (no file yet; write it once you have James's GitHub username, using the narrowed list in his notes); do the GitHub and Cloudflare steps in the install brief's Part E; check the first Cloudflare build log shows the brand check printing OK (or a SKIPPED warning, which means Python is missing).
+- **v16 install, to finish (2026-10-27):** CODEOWNERS and James's GitHub review: Deferred until after the v16.1 level-set (DESIGN-TOKENS-v16.1.md § Enforcement, item 3). Do the GitHub and Cloudflare steps in the install brief's Part E; check the first Cloudflare build log shows the brand check printing OK (or a SKIPPED warning, which means Python is missing).
 - **Brand-check burn-down (approved):** order is `index.html`, `pulse.html`, `city-lab-chicago.html`, then by count; Chicago is not exempt. Each fix regenerates `scripts/brand-baseline.json` in the same change.
-- **Provisional, confirm with James:** error text roles, monospace = live or versioned data only, Acid = changed recently (see `docs/design/CLAUDE-DESIGN-RULES.md`).
-- **Team DMV header and footer:** open decision.
+- **v16.1 level-set:** `docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` (PR 1 foundation, PR 2 For Brands, PR 3 Pulse). The provisional rules are withdrawn.
 - **TIJA LLC GitHub organization and the repo going private:** see the repo-visibility brief.
 - **Logos:** header swap done (blk/wht wired, default white). Still needed: `Atlas_logo_lockup_stacked_wht_web.svg` (the footer still uses `Journalism_Atlas_wordmark_stacked_white.svg`). The old header SVG (`Journalism_Atlas_wordmark_horizontal_lockup_black.svg`) is now unreferenced and can be deleted.
 - **Partner pages have a 72px empty band above the header** (`body { padding-top: 72px }`, pre-existing; the nav is sticky now). Remove the padding?
@@ -27,6 +26,6 @@ Design rules: DESIGN-TOKENS-v16.md. Open design questions for James live in docs
 - **Release date, dateline, launch date** are open.
 - **URL:** `partners/smartnews` (default on ungate, via `git mv`) vs `/smartnews` with a redirect.
 - **Template:** should this become the reusable "partner announcement" template? Recommendation: after the second partner.
-- **Brand guide:** resolved. `ATLAS-BRAND-GUIDE-v5.md` and `DESIGN-TOKENS-v16.md` live in `docs/design/`; earlier versions (v3, v4, v14, v15) are in `docs/design/archive/`.
+- **Brand guide:** resolved. `ATLAS-BRAND-GUIDE-v5.1.md` and `DESIGN-TOKENS-v16.1.md` live in `docs/design/`; earlier versions (v3, v4, v14, v15) are in `docs/design/archive/`.
 - **Before ungating:** deploy the Apps Script, submit one real test application and confirm the row lands in the Sheet (the form posts with `no-cors` and shows success even when the endpoint is broken).
 - **For James:** twelve items in `docs/briefs/smartnews/REVIEW-NOTES-JAMES.md`, including error-text contrast (4.3:1) and the header search field at 390 px.

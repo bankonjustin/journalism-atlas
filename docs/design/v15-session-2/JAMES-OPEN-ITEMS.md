@@ -15,7 +15,7 @@
 1. **Header Search button is 44px (was 27px).** The header grows 3px on every page. OK, or should the field and button share a height?
 2. **Hero buttons on black turned gray.** Primary on dark rests at `#303030` with a `#909090` outline. Does a gray button read as the main action on the black homepage hero, or should dark heroes get an exception?
 3. **nj-lab / njlab (F2).** The header with the held-back C4 patch is white like other partner pages (`screenshots/f2/F2-compare.png`). The two pages still don't load `components.css` and carry a broken `variables.css` link. Apply the patch (`docs/design/v15-session-1/C4-held-back.patch`, needs hand-applying) and migrate them? `.cta-ghost` is untouched.
-4. **Tab strips.** `.analysis-tab` (pulse), `.tab-btn` (city-lab-chicago, selected underline), `.layer-stat-btn` (city-lab-chicago) are underline/segment strips. The spec lists "tabs shown as buttons" as Secondary. Treat them as Secondary buttons, or give underline tabs their own state spec? (Only the Lime tint on the Chicago selected tab was removed.)
+4. **Tab strips.** `.analysis-tab` (pulse), `.tab-btn` (city-lab-chicago, selected underline), `.layer-stat-btn` (city-lab-chicago) are underline/segment strips. The spec lists "tabs shown as buttons" as Secondary. Treat them as Secondary buttons, or give underline tabs their own state spec? (Only the Lime tint on the Chicago selected tab was removed.) **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). Tab strips become secondary buttons.
 5. **Homepage hero pills `.hcn-pill`** are colour-matched to the canvas clusters (the graphic's legend). They keep their cluster colours at rest, including Lime and Acid for two of them. Legend, or buttons that should be monotone?
 6. **Acid-coloured links at rest on dark:** `pulse` masthead creator names (`.lede-creator`) and the Chicago "245" stat link. Editorial highlights, or links that should rest white?
 7. **Carousel dots** (`.featured-progress-dot`, 6px, selected = Acid). Below the 44px target; fine as indicators, or enlarge?
@@ -36,10 +36,10 @@
 
 Logged 2026-10-31. James's own wording is not in the repo; these are the topics as Justin relayed them. Numbered S1-S7 so they don't collide with items 1-19 above. The mapping against existing answers is in `docs/design/DESIGN-STATE-2026-10-31.md` section 5; none has an answer on file.
 
-- **S1.** Provisional design-rule conflicts (`CLAUDE-DESIGN-RULES.md`: error text roles, monospace, Acid).
-- **S2.** Error-color contrast (`#f50000` is below 4.5:1 on white).
-- **S3.** A secondary brand color, with transparency tokens (related to the tinted-palette question; no existing entry).
-- **S4.** CODEOWNERS and review scope (needs James's GitHub username).
-- **S5.** Repo private under a TIJA LLC org (private repo decision W3).
-- **S6.** The other team's shared header and footer (Team DMV).
-- **S7.** Interim defaults for Pulse and For Brands (brief section 6; one v17 after Nov 5 is the default).
+- **S1.** Provisional design-rule conflicts (`CLAUDE-DESIGN-RULES.md`: error text roles, monospace, Acid). **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). Withdrawn; v16.1 is the only rule set.
+- **S2.** Error-color contrast (`#f50000` is below 4.5:1 on white). **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). `#b3261e`, one red site-wide.
+- **S3.** A secondary brand color, with transparency tokens (related to the tinted-palette question; no existing entry). **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). Tints allowed until v17.
+- **S4.** CODEOWNERS and review scope (needs James's GitHub username). **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). Deferred until after the level-set.
+- **S5.** Repo private under a TIJA LLC org (private repo decision W3). **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). Not a design decision; Justin's call.
+- **S6.** The other team's shared header and footer (Team DMV). **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). Closed: Team DMV retired Nov 2 (`386090b`).
+- **S7.** Interim defaults for Pulse and For Brands (brief section 6; one v17 after Nov 5 is the default). **Answered Nov 3, 2026** (`docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` § 1). Ship now, using v16.1 § Interim Treatments.

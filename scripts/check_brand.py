@@ -21,9 +21,11 @@ Rules (v16 § Enforcement):
   font-size     text below 12px, anywhere (pages, inline styles, JS strings)
   font-weight   800 or 900
   pill-radius   border-radius 999px / 9999px
-  color         a hex color (3, 4, 6 or 8 digits) whose base is not in the v16 palette (Tiers 1-5, Neutral and Cool scales)
+  color         a hex color (3, 4, 6 or 8 digits) whose base is not in the v16.1 palette (Tiers 1-5, Neutral and Cool scales)
   lime-text     Lime Green used as a text color
   color-alpha   a 4- or 8-digit hex whose base IS a palette color: transparency, for James to review
+  tints         v16.1 § Tints: Acid or Lime with transparency (8-digit hex, rgba) is allowed outside text colors, until v17;
+                as a text color it is still flagged (color-alpha, color-func)
   color-func    rgb(), rgba(), hsl() or hsla() in CSS, inline styles or JS strings (values are not mapped to the palette).
                 Pure white or black at any alpha is flagged ONLY as a text color (color, -webkit-text-fill-color, caret-color,
                 fill/stroke on SVG or canvas text); in shadows, borders, backgrounds and overlays it is allowed.
@@ -66,12 +68,23 @@ PALETTE = {
     "78909c", "ff7043", "ba55cc", "c6a700", "ef0e61", "2196f3", "00acc1", "26a69a", "d81b72",
     "e53935", "7c4dff", "5b7fa6", "bf5a3a", "a1887f", "6a8d9b", "ea80fc", "40c4ff", "ffab40",
     # Tier 5
-    "f50000", "ffbc00",
+    "b3261e", "ffbc00",
 }
 
 HEX = re.compile(r"(?<![\w&])#([0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{4}|[0-9a-fA-F]{3})\b(?![\w-])(?![^;{}\n\"'<>$]*\{)")
 # A "#..." that is an anchor, an id lookup or a CSS selector, not a color: preceded by one of these, or followed by "{"
 HEX_REF_BEFORE = re.compile(r"(?:href\s*=|url\(|querySelector(?:All)?\(|closest\(|getElementById\()\s*['\"]?\s*$", re.I)
+TINT_BASES = {"ceff00", "97d600"}   # v16.1 § Tints: Acid and Lime tints allowed outside text, until v17
+
+def is_tint(call):
+    """rgba()/hsla() of Acid (206,255,0) or Lime (151,214,0) with alpha."""
+    name, _, args = call.partition("(")
+    nums = re.findall(r"[\d.]+", args)
+    if not name.strip().lower().startswith("rgb") or len(nums) < 4:
+        return False
+    hexv = "".join(f"{int(float(n)):02x}" for n in nums[:3])
+    return hexv in TINT_BASES
+
 COLOR_FUNC = re.compile(r"\b(?:rgba?|hsla?)\s*\([^)\n]{0,40}\)?", re.I)
 NAMED_COLORS = frozenset("""aliceblue antiquewhite aqua aquamarine azure beige bisque blanchedalmond blue blueviolet brown
 burlywood cadetblue chartreuse chocolate coral cornflowerblue cornsilk crimson cyan darkblue darkcyan darkgoldenrod darkgray
@@ -245,10 +258,14 @@ def scan(path, text):
         if h not in PALETTE:
             add("color", m.start(), "#" + m.group(1))
         elif alpha:
+            if h in TINT_BASES and not is_text_color(text, m.start()):
+                continue  # v16.1 tint
             add("color-alpha", m.start(), "#" + m.group(1))
     for m in COLOR_FUNC.finditer(text):
         if white_or_black(m.group(0)) and not is_text_color(text, m.start()):
             continue  # white or black in a shadow, border, background or overlay is allowed; only text colors are locked
+        if is_tint(m.group(0)) and not is_text_color(text, m.start()):
+            continue  # v16.1 tint
         add("color-func", m.start(), m.group(0))
     def named(value, pos):
         value = re.sub(r"(?:var|url)\([^)]*\)", " ", value.lower())

@@ -1099,8 +1099,7 @@
     .cf-row .btn { flex: 0 0 auto; }
     .corner-form .opt { font-weight: 400; color: var(--p-ink-2); }
     .form-msg { font-size: 15px; min-height: 1.4em; color: var(--p-ink); }
-    .form-msg[data-state="error"] { color: #f50000; }
-    :root:not([data-theme="light"]) .form-msg[data-state="error"] { color: #ff6b6b; }
+    .form-msg[data-state="error"] { color: var(--color-error); }
     .suggest-box { margin: 8px 0 24px; }
     .c-day { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--p-ink-2); margin: 28px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--p-border); }
     .c-rows { list-style: none; max-width: 900px; }
@@ -4227,12 +4226,12 @@ function wireIntake(form, okText) {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const bad = form.querySelector('[required]:invalid');
-    if (bad) { msg.dataset.state = 'error'; msg.textContent = bad.type === 'email' ? 'Please enter a valid email address.' : 'Please fill in this field.'; bad.focus(); return; }
+    if (bad) { msg.dataset.state = 'error'; msg.textContent = bad.type === 'email' ? 'Error: please enter a valid email address.' : 'Error: please fill in this field.'; bad.focus(); return; }
     const pu = form.querySelector('[name=page_url]'); if (pu) pu.value = location.href;   // the address with the viewer's filters, read at send time
     msg.dataset.state = ''; msg.textContent = 'Sending…';
     fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
       .then(r => { if (!r.ok) throw new Error('status ' + r.status); msg.dataset.state = 'ok'; msg.textContent = okText; form.querySelectorAll('input:not([type=hidden]), button').forEach(el => { el.disabled = true; }); })
-      .catch(() => { msg.dataset.state = 'error'; msg.textContent = 'That did not send. Your answer is still here. Try again in a moment.'; });
+      .catch(() => { msg.dataset.state = 'error'; msg.textContent = 'Error: that did not send. Your answer is still here. Try again in a moment.'; });
   });
 }
 

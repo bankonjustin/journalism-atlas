@@ -1,14 +1,24 @@
-# Atlas Design Tokens — v16
+# Atlas Design Tokens — v16.1
 *Canonical design reference — committed to repo as source of truth for implementation*
 
-*Last updated: October 27, 2026*
-*Previous version: v15 (October 22, 2026)*
+*Last updated: November 3, 2026*
+*Previous version: v16 (October 27, 2026)*
 *Owner: James (james@journalismatlas.com)*
 
 > **How this file works:** This is the single source of truth for all visual decisions. When Justin implements design changes with Claude Code, he references this document. If it's not here, it doesn't get implemented. If it changes here, it changes everywhere. **The values and rules in this file are locked** (see Governance, Locks and Exceptions): no session, brief or request can add, change or override them. Only a new token version, approved by James, can.
 
+### What changed in v16.1
+v16.1 replaces v16 in full. It's a point release that settles the questions blocking the v16 level-set (James's decisions, November 3, 2026). Everything not listed here carries over from v16 unchanged.
+
+- **One error red: `#b3261e`.** It replaces `#f50000` everywhere, on every page, through `--color-error`. On light surfaces it may be text, icons, outlines or a fill; on dark surfaces it's a fill with white text only, never text, icons or thin lines (the same pattern as Acid Green on light surfaces). See Tier 5 and Error Red by Surface. The provisional error variables and `--color-error-dark` (`#ff4422`) are retired.
+- **No dark mode, anywhere, for now.** No page may restyle itself for a viewer's dark-mode setting. Pulse's page-only dark mode is removed. A full site dark mode is a future design initiative, considered only after the site is consistent.
+- **Acid and Lime tints allowed until v17.** Acid Green or Lime Green with transparency may be used as hover and overlay tints in backgrounds, borders and shadows, never as text, icons or thin strokes. This records what the site already does; it adds no new hex. See Tints.
+- **Provisional rules are void.** A design rule that isn't in this file doesn't apply, wherever it's written. The provisional rules added on October 28 ("monospace = live or versioned data only", "Acid = changed recently", the provisional error roles) are withdrawn.
+- **Interim treatments until v17** for things the tokens don't yet define (a "live" signal, warnings, a phone-size Display step, strokes on dark mastheads, tab strips). See Interim Treatments.
+- **GitHub review is deferred.** Justin makes every change in the repo. James's code-owner review comes after the site is level-set; until then the build check is the lock. See Enforcement.
+
 ### What changed in v16
-v16 replaces v15 in full. **It's a consolidation, not a redesign:** every color, size, weight, spacing value and radius is the v15 value. v16 locks those values, closes the gaps that let pages ship off-system, and adds enforcement. Everything not listed here carries over from v15 unchanged.
+v16 replaced v15 in full. **It's a consolidation, not a redesign:** every color, size, weight, spacing value and radius is the v15 value. v16 locks those values, closes the gaps that let pages ship off-system, and adds enforcement. Everything not listed here carries over from v15 unchanged.
 
 - **Governance, locks and exceptions (new section).** Justin makes product, structure, copy and build decisions. Design values are fixed by this file and change only through a new token version approved by James. Claude refuses requests that would break them.
 - **Font allowlist.** Inter, Merriweather and Source Code Pro are the only typefaces on journalismatlas.com, plus Material Symbols Outlined for icons. Every other family is off-system, including system font stacks named on a page.
@@ -80,7 +90,8 @@ Everything in this file. In practice, nobody, including Claude, picks a color, t
 - **Type scale, weights and the type floor.**
 - **Spacing scale, radius, widths, icon set and sizes.**
 - **Component states:** buttons, links, tags, eyebrows, nav.
-- **Anything not defined here doesn't get built** until a token version defines it. Examples that are not defined today: a site dark mode, a "live" status color, a warning color, page-local token sets.
+- **Anything not defined here doesn't get built** until a token version defines it. Examples that are not defined today: a dark mode (site-wide or per page), a "live" status color, a warning color, page-local token sets. Until v17, Interim Treatments says what to use instead.
+- **No provisional rules.** A rule written anywhere else (a rules file, a brief, a README, a code comment) that adds to or differs from this file doesn't apply. Rules files for Claude Code restate this file; they don't extend it.
 
 ### How Claude applies the locks
 - Claude (in this project, in Claude Code and in any brief) implements only values and rules from this file and the brand guide.
@@ -112,7 +123,7 @@ Future co-branded reports may get their own entry, with named fonts and paths. T
 | 2. Monotones | Structure | UI, text, surfaces, borders |
 | 3. Brand secondary | Expression | Decks, social, Pulse and editorial graphics, campaigns, print |
 | 4. Data categories | Encoding | Anything that represents a taxonomy category: charts, category tags, labels |
-| 5. System | Feedback | Errors, focus, dark-mode display accent |
+| 5. System | Feedback | Errors, focus, display accent on dark surfaces |
 
 **Rules across tiers**
 - Don't mix brand secondary and data-category colors in one composition.
@@ -209,13 +220,25 @@ See the D3 Visualization Color Array below. Values are unchanged from v11; what 
 
 | Role | Value | Notes |
 |---|---|---|
-| Error state | `#f50000` | Validation, destructive actions, failed states |
-| On-error (text on error) | `#ffffff` | |
+| Error state | `#b3261e` | Validation, destructive actions, failed states. v16.1: replaces `#f50000`. See Error Red by Surface |
+| On-error (text on error) | `#ffffff` | 6.5:1 on `#b3261e` |
 | Focus ring (dark surfaces) | `2px solid #97d600`, offset `2px` | Keyboard navigation |
 | Focus ring (light surfaces) | `2px solid #5d7400`, offset `2px` | Lime fails 3:1 on light surfaces (v13) |
-| Dark-mode display accent | `#ffbc00` | Display use on dark surfaces (e.g. a large stat) |
+| Dark-surface display accent | `#ffbc00` | Display use on dark surfaces (e.g. a large stat). Despite the old name, not a dark-mode color |
 
 Never decorative, never a category.
+
+### Error Red by Surface (v16.1)
+
+One error red, `#b3261e`, used two ways. It mirrors Greens by Surface: a color that's too dark to read on dark surfaces works there only as a fill.
+
+| | On light surfaces (step 1–2) | On dark surfaces (step 6–8) |
+|---|---|---|
+| **Error `#b3261e`** | Text, icons, outlines and fills. 6.5:1 on white, 5.7:1 on `#efefef` | **Fill only**, with `#ffffff` text on top (6.5:1), e.g. an error banner or label. Never text, icons or thin lines (2.9:1 on `#121212`) |
+
+- Error text on light surfaces starts with "Error:" or sits beside an error icon, so the error isn't carried by color alone.
+- `#b3261e` is reserved for errors. It's distinct from the data-category reds (Criminal Justice `#e53935`) and the brand dark orange (`#b35100`), and it's never used for a category, a decoration or emphasis.
+- `--color-error-dark` (`#ff4422`) and the four `--color-*-provisional` error variables are retired.
 
 ### Semantic Color Assignments
 
@@ -238,7 +261,8 @@ All gray roles reference the Neutral scale (see Site scale above). "Replaces" li
 | Primary button | `--color-button` | `#303030` | `#ceff00` at rest (v14) | Step 6; white text; outline `--color-button-outline` (step 5 on light) or `--color-button-outline-on-dark` (step 4 on dark) |
 | Secondary button outline | `--color-button-2-outline` | `#303030` | | No fill; `#000000` text on light. On dark: `#ffffff` text, outline `--color-button-outline-on-dark` |
 | Focus ring (dark surfaces) | `--color-focus` | `#97d600` | | Lime Green — its only UI role |
-| Error state | — | `#f50000` | | |
+| Error state | `--color-error` | `#b3261e` | `#f50000` | v16.1. On dark surfaces: fill only, with `--color-on-error` text |
+| On-error | `--color-on-error` | `#ffffff` | | Text on an error fill |
 | Site header background | — | `#ffffff` (default) or `#000000` | "always `#000000`" | See Site Header below |
 | Body link (light surfaces) | `--color-link` | `#5d7400` | | Underlined at rest; hover step 8 |
 | Body link (dark surfaces) | `--color-link-on-dark` | `#ffffff` | | Underlined at rest; hover `#ceff00` (was `#97d600`) |
@@ -268,8 +292,8 @@ All gray roles reference the Neutral scale (see Site scale above). "Replaces" li
   --color-focus-on-light:  #5d7400;  /* light surfaces */
   --color-link:            #5d7400;  /* light surfaces, underlined */
   --color-link-on-dark:    #ffffff;  /* dark surfaces, underlined */
-  --color-error:           #f50000;
-  --color-on-error:        #ffffff;
+  --color-error:           #b3261e;  /* v16.1. Light surfaces: text, icons, outlines, fills. Dark surfaces: fill only */
+  --color-on-error:        #ffffff;  /* text on an error fill */
   --color-display-dark:    #ffbc00;
 }
 ```
@@ -295,6 +319,8 @@ All gray roles reference the Neutral scale (see Site scale above). "Replaces" li
 **Off-system grays.** Only the values in the two scales are on-system. Any other gray in the codebase (e.g. `#d4d4d8`, `#b0b0b8`, and the warm family `#888880`, `#4a4a46`, `#ddddd8`) is off-system—the warm family isn't intentional. Snap them all to the **Neutral** scale by role (v15; was Cool) in a later release, using a by-role mapping reviewed on staging. The six named grays come first.
 
 **Text colors (v16).** Every text color is a role variable (or a hex from this file where a component spec gives one). Opacity-based text colors such as `rgba(255,255,255,0.3)` are off-system: they make contrast depend on the surface behind them, and most fail 4.5:1. On dark surfaces, secondary text is `--color-text-on-dark-2` (step 3); muted or disabled is step 4 or 5 per Component States. Low-opacity treatments stay allowed for dividers and decorative strokes (e.g. footer dividers per footer-redesign-spec.md), never for text.
+
+**Tints (v16.1, until v17).** Acid Green (`#ceff00`) and Lime Green (`#97d600`) with transparency, written as `rgba()` or an 8-digit hex, may be used as hover and overlay tints in `background`, `border-color`, `box-shadow` and `outline`, and as the fill of non-text graphic shapes. Never as text, icons or thin strokes, and never as a resting state that signals meaning. This records existing use (about 144 declarations in the October 28 count); it isn't a new color. v17 decides whether tints get named roles.
 
 **Implementation note:** after the swap, search the codebase for the six retired grays (`#313131`, `#efeff2`, `#6b6b6b`, `#9e9e9e`, `#bdbdbd`, `#a8a8a8`) and `#ff9600`. None should remain outside this file's history. Cool hexes should remain only in graphics code.
 
@@ -343,6 +369,19 @@ Source Code Pro 500, 13px, all caps, letter-spacing 0.12em. No arrow, not clicka
 | Legal links | Tag: Source Code Pro 500, 12px, all caps, 0.08em | `#ffffff`; hover Acid Green, underlined |
 
 - Touch targets: footer links are at least 44px tall on touch devices (padding, not larger type).
+
+### Interim Treatments (v16.1, until v17)
+
+These cover things the tokens don't define yet. Each uses only existing values. v17 may replace them.
+
+| Need | Interim treatment |
+|---|---|
+| A "live" or "now" signal (e.g. For Brands' live dot) | Monotone: a `#ffffff` dot on dark surfaces, step 6 on light. Never Acid Green, which means interaction |
+| Connecting lines and strokes in graphics on dark surfaces | Cool step 3 `#c6c6cd` (graphic surface) |
+| A warning or "stale" state, a downward trend | `--color-text-secondary` (light) or `--color-text-on-dark-2` (dark), with the meaning in words or a glyph ("▼ 12%", "Updated 6 days ago"). Never carried by color |
+| Display headings on phones | 48px at every width (no responsive step) |
+| Tab strips (a row of view switches) | Secondary buttons, per Component States, with `aria-selected` as the Selected state |
+| A viewer's dark-mode setting | Ignored: pages render the same for everyone. No `prefers-color-scheme` styles, no `color-scheme: dark`, no theme toggle |
 
 ---
 
@@ -783,11 +822,12 @@ The rules are enforced by the build, not by memory.
 | `font-size` | Text below 12px, including inline styles and canvas fonts |
 | `font-weight` | 800 or 900 |
 | `pill-radius` | `border-radius` of 999px or 9999px |
-| `color` | A hex color not in Tiers 1–5 or the two monotone scales |
+| `color` | A hex color not in Tiers 1–5 or the two monotone scales (v16.1: `#b3261e` replaces `#f50000` in the palette) |
 | `lime-text` | Lime Green as a text color |
+| Tints (v16.1) | Acid or Lime with transparency is allowed in non-text properties (see Tints); as a text color it fails |
 
 2. **Ratchet, then strict.** Today's site has known violations (2,308 in 59 files in the public repo on October 27, 2026; the count in the working tree will differ). They're recorded in `scripts/brand-baseline.json`. The build fails if any file gains a violation; fixing one lowers the count. When a file reaches zero, it stays at zero. The target is `--strict`: zero violations site-wide, except the Exceptions register.
-3. **Protected files.** `.github/CODEOWNERS` names James as required reviewer for this file, the brand guide, `assets/css/variables.css`, `scripts/check_brand.py`, `scripts/brand-baseline.json`, `build-dist.sh`, `_headers`, `CLAUDE.md`, `WORKFLOW.md` and `.github/`. With branch protection on `main`, none of them change without James's approval, and nothing merges if the check fails.
+3. **Protected files (deferred in v16.1).** Until the site is level-set, Justin makes every change in the repo and nothing waits on James's GitHub access; the build check is the lock. After the level-set, `.github/CODEOWNERS` names James as required reviewer for this file, the brand guide, `assets/css/variables.css`, `scripts/check_brand.py`, `scripts/brand-baseline.json`, `build-dist.sh`, `_headers`, `CLAUDE.md`, `WORKFLOW.md` and `.github/`. With branch protection on `main`, none of them change without James's approval, and nothing merges if the check fails.
 4. **Not yet checked: sizes between scale steps.** About 670 declarations use 14px or 15px outside buttons. They're above the floor, so they don't block this update, but they aren't scale sizes. They're for the next update; the check gains a `font-scale` rule then.
 5. **Browser-level lock (final phase).** Once the type consolidation is complete and the check passes `--strict` for fonts, the three fonts and the icon font are self-hosted under `/assets/fonts/`, and `_headers` sets a content-security policy that allows fonts and stylesheets from the site only. The Nodes and Networks paths are exempted from that policy.
 
@@ -799,8 +839,10 @@ One location for each design document. Anything else is history.
 
 | File | Location | Status |
 |---|---|---|
-| Design tokens | `docs/design/DESIGN-TOKENS-v16.md` | Canonical |
-| Brand guide | `docs/design/ATLAS-BRAND-GUIDE-v5.md` | Canonical |
+| Design tokens | `docs/design/DESIGN-TOKENS-v16.1.md` | Canonical |
+| Brand guide | `docs/design/ATLAS-BRAND-GUIDE-v5.1.md` | Canonical |
+| Design rules for Claude Code | `docs/design/CLAUDE-DESIGN-RULES.md` | Restates this file; no provisional or additional rules |
+| DESIGN-TOKENS-v16.md, ATLAS-BRAND-GUIDE-v5.md | `docs/design/archive/` | Superseded by v16.1 / v5.1 |
 | CSS tokens | `assets/css/variables.css` | Canonical implementation of this file |
 | Brand check | `scripts/check_brand.py`, `scripts/brand-baseline.json` | Canonical |
 | Print, logo and palette reference | `Atlas-Style_Guide_October_2026_v1.pdf` (Dropbox / Drive) | Canonical for logos and print color |
@@ -827,7 +869,7 @@ One location for each design document. Anything else is history.
 | May 2026 | Border radius: 6px cards/buttons, 9999px pills/tags | Per HOW_WE_BUILD.md — *pills superseded Oct 2026 (v15)* |
 | May 2026 | Material Symbols Outlined confirmed as icon set | Replaces earlier Material Icons reference |
 | May 2026 | Icon sizes locked: nav 24px, card header 24px, inline 18px, section header 28px | M3 standard sizing adapted for data-dense UI |
-| May 2026 | Error state `#f50000` | Needs to grab attention immediately; M3 baseline `#b3261e` too dull |
+| May 2026 | Error state `#f50000` | Needs to grab attention immediately; M3 baseline `#b3261e` too dull — *superseded Nov 2026 (v16.1)* |
 | May 2026 | Muted/disabled `#9e9e9e` | Balanced contrast on light and dark surfaces — *superseded Oct 2026* |
 | May 2026 | Border/divider `#bdbdbd` | Readable, appropriately subtle 1px lines — *superseded Oct 2026* |
 | May 2026 | Secondary text (dark surfaces) `#bdbdbd` | Small all-caps labels need more than the bare AA floor — *superseded Oct 2026* |
@@ -902,3 +944,9 @@ One location for each design document. Anything else is history.
 | **Oct 2026 (v16)** | **Opacity-based text colors off-system** | White at 18–45% opacity fails contrast and varies with the surface. Role variables are fixed and tested. |
 | **Oct 2026 (v16)** | **Exceptions register: Nodes and Networks (co-branded), internal Google Form mock-up** | Co-branded reports can carry partner design. Named by path so the exception can't spread. |
 | **Oct 2026 (v16)** | **Enforcement: allowlist check with a ratchet baseline, CODEOWNERS, then a font content-security policy** | Rules in documents depend on every session reading them; a build check doesn't. |
+| **Nov 2026 (v16.1)** | **Error red `#b3261e`, one red site-wide; fill only on dark surfaces** | `#f50000` is 4.3:1 on white and 3.7:1 on the page background, below the 4.5:1 text minimum. `#b3261e` (Material Design 3's error color) is 6.5:1 on white and 5.7:1 on `#efefef`. It fails as text on dark surfaces (2.9:1), so there it's a fill with white text, mirroring Acid Green on light surfaces. Material's light-on-dark pair `#f2b8b5` was rejected: it doesn't read as an error. |
+| **Nov 2026 (v16.1)** | **No dark mode until the site is consistent** | Pulse shipped a page-only dark mode with undefined colors, so dark-mode viewers saw one dark page on a light site. Consistency comes first; a full site dark mode is a later design initiative. |
+| **Nov 2026 (v16.1)** | **Acid and Lime tints allowed in non-text properties until v17** | Records about 144 existing hover and overlay tints with no visible change, so the level-set doesn't stall on them. |
+| **Nov 2026 (v16.1)** | **Provisional rules withdrawn; rules live only in this file** | Rules added outside the token file ("monospace = live data", "Acid = changed recently") contradicted v16 and blocked the Pulse and For Brands fix. |
+| **Nov 2026 (v16.1)** | **Interim treatments for live signals, warnings, phone Display size, dark-masthead strokes and tab strips** | Lets the level-set finish using existing values; v17 decides the permanent treatments. |
+| **Nov 2026 (v16.1)** | **GitHub code-owner review deferred until after the level-set** | Justin makes every change; nothing waits on James's GitHub access. The build check remains the lock. |

@@ -1,3 +1,5 @@
+> Superseded by DESIGN-TOKENS-v16.1.md / ATLAS-BRAND-GUIDE-v5.1.md (November 3, 2026). Do not implement from this file.
+
 # Atlas Pulse and For Brands Brief — Bringing the New Pages onto v16
 
 *Developer brief for Claude Code · Owner: James Bareham, Creative Director · For: Justin Bank · October 27, 2026*
