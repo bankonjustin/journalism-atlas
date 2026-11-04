@@ -174,6 +174,7 @@
     var s = section('on-dark', 'Featured research', '');
     var img = safeUrl(p.hero_image && p.hero_image.src);
     var wrap = el('div', 'rh-feat' + (img ? ' rh-feat--img' : ''));
+    wrap.id = p.slug; // anchor: /research#<slug> (the N&N report-link fallback uses #nodes-and-networks)
     if (img) {
       var i = el('img', 'rh-feat-img');
       i.src = img; i.alt = p.hero_image.alt || ''; i.decoding = 'async';
@@ -197,6 +198,7 @@
     var grid = el('div', 'rh-grid');
     list.forEach(function (p) {
       var c = el('article', 'rh-card');
+      c.id = p.slug; // anchor: /research#<slug>
       c.appendChild(el('p', 'rh-meta', pieceMeta(research, p)));
       c.appendChild(el('h3', 'rh-card-t', p.title));
       if (p.dek) c.appendChild(el('p', 'rh-card-b', p.dek));
@@ -260,6 +262,13 @@
     var sb = signupBand(research);
     mount.textContent = '';
     mount.appendChild(frag);
+    // Cards render after load, so the browser's own jump to #<slug> has already missed; scroll now.
+    var target = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    // On a cold load, images and fonts can still shift the layout, so scroll again once the page has loaded.
+    if (target) {
+      target.scrollIntoView();
+      if (document.readyState !== 'complete') window.addEventListener('load', function () { target.scrollIntoView(); }, { once: true });
+    }
     var feedMount = el('div');
     mount.appendChild(feedMount);
     if (pb) mount.appendChild(pb.sec);

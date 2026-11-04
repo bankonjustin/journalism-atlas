@@ -29,7 +29,7 @@ addEventListener("message",function(e){
 |---|---|---|---|---|
 | Figure 0 | Scale of the field: one square vs. $100M | Right after the paper's sentence "Those two numbers sitting next to each other…" | `https://journalismatlas.com/preview/nn-launch-kit/figures/scale/` | 814 px |
 | Figure 1 | Funding and organization timeline, 2018–2026 | Section on funding shocks | `https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/` | 1988 px |
-| Figure 2 | The nine cohorts | Where the nine cohorts are introduced | `https://journalismatlas.com/preview/nn-launch-kit/figures/map/` | 1256 px |
+| Figure 2 | The nine cohorts | Where the nine cohorts are introduced | `https://journalismatlas.com/preview/nn-launch-kit/figures/map/` | 1201 px |
 | Figure 3 | Defector revenue, Years 1–5 | Defector case study | `https://journalismatlas.com/preview/nn-launch-kit/figures/defector/` | 748 px |
 | Figure 4 | Share of revenue from grants and donations, nonprofits with $3.5M–$10M in revenue | Nonprofit / threshold section | `https://journalismatlas.com/preview/nn-launch-kit/figures/threshold/` | 1362 px |
 | Figure 5 | Revenue band distribution by cohort (n=169) | Bands / cohorts section | `https://journalismatlas.com/preview/nn-launch-kit/figures/bands/` | 1661 px |
@@ -69,13 +69,13 @@ addEventListener("message",function(e){
 
 - **Where:** Where the nine cohorts are introduced
 - **URL:** `https://journalismatlas.com/preview/nn-launch-kit/figures/map/`
-- **Desktop height measured:** 1046 px (snippet uses 1062). **Phone (390 px) height:** 1256 px.
+- **Desktop height measured:** 992 px (snippet uses 1008). **Phone (390 px) height:** 1201 px. Opening the C3 card adds about 24 px on desktop.
 - **Alt text:** Nine governance cohorts drawn as stations on three lines, from Legacy Publishers (17 organizations) to B2B/Professional Services (17); 169 organizations in all.
 
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/map/"
   title="The nine cohorts"
-  width="100%" height="1062" loading="lazy" scrolling="no"
+  width="100%" height="1008" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
@@ -98,7 +98,7 @@ addEventListener("message",function(e){
 - **Where:** Nonprofit / threshold section
 - **URL:** `https://journalismatlas.com/preview/nn-launch-kit/figures/threshold/`
 - **Desktop height measured:** 1129 px (snippet uses 1145). **Phone (390 px) height:** 1362 px.
-- **Alt text:** Of 17 nonprofits with $3.5 million to $10 million in revenue, 15 get more than 80 percent of revenue from grants and donations; Colorado Sun is at 49 percent and LION Publishers at 72 percent.
+- **Alt text:** Of 17 nonprofits with $3.5 million to $10 million in revenue, 15 get 80 percent or more of their revenue from grants or donations; Colorado Sun is at 49 percent and LION Publishers at 72 percent.
 
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/threshold/"
