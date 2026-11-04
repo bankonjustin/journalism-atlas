@@ -8,7 +8,7 @@
 |---|---|---|
 | Tokens | **v16** (`DESIGN-TOKENS-v16.md`) | Landed in `abbcc9c` "big design changes" (2026-10-28), second pass `39d06db`; branch `v16-install` merged by PR #6 (`439ff58`, 2026-10-28). |
 | Brand guide | **v5** (`ATLAS-BRAND-GUIDE-v5.md`) | Same commits. Byte-identical to the copy in `~/Downloads`. |
-| Design rules | `CLAUDE-DESIGN-RULES.md` (split out of `CLAUDE.md`; under James's review) | `docs/briefs/V16-INSTALL-NOTES-FOR-JAMES-2026-10.md` section 2. |
+| Design rules | `CLAUDE-DESIGN-RULES.md` (split out of `CLAUDE.md`; James's review deferred until after the v16.1 level-set (DESIGN-TOKENS-v16.1.md § Enforcement, item 3)) | `docs/briefs/V16-INSTALL-NOTES-FOR-JAMES-2026-10.md` section 2. |
 | Superseded | v15 tokens, brand guides v3 and v4, `pulse_tokens.md` | `docs/design/archive/`. |
 | Install brief | `V16-FOUNDATION-INSTALL-BRIEF-v1.0.md`, with Justin's amendments (B1-B7) | `docs/briefs/`. |
 | v15 sessions | Sessions 1 and 2 shipped; **Session 3 not started** | `docs/design/v15-session-2/SESSION-3-HANDOFF.md`; no Session 3 report in `docs/design/`. |
@@ -30,7 +30,7 @@
 
 | Item | State | Evidence |
 |---|---|---|
-| CODEOWNERS | **None** in either repo. Narrowed list ready: `/docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml`, CODEOWNERS itself. Needs James's GitHub username. | Install notes section 2; `ls .github`. |
+| CODEOWNERS | **None** in either repo. Narrowed list ready: `/docs/design/`, `variables.css`, `check_brand.py`, `brand-check.yml`, CODEOWNERS itself. Deferred until after the v16.1 level-set (DESIGN-TOKENS-v16.1.md § Enforcement, item 3). | Install notes section 2; `ls .github`. |
 | `origin/dev` vs `main` | `origin/dev` is a stale March branch (last commit `fc1a83e`, 2026-03-06). `main` is 508 commits ahead; the two differ by 919 files (+37,385 / -266,237). No local `dev` branch exists. The install notes say a fresh `dev` was cut from `main`; **that branch is NOT FOUND**. | `git rev-list --count origin/dev..main`; `git branch --list dev`. |
 | Workflow doc vs practice | **Fixed Oct 31:** `WORKFLOW.md` Deploy Process now says work on `main`, Justin pushes via GitHub Desktop (it said "work on `dev`, PR to `main`, James reviews"). `james/*` branches are still NOT FOUND; agenda item 6 is now only about how James reviews. | `WORKFLOW.md:54-60`; `git branch -a`. |
 | Branch protection | Not possible while the repo is public on a free org (readiness item, W3). | `ops/DECISIONS-QUEUE.md` W3. |
@@ -55,13 +55,13 @@
 
 | # | James's question (topic) | Existing material | Status |
 |---|---|---|---|
-| S1 | Provisional design-rule conflicts | `CLAUDE-DESIGN-RULES.md` lists the provisional rules (error text roles, monospace = live or versioned data only, Acid = changed recently); section 6 of this file | Open. Needs James to say which conflict. |
-| S2 | Error-color contrast | Agenda item 2: `#f50000` is 4.3:1 on white and 3.7:1 on `--color-bg`, below 4.5:1; James rejected Material `#b3261e` in May | Open. Default: keep the `*-provisional` tokens until he picks. |
-| S3 | Secondary brand color, with transparency tokens | Agenda item 1 covers tinted palette colors (144 `color-func` hits); **no secondary brand color question exists in any file** | Open. Related to item 1, not the same. |
-| S4 | CODEOWNERS and review scope | Agenda item 5; narrowed five-path list is ready; needs James's GitHub username (install notes section 2) | Open. |
+| S1 | Provisional design-rule conflicts | `CLAUDE-DESIGN-RULES.md` lists the provisional rules (error text roles, monospace = live or versioned data only, Acid = changed recently); section 6 of this file | **Answered Nov 3** (level-set brief § 1): withdrawn; v16.1 is the only rule set. |
+| S2 | Error-color contrast | Agenda item 2: `#f50000` is 4.3:1 on white and 3.7:1 on `--color-bg`, below 4.5:1; James rejected Material `#b3261e` in May | **Answered Nov 3**: `#b3261e`, one red site-wide. |
+| S3 | Secondary brand color, with transparency tokens | Agenda item 1 covers tinted palette colors (144 `color-func` hits); **no secondary brand color question exists in any file** | **Answered Nov 3**: tints allowed until v17 (S3). |
+| S4 | CODEOWNERS and review scope | Agenda item 5; narrowed five-path list is ready; needs James's GitHub username (install notes section 2) | **Answered Nov 3**: deferred until after the level-set. |
 | S5 | Repo private under a TIJA LLC org | Decision W3 in the private repo's `ops/DECISIONS-QUEUE.md`; branch protection is not possible while public on a free org (section 3 above) | Open. Most urgent of the seven. |
-| S6 | The other team's shared header and footer | Agenda item 10 (Team DMV header and footer); install notes section 5 | Open. Default: follow the site header. |
-| S7 | Interim defaults for Pulse and For Brands | Pulse and For Brands brief section 6 (six token-version decisions); agenda item 4 | Open. Default: one v17 after Nov 5; interim = current pages unchanged. |
+| S6 | The other team's shared header and footer | Agenda item 10 (Team DMV header and footer); install notes section 5 | **Closed**: Team DMV retired Nov 2 (`386090b`). |
+| S7 | Interim defaults for Pulse and For Brands | Pulse and For Brands brief section 6 (six token-version decisions); agenda item 4 | **Answered Nov 3**: ship now, using v16.1 § Interim Treatments. |
 
 Earlier versions of this section said no set of seven was found. This is that set.
 
@@ -93,7 +93,7 @@ Each item: the decision, options, and a recommended default. Items 1-4 are token
 | 2 | **Error text roles** (`#f50000` is 4.3:1 on white and 3.7:1 on `--color-bg`, below 4.5:1; James rejected Material `#b3261e` in May as too dull) | keep the provisional `*-provisional` tokens; James picks a new red; use a darker red for text only | Keep the provisional tokens until James picks. |
 | 3 | **"Trace this number" (About Phase 3):** open in place or in a side panel; one motion or none | in place; side panel; plain open with no motion | In place, no motion (v16 has no motion roles). |
 | 4 | **Next token version list** (Pulse and For Brands brief section 6): live signal, warning color, site dark mode, responsive Display size, strokes on dark mastheads | write one v17 covering items 1-3 and these six; or defer all | One v17 after Nov 5. |
-| 5 | **CODEOWNERS and James's GitHub username** | write now for the five design paths; wait for the privacy decision | Write now; Justin decides, James reviews design paths only. |
+| 5 | **CODEOWNERS and James's GitHub username** | write now for the five design paths; wait for the privacy decision | Deferred until after the v16.1 level-set (DESIGN-TOKENS-v16.1.md § Enforcement, item 3). |
 | 6 | **Branch workflow.** `WORKFLOW.md` says `dev` plus PR; practice is `main`; `dev` and `james/*` don't exist. | recreate `dev` and follow `WORKFLOW.md`; or change `WORKFLOW.md` to match practice | Change `WORKFLOW.md` to match practice (James reviews on a `james/*` branch; Justin merges). |
 | 7 | **Where production archives live** | add `_archive/` to the checker's `EXCLUDED` (needs a token version); or keep archives in `_deprecated/` | Keep `_deprecated/`. A dead copy shouldn't earn a permanent exception. |
 | 8 | **`JAMES-OPEN-ITEMS` 2, 3, 4, 9, 15, 17** (the blockers in section 4) | answer each; or answer 3 and 9 now and park the rest | Answer 3 (nj-lab) and 9 (arrows) first; they unblock Session 3. |

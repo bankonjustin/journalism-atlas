@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- SOFT: headline pending Justin (alternates: "Who actually informs the places you work?" / "Your reputation is being written by people who aren't on your list.") -->
-  <title>Trust moved. Here's the map. | Independent Journalism Atlas</title>
+  <title>Trust Moved. Here's the Map | Independent Journalism Atlas</title>
   <meta name="description" content="Trust moved to independent journalists. The Atlas maps {{CREATOR_COUNT}} of them, verified by hand, and shows what they publish every week.">
   <link rel="canonical" href="https://journalismatlas.com/for-brands">
-  <meta property="og:title" content="Trust moved. Here's the map. | Independent Journalism Atlas">
+  <meta property="og:title" content="Trust Moved. Here's the Map | Independent Journalism Atlas">
   <meta property="og:description" content="Trust moved to independent journalists. The Atlas maps {{CREATOR_COUNT}} of them, verified by hand, and shows what they publish every week.">
   <meta property="og:url" content="https://journalismatlas.com/for-brands">
   <meta property="og:type" content="website">
@@ -18,46 +18,32 @@
   <meta property="og:site_name" content="Independent Journalism Atlas">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://journalismatlas.com/for-brands">
-  <meta name="twitter:title" content="Trust moved. Here's the map. | Independent Journalism Atlas">
+  <meta name="twitter:title" content="Trust Moved. Here's the Map | Independent Journalism Atlas">
   <meta name="twitter:description" content="Trust moved to independent journalists. The Atlas maps {{CREATOR_COUNT}} of them, verified by hand, and shows what they publish every week.">
   <meta name="twitter:image" content="https://journalismatlas.com/assets/images/logos/Atlas_green_gray_social_media_preview.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&family=Source+Code+Pro:wght@500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/assets/css/variables.css">
   <link rel="stylesheet" href="/assets/css/components.css">
   <style>
-    /* /for-brands: the briefing room. Tokens only (docs/design/DESIGN-TOKENS-v15.md).
-       Merriweather carries the argument, Inter carries everything you read to understand,
-       Source Code Pro is reserved for live data (.live). Acid = live/now, on dark only as text,
-       on light only as a fill. No per-section color. */
-    /* CLS: size-adjusted local fallbacks so the swap to the web fonts barely moves the text. Metrics measured from the font
-       files (average advance of English text vs Arial / Georgia Bold; ascent and descent divided by the size-adjust). */
-    @font-face { font-family: 'Inter Fallback'; src: local('Arial'); size-adjust: 107.5%; ascent-override: 90.1%; descent-override: 22.4%; line-gap-override: 0%; }
-    @font-face { font-family: 'Merriweather Fallback'; src: local('Georgia Bold'), local('Georgia-Bold'); font-weight: 700; size-adjust: 96.5%; ascent-override: 102%; descent-override: 28.3%; line-gap-override: 0%; }
-    :root { --font-primary: 'Inter', 'Inter Fallback', sans-serif; --font-editorial: 'Merriweather', 'Merriweather Fallback', serif; }
+    /* /for-brands. Tokens only: docs/design/DESIGN-TOKENS-v16.1.md.
+       Headings and UI: Inter (--font-heading / --font-primary). All-caps labels and tags: Source Code Pro 500 (--font-mono). */
     /* The header's menu button shows its icon-font ligature text until the font loads; a fixed box keeps it from shifting. */
     #mobileMenuButton { width: 44px; height: 44px; overflow: hidden; }
     *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; font-family: var(--font-primary); font-size: 16px; line-height: 1.6; color: var(--color-text); background: #fff; }
+    body { margin: 0; font-family: var(--font-primary); font-size: 16px; line-height: 1.6; color: var(--color-text); background: var(--color-bg); }
     .wrap { max-width: 1440px; margin: 0 auto; padding: 0 16px; }
     .col { max-width: 680px; }
     @media (min-width: 768px) { .wrap { padding: 0 32px; } }
-    .serif { font-family: var(--font-editorial); font-weight: 700; color: var(--color-text-header); letter-spacing: -0.01em; }
     h1, h2, h3, p { margin: 0; }
     section { padding: 64px 0; }
     @media (min-width: 900px) { section { padding: 96px 0; } }
-    .claim { font-family: var(--font-editorial); font-weight: 700; font-size: 28px; line-height: 1.25; color: var(--color-text-header); max-width: 22em; }
-    @media (min-width: 900px) { .claim { font-size: 36px; line-height: 1.2; } }
     .lede { margin-top: 20px; max-width: 680px; }
     .small { font-size: 13px; line-height: 1.5; color: var(--color-text-secondary); }
     .small a, .lede a, .body a, .col a { color: var(--color-link); text-decoration: underline; text-underline-offset: 2px; }
     .small a:hover, .lede a:hover, .col a:hover { color: #000; }
-    /* live data: the only place mono appears outside tags */
-    .live { font-family: var(--font-mono); font-weight: 500; font-size: 0.92em; letter-spacing: 0.02em; }
-    .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-acid); margin-right: 8px; vertical-align: middle; }
+    /* live data: numbers and dates in a sentence are Inter (v16.1: mono is for all-caps labels and tags only) */
+    .live { font-family: var(--font-primary); font-size: inherit; font-variant-numeric: tabular-nums; letter-spacing: normal; }
+    .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ffffff; margin-right: 8px; vertical-align: middle; }  /* interim live signal on dark: v16.1 § Interim Treatments */
     .tag { display: inline-block; font-family: var(--font-mono); font-weight: 500; font-size: 12px; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; }
     .tag--real { background: #000; color: #fff; }
     .tag--wip { color: #303030; border: 1px solid #303030; padding: 3px 7px; }
@@ -69,14 +55,24 @@
     /* ── 1 HERO + LENS ── */
     .hero { background: var(--color-surface-dark); color: var(--color-text-on-dark-2); padding: 64px 0 72px; }
     @media (min-width: 900px) { .hero { padding: 96px 0 96px; } }
-    .hero h1 { font-family: var(--font-editorial); font-weight: 700; color: #fff; font-size: clamp(36px, 5.2vw, 64px); line-height: 1.08; letter-spacing: -0.02em; max-width: 14em; }
+    /* Headings: Inter at v16.1 sizes (DESIGN-TOKENS-v16.1.md § Typeface by Role, § Type Scale).
+       Display is 48px at every width: v16.1 § Interim Treatments (the token steps down to 40px at 768px and below). */
+    .hero h1      { font-family: var(--font-heading); font-weight: 700; font-size: 48px; line-height: 1.1; color: #fff; max-width: 14em; }
+    .claim, .rel-close p { font-family: var(--font-heading); font-weight: 700; font-size: var(--text-h2); line-height: 1.25; color: var(--color-heading); }
+    .claim        { max-width: 22em; }
+    .rel-close p  { max-width: 16em; }
+    .lens-frame   { font-family: var(--font-heading); font-weight: 700; font-size: var(--text-h2); line-height: 1.25; color: #fff; max-width: 30em; }
+    .lens-empty .lens-frame { font-weight: 600; font-size: var(--text-h3); line-height: 1.3; }
+    .lens-label   { display: block; font-family: var(--font-heading); font-weight: 600; font-size: var(--text-h3); line-height: 1.3; color: #fff; margin-bottom: 16px; }
+    .shift-grid h3, .rel-grid h3, .turn h3, .confirm h3 { font-family: var(--font-heading); font-weight: 600; font-size: var(--text-h3); line-height: 1.3; color: var(--color-heading); margin-bottom: 12px; }
+    .ladder h3    { font-family: var(--font-heading); font-weight: 600; font-size: var(--text-h3); line-height: 1.3; color: var(--color-heading); }
+    .turn-n       { font-family: var(--font-heading); font-weight: 700; font-size: 48px; line-height: 1.1; color: var(--color-heading); font-variant-numeric: tabular-nums; }
     .hero .dek { margin-top: 28px; max-width: 700px; font-size: 18px; line-height: 1.6; color: var(--color-text-on-dark-2); }
     .hero .dek a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
     .hero .dek a:hover { color: var(--color-acid); }
 
     .hero-cta { margin-top: 32px; }
     .lens { margin-top: 56px; border-top: 1px solid var(--color-border-on-dark); padding-top: 32px; }
-    .lens-label { display: block; font-family: var(--font-editorial); font-weight: 700; font-size: 22px; color: #fff; margin-bottom: 16px; }
     .lens-field { display: flex; gap: 8px; max-width: 720px; }
     .lens-input-wrap { position: relative; flex: 1; }
     .lens-input-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #5e5e5e; pointer-events: none; }
@@ -86,13 +82,11 @@
     .chip:hover, .chip:focus-visible { background: var(--color-acid); color: #000; border-color: var(--color-acid); }
     .lens-result { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--color-border-on-dark); }
     .lr-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--color-text-on-dark-2); margin-bottom: 20px; }
-    .lens-frame { font-family: var(--font-editorial); font-weight: 700; font-size: 24px; line-height: 1.35; color: #fff; max-width: 30em; }
-    @media (min-width: 900px) { .lens-frame { font-size: 28px; } }
-    .lens-frame .live { font-family: var(--font-mono); font-size: 0.85em; color: var(--color-acid); }
+    .lens-frame .live { font-family: var(--font-primary); font-size: inherit; color: #ffffff; }
     .lens-grid { position: relative; display: grid; gap: 32px; margin-top: 40px; }
     @media (min-width: 900px) { .lens-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 160px; align-items: start; } }
     .lr-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-    .lr-lines path { fill: none; stroke: var(--color-acid); stroke-width: 1.25; opacity: 0.7; }
+    .lr-lines path { fill: none; stroke: var(--gray-cool-3); stroke-width: 1.25; opacity: 1; }  /* interim stroke on dark: v16.1 § Interim Treatments */
     .stat-n { font-size: 56px; line-height: 1; color: #fff; display: block; }
     .stat-l { display: block; margin-top: 8px; font-size: 14px; color: var(--color-text-on-dark-2); max-width: 24em; }
     .lr-stats { display: grid; gap: 28px; }
@@ -112,14 +106,12 @@
     .lens-heads a { color: #fff; text-decoration: underline; text-underline-offset: 2px; font-size: 16px; font-weight: 600; }
     .lens-heads a:hover { color: var(--color-acid); }
     .lens-heads .by { display: block; margin-top: 4px; font-size: 13px; color: var(--color-text-on-dark-2); }
-    .lens-heads .by .live { font-size: 12px; }
     .places { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border-on-dark); }
     .places li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border-on-dark); font-size: 15px; color: #fff; }
     .lr-fine { margin-top: 10px; font-size: 13px; color: var(--color-text-on-dark-2); }
     .lens-act { margin-top: 40px; }
     .lens-note { margin-top: 16px; font-size: 13px; color: var(--color-text-on-dark-2); max-width: 44em; }
     .lens-empty { max-width: 40em; }
-    .lens-empty .lens-frame { font-size: 22px; }
     .chip[aria-pressed="true"] { background: #fff; color: #000; border-color: #fff; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .btn-brief { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; font: 600 15px var(--font-primary); color: #fff; background: var(--color-button); border: 1px solid var(--color-button-outline-on-dark); border-radius: 6px; text-decoration: none; cursor: pointer; }
@@ -129,8 +121,7 @@
     /* ── 2 SHIFT ── */
     .shift-grid { display: grid; gap: 48px; margin-top: 48px; }
     @media (min-width: 900px) { .shift-grid { grid-template-columns: repeat(3, 1fr); gap: 48px; } }
-    .shift-grid > div { border-top: 2px solid var(--color-text-header); padding-top: 20px; }
-    .shift-grid h3 { font-family: var(--font-editorial); font-size: 24px; line-height: 1.25; color: var(--color-text-header); margin-bottom: 12px; }
+    .shift-grid > div { border-top: 2px solid var(--color-heading); padding-top: 20px; }
     .shift-fig { display: block; font-size: 15px; margin-top: 12px; color: var(--color-text); }
 
     /* ── 3 NOT INFLUENCERS ── */
@@ -139,34 +130,30 @@
     @media (min-width: 768px) { .contrast-row { grid-template-columns: 200px 1fr 1fr; align-items: baseline; } }
     .contrast-row dt { font-size: 13px; color: var(--color-text-secondary); }
     .contrast-row dd { margin: 0; }
-    .contrast-row dd:nth-of-type(2) { color: var(--color-text-header); font-weight: 600; }
+    .contrast-row dd:nth-of-type(2) { color: var(--color-heading); font-weight: 600; }
     .contrast-head { display: none; }
     @media (min-width: 768px) { .contrast-head { display: grid; grid-template-columns: 200px 1fr 1fr; gap: 48px; padding: 12px 0; font-size: 13px; color: var(--color-text-secondary); } }
-    .turn { margin-top: 72px; padding-top: 40px; border-top: 2px solid var(--color-text-header); display: grid; gap: 32px; }
+    .turn { margin-top: 72px; padding-top: 40px; border-top: 2px solid var(--color-heading); display: grid; gap: 32px; }
     @media (min-width: 900px) { .turn { grid-template-columns: 1fr 1fr; gap: 64px; } }
     .turn-stats { display: grid; gap: 24px; grid-template-columns: 1fr 1fr; }
-    .turn-n { font-family: var(--font-editorial); font-weight: 700; font-size: 48px; line-height: 1; color: var(--color-text-header); }
 
     /* ── 4 RELATIONSHIPS ── */
     .rel { background: var(--color-surface); }
     .rel-grid { display: grid; gap: 48px; margin-top: 48px; }
     @media (min-width: 900px) { .rel-grid { grid-template-columns: repeat(3, 1fr); } }
-    .rel-grid h3 { font-family: var(--font-editorial); font-size: 28px; line-height: 1.2; color: var(--color-text-header); margin-bottom: 12px; }
-    .rel-do { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border); font-size: 15px; color: var(--color-text-header); }
+    .rel-do { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border); font-size: 15px; color: var(--color-heading); }
     .rel-close { margin-top: 80px; }
-    .rel-close p { font-family: var(--font-editorial); font-weight: 700; font-size: clamp(28px, 4vw, 48px); line-height: 1.15; color: var(--color-text-header); max-width: 16em; }
     .rel-close .btn-brief { margin-top: 32px; }
 
     /* ── 5 WORK ── */
-    .ladder { margin: 40px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--color-text-header); }
+    .ladder { margin: 40px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--color-heading); }
     .ladder li { display: grid; gap: 6px 48px; padding: 24px 0; border-bottom: 1px solid var(--color-border); }
     @media (min-width: 768px) { .ladder li { grid-template-columns: 240px 1fr 1fr; } }
-    .ladder h3 { font-family: var(--font-editorial); font-size: 22px; line-height: 1.25; color: var(--color-text-header); }
     .ladder .who { font-size: 14px; color: var(--color-text-secondary); }
     .lab { margin-top: 40px; display: grid; gap: 24px; }
     @media (min-width: 900px) { .lab { grid-template-columns: repeat(3, 1fr); } }
     .lab > div { border-left: 2px solid var(--color-border); padding-left: 20px; }
-    .lab h4 { font-size: 16px; font-weight: 600; color: var(--color-text-header); margin: 10px 0 6px; }
+    .lab h4 { font-size: 16px; font-weight: 600; color: var(--color-heading); margin: 10px 0 6px; }
 
     /* ── 6 STANDARDS ── */
     .std { background: var(--color-surface-dark); color: var(--color-text-on-dark-2); }
@@ -181,19 +168,19 @@
     /* ── 7 UNDERNEATH ── */
     .under-grid { display: grid; gap: 48px; margin-top: 48px; }
     @media (min-width: 900px) { .under-grid { grid-template-columns: 1fr 1fr 1fr; } }
-    .under-grid h3 { font-size: 20px; font-weight: 600; color: var(--color-text-header); margin-bottom: 12px; }
+    .under-grid h3 { font-size: 20px; font-weight: 600; color: var(--color-heading); margin-bottom: 12px; }
     .under-list { margin: 0; padding: 0; list-style: none; }
     .under-list li { padding: 8px 0; border-top: 1px solid var(--color-border); font-size: 15px; }
     .team { display: grid; gap: 16px; }
     .team-p { display: flex; gap: 12px; align-items: center; }
     .team-p img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-    .team-p b { display: block; font-weight: 600; color: var(--color-text-header); font-size: 15px; }
+    .team-p b { display: block; font-weight: 600; color: var(--color-heading); font-size: 15px; }
     .team-p span { font-size: 13px; color: var(--color-text-secondary); }
 
     /* ── 8 INTAKE ── */
     .intake { background: var(--color-surface); }
     .intake-form { margin-top: 40px; max-width: 680px; display: grid; gap: 24px; }
-    .intake-form label, .intake-form legend { display: block; font-size: 14px; font-weight: 600; color: var(--color-text-header); margin-bottom: 6px; padding: 0; }
+    .intake-form label, .intake-form legend { display: block; font-size: 14px; font-weight: 600; color: var(--color-heading); margin-bottom: 6px; padding: 0; }
     .opt { font-weight: 400; color: var(--color-text-secondary); }
     .intake-form input[type=text], .intake-form input[type=email], .intake-form textarea { width: 100%; min-height: 48px; padding: 10px 14px; font: 400 16px var(--font-primary); color: #000; background: #fff; border: 1px solid var(--color-button-2-outline); border-radius: 6px; }
     .intake-form textarea { min-height: 96px; resize: vertical; }
@@ -206,7 +193,6 @@
     .form-msg[data-state="error"] { color: var(--color-error); }
     .intake-form .btn-brief { justify-self: start; }
     .confirm { margin-top: 40px; max-width: 680px; }
-    .confirm h3 { font-family: var(--font-editorial); font-size: 32px; color: var(--color-text-header); margin-bottom: 12px; }
     [hidden] { display: none !important; }
     :focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
     .on-dark :focus-visible, .hero :focus-visible { outline-color: var(--color-focus); }
@@ -227,7 +213,7 @@
 <!-- ═══ 1 HERO + ISSUE LENS ═══ -->
 <section class="hero on-dark" aria-labelledby="hero-h">
   <div class="wrap">
-    <h1 id="hero-h">Trust moved. Here's the map.</h1>
+    <h1 id="hero-h">Trust Moved. Here's the Map</h1>
     <!-- SOFT: dek copy pending Justin. Every number is live/baked: count and date from site-stats.json at build. -->
     <p class="dek">One in five Americans now get news from individual journalists, not institutions. Local newsrooms keep closing. AI answers summarize the web without sending anyone to it. The people your stakeholders believe have scattered across newsletters, video, podcasts and open protocols. The Atlas tracks <span class="live">{{CREATOR_COUNT}}</span> of them, verified by hand, and reads what they publish every week. <a href="#shift">The evidence</a></p>
 
@@ -238,7 +224,7 @@
     <!-- The Issue Lens. Chips are written between the LENS:CHIPS markers by scripts/build_lens_index.py (this week's most-covered beats). Results come from assets/data/lens-index.json. -->
     <div class="lens" id="lens">
       <form id="lens-form" role="search" novalidate>
-        <label class="lens-label" for="lens-q">What are you tracking?</label>
+        <label class="lens-label" for="lens-q">What Are You Tracking?</label>
         <div class="lens-field">
           <div class="lens-input-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
@@ -270,7 +256,7 @@
 <!-- ═══ 2 THE SHIFT ═══ -->
 <section id="shift" aria-labelledby="shift-h">
   <div class="wrap">
-    <h2 class="claim" id="shift-h">Your stakeholders follow people now, not mastheads.</h2>
+    <h2 class="claim" id="shift-h">Your Stakeholders Follow People Now, Not Mastheads</h2>
     <div class="shift-grid">
       <!-- SOFT: all three panels are draft copy. Figures need primary-source links verified in Phase 3. -->
       <div>
@@ -296,7 +282,7 @@
 <!-- ═══ 3 NOT INFLUENCERS ═══ -->
 <section class="light" style="padding-top:0" aria-labelledby="inf-h">
   <div class="wrap">
-    <h2 class="claim" id="inf-h">Creator journalists are not influencers.</h2>
+    <h2 class="claim" id="inf-h">Creator Journalists Are Not Influencers</h2>
     <p class="lede">A bad brand deal costs an influencer one awkward post. It costs a creator journalist their entire business, which makes them far more selective, and far more valuable when they say yes.</p>
     <div class="contrast">
       <div class="contrast-head" aria-hidden="true"><span></span><span>Influencer or creator for hire</span><span>Creator journalist</span></div>
@@ -312,7 +298,7 @@
 
     <div class="turn">
       <div>
-        <h3 class="serif" style="font-size:28px;line-height:1.2">They're not influencers, and they're open to you. On their terms.</h3>
+        <h3>They're Not Influencers, and They're Open to You. On Their Terms</h3>
         <p class="lede">The opportunity is real. The barrier is discoverability. Most comms teams don't know which creator journalists cover their issues, in their markets, at the scale that matters.</p>
       </div>
       <div>
@@ -330,20 +316,20 @@
 <!-- ═══ 4 THREE RELATIONSHIPS ═══ -->
 <section class="rel light" aria-labelledby="rel-h">
   <div class="wrap">
-    <h2 class="claim" id="rel-h">Three ways a brand meets a creator journalist.</h2>
+    <h2 class="claim" id="rel-h">Three Ways a Brand Meets a Creator Journalist</h2>
     <div class="rel-grid">
       <div>
-        <h3>As the story.</h3>
+        <h3>As the Story</h3>
         <p>A creator covers you: favorably, critically, or somewhere in between. You don't choose this. Your only choice is whether you're prepared.</p>
         <p class="rel-do">We tell you who covers your issue before they publish. <span class="small">(Monitoring)</span></p>
       </div>
       <div>
-        <h3>As the sponsor.</h3>
+        <h3>As the Sponsor</h3>
         <p>You underwrite the work. You don't shape the editorial. You're buying association with their credibility, not control of their output. Think NPR underwriting, not native advertising.</p>
         <p class="rel-do">We match you with creators whose audiences fit, under our standards. <span class="small">(Partnerships)</span></p>
       </div>
       <div>
-        <h3>As the collaborator.</h3>
+        <h3>As the Collaborator</h3>
         <p>You co-create something: a series, a live event, a piece of access reporting. The creator keeps editorial independence; you bring something they couldn't make alone.</p>
         <p class="rel-do">We structure it so both sides can say yes. <span class="small">(Partnerships)</span></p>
       </div>
@@ -358,10 +344,10 @@
 <!-- ═══ 5 THE WORK ═══ -->
 <section class="light" aria-labelledby="work-h">
   <div class="wrap">
-    <h2 class="claim" id="work-h">What we do, from free to hands-on.</h2>
+    <h2 class="claim" id="work-h">What We Do, From Free to Hands-On</h2>
     <!-- SOFT: "Field Briefs" is the recommended name for the paid service, pending Justin. No prices. -->
     <ul class="ladder">
-      <li><h3>Free, always</h3><p>Atlas Search and Atlas Pulse. No account.</p><p class="who"><a href="/search">Search the Atlas</a> and <a href="/pulse">read Pulse</a>.</p></li>
+      <li><h3>Free, Always</h3><p>Atlas Search and Atlas Pulse. No account.</p><p class="who"><a href="/search">Search the Atlas</a> and <a href="/pulse">read Pulse</a>.</p></li>
       <li><h3>Field Briefs</h3><p>A hand-built map of the independent journalists covering one issue, market or campaign, with what they've published and how to approach them.</p><p class="who">For teams with a launch, a crisis risk or a market to understand.</p></li>
       <li><h3>Monitoring</h3><p>Weekly or monthly alerts on your issues, tuned to your markets.</p><p class="who">For teams who want to know before it lands.</p></li>
       <li><h3>Partnerships</h3><p>Sponsorship and collaboration matching, built on our standards.</p><p class="who">For brands that want to underwrite journalism without buying coverage.</p></li>
@@ -380,10 +366,10 @@
 <!-- SOFT: whole section is draft. Set ATLAS_FLAGS.standards = true in the script below after sign-off on commitments and signers. -->
 <section class="std on-dark" data-gate="standards" hidden aria-labelledby="std-h">
   <div class="wrap">
-    <h2 class="claim" id="std-h">What we will and won't do.</h2>
+    <h2 class="claim" id="std-h">What We Will and Won't Do</h2>
     <div class="std-grid">
       <div>
-        <h3>We won't</h3>
+        <h3>We Won't</h3>
         <ul>
           <li>Sell coverage. We can tell you who covers your issue. We can't and won't arrange what they say.</li>
           <li>Share creators' private contact details or data without their consent.</li>
@@ -391,7 +377,7 @@
         </ul>
       </div>
       <div>
-        <h3>We will</h3>
+        <h3>We Will</h3>
         <ul>
           <li>Verify every creator in the Atlas by hand.</li>
           <li>Tell you when the honest answer is "nobody independent is covering this yet."</li>
@@ -406,7 +392,7 @@
 <!-- ═══ 7 THE ATLAS UNDERNEATH ═══ -->
 <section class="light" aria-labelledby="under-h">
   <div class="wrap">
-    <h2 class="claim" id="under-h">The Atlas underneath.</h2>
+    <h2 class="claim" id="under-h">The Atlas Underneath</h2>
     <div class="under-grid">
       <div>
         <h3>Method</h3>
@@ -443,7 +429,7 @@
 <section class="intake light" id="build-brief" aria-labelledby="intake-h">
   <span id="capture-form"></span>
   <div class="wrap">
-    <h2 class="claim" id="intake-h">What are you tracking?</h2>
+    <h2 class="claim" id="intake-h">What Are You Tracking?</h2>
     <p class="lede">Tell us the issue. We'll build a first look by hand and reply within one business day.</p>
 
     <form class="intake-form" id="intake-form" action="https://formspree.io/f/xzznlvgj" method="POST" novalidate>
@@ -470,7 +456,7 @@
     </form>
 
     <div class="confirm" id="confirm" hidden tabindex="-1">
-      <h3>Brief requested.</h3>
+      <h3>Brief Requested</h3>
       <p>You'll hear from us within one business day with a first look at <strong id="confirm-issue">your issue</strong>. Meanwhile, here's <a href="/pulse" style="color:var(--color-link);text-decoration:underline">what independent journalists published this week</a>.</p>
     </div>
   </div>
@@ -689,7 +675,7 @@ var ATLAS_FLAGS = { standards: false, lab: false, lens: true, lensMaxAgeDays: 14
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var bad = form.querySelector('input[required]:invalid');
-    if (bad) { msg.dataset.state = 'error'; msg.textContent = 'Please fill in the ' + (bad.id === 'f-email' ? 'email' : bad.id === 'f-issue' ? 'issue' : 'role and organization') + ' field.'; bad.focus(); return; }
+    if (bad) { msg.dataset.state = 'error'; msg.textContent = 'Error: please fill in the ' + (bad.id === 'f-email' ? 'email' : bad.id === 'f-issue' ? 'issue' : 'role and organization') + ' field.'; bad.focus(); return; }
     msg.dataset.state = ''; msg.textContent = 'Sending…';
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
       .then(function (r) {
@@ -698,7 +684,7 @@ var ATLAS_FLAGS = { standards: false, lab: false, lens: true, lensMaxAgeDays: 14
         form.hidden = true;
         var c = document.getElementById('confirm'); c.hidden = false; c.focus();
       })
-      .catch(function () { msg.dataset.state = 'error'; msg.textContent = 'That did not send. Your answers are still here. Try again, or write to us from the contact page.'; });
+      .catch(function () { msg.dataset.state = 'error'; msg.textContent = 'Error: that did not send. Your answers are still here. Try again, or write to us from the contact page.'; });
   });
 })();
 </script>

@@ -1,14 +1,25 @@
-# Atlas Brand Guide — v5
+# Atlas Brand Guide — v5.1
 
-*The Independent Journalism Atlas · Owner: James Bareham, Creative Director · October 27, 2026*
+*The Independent Journalism Atlas · Owner: James Bareham, Creative Director · November 3, 2026*
 
-The team's complete brand reference for the website, decks, style guides, social and editorial graphics, and other brand materials. Implementation values live in DESIGN-TOKENS-v16.md. Logos and print color specs live in Atlas-Style_Guide_October_2026_v1.pdf.
+The team's complete brand reference for the website, decks, style guides, social and editorial graphics, and other brand materials. Implementation values live in DESIGN-TOKENS-v16.1.md. Logos and print color specs live in Atlas-Style_Guide_October_2026_v1.pdf.
 
-**What changed in v5**
+**What changed in v5.1**
 
-v5 consolidates v4; it changes no colors, sizes or components. It locks the design rules, limits the brand to three typefaces, and says exactly where each one goes.
+A point release with DESIGN-TOKENS-v16.1. It settles the questions that were blocking the level-set; everything else carries over from v5.
 
-- **Design rules are locked.** Justin makes product, structure, copy and build decisions. Colors, type and the other design values come only from DESIGN-TOKENS-v16.md and change only through a new version approved by James. See Section 8.
+- **One error red, `#b3261e`,** replaces `#f50000` across the site. On light surfaces it can be text, icons, outlines or a fill; on dark surfaces it's only a fill with white text, the same way Acid Green works on light surfaces.
+- **No dark mode for now.** Pages look the same whatever a visitor's device is set to; Pulse's page-only dark mode is removed. A full site dark mode is a later design initiative, once the site is consistent.
+- **Acid and Lime tints** (the colors with transparency) are allowed for hover and overlay effects until v17, never for text.
+- **No provisional rules.** The rules are in the design tokens and this guide, nowhere else.
+- **Interim treatments** for a "live" signal, warnings, phone-size headlines, strokes on dark mastheads and tab strips, until v17 (DESIGN-TOKENS-v16.1, Interim Treatments).
+- **GitHub review comes later.** Justin makes every change in the repo; James's review is added once the site is level-set.
+
+**Carried over from v5** (still in force)
+
+v5 consolidated v4; it changed no colors, sizes or components. It locked the design rules, limited the brand to three typefaces, and said exactly where each one goes.
+
+- **Design rules are locked.** Justin makes product, structure, copy and build decisions. Colors, type and the other design values come only from DESIGN-TOKENS-v16.1.md and change only through a new version approved by James. See Section 8.
 - **Three typefaces, nothing else:** Inter, Merriweather and Source Code Pro (plus Material Symbols Outlined for icons). Every other font is off-brand on journalismatlas.com and in Atlas materials.
 - **Headings are always Inter.** Merriweather is body prose in editorial articles (essays and long-form reports) only, never headlines, subheads, numerals or pull quotes.
 - **No text below 12px, anywhere,** including charts and legends. 12px is for Source Code Pro tags only; everything else is 13px or larger.
@@ -201,11 +212,18 @@ Probable categories aren't active until the taxonomy confirms them. Reserves nee
 ### Tier 5 — System (feedback)
 | Role | Value |
 |---|---|
-| Error | #f50000 |
+| Error | #b3261e (v16.1). Light surfaces: text, icons, outlines or fills. Dark surfaces: fill only, with white text |
+| On-error | #ffffff (text on an error fill) |
 | Focus ring | 2px solid #97d600 (Lime Green) on dark surfaces; 2px solid #5d7400 (Dark Olive) on light; offset 2px |
-| Dark-mode display accent | #ffbc00 |
+| Display accent on dark surfaces | #ffbc00 (a display color for dark surfaces, not a dark-mode color) |
 
-Never decorative, never a category.
+Never decorative, never a category. The error red is for errors only and is distinct from the data-category reds.
+
+### Dark mode
+There is no dark mode, site-wide or on any single page. Every page looks the same whatever the visitor's device is set to. A full site dark mode is a future design initiative, considered only once the site is consistent.
+
+### Tints
+Acid Green and Lime Green with transparency may be used as hover and overlay tints (backgrounds, borders, shadows) until v17. Never as text, icons or thin lines.
 
 ### Rules across tiers
 - Don't mix brand secondary and data-category colors in one composition.
@@ -332,14 +350,16 @@ Body links stay underlined at rest so they're never marked by color alone.
 | Area | Decides |
 |---|---|
 | Product, structure, pages, priorities, copy, build and release | **Justin Bank** (CEO) |
-| Design values and rules (color, type, size, weight, spacing, radius, icons, component states) | **Locked** in DESIGN-TOKENS-v16.md; changed only by a new token version written or approved by **James Bareham** (Creative Director) |
+| Design values and rules (color, type, size, weight, spacing, radius, icons, component states) | **Locked** in DESIGN-TOKENS-v16.1.md; changed only by a new token version written or approved by **James Bareham** (Creative Director) |
 | Data categories, taxonomy and creator metadata | **Ryan Y. Kellett** (COO); category colors also need James |
 
 ### The lock
 - Nobody, including Claude, picks a color, typeface, size or weight. Each comes from a role in the design tokens.
 - Briefs, reference designs and requests that name other fonts or colors are applied by role: a headline is Inter at its type-scale size, whatever the brief showed. What the tokens can't give is listed for James, not improvised.
-- Anything the tokens don't define (for example, a dark mode or a "live" color) isn't built until a token version defines it.
-- The website enforces this in its build: a page with an off-brand font, color or undersized text doesn't deploy. Details: DESIGN-TOKENS-v16.md, Enforcement.
+- Anything the tokens don't define (for example, a dark mode or a "live" color) isn't built until a token version defines it. Until then, DESIGN-TOKENS-v16.1 lists interim treatments that use existing values.
+- There are no provisional rules. A rule written anywhere else that adds to or differs from the tokens and this guide doesn't apply.
+- **Review on GitHub comes after the level-set.** Until the site is consistent, Justin makes every change in the repo, and nothing waits on James's GitHub access. The build check is the lock in the meantime.
+- The website enforces this in its build: a page with an off-brand font, color or undersized text doesn't deploy. Details: DESIGN-TOKENS-v16.1.md, Enforcement.
 
 ### Documents
-DESIGN-TOKENS-v16.md and this guide are canonical, in `docs/design/` in the site repo. Earlier versions are archived. Where any other document (a brief, a ledger, a README) disagrees, these two win.
+DESIGN-TOKENS-v16.1.md and this guide are canonical, in `docs/design/` in the site repo. Earlier versions are archived. Where any other document (a brief, a ledger, a README) disagrees, these two win.

@@ -599,10 +599,14 @@
     background: rgba(255,68,68,0.04);
   }
 
+  /* v16.1: dark surface, so error red is a fill with white text, never text (DESIGN-TOKENS-v16.1.md § Error Red by Surface) */
   .field .error-msg {
     display: none;
-    font-size: 12px;
-    color: #ff6b6b;
+    font-size: 13px;
+    background: var(--color-error, #b3261e);   /* this page doesn't load variables.css, so literal fallbacks */
+    color: var(--color-on-error, #ffffff);
+    padding: 4px 8px;
+    border-radius: 6px;
     margin-top: 6px;
   }
 
@@ -832,7 +836,7 @@
     <div class="field" data-required="true">
       <label>What name do you use professionally?<span class="required">*</span></label>
       <input type="text" id="q_name" placeholder="Your professional name">
-      <div class="error-msg">This field is required</div>
+      <div class="error-msg">Error: this field is required</div>
     </div>
 
     <div class="field">
@@ -843,7 +847,7 @@
     <div class="field" data-required="true">
       <label>Email address<span class="required">*</span> — <span style="color: #ceff00; font-weight: 600;">required to receive your $10 gift card</span></label>
       <input type="email" id="q_email" placeholder="you@example.com">
-      <div class="error-msg">Please enter a valid email</div>
+      <div class="error-msg">Error: please enter a valid email</div>
     </div>
 
     <div class="btn-row">
@@ -878,7 +882,7 @@
         <label><input type="checkbox" value="Social justice"><span>Social justice</span></label>
         <label><input type="checkbox" value="Transportation"><span>Transportation</span></label>
       </div>
-      <div class="error-msg">Please select at least one</div>
+      <div class="error-msg">Error: please select at least one</div>
     </div>
 
     <div class="field" data-required="true">
@@ -891,7 +895,7 @@
         <label><input type="checkbox" value="National"><span>National</span></label>
         <label><input type="checkbox" value="Not geographic"><span>Not geographic</span></label>
       </div>
-      <div class="error-msg">Please select at least one</div>
+      <div class="error-msg">Error: please select at least one</div>
     </div>
 
     <div class="btn-row">
@@ -917,7 +921,7 @@
         <label><input type="checkbox" value="Social media journalist"><span>Social media journalist</span></label>
         <label><input type="checkbox" value="Civic info provider"><span>Civic info provider</span></label>
       </div>
-      <div class="error-msg">Please select at least one</div>
+      <div class="error-msg">Error: please select at least one</div>
     </div>
 
     <div class="field">
@@ -1048,7 +1052,7 @@
         <label><input type="radio" name="consent" value="Yes"><span class="radio-dot"></span><span>Yes — include me in the database and research</span></label>
         <label><input type="radio" name="consent" value="Aggregate only"><span class="radio-dot"></span><span>Aggregate analysis only — don't list me individually</span></label>
       </div>
-      <div class="error-msg">Please select one to continue</div>
+      <div class="error-msg">Error: please select one to continue</div>
     </div>
 
     <div class="btn-row">
