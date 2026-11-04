@@ -14,7 +14,7 @@ export function cardHtml(c) {
 
 export function html(cards, { alt, sel = 'C1' }) {
   const by = Object.fromEntries(cards.map(c => [c.code, c]));
-  let h = `<div class="map" role="group" aria-label="${esc(alt)}"><div class="map-trunk" aria-hidden="true"></div><span class="map-origin" aria-hidden="true"></span>`;
+  let h = `<div class="map" role="group" aria-label="${esc(alt)}"><div class="map-trunk" aria-hidden="true"></div>`;
   LINES.forEach(([g, codes]) => {
     h += `<div class="map-line g-${g}" role="group" aria-label="${esc(GROUP_LABEL[g])}">`;
     codes.forEach(code => { const c = by[code];
