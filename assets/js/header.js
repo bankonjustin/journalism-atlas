@@ -14,12 +14,12 @@
      {count}   welcome mode only: filled from creators-data.json after page load (see _initStripCount)
    ===================================================== */
 var ATLAS_STRIP = {
-  id: 'nn-2026-11',
+  id: 'watershed-2026-11',
   enabled: true,
-  expires: '2026-12-01',
+  expires: '2026-11-30',
   selfPath: '/watershed/',
   hideOn: [],
-  announce: { label: 'Research from the Atlas', text: 'New from the Atlas: Nodes and Networks, a field study of how American journalism is reorganizing', linkText: 'Read the study', href: '/nodes-and-networks/' },
+  announce: { label: 'New from the Atlas', text: 'A Watershed Moment for News Deserts', linkText: 'Read the essay', href: '/watershed/' },
   welcome:  { text: 'You\u2019re reading the Independent Journalism Atlas. We map {count} independent journalists by beat and place.',
               links: [ { text: 'Explore the Atlas', href: '/search' }, { text: 'How we find them', href: '/how-we-did-this.html' } ] }
 };
