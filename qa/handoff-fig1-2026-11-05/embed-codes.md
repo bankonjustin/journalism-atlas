@@ -55,13 +55,13 @@ addEventListener("message",function(e){
 
 - **Where:** Section on funding shocks
 - **URL:** `https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/`
-- **Desktop height measured:** 1462 px (snippet uses 1478). **Phone (390 px) height:** 1842 px. Opening the "Data table" adds about 460 px on desktop and 733 px on phone; use the resize script above if that matters.
+- **Desktop height measured:** 1455 to 1465 px at 720 px and wider (snippet uses 1600). The page height runs from about 1460 to 1600 px at column widths of 600 px and up; it rises to about 1730 px at 540 px and 1770 px at 521 px, and below 521 px the page switches to the phone list. **Phone (390 px) height:** 1842 px. Opening the "Data table" adds about 460 px on desktop and 733 px on phone; use the resize script above if that matters.
 - **Alt text:** Timeline of 15 dated events in four lanes of pressure on American journalism, 2018 to 2026: platform withdrawal, government defunding, ownership retrenchment and nonprofit failure.
 
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/"
   title="Funding and organization timeline, 2018–2026"
-  width="100%" height="1478" loading="lazy" scrolling="no"
+  width="100%" height="1600" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
