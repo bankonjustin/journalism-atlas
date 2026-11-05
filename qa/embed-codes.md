@@ -21,14 +21,14 @@ addEventListener("message",function(e){
 ```
 
   Add `data-nn` to the iframe if you use it.
-- **Charts that change height when used.** Figure 5 grows when "Split by cohort" is clicked (584 to 1046 px on desktop, 739 to 1661 px on phone). Its snippet is already set to the taller, split-view height, so the default view has white space below it. Use the resize script above if that matters. The kaleidoscope and timeline change by under 40 px.
+- **Charts that change height when used.** Figure 5 grows when "Split by cohort" is clicked (584 to 1046 px on desktop, 739 to 1661 px on phone). Its snippet is already set to the taller, split-view height, so the default view has white space below it. Use the resize script above if that matters. The kaleidoscope changes by under 40 px.
 
 ## Charts
 
 | Figure | Title | Where it goes in the report | URL | Phone height |
 |---|---|---|---|---|
 | Figure 0 | Scale of the field: one square vs. $100M | Right after the paper's sentence "Those two numbers sitting next to each other…" | `https://journalismatlas.com/preview/nn-launch-kit/figures/scale/` | 814 px |
-| Figure 1 | Funding and organization timeline, 2018–2026 | Section on funding shocks | `https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/` | 1988 px |
+| Figure 1 | Funding and organization timeline, 2018–2026 | Section on funding shocks | `https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/` | 1842 px |
 | Figure 2 | The nine cohorts | Where the nine cohorts are introduced | `https://journalismatlas.com/preview/nn-launch-kit/figures/map/` | 1201 px |
 | Figure 3 | Defector revenue, Years 1–5 | Defector case study | `https://journalismatlas.com/preview/nn-launch-kit/figures/defector/` | 748 px |
 | Figure 4 | Share of revenue from grants and donations, nonprofits with $3.5M–$10M in revenue | Nonprofit / threshold section | `https://journalismatlas.com/preview/nn-launch-kit/figures/threshold/` | 1362 px |
@@ -55,13 +55,13 @@ addEventListener("message",function(e){
 
 - **Where:** Section on funding shocks
 - **URL:** `https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/`
-- **Desktop height measured:** 1000 px (snippet uses 1016). **Phone (390 px) height:** 1988 px.
+- **Desktop height measured:** 1462 px (snippet uses 1478). **Phone (390 px) height:** 1842 px. Opening the "Data table" adds about 460 px on desktop and 733 px on phone; use the resize script above if that matters.
 - **Alt text:** Timeline of 15 dated events in four lanes of pressure on American journalism, 2018 to 2026: platform withdrawal, government defunding, ownership retrenchment and nonprofit failure.
 
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/"
   title="Funding and organization timeline, 2018–2026"
-  width="100%" height="1016" loading="lazy" scrolling="no"
+  width="100%" height="1478" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
