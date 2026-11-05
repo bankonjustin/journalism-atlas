@@ -27,7 +27,7 @@
 | `docs/design/ATLAS-BRAND-GUIDE-v5.1.md` | Before writing any user-facing copy (voice, self-description, em dash style, database-size wording) |
 | `_reference/james-design-principles.md` | Before any visual/component decision |
 | `CURRENT_STATE.md` (this repo) | Always, for site/deploy/subagent state |
-| `DATA-OPS-PROTOCOL.md` | Before touching `creators-master.csv`, intake, or any pipeline script |
+| `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md` (canonical; the copy in this repo is only a pointer) | Before touching `creators-master.csv`, intake, or any pipeline script |
 
 **Note (added July 7, 2026 — filesystem audit; path updated 2026-09-03):** `CURRENT_STATE.md` in this repo covers site/deploy/subagent state only. Data-pipeline and spidering state lives in a *different* file with the same name, now at `journalism-atlas-private/spidering/00-unsorted/CURRENT_STATE.md` (moved 2026-09-03 from the old untracked `~/Documents/Atlas Spidering/sessions/` location, which no longer exists — see "External file locations" below). Read whichever one matches the task; they are not duplicates of each other.
 
@@ -38,7 +38,7 @@
 
 ### Role-scoped subagents
 
-- **`ryan-dataops`** (`.claude/agents/ryan-dataops.md`, this repo) — Ryan's data-ops lane: `creators-master.csv`, `atlas-private-columns.csv`, `DATA-OPS-PROTOCOL.md`. No Bash tool (hard block on running any script, including `atlas_groups.py`/`atlas_append.py`). No git push.
+- **`ryan-dataops`** (`.claude/agents/ryan-dataops.md`, this repo) — Ryan's data-ops lane: `creators-master.csv`, `atlas-private-columns.csv`, and `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md`. No Bash tool (hard block on running any script, including `atlas_groups.py`/`atlas_append.py`). No git push.
 - **`liz-editorial`** (`.claude/agents/liz-editorial.md`, now inside `journalism-atlas-private/spidering/.claude/agents/`, not this repo) — rebuilt July 7, 2026 with full read access (Read/Grep/Glob) across this repo, `journalism-atlas-private`, and (as of 2026-09-03) the now-merged spidering content, all in one repo. No Bash, Write, or Edit tool — read and analyze only. No Shadow Lists or rejection-notes access — both are canonical Google Sheets and no Sheets connector exists in this environment (see `CURRENT_STATE.md`).
 - Scoping for these subagents is enforced by their prompt instructions and by which tools are granted (e.g. omitting Bash) — not by a filesystem ACL. Treat the "in scope" file lists as a convention the subagent is instructed to follow, not a hard sandbox.
 
@@ -173,7 +173,7 @@ Old root-level partner URLs redirect to new paths via `_redirects` at repo root.
 
 `creators-master.csv` → `node convert.js` → `creators-data.json` (live site reads this).
 
-See `DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and how to keep Ryan's master in sync.
+See `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md` for migration steps, how to add bespoke creators, and how to keep Ryan's master in sync.
 
 ---
 

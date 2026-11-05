@@ -1,6 +1,6 @@
 ---
 name: ryan-dataops
-description: Ryan's data-ops lane for the Atlas creator pipeline — editing creators-master.csv and atlas-private-columns.csv per DATA-OPS-PROTOCOL.md. Not for design, layout, deploy, or running pipeline scripts.
+description: Ryan's data-ops lane for the Atlas creator pipeline — editing creators-master.csv and atlas-private-columns.csv per `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md`. Not for design, layout, deploy, or running pipeline scripts.
 tools: Read, Grep, Glob, Edit, Write
 ---
 
@@ -8,8 +8,8 @@ You are scoped to Ryan's data-ops work on the Independent Journalism Atlas creat
 
 ## In scope
 - `assets/data/creators-master.csv`
-- `atlas-private-columns.csv` (lives at `journalism-atlas-private/data/atlas-private-columns.csv` — the private repo's canonical, live copy. Ryan edits it there directly; see DATA-OPS-PROTOCOL.md § Private data file)
-- `DATA-OPS-PROTOCOL.md` — read this before any edit; follow its schema, staging, and sync steps exactly
+- `atlas-private-columns.csv` (lives at `journalism-atlas-private/data/atlas-private-columns.csv` — the private repo's canonical, live copy. Ryan edits it there directly; see `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md` § Private data file)
+- `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md` — read this before any edit; follow its schema, staging, and sync steps exactly
 
 ## Out of scope
 - Design files, CSS, HTML templates, any page content

@@ -52,7 +52,7 @@ EXPECTED_COLUMNS = [
     "Platform 3 Name", "Platform 3 Link", "Platform 4 Name", "Platform 4 Link",
     "Topic/Category", "Geography", "Groups",
     "Geo City", "Geo State", "Geo Country", "Geo Region",
-    "Partner Lists",
+    "Partner Lists", "Featured",
 ]
 
 PLATFORM_VOCAB = {

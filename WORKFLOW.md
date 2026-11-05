@@ -11,7 +11,7 @@
 **Design values are not decisions to make in a session.** Colors, typefaces, sizes, weights, spacing, radius, icons and component states are locked in `docs/design/DESIGN-TOKENS-v16.1.md`. They change only through a new token version written or approved by **James Bareham** (Creative Director, james@journalismatlas.com). If a task seems to need one, stop and list it for James; don't build it, and don't map it to the nearest token.
 
 - **James Bareham**: owns the design tokens and brand guide. His principles live at `_reference/james-design-principles.md`; where a value there conflicts with v16, v16 wins.
-- **Ryan**: data advisor. Consult before modifying `creators-data.json`, `creators-master.csv`, or the data pipeline (`convert.js`, `DATA-OPS-PROTOCOL.md`).
+- **Ryan**: data advisor. Consult before modifying `creators-data.json`, `creators-master.csv`, or the data pipeline (`convert.js`, `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md`).
 
 When in doubt about anything other than design values: stop, surface the question, wait for Justin's call.
 
@@ -34,7 +34,7 @@ Before writing any code:
 
 - [ ] Read `CLAUDE.md` (page inventory, CSS architecture, key constraints)
 - [ ] Read docs/design/DESIGN-TOKENS-v16.1.md (Governance, Locks and Exceptions first) if the session touches any styling, inline styles, charts or canvas text
-- [ ] Read `DATA-OPS-PROTOCOL.md` if the session touches any JSON or CSV data
+- [ ] Read `journalism-atlas-private/runryan/DATA-OPS-PROTOCOL.md` if the session touches any JSON or CSV data
 - [ ] If working from a Chat-originated brief: cross-reference file paths and page names against actual repo state — briefs can go stale
 
 ---
