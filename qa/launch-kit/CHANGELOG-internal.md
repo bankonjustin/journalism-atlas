@@ -92,3 +92,13 @@ Heights did not change: map 1046 / 1256 (desktop / phone; was 1240 before the la
 
 No other page was found saying "169" next to the old split or V. The old 47.1/20.0/32.9 and 0.503/0.384 appear only in the paper repo's notes and the release zip, not in `preview/`, `nn/` or `qa/teaser/`, the only website folders I scanned. The homepage `index.html` and the other site pages were not scanned.
 
+
+## 2026-11-06: ASU preview fixes (uncommitted, branch nn/asu-preview-fixes)
+- Figure 1 (`figures/timeline/`): cohort tags and the "Cohorts tagged" table column removed; dark-mode block removed (light only); posts height after fonts load. Edition copy and `timeline-stations/` untouched (follow-up).
+- Figure 2 (`figures/map/`): rebuilt in place as a static 3x3 grid (three groups, C1 to C9, counts from the page's data block); light only.
+- Figures 3, 4, 5: pinned to light with `data-theme="light"` on `<html>` (no change to `nn-theme.css`).
+- `embed-test/figures/`: new origin-checked listener; heights set to the 680 px and up values.
+- Draft listener and fixed-height CSS: `qa/asu-embed-kit-2026-11-06.md`. Drive `embed-codes.md` and the `qa/` embed-code copies still carry old heights, held until ASU's column widths arrive.
+- Bands 1661 px: the "Split by cohort" height at 390 px, measured Nov 3, copied into the snippet table. Default view is 583 to 859 px.
+- Undo: `git checkout -- <file>` for each file above before committing, or revert the commit afterward.
+- 2026-11-06 (later): Timeline now posts its content height (`getBoundingClientRect`), not `scrollHeight`, so auto-height can shrink as well as grow. ASU column and iframe numbers recorded in `qa/asu-embed-kit-2026-11-06.md`.
