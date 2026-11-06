@@ -1,5 +1,8 @@
 # Nodes and Networks: report chart embeds (ASU look)
 
+> **Superseded Nov 6, 2026.** Heights, titles, the auto-height script and the fixed-height CSS now live only in `qa/embed-codes-asu.md` (the Drive copy). The snippet heights in this file were updated to match; the tables and "height measured" lines below are historic and not maintained.
+
+
 Written for the ASU web designer. Seven charts, each at a permanent address that will not be renamed; the content behind it may be updated later (numbers are v22.5).
 
 ## Read this first
@@ -61,7 +64,7 @@ addEventListener("message",function(e){
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/timeline/"
   title="Funding and organization timeline, 2018–2026"
-  width="100%" height="1600" loading="lazy" scrolling="no"
+  width="100%" height="1129" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
@@ -74,8 +77,8 @@ addEventListener("message",function(e){
 
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/map/"
-  title="The nine cohorts"
-  width="100%" height="1008" loading="lazy" scrolling="no"
+  title="The nine cohorts, in three groups"
+  width="100%" height="861" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
@@ -89,7 +92,7 @@ addEventListener("message",function(e){
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/defector/"
   title="Defector revenue, Years 1–5"
-  width="100%" height="807" loading="lazy" scrolling="no"
+  width="100%" height="670" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
@@ -102,8 +105,8 @@ addEventListener("message",function(e){
 
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/threshold/"
-  title="Share of revenue from grants and donations, nonprofits with $3.5M–$10M in revenue"
-  width="100%" height="1145" loading="lazy" scrolling="no"
+  title="Share of revenue from grants and donations, nonprofit newsrooms with $3.5M–$10M in revenue"
+  width="100%" height="1164" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
@@ -117,7 +120,7 @@ addEventListener("message",function(e){
 ```html
 <iframe src="https://journalismatlas.com/preview/nn-launch-kit/figures/bands/"
   title="Revenue band distribution by cohort (n=169)"
-  width="100%" height="1062" loading="lazy" scrolling="no"
+  width="100%" height="623" loading="lazy" scrolling="no"
   style="border:0;display:block;width:100%;max-width:1200px"></iframe>
 ```
 
