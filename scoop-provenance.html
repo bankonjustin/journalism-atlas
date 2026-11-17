@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Broke the Story? Scoop Provenance Pilot - Independent Journalism Atlas</title>
+    <meta name="description" content="The evidence behind 'Biggest by Whose Measure?': 31 consequential 2026 election accountability events, traced back to the first public report, with methods and limits.">
+    <link rel="canonical" href="https://journalismatlas.com/scoop-provenance">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://journalismatlas.com/scoop-provenance">
+    <meta property="og:title" content="Who Broke the Story? Scoop Provenance Pilot - Independent Journalism Atlas">
+    <meta property="og:description" content="31 consequential 2026 election accountability events, traced back to the first public report.">
+    <meta property="og:site_name" content="Independent Journalism Atlas">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="/assets/img/favicon-v2.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-primary); font-size: var(--text-body); line-height: 1.6; color: var(--color-text); background-color: var(--color-surface); }
+        h1, h2, h3 { font-family: var(--font-heading); color: var(--color-heading); font-weight: 700; }
+        h1 { font-size: var(--text-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); margin-bottom: var(--space-md); }
+        h2 { font-size: var(--text-h2); line-height: var(--lh-h2); margin: var(--space-2xl) 0 var(--space-md); }
+        h3 { font-size: var(--text-h3); line-height: var(--lh-h3); font-weight: 600; margin: var(--space-xl) 0 var(--space-sm); }
+        p { margin-bottom: var(--space-md); }
+        a { color: var(--color-link); text-decoration: underline; }
+        a:hover { color: var(--color-heading); }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+        .wrap { max-width: 1120px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg) var(--space-3xl); }
+        .eyebrow { font-family: var(--font-mono); font-weight: 500; font-size: var(--text-label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-on-light); margin-bottom: var(--space-sm); }
+        .lede { font-size: 20px; line-height: 1.5; max-width: 760px; margin-bottom: var(--space-lg); }
+        .prose { max-width: 760px; }
+        .prose li { margin-bottom: var(--space-sm); margin-left: var(--space-lg); }
+        .small { font-size: var(--text-small); line-height: var(--lh-small); color: var(--color-text-secondary); }
+        .stats { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin: var(--space-lg) 0; }
+        .stat { border-left: 4px solid var(--color-acid); padding-left: var(--space-md); }
+        .stat b { display: block; font-size: var(--text-h2); line-height: var(--lh-h2); font-weight: 700; color: var(--color-heading); }
+        .stat span { font-size: var(--text-small); color: var(--color-text-secondary); }
+        .note { background: var(--color-bg); border-left: 4px solid var(--color-acid); padding: var(--space-md) var(--space-lg); margin: var(--space-lg) 0; max-width: 760px; }
+        .note p:last-child { margin-bottom: 0; }
+
+        /* table */
+        .tablewrap { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-base); margin: var(--space-md) 0; }
+        table { width: 100%; border-collapse: collapse; min-width: 1020px; background: var(--color-bg-card); }
+        th, td { text-align: left; vertical-align: top; padding: 12px var(--space-md); border-bottom: 1px solid var(--color-border); font-size: var(--text-small); line-height: var(--lh-small); }
+        th { background: var(--color-bg); font-weight: 600; color: var(--color-heading); white-space: nowrap; }
+        th button { all: unset; cursor: pointer; font: inherit; color: inherit; display: inline-flex; gap: var(--space-xs); align-items: center; }
+        th button:hover { text-decoration: underline; }
+        th button:focus-visible { outline: 2px solid var(--color-focus-on-light); outline-offset: 2px; }
+        th[aria-sort="ascending"] button::after { content: "\2191"; }
+        th[aria-sort="descending"] button::after { content: "\2193"; }
+        tr:last-child td { border-bottom: none; }
+        td .subj { display: block; color: var(--color-text-secondary); }
+        .chip { display: inline-block; margin-left: var(--space-sm); padding: 2px var(--space-sm); border-radius: var(--radius-pill); font-family: var(--font-mono); font-weight: 500; font-size: var(--text-tag); line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; border: 1px solid var(--color-border-hover); color: var(--color-text); background: var(--color-surface); }
+        .chip--litigated { background: var(--color-button); color: var(--color-white); border-color: var(--color-button); }
+        .flag { display: block; color: var(--color-text-secondary); font-style: italic; }
+        .links a { display: block; }
+
+        /* charts */
+        .charts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); margin: var(--space-lg) 0; }
+        figure { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-base); padding: var(--space-lg); }
+        figure h3 { margin-top: 0; }
+        .canvas-box { position: relative; height: 260px; }
+        figcaption { font-size: var(--text-small); line-height: var(--lh-small); color: var(--color-text-secondary); margin-top: var(--space-md); }
+        .counts { font-size: var(--text-small); margin-top: var(--space-sm); color: var(--color-text-secondary); }
+
+        .p1 td:first-child { white-space: nowrap; font-weight: 600; }
+        @media (max-width: 860px) {
+            .charts { grid-template-columns: 1fr; }
+            h1 { font-size: var(--text-h2); line-height: var(--lh-h2); }
+            .wrap { padding-left: var(--space-md); padding-right: var(--space-md); }
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+    <script src="/assets/js/header.js"></script>
+
+    <main class="wrap" id="main">
+        <p class="eyebrow">Evidence page · Scoop provenance pilot</p>
+        <h1>Who broke the story?</h1>
+        <p class="lede">The evidence behind “Biggest by Whose Measure?”: 31 consequential accountability events from 2026 races, each traced back to the earliest public report in any format.</p>
+        <p class="small">Companion to a draft for Poynter by Marcus Brauchli and Justin Bank. Last updated November 17, 2026. Figures are from the pilot data after the review rulings described under <a href="#methods">Methods</a>.</p>
+
+        <div class="stats" aria-label="Pilot summary">
+            <div class="stat"><b>31</b><span>events</span></div>
+            <div class="stat"><b>18</b><span>states</span></div>
+            <div class="stat"><b>15</b><span>disputed</span></div>
+            <div class="stat"><b>6</b><span>in litigation</span></div>
+            <div class="stat"><b>10</b><span>triggered by an institution</span></div>
+        </div>
+
+        <div class="note">
+            <p><strong>Read this as a pilot, not a census.</strong> The set starts from consequences, so it shows only stories that changed something. Disputed and litigated events carry that status beside the outlet name wherever it appears.</p>
+        </div>
+
+        <h2 id="events">The events</h2>
+        <p class="prose">Sort any column. “First report” is the earliest public item we found, in any format, which is not always a news outlet. “Decisive” is the outlet whose reporting established the facts behind the consequence.</p>
+        <div class="tablewrap" role="region" aria-label="Event table, scrollable" tabindex="0">
+            <table id="events-table">
+                <thead>
+                    <tr>
+                        <th scope="col" data-key="level"><button type="button">Race level</button></th>
+                        <th scope="col" data-key="state"><button type="button">State</button></th>
+                        <th scope="col" data-key="outcome"><button type="button">Outcome</button></th>
+                        <th scope="col" data-key="first_date"><button type="button">First report</button></th>
+                        <th scope="col" data-key="decisive"><button type="button">Decisive outlet</button></th>
+                        <th scope="col" data-key="status_label"><button type="button">Contest status</button></th>
+                        <th scope="col">Links</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <p class="small" id="events-count"></p>
+
+        <h2 id="charts">What the data shows</h2>
+        <p class="prose">Below the top of the ballot (state legislatures, school boards, sheriffs, DAs, judges, cities and counties), every first report with a named source came from inside the state, and about half from the same city or county. National outlets appear only at the top of the ballot.</p>
+        <div class="charts">
+            <figure>
+                <h3>Where the first report came from</h3>
+                <div class="canvas-box"><canvas id="chart1" role="img" aria-label="Stacked bars: distance from the race of the first report, for events below the top of the ballot and for federal and statewide events. Counts are listed below the chart."></canvas></div>
+                <p class="counts" id="chart1-counts"></p>
+                <figcaption>Distance from the race to the first report. “None / self-published” means the first item was the candidate’s or campaign’s own statement. “Outside the state” combines out-of-state and national outlets.</figcaption>
+            </figure>
+            <figure>
+                <h3>Who made the first report</h3>
+                <div class="canvas-box"><canvas id="chart2" role="img" aria-label="Stacked bars: type of source of the first report, for events below the top of the ballot and for federal and statewide events. Counts are listed below the chart."></canvas></div>
+                <p class="counts" id="chart2-counts"></p>
+                <figcaption>Newsroom: any news outlet, including a blog or newsletter. Official record: a court or agency filing not made by a partisan. Partisan: a PAC, party, opponent, or a complaint filed by a partisan. Citizen: the candidate or a private person, including an influencer post.</figcaption>
+            </figure>
+        </div>
+
+        <h2 id="phase1">Phase 1: Farhi’s examples, traced</h2>
+        <p class="prose">In a Poynter column, <a href="https://www.poynter.org/commentary/2026/national-news-outlets-local-reporters-2026-election-scoops/">Paul Farhi argued</a> that national outlets landed the biggest stories of the 2026 campaign. Before building the consequence set, we traced his own examples: nine Senate and House stories he credits to national outlets, two regional counter-examples, and the 2022 George Santos case as a historical control. For each, we coded who published the core allegation first, who published the decisive story, and whether a local or state outlet had published the allegation or the underlying facts earlier.</p>
+        <div class="tablewrap" role="region" aria-label="Phase 1 table, scrollable" tabindex="0">
+            <table class="p1" id="p1-table">
+                <thead><tr><th scope="col">Story</th><th scope="col">Race</th><th scope="col">Farhi credits</th><th scope="col">Decisive story (traced)</th><th scope="col">First discloser (traced)</th><th scope="col">Role</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <h3>Corrections from tracing</h3>
+        <ul class="prose">
+            <li><strong>Platner texts (S01).</strong> The Wall Street Journal, not the Times, established the core fact first, on the same day. Farhi’s Maine Wire item ran after both and was about something else.</li>
+            <li><strong>Mills (S09).</strong> The Daytona Beach News-Journal printed a rival’s specific stolen-valor accusations in August 2024, before NOTUS. That item leaned toward validating Mills’s medals, so we flagged the call.</li>
+            <li><strong>Platner source (S02).</strong> Fall 2025 Jewish Insider and CNN pieces described the source only as an “acquaintance” and reported nothing about the relationship, so we found no earlier antecedent.</li>
+            <li><strong>Marshall (S07).</strong> We found no earlier Kansas coverage, but we could not search the print archives of the Great Bend Tribune or the Hutchinson News for 2003 to 2020. This check is still open.</li>
+            <li><strong>Santos (S12).</strong> The North Shore Leader’s earlier reporting is documented online from October 31, 2022. We could not verify a September 2022 print date.</li>
+            <li><strong>Swalwell (S10).</strong> The San Francisco Chronicle’s April 10 story was the decisive report, and CNN published an allegation from the same source the same day. CNN’s April 7 piece, which reported the campaign’s denial of a “rumor” of misconduct without specifying an allegation, is coded a tier B antecedent. It is not an earlier report of the allegation.</li>
+            <li><strong>Attributions cut both ways.</strong> Correcting Farhi’s credit hands the story to another national outlet in S01 (WSJ) and S08 (TMZ). It goes to a local outlet only in S09. On federal races his case mostly holds.</li>
+        </ul>
+        <p class="small prose">The Phase 1 coding is a seed set of 12 stories chosen by Farhi’s column. Nothing here generalizes beyond them.</p>
+
+        <h2 id="methods">Methods</h2>
+        <h3>Consequence first</h3>
+        <p class="prose">We started from outcomes, not outlets. We collected 2026 races, at every level of office, where an accountability story was followed by something concrete: a withdrawal or suspended campaign, a court disqualification, a resignation, an indictment, or a formal ethics complaint or investigation. We then traced each event to its earliest public report in any format, and only then looked at who published it.</p>
+        <h3>Tiers</h3>
+        <p class="prose">When we traced earlier reporting, we coded each antecedent by tier:</p>
+        <ul class="prose">
+            <li><strong>A, same allegation.</strong> An earlier publication reported the core allegation or fact pattern.</li>
+            <li><strong>B, adjacent fact.</strong> An earlier publication reported a material underlying fact, record or relationship the decisive story built on.</li>
+            <li><strong>C, record only.</strong> The underlying public record existed, but no outlet reported it.</li>
+            <li><strong>D, none found.</strong> A documented search found no antecedent.</li>
+        </ul>
+        <p class="prose">A specific allegation printed even as a rumor counts as tier A. Vague misconduct is tier B. A pre-emptive denial alone is not an antecedent.</p>
+        <h3>The 40% cap</h3>
+        <p class="prose">Federal and statewide races were capped at 40% of the set so the rest of the ballot could not be crowded out. In this set they are 11 of 31.</p>
+        <h3>Review rulings applied</h3>
+        <ul class="prose">
+            <li>Appointments and resignations from seats not on the ballot are included and flagged.</li>
+            <li>Self-disclosure is its own trigger type, not a press win.</li>
+            <li>A complaint filed by a partisan counts as a consequence only if an agency acted on it. One candidate event that failed this test was removed from the set. One that passed because agencies reviewed it, though they dismissed it, is kept and flagged.</li>
+            <li>Where the earliest item turned out to be a different outlet from the first coding, we corrected it (for example, the Iowa and Illinois events).</li>
+        </ul>
+        <h3>How we classified first reports</h3>
+        <p class="prose">For the source chart, a newsroom is any news outlet, including a blog or a newsletter, whatever its editorial lean. Iowa Starting Line, a Democratic-leaning site, counts as a newsroom. An official record is a court or agency filing not made by a partisan. Partisan means a PAC, party, opponent, or a complaint filed by a partisan. Citizen means the candidate or a private person, including an influencer post.</p>
+        <h3>Limits</h3>
+        <p class="prose">Starting from consequences means we see only stories that changed something. Stories that ran and changed nothing are invisible, and so are races nobody covered. Search tools index small outlets, Facebook groups and newsletters poorly, which probably undercounts local and independent first reports. Some publishers, including the New York Times, Wall Street Journal and Politico, could not be opened by our tools, so we relied on linking outlets and syndicated copies for them. We never bypassed a paywall. Print archives were not searched. 15 of the 31 events are disputed and 6 are in litigation; we describe them that way.</p>
+        <h3>Disclosure</h3>
+        <p class="prose">Justin Bank co-founded the Independent Journalism Atlas, which tracks independent and local news outlets, including one named in the Poynter draft: The Illinoize.</p>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha384-bs/nf9FbdNouRbMiFcrcZfLXYPKiPaGVGplVbv7dLGECccEXDW+S3zjqSKR5ZEaD" crossorigin="anonymous"></script>
+    <script>
+    (function () {
+        var EVENTS = [{"id": "V3-001", "level": "School board", "top": false, "state": "NC", "subject": "Rick Southerland (D), school board candidate", "outcome": "withdrawal", "outcome_date": "2026-03-05", "first": "WHQR", "first_date": "2026-03-04", "first_url": "https://www.whqr.org/local/2026-03-04/new-hanover-county-democratic-party-calls-on-candidate-to-withdraw-over-relationship-with-sex-offender", "decisive": "WHQR", "status": "held_up", "status_label": "Held up", "cons_url": "https://www.whqr.org/local/2026-03-05/under-public-pressure-new-hanover-county-school-board-candidate-drops-out", "dist": "city", "src": "newsroom", "trigger": "press_story", "flag": ""}, {"id": "V3-002", "level": "City", "top": false, "state": "CA", "subject": "Manny Yekutiel, supervisor candidate", "outcome": "suspended campaign; endorsements rescinded at scale (Mayor, supervisor, SF Dem Party)", "outcome_date": "2026-10-01", "first": "The San Francisco Standard", "first_date": "2026-06-30", "first_url": "https://sfstandard.com/2026/06/30/sf-political-activist-accuses-supervisor-candidate-manny-yekutiel-2020-sexual-assault/", "decisive": "The San Francisco Standard", "status": "disputed", "status_label": "Disputed", "cons_url": "https://sfstandard.com/2026/10/01/manny-yekutiel-sf-supervisor-race-drops/", "dist": "city", "src": "newsroom", "trigger": "press_story", "flag": ""}, {"id": "V3-003", "level": "School board", "top": false, "state": "KY", "subject": "Gay Perry-Adelmann, school board candidate", "outcome": "court disqualification", "outcome_date": "2026-09-18", "first": "Louisville Public Media", "first_date": "2026-07-13", "first_url": "https://www.lpm.org/investigate/2026-07-13/two-jcps-school-board-candidates-filed-in-wrong-districts", "decisive": "Louisville Public Media / court", "status": "litigated", "status_label": "Litigated", "cons_url": "https://www.lpm.org/investigate/2026-09-21/following-lpm-investigation-one-school-board-candidate-disqualified-another-withdraws", "dist": "city", "src": "newsroom", "trigger": "mixed", "flag": ""}, {"id": "V3-004", "level": "School board", "top": false, "state": "KY", "subject": "TraShaun Spencer, school board candidate", "outcome": "withdrawal", "outcome_date": "2026-09-21", "first": "Louisville Public Media", "first_date": "2026-07-13", "first_url": "https://www.lpm.org/investigate/2026-07-13/two-jcps-school-board-candidates-filed-in-wrong-districts", "decisive": "Louisville Public Media", "status": "held_up", "status_label": "Held up", "cons_url": "https://www.lpm.org/investigate/2026-09-21/following-lpm-investigation-one-school-board-candidate-disqualified-another-withdraws", "dist": "city", "src": "newsroom", "trigger": "press_story", "flag": ""}, {"id": "V3-005", "level": "Judicial", "top": false, "state": "NV", "subject": "Judge Bridget Robb, challenging a fellow judge", "outcome": "withdrawal plus resignation", "outcome_date": "2026-01-22", "first": "Reno Justice Court (TPO filing)", "first_date": "2026-01-12", "first_url": "", "decisive": "Reno Justice Court (TPO filing) / Reno Gazette-Journal", "status": "held_up", "status_label": "Held up", "cons_url": "https://thenevadaindependent.com/article/reno-judge-who-had-been-seeking-to-oust-a-fellow-jurist-instead-resigns-and-quits-campaign", "dist": "city", "src": "record", "trigger": "mixed", "flag": ""}, {"id": "V3-006", "level": "City", "top": false, "state": "CA", "subject": "Desiree Lynch, council candidate", "outcome": "suspended campaign (08-14); formal withdrawal after arrest (08-24)", "outcome_date": "2026-08-24", "first": "Anthony Silva / Ralph White social accounts", "first_date": "2026-07", "first_url": "", "decisive": "San Joaquin County District Attorney / Stocktonia", "status": "litigated", "status_label": "Litigated", "cons_url": "https://stocktonia.org/news/politics/2026/08/24/desiree-lynch-withdraws-from-stockton-city-council-race-days-after-election-fraud-arrest/", "dist": "city", "src": "partisan", "trigger": "mixed", "flag": ""}, {"id": "V3-007", "level": "County", "top": false, "state": "MO", "subject": "Scott Fricker (R), Presiding Commissioner", "outcome": "withdrawal", "outcome_date": "2026-03-16", "first": "The Platte County Landmark", "first_date": "2026-02-25", "first_url": "https://plattecountylandmark.com/es/2026/02/25/commissioner-scott-fricker-subject-of-criminal-investigation", "decisive": "The Platte County Landmark / institution (MSHP / special prosecutor)", "status": "disputed", "status_label": "Disputed", "cons_url": "https://plattecountylandmark.com/2026/03/19/fricker-drops-out-of-race/", "dist": "city", "src": "newsroom", "trigger": "institutional", "flag": ""}, {"id": "V3-008", "level": "Judicial", "top": false, "state": "CT", "subject": "John Shaban (R), Superior Court nominee", "outcome": "withdrawal (governor withdrew the nomination)", "outcome_date": "2026-04-06", "first": "Daily Ructions", "first_date": "2020-08", "first_url": "https://dailyructions.com/?p=10221", "decisive": "CT Judiciary Committee hearing / The Connecticut Mirror", "status": "disputed", "status_label": "Disputed", "cons_url": "https://ctmirror.org/2026/04/06/lamont-withdraws-judicial-nomination-of-former-rep-john-shaban/", "dist": "state", "src": "newsroom", "trigger": "institutional", "flag": "Eligibility flagged: appointment, not a ballot race"}, {"id": "V3-009", "level": "DA / sheriff", "top": false, "state": "GA", "subject": "Sheriff Kenneth Henderson", "outcome": "resignation (with plea)", "outcome_date": "2026-08-24", "first": "Atlanta News First (WANF)", "first_date": "2025-09-18", "first_url": "https://www.atlantanewsfirst.com/2025/09/18/district-attorney-calls-special-prosecutor-investigate-sheriffs-actions/", "decisive": "Atlanta News First (WANF) / institution (indictments)", "status": "held_up", "status_label": "Held up", "cons_url": "https://www.atlantanewsfirst.com/2026/08/24/suspended-towns-county-sheriff-appearing-court-monday/", "dist": "state", "src": "newsroom", "trigger": "mixed", "flag": "Eligibility flagged: seat not on the 2026 ballot"}, {"id": "V3-010", "level": "DA / sheriff", "top": false, "state": "UT", "subject": "Sheriff Jared Rigby", "outcome": "investigation opened, then grand jury indictment", "outcome_date": "2026-09-24", "first": "Utah Investigative Journalism Project", "first_date": "2026-04-23", "first_url": "https://www.utahinvestigative.org/wasatch-county-sheriff-under-criminal-investigation-for-actions-tied-to-kouri-richins-trial/", "decisive": "Utah grand jury / Summit County Attorney / Utah Investigative Journalism Project", "status": "litigated", "status_label": "Litigated", "cons_url": "https://www.kpcw.org/state-regional/2026-10-07/grand-jury-indicts-wasatch-county-sheriff-former-summit-county-sheriff", "dist": "state", "src": "newsroom", "trigger": "institutional", "flag": ""}, {"id": "V3-011", "level": "Governor", "top": true, "state": "WI", "subject": "Mandela Barnes (D), governor candidate", "outcome": "withdrawal", "outcome_date": "2026-07-30", "first": "Milwaukee Journal Sentinel", "first_date": "2026-07-30", "first_url": "https://www.jsonline.com/story/news/politics/elections/2026/07/30/concernsabout-mandela-barnes-behavior-with-women-prompted-democratic-partyreview/91065405007/", "decisive": "Milwaukee Journal Sentinel", "status": "litigated", "status_label": "Litigated", "cons_url": "https://cbs58.com/news/mandela-barnes-drops-out-of-race-for-wisconsin-governor", "dist": "state", "src": "newsroom", "trigger": "press_story", "flag": ""}, {"id": "V3-012", "level": "Governor", "top": true, "state": "WI", "subject": "Lt. Gov. Sara Rodriguez (D), governor candidate", "outcome": "withdrawal", "outcome_date": "2026-07-17", "first": "Sara Rodriguez campaign", "first_date": "2026-07-12", "first_url": "", "decisive": "Sara Rodriguez campaign / filings / Madison365", "status": "held_up", "status_label": "Held up", "cons_url": "https://www.wpr.org/news/sara-rodriguez-drops-out-wisconsin-governor-2026", "dist": "none", "src": "citizen", "trigger": "mixed", "flag": ""}, {"id": "V3-013", "level": "Governor", "top": true, "state": "CA", "subject": "Eric Swalwell (D), governor candidate", "outcome": "suspended campaign; endorsements rescinded; DA inquiry", "outcome_date": "2026-04-12", "first": "Cheyenne Hunt (X/TikTok/Instagram)", "first_date": "2026-03-31", "first_url": "", "decisive": "San Francisco Chronicle / CNN", "status": "litigated", "status_label": "Litigated", "cons_url": "https://calmatters.org/politics/2026/04/california-governor-swalwell-out/", "dist": "state", "src": "citizen", "trigger": "press_story", "flag": ""}, {"id": "V3-014", "level": "Statewide (other)", "top": true, "state": "IN", "subject": "Sec. of State Diego Morales (R)", "outcome": "endorsements rescinded by major officials (Sen. Banks, AG Rokita)", "outcome_date": "2026-05-21", "first": "Indiana Capital Chronicle", "first_date": "2025-06-06", "first_url": "https://indianacapitalchronicle.com/2025/06/06/morales-challengers-line-up-as-criticism-over-international-trips-mounts/", "decisive": "Indiana Capital Chronicle / IndyPolitics.org", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.ipm.org/news/2026-05-21/banks-rokita-drop-support-for-morales-urge-him-to-suspend-secretary-of-state-campaign", "dist": "state", "src": "newsroom", "trigger": "mixed", "flag": ""}, {"id": "V3-015", "level": "State legislature", "top": false, "state": "SD", "subject": "Sen. Tom Pischke (R)", "outcome": "ended reelection campaign (after charges)", "outcome_date": "2026-07-28", "first": "Minnehaha County (Auditor, Sheriff, State's Attorney)", "first_date": "2026-06-23", "first_url": "https://www.minnehahacounty.gov/residents/mediaReleases/2026-06-23FalsifyingDocuments.pdf", "decisive": "Minnehaha County (Auditor, Sheriff, State's Attorney) / South Dakota Searchlight", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.dakotanewsnow.com/2026/07/29/dell-rapids-lawmaker-withdraws-upcoming-election/", "dist": "city", "src": "record", "trigger": "institutional", "flag": ""}, {"id": "V3-016", "level": "State legislature", "top": false, "state": "IL", "subject": "Rep. Harry Benton (D)", "outcome": "resignation plus withdrawal from the ballot (LIG probe opened in March)", "outcome_date": "2026-07-03", "first": "Capitol News Illinois", "first_date": "2026-02-25", "first_url": "https://capitolnewsillinois.com/news/state-rep-harry-benton-booted-from-house-democratic-caucus/", "decisive": "Illinois Legislative Inspector General / Capitol News Illinois", "status": "held_up", "status_label": "Held up", "cons_url": "https://capitolnewsillinois.com/news/rep-harry-benton-resigns-withdraws-name-from-ballot-amid-ethics-investigation/", "dist": "state", "src": "newsroom", "trigger": "institutional", "flag": ""}, {"id": "V3-017", "level": "State legislature", "top": false, "state": "KY", "subject": "Max Morley (D), primary challenger", "outcome": "suspended campaign", "outcome_date": "2026-05-13", "first": "Homeowner Facebook post (Doronda Sutherland)", "first_date": "2026-05-11", "first_url": "", "decisive": "Homeowner Facebook post (Doronda Sutherland) / Kentucky Public Radio (Joe Sonka) / Courier-Journal", "status": "held_up", "status_label": "Held up", "cons_url": "https://www.wdrb.com/news/politics/kentucky-house-candidate-suspends-campaign-after-flyer-theft-caught-on-camera/article_86e04074-c79d-4d5a-8a2c-4b3f4a0435d3.html", "dist": "city", "src": "citizen", "trigger": "social_post", "flag": ""}, {"id": "V3-018", "level": "State legislature", "top": false, "state": "NH", "subject": "Cecil Abels (D), Senate nominee", "outcome": "withdrawal (stays on the ballot; says he won't serve)", "outcome_date": "2026-10-17", "first": "Cecil Abels (own social video)", "first_date": "2026-10-17", "first_url": "", "decisive": "Cecil Abels (own social video)", "status": "held_up", "status_label": "Held up", "cons_url": "https://www.nhpr.org/nh-news/2026-10-18/democratic-state-senate-candidate-pulls-out-of-race-over-residency-requirement-nh-newhampshire", "dist": "none", "src": "citizen", "trigger": "social_post", "flag": ""}, {"id": "V3-019", "level": "State legislature", "top": false, "state": "NC", "subject": "Shelly Headen (D), House nominee", "outcome": "party pulled support (county party and House Dem caucus)", "outcome_date": "2026-09-11", "first": "@NCHouseGOP", "first_date": "2026-08-31", "first_url": "https://x.com/NCHouseGOP/status/2094469591204315235", "decisive": "@NCHouseGOP", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.wunc.org/2026-09-11/democratic-party-pulls-support-for-nc-house-candidate", "dist": "state", "src": "partisan", "trigger": "opponent_or_pac", "flag": ""}, {"id": "V3-020", "level": "State legislature", "top": false, "state": "IA", "subject": "Rep. Shannon Lundgren (R)", "outcome": "ethics complaint filed (committee later deadlocked)", "outcome_date": "2026-08-24", "first": "Iowa Starting Line", "first_date": "2026-08-19", "first_url": "https://iowastartingline.com/news/politics/shannon-lundgren-character-witness-child-abuse/", "decisive": "KCRG-TV9", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.kcrg.com/2026/08/24/ethics-violation-filed-against-shannon-lundgren-over-sentencing-communication/", "dist": "state", "src": "newsroom", "trigger": "press_story", "flag": ""}, {"id": "V3-021", "level": "U.S. House", "top": true, "state": "NC", "subject": "Rep. Chuck Edwards (R)", "outcome": "withdrawal (then censure)", "outcome_date": "2026-08-05", "first": "Axios", "first_date": "2026-04-30", "first_url": "https://axios.com/2026/04/30/chuck-edwards-investigation-house-ethics", "decisive": "House Ethics Committee / Axios", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.bpr.org/politics-government/2026-08-05/rep-chuck-edwards-drops-reelection-bid-days-after-ethics-committee-recommends-censure", "dist": "outside", "src": "newsroom", "trigger": "institutional", "flag": ""}, {"id": "V3-022", "level": "U.S. House", "top": true, "state": "CA", "subject": "Rep. Jimmy Gomez (D)", "outcome": "Ethics investigation opened", "outcome_date": "2026-08-17", "first": "New York Post", "first_date": "2026-04-18", "first_url": "https://nypost.com/2026/04/18/us-news/rep-jimmy-gomez-friend-of-of-eric-swalwell-accused-of-kissing-staffer/", "decisive": "New York Post / CNN / The Daily Beast", "status": "disputed", "status_label": "Disputed", "cons_url": "https://rollcall.com/2026/08/17/ethics-committee-announces-inquiry-into-california-rep-jimmy-gomez", "dist": "outside", "src": "newsroom", "trigger": "press_story", "flag": ""}, {"id": "V3-023", "level": "U.S. House", "top": true, "state": "FL", "subject": "Rep. Sheila Cherfilus-McCormick (D)", "outcome": "resignation", "outcome_date": "2026-04-21", "first": "Tallahassee Democrat", "first_date": "2025-01-08", "first_url": "https://www.tallahassee.com/story/news/local/state/2025/01/08/florida-lawsuit-overpayment-covid-trinity-health-care-services/77508722007/", "decisive": "FL Division of Emergency Management lawsuit; U.S. DOJ indictment / House Ethics Committee", "status": "litigated", "status_label": "Litigated", "cons_url": "https://www.wamc.org/2026-04-21/florida-democrat-rep-sheila-cherfilus-mccormick-facing-possible-expulsion-resigns", "dist": "state", "src": "newsroom", "trigger": "institutional", "flag": ""}, {"id": "V3-024", "level": "U.S. House", "top": true, "state": "OH", "subject": "John D. Hancock (L), House candidate", "outcome": "suspended campaign", "outcome_date": "2026-02-24", "first": "FOX19 (WXIX)", "first_date": "2026-02-18", "first_url": "https://www.fox19.com/2026/02/18/us-house-candidate-indicted-after-cincinnati-hit-and-run/", "decisive": "Hamilton County Common Pleas indictment", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.fox19.com/2026/02/26/us-house-candidate-suspends-campaign-after-cincinnati-hit-and-run/", "dist": "city", "src": "newsroom", "trigger": "institutional", "flag": ""}, {"id": "V3-025", "level": "U.S. House", "top": true, "state": "TX", "subject": "Brandon Herrera (R), House nominee", "outcome": "FEC complaint (Campaign Legal Center)", "outcome_date": "2026-05-21", "first": "FEC complaint MUR 8243 (Monica Rojas)", "first_date": "2024-04-17", "first_url": "https://www.fec.gov/data/legal/matter-under-review/8243", "decisive": "Campaign Legal Center", "status": "disputed", "status_label": "Disputed", "cons_url": "https://campaignlegal.org/document/clc-alleges-brandon-herrera-texas-congressional-candidate-illegally-concealed-campaign", "dist": "outside", "src": "record", "trigger": "institutional", "flag": ""}, {"id": "V3-026", "level": "U.S. House", "top": true, "state": "OH", "subject": "Brian Poindexter (D), Rep.-elect", "outcome": "DCCC outside investigation; two caucus PACs pulled endorsements", "outcome_date": "2026-11-13", "first": "Politico", "first_date": "2026-11-11", "first_url": "", "decisive": "DCCC statement", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.cnn.com/2026/11/13/politics/brian-poindexter-ohio-sexual-harassment-claim-invs", "dist": "outside", "src": "newsroom", "trigger": "mixed", "flag": ""}, {"id": "V3-027", "level": "State legislature", "top": false, "state": "TX", "subject": "Ericka Lomick (D), House nominee", "outcome": "suspended campaign", "outcome_date": "2026-09-21", "first": "Protect and Serve Texas PAC", "first_date": "2026-09-17", "first_url": "", "decisive": "Protect and Serve Texas PAC / The Dallas Express", "status": "held_up", "status_label": "Held up", "cons_url": "https://political.org/2026/09/21/ericka-lomick-texas-democrat-nominee-for-house-district-93-suspends-campaign-after-felony-fraud-conviction-resurfaces/", "dist": "state", "src": "partisan", "trigger": "opponent_or_pac", "flag": ""}, {"id": "V3-028", "level": "Governor", "top": true, "state": "CT", "subject": "Erin Stewart (R), governor candidate", "outcome": "suspended campaign; state police and federal probes", "outcome_date": "2026-05-14", "first": "The Hartford Courant / WTNH News 8", "first_date": "2026-05-10", "first_url": "https://www.wfsb.com/2026/05/10/reaction-published-reports-erin-stewarts-spending-new-britain-mayor/", "decisive": "City of New Britain / Crumbie Law Group report", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.ctpublic.org/news/2026-05-14/erin-stewart-suspends-governor-campaign-mayor-new-britain-credit-card-spending", "dist": "state", "src": "newsroom", "trigger": "mixed", "flag": ""}, {"id": "V3-029", "level": "State legislature", "top": false, "state": "NM", "subject": "Rep. Joseph Hernandez (D)", "outcome": "withdrawal", "outcome_date": "2026-08-25", "first": "Albuquerque Journal", "first_date": "2026-08-04", "first_url": "https://www.abqjournal.com/news/house-representative-from-shiprock-tight-lipped-on-encounter-with-police-at-chicago-hotel/3094834", "decisive": "Albuquerque Journal", "status": "held_up", "status_label": "Held up", "cons_url": "https://www.abqjournal.com/news/nm-house-democrat-accused-of-running-around-naked-at-chicago-hotel-withdraws-from-district-4-race/3109203", "dist": "state", "src": "newsroom", "trigger": "press_story", "flag": ""}, {"id": "V3-030", "level": "DA / sheriff", "top": false, "state": "UT", "subject": "Sheriff Nate Brooksby", "outcome": "resignation", "outcome_date": "2026-03-27", "first": "Washington County, UT (county announcement)", "first_date": "2026-03-27", "first_url": "", "decisive": "The Salt Lake Tribune", "status": "disputed", "status_label": "Disputed", "cons_url": "https://www.sltrib.com/news/2026/03/30/washington-county-sheriff-nate/", "dist": "city", "src": "record", "trigger": "institutional", "flag": "Eligibility flagged: unclear whether he was a 2026 candidate"}, {"id": "V3-031", "level": "City", "top": false, "state": "NV", "subject": "Kate Marshall, mayoral candidate", "outcome": "formal complaints (NV GOP to the Secretary of State; Hatch Act complaint to OSC)", "outcome_date": "2026-04-30", "first": "Huynhvo complaint to NV Secretary of State", "first_date": "2025-08", "first_url": "", "decisive": "California Globe / The Nevada Independent", "status": "disputed", "status_label": "Disputed", "cons_url": "https://californiaglobe.com/fr/former-biden-official-and-reno-mayoral-candidate-kate-marshall-hit-with-dual-complaints-over-campaign-finance-and-hatch-act-violations/", "dist": "state", "src": "partisan", "trigger": "opponent_or_pac", "flag": "Flagged: partisan complaint that agencies reviewed and dismissed"}];
+        var C1 = {"below": [10, 9, 1, 0], "top": [1, 5, 1, 4]};
+        var C2 = {"below": [11, 3, 4, 2], "top": [8, 1, 0, 2]};
+        var P1 = [{"id": "S01", "race": "ME-Sen / Platner", "farhi": "New York Times (Glueck & Lerer)", "decisive": "Wall Street Journal (2026-05-30)", "first": "Wall Street Journal (2026-05-30)", "role": "Farhi national example"}, {"id": "S02", "race": "ME-Sen / Platner", "farhi": "New York Times (Glueck & Lerer)", "decisive": "New York Times (2026-06-04)", "first": "New York Times (2026-06-04)", "role": "Farhi national example"}, {"id": "S03", "race": "ME-Sen / Platner", "farhi": "Politico (Piper & Wren)", "decisive": "Politico (2026-07-06)", "first": "Politico (2026-07-06)", "role": "Farhi national example"}, {"id": "S04", "race": "ME-Sen / Collins", "farhi": "ProPublica (no byline given)", "decisive": "ProPublica (2026-09-22)", "first": "ProPublica (2026-09-22)", "role": "Farhi national example"}, {"id": "S05", "race": "ME-Sen / Collins", "farhi": "The Intercept (no byline given)", "decisive": "The Intercept (2026-10-05)", "first": "The Intercept (2026-10-05)", "role": "Farhi national example"}, {"id": "S06", "race": "AK-Sen / Sullivan, Peltola", "farhi": "New York Times (Browning)", "decisive": "New York Times (2026-10-28)", "first": "New York Times (2026-10-28)", "role": "Farhi national example"}, {"id": "S07", "race": "KS-Sen / Marshall", "farhi": "New York Times (Kliff)", "decisive": "New York Times (2026-09-08)", "first": "New York Times (2026-09-08)", "role": "Farhi national example"}, {"id": "S08", "race": "OH-09 / Max Miller", "farhi": "Mother Jones (Vesoulis)", "decisive": "Mother Jones (2026-07-18)", "first": "TMZ (2026-04-22)", "role": "Farhi national example"}, {"id": "S09", "race": "FL-07 / Cory Mills", "farhi": "Mother Jones (Lanard)", "decisive": "Mother Jones (2026-02-19)", "first": "Daytona Beach News-Journal (printed rival's stolen-valor accusations) (2024-08-07)", "role": "Farhi national example"}, {"id": "S10", "race": "CA-Gov, CA-14 / Swalwell", "farhi": "San Francisco Chronicle (Koseff & Bollag)", "decisive": "San Francisco Chronicle (2026-04-10)", "first": "San Francisco Chronicle (CNN ran the same source's allegation the same day, 04-10) (2026-04-10)", "role": "Farhi regional counter-example"}, {"id": "S11", "race": "TX-23 / Tony Gonzales", "farhi": "San Antonio Express-News + Texas Tribune ('nearly simultaneously')", "decisive": "San Antonio Express-News (2026-02-17)", "first": "San Antonio Express-News (documented); rumor printed earlier (2026-02-17)", "role": "Farhi regional counter-example"}, {"id": "S12", "race": "NY-03 / George Santos (2022)", "farhi": "New York Times (Ashford & Gold); North Shore Leader earlier", "decisive": "New York Times (2022-12-19)", "first": "New York Times (résumé); North Shore Leader (finances) (2022-12-19)", "role": "Historical control (2022)"}];
+
+        function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+        function chip(status, label) {
+            if (status !== 'disputed' && status !== 'litigated') return '';
+            return '<span class="chip chip--' + status + '">' + esc(label) + '</span>';
+        }
+
+        // ---- events table
+        var state = { key: 'level', dir: 1 };
+        var tbody = document.querySelector('#events-table tbody');
+        function renderEvents() {
+            var rows = EVENTS.slice().sort(function (a, b) {
+                var x = a[state.key] || '', y = b[state.key] || '';
+                return (x < y ? -1 : x > y ? 1 : a.id < b.id ? -1 : 1) * state.dir;
+            });
+            tbody.innerHTML = rows.map(function (r) {
+                var first = esc(r.first) + chip(r.status, r.status_label) +
+                    '<span class="subj">' + esc(r.first_date) + '</span>';
+                var dec = esc(r.decisive) + chip(r.status, r.status_label);
+                var links = '';
+                if (r.first_url) links += '<a href="' + esc(r.first_url) + '" rel="noopener">First report</a>';
+                if (r.cons_url) links += '<a href="' + esc(r.cons_url) + '" rel="noopener">Consequence</a>';
+                return '<tr><td>' + esc(r.level) + (r.top ? '<span class="subj">Top of ballot</span>' : '') + '</td>' +
+                    '<td>' + esc(r.state) + '</td>' +
+                    '<td>' + esc(r.outcome) + '<span class="subj">' + esc(r.subject) + '</span>' +
+                    (r.flag ? '<span class="flag">' + esc(r.flag) + '</span>' : '') + '</td>' +
+                    '<td>' + first + '</td><td>' + dec + '</td>' +
+                    '<td>' + esc(r.status_label) + '</td><td class="links">' + links + '</td></tr>';
+            }).join('');
+            document.getElementById('events-count').textContent = EVENTS.length + ' events.';
+            document.querySelectorAll('#events-table th[data-key]').forEach(function (th) {
+                th.setAttribute('aria-sort', th.dataset.key === state.key ? (state.dir === 1 ? 'ascending' : 'descending') : 'none');
+            });
+        }
+        document.querySelectorAll('#events-table th[data-key] button').forEach(function (b) {
+            b.addEventListener('click', function () {
+                var k = b.parentNode.dataset.key;
+                state.dir = (state.key === k) ? -state.dir : 1; state.key = k; renderEvents();
+            });
+        });
+        renderEvents();
+
+        // ---- Phase 1 table
+        document.querySelector('#p1-table tbody').innerHTML = P1.map(function (p) {
+            return '<tr><td>' + esc(p.id) + '</td><td>' + esc(p.race) + '</td><td>' + esc(p.farhi) + '</td><td>' +
+                esc(p.decisive) + '</td><td>' + esc(p.first) + '</td><td>' + esc(p.role) + '</td></tr>';
+        }).join('');
+
+        // ---- charts
+        function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+        var colors = [cssVar('--viz-blue'), cssVar('--viz-rust'), cssVar('--viz-gold'), cssVar('--gray-neutral-4')];
+        function counts(el, labels, data) {
+            document.getElementById(el).textContent = 'Below the top of the ballot (' + sum(data.below) + '): ' +
+                labels.map(function (l, i) { return l + ' ' + data.below[i]; }).join(', ') + '. Federal and statewide (' + sum(data.top) + '): ' +
+                labels.map(function (l, i) { return l + ' ' + data.top[i]; }).join(', ') + '.';
+        }
+        function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
+        function draw(id, labels, data) {
+            if (!window.Chart) return;
+            Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+            Chart.defaults.font.size = 13;
+            Chart.defaults.color = cssVar('--color-text');
+            new Chart(document.getElementById(id), {
+                type: 'bar',
+                data: {
+                    labels: ['Below top of ballot (' + sum(data.below) + ')', 'Federal and statewide (' + sum(data.top) + ')'],
+                    datasets: labels.map(function (l, i) {
+                        return { label: l, data: [data.below[i], data.top[i]], backgroundColor: colors[i], borderColor: cssVar('--color-surface'), borderWidth: 2 };
+                    })
+                },
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    scales: { x: { stacked: true, beginAtZero: true, ticks: { precision: 0, font: { size: 13 } }, grid: { color: cssVar('--color-border') } },
+                              y: { stacked: true, ticks: { font: { size: 13 } }, grid: { display: false } } },
+                    plugins: { legend: { position: 'bottom', labels: { font: { size: 13 }, boxWidth: 14 } },
+                               tooltip: { titleFont: { size: 13 }, bodyFont: { size: 13 } } }
+                }
+            });
+        }
+        var L1 = ['Same city or county', 'Same state', 'None / self-published', 'Outside the state'];
+        var L2 = ['Newsroom', 'Official record', 'Partisan', 'Citizen'];
+        counts('chart1-counts', L1, C1); counts('chart2-counts', L2, C2);
+        draw('chart1', L1, C1); draw('chart2', L2, C2);
+    })();
+    </script>
+    <script src="/assets/js/footer.js"></script>
+</body>
+</html>
