@@ -166,7 +166,7 @@ table.data{width:100%;border-collapse:collapse;font-size:var(--text-small);line-
 <p><strong>Disclosure.</strong> Justin Bank co-founded the Independent Journalism Atlas, which tracks independent and local news outlets.</p>
 </main>
 <script>
-const GATE="farhihack",KEY="wm-draft-farhi-response";
+const GATE="localjournalism",KEY="wm-draft-farhi-response";
 function sortable(t){const heads=[...t.querySelectorAll('th')];heads.forEach((th,i)=>{th.setAttribute('aria-sort','none');th.querySelector('button').addEventListener('click',()=>{const b=t.tBodies[0],asc=th.getAttribute('aria-sort')!=='ascending';heads.forEach(h=>h.setAttribute('aria-sort','none'));th.setAttribute('aria-sort',asc?'ascending':'descending');[...b.rows].sort((x,y)=>x.cells[i].innerText.localeCompare(y.cells[i].innerText,undefined,{numeric:true})*(asc?1:-1)).forEach(r=>b.appendChild(r));});});}
 function dots(){
   const svg=document.getElementById('dc'),info=document.getElementById('dotinfo'),fig=document.getElementById('dotfig');if(!svg)return;
