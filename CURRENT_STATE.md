@@ -1,6 +1,12 @@
 # Pulse — Current State
 *Last updated: November 18, 2026 (Pulse Issue 11). Previously: November 2, 2026*
 
+## Digest fix, Nov 18, 2026 (code in `pipelines/pulse/`, private repo; not yet run live)
+
+- **Digest now computes before the model writes:** one fixed-cohort basis for beat trends, per-beat contributors and tag-checked example pieces, classified feed counts (new / returned / silent; unclassified never described), and hard checks that set the runner status to REVIEW. Immutable per-issue snapshots in `pipelines/pulse/baselines/`.
+- **Scrape and runner:** retry-failed-feeds-once before the 95% gate (gate unchanged); sleep detector in the status file.
+- **Issue 11 (W46):** live digest untouched, `reviewed_by` still empty. A staged v2 digest is at private `pipelines/pulse/staging/W46-digest-v2/`; see `DIGEST-FIX-PASSOFF-2026-11-18.md`.
+
 ## Pulse run, Nov 18, 2026 (Issue 11, `2026-W46`, Nov 9 - Nov 15)
 
 - **Why a Wednesday run:** the Nov 16 launchd run failed its 95% completeness gate (1,710 of 1,848 feeds, 92.5%; 138 errors, 111 of them connection errors). Cause found later the same day: the Mac slept on battery during the 05:00 run (macOS power log), so this was not a network or feed problem. Gate not changed. Rerun by hand through `spidering/core/pulse_weekly_run.sh`.
