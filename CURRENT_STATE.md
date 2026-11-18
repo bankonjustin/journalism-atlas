@@ -1,5 +1,14 @@
 # Pulse — Current State
-*Last updated: November 2, 2026 (Pulse Issue 9). Previously: October 29, 2026*
+*Last updated: November 18, 2026 (Pulse Issue 11). Previously: November 2, 2026*
+
+## Pulse run, Nov 18, 2026 (Issue 11, `2026-W46`, Nov 9 - Nov 15)
+
+- **Why a Wednesday run:** the Nov 16 launchd run failed its 95% completeness gate (1,710 of 1,848 feeds, 92.5%; 138 errors, 111 of them connection errors). Cause found later the same day: the Mac slept on battery during the 05:00 run (macOS power log), so this was not a network or feed problem. Gate not changed. Rerun by hand through `spidering/core/pulse_weekly_run.sh`.
+- **Scrape:** 454.5 s, exit 0. 2,554 creators, 1,848 feeds attempted (1,792 ok, 50 empty, 6 errors); fetch rate 99.7%.
+- **Issue 11:** 961 creators (including co-hosts), 2,871 pieces, 76 beats. Digest `pulse_digest_20261118.json` valid; runner status REVIEW (3 numeral mismatches, 5 model-flagged); **`reviewed_by` empty** (needs a person). Digest cost est. $0.23.
+- **Review sheet:** private `pipelines/pulse/REVIEW-SHEET-W46.md` lists the unsupported sentences.
+- **Staged, not pushed by Claude:** `pulse.html`, `index.html`, `for-brands.html`, `data/pulse-issues.json`, `assets/data/lens-index.json`, `assets/data/pulse/posts-*.json`.
+- **Scheduling:** `com.atlas.pulse.weekly` fires Mondays 05:00; next run Mon Nov 23 builds W47.
 
 ## Pulse run, Nov 2, 2026 (Issue 9, `2026-W44`, Oct 26 - Nov 1)
 
