@@ -5,7 +5,7 @@
 
 - **Digest now computes before the model writes:** one fixed-cohort basis for beat trends, per-beat contributors and tag-checked example pieces, classified feed counts (new / returned / silent; unclassified never described), and hard checks that set the runner status to REVIEW. Immutable per-issue snapshots in `pipelines/pulse/baselines/`.
 - **Scrape and runner:** retry-failed-feeds-once before the 95% gate (gate unchanged); sleep detector in the status file.
-- **Issue 11 (W46):** live digest untouched, `reviewed_by` still empty. A staged v2 digest is at private `pipelines/pulse/staging/W46-digest-v2/`; see `DIGEST-FIX-PASSOFF-2026-11-18.md`.
+- **Issue 11 (W46):** the v2 digest (computed trends, no joined/returned claims) replaced the first digest locally on Nov 18 (`pulse.html` digest block not yet pushed). `reviewed_by` empty; 9 flagged sentences await hand-correction. See private `pipelines/pulse/DIGEST-FIX-PASSOFF-2026-11-18.md`.
 
 ## Pulse run, Nov 18, 2026 (Issue 11, `2026-W46`, Nov 9 - Nov 15)
 
