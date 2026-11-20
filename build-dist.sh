@@ -82,3 +82,18 @@ if grep -rlE '\{\{(CREATOR_COUNT|COUNT_AS_OF|BLUESKY_COUNT)\}\}' dist; then echo
 
 find dist -name .DS_Store -delete
 find dist -name .gitkeep -delete
+
+# Publish only the file types the pages load (default-deny by extension; added 2026-11-20).
+# nn/media is copied wholesale (build.py copy_tree), and it holds working files: briefs and ledgers (.md), harness scripts (.py),
+# manifests (.csv, .log), caption sources (.srt), raw masters (.mov, .webm). None are referenced by any page, so none ship.
+# To publish a new file type, add it here.
+PRUNE_KEEP="-name *.html -o -name *.css -o -name *.js -o -name *.json -o -name *.png -o -name *.jpg -o -name *.jpeg -o -name *.gif -o -name *.svg -o -name *.webp -o -name *.avif -o -name *.mp4 -o -name *.woff2 -o -name *.ico -o -name *.vtt -o -name *.pdf -o -name robots.txt -o -name OFL-*.txt -o -name sitemap.xml -o -name _headers -o -name _redirects -o -name atproto-did"
+set -f   # no globbing: the patterns above are for find, not the shell
+PRUNED=$(find dist -type f ! \( $PRUNE_KEEP \) | wc -l | tr -d ' ')
+find dist -type f ! \( $PRUNE_KEEP \) -delete
+set +f
+# Working JSON under the N&N media tree (render manifests, timelines); no page fetches it.
+PRUNED_JSON=$(find dist/nodes-and-networks/media -type f -name '*.json' 2>/dev/null | wc -l | tr -d ' ')
+find dist/nodes-and-networks/media -type f -name '*.json' -delete 2>/dev/null || true
+find dist -type d -empty -delete
+echo "build-dist: pruned $PRUNED files of non-page types and $PRUNED_JSON working JSON files from dist/" >&2

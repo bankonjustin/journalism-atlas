@@ -5,7 +5,7 @@
 Design rules: DESIGN-TOKENS-v16.1.md. Open design questions for James live in docs/design/v15-session-2/JAMES-OPEN-ITEMS.md.
 
 ## For Justin
-- **v16 install, to finish (2026-10-27):** CODEOWNERS and James's GitHub review: Deferred until after the v16.1 level-set (DESIGN-TOKENS-v16.1.md § Enforcement, item 3). Do the GitHub and Cloudflare steps in the install brief's Part E; check the first Cloudflare build log shows the brand check printing OK (or a SKIPPED warning, which means Python is missing).
+- **v16 install, to finish (2026-10-27):** CODEOWNERS and James's GitHub review: Deferred until after the v16.1 level-set (DESIGN-TOKENS-v16.2.md § Enforcement, item 3). Do the GitHub and Cloudflare steps in the install brief's Part E; check the first Cloudflare build log shows the brand check printing OK (or a SKIPPED warning, which means Python is missing).
 - **Brand-check burn-down (approved):** order is `index.html`, `pulse.html`, `city-lab-chicago.html`, then by count; Chicago is not exempt. Each fix regenerates `scripts/brand-baseline.json` in the same change.
 - **v16.1 level-set:** `docs/briefs/Atlas-v16.1-Level-Set-Pulse-For-Brands-2026-11.md` (PR 1 foundation, PR 2 For Brands, PR 3 Pulse). The provisional rules are withdrawn.
 - **TIJA LLC GitHub organization and the repo going private:** see the repo-visibility brief.

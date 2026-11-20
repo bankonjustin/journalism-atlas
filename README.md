@@ -108,7 +108,7 @@ Atlas.prototype/
 
 ## 🎨 Design System
 
-Design system: see docs/design/DESIGN-TOKENS-v16.md (canonical) and docs/design/ATLAS-BRAND-GUIDE-v5.md. Fonts: Inter, Source Code Pro, Merriweather (articles only); icons: Material Symbols Outlined.
+Design system: see docs/design/DESIGN-TOKENS-v16.2.md (canonical), docs/design/ATLAS-BRAND-GUIDE-v5.2.md and docs/design/ATLAS-EDITORIAL-STYLE-v1.md. Fonts: Inter, Source Code Pro, Merriweather (articles only); icons: Material Symbols Outlined.
 
 ### Spacing Scale
 - XS: 4px
