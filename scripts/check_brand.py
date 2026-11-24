@@ -192,6 +192,24 @@ def is_text_color(text, pos):
 def norm_family(name):
     return name.strip().strip("'\"").replace("+", " ").strip().lower()
 
+
+def in_prose_string(text, pos):
+    """True when the '#...' sits inside a long quoted string of running prose on one line (a post title or summary in JSON or a JS literal), not in a color value."""
+    ls = text.rfind("\n", 0, pos) + 1
+    le = text.find("\n", pos); le = len(text) if le < 0 else le
+    line = text[ls:le]; i = pos - ls
+    for q in ('"', "'"):
+        a = line.rfind(q, 0, i)
+        b = line.find(q, i)
+        # skip escaped quotes
+        while b != -1 and line[b-1] == "\\":
+            b = line.find(q, b + 1)
+        if a != -1 and b != -1:
+            s = line[a+1:b]
+            if len(s) >= 60 and len(re.findall(r"[A-Za-z]{3,}", s)) >= 8 and not re.search(r"[\w-]+\s*[:=]\s*[^;\"']{0,40}#[0-9a-fA-F]{3,8}\b|[{};]|<|>", s):
+                return True
+    return False
+
 def scan(path, text):
     v = defaultdict(list)
     rel = path
@@ -247,6 +265,8 @@ def scan(path, text):
 
     # colors
     for m in HEX.finditer(text):
+        if in_prose_string(text, m.start()):
+            continue  # '#337' inside a sentence (a post title), not a color
         if HEX_REF_BEFORE.search(text[max(0, m.start() - 60):m.start()]):
             continue  # anchor, id lookup or url(#ref), not a color
         h = m.group(1).lower()
